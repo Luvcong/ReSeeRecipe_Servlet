@@ -1,6 +1,6 @@
-package com.kh.semi.board;
+package com.kh.semi.chef;
 
-public class Board {
+public class Chef {
 	
 	public void sssss() {
 		System.out.println();
