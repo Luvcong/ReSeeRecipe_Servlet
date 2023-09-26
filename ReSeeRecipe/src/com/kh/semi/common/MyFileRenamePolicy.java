@@ -1,4 +1,4 @@
-package sql.common;
+package com.kh.semi.common;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
