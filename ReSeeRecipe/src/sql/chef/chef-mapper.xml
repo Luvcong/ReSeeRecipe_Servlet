@@ -9,9 +9,10 @@
  		  		CHEF
  		VALUES 
  				(
-				 				
- 				
- 				
+				SEQ_CHEF_NO.NEXTVAL				
+ 			   ,?
+ 			   ,SYSDATE
+ 			   ,?	
  				)
  	</entry>
 </properties>
