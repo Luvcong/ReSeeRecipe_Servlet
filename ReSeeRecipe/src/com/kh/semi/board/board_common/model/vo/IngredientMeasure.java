@@ -1,4 +1,4 @@
-package com.kh.semi.recipes.common.model.vo;
+package com.kh.semi.board.board_common.model.vo;
 
 /**
  * @author MJY
