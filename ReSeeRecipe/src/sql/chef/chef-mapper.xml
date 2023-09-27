@@ -3,5 +3,15 @@
 <properties>
 	<comment>셰프 관련 SQL문</comment>
 
-
+ 	<entry key="enrollChef">
+ 		INSERT
+ 		  INTO
+ 		  		CHEF
+ 		VALUES 
+ 				(
+				 				
+ 				
+ 				
+ 				)
+ 	</entry>
 </properties>
