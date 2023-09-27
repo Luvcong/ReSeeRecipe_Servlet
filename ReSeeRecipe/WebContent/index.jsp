@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ReSee : Recipe</title>
 </head>
 <body>
 	<h1>하하호호 내가 만들었따~~~</h1>
