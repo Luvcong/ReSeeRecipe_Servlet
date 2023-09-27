@@ -8,6 +8,8 @@ public class RecipeCategory {
 	
 	private int recipeCategoryNo;
 	private String recipeCategoryName;
+	
+	
 	public RecipeCategory() {
 		super();
 	}
