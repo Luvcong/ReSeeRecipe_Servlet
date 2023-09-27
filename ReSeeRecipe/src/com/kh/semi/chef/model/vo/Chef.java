@@ -7,6 +7,10 @@ public class Chef {
 	private String chefWhy;
 	private Date chefDate;
 	private String chefMemNo;
-		
+	public Chef() {
+		super();
+	}
+	
+	
 	
 }
