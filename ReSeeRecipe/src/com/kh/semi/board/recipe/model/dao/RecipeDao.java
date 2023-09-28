@@ -1,4 +1,4 @@
-package com.kh.semi.recipes.recipe.model.dao;
+package com.kh.semi.board.recipe.model.dao;
 
 public class RecipeDao {
 

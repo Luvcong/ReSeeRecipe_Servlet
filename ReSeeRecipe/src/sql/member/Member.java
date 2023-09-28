@@ -1,4 +1,4 @@
-package com.kh.semi.member;
+package sql.member;
 
 public class Member {
 	

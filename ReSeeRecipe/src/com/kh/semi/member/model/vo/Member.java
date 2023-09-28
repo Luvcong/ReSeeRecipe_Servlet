@@ -4,6 +4,8 @@ import java.sql.Date;
 
 public class Member {
 	
+	// VO생성 yr
+	
 //	MEM_NO	NUMBER
 //	MEM_ID	VARCHAR2(15 BYTE)
 //	MEM_PWD	VARCHAR2(20 BYTE)

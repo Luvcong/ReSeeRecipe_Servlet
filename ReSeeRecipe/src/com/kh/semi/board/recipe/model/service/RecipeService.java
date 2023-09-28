@@ -1,4 +1,4 @@
-package com.kh.semi.recipes.recipe.model.service;
+package com.kh.semi.board.recipe.model.service;
 
 public class RecipeService {
 
