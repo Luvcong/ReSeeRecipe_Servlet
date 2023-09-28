@@ -1,5 +1,7 @@
 package com.kh.semi.member.model.vo;
 
+import java.sql.Date;
+
 public class Member {
 	
 //	MEM_NO	NUMBER
@@ -30,11 +32,106 @@ public class Member {
 	// private String memGradeName;
 	
 	
+	public Member() {
+		super();
+	}
 	
+	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
+			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.memNickname = memNickname;
+		this.memEmail = memEmail;
+		this.memStatus = memStatus;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.deleteDate = deleteDate;
+		this.memPicture = memPicture;
+		this.memGrade = memGrade;
+	}
 	
+	public int getMemNo() {
+		return memNo;
+	}
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+	public String getMemId() {
+		return memId;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+	public String getMemPwd() {
+		return memPwd;
+	}
+	public void setMemPwd(String memPwd) {
+		this.memPwd = memPwd;
+	}
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	public String getMemNickname() {
+		return memNickname;
+	}
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
+	public String getMemEmail() {
+		return memEmail;
+	}
+	public void setMemEmail(String memEmail) {
+		this.memEmail = memEmail;
+	}
+	public String getMemStatus() {
+		return memStatus;
+	}
+	public void setMemStatus(String memStatus) {
+		this.memStatus = memStatus;
+	}
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public Date getDeleteDate() {
+		return deleteDate;
+	}
+	public void setDeleteDate(Date deleteDate) {
+		this.deleteDate = deleteDate;
+	}
+	public String getMemPicture() {
+		return memPicture;
+	}
+	public void setMemPicture(String memPicture) {
+		this.memPicture = memPicture;
+	}
+	public int getMemGrade() {
+		return memGrade;
+	}
+	public void setMemGrade(int memGrade) {
+		this.memGrade = memGrade;
+	}
 	
+	@Override
+	public String toString() {
+		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
+				+ ", memNickname=" + memNickname + ", memEmail=" + memEmail + ", memStatus=" + memStatus
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", deleteDate=" + deleteDate
+				+ ", memPicture=" + memPicture + ", memGrade=" + memGrade + "]";
+	}
 	
-	
-
-
 }
