@@ -1,4 +1,4 @@
-package com.kh.semi.notice.model.vo;
+package sql.notice.model.vo;
 
 public class Notice {
 	

@@ -1,4 +1,4 @@
-package com.kh.semi.notice.model.dao;
+package sql.notice.model.dao;
 
 public class NoticeDao {
 

@@ -1,4 +1,4 @@
-package com.kh.semi.recipes.recipe.model.vo;
+package com.kh.semi.chef;
 
 public class Ingredient {
 

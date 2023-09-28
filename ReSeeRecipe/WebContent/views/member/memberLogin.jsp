@@ -91,7 +91,7 @@
 </head>
 <body>
 
-    <form action="yr_login.me" method="post">
+    <form action="yrlogin.me" method="post">
         <div class="imgcontainer">
           <img src="img_avatar2.png" alt="Avatar" class="avatar">
         </div>
