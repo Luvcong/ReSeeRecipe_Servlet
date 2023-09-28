@@ -7,8 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberLoginController
@@ -38,11 +40,17 @@ public class MemberLoginController extends HttpServlet {
 		String memberPwd = request.getParameter("memberPwd");
 		
 		// Service 호출
-		new MemberService().loginMember(memberId, memberPwd);
+		Member loginMember = new MemberService().loginMember(memberId, memberPwd);
 		
-		
-		
-		
+		// 로그인 실패 시
+		if(loginMember == null) {
+			request.setAttribute("errorMsg", "로그인에 실패하셨습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		} else { // 로그인 성공 시
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", loginMember);
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

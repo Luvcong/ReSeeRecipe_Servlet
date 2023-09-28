@@ -1,23 +1,23 @@
 package com.kh.semi.member.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.member.model.vo.Member;
 
 public class MemberService {
 	
-	public void loginMember(String memberId, String memberPwd) {
+	public Member loginMember(String memberId, String memberPwd) {
 		
-		// Connection 객체 생성
 		Connection conn = getConnection();
 		
-		// DAO호출
-		new MemberDao().loginMember(conn, memberId, memberPwd);
+		Member m = new MemberDao().loginMember(conn, memberId, memberPwd);
 		
+		close(conn);
 		
-		
+		return m;
 	}
 
 }
