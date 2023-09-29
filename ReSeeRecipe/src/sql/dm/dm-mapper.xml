@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<comment>DM 쪽지관련 SQL문</comment>
+	
+	<!-- 쪽지 답변상태 완료 변경 SQL문 -->
+	<entry key="updateDm">
+		UPDATE
+				TB_DM
+  		   SET
+  		   		DM_STATUS = 'Y'
+ 		 WHERE
+ 		 		DM_NO = ?
+ 		   AND
+ 		   		DM_STATUS = 'N'		
+	</entry>
+	
+</properties>
