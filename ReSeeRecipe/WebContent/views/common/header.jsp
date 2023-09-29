@@ -23,13 +23,13 @@
 		box-sizing: border-box;
 	}
 	
-	#wrap {
+	#wrap_header {
 		width: 1200px;
 		height: 178.14px;
 		margin: auto;
 	}
 	
-	#wrap>div {
+	#wrap_header > div {
 		width: 100%;
 	}
 	
@@ -105,16 +105,11 @@
 	#search_form input[type=submit] {
 		background-color: rgb(255, 145, 77);
 	}
-	
-	#arrowL {
-		margin-left: 90%;
-		margin-top: 25%;
-	}
 </style>
 </head>
 
 <header>
-	<div id="wrap">
+	<div id="wrap_header">
 		<div id="header">
 		    <div id="header_1"></div>
 		    <div id="header_2">

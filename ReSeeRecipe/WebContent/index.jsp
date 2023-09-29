@@ -5,16 +5,114 @@
 <head>
 <meta charset="UTF-8">
 <title>ReSee : Recipe</title>
+
+<style>
+	div {
+		border: 1px solid red;
+		box-sizing: border-box;
+	}
+	
+	#wrap_content {
+		width: 1200px;
+		height: 900px;
+		margin: auto;
+	}
+	
+	#wrap_content > div {
+		width: 100%;
+	}
+	
+	#content {
+		height: 100%;
+	}
+	
+	#content > div {
+		height: 25%;
+	}
+	
+	#content_1 > div {
+		height: 100%;
+		float: left;
+	}
+	
+	#content1_1, #content1_3 {
+		height: 100%;
+		width: 30%;
+	}
+	
+	#content1_2 {
+		width: 40%;
+		height: 100%;
+		text-align: center;
+	}
+	
+	#content1_2>img {
+		height: 100%;
+	}
+	
+	#arrowL {
+		margin-left: 90%;
+		margin-top: 25%;
+	}
+	
+	/* Content_2, Content_3 영역 레시피 더보기 */
+	#content_2, #content_3 {
+		width: 100%;
+		box-sizing: border-box;
+		margin: auto;
+	}
+	
+	.more_content_area1 {
+		height: 25%;
+	}
+	
+	.more_content_title_a {
+		width: 85%;
+		height: 100%;
+		float: left;
+		padding-left: 1%;
+		padding-top: 1%;
+	}
+	
+	.more_content_title_a p {
+		margin: 0px;
+	}
+	
+	.more_content_title_b {
+		width: 15%;
+		height: 100%;
+		float: right;
+		padding-right: 5.5%;
+		padding-top: 1%;
+		text-align: right;
+		cursor: pointer;
+	}
+	
+	.more_content_title_b p {
+		margin: 0px;
+	}
+	
+	.more_content_area2 {
+		height: 75%;
+	}
+	
+	.more_content_area2 div {
+		display: inline-block;
+		width: 33%;
+		height: 100%;
+	}
+	
+</style>
+
 </head>
 
 <body>
-	<div id="wrap">
-		<%@ include file="views/common/header.jsp" %>
-		
 	
+	<%@ include file="views/common/header.jsp" %>
 		
-		<%--@ include file="views/common/nav.jsp" --%>
-					
+	<%@ include file="views/common/nav.jsp" %>
+		
+	<div id="wrap_content">	
 		<div id="content">
 			<div id="content_1">
 				<div id="content1_1">
@@ -60,9 +158,9 @@
                 <p>인기 Re See 템</p><a href="">더보기</a>
             </div>
         </div>
-	
-		<%--@ include file="views/common/footer.jsp" --%>
-	
 	</div>
+	
+	<%@ include file="views/common/footer.jsp" %>
+
 </body>
 </html>
