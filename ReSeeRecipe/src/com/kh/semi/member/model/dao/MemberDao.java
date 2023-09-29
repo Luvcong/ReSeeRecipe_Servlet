@@ -19,7 +19,7 @@ public class MemberDao {
 	// 기본생성자 호출 시 member-mapper.xml파일 읽어오기
 	public MemberDao() {
 		
-		String file = MemberDao.class.getResource("sql/member/member-mapper.xml").getPath();
+		String file = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(file));

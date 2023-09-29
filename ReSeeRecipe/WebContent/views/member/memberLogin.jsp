@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>로그인</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
@@ -97,16 +97,18 @@
         </div>
       
         <div class="container">
-          <label for="uname"><b>Username</b></label>
+          <label for="uname"><b>아이디</b></label>
           <input type="text" placeholder="Enter Username" name="memberId" required>
       
-          <label for="psw"><b>Password</b></label>
+          <label for="psw"><b>비밀번호</b></label>
           <input type="password" placeholder="Enter Password" name="memberPwd" required>
       
           <button type="submit">Login</button>
+          <!-- 
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
+           -->
         </div>
       
         <div class="container" style="background-color:#f1f1f1">
