@@ -4,6 +4,7 @@
 <%
 	// 메인경로	
 	String contextPath = request.getContextPath();
+
 	// 로그인한 회원
 	Member loginMember = (Member)session.getAttribute("loginMember");
 %>
@@ -13,10 +14,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re See : Recipe</title>
+    <!-- jQuery import구문 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    
+    <!-- 스타일 -->
     <script src="https://kit.fontawesome.com/f74c934ec8.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
 <style>
 	/*****************************************/
 	/* header 스타일 */
