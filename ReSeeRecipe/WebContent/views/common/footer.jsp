@@ -56,7 +56,7 @@
 	#footer_2_1 {
 		height: 30%;
 		margin-left: 40%;
-		margin-top: 5%;
+		margin-top: 1%;
 	}
 	
 	#footer_2_2 {

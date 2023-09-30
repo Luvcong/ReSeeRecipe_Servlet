@@ -25,7 +25,7 @@
 	
 	#wrap_header {
 		width: 1200px;
-		height: 178.14px;
+		height: 180px;
 		margin: auto;
 	}
 	

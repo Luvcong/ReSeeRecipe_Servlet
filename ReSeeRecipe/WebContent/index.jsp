@@ -100,6 +100,7 @@
 		display: inline-block;
 		width: 33%;
 		height: 100%;
+		float: right;
 	}
 	
 </style>
