@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.Recipe, com.kh.semi.common.model.vo.PageInfo" %>
+<%	
+	// 조회된 글 정보
+	ArrayList<Recipe> list = (ArrayList)request.getAttribute("list");
+	
+	// 페이지처리용 변수
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,54 +39,14 @@
 
 	<section>
 	<!-- 레시피 전체조회 + 페이징바 / 레시피 상세조회 + 댓글영역 -->
-	<!-- 레시피 전체조회 -->
-	<div id="board-outer">
-	
-		<div class="recipe-thumbnail">
-		d
-		</div>
 	
 	
-		<!--
-		<br>
-		<!-- 로그인 유저면 글작성 활성화
-		<%-- if(loginMember != null) { %>
-			<a href="<%= contextPath %>/recipeEnrollForm.re">글작성</a>
-		<% } %>
-		<br>
-		<div class="recipe-list-area">
-			<% if(list.isEmpty()) { %><!-- 게시글이 없을경우
-				등록된 게시글이 없습니다 <br>
-			<% } else { %><!-- 게시글이 있을 경우
-				<!-- 9개 영역에 출력
-				<div>
-					<img src="" alt=""><!-- 레시피 사진
-
-				</div>
-
-			<% } %>
-
-		</div>
-			<% if(list.isEmpty()) { %>
-				등록된 게시글이 없습니다 <br>
-			<% else { %>
-
-				<% for(recipe r : list) { %>
-					<div class="recipe-thumbnail">
-						<img src="" alt="">레시피썸네일사진
-					</div>
-					<div class="recipe-summary">
-						
-					</div>
-				<% } %>
-			<% } --%>
-		</table>-->
-
-
-
-	</div>
-
-
+	
+	
+	
+	
+	
+	<!-- 페이징바 -->
 	
 	
 	

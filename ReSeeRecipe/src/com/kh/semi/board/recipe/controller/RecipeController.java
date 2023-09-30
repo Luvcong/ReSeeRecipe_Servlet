@@ -1,18 +1,24 @@
 package com.kh.semi.board.recipe.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.board.recipe.model.service.RecipeService;
+import com.kh.semi.board.recipe.model.vo.Recipe;
 
 public class RecipeController {
 	
 	public String selectLatestList(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
+		//ArrayList<Recipe> list = new RecipeService().selectLatestList();
+		//request.setAttribute("list", list);
+		// 최신순으로 게시글 조회 (currentPage따라 9개씩)
 		
-		// 최신순 글 리스트 조회
-		
-		
-		// 레시피 메인 페이지로 보내기
+		// 게시판 사진 조회하기
+		//
 		
 		
 		return viewPath;
