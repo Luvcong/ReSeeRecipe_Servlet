@@ -11,7 +11,6 @@
     /* 전체 래핑 div 세팅 */
     #recipe-category-wrap {
         width: 1000px;
-        height: 150px;
         margin: auto;
         text-align: center;
         box-sizing: border-box;
@@ -20,13 +19,13 @@
     /* 테이블영역 div 세팅 */
     #category-toggle-menu{
         width: 100%;
-		height: 80%;
+		height: 150px;
     }
     
     /* 더보기 영역 div 세팅 */
     #category-toggle-msg {
         width: 100%;
-        height: 20%;
+        height: 30px;
     }
     
     /* 테이블영역 세팅 */

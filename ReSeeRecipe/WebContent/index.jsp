@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// nav단독사용 대비용 contextPath
+	String contextPathNav = request.getContextPath();
+ %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,10 +113,11 @@
 </head>
 
 <body>
-	
+	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="views/common/header.jspf" %>
-		
-	<%@ include file="views/common/nav.jspf" %>
+	
+	<!-- navigator부분 (레시피 / 셰프 / 마켓 이동 메뉴) -->
+	<%--@ include file="views/common/nav.jspf" --%>
 		
 	<div id="wrap_content">	
 		<div id="content">
@@ -161,6 +167,7 @@
         </div>
 	</div>
 	
+	<!-- footer 푸터영역 -->
 	<%@ include file="views/common/footer.jspf" %>
 
 </body>
