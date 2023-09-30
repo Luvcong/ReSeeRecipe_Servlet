@@ -229,7 +229,7 @@
 		<div id="navigator">
 	 		<ul id="navi">
 		        <li>
-		            <a href="<%= contextPath %>/recipeMain.re">레시피</a>
+		            <a href="<%= contextPath %>/selectLatestList.re">레시피</a>
 		        </li>
 		        <li>
 		            <a href="">셰프</a>
@@ -240,6 +240,7 @@
 			</ul>
 		</div>
 	</div>
+	
 </nav>
 
 </html>

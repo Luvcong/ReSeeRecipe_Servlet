@@ -41,8 +41,11 @@ public class RecipeServlet extends HttpServlet {
 		
 		// Controller로 분배
 		switch(mapping) {
-			/* 홈페이지 메인 nav -> 레시피화면 메인으로 */
-			case "recipeMain" : viewPath = rc.selectRecipeList(request, response); break;
+			/* 홈페이지 메인 -> 레시피화면 메인으로 */
+			case "selectLatestList" : viewPath = rc.selectLatestList(request, response); break;
+			
+			
+			
 		}
 		
 		// forward or sendRedirect ( flag = false
