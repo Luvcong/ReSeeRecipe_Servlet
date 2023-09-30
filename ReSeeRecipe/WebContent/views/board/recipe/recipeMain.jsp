@@ -25,8 +25,6 @@
 		color: white;
 	}
 	
-	.recipe-thumbnail{
-	}
 
 </style>
 
@@ -39,7 +37,44 @@
 
 	<section>
 	<!-- 레시피 전체조회 + 페이징바 / 레시피 상세조회 + 댓글영역 -->
-	
+	<div>
+
+		<% if(list.isEmpty()) { %>
+			<p>조회 결과가 없습니다</p>
+		<% } else { %>
+			<!-- 9개씩 출력 -->
+			<% for(int i = 0; i < 9; i++) { %>
+				<div class="recipeThumbnail" align="center">
+					<input type="hidden" value="<%= list.get(i).getRecipeNo() %>">
+
+
+				</div>
+			<% } %>
+
+		<% } %>
+		<!-- 레시피 조회결과 첫 3개 -->
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<!-- 레시피 조회결과 중간 3개 -->
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<!-- 레시피 조회결과 마지막 3개 -->
+		<div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+
+
+
+	</div>
 	
 	
 	

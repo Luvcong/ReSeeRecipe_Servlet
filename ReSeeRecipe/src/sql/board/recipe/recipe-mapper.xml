@@ -3,5 +3,17 @@
 <properties>
 	<comment>레시피게시판 관련 SQL문</comment>
 	
+	<entry key="selectRecipeListCount">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_RECIPE
+		  JOIN
+		  	   TB_MEMBER ON (RECIPE_WRITER_NO = MEM_NO)
+		 WHERE
+		 	   RECIPE_STATUS = 'Y'
+		   AND
+		   	   MEM_STATUS = 'Y';
+	</entry>
 	
 </properties>

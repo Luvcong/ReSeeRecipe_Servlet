@@ -42,7 +42,7 @@ public class RecipeServlet extends HttpServlet {
 		// Controller로 분배
 		switch(mapping) {
 			/* 홈페이지 메인 -> 레시피화면 메인으로 */
-			case "selectLatestList" : viewPath = rc.selectLatestList(request, response); break;
+			case "selectRecipeListLt" : viewPath = rc.selectRecipeListLt(request, response); break;
 			
 			
 			

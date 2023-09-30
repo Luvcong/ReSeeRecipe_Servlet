@@ -7,18 +7,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
+import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeController {
 	
-	public String selectLatestList(HttpServletRequest request, HttpServletResponse response) {
+	public String selectRecipeListLt(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
-		//ArrayList<Recipe> list = new RecipeService().selectLatestList();
-		//request.setAttribute("list", list);
-		// 최신순으로 게시글 조회 (currentPage따라 9개씩)
 		
-		// 게시판 사진 조회하기
-		//
+		// 페이징 관련 설정
+		int listCount = new RecipeService().selectRecipeListCount();
+		int currentPage = Integer.parseInt(request.getParameter("cpage"));
+		PageInfo pi = new PageInfo(listCount, currentPage, 10, 9);
+		
+		// 레시피 게시글 조회
+		ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
+		
+		// 게시판 조회
+		// 사진 조회
 		
 		
 		return viewPath;
