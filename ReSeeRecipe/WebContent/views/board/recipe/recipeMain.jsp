@@ -22,7 +22,7 @@
 <body>
 	<%@ include file="/views/common/header.jspf" %>
 	
-	<%@ include file="/views/board/recipe_frag/categoryBar.jsp" %>
+	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
 
 	<section>
