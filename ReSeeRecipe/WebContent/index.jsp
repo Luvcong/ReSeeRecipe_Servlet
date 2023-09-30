@@ -109,9 +109,9 @@
 
 <body>
 	
-	<%@ include file="views/common/header.jsp" %>
+	<%@ include file="views/common/header.jspf" %>
 		
-	<%@ include file="views/common/nav.jsp" %>
+	<%@ include file="views/common/nav.jspf" %>
 		
 	<div id="wrap_content">	
 		<div id="content">
@@ -161,7 +161,7 @@
         </div>
 	</div>
 	
-	<%@ include file="views/common/footer.jsp" %>
+	<%@ include file="views/common/footer.jspf" %>
 
 </body>
 </html>

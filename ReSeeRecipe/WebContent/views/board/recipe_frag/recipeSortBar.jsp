@@ -5,10 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#recipe-sort-bar-outer {
+		width: 1000px;
+		height: 50px;
+		margin: auto;
+		color: white;
+	}
+</style>
 </head>
 <body>
 
+	<div id="recipe-sort-bar-outer">
 	
+	</div>
 
 </body>
 </html>
