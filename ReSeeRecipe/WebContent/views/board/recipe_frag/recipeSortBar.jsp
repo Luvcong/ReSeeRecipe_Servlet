@@ -16,8 +16,8 @@
 </head>
 <body>
 
-	<div id="recipe-sort-bar-outer">
-	
+	<div id="recipe-sort-bar-wrap">
+		
 	</div>
 
 </body>

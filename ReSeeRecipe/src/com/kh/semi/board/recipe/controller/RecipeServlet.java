@@ -27,12 +27,27 @@ public class RecipeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 기본변수 세팅
+		String viewPath = "";
+		boolean flag = true;
+		RecipeController rc = new RecipeController();
+		
+		// 인코딩 세팅
+		request.setCharacterEncoding("UTF-8");	
+		
+		// uri 매핑문자열 추출
 		String uri = request.getRequestURI();
-		System.out.println(uri);
+		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		
-		// recipeMain.re (홈페이지메인 nav -> 레시피 화면 메인으로)
+		// Controller로 분배
+		switch(mapping) {
+			/* 홈페이지 메인 nav -> 레시피화면 메인으로 */
+			case "recipeMain" : viewPath = rc.selectRecipeList(request, response); break;
+		}
 		
-	
+		// forward or sendRedirect ( flag = false
+		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
+		else 	 { response.sendRedirect(viewPath); }
 	
 	
 	

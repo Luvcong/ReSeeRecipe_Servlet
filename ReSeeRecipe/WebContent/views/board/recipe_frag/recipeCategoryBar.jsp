@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.board.recipe.model.vo.RecipeCategory" %>
+<%
+	RecipeCategory recipeCategory = (RecipeCategory)session.getAttribute("reicpeCategory");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +79,7 @@
                 <table id="recipe-category-table">
                     <tr>
                         <td rowspan="2" id="recipe-category-logo">
-                            <img src="#"> 로고 이미지
+                            <img src="#"> 로고 이미지<!-- 다른곳에서 include 시 깨짐 -> 인크루드 생각해서 경로 정하거나 절대경로 -->
                         </td>
                         <td><h3>한식</h3></td>
                         <td><h3>양식</h3></td>
