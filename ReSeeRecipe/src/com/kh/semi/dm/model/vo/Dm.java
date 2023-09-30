@@ -2,7 +2,7 @@ package com.kh.semi.dm.model.vo;
 
 import java.sql.Date;
 
-public class MemberDm {
+public class Dm {
 
 	//	TB_DM TABLE COLUMN
 	//	DM_NO	NUMBER
@@ -20,12 +20,12 @@ public class MemberDm {
 	private String dmStatus;
 	
 	// 기본생성자
-	public MemberDm() {
+	public Dm() {
 		super();
 	}
 	
 	// 매개변수 생성자
-	public MemberDm(int dmNo, String receiveMem, String sendMem, String dmContent, Date sendDate, String dmStatus) {
+	public Dm(int dmNo, String receiveMem, String sendMem, String dmContent, Date sendDate, String dmStatus) {
 		super();
 		this.dmNo = dmNo;
 		this.receiveMem = receiveMem;

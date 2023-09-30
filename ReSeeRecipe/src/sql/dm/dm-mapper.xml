@@ -4,7 +4,26 @@
 
 	<comment>DM 쪽지관련 SQL문</comment>
 	
-	<!-- 쪽지 답변상태 완료 변경 SQL문 -->
+	<!-- 쪽지함 리스트 조회 -->
+	<entry key="selectDmList">
+		SELECT
+				DM_NO,
+				SEND_MEM,
+				DM_CONTENT,
+				SEND_DATE,
+				DM_STATUS
+		 FROM
+		 		TB_DM
+		 JOIN
+		 		TB_MEMBER ON(SEND_MEM = MEM_NO)
+		 ORDER
+		    BY
+		    	SEND_DATE DESC
+	</entry>
+	
+	
+	
+	<!-- 쪽지 답변상태 완료 변경 SQL문 / 수정필요 -->
 	<entry key="updateDm">
 		UPDATE
 				TB_DM
