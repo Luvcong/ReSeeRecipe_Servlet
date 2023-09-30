@@ -13,7 +13,39 @@
 		 WHERE
 		 	   RECIPE_STATUS = 'Y'
 		   AND
-		   	   MEM_STATUS = 'Y';
+		   	   MEM_STATUS = 'Y'
 	</entry>
+	
+	
+	<entry key="selectRecipeListLt">
+		SELECT
+			   RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME
+		  FROM (SELECT
+		  	           ROWNUM RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME
+				  FROM (SELECT
+				  			   RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, RECIPE_PIC_PATH||'/'||RECIPE_PIC_NAME_UPLOAD TITLEIMG, MEM_NICKNAME
+						  FROM
+						  	   TB_RECIPE
+						  JOIN
+						  	   TB_MEMBER ON(RECIPE_WRITER_NO = MEM_NO)
+						  JOIN
+						  	   TB_RECIPE_PIC ON(RECIPE_NO = REF_RNO)
+						 WHERE
+						 	   RECIPE_STATUS = 'Y'
+						   AND
+						   	   MEM_STATUS = 'Y'
+						   AND
+						   	   RECIPE_PIC_STATUS = 'Y'
+						   AND
+						   	   RECIPE_PIC_LEV = 1
+						 ORDER
+						    BY
+						       RECIPE_DATE DESC
+						)
+			   )
+		 WHERE
+		 	   RNUM BETWEEN ? AND ?
+	</entry>
+	
 	
 </properties>

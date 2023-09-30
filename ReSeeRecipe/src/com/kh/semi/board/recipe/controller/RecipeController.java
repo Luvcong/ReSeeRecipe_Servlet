@@ -20,11 +20,10 @@ public class RecipeController {
 		int currentPage = Integer.parseInt(request.getParameter("cpage"));
 		PageInfo pi = new PageInfo(listCount, currentPage, 10, 9);
 		
-		// 레시피 게시글 조회
+		// 레시피 게시글 조회 (페이징적용)
 		ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
 		
-		// 게시판 조회
-		// 사진 조회
+		
 		
 		
 		return viewPath;

@@ -24,6 +24,10 @@ public class RecipeService {
 	
 	public ArrayList<Recipe> selectRecipeListLt(PageInfo pi){
 		
+		Connection conn = getConnection();
+		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
+		close(conn);
+		return list;
 	}
 	
 	
