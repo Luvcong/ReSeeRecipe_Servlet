@@ -46,16 +46,16 @@ public class RecipeServlet extends HttpServlet {
 			//
 		
 			// 레시피보기 기본 (최신순) selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
-			case "selectRecipeList" : System.out.println(mapping); break;
+			//case "selectRecipeList" : System.out.println(mapping); break;
 			
 			// 좋아요순 selectRecipeListHt
-			case "selectRecipeListHt" : System.out.println(mapping); break;
+			//case "selectRecipeListHt" : System.out.println(mapping); break;
 			
 			// 조회수순 selectRecipeListVw
-			case "selectRecipeListVw" : System.out.println(mapping); break;
+			//case "selectRecipeListVw" : System.out.println(mapping); break;
 			
 			// 인기셰프순 selectRecipeListPo
-			case "selectRecipeListPo" : System.out.println(mapping); break;
+			//case "selectRecipeListPo" : System.out.println(mapping); break;
 			
 			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 조회 필요 // 해시태그는 Ajax => 이후 forward
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
@@ -63,7 +63,7 @@ public class RecipeServlet extends HttpServlet {
 			// 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect
 			
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
-			case "searchKeyWord" : System.out.println(mapping); break;
+			//case "searchKeyWord" : System.out.println(mapping); break;
 			
 			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다");
 			
@@ -71,7 +71,7 @@ public class RecipeServlet extends HttpServlet {
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
 		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
-		else 	 { response.sendRedirect(viewPath); }
+		//else 	 { response.sendRedirect(viewPath); }
 	
 	
 	

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
+import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.common.model.vo.PageInfo;
 
 
@@ -19,12 +20,15 @@ public class RecipeController {
 
 		String viewPath = "";
 		
-		HashMap<String, Object> map = new RecipeService().recipeEnrollForm();
+		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm();
 		
-		if(map != null) {
-			// map내용이 null이 아닐 때 viewPath
+		if(!mapEnrollForm.isEmpty()) {
+			// map내용이  있을 때 viewPath
+			request.setAttribute("mapEnrollForm", mapEnrollForm);
+			request.setAttribute("rMainVwCon", "enrollForm");
+			viewPath = "/views/board/recipe/recipeMain.jsp";
 		} else {
-			// map내용이 null일 때 viewPath
+			// map내용이 없을 때 viewPath
 		}
 		
 		return viewPath;

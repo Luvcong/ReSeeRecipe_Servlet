@@ -19,17 +19,17 @@ public class RecipeService {
 	public HashMap<String, Object> recipeEnrollForm() {
 		
 		Connection conn = getConnection();
-		HashMap<String, Object> map = null;
+		HashMap<String, Object> map = new HashMap();
 		
 		// 카테고리, 계량단위 조회
-		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList(conn);
-		ArrayList<IngredientMeasure> iList = new RecipeService().selectIngredientMeasureList(conn);
+		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
+		ArrayList<IngredientMeasure> iList = new RecipeDao().selectIngredientMeasureList(conn);
 		
 		// 자원반납
 		close(conn);
 		
 		// map에 담기
-		if(cList != null && iList != null) {
+		if(!cList.isEmpty() && !iList.isEmpty()) {
 			map.put("cList", cList);
 			map.put("iList", iList);
 		}

@@ -34,12 +34,12 @@
 	}
 
 	/* div요소 기본 세팅 */
-	div {
+	#recipe-sort-bar-wrap div {
 		box-sizing: border-box;
 	}
 	
 	/* h3요소 기본세팅 */
-	h3 {
+	#recipe-sort-bar-wrap h3[class='recipe-sort-by'] {
 		margin : 0px;
 		padding : 7%;
 		font-size: 20px;
@@ -61,7 +61,7 @@
 	}
 
 	/* 정렬기준 + 글쓰기 div 블록 세팅 */
-	.recipe-sort-bar-menu {
+	div[class='recipe-sort-bar-menu'] {
 		width: 15%;
 	}
 
@@ -99,9 +99,6 @@
 		top : 16px;
 		right : 8px;
 	}
-	
-	/***********지울부분***********************************************/
-	div {border:1px solid black; }
 </style>
 </head>
 <body>

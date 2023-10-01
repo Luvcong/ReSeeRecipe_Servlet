@@ -7,13 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
-import java.util.Locale.Category;
 
 import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
-import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
+import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeDao {
@@ -32,18 +30,42 @@ public class RecipeDao {
 	/****************************************************************************/
 	
 
-	public ArrayList<Category> selectRecipeCategoryList(Connection conn) {
-		ArrayList<Category> cList = null;
+	public ArrayList<RecipeCategory> selectRecipeCategoryList(Connection conn) {
+		
+		ArrayList<RecipeCategory> cList = new ArrayList();
 		String sql = prop.getProperty("selectRecipeCategoryList");
 		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rset = pstmt.executeQuery()) {
+			while(rset.next()) {
+				RecipeCategory rc = new RecipeCategory();
+				rc.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
+				rc.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
+				cList.add(rc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return cList;
 	}
 	
 	
 	public ArrayList<IngredientMeasure> selectIngredientMeasureList(Connection conn) {
-		ArrayList<IngredientMeasure> iList = null;
-		String sqp = prop.getProperty("SelectIngredientMeasureList");
 		
+		ArrayList<IngredientMeasure> iList = new ArrayList();
+		String sql = prop.getProperty("selectIngredientMeasureList");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rset = pstmt.executeQuery()) {
+			while(rset.next()) {
+				IngredientMeasure im = new IngredientMeasure();
+				im.setIngredientMeasureNo(rset.getInt("INGREDIENT_MEASURE_NO"));
+				im.setIngredientMeasure(rset.getString("INGREDIENT_MEASURE"));
+				iList.add(im);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return iList;
 	}
 	
