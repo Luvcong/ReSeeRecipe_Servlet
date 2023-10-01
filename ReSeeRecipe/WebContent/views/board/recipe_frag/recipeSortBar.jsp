@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.member.model.vo.Member" %>
+<%
+	// 메인경로	
+	String contextPath = request.getContextPath();
+
+	// 로그인한 회원
+	Member loginMember = (Member)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +36,13 @@
 		height: 50px;
 		margin: auto;
 		box-sizing: border-box;
+		position: relative;
 	}
 
 	/* div요소 기본 세팅 */
-	div { box-sizing: border-box; }
+	div {
+		box-sizing: border-box;
+	}
 	
 	/* h3요소 기본세팅 */
 	h3 {
@@ -48,9 +59,12 @@
 		float: left;
 		text-align: center;
 	}
+	
 	/**********************************************************/
 	/* 아이콘이미지 div블록 세팅 */
-	#recipe-sort-bar-img {width: 4%;}
+	#recipe-sort-bar-img {
+		width: 4%;
+	}
 
 	/* 정렬기준 + 글쓰기 div 블록 세팅 */
 	.recipe-sort-bar-menu {
@@ -60,11 +74,8 @@
 	/* 검색 div 블록 세팅 */
 	#recipe-search-area {
 		width: 21%;
-	}
-
-	#recipe-search-area div {
-		height: 100%;
-		padding-top: 4.5%;
+		position: absolute;
+		right : 0px;
 	}
 
 	/* 검색창 세팅 */
@@ -74,6 +85,9 @@
 		box-sizing: border-box;
 		border: 2px solid rgb(255, 145, 77);
 		border-radius: 5px;
+		position: absolute;
+		top : 7px;
+		right : 30px;
 	}
 
 	#recipe-keyword-search-box::placeholder {
@@ -87,21 +101,24 @@
 		padding: 0px;
 		padding-bottom: 2%;
 		color: rgb(255, 145, 77);
+		position: absolute;
+		top : 16px;
+		right : 8px;
 	}
-
-
-
-
+	
+	/***********지울부분***********************************************/
 	div {border:1px solid black; }
 </style>
 </head>
 <body>
 
 	<div id="recipe-sort-bar-wrap">
+	
 		<div id="recipe-sort-bar-img">
 			<img src="#"><!--아이콘 이미지 삽입필요-->
 		</div>
-		<!-- 레시피 정렬 기준 + 글작성버튼 -->
+		
+		<!-- 레시피 정렬 기준 -->
 		<div class="recipe-sort-bar-menu">
 			<input type="hidden" value="selectRecipeListLt">
 			<h3 class="recipe-sort-by">최신순</h3>
@@ -118,23 +135,27 @@
 			<input type="hidden" value="selectRecipeListPo">
 			<h3 class="recipe-sort-by">인기셰프순</h3>
 		</div>
-		<div class="recipe-sort-bar-menu">
-			<input type="hidden" value="insertRecipe">
-			<h3 class="recipe-sort-by">글작성</h3>
-		</div>
+		
+		<!-- 로그인 상태일 때만 글 작성 버튼 노출 -->
+		<% if(loginMember != null) { %>
+			<div class="recipe-sort-bar-menu">
+				<input type="hidden" value="insertRecipe">
+				<h3 class="recipe-sort-by">글작성</h3>
+			</div>
+		<% } %>
+		
 		<!-- 레시피 키워드 검색창 -->
 		<div id="recipe-search-area">
-			<div>
-				<form action="#" method="get">
-					<input type="search" id="recipe-keyword-search-box" name="recipeSearchWord" placeholder="키워드를 입력하세요">
+				<form action="searchKeyWord.re" method="get">
+					<input type="hidden" value="recipeSearch">
+					<input type="search" id="recipe-keyword-search-box" name="searchKeyWord" placeholder="     제목 / 작성자 검색">
 					<button type="submit" id="recipe-keyword-search-btn" class="fa fa-search btn"></button>
 				</form>
-			</div>
 		</div>
 	</div>
 	
 
-	<!-- 정렬기준에 맞게 레시피리스트 조회 요청 -->
+	<!-- script 정렬기준에 맞게 레시피리스트 조회 요청 보냄 -->
 	<script>
 		$(function(){
 			$('.recipe-sort-by').click(function(){

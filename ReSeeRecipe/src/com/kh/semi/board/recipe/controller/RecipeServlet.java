@@ -42,15 +42,31 @@ public class RecipeServlet extends HttpServlet {
 		// Controller로 분배
 		switch(mapping) {
 			/* 홈페이지 메인 -> 레시피화면 메인으로 */
-			case "selectRecipeListLt" : viewPath = rc.selectRecipeListLt(request, response); break;
+			// 최신순 selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
+			case "selectRecipeListLt" : System.out.println(mapping); break;
 			
+			// 좋아요순 selectRecipeListHt
+			case "selectRecipeListHt" : System.out.println(mapping); break;
 			
+			// 조회수순 selectRecipeListVw
+			case "selectRecipeListVw" : System.out.println(mapping); break;
+			
+			// 인기셰프순 selectRecipeListPo
+			case "selectRecipeListPo" : System.out.println(mapping); break;
+			
+			// 글작성하기 insertRecipe
+			case "insertRecipe" : System.out.println(mapping); break;
+			
+			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
+			case "searchKeyWord" : System.out.println(mapping); break;
+			
+			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다");
 			
 		}
 		
 		// forward or sendRedirect ( flag = false
-		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
-		else 	 { response.sendRedirect(viewPath); }
+		//if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
+		//else 	 { response.sendRedirect(viewPath); }
 	
 	
 	
