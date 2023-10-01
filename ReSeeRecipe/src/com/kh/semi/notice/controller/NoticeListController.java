@@ -42,8 +42,6 @@ public class NoticeListController extends HttpServlet {
 		// 5) 응답화면 띄우기
 		RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeListView.jsp");
 		view.forward(request, response);
-	
-	
 	}
 
 	/**

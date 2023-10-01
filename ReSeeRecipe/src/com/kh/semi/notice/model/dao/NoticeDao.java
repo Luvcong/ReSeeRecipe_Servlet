@@ -30,6 +30,7 @@ public class NoticeDao {
 		ArrayList<Notice> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		
 		String sql = prop.getProperty("selectNoticeList");
 		
 		
