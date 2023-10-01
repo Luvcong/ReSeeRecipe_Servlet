@@ -18,6 +18,8 @@ public class Dm {
 	private String dmContent;
 	private Date sendDate;
 	private String dmStatus;
+	private String memId;			// 쪽지리스트에 띄워주기 위해 생성
+	private String memNickname;	// 쪽지리스트에 띄워주기 위해 생성
 	
 	// 기본생성자
 	public Dm() {
@@ -25,7 +27,8 @@ public class Dm {
 	}
 	
 	// 매개변수 생성자
-	public Dm(int dmNo, String receiveMem, String sendMem, String dmContent, Date sendDate, String dmStatus) {
+	public Dm(int dmNo, String receiveMem, String sendMem, String dmContent, Date sendDate, String dmStatus,
+			String memId, String memNickname) {
 		super();
 		this.dmNo = dmNo;
 		this.receiveMem = receiveMem;
@@ -33,9 +36,10 @@ public class Dm {
 		this.dmContent = dmContent;
 		this.sendDate = sendDate;
 		this.dmStatus = dmStatus;
+		this.memId = memId;
+		this.memNickname = memNickname;
 	}
-	
-	
+
 	// getter, setter
 	public int getDmNo() {
 		return dmNo;
@@ -84,11 +88,29 @@ public class Dm {
 	public void setDmStatus(String dmStatus) {
 		this.dmStatus = dmStatus;
 	}
+	
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getMemNickname() {
+		return memNickname;
+	}
+
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
 
 	@Override
 	public String toString() {
-		return "MemberDm [dmNo=" + dmNo + ", receiveMem=" + receiveMem + ", sendMem=" + sendMem + ", dmContent="
-				+ dmContent + ", sendDate=" + sendDate + ", dmStatus=" + dmStatus + "]";
+		return "Dm [dmNo=" + dmNo + ", receiveMem=" + receiveMem + ", sendMem=" + sendMem + ", dmContent=" + dmContent
+				+ ", sendDate=" + sendDate + ", dmStatus=" + dmStatus + ", memId=" + memId + ", memNickname="
+				+ memNickname + "]";
 	}
-	
+
 }	// end class

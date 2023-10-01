@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList, com.kh.semi.dm.model.vo.Dm" %>       
 <%
 	ArrayList<Dm> list = (ArrayList<Dm>)request.getAttribute("list");
+	int waitingCount = (int)request.getAttribute("waitingCount");
 %>    
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
-                    미답변 <span class="waiting">1</span> 개 / 답변완료 <span class="replied">76</span>개
+                    미답변 <span class="waiting"><%= waitingCount %></span> 개 / 답변완료 <span class="replied"><%= list.size() - waitingCount %></span>개
                 </div>
                 <div >
                     <div class="btn btn-sm btn-warning">쪽지 답변</div>
@@ -36,14 +37,14 @@
             </div>
         </div>
         <div class="tableBody">
-            <table class="table table-hover">
+            <table class="table table-sm table-hover">
                 <thead>
                     <tr>
                         <th><input type="checkbox"></th>
                         <th>번호</th>
                         <th>등록일</th>
                         <th>아이디</th>
-                        <!-- <th>닉네임</th> -->
+                        <th>닉네임</th>
                         <th>쪽지 문의내용</th>
                         <th>답변여부</th>
                     </tr>
@@ -59,9 +60,12 @@
 	                        <td><input type="checkbox"></td>
 	                        <td><%= dm.getDmNo() %></td>
 	                        <td><%= dm.getSendDate() %></td>
-	                        <td><%= dm.getSendMem() %></td>
+	                        <td><%= dm.getMemId() %></td>
+	                        <td><%= dm.getMemNickname() %></td>
 	                        <td><%= dm.getDmContent() %></td>
-	                        <td class="waiting"><%= dm.getDmStatus() %></td>
+	                        <td class="<%= dm.getDmStatus().equals("Y") ? "replied" : "waiting" %>">
+	                        	답변<%= dm.getDmStatus().equals("Y") ? "완료": "대기"  %>
+	                        </td>
 	                    </tr>
    	                <% } %>
                 <% } %>     

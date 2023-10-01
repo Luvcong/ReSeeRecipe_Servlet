@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.dm.model.vo.Dm;
+import com.kh.semi.member.model.vo.Member;
 
 public class DmDao {
 
@@ -51,7 +52,8 @@ public class DmDao {
 				Dm dm = new Dm();
 				
 				dm.setDmNo(rset.getInt("DM_NO"));
-				dm.setSendMem(rset.getString("USER_ID"));
+				dm.setMemId(rset.getString("MEM_ID"));
+				dm.setMemNickname(rset.getString("MEM_NICKNAME"));
 				dm.setDmContent(rset.getString("DM_CONTENT"));
 				dm.setSendDate(rset.getDate("SEND_DATE"));
 				dm.setDmStatus(rset.getString("DM_STATUS"));
@@ -69,6 +71,23 @@ public class DmDao {
 		return list;
 		
 	}	// selectDmList
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

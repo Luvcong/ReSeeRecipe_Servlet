@@ -27,4 +27,17 @@ public class DmService {
 	}	// selectDmList
 	
 	
+	public int getWaitingCount(ArrayList<Dm> list) {
+		int result = 0;
+		if(list == null || list.size() == 0)
+			return result;
+		
+		for(Dm dm : list) {
+			if(dm.getDmStatus().equals("N"))
+				result++;
+		}
+		
+		return result;
+	}
+	
 }	// end class

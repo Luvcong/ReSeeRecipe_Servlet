@@ -8,7 +8,8 @@
 	<entry key="selectDmList">
 		SELECT
 				DM_NO,
-				SEND_MEM,
+				MEM_ID,
+				MEM_NICKNAME,
 				DM_CONTENT,
 				SEND_DATE,
 				DM_STATUS
