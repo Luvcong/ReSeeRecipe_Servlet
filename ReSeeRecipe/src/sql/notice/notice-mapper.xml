@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>공지사항 관련 SQL문</comment>
+
+ 	<entry key="selectNoticeList">
+		SELECT
+				
+ 	</entry>
+</properties>
