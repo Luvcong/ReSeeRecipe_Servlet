@@ -28,8 +28,9 @@ public class RecipeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 기본변수 세팅
-		String viewPath = "";
 		boolean flag = true;
+		String viewPath = "";
+		
 		RecipeController rc = new RecipeController();
 		
 		// 인코딩 세팅
@@ -42,8 +43,10 @@ public class RecipeServlet extends HttpServlet {
 		// Controller로 분배
 		switch(mapping) {
 			/* 홈페이지 메인 -> 레시피화면 메인으로 */
-			// 최신순 selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
-			case "selectRecipeListLt" : System.out.println(mapping); break;
+			//
+		
+			// 레시피보기 기본 (최신순) selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
+			case "selectRecipeList" : System.out.println(mapping); break;
 			
 			// 좋아요순 selectRecipeListHt
 			case "selectRecipeListHt" : System.out.println(mapping); break;
@@ -54,8 +57,8 @@ public class RecipeServlet extends HttpServlet {
 			// 인기셰프순 selectRecipeListPo
 			case "selectRecipeListPo" : System.out.println(mapping); break;
 			
-			// 글작성하기 insertRecipe
-			case "insertRecipe" : System.out.println(mapping); break;
+			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 조회 필요 // 해시태그는 Ajax
+			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
 			
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
 			case "searchKeyWord" : System.out.println(mapping); break;
@@ -64,7 +67,7 @@ public class RecipeServlet extends HttpServlet {
 			
 		}
 		
-		// forward or sendRedirect ( flag = false
+		// forward or sendRedirect ( flag = false로 만들면 redrect)
 		//if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
 		//else 	 { response.sendRedirect(viewPath); }
 	

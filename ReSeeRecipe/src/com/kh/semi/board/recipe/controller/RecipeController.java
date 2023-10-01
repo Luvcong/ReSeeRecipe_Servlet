@@ -1,35 +1,28 @@
 package com.kh.semi.board.recipe.controller;
 
 import java.util.ArrayList;
+import java.util.Locale.Category;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeController {
 	
-	/*
-	RECIPE_NO               SEQ_RECIPE 레시피PK
-	RECIPE_TITLE            NN
-	RECIPE_DATE           NN
-	RECIPE_MODIFIED   기본SYSDATE
-	RECIPE_STATUS     기본SYSDATE
-	RECIPE_COUNT      기본0
-	RECIPE_WRITER_NO  NN작성회원PK
-	RECIPE_CATEGORY_NO  카테고리번호PK
 	
-	
-	
-	
-	
-	*/
-	// 레시피 글 작성
-	//public String insertRecipe {
+	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
 		
-	//}
+		String viewPath;
+		ArrayList<Category> cList = new RecipeService().selectRecipeCategoryList();
+		ArrayList<IngredientMeasure> iList = new RecipeService().selectIngredientMeasureList();
+		
+		
+		
+	}
 	
 	public String selectRecipeListLt(HttpServletRequest request, HttpServletResponse response) {
 		

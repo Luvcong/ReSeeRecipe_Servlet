@@ -229,7 +229,7 @@
 		<div id="navigator">
 	 		<ul id="navi">
 		        <li>
-		            <a href="<%= contextPath %>/selectRecipeListLt.re?cpage=1">레시피</a>
+		            <a href="<%= contextPath %>/selectRecipeList.re?cpage=1">레시피</a>
 		        </li>
 		        <li>
 		            <a href="">셰프</a>

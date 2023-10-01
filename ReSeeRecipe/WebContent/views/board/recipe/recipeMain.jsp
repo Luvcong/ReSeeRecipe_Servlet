@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.Recipe, com.kh.semi.common.model.vo.PageInfo" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.Recipe, com.kh.semi.common.model.vo.PageInfo" %>
 <%	
 	// 조회된 글 정보
 	ArrayList<Recipe> list = (ArrayList)request.getAttribute("list");
@@ -11,6 +11,10 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	// view선택용 키워드
+	String vsw = request.getAttribute("viewSelectingWord");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -37,8 +41,9 @@
 
 	<section>
 	<!-- 레시피 전체조회 + 페이징바 / 레시피 상세조회 + 댓글영역 -->
-	
-	
+		<% if(loginMember != null && vsw.equals("")) { %>
+			<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>	
+		<% } %>
 	<div>
 		<% if(list.isEmpty()) { %>
 			<p>조회 결과가 없습니다</p>
