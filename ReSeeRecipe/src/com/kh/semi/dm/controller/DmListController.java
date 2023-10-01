@@ -19,11 +19,13 @@ import com.kh.semi.dm.model.vo.Dm;
 public class DmListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private DmService dmService;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public DmListController() {
         super();
+        dmService = new DmService();
         // TODO Auto-generated constructor stub
     }
 
@@ -36,11 +38,12 @@ public class DmListController extends HttpServlet {
 		// 2) 전달값 뽑기 - select문으로 x
 		// 3) 데이터가공 xx
 		// 4) Service요청
-		ArrayList<Dm> list = new DmService().selectDmList();
+		ArrayList<Dm> list = dmService.selectDmList();
 		request.setAttribute("list", list);
-		// 5) 응답화면 지정
-		request.getRequestDispatcher("/views/dm/dmListView.jsp").forward(request, response);
+		request.setAttribute("waitingCount", dmService.getWaitingCount(list));
 		
+		// 5) 응답화면 지정
+		request.getRequestDispatcher("views/dm/dmListView.jsp").forward(request, response);
 	}
 
 	/**
