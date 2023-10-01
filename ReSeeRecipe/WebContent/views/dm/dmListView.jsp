@@ -10,13 +10,15 @@
 <meta charset="UTF-8">
 <title>[문의관리] 쪽지함관리</title>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
+
+	<%@ include file="../common/manager.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -47,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <% if(list.isEmpty()) { %>
+                <% if(list == null || list.isEmpty()) { %>
    	                <tr>
 	                    <td colspan="6">받은 쪽지가 없습니다</td>
 	                </tr>
@@ -58,7 +60,6 @@
 	                        <td><%= dm.getDmNo() %></td>
 	                        <td><%= dm.getSendDate() %></td>
 	                        <td><%= dm.getSendMem() %></td>
-	                        <!-- <td><%= dm.getSendMem() %></td>  -->
 	                        <td><%= dm.getDmContent() %></td>
 	                        <td class="waiting"><%= dm.getDmStatus() %></td>
 	                    </tr>
@@ -68,7 +69,8 @@
             </table>
         </div>
 
-    </div>  <!-- rs-content -->
+    	</div>  <!-- rs-content -->
+    
 
 </body>
 </html>
