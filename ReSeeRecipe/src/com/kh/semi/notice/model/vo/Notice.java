@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Notice {
 	
-	
 	private int noticeNo; //NOTICE_NO	NUMBER
 	private String noticeTitle; //NOTICE_TITLE	VARCHAR2(50 BYTE)
 	private String noticeCon; //NOTICE_CON	VARCHAR2(1000 BYTE)

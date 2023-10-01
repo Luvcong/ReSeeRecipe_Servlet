@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class NoticeListController
  */
-@WebServlet("/list.no")
+@WebServlet("/hllist.no")
 public class NoticeListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

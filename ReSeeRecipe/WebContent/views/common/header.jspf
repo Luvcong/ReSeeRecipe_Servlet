@@ -203,7 +203,7 @@
 		              </a>
 		          </div>
 		          <div id="header_3_1_4">
-		              <a href="#">
+		              <a href="<%= contextPath %>/hllist.no">
 		                  <i class="fa-regular fa-door-open"></i><br>
 		                  <img src="" alt="">고객센터
 		              </a>
