@@ -5,6 +5,21 @@
 
  	<entry key="selectNoticeList">
 		SELECT
-				
+				NOTICE_NO
+			   ,NOTICE_TITLE
+			   ,NOTICE_CON
+			   ,NOTICE_DATE
+			   ,NOTICE_STATUS
+			   ,NOTICE_COUNT
+			   ,NOTICE_WRITER
+		FROM
+				TB_NOTICE
+		JOIN 
+		 		TB_MEMBER ON(NOTICE_WRITER = MEMBER_NO)
+		 WHERE
+		 		NOTICE.STATUS = 'Y'
+		 ORDER
+		    BY
+		    	NOTICE_DATE DESC
  	</entry>
 </properties>
