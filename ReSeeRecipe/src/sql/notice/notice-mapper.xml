@@ -9,7 +9,6 @@
 			   ,NOTICE_TITLE
 			   ,NOTICE_CON
 			   ,NOTICE_DATE
-			   ,NOTICE_STATUS
 			   ,NOTICE_COUNT
 			   ,NOTICE_WRITER
 		FROM
