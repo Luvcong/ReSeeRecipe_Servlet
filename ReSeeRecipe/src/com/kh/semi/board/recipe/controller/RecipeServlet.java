@@ -57,8 +57,10 @@ public class RecipeServlet extends HttpServlet {
 			// 인기셰프순 selectRecipeListPo
 			case "selectRecipeListPo" : System.out.println(mapping); break;
 			
-			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 조회 필요 // 해시태그는 Ajax
+			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 조회 필요 // 해시태그는 Ajax => 이후 forward
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
+			
+			// 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect
 			
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
 			case "searchKeyWord" : System.out.println(mapping); break;
@@ -68,8 +70,8 @@ public class RecipeServlet extends HttpServlet {
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
-		//if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
-		//else 	 { response.sendRedirect(viewPath); }
+		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
+		else 	 { response.sendRedirect(viewPath); }
 	
 	
 	

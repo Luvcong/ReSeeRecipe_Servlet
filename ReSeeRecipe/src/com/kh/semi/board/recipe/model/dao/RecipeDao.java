@@ -7,8 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
+import java.util.Locale.Category;
 
+import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
+import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
@@ -25,6 +29,30 @@ public class RecipeDao {
 		}
 	}
 
+	/****************************************************************************/
+	
+
+	public ArrayList<Category> selectRecipeCategoryList(Connection conn) {
+		ArrayList<Category> cList = null;
+		String sql = prop.getProperty("selectRecipeCategoryList");
+		
+		return cList;
+	}
+	
+	
+	public ArrayList<IngredientMeasure> selectIngredientMeasureList(Connection conn) {
+		ArrayList<IngredientMeasure> iList = null;
+		String sqp = prop.getProperty("SelectIngredientMeasureList");
+		
+		return iList;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public int selectRecipeListCount(Connection conn) {

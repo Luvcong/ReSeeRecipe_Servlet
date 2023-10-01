@@ -1,28 +1,39 @@
 package com.kh.semi.board.recipe.controller;
 
 import java.util.ArrayList;
-import java.util.Locale.Category;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.common.model.vo.PageInfo;
+
 
 public class RecipeController {
 	
 	
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
 		
-		String viewPath;
-		ArrayList<Category> cList = new RecipeService().selectRecipeCategoryList();
-		ArrayList<IngredientMeasure> iList = new RecipeService().selectIngredientMeasureList();
+
+		String viewPath = "";
 		
+		HashMap<String, Object> map = new RecipeService().recipeEnrollForm();
 		
+		if(map != null) {
+			// map내용이 null이 아닐 때 viewPath
+		} else {
+			// map내용이 null일 때 viewPath
+		}
 		
+		return viewPath;
 	}
+	
+	
+	
+	
+	
 	
 	public String selectRecipeListLt(HttpServletRequest request, HttpServletResponse response) {
 		

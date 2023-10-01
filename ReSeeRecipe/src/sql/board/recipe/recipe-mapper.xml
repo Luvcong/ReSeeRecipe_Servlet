@@ -3,6 +3,24 @@
 <properties>
 	<comment>레시피게시판 관련 SQL문</comment>
 	
+	<entry key="selectRecipeCategoryList">
+		SELECT
+			   RECIPE_CATEGORY_NO,
+			   RECIPE_CATEGORY_NAME
+		  FROM
+		  	   TB_RECIPE_CATEGORY
+	</entry>
+	
+	<entry key="selectIngredientMeasureList">
+		SELECT
+			   INGREDIENT_MEASURE_NO,
+			   INGREDIENT_MEASURE
+		  FROM
+		  	   TB_INGREDIENT_MEASURE
+	</entry>
+	
+	
+	
 	<entry key="selectRecipeListCount">
 		SELECT
 			   COUNT(*)
