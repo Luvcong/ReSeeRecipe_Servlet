@@ -11,6 +11,26 @@ import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeController {
 	
+	/*
+	RECIPE_NO               SEQ_RECIPE 레시피PK
+	RECIPE_TITLE            NN
+	RECIPE_DATE           NN
+	RECIPE_MODIFIED   기본SYSDATE
+	RECIPE_STATUS     기본SYSDATE
+	RECIPE_COUNT      기본0
+	RECIPE_WRITER_NO  NN작성회원PK
+	RECIPE_CATEGORY_NO  카테고리번호PK
+	
+	
+	
+	
+	
+	*/
+	// 레시피 글 작성
+	//public String insertRecipe {
+		
+	//}
+	
 	public String selectRecipeListLt(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
