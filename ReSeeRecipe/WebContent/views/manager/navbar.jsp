@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<!-- <<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
 	pageEncoding="UTF-8"%>
 =======
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> -->
 <%
 	String contextPath = request.getContextPath();
 %>        
->>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
+<!-- >>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- css파일 따로 뺴서 link -->
-<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
+<!-- <<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/manager.css">
 
@@ -38,7 +38,7 @@
 </style>
 =======
 <link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
->>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
+<!-- >>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp -->
 
 </head>
 
@@ -48,7 +48,7 @@
 	<!-- 관리자메뉴 title 상단 -->
 	<div class="rs-title">관리자 메뉴</div>
 
-<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
+<!-- <<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp -->
 	<!-- 카테고리 리스트 -->
 	<div class="rs-main">
 		<div class="rs-navbar">
@@ -112,7 +112,7 @@
         </div>
     <!-- rs-content추가 -->
     </div>  <!-- rs-main -->
->>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
+<!-- >>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp -->
 
 </body>
 
