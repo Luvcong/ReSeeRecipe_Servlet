@@ -73,7 +73,7 @@
 	/**********************************************************
 		입력양식 폼 상단 바 영역
 	**********************************************************/
-	/* 입력양식 폼 기본 아우터 div 세팅 */
+	/* 입력양식 폼 상단 바 기본 아우터 div 세팅 */
 	#recipe-enroll-bar-wrap {
 		width: 1000px;
 		height: 50px;
@@ -147,11 +147,63 @@
 		padding: 2px;
 		color: rgb(255, 145, 77);
 	}
+	
+	/* 임시저장 모달창 세팅 */
+	#unrecipe-modal, #unrecipe-unavailable-modal{
+		position: fixed;
+		top: 3%;
+		left: 30%;
+	}
+	
+	#unrecipe-unavailable-modal .modal-header,
+	#unrecipe-modal .modal-header {
+		height: 100px;
+	}
+	#unrecipe-unavailable-modal .modal-header t4,
+	#unrecipe-modal .modal-header t4 {
+		font-size: 28px;
+	}
+	
+	#unrecipe-unavailable-modal .modal-body,
+	#unrecipe-modal .modal-body {
+		height: 130px;
+		padding: 10px;
+	}
+	
+	#unrecipe-unavailable-modal .modal-body h5,
+	#unrecipe-modal .modal-body h5 {
+		margin: 10px;
+		font-size: 20px;
+	}
+		
+	#unrecipe-unavailable-modal .modal-body p,
+	#unrecipe-modal .modal-body p {
+		margin: 0px;
+		margin-left: 20px;
+		margin-bottom: 10px;
+		font-size: 15px;
+	}
+	
+	
+	#unrecipe-unavailable-modal .modal-content {
+		height: 600px;
+	}
+	#unrecipe-unavailable-modal .modal-footer,
+	#unrecipe-modal .modal-footer {
+		height: 100px;
+		padding: 10px;
+	}
 
 	/**********************************************************
 		입력양식 폼 영역
 	**********************************************************/
-
+	
+	#recipe-enroll-form-wrap {
+		/********지울부분****************/
+		height: 1200px;
+	}	
+		
+		
 
 	/**********지울부분***************************************/
 	div {
@@ -198,73 +250,76 @@
 					</select>
 				</div>
 				
+				
 				<!-- 임시저장 버튼 -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
 				</div>
 				
+				<!-- 임시작성글 모달 -->
+				<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
+				<div class="modal" id="unrecipe-modal">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				
+				      <div class="modal-header">
+				        <h4 class="modal-title">임시저장글로 저장합니다.</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <div class="modal-body">
+				        <h5>주의! 해시태그와 사진은 저장되지 않습니다.</h5>
+						<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요.</p>
+				      </div>
+				
+				      <div class="modal-footer">
+					      <button type="button" id="unrecipe-enrolling-btn" class="btn btn-primary">저장하기</button>
+					      <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!-- 임시작성글 3개 이상 시 모달 -->
+				<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
+				 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
+				  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
+				<div class="modal" id="unrecipe-unavailable-modal">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				
+				      <div class="modal-header">
+				        <h4 class="modal-title">임시저장은 3개까지만 가능합니다!</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+				
+				      <div class="modal-body">
+				        <h5>기존 임시저장글을 지운 후 이 글을 저장합니다.</h5>
+						<p>아래 목록에서 지울 대상을 선택하세요.</p>
+						<p>주의! 해시태그와 사진은 저장되지 않습니다.</p>
+		
+				      </div>
+				
+				      <div class="modal-content">
+				      </div>
+				      <div class="modal-footer">
+					      <button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
+					      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
 				
 			</div>
+			<div align="center">
 			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
 			<button type="button" id="recipe-resetting-btn">초기화</button>
-			
+			</div>
 		</form>
 	</div>
 	<% } %>
 	
-	<% if(uList.size() < 3) { %>
-					<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
-					<!-- 임시작성글 모달 -->
-					<div class="modal" id="unrecipe-modal">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
 					
-					      <div class="modal-header">
-					        <h4 class="modal-title">임시저장글로 저장합니다</h4>
-					        <button type="button" class="close" data-dismiss="modal">&times;</button>
-					      </div>
-					
-					      <div class="modal-body">
-					        <h5>주의! 해시태그와 사진은 저장되지 않습니다</h5>
-							<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요</p>
-					      </div>
-					
-					      <div class="modal-footer">
-						      <button type="button" id="unrecipe-enrolling-btn" class="btn btn-primary">저장하기</button>
-						      <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				<% } else { %>
-					<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
-					 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
-					  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
-					<!-- 임시작성글 3개 이상 시 모달 -->
-					<div class="modal" id="unrecipe-unavailable-modal">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					
-					      <div class="modal-header">
-					        <h4 class="modal-title">Modal Heading</h4>
-					        <button type="button" class="close" data-dismiss="modal">&times;</button>
-					      </div>
-					
-					      <div class="modal-body">
-					        Modal body..
-			
-					      </div>
-					
-					      <div class="modal-footer">
-					      </div>
-					      <div class="modal-footer">
-						      <button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
-						      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-				<% } %>
 	
 	
 	
@@ -275,12 +330,8 @@
 	function unrecipeModalRequest(e) {
 		<% if(uList.size() < 3) { %>
 			e.dataset.target = '#unrecipe-modal';
-			//console.log(e);
-			//console.log(e.dataset.target);
 		<% } else { %>
 			e.dataset.target = '#unrecipe-unavailable-modal';
-			console.log(e);
-			console.log(e.dataset.target);
 		<% } %>
 	}
 	
@@ -294,8 +345,6 @@
 			$('#recipe-resetting-btn').click(function(){
 				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/reset').submit();
 			});
-			
-			
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-enrolling-btn').click(function(){
