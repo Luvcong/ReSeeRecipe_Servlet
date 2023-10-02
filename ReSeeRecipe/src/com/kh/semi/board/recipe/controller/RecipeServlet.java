@@ -39,7 +39,7 @@ public class RecipeServlet extends HttpServlet {
 		// uri 매핑문자열 추출
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		
+		System.out.println(mapping);
 		// Controller로 분배
 		switch(mapping) {
 			/* 홈페이지 메인 -> 레시피화면 메인으로 */
@@ -66,13 +66,12 @@ public class RecipeServlet extends HttpServlet {
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
 			//case "searchKeyWord" : System.out.println(mapping); break;
 			
-			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다");
-			
+			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다"); break;
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
 		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
-		//else 	 { response.sendRedirect(viewPath); }
+		else 	 { response.sendRedirect(viewPath); }
 	
 	
 	

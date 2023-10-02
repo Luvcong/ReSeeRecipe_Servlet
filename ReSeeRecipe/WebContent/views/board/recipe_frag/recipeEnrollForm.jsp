@@ -9,18 +9,54 @@
 			     com.kh.semi.board.unsaved_recipe.model.vo.*,
 			     com.kh.semi.board.board_common.model.vo.*,
 			     com.kh.semi.member.model.vo.Member" %>
-<%
+<%	
+	
+
+	// 메인경로	
+	String recipeEnrollFormPath = request.getContextPath();
+	
+	// 로그인한 회원
+	
+	Member recipeEnrollFormMember = (Member)session.getAttribute("loginMember");
+	
+	ArrayList<UnRecipe> uList = null;
+	int memNoChecked = (int)request.getAttribute("memNoChecked");
+	HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
+	ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
+	ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
+	if(enMap.containsKey("uList")) {
+		uList = (ArrayList<UnRecipe>)enMap.get("uList");
+	}
+	
+
+
+	//"rMainVwCon", "enrollForm"
+	/*
+	String rMainVwCon = (String)request.getAttribute("rMainVwCon");
+
+	switch(rMainVwCon) {
+		case "enrollForm" :
+			HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
+			ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
+			ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
+			if(enMap.containsKey("uList")) {
+				ArrayList<UnRecipe> uList = (ArrayList<UnRecipe>)enMap.get("uList");
+			}
+			int memNoChecked = (int)request.getAttribute("memNoChecked");
+			break;
+	
+	}
+	*/
 	//recipeEnrollForm용 카테고리, 계량단위 정보
-	//HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
-	//ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
-	//ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
+	
 	
 	////////// 임시저장글 번호, 제목도 같이 가져왔어야함
-	//if(enMap.containsKey("uList")) {
-	//	ArrayList<UnRecipe> uList = (ArrayList<UnRecipe>)enMap.get("uList");
-	//}
 	
 	
+	// 더블체크용 멤버넘버
+	
+	
+	/*
 	ArrayList<UnRecipe> uList = new ArrayList();	
 	UnRecipe un1 = new UnRecipe();
 	un1.setUnRecipeNo(1);
@@ -41,12 +77,13 @@
 	cList.add(new RecipeCategory(3, "중식"));
 	cList.add(new RecipeCategory(4, "일식"));
 	
-	Member loginMember = new Member();
-	loginMember.setMemId("user01");
-	loginMember.setMemPwd("pass01");
+	Member loginMember1 = new Member();
+	loginMember1.setMemId("user01");
+	loginMember1.setMemPwd("pass01");
 	// 메인경로	contextPath
-	String contextPath = request.getContextPath();
+	String contextPath1 = request.getContextPath();
 	// 로그인한 회원 loginMember
+	*/
 %>
 
 <!DOCTYPE html>
@@ -233,10 +270,10 @@
 		: 미리보기만 해주고 & 파일INPUT으로 알아서
 		-->
 	<!--<--%= contextPath %>/insertRecipe.re-->
-	<% if(loginMember != null) { %>
+	
 	<div id="recipe-enroll-form-wrap">
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
+			<input type="hidden" name="memNo" value="<%= recipeEnrollFormMember.getMemNo() %>">
 		
 			<!------------- 입력양식 폼 상단 바 영역 ------------->
 			<div id="recipe-enroll-bar-wrap">
@@ -255,7 +292,7 @@
 					</select>
 				</div>
 				
-				
+
 				<!-- 임시저장 버튼 -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
@@ -314,16 +351,69 @@
 				  </div>
 				</div>
 				
+
+				<!-- 레시피 글 작성 입력 양식 -->
+				<div>
+				
+					<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
+					<div id="cook-steps-basic-info" class="cook-steps-block">
+						<table>
+							<tr>
+								<td rowspan="5"></td><td>레시피제목입력</td>
+							</tr>
+							<tr><td>'셰프이름'출력</td></tr>
+							<tr><td>해시태그입력</td></tr>
+							<tr><td>'재료'출력</td><td>재료입력란</td></tr>
+							<tr><td>재료엔터치면요소생성</td></tr> <!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
+						</table>
+
+					</div>
+
+					<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
+					<div id="cook-steps-instruction" class="cook-steps-block">
+						<table>
+							<!-- 1 ~ 2번째 -->
+							<tr>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+							</tr>
+							<tr>
+								<td><input type="text" name="cookStepsTitle1" maxlength="30" required></td>
+								<td><input type="text" name="cookStepsTitle2" maxlength="30"></td>							
+							</tr>
+							<tr>
+								<td><textarea name="cookStepsContent1" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>									
+								<td><textarea name="cookStepsContent2" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
+							</tr>
+							<!-- 3 ~ 4 번째 -->
+							<tr>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+							</tr>
+							<tr>
+								<td><input type="text" name="cookStepsTitle3" maxlength="30"></td>
+								<td><input type="text" name="cookStepsTitle4" maxlength="30"></td>							
+							</tr>
+							<tr>
+								<td><textarea name="cookStepsContent3" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
+								<td><textarea name="cookStepsContent4" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>							
+							</tr>
+						</table>
+					</div>
+					
+
+				</div>
 				
 			</div>
+
+			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 			<div align="center">
 			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
 			<button type="button" id="recipe-resetting-btn">초기화</button>
 			</div>
 		</form>
 	</div>
-	<% } %>
-	
+
 					
 	
 	
@@ -331,39 +421,39 @@
 	
 	
 	<script>
-	// 임시저장 아이콘 클릭 시 모달창 설정
-	function unrecipeModalRequest(e) {
-		<% if(uList.size() < 3) { %>
-			e.dataset.target = '#unrecipe-modal';
-		<% } else { %>
-			e.dataset.target = '#unrecipe-unavailable-modal';
-		<% } %>
-	}
+		// 임시저장 아이콘 클릭 시 모달창 설정
+		function unrecipeModalRequest(e) {
+			<% if(uList.size() < 3) { %>
+				e.dataset.target = '#unrecipe-modal';
+			<% } else { %>
+				e.dataset.target = '#unrecipe-unavailable-modal';
+			<% } %>
+		}
 	
 		$(function(){
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
 			$('#recipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/enroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/enroll').submit();
 			});
 			
 			// 레시피 글 초기화요청 form태그 reset
 			$('#recipe-resetting-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/reset').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/reset').submit();
 			});
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modalenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/modalenroll').submit();
 			});
 			
 			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-del-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modaldelandenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/modaldelandenroll').submit();
 			});
 
 		})
 	</script>
-
+	<% System.out.println("넌아니지"); %>
 
 </body>
 </html>

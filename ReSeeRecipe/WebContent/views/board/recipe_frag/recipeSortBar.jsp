@@ -4,14 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
-
 <%
-	////////////////지울부분
 	// 메인경로	
-	String contextPath = request.getContextPath();
+	String recipeSortBarPath = request.getContextPath();
+
 	// 로그인한 회원
-	Member loginMember = (Member)session.getAttribute("loginMember");
-	////////////////지울부분
+	Member recipeSortBarMember = (Member)session.getAttribute("loginMember");
 %>
 
 <!DOCTYPE html>
@@ -123,6 +121,11 @@
 		top : 17px;
 		right : 8px;
 	}
+	
+	/**********************************************/
+	div {
+		border: 1px solid black;
+	}
 </style>
 </head>
 <body>
@@ -130,7 +133,7 @@
 	<div id="recipe-sort-bar-wrap">
 	
 		<div id="recipe-sort-bar-img">
-			<img src="#"><!--아이콘 이미지 삽입필요-->
+			<img src=".."><!--아이콘 이미지 삽입필요-->
 		</div>
 		
 		<!-- 레시피 정렬 기준 -->
@@ -152,11 +155,13 @@
 		</div>
 		
 		<!-- 로그인 상태일 때만 글 작성 버튼 노출 -->
-		<% if(loginMember != null) { %>
+		<% if(recipeSortBarMember != null) { %>
+		
 			<div class="recipe-sort-bar-menu">
-				<form action="<%= contextPath %>/recipeEnrollForm.re" method="post">
-					<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
+				<form action="<%= recipeSortBarPath %>/recipeEnrollForm.re" method="post">
+					<input type="hidden" name="memNo" value="<%= recipeSortBarMember.getMemNo() %>">
 					<button type="submit">
+						
 						<h3 class="recipe-sort-by">글작성</h3>
 					</button>
 				</form>
@@ -178,12 +183,10 @@
 		$(function(){
 			$('.recipe-sort-by').click(function(){
 				const sortBy = $(this).siblings().val();
-				location.href = '<%= contextPath %>/' + sortBy + '.re';
+				location.href = '<%= recipeSortBarPath %>/' + sortBy + '.re';
 			})
 		})
 	</script>
-
-
 
 </body>
 </html>

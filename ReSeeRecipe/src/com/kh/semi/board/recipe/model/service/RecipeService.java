@@ -17,7 +17,7 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeService {
 	
 	
-	public HashMap<String, Object> recipeEnrollForm() {
+	public HashMap<String, Object> recipeEnrollForm(int memNo) {
 		
 		Connection conn = getConnection();
 		HashMap<String, Object> enMap = new HashMap();
@@ -25,7 +25,7 @@ public class RecipeService {
 		// 카테고리, 계량단위, 임시저장글(번호, 제목) 조회
 		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
 		ArrayList<IngredientMeasure> iList = new RecipeDao().selectIngredientMeasureList(conn);
-		ArrayList<UnRecipe> uList = new RecipeDao().selectUnRecipeForModal(conn);
+		ArrayList<UnRecipe> uList = new RecipeDao().selectUnRecipeForModal(conn, memNo);
 		
 		// 자원반납
 		close(conn);
