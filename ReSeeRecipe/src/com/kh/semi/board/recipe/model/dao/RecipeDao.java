@@ -128,18 +128,22 @@ public class RecipeDao {
 	
 	
 	
-	public ArrayList<UnRecipe> selectUnRecipeForModal(Connection conn) {
+	public ArrayList<UnRecipe> selectUnRecipeForModal(Connection conn, int memNo) {
 		
 		ArrayList<UnRecipe> uList = new ArrayList();
 		String sql = prop.getProperty("selectUnRecipeForModal");
 		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rset = pstmt.executeQuery()) {
-			while(rset.next()) {
-				UnRecipe ur = new UnRecipe();
-				ur.setUnRecipeNo(rset.getInt("UN_RECIPE_NO"));
-				ur.setUnRecipeTitle(rset.getString("UN_RECIPE_TITLE"));
-				uList.add(ur);
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, memNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				while(rset.next()) {
+					UnRecipe ur = new UnRecipe();
+					ur.setUnRecipeNo(rset.getInt("UN_RECIPE_NO"));
+					ur.setUnRecipeTitle(rset.getString("UN_RECIPE_TITLE"));
+					uList.add(ur);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

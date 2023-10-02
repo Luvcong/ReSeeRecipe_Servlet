@@ -21,12 +21,11 @@ public class RecipeController {
 		String viewPath = "";
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		System.out.println(memNo);
-		
-		
-		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm();
+		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm(memNo);
 		
 		if(!mapEnrollForm.isEmpty()) {
 			// map내용이  있을 때 viewPath
+			request.setAttribute("memNoChecked", memNo);
 			request.setAttribute("mapEnrollForm", mapEnrollForm);
 			request.setAttribute("rMainVwCon", "enrollForm");
 			viewPath = "/views/board/recipe/recipeMain.jsp";
