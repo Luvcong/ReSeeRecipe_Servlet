@@ -112,8 +112,20 @@
  	</entry>
  	
  	<entry key="selectNoticePic">
- 		
- 	
+ 		SELECT
+ 				 NOTICE_PIC_NO
+ 				,NOTICE_PIC_NAME_ORIGIN
+ 				,NOTICE_PIC_NAME_CHANGE
+ 				,NOTICE_PIC_PATH
+ 				,NOTICE_NO
+ 		  FROM		
+ 				TB_NOTICE_PIC
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 		   AND
+ 		   		NOTICE_STATUS = 'Y'		
+ 		   AND
+ 		   		NOTICE_PIC_STATUS = 'Y'
  	
  	</entry>
  	
@@ -121,9 +133,14 @@
  		UPDATE
  				TB_NOTICE_PIC
  		   SET
- 		   		
- 	
+ 		   		 NOTICE_PIC_NAME_ORIGIN = ?
+ 		   		,NOTICE_PIC_NAME_CHANGE = ?
+ 		   		,NOTICE_PIC_PATH = ?
+				,NOTICE_PIC_DATE = SYSDATE
+		 WHERE
+		 		NOTICE_PIC_NO = ? 	
  	</entry>
+ 	
  	<entry key="deleteNotice">
  		UPDATE
  				TB_NOTICE
@@ -134,5 +151,17 @@
  		 		NOTICE_NO = ?
  		   AND
  		   		NOTICE_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="deleteNoticePic">
+ 		UPDATE
+ 				TB_NOTICE_PIC
+ 		   SET
+ 		   		NOTICE_PIC_STATUS = 'N',
+ 				NOTICE_PIC_DATE = SYSDATE
+ 		 WHERE
+ 		 		NOTICE_PIC_NO = ?
+ 		   AND
+ 		   		NOTICE_PIC_STATUS = 'Y'
  	</entry>
 </properties>
