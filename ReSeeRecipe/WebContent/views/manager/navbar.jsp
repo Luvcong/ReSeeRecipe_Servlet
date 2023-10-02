@@ -64,7 +64,7 @@
 			<div class="nav-item">
 				<a href="#">주문 관리</a>
 			</div>
-			<div class="nav-item active">
+			<div class="nav-item">
 				<a href="#">문의 관리</a>
 			</div>
 			<div class="nav-item">
