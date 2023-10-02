@@ -167,7 +167,13 @@
 <header>
 	<div id="wrap_header">
 		<div id="header">
-		    <div id="header_1"></div>
+		    <div id="header_1">
+ 		       <% if(loginMember != null && loginMember.getMemGrade() == 4) { %>
+		              <a href="<%= contextPath %>/">
+		                  	관리자 페이지 
+		              </a>
+		       <% } %>
+		    </div>
 		    <div id="header_2">
 		        <a href="#">
 		            <img src="resources/img/Re see recipe 로고.png" alt="Reseerecipe메인">
