@@ -30,7 +30,7 @@ public class ManagerLoginController extends HttpServlet {
 		// 1) POST 인코딩
 		request.setCharacterEncoding("UTF-8");
 		// 2) 값 뽑기
-		request.getRequestDispatcher("views/manager/manager.jsp").forward(request, response);
+		request.getRequestDispatcher("views/manager/navbar.jsp").forward(request, response);
 	
 	
 	}
