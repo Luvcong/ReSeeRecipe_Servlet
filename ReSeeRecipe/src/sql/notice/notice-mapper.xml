@@ -26,15 +26,17 @@
  		INSERT
  		  INTO
  		  		TB_NOTICE
+ 		  		(
+ 		  		 NOTICE_NO
+ 		  		,NOTICE_TITLE
+ 		  		,NOTICE_CON
+ 		  		,NOTICE_WRITER
+ 		  		)
  		VALUES
  				(
  				SEQ_NOTICE.NEXTVAL
  				,?
  				,?
- 				,SYSDATE
- 				,SYSDATE
- 				,'Y'
- 				,0
  				,?
  				)
  	</entry>
