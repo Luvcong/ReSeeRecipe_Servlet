@@ -173,6 +173,7 @@
         </div>
   </div>
   
+  <!-- 쪽지답변 modal창 내부 값 -->
   <script>
 	function showDmRepliedModal() {
 		// table에 있는 tr요소 모두 선택해서 trs변수에 저장
@@ -189,28 +190,28 @@
 		}
 		
 		if(checked_tr == null){
-			alert('선택해주세요.');
+			alert('답변할 쪽지를 선택해주세요.');
 			return;
 		}
 		
 		let modal = document.getElementById('dmRepliedForm');
 		let modal_trs = modal.querySelectorAll('table tr');
 		
-		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;
-		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;
-		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;
-		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;
+		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디
+		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
+		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
+		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
 		
 		$('#dmRepliedForm').modal('show');
 	}
 	</script>
   
   
+  <!-- 컬럼 sort -->
   <script>
 	$(function() {
 		$('.table th').on('click', sortTable);
 	})
-	
 	
 	function sortTable(){
 		let idx = parseInt(this.getAttribute('data-idx'));
@@ -218,28 +219,76 @@
 		
 		let tbody = document.querySelector('.table tbody');
 		let rows = Array.from(tbody.children);
-		rows.sort(function (a, b) {
-			let childA = a.children[idx];
-			let childB = b.children[idx];
+		let is_desc = false;
+		
+		// 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
+		let ths = document.querySelectorAll('.table th');
+		
+		for(let th of ths) {
+			let sort = th.children[0];
 
-			let tarA = childA.textContent;
-			let tarB = childB.textContent;
-			if(type == 'num')
-			{
-				tarA = parseInt(tarA);
-				tarB = parseInt(tarB);
+			// th요소가 현재 선택된 th인 경우
+			if(th == this){
+				// 내림차순인지 확인
+				is_desc = sort.classList.contains('desc');
+				
+				// 내림차순이면 오름차순으로 변경
+				if(is_desc){
+					sort.classList.remove('desc');
+					sort.classList.add('asc');
+				}
+				// 내림차순이 아니면 내림차순으로 변경
+				else{
+					sort.classList.remove('asc');
+					sort.classList.add('desc');
+				}
+			}	// if
+			
+			// 선택된 th 요소가 아닌경우 asc/desc 클래스를 모두 삭제 (화살표)
+			else {
+				sort.classList.remove('desc');
+				sort.classList.remove('asc');
 			}
-			if(tarA < tarB)
+		}	// for
+		
+		
+/* 		sort함수 참고 -- 삭제예정
+ 		rows.sort(function(a, b) {
+			if(a < b)
 				return -1;
 			
-			if(tarA > tarB)
+			if(a > b)
 				return 1;
 			
-			return 0;
+			if(a==0)
+				return 0;
+		}) */
+		
+		rows.sort(function (trA, trB) {
+			let txtA = trA.children[idx].textContent;
+			let txtB = trB.children[idx].textContent;
+			
+			if(type == 'num')
+			{
+				txtA = parseInt(txtA);
+				txtB = parseInt(txtB);
+			} 
+			
+			if(txtA < txtB){
+				return is_desc ? -1 : 1;
+			}
+			else if(txtA > txtB){
+				return is_desc ? 1 : -1;
+			}
+			else {
+				return 0;
+			}
 		});
 		
+		for(let tr of rows){
+			tbody.append(tr);
+		}
 		
-		tbody.appendChild(rows);
 	}
 </script>
 </body>
