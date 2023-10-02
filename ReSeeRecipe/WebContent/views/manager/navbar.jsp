@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자화면 틀</title>
+<title>관리자화면 네비바</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -12,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- css파일 따로 뺴서 link -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/manager.css">
+<link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
 
 </head>
 
@@ -30,7 +33,7 @@
                 <a href="#">회원 관리</a></div>
             <div class="nav-item">
                 <a href="#">주문 관리</a></div>
-            <div class="nav-item active">
+            <div class="nav-item">
                 <a href="#">문의 관리</a></div>
             <div class="nav-item">
                 <a href="#">메뉴 관리</a></div>

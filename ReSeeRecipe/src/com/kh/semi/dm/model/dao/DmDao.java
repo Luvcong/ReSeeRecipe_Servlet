@@ -31,10 +31,13 @@ public class DmDao {
 		
 	}	// DmDao
 	
-	
+
 	/**
-	 * Service에서 요청받은 쪽지함 리스트 조회를 처리해주는 method
-	 * @return list
+	 * 쪽지함 리스트 조회를 처리해주는 method
+	 * @param conn
+	 * @return 쪽지리스트 전체 내용
+	 * @author JH
+	 * @Date : 2023. 09. 30.
 	 */
 	public ArrayList<Dm> selectDmList(Connection conn){
 		
