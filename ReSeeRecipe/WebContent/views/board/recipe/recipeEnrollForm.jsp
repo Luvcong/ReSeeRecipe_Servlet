@@ -5,83 +5,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
-			     com.kh.semi.board.recipe.model.vo.*,
-			     com.kh.semi.board.unsaved_recipe.model.vo.*,
-			     com.kh.semi.board.board_common.model.vo.*,
-			     com.kh.semi.member.model.vo.Member" %>
+			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
+			     com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe,
+			     com.kh.semi.board.board_common.model.vo.IngredientMeasure" %>
 <%	
-	// 메인경로	
-	String recipeEnrollFormPath = request.getContextPath();
-	
-	// 로그인한 회원
-	
-	Member recipeEnrollFormMember = (Member)session.getAttribute("loginMember");
-	
-	ArrayList<UnRecipe> uList = null;
-	int memNoChecked = (int)request.getAttribute("memNoChecked");
+	ArrayList<UnRecipe> uList = new ArrayList();
 	HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
 	ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
 	ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
 	if(enMap.containsKey("uList")) {
 		uList = (ArrayList<UnRecipe>)enMap.get("uList");
 	}
-	
-
-
-	//"rMainVwCon", "enrollForm"
-	/*
-	String rMainVwCon = (String)request.getAttribute("rMainVwCon");
-
-	switch(rMainVwCon) {
-		case "enrollForm" :
-			HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
-			ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
-			ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
-			if(enMap.containsKey("uList")) {
-				ArrayList<UnRecipe> uList = (ArrayList<UnRecipe>)enMap.get("uList");
-			}
-			int memNoChecked = (int)request.getAttribute("memNoChecked");
-			break;
-	
-	}
-	*/
-	//recipeEnrollForm용 카테고리, 계량단위 정보
-	
-	
-	////////// 임시저장글 번호, 제목도 같이 가져왔어야함
-	
-	
-	// 더블체크용 멤버넘버
-	
-	
-	/*
-	ArrayList<UnRecipe> uList = new ArrayList();	
-	UnRecipe un1 = new UnRecipe();
-	un1.setUnRecipeNo(1);
-	un1.setUnRecipeTitle("1번임시글");
-	UnRecipe un2 = new UnRecipe();
-	un2.setUnRecipeNo(2);
-	un2.setUnRecipeTitle("2번임시글");
-	UnRecipe un3 = new UnRecipe();
-	un3.setUnRecipeNo(3);
-	un3.setUnRecipeTitle("3번임시글");
-	uList.add(un1);
-	uList.add(un2);
-	uList.add(un3);
-	
-	ArrayList<RecipeCategory> cList = new ArrayList();
-	cList.add(new RecipeCategory(1, "한식"));
-	cList.add(new RecipeCategory(2, "양식"));
-	cList.add(new RecipeCategory(3, "중식"));
-	cList.add(new RecipeCategory(4, "일식"));
-	
-	Member loginMember1 = new Member();
-	loginMember1.setMemId("user01");
-	loginMember1.setMemPwd("pass01");
-	// 메인경로	contextPath
-	String contextPath1 = request.getContextPath();
-	// 로그인한 회원 loginMember
-	*/
 %>
 
 <!DOCTYPE html>
@@ -255,11 +189,8 @@
 </head>
 <body>
 
-
-
-	<%@ include file="/views/common/header.jspf" %>
-	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
+	
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
 		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
@@ -277,7 +208,7 @@
 	
 	<div id="recipe-enroll-form-wrap">
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memNo" value="<%= recipeEnrollFormMember.getMemNo() %>">
+			<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
 		
 			<!------------- 입력양식 폼 상단 바 영역 ------------->
 			<div id="recipe-enroll-bar-wrap">
@@ -413,7 +344,7 @@
 			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 			<div align="center">
 			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
-			<button type="button" id="recipe-resetting-btn">초기화</button>
+			<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
 			</div>
 		</form>
 	</div>
@@ -433,31 +364,29 @@
 				e.dataset.target = '#unrecipe-unavailable-modal';
 			<% } %>
 		}
-	
+		// 레시피 글 초기화요청 form태그 reset
+		function confirmReset() {
+			return confirm("입력한 정보를 초기화하시겠습니까?");
+		});
+		
 		$(function(){
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
 			$('#recipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/enroll').submit();
-			});
-			
-			// 레시피 글 초기화요청 form태그 reset
-			$('#recipe-resetting-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/reset').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
 			});
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/modalenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modalenroll').submit();
 			});
 			
 			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-del-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= recipeEnrollFormPath %>/modaldelandenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modaldelandenroll').submit();
 			});
 
 		})
 	</script>
-	<% System.out.println("넌아니지"); %>
 
 </body>
 </html>
