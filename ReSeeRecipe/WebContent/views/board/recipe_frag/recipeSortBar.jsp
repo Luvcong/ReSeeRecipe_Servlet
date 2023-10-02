@@ -5,6 +5,15 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
 
+<%
+	////////////////지울부분
+	// 메인경로	
+	String contextPath = request.getContextPath();
+	// 로그인한 회원
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	////////////////지울부분
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +75,15 @@
 	/* 정렬기준 + 글쓰기 div 블록 세팅 */
 	div[class='recipe-sort-bar-menu'] {
 		width: 15%;
+	}
+	
+	/* 글쓰기 버튼 세팅 */
+	.recipe-sort-bar-menu > form > input + button {
+		width: 100%;
+		height: 100%;
+		border: 0px;
+		padding: 0px;
+		background-color: transparent;
 	}
 
 	/* 검색 div 블록 세팅 */
@@ -136,18 +154,22 @@
 		<!-- 로그인 상태일 때만 글 작성 버튼 노출 -->
 		<% if(loginMember != null) { %>
 			<div class="recipe-sort-bar-menu">
-				<input type="hidden" value="recipeEnrollForm">
-				<h3 class="recipe-sort-by">글작성</h3>
+				<form action="<%= contextPath %>/recipeEnrollForm.re" method="post">
+					<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
+					<button type="submit">
+						<h3 class="recipe-sort-by">글작성</h3>
+					</button>
+				</form>
 			</div>
 		<% } %>
 		
 		<!-- 레시피 키워드 검색창 -->
 		<div id="recipe-search-area">
-				<form action="searchKeyWord.re" method="get">
-					<input type="hidden" value="recipeSearch">
-					<input type="search" id="recipe-keyword-search-box" name="searchKeyWord" placeholder="     제목 / 작성자 검색">
-					<button type="submit" id="recipe-keyword-search-btn" class="fa fa-search btn"></button>
-				</form>
+			<form action="searchKeyWord.re" method="get">
+				<input type="hidden" value="recipeSearch">
+				<input type="search" id="recipe-keyword-search-box" name="searchKeyWord" placeholder="     제목 / 작성자 검색">
+				<button type="submit" id="recipe-keyword-search-btn" class="fa fa-search btn"></button>
+			</form>
 		</div>
 	</div>
 	

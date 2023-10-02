@@ -19,6 +19,9 @@ public class RecipeController {
 		
 
 		String viewPath = "";
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		System.out.println(memNo);
+		
 		
 		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm();
 		

@@ -11,11 +11,16 @@
 			     com.kh.semi.member.model.vo.Member" %>
 <%
 	//recipeEnrollForm용 카테고리, 계량단위 정보
-	//HashMap<String, Object> mapEnrollForm = (HashMap)request.getAttribute("mapEnrollForm");
-	//ArrayList<RecipeCategory> cList = (ArrayList)mapEnrollForm.get("cList");
-	//ArrayList<IngredientMeasure> iList = (ArrayList)mapEnrollForm.get("iList");
+	//HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
+	//ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
+	//ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
 	
 	////////// 임시저장글 번호, 제목도 같이 가져왔어야함
+	//if(enMap.containsKey("uList")) {
+	//	ArrayList<UnRecipe> uList = (ArrayList<UnRecipe>)enMap.get("uList");
+	//}
+	
+	
 	ArrayList<UnRecipe> uList = new ArrayList();	
 	UnRecipe un1 = new UnRecipe();
 	un1.setUnRecipeNo(1);

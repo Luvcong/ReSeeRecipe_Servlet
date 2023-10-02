@@ -11,6 +11,7 @@ import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
@@ -19,21 +20,25 @@ public class RecipeService {
 	public HashMap<String, Object> recipeEnrollForm() {
 		
 		Connection conn = getConnection();
-		HashMap<String, Object> map = new HashMap();
+		HashMap<String, Object> enMap = new HashMap();
 		
-		// 카테고리, 계량단위, 임시저장글 개수 조회
+		// 카테고리, 계량단위, 임시저장글(번호, 제목) 조회
 		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
 		ArrayList<IngredientMeasure> iList = new RecipeDao().selectIngredientMeasureList(conn);
+		ArrayList<UnRecipe> uList = new RecipeDao().selectUnRecipeForModal(conn);
 		
 		// 자원반납
 		close(conn);
 		
 		// map에 담기
 		if(!cList.isEmpty() && !iList.isEmpty()) {
-			map.put("cList", cList);
-			map.put("iList", iList);
+			enMap.put("cList", cList);
+			enMap.put("iList", iList);
+			if(!uList.isEmpty()) {
+				enMap.put("uList", uList);
+			}
 		}
-		return map;
+		return enMap;
 	}
 	
 	

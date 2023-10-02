@@ -31,7 +31,7 @@ public class MemberDao {
 	// 로그인시 로그인 한 유저 DB정보 가져오기
 	public Member loginMember(Connection conn, String memberId, String memberPwd) {
 		
-		Member m = new Member();
+		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("loginMember");

@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeDao {
@@ -19,7 +20,7 @@ public class RecipeDao {
 	private Properties prop = new Properties();
 	
 	public RecipeDao() {
-		String filePath = RecipeDao.class.getResource("/sql/board/recipe/recipe-mapper.xml").getPath();
+		String filePath = RecipeDao.class.getResource("/sql/board/board-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
@@ -71,12 +72,6 @@ public class RecipeDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	public int selectRecipeListCount(Connection conn) {
 		
 		int listCount = 0;
@@ -120,6 +115,44 @@ public class RecipeDao {
 		}
 		return list;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public ArrayList<UnRecipe> selectUnRecipeForModal(Connection conn) {
+		
+		ArrayList<UnRecipe> uList = new ArrayList();
+		String sql = prop.getProperty("selectUnRecipeForModal");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rset = pstmt.executeQuery()) {
+			while(rset.next()) {
+				UnRecipe ur = new UnRecipe();
+				ur.setUnRecipeNo(rset.getInt("UN_RECIPE_NO"));
+				ur.setUnRecipeTitle(rset.getString("UN_RECIPE_TITLE"));
+				uList.add(ur);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return uList;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
