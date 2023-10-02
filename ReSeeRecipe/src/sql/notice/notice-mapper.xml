@@ -21,4 +21,19 @@
 		    BY
 		    	NOTICE_DATE DESC
  	</entry>
+ 	
+ 	<entry key="insertNotice">
+ 		INSERT
+ 		  INTO
+ 		  		TB_NOTICE
+ 		VALUES
+ 				(
+ 				
+ 				
+ 				
+ 				)
+ 	
+ 	
+ 	
+ 	</entry>
 </properties>
