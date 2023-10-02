@@ -28,12 +28,14 @@
  		  		TB_NOTICE
  		VALUES
  				(
- 				
- 				
- 				
+ 				SEQ_NOTICE.NEXTVAL
+ 				,?
+ 				,?
+ 				,SYSDATE
+ 				,SYSDATE
+ 				,'Y'
+ 				,0
+ 				,?
  				)
- 	
- 	
- 	
  	</entry>
 </properties>
