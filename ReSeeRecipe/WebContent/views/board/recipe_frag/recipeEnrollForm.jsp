@@ -28,7 +28,7 @@
 	un3.setUnRecipeTitle("3번임시글");
 	uList.add(un1);
 	uList.add(un2);
-	//uList.add(un3);
+	uList.add(un3);
 	
 	ArrayList<RecipeCategory> cList = new ArrayList();
 	cList.add(new RecipeCategory(1, "한식"));
@@ -200,7 +200,7 @@
 				
 				<!-- 임시저장 버튼 -->
 				<div id="unrecipe-modal-request-div">
-					<button type="button" id="unrecipe-modal-request-btn" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
+					<button type="button" onclick="unrecipeModalRequest(this);" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
 				</div>
 				
 				
@@ -271,26 +271,40 @@
 	
 	
 	<script>
+	// 임시저장 아이콘 클릭 시 모달창 설정
+	function unrecipeModalRequest(e) {
+		<% if(uList.size() < 3) { %>
+			e.dataset.target = '#unrecipe-modal';
+			//console.log(e);
+			//console.log(e.dataset.target);
+		<% } else { %>
+			e.dataset.target = '#unrecipe-unavailable-modal';
+			console.log(e);
+			console.log(e.dataset.target);
+		<% } %>
+	}
+	
 		$(function(){
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
 			$('#recipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/aaa').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/enroll').submit();
 			});
 			
 			// 레시피 글 초기화요청 form태그 reset
 			$('#recipe-resetting-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/aaa').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/reset').submit();
 			});
+			
 			
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/bbb').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modalenroll').submit();
 			});
 			
 			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-del-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/ccc').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modaldelandenroll').submit();
 			});
 
 		})
