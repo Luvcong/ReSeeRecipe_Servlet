@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
 	pageEncoding="UTF-8"%>
+=======
+    pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>        
+>>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자화면 틀</title>
+<title>관리자화면 네비바</title>
 
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
@@ -16,6 +23,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- css파일 따로 뺴서 link -->
+<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/manager.css">
 
@@ -28,6 +36,9 @@
 	display: none;
 }
 </style>
+=======
+<link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
+>>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
 
 </head>
 
@@ -37,6 +48,7 @@
 	<!-- 관리자메뉴 title 상단 -->
 	<div class="rs-title">관리자 메뉴</div>
 
+<<<<<<< HEAD:ReSeeRecipe/WebContent/views/manager/manager.jsp
 	<!-- 카테고리 리스트 -->
 	<div class="rs-main">
 		<div class="rs-navbar">
@@ -79,6 +91,28 @@
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
+=======
+    <!-- 카테고리 리스트 -->
+    <div class="rs-main">
+        <div class="rs-navbar">
+            <div class="nav-item">
+                <a href="#">게시판 관리</a></div>
+            <div class="nav-item">
+                <a href="#">회원 관리</a></div>
+            <div class="nav-item">
+                <a href="#">주문 관리</a></div>
+            <div class="nav-item">
+                <a href="#">문의 관리</a></div>
+            <div class="nav-item">
+                <a href="#">메뉴 관리</a></div>
+            <div class="nav-item">
+                <a href="#">리워드 관리</a></div>
+            <div class="nav-item">
+                <a href="#">쿠폰 관리</a></div>
+        </div>
+    <!-- rs-content추가 -->
+    </div>  <!-- rs-main -->
+>>>>>>> 5ab6a8648967725588603a07959b7739691bed44:ReSeeRecipe/WebContent/views/manager/navbar.jsp
 
 </body>
 

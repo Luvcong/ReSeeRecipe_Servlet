@@ -20,18 +20,16 @@ public class RecipeController {
 
 		String viewPath = "";
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		System.out.println(memNo);
-		
-		
-		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm();
+		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm(memNo);
 		
 		if(!mapEnrollForm.isEmpty()) {
 			// map내용이  있을 때 viewPath
 			request.setAttribute("mapEnrollForm", mapEnrollForm);
-			request.setAttribute("rMainVwCon", "enrollForm");
-			viewPath = "/views/board/recipe/recipeMain.jsp";
+			viewPath = "/views/board/recipe/recipeEnrollForm.jsp";
 		} else {
 			// map내용이 없을 때 viewPath
+			request.setAttribute("errorMsg", "게시글 입력요청 실패");
+			viewPath = "/views/common/errorPage.jsp";
 		}
 		
 		return viewPath;
@@ -42,9 +40,16 @@ public class RecipeController {
 	
 	
 	
-	public String selectRecipeListLt(HttpServletRequest request, HttpServletResponse response) {
+	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
+		// 레시피 전체 리스트 조회
+		// 값뽑기
+		// 데이터가공
+		// 서비스호출
+		// 응답화면지정
+		
+		
 		
 		// 페이징 관련 설정
 		int listCount = new RecipeService().selectRecipeListCount();
@@ -54,22 +59,11 @@ public class RecipeController {
 		// 레시피 게시글 조회 (페이징적용)
 		ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
 		
-		
+		viewPath = "/views/board/recipe/recipeMain.jsp";
 		
 		
 		return viewPath;
 	}
-	
-	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
-		// 레시피 전체 리스트 조회
-		// 값뽑기
-		// 데이터가공
-		// 서비스호출
-		// 응답화면지정
-		String viewPath = "";
-		return viewPath;
-	}
-	
 	
 	
 	

@@ -5,15 +5,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
 
-<%
-	////////////////지울부분
-	// 메인경로	
-	String contextPath = request.getContextPath();
-	// 로그인한 회원
-	Member loginMember = (Member)session.getAttribute("loginMember");
-	////////////////지울부분
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,14 +114,22 @@
 		top : 17px;
 		right : 8px;
 	}
+	
+	/**********************************************/
+	div {
+		border: 1px solid black;
+	}
 </style>
 </head>
 <body>
 
+	<%@ include file="/views/common/header.jspf" %>
+	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
+	
 	<div id="recipe-sort-bar-wrap">
 	
 		<div id="recipe-sort-bar-img">
-			<img src="#"><!--아이콘 이미지 삽입필요-->
+			<img src=".."><!--아이콘 이미지 삽입필요-->
 		</div>
 		
 		<!-- 레시피 정렬 기준 -->
@@ -182,8 +181,6 @@
 			})
 		})
 	</script>
-
-
 
 </body>
 </html>

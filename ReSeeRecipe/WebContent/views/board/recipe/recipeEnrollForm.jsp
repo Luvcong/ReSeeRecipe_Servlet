@@ -5,48 +5,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
-			     com.kh.semi.board.recipe.model.vo.*,
-			     com.kh.semi.board.unsaved_recipe.model.vo.*,
-			     com.kh.semi.board.board_common.model.vo.*,
-			     com.kh.semi.member.model.vo.Member" %>
-<%
-	//recipeEnrollForm용 카테고리, 계량단위 정보
-	//HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
-	//ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
-	//ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
-	
-	////////// 임시저장글 번호, 제목도 같이 가져왔어야함
-	//if(enMap.containsKey("uList")) {
-	//	ArrayList<UnRecipe> uList = (ArrayList<UnRecipe>)enMap.get("uList");
-	//}
-	
-	
-	ArrayList<UnRecipe> uList = new ArrayList();	
-	UnRecipe un1 = new UnRecipe();
-	un1.setUnRecipeNo(1);
-	un1.setUnRecipeTitle("1번임시글");
-	UnRecipe un2 = new UnRecipe();
-	un2.setUnRecipeNo(2);
-	un2.setUnRecipeTitle("2번임시글");
-	UnRecipe un3 = new UnRecipe();
-	un3.setUnRecipeNo(3);
-	un3.setUnRecipeTitle("3번임시글");
-	uList.add(un1);
-	uList.add(un2);
-	uList.add(un3);
-	
-	ArrayList<RecipeCategory> cList = new ArrayList();
-	cList.add(new RecipeCategory(1, "한식"));
-	cList.add(new RecipeCategory(2, "양식"));
-	cList.add(new RecipeCategory(3, "중식"));
-	cList.add(new RecipeCategory(4, "일식"));
-	
-	Member loginMember = new Member();
-	loginMember.setMemId("user01");
-	loginMember.setMemPwd("pass01");
-	// 메인경로	contextPath
-	String contextPath = request.getContextPath();
-	// 로그인한 회원 loginMember
+			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
+			     com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe,
+			     com.kh.semi.board.board_common.model.vo.IngredientMeasure" %>
+<%	
+	ArrayList<UnRecipe> uList = new ArrayList();
+	HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
+	ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
+	ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
+	if(enMap.containsKey("uList")) {
+		uList = (ArrayList<UnRecipe>)enMap.get("uList");
+	}
 %>
 
 <!DOCTYPE html>
@@ -219,6 +188,9 @@
 
 </head>
 <body>
+
+	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
+	
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
 		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
@@ -233,7 +205,7 @@
 		: 미리보기만 해주고 & 파일INPUT으로 알아서
 		-->
 	<!--<--%= contextPath %>/insertRecipe.re-->
-	<% if(loginMember != null) { %>
+	
 	<div id="recipe-enroll-form-wrap">
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
@@ -255,7 +227,7 @@
 					</select>
 				</div>
 				
-				
+
 				<!-- 임시저장 버튼 -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
@@ -314,16 +286,69 @@
 				  </div>
 				</div>
 				
+
+				<!-- 레시피 글 작성 입력 양식 -->
+				<div>
+				
+					<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
+					<div id="cook-steps-basic-info" class="cook-steps-block">
+						<table>
+							<tr>
+								<td rowspan="5"></td><td>레시피제목입력</td>
+							</tr>
+							<tr><td>'셰프이름'출력</td></tr>
+							<tr><td>해시태그입력</td></tr>
+							<tr><td>'재료'출력</td><td>재료입력란</td></tr>
+							<tr><td>재료엔터치면요소생성</td></tr> <!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
+						</table>
+
+					</div>
+
+					<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
+					<div id="cook-steps-instruction" class="cook-steps-block">
+						<table>
+							<!-- 1 ~ 2번째 -->
+							<tr>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+							</tr>
+							<tr>
+								<td><input type="text" name="cookStepsTitle1" maxlength="30" required></td>
+								<td><input type="text" name="cookStepsTitle2" maxlength="30"></td>							
+							</tr>
+							<tr>
+								<td><textarea name="cookStepsContent1" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>									
+								<td><textarea name="cookStepsContent2" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
+							</tr>
+							<!-- 3 ~ 4 번째 -->
+							<tr>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+							</tr>
+							<tr>
+								<td><input type="text" name="cookStepsTitle3" maxlength="30"></td>
+								<td><input type="text" name="cookStepsTitle4" maxlength="30"></td>							
+							</tr>
+							<tr>
+								<td><textarea name="cookStepsContent3" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
+								<td><textarea name="cookStepsContent4" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>							
+							</tr>
+						</table>
+					</div>
+					
+
+				</div>
 				
 			</div>
+
+			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 			<div align="center">
 			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
-			<button type="button" id="recipe-resetting-btn">초기화</button>
+			<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
 			</div>
 		</form>
 	</div>
-	<% } %>
-	
+
 					
 	
 	
@@ -331,24 +356,23 @@
 	
 	
 	<script>
-	// 임시저장 아이콘 클릭 시 모달창 설정
-	function unrecipeModalRequest(e) {
-		<% if(uList.size() < 3) { %>
-			e.dataset.target = '#unrecipe-modal';
-		<% } else { %>
-			e.dataset.target = '#unrecipe-unavailable-modal';
-		<% } %>
-	}
-	
+		// 임시저장 아이콘 클릭 시 모달창 설정
+		function unrecipeModalRequest(e) {
+			<% if(uList.size() < 3) { %>
+				e.dataset.target = '#unrecipe-modal';
+			<% } else { %>
+				e.dataset.target = '#unrecipe-unavailable-modal';
+			<% } %>
+		}
+		// 레시피 글 초기화요청 form태그 reset
+		function confirmReset() {
+			return confirm("입력한 정보를 초기화하시겠습니까?");
+		});
+		
 		$(function(){
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
 			$('#recipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/enroll').submit();
-			});
-			
-			// 레시피 글 초기화요청 form태그 reset
-			$('#recipe-resetting-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/reset').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
 			});
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
@@ -363,7 +387,6 @@
 
 		})
 	</script>
-
 
 </body>
 </html>
