@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<comment>공지사항 관련 SQL문</comment>
+	<comment>공지사항 사진관련 SQL문</comment>
 
  	<entry key="selectNoticeList">
 		SELECT
@@ -20,15 +20,6 @@
 		 ORDER
 		    BY
 		    	NOTICE_DATE DESC
- 	</entry>
- 	
- 	<entry key="selectNoticeListCount">
-		SELECT
-				COUNT(*)
-		  FROM		 	
- 				TB_NOTICE]
- 		 WHERE
- 		 		NOTICE_STATUS = 'Y'
  	</entry>
  	
  	<entry key="increaseCount">
@@ -77,27 +68,6 @@
  				NOTICE_NO = ?
  	</entry>
  	
- 	<entry key="insertNoticePic">
-		INSERT
-		  INTO
-		  		TB_NOTICE_PIC
-		  		(
-		  		 NOTICE_PIC_NO
-		  		,NOTICE_PIC_NAME_ORIGIN
-		  		,NOTICE_PIC_NAME_CHANGE
-		  		,NOTICE_PIC_PATH
-		  		,NOTICE_NO
-		  		)
-		VALUES
-				(
-				 SEQ_NOTICE_PIC.NEXTVAL
-				,? 
-				,?
-				,?
-				,?
-				)		  		 	
- 	</entry>
- 	
  	<entry key="updateNotice">
  		UPDATE
  				TB_NOTICE
@@ -111,19 +81,6 @@
  	       		NOTICE_STATUS = 'Y'
  	</entry>
  	
- 	<entry key="selectNoticePic">
- 		
- 	
- 	
- 	</entry>
- 	
- 	<entry key="updateNoticePic">
- 		UPDATE
- 				TB_NOTICE_PIC
- 		   SET
- 		   		
- 	
- 	</entry>
  	<entry key="deleteNotice">
  		UPDATE
  				TB_NOTICE
