@@ -205,11 +205,13 @@
 		: 미리보기만 해주고 & 파일INPUT으로 알아서
 		-->
 	<!--<--%= contextPath %>/insertRecipe.re-->
-	
+
 	<div id="recipe-enroll-form-wrap">
-		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
-		
+		<form action="#" id="recipe-enrolling-form" method="post"
+			enctype="multipart/form-data">
+			<input type="hidden" name="memNo"
+				value="<%=loginMember.getMemNo()%>">
+
 			<!------------- 입력양식 폼 상단 바 영역 ------------->
 			<div id="recipe-enroll-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
@@ -219,87 +221,111 @@
 				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
 					<h3>카테고리 선택</h3>
 					<select name="recipeCategoryNo">
-						<% for(int i = 0; i < cList.size(); i++) { %>
-							<option value="<%= cList.get(i).getRecipeCategoryNo() %>">
-								<%= cList.get(i).getRecipeCategoryName() %>
+						<% for (int i = 0; i < cList.size(); i++) { %>
+							<option value="<%=cList.get(i).getRecipeCategoryNo()%>">
+								<%=cList.get(i).getRecipeCategoryName()%>
 							</option>
 						<% } %>
 					</select>
 				</div>
-				
+
 
 				<!-- 임시저장 버튼 -->
 				<div id="unrecipe-modal-request-div">
-					<button type="button" onclick="unrecipeModalRequest(this);" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
+					<button type="button" onclick="unrecipeModalRequest(this);"
+						class='fas fa-folder' data-toggle="modal" data-target="#">
+						<!--임시저장글개수-->
+					</button>
 				</div>
-				
-				<!-- 임시작성글 모달 -->
+
+				<!-- 임시작성글 모달 (if else는 script에서 처리) -->
 				<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
 				<div class="modal" id="unrecipe-modal">
-				  <div class="modal-dialog modal-lg">
-				    <div class="modal-content">
-				
-				      <div class="modal-header">
-				        <h4 class="modal-title">임시저장글로 저장합니다.</h4>
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				      </div>
-				
-				      <div class="modal-body">
-				        <h5>주의! 해시태그와 사진은 저장되지 않습니다.</h5>
-						<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요.</p>
-				      </div>
-				
-				      <div class="modal-footer">
-					      <button type="button" id="unrecipe-enrolling-btn" class="btn btn-primary">저장하기</button>
-					      <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-				      </div>
-				    </div>
-				  </div>
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">임시저장글로 저장합니다.</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<h5>주의! 해시태그와 사진은 저장되지 않습니다.</h5>
+								<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요.</p>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" id="unrecipe-enrolling-btn"
+									class="btn btn-primary">저장하기</button>
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">취소</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				<!-- 임시작성글 3개 이상 시 모달 -->
 				<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
 				 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
 				  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
 				<div class="modal" id="unrecipe-unavailable-modal">
-				  <div class="modal-dialog modal-lg">
-				    <div class="modal-content">
-				
-				      <div class="modal-header">
-				        <h4 class="modal-title">임시저장은 3개까지만 가능합니다!</h4>
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				      </div>
-				
-				      <div class="modal-body">
-				        <h5>기존 임시저장글을 지운 후 이 글을 저장합니다.</h5>
-						<p>아래 목록에서 지울 대상을 선택하세요.</p>
-						<p>주의! 해시태그와 사진은 저장되지 않습니다.</p>
-		
-				      </div>
-				
-				      <div class="modal-content">
-				      </div>
-				      <div class="modal-footer">
-					      <button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
-					      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
 
+							<div class="modal-header">
+								<h4 class="modal-title">임시저장은 3개까지만 가능합니다!</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<h5>기존 임시저장글을 지운 후 이 글을 저장합니다.</h5>
+								<p>아래 목록에서 지울 대상을 선택하세요.</p>
+								<p>주의! 해시태그와 사진은 저장되지 않습니다.</p>
+									<input type="radio" name="unRecipeDelNo" value="<%= uList.get(0).getUnRecipeTitle() %>" id="unRecipeDelNo1" checked>
+									<label for="unRecipeDelNo1"><%= uList.get(0).getUnRecipeTitle() %></label>
+									<% for (int i = 1; i < uList.size(); i++) { %>
+										<input type="radio" name="unRecipeDelNo" value="<%= uList.get(i).getUnRecipeNo() %>" id="unRecipeDelNo<%= i + 1 %>">
+										<label for="unRecipeDelNo<%= i + 1 %>"><%= uList.get(i).getUnRecipeTitle() %></label>
+									<% } %>
+							</div>
+	
+							<div class="modal-content"></div>
+							<div class="modal-footer">
+								<button type="button" id="unrecipe-del-enrolling-btn"
+									class="btn btn-primary">글작성</button>
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<!--------------------------------------------------------------->
 				<!-- 레시피 글 작성 입력 양식 -->
 				<div>
-				
+
 					<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 					<div id="cook-steps-basic-info" class="cook-steps-block">
 						<table>
 							<tr>
-								<td rowspan="5"></td><td>레시피제목입력</td>
+								<td rowspan="5"></td>
+								<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 							</tr>
-							<tr><td>'셰프이름'출력</td></tr>
-							<tr><td>해시태그입력</td></tr>
-							<tr><td>'재료'출력</td><td>재료입력란</td></tr>
-							<tr><td>재료엔터치면요소생성</td></tr> <!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
+							<tr>
+								<td><%= loginMember.getMemNickname() %> 셰프</td>
+							</tr>
+							<tr>
+								<td>해시태그입력</td>
+							</tr>
+							<tr>
+								<td>재료</td>
+								<td><input type="text"><></td>
+							</tr>
+							<tr>
+								<td id="">재료엔터치면요소생성</td>
+							</tr>
+							<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 						</table>
 
 					</div>
@@ -309,52 +335,66 @@
 						<table>
 							<!-- 1 ~ 2번째 -->
 							<tr>
-								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img
+									src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img
+									src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="cookStepsTitle1" maxlength="30" required></td>
-								<td><input type="text" name="cookStepsTitle2" maxlength="30"></td>							
+								<td><input type="text" name="cookStepsTitle1"
+									maxlength="30" required></td>
+								<td><input type="text" name="cookStepsTitle2"
+									maxlength="30"></td>
 							</tr>
 							<tr>
-								<td><textarea name="cookStepsContent1" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>									
-								<td><textarea name="cookStepsContent2" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
+								<td><textarea name="cookStepsContent1" id="" cols="30"
+										rows="10" maxlength="500" style="resize: none;"></textarea></td>
+								<td><textarea name="cookStepsContent2" id="" cols="30"
+										rows="10" maxlength="500" style="resize: none;"></textarea></td>
 							</tr>
 							<!-- 3 ~ 4 번째 -->
 							<tr>
-								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-								<td><img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img
+									src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
+								<td><img
+									src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="cookStepsTitle3" maxlength="30"></td>
-								<td><input type="text" name="cookStepsTitle4" maxlength="30"></td>							
+								<td><input type="text" name="cookStepsTitle3"
+									maxlength="30"></td>
+								<td><input type="text" name="cookStepsTitle4"
+									maxlength="30"></td>
 							</tr>
 							<tr>
-								<td><textarea name="cookStepsContent3" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>
-								<td><textarea name="cookStepsContent4" id="" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea></td>							
+								<td><textarea name="cookStepsContent3" id="" cols="30"
+										rows="10" maxlength="500" style="resize: none;"></textarea></td>
+								<td><textarea name="cookStepsContent4" id="" cols="30"
+										rows="10" maxlength="500" style="resize: none;"></textarea></td>
 							</tr>
 						</table>
 					</div>
-					
+
 
 				</div>
-				
+
 			</div>
 
 			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 			<div align="center">
-			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
-			<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
+				<button type="button" id="recipe-enrolling-btn"
+					class="btn btn-primary">글작성</button>
+				<button type="reset" id="recipe-resetting-btn"
+					onclick="return confirmReset();">초기화</button>
 			</div>
 		</form>
 	</div>
 
-					
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	<script>
 		// 임시저장 아이콘 클릭 시 모달창 설정
 		function unrecipeModalRequest(e) {
@@ -364,7 +404,8 @@
 				e.dataset.target = '#unrecipe-unavailable-modal';
 			<% } %>
 		}
-		// 레시피 글 초기화요청 form태그 reset
+		
+		// 양식 초기화 요청 confirm
 		function confirmReset() {
 			return confirm("입력한 정보를 초기화하시겠습니까?");
 		});
@@ -377,12 +418,12 @@
 			
 			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modalenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();
 			});
 			
 			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-del-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/modaldelandenroll').submit();
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsertInstead.un').submit();
 			});
 
 		})
