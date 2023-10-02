@@ -61,6 +61,7 @@ public class RecipeServlet extends HttpServlet {
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
 			
 			// 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect
+			case "insertRecipe" : break;
 			
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
 			//case "searchKeyWord" : System.out.println(mapping); break;

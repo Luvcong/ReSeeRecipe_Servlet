@@ -1,24 +1,301 @@
+<!-- ※주의 : 이 fragment는 반드시 header.jspf와 함께 사용되어야 함 -->
+<!-- ※Alert : This fragment HAS TO BE USED with header.jspf! -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.*,
+			     com.kh.semi.board.unsaved_recipe.model.vo.*,
 			     com.kh.semi.board.board_common.model.vo.*,
-			     com.kh.semi.common.model.vo.PageInfo" %>
-
+			     com.kh.semi.member.model.vo.Member" %>
 <%
 	//recipeEnrollForm용 카테고리, 계량단위 정보
-	HashMap<String, Object> mapEnrollForm = (HashMap)request.getAttribute("mapEnrollForm");
-	ArrayList<RecipeCategory> cList = (ArrayList)mapEnrollForm.get("cList");
-	ArrayList<IngredientMeasure> iList = (ArrayList)mapEnrollForm.get("iList");
+	//HashMap<String, Object> mapEnrollForm = (HashMap)request.getAttribute("mapEnrollForm");
+	//ArrayList<RecipeCategory> cList = (ArrayList)mapEnrollForm.get("cList");
+	//ArrayList<IngredientMeasure> iList = (ArrayList)mapEnrollForm.get("iList");
+	
+	////////// 임시저장글 번호, 제목도 같이 가져왔어야함
+	ArrayList<UnRecipe> uList = new ArrayList();	
+	UnRecipe un1 = new UnRecipe();
+	un1.setUnRecipeNo(1);
+	un1.setUnRecipeTitle("1번임시글");
+	UnRecipe un2 = new UnRecipe();
+	un2.setUnRecipeNo(2);
+	un2.setUnRecipeTitle("2번임시글");
+	UnRecipe un3 = new UnRecipe();
+	un3.setUnRecipeNo(3);
+	un3.setUnRecipeTitle("3번임시글");
+	uList.add(un1);
+	uList.add(un2);
+	//uList.add(un3);
+	
+	ArrayList<RecipeCategory> cList = new ArrayList();
+	cList.add(new RecipeCategory(1, "한식"));
+	cList.add(new RecipeCategory(2, "양식"));
+	cList.add(new RecipeCategory(3, "중식"));
+	cList.add(new RecipeCategory(4, "일식"));
+	
+	Member loginMember = new Member();
+	loginMember.setMemId("user01");
+	loginMember.setMemPwd("pass01");
+	// 메인경로	contextPath
+	String contextPath = request.getContextPath();
+	// 로그인한 회원 loginMember
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>레시피 글 작성 양식</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<!-- 버튼 부트스트랩 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 아이콘 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- 모달 부트스트랩 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+	/**********************************************************
+		입력양식 폼 상단 바 영역
+	**********************************************************/
+	/* 입력양식 폼 기본 아우터 div 세팅 */
+	#recipe-enroll-bar-wrap {
+		width: 1000px;
+		height: 50px;
+		margin: auto;
+		box-sizing: border-box;
+		position: relative;
+	}
+
+	/* 입력양식 폼 상단 바 div요소 기본 세팅 */
+	#recipe-enroll-bar-wrap div {
+		height: 100%;
+		float: left;
+		box-sizing: border-box;
+
+	}
+	
+	
+
+	/**********************************************************/
+	/* 카테고리 아이콘 이미지 관련 세팅 */
+	#recipe-enroll-bar-img {
+		width: 5%;
+		margin-left: 30px;
+	}
+
+	#recipe-enroll-bar-img > i {
+		font-size: 40px;
+		color: rgb(255, 145, 77);
+	}
+
+	/* 카테고리 선택 블록 관련 세팅 */
+	#recipe-enroll-bar-menu {
+		width: 35%;
+		text-align: left;
+	}
+
+	/* 카테고리 선택 블록 내부 h3요소 세팅 */
+	#recipe-enroll-bar-menu > h3 {
+		margin: 0px;
+		padding : 0px;
+		font-size: 27px;
+		display: inline-block;
+		position: absolute;
+		left: 9%;
+		top: 15%;
+	}
+
+	/* 카테고리 선택 블록 내부 select요소 세팅 */
+	#recipe-enroll-bar-menu > select {
+		width: 15%;
+		height: 70%;
+		padding: 0px;
+		position: absolute;
+		left: 27%;
+		top: 15%;
+		text-align: center;
+	}
+
+	/* 임시저장 버튼 세팅 */
+	#unrecipe-modal-request-div {
+		width: 5%;
+		position: absolute;
+		top : 0px;
+		right : 30px;
+	}
+	#unrecipe-modal-request-div > button {
+		font-size: 45px;
+		appearance: none;
+		border: none;
+        background-color: transparent;
+		padding: 2px;
+		color: rgb(255, 145, 77);
+	}
+
+	/**********************************************************
+		입력양식 폼 영역
+	**********************************************************/
+
+
+	/**********지울부분***************************************/
+	div {
+		border: 1px solid black;
+	}
+	
+</style>
+
 </head>
 <body>
-	<p>ㅇㅇㅇㅇㅇㅇㅇㅇㅇ입력폼</p>
+	<!-- 같이 넘어가야 할 것
+		TB_RECIPE
+		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
+		위 구문 수행 후 RECIPE NO 받아서
+		TB_COOK_STEPS
+		: 각 요리과정 제목, 각 요리과정 내용, 블록 순서(넘버링)
+		TB_INGREDIENT
+		: 요리에 들어가는 재료, 선택한 계량단위 번호
+		TB_RECIPE_TAG
+		선택한 해시태그 번호
+		TB_RECIPE_PIC
+		: 미리보기만 해주고 & 파일INPUT으로 알아서
+		-->
+	<!--<--%= contextPath %>/insertRecipe.re-->
+	<% if(loginMember != null) { %>
+	<div id="recipe-enroll-form-wrap">
+		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="memNo" value="<%= loginMember.getMemNo() %>">
+		
+			<!------------- 입력양식 폼 상단 바 영역 ------------->
+			<div id="recipe-enroll-bar-wrap">
+				<!-- 카테고리 선택 영역 -->
+				<div id="recipe-enroll-bar-img" class="recipe-enroll-category">
+					<i class='fas fa-align-left'></i>
+				</div>
+				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
+					<h3>카테고리 선택</h3>
+					<select name="recipeCategoryNo">
+						<% for(int i = 0; i < cList.size(); i++) { %>
+							<option value="<%= cList.get(i).getRecipeCategoryNo() %>">
+								<%= cList.get(i).getRecipeCategoryName() %>
+							</option>
+						<% } %>
+					</select>
+				</div>
+				
+				<!-- 임시저장 버튼 -->
+				<div id="unrecipe-modal-request-div">
+					<button type="button" id="unrecipe-modal-request-btn" class='fas fa-folder' data-toggle="modal" data-target="#"><!--임시저장글개수--></button>
+				</div>
+				
+				
+			</div>
+			<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+			<button type="button" id="recipe-resetting-btn">초기화</button>
+			
+		</form>
+	</div>
+	<% } %>
+	
+	<% if(uList.size() < 3) { %>
+					<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
+					<!-- 임시작성글 모달 -->
+					<div class="modal" id="unrecipe-modal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					
+					      <div class="modal-header">
+					        <h4 class="modal-title">임시저장글로 저장합니다</h4>
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					      </div>
+					
+					      <div class="modal-body">
+					        <h5>주의! 해시태그와 사진은 저장되지 않습니다</h5>
+							<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요</p>
+					      </div>
+					
+					      <div class="modal-footer">
+						      <button type="button" id="unrecipe-enrolling-btn" class="btn btn-primary">저장하기</button>
+						      <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				<% } else { %>
+					<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
+					 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
+					  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
+					<!-- 임시작성글 3개 이상 시 모달 -->
+					<div class="modal" id="unrecipe-unavailable-modal">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					
+					      <div class="modal-header">
+					        <h4 class="modal-title">Modal Heading</h4>
+					        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					      </div>
+					
+					      <div class="modal-body">
+					        Modal body..
+			
+					      </div>
+					
+					      <div class="modal-footer">
+					      </div>
+					      <div class="modal-footer">
+						      <button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
+						      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				<% } %>
+	
+	
+	
+	
+	
+	<script>
+		$(function(){
+			// 레시피 글 작성요청 form태그 속성 설정 및 submit
+			$('#recipe-enrolling-btn').click(function(){
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/aaa').submit();
+			});
+			
+			// 레시피 글 초기화요청 form태그 reset
+			$('#recipe-resetting-btn').click(function(){
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/aaa').submit();
+			});
+			
+			
+			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
+			$('#unrecipe-enrolling-btn').click(function(){
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/bbb').submit();
+			});
+			
+			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
+			$('#unrecipe-del-enrolling-btn').click(function(){
+				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/ccc').submit();
+			});
+
+		})
+	</script>
+
+
 </body>
 </html>

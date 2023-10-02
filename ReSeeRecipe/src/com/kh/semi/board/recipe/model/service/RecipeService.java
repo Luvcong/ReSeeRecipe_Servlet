@@ -21,7 +21,7 @@ public class RecipeService {
 		Connection conn = getConnection();
 		HashMap<String, Object> map = new HashMap();
 		
-		// 카테고리, 계량단위 조회
+		// 카테고리, 계량단위, 임시저장글 개수 조회
 		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
 		ArrayList<IngredientMeasure> iList = new RecipeDao().selectIngredientMeasureList(conn);
 		

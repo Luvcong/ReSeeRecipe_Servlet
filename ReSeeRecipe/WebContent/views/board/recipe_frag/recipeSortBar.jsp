@@ -1,3 +1,6 @@
+<!-- ※주의 : 이 fragment는 반드시 header.jspf와 함께 사용되어야 함 -->
+<!-- ※Alert : This fragment HAS TO BE USED with header.jspf! -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
@@ -92,11 +95,14 @@
 
 	#recipe-keyword-search-btn {
 		font-size:15px;
+		appearance: none;
+		border: none;
+        background-color: transparent;
 		padding: 0px;
 		padding-bottom: 2%;
 		color: rgb(255, 145, 77);
 		position: absolute;
-		top : 16px;
+		top : 17px;
 		right : 8px;
 	}
 </style>
@@ -128,7 +134,7 @@
 		</div>
 		
 		<!-- 로그인 상태일 때만 글 작성 버튼 노출 -->
-		<% if((Member)session.getAttribute("loginMember") != null) { %>
+		<% if(loginMember != null) { %>
 			<div class="recipe-sort-bar-menu">
 				<input type="hidden" value="recipeEnrollForm">
 				<h3 class="recipe-sort-by">글작성</h3>
@@ -145,13 +151,12 @@
 		</div>
 	</div>
 	
-
 	<!-- script 정렬기준에 맞게 레시피리스트 조회 요청 보냄 -->
 	<script>
 		$(function(){
 			$('.recipe-sort-by').click(function(){
 				const sortBy = $(this).siblings().val();
-				location.href = '<%= request.getContextPath() %>/' + sortBy + '.re';
+				location.href = '<%= contextPath %>/' + sortBy + '.re';
 			})
 		})
 	</script>

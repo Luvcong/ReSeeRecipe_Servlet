@@ -24,6 +24,7 @@ public class UnRecipe {
 	public UnRecipe() {
 		super();
 	}
+	
 	public UnRecipe(int unRecipeNo, String unRecipeTitle, String unRecipeDate, String unRecipeModified,
 			int unCategoryNo, int unRecipeWriterNo) {
 		super();
@@ -39,20 +40,38 @@ public class UnRecipe {
 	public int getUnRecipeNo() {
 		return unRecipeNo;
 	}
+	public void setUnRecipeNo(int unRecipeNo) {
+		this.unRecipeNo = unRecipeNo;
+	}
 	public String getUnRecipeTitle() {
 		return unRecipeTitle;
+	}
+	public void setUnRecipeTitle(String unRecipeTitle) {
+		this.unRecipeTitle = unRecipeTitle;
 	}
 	public String getUnRecipeDate() {
 		return unRecipeDate;
 	}
+	public void setUnRecipeDate(String unRecipeDate) {
+		this.unRecipeDate = unRecipeDate;
+	}
 	public String getUnRecipeModified() {
 		return unRecipeModified;
+	}
+	public void setUnRecipeModified(String unRecipeModified) {
+		this.unRecipeModified = unRecipeModified;
 	}
 	public int getUnCategoryNo() {
 		return unCategoryNo;
 	}
+	public void setUnCategoryNo(int unCategoryNo) {
+		this.unCategoryNo = unCategoryNo;
+	}
 	public int getUnRecipeWriterNo() {
 		return unRecipeWriterNo;
+	}
+	public void setUnRecipeWriterNo(int unRecipeWriterNo) {
+		this.unRecipeWriterNo = unRecipeWriterNo;
 	}
 	
 	
@@ -63,5 +82,5 @@ public class UnRecipe {
 				+ ", unRecipeWriterNo=" + unRecipeWriterNo + "]";
 	}
 	
-
+	
 }//class.end
