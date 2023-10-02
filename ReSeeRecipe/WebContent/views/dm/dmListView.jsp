@@ -19,7 +19,7 @@
 </head>
 <body>
 
-	<%@ include file="../common/manager.jsp" %>
+	<%@ include file="../manager/manager.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
