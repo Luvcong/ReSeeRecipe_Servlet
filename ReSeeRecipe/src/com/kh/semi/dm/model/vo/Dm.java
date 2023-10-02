@@ -11,6 +11,7 @@ public class Dm {
 	//	DM_CONTENT	VARCHAR2(500 BYTE)
 	//	SEND_DATE	DATE
 	//	DM_STATUS	VARCHAR2(1 BYTE)
+	//  DM_REPLY	VARCHAR2(500 BYTE)	// 10.02 문의답변 저장용 컬럼 추가
 	
 	private int dmNo;
 	private String receiveMem;
@@ -18,6 +19,7 @@ public class Dm {
 	private String dmContent;
 	private Date sendDate;
 	private String dmStatus;
+	private String dmReply;
 	private String memId;			// 쪽지리스트에 띄워주기 위해 생성
 	private String memNickname;	// 쪽지리스트에 띄워주기 위해 생성
 	
@@ -28,7 +30,7 @@ public class Dm {
 	
 	// 매개변수 생성자
 	public Dm(int dmNo, String receiveMem, String sendMem, String dmContent, Date sendDate, String dmStatus,
-			String memId, String memNickname) {
+			String dmReply, String memId, String memNickname) {
 		super();
 		this.dmNo = dmNo;
 		this.receiveMem = receiveMem;
@@ -36,6 +38,7 @@ public class Dm {
 		this.dmContent = dmContent;
 		this.sendDate = sendDate;
 		this.dmStatus = dmStatus;
+		this.dmReply = dmReply;
 		this.memId = memId;
 		this.memNickname = memNickname;
 	}
@@ -105,12 +108,20 @@ public class Dm {
 	public void setMemNickname(String memNickname) {
 		this.memNickname = memNickname;
 	}
+	
+	public String getDmReply() {
+		return dmReply;
+	}
+
+	public void setDmReply(String dmReply) {
+		this.dmReply = dmReply;
+	}
 
 	@Override
 	public String toString() {
 		return "Dm [dmNo=" + dmNo + ", receiveMem=" + receiveMem + ", sendMem=" + sendMem + ", dmContent=" + dmContent
-				+ ", sendDate=" + sendDate + ", dmStatus=" + dmStatus + ", memId=" + memId + ", memNickname="
-				+ memNickname + "]";
+				+ ", sendDate=" + sendDate + ", dmStatus=" + dmStatus + ", dmReply=" + dmReply + ", memId=" + memId
+				+ ", memNickname=" + memNickname + "]";
 	}
 
 }	// end class
