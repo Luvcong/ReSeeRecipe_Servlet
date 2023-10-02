@@ -155,7 +155,7 @@
                 alert('통신실패!!');
             },
             success: function (data) {
-                $('.rs-content').jsp(data); // GSON 사용해야해서 내일 할게요 - 혜림
+                $('.rs-content').jsp(data); // GSON 사용해야해서 내일 할게요 - 혜림 -- 넹♥
             }
 
         });

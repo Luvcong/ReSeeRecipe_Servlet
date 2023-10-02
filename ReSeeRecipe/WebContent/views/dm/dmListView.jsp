@@ -70,11 +70,8 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-	<%@ include file="../manager/manager.jsp" %>
-=======
+
 	<%@ include file="../manager/navbar.jsp" %>
->>>>>>> 5ab6a8648967725588603a07959b7739691bed44
 
     <div class="rs-content">        
         <div class="header">
