@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList,
-			     java.util.HashMap,
-			     com.kh.semi.board.recipe.model.vo.*,
-			     com.kh.semi.board.board_common.model.vo.*,
-			     com.kh.semi.common.model.vo.PageInfo" %>
+
 <%	
 
 	
@@ -35,23 +31,11 @@
 
 </head>
 <body>
-{
+
 	<%@ include file="/views/common/header.jspf" %>
 	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
-}	
-	<%
-	ArrayList<RecipeCategory> cList = null;
-		String rMainVwCon = "";
 	
-		if(request.getAttribute("rMainVwCon") != null) {
-			rMainVwCon = (String)request.getAttribute("rMainVwCon");
-		}
-		
-		switch(rMainVwCon) {
-		default : %> <%@ include file="/views/board/recipe_frag/recipeEnrollForm.jsp" %> <% break;
-		}
-	%>
 	
 	
 	

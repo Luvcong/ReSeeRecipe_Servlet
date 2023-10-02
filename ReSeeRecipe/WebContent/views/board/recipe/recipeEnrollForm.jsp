@@ -10,8 +10,6 @@
 			     com.kh.semi.board.board_common.model.vo.*,
 			     com.kh.semi.member.model.vo.Member" %>
 <%	
-	
-
 	// 메인경로	
 	String recipeEnrollFormPath = request.getContextPath();
 	
@@ -256,6 +254,12 @@
 
 </head>
 <body>
+
+
+
+	<%@ include file="/views/common/header.jspf" %>
+	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
+	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
 		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
