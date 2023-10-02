@@ -1,4 +1,4 @@
-package com.kh.semi.manager.controller;
+package com.kh.semi.board.unsaved_recipe.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ManagerLoginController
+ * Servlet implementation class UnRecipeServlet
  */
-@WebServlet("/hllogin.ma")
-public class ManagerLoginController extends HttpServlet {
+@WebServlet("*.un")
+public class UnRecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerLoginController() {
+    public UnRecipeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,13 +26,8 @@ public class ManagerLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 1) POST 인코딩
-		request.setCharacterEncoding("UTF-8");
-		// 2) 값 뽑기
-		request.getRequestDispatcher("views/manager/navbar.jsp").forward(request, response);
-	
-	
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
