@@ -169,7 +169,7 @@
 		<div id="header">
 		    <div id="header_1">
  		       <% if(loginMember != null && loginMember.getMemGrade() == 4) { %>
-		              <a href="<%= contextPath %>/">
+		              <a href="<%= contextPath %>/hllogin.ma" id="managerCheck">
 		                  	관리자 페이지 
 		              </a>
 		       <% } %>
@@ -249,4 +249,23 @@
 	
 </nav>
 
+
+<script>
+	$(function(){
+		$('#managerCheck').click(function(){
+			const managerCheck = prompt('관리자 암호를 입력하세요');
+			if(managerCheck == '리시레시피ReSeeRecipe레십피' ){
+				return true;
+			}
+			else {
+				return false;
+			}
+		});
+		
+		
+	})
+
+
+
+</script>
 </html>
