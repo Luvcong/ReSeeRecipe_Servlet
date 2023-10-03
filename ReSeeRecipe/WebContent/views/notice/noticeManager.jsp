@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.semi.notice.model.vo.*" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*" %>
 <%
-	Notice n = (Notice)request.getParameter("n");
-
+	//Notice n = (Notice)request.getParameter("n");d
+	//NoticePic np = (NoticePic)request.getParameter("np");
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
