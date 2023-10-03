@@ -10,6 +10,13 @@ import com.kh.semi.dm.model.vo.Dm;
 
 public class DmService {
 	
+	private DmDao dmDao;
+	
+	public DmService() {
+		super();
+		dmDao = new DmDao();
+	}
+	
 	/**
 	 * 쪽지함 리스트 조회를 요청하는 method
 	 * @return 쪽지리스트 전체 내용
@@ -20,7 +27,7 @@ public class DmService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Dm> list = new DmDao().selectDmList(conn);
+		ArrayList<Dm> list = dmDao.selectDmList(conn);
 		
 		close(conn);
 		
@@ -49,5 +56,44 @@ public class DmService {
 	}	// getWaitingCount
 	
 	
+	/**
+	 * 쪽지 답변 method
+	 * @param dm 답변내용 / 쪽지seqNo(식별값)
+	 * @return TB_DM - DM_REPLY 컬럼 INSERT 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 3.
+	 */
+	public int updateReply(Dm dm) {
+		
+		Connection conn = getConnection();
+		
+		int result = dmDao.updateReply(conn, dm);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}	// updateReply
+	
+	
+	
+	
+//	public Dm selectDm(int dmNo) {
+//		
+//		Connection conn = getConnection();
+//		
+//		Dm dm = dmDao.selectDm(conn, dmNo);
+//		
+//		close(conn);
+//		
+//		return dm;
+//	}
+//	
 	
 }	// end class

@@ -4,12 +4,15 @@
 <%
 	ArrayList<Dm> list = (ArrayList<Dm>)request.getAttribute("list");
 	int waitingCount = (int)request.getAttribute("waitingCount");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>[문의관리] 쪽지함관리</title>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	<!-- alert 라이브러리 -->
 
 <style>
 .sort {
@@ -65,8 +68,8 @@
 </head>
 <body>
 
-
-	<%@ include file="../manager/navbar.jsp" %>
+		<%@ include file="../manager/navbar.jsp" %>
+		<%@ include file="../common/errorPage.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -78,8 +81,8 @@
                     미답변 <span class="waiting"><%= waitingCount %></span> 개 / 답변완료 <span class="replied"><%= list.size() - waitingCount %></span>개
                 </div>
                 <div >
-                    <div class="btn btn-sm btn-warning" onclick="showDmRepliedModal()">쪽지 답변</div>
-                    <div class="btn btn-sm btn-secondary">쪽지 삭제</div>
+                    <button class="btn btn-sm btn-warning" onclick="showDmRepliedModal()">쪽지 답변</button>
+                    <button class="btn btn-sm btn-secondary" onclick="location.href='<%= contextPath %>/jhdelete.dm'" >쪽지 삭제</button>
                 </div>
             </div>
         </div>
@@ -121,53 +124,63 @@
         </div>
 
     	</div>  <!-- rs-content -->
-    
-
 
 	<!-- 쪽지답변  modal창 -->
  	<div class="modal" id="dmRepliedForm">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">쪽지 상세내역</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-					<form method="post" action="<%= contextPath %>/repliedDm.dm">
-						<table class="modal-table" border="1">
-							<tr>
-								<th>회원 아이디</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>회원 닉네임</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th>쪽지 발송시간</th>
-								<td></td>
-							</tr>
-							<tr>
-								<th class="text-primary">문의 내용</th>
-								<td height="200px"></td>
-							</tr>
-							<tr>
-								<th class="text-danger">문의 답변</th>
-								<td><textarea placeholder="답변할 내용을 입력하세요"></textarea></td>
-							</tr>
-						</table>
-					</form>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-             		 <button type="submit" class="btn btn-sm btn-warning">답변</button>
-                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
-                </div>
-            </div>
-        </div>
+		<form method="post" action="<%= contextPath %>/jhupdate.dm">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+	                <!-- Modal Header -->
+	                <div class="modal-header">
+	                    <h4 class="modal-title">쪽지 상세내역</h4>
+	                    <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
+	                </div> 
+	                <!-- Modal body -->
+	                <div class="modal-body">
+							<input type="hidden" name="dmNo">
+							<table class="modal-table" border="1">
+								<tr>
+									<th>회원 아이디</th>
+									<td></td>
+								</tr>
+								<tr>
+									<th>회원 닉네임</th>
+									<td></td>
+								</tr>
+								<tr>
+									<th>쪽지 발송시간</th>
+									<td></td>
+								</tr>
+								<tr>
+									<th class="text-primary">문의 내용</th>
+									<td height="200px"></td>
+								</tr>
+								<tr>
+									<th class="text-danger">문의 답변</th>
+									<td><textarea name="dmReply" placeholder="&#10;&#10;&#10;답변할 내용을 입력하세요&#10;(최대 500byte)"></textarea></td>
+								</tr>
+							</table>
+	                </div>
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	             		 <button type="submit" class="btn btn-sm btn-warning">답변</button>
+	                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+	                </div>
+	            </div>
+	        </div>
+	</form>
   </div>
+  
+	<!-- alertMsg script -->
+	<script>
+		var msg = '<%= alertMsg %>';
+		
+		if(msg != 'null'){
+			swal('성공', msg, 'success');	// alert대신 swal 라이브러리 사용
+		}
+			<% session.removeAttribute("alertMsg"); %>
+	</script>
+  
   
   <!-- 쪽지답변 modal창 내부 값 -->
   <script>
@@ -186,12 +199,17 @@
 		}
 		
 		if(checked_tr == null){
-			alert('답변할 쪽지를 선택해주세요.');
+			alert('쪽지를 선택해주세요!');
 			return;
 		}
 		
 		let modal = document.getElementById('dmRepliedForm');
 		let modal_trs = modal.querySelectorAll('table tr');
+		
+		let dmNo  = checked_tr.children[1].textContent;	// dmNo
+		let input = modal.querySelector("input[name='dmNo']");
+		input.value = dmNo;
+		// console.log(input);
 		
 		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디
 		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
@@ -287,5 +305,6 @@
 		
 	}
 </script>
+
 </body>
 </html>

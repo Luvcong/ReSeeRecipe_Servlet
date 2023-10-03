@@ -22,7 +22,34 @@
 		    	SEND_DATE DESC
 	</entry>
 	
+	<entry key="selectDm">
+		SELECT
+				DM_NO,
+				MEM_ID,
+				MEM_NICKNAME,
+				DM_CONTENT,
+				SEND_DATE,
+				DM_STATUS
+		 FROM
+		 		TB_DM
+		 JOIN
+		 		TB_MEMBER ON(SEND_MEM = MEM_NO)
+		WHERE
+				DM_NO = ?
+	</entry>
 	
+	<!-- 쪽지 문의답변 업데이트 SQL문 -->
+	<entry key="updateReply">
+		UPDATE 
+				TB_DM
+		   SET
+        		DM_REPLY = ?,
+        		DM_STATUS = 'Y'
+		 WHERE 
+		 		DM_NO = ?
+		   AND
+		   		DM_STATUS = 'N'
+	</entry>
 	
 	<!-- 쪽지 답변상태 완료 변경 SQL문 / 수정필요 -->
 	<entry key="updateDm">
