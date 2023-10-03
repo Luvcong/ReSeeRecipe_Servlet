@@ -6,13 +6,14 @@
  	<entry key="insertnoticeHeart">
  		INSERT
  		  INTO
- 		  		CHEF
+ 		  		TB_HT_NOTICE
  		VALUES 
  				(
-				SEQ_CHEF_NO.NEXTVAL				
+ 				?
  			   ,?
  			   ,SYSDATE
- 			   ,?	
  				)
+ 		WHERE
+ 				NOTICE_NO = ?
  	</entry>
 </properties>
