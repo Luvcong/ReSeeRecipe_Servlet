@@ -1,11 +1,17 @@
 package com.kh.semi.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeManageController
@@ -26,8 +32,18 @@ public class NoticeManageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// 1) 인코딩
+		// 2) 값뽑기
+		// 3) VO가공
+		// 4) 서비스 호출 -> SELECT 공지사항 리스트 조회
+		ArrayList<Notice> list = new NoticeService().selectList();
+		//request.setAttribute("list", list);
+		// 5) 응답할 뷰 지정 -- Ajax 처리 해야함 
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(list);
+	
+	
 	}
 
 	/**
