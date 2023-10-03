@@ -3,13 +3,14 @@ package com.kh.semi.notice.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.heart.model.service.HeartService;
+import com.kh.semi.heart.model.vo.NoticeHeart;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 
@@ -38,6 +39,7 @@ public class NoticeManageController extends HttpServlet {
 		// 3) VO가공
 		// 4) 서비스 호출 -> SELECT 공지사항 리스트 조회
 		ArrayList<Notice> list = new NoticeService().selectList();
+		ArrayList<NoticeHeart> nh = new HeartService().selectHeartCount();
 		//request.setAttribute("list", list);
 		// 5) 응답할 뷰 지정 -- Ajax 처리 해야함 
 		response.setContentType("text/html; charset=UTF-8");

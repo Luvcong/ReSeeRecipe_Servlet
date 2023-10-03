@@ -16,4 +16,23 @@
  		WHERE
  				NOTICE_NO = ?
  	</entry>
+ 	
+ 	<entry key="countnoticeHeart">
+ 		SELECT
+ 				COUNT(*)
+ 		  FROM
+ 		  		TB_HT_NOTICE
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 	</entry>
+ 	
+ 	<entry key="cancelnoticeHeart"> /* 좋아요 취소는 아예 delete 구문인가요? 아니면 Y, N 식별컬럼 추가요망?*/
+ 		DELETE
+ 		  FROM
+ 		  		TB_HT_NOTICE
+ 		 WHERE
+ 		 		MEM_NO = ?
+ 		   AND
+ 		   		NOTICE_NO = ?
+ 	</entry>
 </properties>
