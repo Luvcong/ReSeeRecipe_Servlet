@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.dm.model.vo.Dm;
-import com.kh.semi.member.model.vo.Member;
 
 public class DmDao {
 
@@ -76,17 +75,71 @@ public class DmDao {
 	}	// selectDmList
 	
 	
+	/**
+	 * 쪽지답변 업데이트를 처리해주는 method
+	 * @param conn
+	 * @param dm 답변내용 / 쪽지seqNo(식별값)
+	 * @return TB_DM - DM_REPLY 컬럼 INSERT 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 3.
+	 */
+	public int updateReply(Connection conn, Dm dm) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, dm.getDmReply());
+			pstmt.setInt(2, dm.getDmNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+		
+	}	// updateReply
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+//	public Dm selectDm(Connection conn, int dmNo) {
+//		
+//		Dm dm = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		String sql = prop.getProperty("selectDm");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1,  dmNo);
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				dm = new Dm();
+//				dm.setDmNo(rset.getInt("DM_NO"));
+//				dm.setMemId(rset.getString("MEM_ID"));
+//				dm.setMemNickname(rset.getString("MEM_NICKNAME"));
+//				dm.setDmContent(rset.getString("DM_CONTENT"));
+//				dm.setSendDate(rset.getDate("SEND_DATE"));
+//				dm.setDmStatus(rset.getString("DM_STATUS"));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return dm;
+//		
+//	}	// selectDm
 	
 	
 	
