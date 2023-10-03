@@ -2,57 +2,66 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="heartCount">
-	SELECT COUNT(*)
-	FROM TB_HT_RECIPE
-	JOIN
-	SELECT RECIPE_NO
-	FROM TB_RECIPE
-	JOIN TB_MEMBER
-	ON(RECIPE_WRITER_NO = MEM_NO)
-	WHERE RECIPE_STATUS = 'Y'
-	AND MEM_STATUS = 'Y')
-	USING(RECIPE_NO)
-	JOIN TB_MEMBER
-	USING(MEM_NO)
-	WHERE RECIPE_NO = ?
-	AND MEM_STATUS = 'Y'
-	ORDER BY HT_RECIPE_DATE DESC
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_HT_RECIPE
+		  JOIN
+			   (SELECT RECIPE_NO
+				  FROM TB_RECIPE
+				  JOIN TB_MEMBER
+				    ON (RECIPE_WRITER_NO = MEM_NO)
+				 WHERE RECIPE_STATUS = 'Y'
+				   AND MEM_STATUS = 'Y')
+		 USING
+		 	   (RECIPE_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   RECIPE_NO = 5
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		    BY
+		       HT_RECIPE_DATE DESC
 	</entry>
 	
 	<entry key="heartCountReply">
-	SELECT
-		   COUNT(*)
-	  FROM
-	  	   TB_HT_REPLY
-	  JOIN
-		   (SELECT REPLY_NO
-			 FROM TB_REPLY
-		     JOIN
-			      (SELECT RECIPE_NO
-					FROM TB_RECIPE
-					JOIN TB_MEMBER
-					  ON (RECIPE_WRITER_NO = MEM_NO)
-				   WHERE RECIPE_STATUS = 'Y'
-					 AND MEM_STATUS = 'Y'
-				  )
-			USING (RECIPE_NO)
-			 JOIN TB_MEMBER
-			   ON (REPLY_WRITER_NO = MEM_NO)
-			WHERE MEM_STATUS = 'Y'
-		   )
-	 USING
-	 	   (REPLY_NO)
-	  JOIN
-	  	   TB_MEMBER
-	 USING
-	 	   (MEM_NO)
-	 WHERE
-	 	   REPLY_NO = ?
-	   AND
-	   	   MEM_STATUS = 'Y'
-	 ORDER
-	    BY
-	       HT_REPLY_DATE DESC
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_HT_REPLY
+		  JOIN
+			   (SELECT REPLY_NO
+				 FROM TB_REPLY
+			     JOIN
+				      (SELECT RECIPE_NO
+						FROM TB_RECIPE
+						JOIN TB_MEMBER
+						  ON (RECIPE_WRITER_NO = MEM_NO)
+					   WHERE RECIPE_STATUS = 'Y'
+						 AND MEM_STATUS = 'Y'
+					  )
+				USING (RECIPE_NO)
+				 JOIN TB_MEMBER
+				   ON (REPLY_WRITER_NO = MEM_NO)
+				WHERE MEM_STATUS = 'Y'
+			   )
+		 USING
+		 	   (REPLY_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   REPLY_NO = ?
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		    BY
+		       HT_REPLY_DATE DESC
 	</entry>
 
 </properties>
