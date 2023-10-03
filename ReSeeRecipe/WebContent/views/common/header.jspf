@@ -167,7 +167,7 @@
 <header>
 	<div id="wrap_header">
 		<div id="header">
-		    <div id="header_1">
+		    <div id="header_1"> <!-- 관리자 등급이면 관리자 페이지 버튼 활성화 - HL -->
  		       <% if(loginMember != null && loginMember.getMemGrade() == 4) { %>
 		              <a href="<%= contextPath %>/hllogin.ma" id="managerCheck">
 		                  	관리자 페이지 
