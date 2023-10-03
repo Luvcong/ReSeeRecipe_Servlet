@@ -22,6 +22,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+	
+	<!-- alert 스타일 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	/*****************************************/
 	/* header 스타일 */
@@ -259,7 +262,8 @@
 				return true;
 			}
 			else {
-				window.alert('관리자 암호가 일치하지 않습니다.');
+				//window.alert('관리자 암호가 일치하지 않습니다.');
+				swal('관리자 페이지 접근 실패', "관리자 암호가 일치하지 않습니다", 'warning');
 				return false;
 			}
 		});
