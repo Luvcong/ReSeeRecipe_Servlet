@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<comment>좋아요 관련 SQL문</comment>
+
 	<entry key="heartCount">
 		SELECT COUNT(*)
 		FROM TB_HT_$BASEKEY
@@ -62,5 +64,64 @@
 		    BY
 		       HT_REPLY_DATE DESC
 	</entry>
+
+
+
+
+
+
+
+
+
+<!-- 노티스 매퍼 -->
+ 	<entry key="insertnoticeHeart">
+ 		INSERT
+ 		  INTO
+ 		  		TB_HT_NOTICE
+ 		VALUES 
+ 				(
+ 				?
+ 			   ,?
+ 			   ,SYSDATE
+ 				)
+ 		WHERE
+ 				NOTICE_NO = ?
+ 	</entry>
+ 	
+ 	<entry key="countnoticeHeart">
+ 		SELECT
+ 				COUNT(NOTICE_NO)
+ 		  FROM
+ 		  		TB_HT_NOTICE
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 	</entry>
+ 	
+ 	<entry key="selectnoticeHeartList">
+ 		SELECT
+ 				 MEM_NO
+ 			    ,NOTICE_NO
+ 				,HT_NOTICE_DATE
+ 		 FROM
+ 		 		TB_HT_NOTICE
+ 		 LEFT
+ 		 JOIN
+ 		 		TB_NOTICE USING(NOTICE_NO)
+ 		 ORDER
+ 		    BY
+ 		    	NOTICE_NO DESC
+ 	</entry>
+
+ 	<entry key="cancelnoticeHeart"> <!-- 좋아요 취소는 아예 delete 구문인가요? 아니면 Y, N 식별컬럼 추가요망? => del입니다 (이것도 한번에 만들 예정입니다!) - MJY -->
+ 		DELETE
+ 		  FROM
+ 		  		TB_HT_NOTICE
+ 		 WHERE
+ 		 		MEM_NO = ?
+ 		   AND
+ 		   		NOTICE_NO = ?
+ 	</entry>
+
+
 
 </properties>

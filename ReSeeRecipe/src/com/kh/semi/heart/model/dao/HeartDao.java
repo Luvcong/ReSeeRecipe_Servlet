@@ -19,15 +19,30 @@ public class HeartDao {
 	private Properties prop = new Properties();
 	
 	public HeartDao() {
-		
-		String fileName = HeartDao.class.getResource("/sql/heart/noticeheart-mapper.xml").getPath();
-		
+		String filePath = HeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
 		try {
-			prop.loadFromXML(new FileInputStream(fileName));
+			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/****************************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/****************************************************************************/
 	
 	public ArrayList<NoticeHeart> countnoticeHeart(Connection conn, ArrayList<NoticeHeart> heartNoticeNo){
 		NoticeHeart nh = null;
