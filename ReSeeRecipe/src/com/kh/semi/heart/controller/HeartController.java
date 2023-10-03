@@ -1,5 +1,7 @@
 package com.kh.semi.heart.controller;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +9,14 @@ import com.kh.semi.heart.model.service.HeartService;
 import com.kh.semi.heart.model.vo.Heart;
 
 public class HeartController {
+	
+	
+	private boolean isNumber(String target) {
+		boolean validation = Pattern.matches("^[0-9]$", target);
+		System.out.println(validation);
+		return validation;
+	}
+	
 	
 	public String heartCount(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -24,15 +34,26 @@ public class HeartController {
 		 * 
 		 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
 		 */
+		// 변수세팅
+		String result = "";
 		
-		// 값 추출 + 가공
-		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
-		String htKind = request.getParameter("htKind").toUpperCase();
+		// 값 추출
+		String htTargetStr = request.getParameter("htTargetNo").trim();
+		String htKind = request.getParameter("htKind").trim().toUpperCase();
 		
-		Heart ht = new Heart(htTargetNo, htKind);
+		// 검사
+		boolean validation = isNumber(htTargetStr);
 		
-		// Service의 메소드 호출
-		String result = new HeartService().heartCount(ht);
+		// 검사 통과 후
+		if(validation) {
+			// 값 세팅
+			int htTargetNo = Integer.parseInt(htTargetStr);
+			Heart ht = new Heart(htTargetNo, htKind);
+			
+			// Service의 메소드 호출
+			result = new HeartService().heartCount(ht);
+		}
+		
 		return result;
 	}
 	

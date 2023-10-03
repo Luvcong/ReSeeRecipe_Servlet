@@ -21,16 +21,20 @@
 					url : 'heartCount.ht',
 					type : 'post',
 					data : {
-							htTargetNo : 1,
-							htKind : 'reply'
+							htTargetNo : 'a',
+							htKind : 'recipe'
 							},
 					success : function(result){
 						console.log('결과');
-						$('#heartTest').html(result);
+						if(result != '') {
+							$('#heartTest').html(result);
+						} else {
+							$('#heartTest').html('님머함');
+						}
 					},
 					error : function(result){
-						console.log(result);
 						console.log('실패');
+						$('#heartTest').html('님머함');
 					}
 				})
 			})
