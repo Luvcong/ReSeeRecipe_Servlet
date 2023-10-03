@@ -3,7 +3,7 @@
 <properties>
 	<comment>좋아요 관련 SQL문</comment>
 
-	<entry key="heartCount">
+	<entry key="heartCountGeneralBoard">
 		SELECT COUNT(*)
 		FROM TB_HT_$BASEKEY
 		JOIN
@@ -28,6 +28,33 @@
 		    BY
 		       HT_$BASEKEY_DATE DESC
 	</entry>
+	
+	
+	<entry key="heartCountSubsc">
+		SELECT COUNT(*)
+		  FROM TB_HT_SUBSC
+		  JOIN
+			   (SELECT CHEF_NO
+				  FROM TB_CHEF
+				  JOIN TB_MEMBER
+					ON (CHEF_MEM_NO = MEM_NO)
+				 WHERE MEM_STATUS = 'Y'
+			   )
+		 USING
+		 	   (CHEF_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		       CHEF_NO = ?
+		   AND
+		       MEM_STATUS = 'Y'
+		 ORDER
+		    BY
+		       HT_SUBSC_DATE DESC
+	</entry>
+	
 	
 	<entry key="heartCountReply">
 		SELECT

@@ -17,35 +17,20 @@ public class HeartService {
 		String result = "";
 		Connection conn = getConnection();
 		
-		// Service의 메소드 분배
+		// Dao의 메소드 호출 분배
 		switch(ht.getHtKind()) {
 			case "RECIPE" :
 			case "BOOKMARK" :
-			case "NOTICE" : result = new HeartService().heartCountGeneralBoard(ht, conn); break;
-			case "SUBSC" : result = new HeartService().heartCountSubsc(ht, conn); break;
-			case "REPLY" : result = new HeartService().heartCountReply(ht, conn); break;
+			case "NOTICE" : result = new HeartDao().heartCountGeneralBoard(ht, conn); break;
+			case "SUBSC" : result = new HeartDao().heartCountSubsc(ht, conn); break;
+			case "REPLY" : result = new HeartDao().heartCountReply(ht, conn); break;
 			default : break;
 		}
 		
 		close(conn);
 		
-		return heartCount;
+		return result;
 	}
-	
-	public String heartCountGeneralBoard() {
-		
-	}
-	
-	public String heartCountSubsc(Heart ht) {
-		Connection conn = getConnection();
-		
-	}
-	
-	
-	public String heartReply(Heart ht) {
-		Connection conn = getConnection();
-	}
-	
 	
 	
 	

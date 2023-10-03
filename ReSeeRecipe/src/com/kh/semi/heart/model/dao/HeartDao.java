@@ -1,5 +1,7 @@
 package com.kh.semi.heart.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,9 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.heart.model.vo.Heart;
 import com.kh.semi.heart.model.vo.NoticeHeart;
-import com.kh.semi.notice.model.vo.Notice;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class HeartDao {
 	
@@ -30,7 +31,66 @@ public class HeartDao {
 	/****************************************************************************/
 	
 	
+	/*
+	case "RECIPE" :
+	case "BOOKMARK" :
+	case "NOTICE" : result = new HeartDao().heartCountGeneralBoard(ht, conn); break;
+	case "SUBSC" : result = new HeartDao().heartCountSubsc(ht, conn); break;
+	case "REPLY" : result = new HeartDao().heartCountReply(ht, conn); break;
+	*/
+	public String heartCountGeneralBoard(Heart ht, Connection conn) {
+		String result = "";
+		String sql = prop.getProperty("heartCountGeneralBoard").replace("$BASEKEY", ht.getHtKind());
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					rset.getString("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
+	
+	public String heartCountSubsc(Heart ht, Connection conn) {
+		String result = "";
+		String sql = prop.getProperty("heartCountSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					rset.getString("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public String heartCountReply(Heart ht, Connection conn) {
+		String result = "";
+		String sql = prop.getProperty("heartCountReply");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rset = pstmt.executeQuery()) {
+			if(rset.next()) {
+				rset.getString("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
 	

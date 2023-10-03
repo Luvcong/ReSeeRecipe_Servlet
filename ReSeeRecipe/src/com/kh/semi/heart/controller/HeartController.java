@@ -10,8 +10,6 @@ public class HeartController {
 	
 	public String heartCount(HttpServletRequest request, HttpServletResponse response) {
 		
-		String result = "";
-		
 		/* 
 		 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
 		 * type : 'post'
@@ -33,9 +31,9 @@ public class HeartController {
 		
 		Heart ht = new Heart(htTargetNo, htKind);
 		
-		result = new HeartService().heartCount(ht);
+		// Service의 메소드 호출
+		String result = new HeartService().heartCount(ht);
 		
-		// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 		return result;
 	}
 	
