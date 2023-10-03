@@ -1,11 +1,14 @@
 package com.kh.semi.heart.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class HeartServlet
@@ -32,8 +35,7 @@ public class HeartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 기본변수 / POST용 Encoding 세팅
-		boolean flag = true;
-		String viewPath = "";
+		Object result = null;
 		HeartController htc = new HeartController();
 		request.setCharacterEncoding("UTF-8");
 		
@@ -47,21 +49,27 @@ public class HeartServlet extends HttpServlet {
 			 * type : 'post'
 			 * url  : heartCount.ht
 			 * data :
-			 * 	{ memNo 	    : 하트누른 멤버 PK
-			 * 		 htTargetNo : 하트 받은 게시글/유저의 PK
-			 * 		 htKind	    : 레시피의 경우 RECIPE
-			 * 					    북마크의 경우 BOOKMARK
-			 * 					    노티스의 경우 NOTICE
-			 * 					    구독의 경우    SUBSC
-			 * 					    리플의 경우    REPLY }
-			 * 			
-			 *  
+			 * 	{ htTargetNo : 하트 받은 게시글/유저의 PK
+			 * 	  htKind     : 레시피의 경우 RECIPE
+			 * 				      북마크의 경우 BOOKMARK
+			 * 				      노티스의 경우 NOTICE
+			 * 				      구독의 경우    SUBSC
+			 * 				      리플의 경우    REPLY }
+			 * 
+			 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현하시면 됩니다		
+			 * 
 			 */
-			case "heartCount" : htc.heartCount(request, response);
-		
+			/* GSON으로 만들 응답객체or배열 만들기 */	
+			case "heartCount" : result = htc.heartCount(request, response); break;
+			default : result = ""; // 여기서 기본 리턴설정
 		}
-	
-	
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(result, response.getWriter());
+		
+		
 	
 	
 	
