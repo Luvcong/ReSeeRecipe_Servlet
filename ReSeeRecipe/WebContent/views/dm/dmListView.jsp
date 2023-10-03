@@ -13,7 +13,8 @@
 <meta charset="UTF-8">
 <title>[문의관리] 쪽지함관리</title>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	<!-- alert 라이브러리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 
 <style>
 .sort {
@@ -232,11 +233,53 @@
 	<script>
 		function deleteDm(){
 			
-			if(!confirm('해당 쪽지를 정말 삭제하시겠습니까?\n삭제 후 복원이 불가합니다.')){
-				return;
-			}
+			$(function() {
+				swal({
+					title: "해당 쪽지를 삭제하시겠습니까?",
+					text : "※ 삭제 후 복원이 불가합니다",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "삭제",
+					cancelButtonText: "취소",
+				}, function (isConfirm) {
+					if (!isConfirm) {
+						return;
+					}
+					
+					let table = document.getElementById('tb-dm');
+					let trs = table.querySelectorAll('tr');
+					
+					let dm_list = [];
+					
+					for(let tr of trs){
+						let input = tr.children[0].children[0];			// input요소
+						if(input.checked == true){
+							dm_list.push(tr.children[1].textContent);	// dmNo
+						}
+					}
+					
+					// dm_list = ['100','101','102','103']; // 실패테스트
+		 			$.ajax({
+		 				url : 'jhdelete.dm',
+						type : 'get',
+						dataType: 'json',
+						data : {'dmNo' : dm_list},
+						complete : function () {
+							//$('#tb-dm').load();
+							window.location.reload();		// 새로고침 방법 다시 작성해보기
+						}
+					});
+				});
+			});
+
 			
-			let table = document.getElementById('tb-dm');
+			// confirm 라이브러리 적용
+/* 			if(!confirm('해당 쪽지를 정말 삭제하시겠습니까?\n삭제 후 복원이 불가합니다.')){
+				return;
+			} */
+			
+/* 			let table = document.getElementById('tb-dm');
 			let trs = table.querySelectorAll('tr');
 			
 			let dm_list = [];
@@ -258,7 +301,7 @@
 					//$('#tb-dm').load();
 					window.location.reload();		// 새로고침 방법 다시 작성해보기
 				}
-			})
+			}) */
 		}
 	
 	</script>
