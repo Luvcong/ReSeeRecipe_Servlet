@@ -22,6 +22,29 @@
 		    	SEND_DATE DESC
 	</entry>
 	
+	<!-- 쪽지 문의답변 업데이트 SQL문 -->
+	<entry key="updateReply">
+		UPDATE 
+				TB_DM
+		   SET
+        		DM_REPLY = ?,
+        		DM_STATUS = 'Y'
+		 WHERE 
+		 		DM_NO = ?
+		   AND
+		   		DM_STATUS = 'N'
+	</entry>
+	
+	<!-- 쪽지 삭제 SQL문 -->
+	<entry key="deleteDm">
+		DELETE
+        		TB_DM
+		 WHERE
+        		DM_NO = ?
+	</entry>
+	
+	
+	<!-- 삭제 예정 -->
 	<entry key="selectDm">
 		SELECT
 				DM_NO,
@@ -37,30 +60,6 @@
 		WHERE
 				DM_NO = ?
 	</entry>
-	
-	<!-- 쪽지 문의답변 업데이트 SQL문 -->
-	<entry key="updateReply">
-		UPDATE 
-				TB_DM
-		   SET
-        		DM_REPLY = ?,
-        		DM_STATUS = 'Y'
-		 WHERE 
-		 		DM_NO = ?
-		   AND
-		   		DM_STATUS = 'N'
-	</entry>
-	
-	<!-- 쪽지 답변상태 완료 변경 SQL문 / 수정필요 -->
-	<entry key="updateDm">
-		UPDATE
-				TB_DM
-  		   SET
-  		   		DM_STATUS = 'Y'
- 		 WHERE
- 		 		DM_NO = ?
- 		   AND
- 		   		DM_STATUS = 'N'		
-	</entry>
+
 	
 </properties>

@@ -82,6 +82,29 @@ public class DmService {
 	}	// updateReply
 	
 	
+	/**
+	 * 쪽지 삭제를 요청하는 method
+	 * @param dmNo 쪽지를 삭제하기 위한 식별값
+	 * @return 삭제 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 3.
+	 */
+	public int deleteDm(int dmNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dmDao.deleteDm(conn, dmNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 	
 //	public Dm selectDm(int dmNo) {

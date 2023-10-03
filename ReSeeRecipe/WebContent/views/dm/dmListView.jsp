@@ -4,7 +4,8 @@
 <%
 	ArrayList<Dm> list = (ArrayList<Dm>)request.getAttribute("list");
 	int waitingCount = (int)request.getAttribute("waitingCount");
-	String alertMsg = (String)session.getAttribute("alertMsg");
+	String successMsg = (String)session.getAttribute("successMsg");
+	String failMsg = (String)session.getAttribute("failMsg");
 %>    
 <!DOCTYPE html>
 <html>
@@ -69,7 +70,6 @@
 <body>
 
 		<%@ include file="../manager/navbar.jsp" %>
-		<%@ include file="../common/errorPage.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -82,12 +82,12 @@
                 </div>
                 <div >
                     <button class="btn btn-sm btn-warning" onclick="showDmRepliedModal()">쪽지 답변</button>
-                    <button class="btn btn-sm btn-secondary" onclick="location.href='<%= contextPath %>/jhdelete.dm'" >쪽지 삭제</button>
+                    <button class="btn btn-sm btn-secondary" onclick="deleteDm()">쪽지 삭제</button>
                 </div>
             </div>
         </div>
         <div class="tableBody">
-            <table class="table table-sm table-hover">
+            <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
                         <th data-idx=0><input type="checkbox"></th>
@@ -107,7 +107,7 @@
 	            <% } else { %>
 	            	<% for(Dm dm : list) { %>    
 	                    <tr>
-	                        <td><input type="checkbox" checked></td>
+	                        <td><input type="checkbox"></td>
 	                        <td><%= dm.getDmNo() %></td>
 	                        <td><%= dm.getSendDate() %></td>
 	                        <td><%= dm.getMemId() %></td>
@@ -173,12 +173,19 @@
   
 	<!-- alertMsg script -->
 	<script>
-		var msg = '<%= alertMsg %>';
+		var successMsg = '<%= successMsg %>';
+		var failMsg = '<%= failMsg %>';
 		
-		if(msg != 'null'){
-			swal('성공', msg, 'success');	// alert대신 swal 라이브러리 사용
+		if(successMsg != 'null'){
+			swal('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
 		}
-			<% session.removeAttribute("alertMsg"); %>
+		
+		if(failMsg != 'null'){
+			swal('실패', failMsg, 'error');
+		}
+		
+		<% session.removeAttribute("successMsg"); %>
+		<% session.removeAttribute("failMsg"); %>
 	</script>
   
   
@@ -219,6 +226,42 @@
 		$('#dmRepliedForm').modal('show');
 	}
 	</script>
+	
+	
+	<!-- 쪽지 삭제 -->
+	<script>
+		function deleteDm(){
+			
+			if(!confirm('해당 쪽지를 정말 삭제하시겠습니까?\n삭제 후 복원이 불가합니다.')){
+				return;
+			}
+			
+			let table = document.getElementById('tb-dm');
+			let trs = table.querySelectorAll('tr');
+			
+			let dm_list = [];
+			
+			for(let tr of trs){
+				let input = tr.children[0].children[0];			// input요소
+				if(input.checked == true){
+					dm_list.push(tr.children[1].textContent);	// dmNo
+				}
+			}
+			
+			// dm_list = ['100','101','102','103']; // 실패테스트
+ 			$.ajax({
+ 				url : 'jhdelete.dm',
+				type : 'get',
+				dataType: 'json',
+				data : {'dmNo' : dm_list},
+				complete : function () {
+					//$('#tb-dm').load();
+					window.location.reload();		// 새로고침 방법 다시 작성해보기
+				}
+			})
+		}
+	
+	</script>
   
   
   <!-- 컬럼 sort -->
@@ -226,9 +269,14 @@
 	$(function() {
 		$('.table th').on('click', sortTable);
 	})
-	
+
 	function sortTable(){
 		let idx = parseInt(this.getAttribute('data-idx'));
+		if(idx == 0){
+			checkAll(this.children[0]);			
+			return;
+		}
+		
 		let type = this.getAttribute('data-type');
 		
 		let tbody = document.querySelector('.table tbody');

@@ -109,6 +109,39 @@ public class DmDao {
 	
 	
 	
+	/**
+	 * 쪽지 삭제 요청을 처리해주는 method
+	 * @param conn
+	 * @param dmNo 쪽지를 삭제하기 위한 식별값
+	 * @return 삭제 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 3.
+	 */
+	public int deleteDm(Connection conn, int dmNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteDm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, dmNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}	// deleteDm
+	
+	
+	
+	
 	
 //	public Dm selectDm(Connection conn, int dmNo) {
 //		

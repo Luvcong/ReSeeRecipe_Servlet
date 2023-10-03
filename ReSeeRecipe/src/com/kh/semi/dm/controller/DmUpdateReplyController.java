@@ -51,12 +51,11 @@ public class DmUpdateReplyController extends HttpServlet {
 		
 		// 5)
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "쪽지 답변이 완료되었습니다!");
-			response.sendRedirect(request.getContextPath() + "/jhselect.dm");
+			request.getSession().setAttribute("successMsg", "쪽지 답변이 완료되었습니다!");
 		} else {
-			request.setAttribute("errorMsg", "Error! 쪽지답변 실패! 다시 시도해주세요");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.getSession().setAttribute("failMsg", "쪽지 답변에 실패했습니다! 다시시도해주세요");
 		}
+		response.sendRedirect(request.getContextPath() + "/jhselect.dm");
 		
 	}
 
