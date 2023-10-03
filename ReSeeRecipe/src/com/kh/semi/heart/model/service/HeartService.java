@@ -12,7 +12,7 @@ import com.kh.semi.notice.model.vo.Notice;
 
 public class HeartService {
 	
-	public ArrayList<NoticeHeart> countnoticeHeart(NoticeHeart heartNoticeNo){
+	public ArrayList<NoticeHeart> countnoticeHeart(ArrayList<NoticeHeart> heartNoticeNo){
 		
 		Connection conn = getConnection();
 		
@@ -21,6 +21,18 @@ public class HeartService {
 		close(conn);
 		
 		return noticeHeartList;
+	}
+	
+	public ArrayList<NoticeHeart> selectnoticeHeartList(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<NoticeHeart> selectnoticeHeartList = new HeartDao().selectnoticeHeartList(conn);
+		
+		close(conn);
+		
+		return selectnoticeHeartList;
+		
 	}
 	
 	
