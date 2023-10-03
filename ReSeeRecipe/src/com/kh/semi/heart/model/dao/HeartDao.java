@@ -28,9 +28,9 @@ public class HeartDao {
 		}
 	}
 	
-	public int countnoticeHeart(Connection conn, int NoticeNo){
+	public ArrayList<NoticeHeart> countnoticeHeart(Connection conn, ArrayList<NoticeHeart> noticeNolist){
 		
-		int cnh = 0;
+		ArrayList<NoticeHeart> noticeHeartList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -40,8 +40,12 @@ public class HeartDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				Notice n = new Notice();
-				n.setNoticeNo(rset.getInt(1,NoticeNo));
+				
+				NoticeHeart nh = new NoticeHeart();
+				for(int i = 0; i < noticeNolist.size(); i++) {
+					//Integer a = i;
+					nh.setNoticeNo(rset.getInt(1, noticeNolist[i]));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

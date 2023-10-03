@@ -39,8 +39,8 @@ public class NoticeManageController extends HttpServlet {
 		// 3) VO가공
 		// 4) 서비스 호출 -> SELECT 공지사항 리스트 조회
 		ArrayList<Notice> list = new NoticeService().selectList();
-		int NoticeNo = n.getNoticeNo();
-		int cnh = new HeartService().countnoticeHeart();
+		//int NoticeNo = list.get(0)
+		//int cnh = new HeartService().countnoticeHeart(NoticeNo);
 		//request.setAttribute("list", list);
 		// 5) 응답할 뷰 지정 -- Ajax 처리 해야함 
 		response.setContentType("text/html; charset=UTF-8");

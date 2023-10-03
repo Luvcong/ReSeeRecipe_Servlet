@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.heart.model.service.HeartService;
+import com.kh.semi.heart.model.vo.NoticeHeart;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 
@@ -38,6 +40,12 @@ public class NoticeListController extends HttpServlet {
 		// 3) vo가공
 		// 4) Service호출 select해오기
 		ArrayList<Notice> list = new NoticeService().selectList();
+		/*
+		 * ArrayList<NoticeHeart> noticeNolist = new ArrayList<>(list.size());
+		 * for(Notice n : list) { noticeNolist.add(n.getNoticeNo());
+		 * System.out.print("??"+ noticeNolist); } ArrayList<NoticeHeart>
+		 * noticeHeartList = new HeartService().countnoticeHeart(noticeNolist);
+		 */
 		request.setAttribute("list", list);
 		// 5) 응답할 뷰 지정
 		RequestDispatcher view = request.getRequestDispatcher("/views/notice/noticeListView.jsp");

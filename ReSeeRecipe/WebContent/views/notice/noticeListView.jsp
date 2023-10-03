@@ -120,32 +120,6 @@
                 <% } %>
 			<% } %>
               
-              
-              <td>3</td>
-              <td>2023.09.23</td>
-              <td>요린이를 위한 재료 손질법</td>
-              <td>관리자</td>
-              <td>55</td>
-              <td>60</td>
-            </tr>
-            <tr>
-                <td>checkbox</td>
-                <td>2</td>
-                <td>2023.09.20</td>
-                <td>RESEE템 유사템 주의</td>
-                <td>매니저</td>
-                <td>90</td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td>checkbox</td>
-                <td>1</td>
-                <td>2023.09.03</td>
-                <td>RESEE:RECIPE 가입 축하드립니다</td>
-                <td>관리자</td>
-                <td>100</td>
-                <td>100</td>
-            </tr>
           </tbody>
         </table>
     </div>
