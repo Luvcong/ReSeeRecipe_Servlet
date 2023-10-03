@@ -43,8 +43,22 @@ public class HeartServlet extends HttpServlet {
 		
 		// Controller 분배 구문
 		switch(mapping) {
-			/* 이곳에 매핑값 case를 써주세요 */
-			/* ex) case "ajaxRecipeHeartCount" : htc.heartCount(request, response) */
+			/* 하트 개수 카운트 기능 ajax요청 시 인스트럭션
+			 * type : 'post'
+			 * url  : heartCount.ht
+			 * data :
+			 * 	{ memNo 	    : 하트누른 멤버 PK
+			 * 		 htTargetNo : 하트 받은 게시글/유저의 PK
+			 * 		 htKind	    : 레시피의 경우 RECIPE
+			 * 					    북마크의 경우 BOOKMARK
+			 * 					    노티스의 경우 NOTICE
+			 * 					    구독의 경우    SUBSC
+			 * 					    리플의 경우    REPLY }
+			 * 			
+			 *  
+			 */
+			case "heartCount" : htc.heartCount(request, response);
+		
 		}
 	
 	
