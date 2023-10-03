@@ -21,7 +21,7 @@
 					url : 'heartCount.ht',
 					type : 'post',
 					data : {
-							htTargetNo : 'a',
+							htTargetNo : 2,
 							htKind : 'recipe'
 							},
 					success : function(result){

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class HeartServlet
@@ -35,40 +36,50 @@ public class HeartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 기본변수 / POST용 Encoding 세팅
-		Object result = null;
-		HeartController htc = new HeartController();
-		request.setCharacterEncoding("UTF-8");
+		Object result = "";
 		
-		// 매핑문자열 키워드 추출
-		String uri = request.getRequestURI();
-		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		// Controller 분배 구문
-		switch(mapping) {
-		
-			/* 
-			 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
-			 * type : 'post'
-			 * url  : heartCount.ht
-			 * data :
-			 * 	{ htTargetNo : 하트 받은 대상(게시글/유저)의 PK
-			 * 	  htKind     : 레시피의 경우 RECIPE
-			 * 				      북마크의 경우 BOOKMARK
-			 * 				      노티스의 경우 NOTICE
-			 * 				      구독의 경우    SUBSC
-			 * 				      리플의 경우    REPLY }
-			 * 
-			 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
-			 */
-			// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
-			case "heartCount" : result = htc.heartCount(request, response); break;
-	
-			default : result = ""; // 뭔가 실패 시 빈문자열 반환
+		// loginMember 검사
+		int loginMemNo = 0;
+		if((request.getSession().getAttribute("loginMember")) != null) {
+			loginMemNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
 		}
 		
+		// 관리자만 기능 이용가능 (테스트 위해 잠시 블러처리)
+		//if(0 < loginMemNo && loginMemNo < 3) {
+			HeartController htc = new HeartController();
+			request.setCharacterEncoding("UTF-8");
+
+			// 매핑문자열 키워드 추출
+			String uri = request.getRequestURI();
+			String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
+			// Controller 분배 구문
+			switch(mapping) {
+			
+				/* 
+				 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
+				 * type : 'post'
+				 * url  : heartCount.ht
+				 * data :
+				 * 	{ htTargetNo : 하트 받은 대상(게시글/유저)의 PK
+				 * 	  htKind     : 레시피의 경우 RECIPE
+				 * 				      북마크의 경우 BOOKMARK
+				 * 				      노티스의 경우 NOTICE
+				 * 				      구독의 경우    SUBSC
+				 * 				      리플의 경우    REPLY }
+				 * 
+				 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
+				 */
+				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
+				case "heartCount" : result = htc.heartCount(request, response); break;
+		
+				default : break; // 뭔가 실패 시 빈문자열 반환
+			}
+		//}
+			
 		// 응답 전 세팅 및 응답 (키값은 전부 result)
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(result, response.getWriter());
-	
+
 	}
 
 	/**

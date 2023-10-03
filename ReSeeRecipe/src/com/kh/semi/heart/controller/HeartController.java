@@ -13,7 +13,6 @@ public class HeartController {
 	
 	private boolean isNumber(String target) {
 		boolean validation = Pattern.matches("^[0-9]$", target);
-		System.out.println(validation);
 		return validation;
 	}
 	
@@ -41,7 +40,7 @@ public class HeartController {
 		String htTargetStr = request.getParameter("htTargetNo").trim();
 		String htKind = request.getParameter("htKind").trim().toUpperCase();
 		
-		// 검사
+		// Controller단 입력값 검사
 		boolean validation = isNumber(htTargetStr);
 		
 		// 검사 통과 후

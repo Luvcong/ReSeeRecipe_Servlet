@@ -41,7 +41,8 @@ public class MemberLoginController extends HttpServlet {
 		
 		// Service 호출
 		Member loginMember = new MemberService().loginMember(memberId, memberPwd);
-		System.out.println("loginNMeme >> " + loginMember);
+		//System.out.println("loginMem >> " + loginMember); 작동 잘 해서 블러처리하였습니다 - MJY
+		
 		// 로그인 실패 시
 		if(loginMember == null) {
 			request.setAttribute("errorMsg", "로그인에 실패하셨습니다.");
