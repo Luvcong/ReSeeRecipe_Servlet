@@ -47,13 +47,13 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					rset.getString("COUNT(*)");
+					result = rset.getString("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println();
 		return result;
 	}
 	
@@ -67,7 +67,7 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					rset.getString("COUNT(*)");
+					result = rset.getString("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
@@ -81,10 +81,13 @@ public class HeartDao {
 		String result = "";
 		String sql = prop.getProperty("heartCountReply");
 		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rset = pstmt.executeQuery()) {
-			if(rset.next()) {
-				rset.getString("COUNT(*)");
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, ht.getHtTargetNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getString("COUNT(*)");
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

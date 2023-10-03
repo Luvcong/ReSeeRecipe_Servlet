@@ -26,9 +26,8 @@ public class HeartService {
 			case "REPLY" : result = new HeartDao().heartCountReply(ht, conn); break;
 			default : break;
 		}
-		
+		System.out.println(result);
 		close(conn);
-		
 		return result;
 	}
 	

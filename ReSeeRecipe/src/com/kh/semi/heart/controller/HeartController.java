@@ -33,7 +33,6 @@ public class HeartController {
 		
 		// Service의 메소드 호출
 		String result = new HeartService().heartCount(ht);
-		
 		return result;
 	}
 	

@@ -42,7 +42,6 @@ public class HeartServlet extends HttpServlet {
 		// 매핑문자열 키워드 추출
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		
 		// Controller 분배 구문
 		switch(mapping) {
 		
@@ -62,11 +61,11 @@ public class HeartServlet extends HttpServlet {
 			 */
 			// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 			case "heartCount" : result = htc.heartCount(request, response); break;
-			
+	
 			default : result = ""; // 뭔가 실패 시 빈문자열 반환
 		}
 		
-		// 응답 전 세팅 및 응답
+		// 응답 전 세팅 및 응답 (키값은 전부 result)
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(result, response.getWriter());
 	
