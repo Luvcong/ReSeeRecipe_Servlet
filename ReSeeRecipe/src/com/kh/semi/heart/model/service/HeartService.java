@@ -7,10 +7,55 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.heart.model.dao.HeartDao;
+import com.kh.semi.heart.model.vo.Heart;
 import com.kh.semi.heart.model.vo.NoticeHeart;
-import com.kh.semi.notice.model.vo.Notice;
 
 public class HeartService {
+	
+	public String heartCount(Heart ht) {
+		
+		String result = "";
+		Connection conn = getConnection();
+		
+		// Service의 메소드 분배
+		switch(ht.getHtKind()) {
+			case "RECIPE" :
+			case "BOOKMARK" :
+			case "NOTICE" : result = new HeartService().heartCountGeneralBoard(ht, conn); break;
+			case "SUBSC" : result = new HeartService().heartCountSubsc(ht, conn); break;
+			case "REPLY" : result = new HeartService().heartCountReply(ht, conn); break;
+			default : break;
+		}
+		
+		close(conn);
+		
+		return heartCount;
+	}
+	
+	public String heartCountGeneralBoard() {
+		
+	}
+	
+	public String heartCountSubsc(Heart ht) {
+		Connection conn = getConnection();
+		
+	}
+	
+	
+	public String heartReply(Heart ht) {
+		Connection conn = getConnection();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/****************************************************************************/
 	
 	public ArrayList<NoticeHeart> countnoticeHeart(ArrayList<NoticeHeart> heartNoticeNo){
 		

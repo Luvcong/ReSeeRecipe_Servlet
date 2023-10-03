@@ -1,11 +1,14 @@
 package com.kh.semi.heart.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class HeartServlet
@@ -32,8 +35,7 @@ public class HeartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 기본변수 / POST용 Encoding 세팅
-		boolean flag = true;
-		String viewPath = "";
+		Object result = null;
 		HeartController htc = new HeartController();
 		request.setCharacterEncoding("UTF-8");
 		
@@ -43,17 +45,29 @@ public class HeartServlet extends HttpServlet {
 		
 		// Controller 분배 구문
 		switch(mapping) {
-			/* 이곳에 매핑값 case를 써주세요 */
-			/* ex) case "ajaxRecipeHeartCount" : htc.heartCount(request, response) */
+		
+			/* 
+			 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
+			 * type : 'post'
+			 * url  : heartCount.ht
+			 * data :
+			 * 	{ htTargetNo : 하트 받은 대상(게시글/유저)의 PK
+			 * 	  htKind     : 레시피의 경우 RECIPE
+			 * 				      북마크의 경우 BOOKMARK
+			 * 				      노티스의 경우 NOTICE
+			 * 				      구독의 경우    SUBSC
+			 * 				      리플의 경우    REPLY }
+			 * 
+			 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
+			 */
+			case "heartCount" : result = htc.heartCount(request, response); break;
+			
+			default : result = ""; // 뭔가 실패 시 빈문자열 반환
 		}
-	
-	
-	
-	
-	
-	
-	
-	
+		
+		// 응답 전 세팅 및 응답
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(result, response.getWriter());
 	
 	}
 
