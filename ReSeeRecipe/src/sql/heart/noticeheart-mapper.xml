@@ -19,7 +19,7 @@
  	
  	<entry key="countnoticeHeart">
  		SELECT
- 				COUNT(*)
+ 				COUNT(NOTICE_NO)
  		  FROM
  		  		TB_HT_NOTICE
  		 WHERE

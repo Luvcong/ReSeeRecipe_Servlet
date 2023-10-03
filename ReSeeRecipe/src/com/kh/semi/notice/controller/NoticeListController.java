@@ -40,15 +40,19 @@ public class NoticeListController extends HttpServlet {
 		// 3) vo가공
 		// 4) Service호출 select해오기
 		ArrayList<Notice> list = new NoticeService().selectList();
-		NoticeHeart nh = new NoticeHeart();
 		ArrayList<NoticeHeart> noticeNolist = new ArrayList<>(list.size());
-		for(Notice n : list) {
+		//System.out.print("22222??"+ nh); 
+		ArrayList<NoticeHeart> selectnoticeHeartList = new HeartService().selectnoticeHeartList();
+		NoticeHeart nh = new NoticeHeart();
+		for(NoticeHeart n : selectnoticeHeartList) {
 			nh.setNoticeNo(n.getNoticeNo());
-			System.out.print("??"+ nh.getNoticeNo()); 
+			nh.setMemNo(n.getMemNo());
+			nh.setNoticeHtDate(n.getNoticeHtDate());
+			//System.out.print("??"+ nh.getNoticeNo()); 
 		} 
-		System.out.print("22222??"+ nh); 
-		ArrayList<NoticeHeart> noticeHeartList = new HeartService().countnoticeHeart(nh);
-
+		ArrayList<NoticeHeart> noticeHeartList = new HeartService().countnoticeHeart(selectnoticeHeartList);
+		//System.out.print("22222??"+ selectnoticeHeartList); 
+		
 		request.setAttribute("list", list);
 		request.setAttribute("noticeHeartList", noticeHeartList);
 		// 5) 응답할 뷰 지정
