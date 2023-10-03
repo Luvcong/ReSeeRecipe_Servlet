@@ -3,46 +3,39 @@ package com.kh.semi.heart.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.heart.model.service.HeartService;
+import com.kh.semi.heart.model.vo.Heart;
 
 public class HeartController {
 	
-	public Object heartCount(HttpServletRequest request, HttpServletResponse response) {
+	public String heartCount(HttpServletRequest request, HttpServletResponse response) {
 		
-		Object result = null;
+		String result = "";
 		
-		// 컨트롤러단에서 필터링 필요 null을 보내진 않아야함
-		
-		
-		/* 하트 개수 카운트 기능 ajax요청 시 인스트럭션
+		/* 
+		 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
 		 * type : 'post'
 		 * url  : heartCount.ht
 		 * data :
-		 * 	{ memNo 	    : 하트누른 멤버 PK
-		 * 		 htTargetNo : 하트 받은 게시글/유저의 PK
-		 * 		 htKind	    : 레시피의 경우 RECIPE
-		 * 					    북마크의 경우 BOOKMARK
-		 * 					    노티스의 경우 NOTICE
-		 * 					    구독의 경우    SUBSC
-		 * 					    리플의 경우    REPLY }
+		 * 	{ htTargetNo : 하트 받은 대상(게시글/유저)의 PK
+		 * 	  htKind     : 레시피의 경우 RECIPE
+		 * 				      북마크의 경우 BOOKMARK
+		 * 				      노티스의 경우 NOTICE
+		 * 				      구독의 경우    SUBSC
+		 * 				      리플의 경우    REPLY }
 		 * 
-		 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현하시면 됩니다		
-		 * 
+		 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
 		 */
 		
-		int memNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
+		// 값 추출 + 가공
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
-		String htKind = request.getParameter("htKind");
+		String htKind = request.getParameter("htKind").toUpperCase();
 		
+		Heart ht = new Heart(htTargetNo, htKind);
 		
+		result = new HeartService().heartCount(ht);
 		
-		
-		
-		
-		
-		
-		
-		
+		// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 		return result;
 	}
 	
