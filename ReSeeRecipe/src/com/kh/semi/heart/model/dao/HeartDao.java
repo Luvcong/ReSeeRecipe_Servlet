@@ -28,29 +28,29 @@ public class HeartDao {
 		}
 	}
 	
-	public ArrayList<NoticeHeart> countnoticeHeart(Connection conn, ArrayList<NoticeHeart> noticeNolist){
+	public ArrayList<NoticeHeart> countnoticeHeart(Connection conn, NoticeHeart heartNoticeNo){
 		
 		ArrayList<NoticeHeart> noticeHeartList = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("countnoticeHeart");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				
-				NoticeHeart nh = new NoticeHeart();
-				for(int i = 0; i < noticeNolist.size(); i++) {
-					//Integer a = i;
-					nh.setNoticeNo(rset.getInt(1, noticeNolist[i]));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		//System.out.print("heartNo >> " + heartNoticeNo);
+		
+		 try {
+			 pstmt = conn.prepareStatement(sql);
+			 rset = pstmt.executeQuery();
+		 while(rset.next()) { 
+			 NoticeHeart nh = new NoticeHeart();
+			 pstmt.setInt(1, heartNoticeNo.getNoticeNo());
+			 noticeHeartList.add(nh);
+			} 
+		 System.out.print("noticeHeartList >> " + noticeHeartList);
+		 } catch(SQLException e) { 
+			 e.printStackTrace(); 
 		}
 		
+		return noticeHeartList;
 	}
 
 }

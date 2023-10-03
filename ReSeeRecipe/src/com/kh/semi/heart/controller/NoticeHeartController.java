@@ -1,11 +1,16 @@
 package com.kh.semi.heart.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.heart.model.service.HeartService;
+import com.kh.semi.heart.model.vo.NoticeHeart;
 
 /**
  * Servlet implementation class NoticeHeartController
@@ -27,7 +32,7 @@ public class NoticeHeartController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+		//ArrayList<NoticeHeart> noticeHeartCount = new HeartService().countnoticeHeart();
 	
 	
 	

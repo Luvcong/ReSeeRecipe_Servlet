@@ -12,11 +12,11 @@ import com.kh.semi.notice.model.vo.Notice;
 
 public class HeartService {
 	
-	public ArrayList<NoticeHeart> countnoticeHeart(ArrayList<NoticeHeart> noticeNolist){
+	public ArrayList<NoticeHeart> countnoticeHeart(NoticeHeart heartNoticeNo){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<NoticeHeart> noticeHeartList = new HeartDao().countnoticeHeart(conn, noticeNolist);
+		ArrayList<NoticeHeart> noticeHeartList = new HeartDao().countnoticeHeart(conn, heartNoticeNo);
 		
 		close(conn);
 		
