@@ -3,10 +3,14 @@ package com.kh.semi.heart.model.dao;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.heart.model.vo.NoticeHeart;
+import com.kh.semi.notice.model.vo.Notice;
 
 public class HeartDao {
 	
@@ -24,8 +28,24 @@ public class HeartDao {
 		}
 	}
 	
-	public ArrayList<NoticeHeart> selectHeartCount(Connection conn){
+	public int countnoticeHeart(Connection conn, int NoticeNo){
 		
+		int cnh = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("countnoticeHeart");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Notice n = new Notice();
+				n.setNoticeNo(rset.getInt(1,NoticeNo));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -10,15 +10,15 @@ import com.kh.semi.heart.model.vo.NoticeHeart;
 
 public class HeartService {
 	
-	public ArrayList<NoticeHeart> selectHeartCount(){
+	public int countnoticeHeart(){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<NoticeHeart> list = new HeartDao().selectHeartCount(conn);
+		int cnh = new HeartDao().countnoticeHeart(conn);
 		
 		close(conn);
 		
-		return list;
+		return cnh;
 	}
 	
 	

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*" %>
+<%
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,6 +86,14 @@
             </tr>
           </thead>
           <tbody>
+          <!-- 공지사항이 있을 수도 있고 없을 수도 있음 -->
+				<% if(list.isEmpty()) { %>
+                <!-- 공지사항이 없을 때 -->
+                <tr>
+                    <td colspan="5">공지사항이 존재하지 않습니다.</td>
+                </tr>
+				<%} else { %>
+                <!-- 공지사항이 있을 때 -->
             <tr>
               <td>
                 <div class="form-check">
@@ -90,6 +102,25 @@
                     </label>
                 </div>
               </td>
+               <% for(Notice n : list) { %>
+                    <tr>
+                    	<td>
+                			<div class="form-check">
+                    		<label class="form-check-label">
+                   			 <input type="checkbox" class="form-check-input" value="">Option 1
+                   			</label>
+                			</div>
+             			 </td>
+                		<td><%= n.getNoticeNo() %></td>
+                		<td><%= n.getNoticeDate() %></td>
+                		<td><%= n.getNoticeTitle() %></td>
+                		<td><%= n.getNoticeWriter() %></td>
+                		<td><%= n.getNoticeCount() %></td>
+                	</tr>
+                <% } %>
+			<% } %>
+              
+              
               <td>3</td>
               <td>2023.09.23</td>
               <td>요린이를 위한 재료 손질법</td>
