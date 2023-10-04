@@ -28,5 +28,28 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
-	
+	<entry key="selectMemberAll">
+		SELECT 
+				 MEM_NO
+				,MEM_NAME
+				,MEM_ID
+				,MEM_NICKNAME
+				,MEM_EMAIL
+				,ENROLL_DATE
+				,(
+					SELECT
+								SUM(REWARD_SCORE)
+             		  FROM 
+             		 			TB_REWARD B
+              		 WHERE 
+              					A.MEM_NO = B.MEM_NO
+              	)MEM_REWARD
+  		FROM 
+  				TB_MEMBER A
+ 		WHERE 
+ 				MEM_GRADE != 4
+	    ORDER 
+	       BY 
+	       		MEM_NO DESC
+	</entry>
 </properties>
