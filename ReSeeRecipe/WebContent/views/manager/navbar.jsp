@@ -176,6 +176,8 @@
     			$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
+    			//JSON.parse(result);
+    			console.log(result);
     			selectMemberAll();
     		},
     		error : function(){
@@ -183,7 +185,6 @@
     		}
     	
     	});
-    	
     }
     
    
@@ -191,12 +192,14 @@
     	
     	$.ajax({
     		url : "views/member/meberManager.jsp",
+    		dataType :"json", 
     		success : function(result){
-    			$('.rs-content').html(result);
+    			$('.rs-content').text(result);
     			console.log('고객정보들어간다');
     		},
-    		error : function(){
+    		error : function(e){
     			console.log('고객정보 못들어온다');
+    			console.log(e);
     		}
     		
     	})
