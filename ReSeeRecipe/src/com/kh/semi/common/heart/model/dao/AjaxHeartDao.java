@@ -163,6 +163,156 @@ public class AjaxHeartDao {
 	}
 	
 	
+	public int insertHeartBookMark(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartBookMark");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartBookmark(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int insertHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int insertHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int insertHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int insertHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	
 	
 	
