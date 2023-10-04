@@ -30,8 +30,7 @@ public class AjaxHeartDao {
 	/****************************************************************************/
 	
 	
-	/****************************************************************************/
-	// 레시피 좋아요여부
+	/*************** 좋아요 여부 체크 기능 *********************************************/
 	public boolean isHeartRecipe(Heart ht, Connection conn) {
 		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
 		boolean flag = false;
@@ -51,7 +50,6 @@ public class AjaxHeartDao {
 	}
 	
 	
-	// 북마크여부
 	public boolean isHeartBookmark(Heart ht, Connection conn) {
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartBookmark");
@@ -70,7 +68,6 @@ public class AjaxHeartDao {
 	}
 	
 	
-	// 공지사항 좋아요여부
 	public boolean isHeartNotice(Heart ht, Connection conn) {
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartNotice");
@@ -89,7 +86,6 @@ public class AjaxHeartDao {
 	}
 	
 	
-	// 구독여부
 	public boolean isHeartSubsc(Heart ht, Connection conn) {
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartSubsc");
@@ -110,7 +106,6 @@ public class AjaxHeartDao {
 	}
 	
 	
-	// 리플 좋아요여부
 	public boolean isHeartReply(Heart ht, Connection conn) {
 		boolean result = false;
 		String sql = prop.getProperty("isHeartReply");
@@ -131,8 +126,8 @@ public class AjaxHeartDao {
 	}
 	/****************************************************************************/
 	
-	
-	/****************************************************************************/
+
+	/*************** 좋아요 추가/삭제(INSERT/DELETE) 기능 ******************************/
 	public int insertHeartRecipe(Heart ht, Connection conn) {
 		int result = 0;
 		String sql = prop.getProperty("insertHeartRecipe");
@@ -163,9 +158,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartBookMark(Heart ht, Connection conn) {
+	public int insertHeartBookmark(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("insertHeartBookMark");
+		String sql = prop.getProperty("insertHeartBookmark");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -180,7 +175,7 @@ public class AjaxHeartDao {
 	
 	public int deleteHeartBookmark(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("deleteHeartRecipe");
+		String sql = prop.getProperty("deleteHeartBookmark");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -193,9 +188,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartRecipe(Heart ht, Connection conn) {
+	public int insertHeartNotice(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("insertHeartRecipe");
+		String sql = prop.getProperty("insertHeartNotice");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -208,9 +203,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
+	public int deleteHeartNotice(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("deleteHeartRecipe");
+		String sql = prop.getProperty("deleteHeartNotice");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -223,9 +218,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartRecipe(Heart ht, Connection conn) {
+	public int insertHeartSubsc(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("insertHeartRecipe");
+		String sql = prop.getProperty("insertHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -238,9 +233,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
+	public int deleteHeartSubsc(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("deleteHeartRecipe");
+		String sql = prop.getProperty("deleteHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -253,9 +248,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartRecipe(Heart ht, Connection conn) {
+	public int insertHeartReply(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("insertHeartRecipe");
+		String sql = prop.getProperty("insertHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -268,9 +263,9 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
+	public int deleteHeartReply(Heart ht, Connection conn) {
 		int result = 0;
-		String sql = prop.getProperty("deleteHeartRecipe");
+		String sql = prop.getProperty("deleteHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
@@ -281,38 +276,7 @@ public class AjaxHeartDao {
 		}
 		return result;
 	}
-	
-	
-	public int insertHeartRecipe(Heart ht, Connection conn) {
-		int result = 0;
-		String sql = prop.getProperty("insertHeartRecipe");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
-		int result = 0;
-		String sql = prop.getProperty("deleteHeartRecipe");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	
+	/****************************************************************************/
 	
 	
 	
@@ -397,49 +361,6 @@ public class AjaxHeartDao {
 	}
 	/****************************************************************************/
 	/****************************************************************************/
-	
-	
-	public int insertHt(Heart ht, Connection conn) {
-		// 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
-		
-		int resultProceed = false;
-		String sql = prop.getProperty("insertHeart");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	
-	public int deleteHt(Heart ht, Connection conn) {
-		// heartCheck종류 메소드 선행했을 시 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
-		
-		int result = 0;
-		boolean result = false;
-		String sql = prop.getProperty("deleteHeart").replace("$BASEKEY", ht.getHtKind());
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
-			
-			proceed = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		return result;
-	}
-	
-	
-	
-	
-	
 	
 	
 	
