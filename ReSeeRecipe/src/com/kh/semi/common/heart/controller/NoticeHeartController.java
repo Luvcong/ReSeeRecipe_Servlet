@@ -1,7 +1,6 @@
-package com.kh.semi.heart.controller;
+package com.kh.semi.common.heart.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.heart.model.service.HeartService;
-import com.kh.semi.heart.model.vo.NoticeHeart;
 
 /**
  * Servlet implementation class NoticeHeartController
