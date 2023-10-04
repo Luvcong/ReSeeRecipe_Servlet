@@ -1,7 +1,6 @@
 package com.kh.semi.common.heart.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import com.kh.semi.common.heart.model.vo.NoticeHeart;
 public class HeartService {
 	
 	
-	public String heartCount(Heart ht) {
+	public String ajaxHeartCount(Heart ht) {
 		
 		String result = "";
 		HeartDao hd = new HeartDao();
@@ -24,17 +23,18 @@ public class HeartService {
 		switch(ht.getHtKind()) {
 			case "RECIPE" :
 			case "BOOKMARK" :
-			case "NOTICE" : result = hd.heartCountGeneralBoard(ht, conn); break;
-			case "SUBSC" : result = hd.heartCountSubsc(ht, conn); break;
-			case "REPLY" : result = hd.heartCountReply(ht, conn); break;
+			case "NOTICE" : result = String.valueOf(hd.heartCountGeneralBoard(ht, conn)); break;
+			case "SUBSC" : result = String.valueOf(hd.heartCountSubsc(ht, conn)); break;
+			case "REPLY" : result = String.valueOf(hd.heartCountReply(ht, conn)); break;
 			default : break;
 		}
 		close(conn);
 		return result;
 	}
+	/****************************************************************************/
 	
 	
-	public boolean heartAddCancel(Heart ht) {
+	public boolean ajaxHeartAddCancel(Heart ht) {
 		
 		boolean result = false;
 		HeartDao hd = new HeartDao();
@@ -44,21 +44,51 @@ public class HeartService {
 		switch(ht.getHtKind()) {
 			case "RECIPE" :
 			case "BOOKMARK" :
-			case "NOTICE" : result = hd.heartCheckGeneralBoard(ht, conn); break;
-			case "SUBSC" : result = hd.heartCheckSubsc(ht, conn); break;
-			case "REPLY" : result = hd.heartCheckReply(ht, conn); break;
+			case "NOTICE" : result = hd.isHeartGeneralBoard(ht, conn); break;
+			case "SUBSC" : result = hd.isHeartSubsc(ht, conn); break;
+			case "REPLY" : result = hd.isHeartReply(ht, conn); break;
 			default : break;
 		}
 		
-		if(result == false) {
-			// 좋아요내역 없으면 insert구문 수행 후 성공 시 true / 실패 시 false 반환
-			result = hd.insertHeart(ht, conn);
-			
+		
+		if(!result) { // 좋아요 내역 없을 경우 (result false일 경우)
+			if(hd.insertHeart(ht, conn) > 0) { // insert구문 수행 후 성공 시 true
+				result = true;
+				commit(conn);
+			}
+		} else if(result) { // 좋아요 내역 있을 경우 (result true일 경우)
+			if(hd.deleteHeart(ht, conn) > 0) { // delete구문 수행 후 성공 시 true
+				result = true;
+				commit(conn);
+			}
 		} else {
-			// 좋아요내역 있으면 delete구문 수행 후 성공 시 true / 실패 시 false 반환
-			result = hd.deleteHeart(ht, conn);
-			
+			rollback(conn);
 		}
+		
+		
+		
+		
+		if((!result && (hd.insertHeart(ht, conn) > 0))
+		 || (result && (hd.deleteHeart(ht, conn) > 0))) { 
+			result = true;
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		switch(result) {
+		case !result: break;
+		case result : break;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		close(conn);

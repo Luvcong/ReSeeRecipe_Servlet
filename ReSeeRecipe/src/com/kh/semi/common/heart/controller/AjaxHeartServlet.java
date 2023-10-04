@@ -55,28 +55,34 @@ public class AjaxHeartServlet extends HttpServlet {
 				 * - heartCount : 단일 대상 하트 개수 카운트 기능
 				 * - heartCheck : 해당 유저가 해당 대상에 하트를 눌렀는지 체크 후 Add/Cancel
 				 * type : 'post'
-				 * url  : heartCount.ah or heartAddCancel.ah
-				 * data : 필요에 따라
+				 * url  : switch-case의 매핑값이름.ah
+				 * data : 필요한 data들 아래 키값으로 넘김
 				 * 	{
 				 * 	  memNo		 : 하트를 누른 멤버의 PK
 				 * 	  htTargetNo : 하트 받은 대상(게시글/유저)의 PK
-				 * 	  htKind     : 레시피의 경우 RECIPE
-				 * 				      북마크의 경우 BOOKMARK
-				 * 				      노티스의 경우 NOTICE
-				 * 				      구독의 경우    SUBSC
-				 * 				      리플의 경우    REPLY
-				 * 				      소문자 사용 가능 }
+				 * }
 				 * 
 				 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
 				 */
 			
 				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
-				/* 단일 대상에 하트가 몇개인지 체크, Ajax요청 */
-				case "heartCount" : result = htc.heartCount(request, response); break;
+				/* 단일 대상에 하트가 몇개인지 count : String반환, Ajax요청
+				case "ajHtCountRecipe" : result = htc.ajaxHeartCount(request, response); break;
+				case "ajHtCountBookmark" : break;
+				case "ajHtCountNotice" : break;
+				case "ajHtCountSubsc" : break;
+				case "ajHtCountReply" : break;*/
 				
-				/* 하트 추가 전 체크, Ajax요청 */
-				case "heartAddCancel" : result = htc.heartAddCancel(request, response); break;
-				
+				/* 하트 추가 or 삭제 : boolean반환, Ajax요청 */
+				case "ajHtChangeRecipe" : result = htc.ajHtChangeRecipe(request, response); break;
+				case "ajHtChangeBookmark" : result = htc.ajHtChangeBookmark(request, response); break;
+				case "ajHtChangeNotice" : result = htc.ajHtChangeNotice(request, response); break;
+				case "ajHtChangeSubsc" : result = htc.ajHtChangeSubsc(request, response); break;
+				case "ajHtChangeReply" : result = htc.ajHtChangeReply(request, response); break;
+
+				/* 하트 추가 전 체크, Ajax요청
+				case "heartAddCancel" : result = htc.ajaxHeartAddCancel(request, response); break;
+				*/
 				
 				
 				

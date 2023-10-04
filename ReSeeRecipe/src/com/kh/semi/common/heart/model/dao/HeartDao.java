@@ -38,8 +38,8 @@ public class HeartDao {
 	case "SUBSC" : result = new HeartDao().heartCountSubsc(ht, conn); break;
 	case "REPLY" : result = new HeartDao().heartCountReply(ht, conn); break;
 	*/
-	public String heartCountGeneralBoard(Heart ht, Connection conn) {
-		String result = "";
+	public int heartCountGeneralBoard(Heart ht, Connection conn) {
+		int result = 0;
 		String sql = prop.getProperty("heartCountGeneralBoard").replace("$BASEKEY", ht.getHtKind());
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,7 +47,7 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					result = rset.getString("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
@@ -58,8 +58,8 @@ public class HeartDao {
 	}
 	
 	
-	public String heartCountSubsc(Heart ht, Connection conn) {
-		String result = "";
+	public int heartCountSubsc(Heart ht, Connection conn) {
+		int result = 0;
 		String sql = prop.getProperty("heartCountSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -67,7 +67,7 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					result = rset.getString("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
@@ -77,8 +77,8 @@ public class HeartDao {
 	}
 	
 	
-	public String heartCountReply(Heart ht, Connection conn) {
-		String result = "";
+	public int heartCountReply(Heart ht, Connection conn) {
+		int result = 0;
 		String sql = prop.getProperty("heartCountReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -86,7 +86,7 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					result = rset.getString("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
@@ -97,9 +97,10 @@ public class HeartDao {
 	/****************************************************************************/
 	
 	
-	public boolean heartCheckGeneralBoard(Heart ht, Connection conn) {
+	public boolean isHeartGeneralBoard(Heart ht, Connection conn) {
 		boolean result = false;
-		String sql = prop.getProperty("heartCheckGeneralBoard").replace("$BASEKEY", ht.getHtKind());
+		String sql = prop.getProperty("isHeartGeneralBoard").replace("$BASEKEY", ht.getHtKind());
+		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getHtTargetNo());
 			pstmt.setInt(2, ht.getMemNo());
@@ -116,9 +117,9 @@ public class HeartDao {
 	}
 	
 	
-	public boolean heartCheckSubsc(Heart ht, Connection conn) {
+	public boolean isHeartSubsc(Heart ht, Connection conn) {
 		boolean result = false;
-		String sql = prop.getProperty("heartCheckSubsc");
+		String sql = prop.getProperty("isHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getHtTargetNo());
@@ -137,9 +138,9 @@ public class HeartDao {
 	}
 	
 	
-	public boolean heartCheckReply(Heart ht, Connection conn) {
+	public boolean isHeartReply(Heart ht, Connection conn) {
 		boolean result = false;
-		String sql = prop.getProperty("heartCheckReply");
+		String sql = prop.getProperty("isHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getHtTargetNo());
@@ -158,10 +159,10 @@ public class HeartDao {
 	/****************************************************************************/
 	
 	
-	public boolean insertHeart(Heart ht, Connection conn) {
+	public int insertHeart(Heart ht, Connection conn) {
 		// 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
 		
-		boolean result = false;
+		int resultProceed = false;
 		String sql = prop.getProperty("insertHeart");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -174,8 +175,23 @@ public class HeartDao {
 	}
 	
 	
-	public boolean deleteHeart(Heart ht, Connection conn) {
+	public int deleteHeart(Heart ht, Connection conn) {
+		// heartCheck종류 메소드 선행했을 시 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
+		
+		int result = 0;
 		boolean result = false;
+		String sql = prop.getProperty("deleteHeart").replace("$BASEKEY", ht.getHtKind());
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			
+			proceed = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 		return result;
 	}
