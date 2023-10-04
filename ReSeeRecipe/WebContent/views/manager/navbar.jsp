@@ -102,6 +102,9 @@
                 <a href="#">쿠폰 관리</a></div>
         </div>
     <!-- rs-content추가 -->
+    <div class="rs-content">
+    
+    </div>
     </div>  <!-- rs-main -->
 </body>
 
@@ -175,12 +178,29 @@
     			$('.rs-content').val(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
+    			selectMemberAll(result);
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');
     		}
     	
     	});
+    	
+    }
+    
+    function selectMemberAll(result){
+    	
+    	$.ajax({
+    		url : "views/member/meberManager.jsp",
+    		success : function(result){
+    			$('.rs-content').jsp(result);
+    			console.log('고객정보들어간다');
+    		},
+    		error : function(){
+    			console.log('고객정보 못들어온다');
+    		}
+    		
+    	})
     	
     }
 </script>
