@@ -1,7 +1,5 @@
 package com.kh.semi.common.heart.model.dao;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,17 +9,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import static com.kh.semi.common.JDBCTemplate.*;
+
 import com.kh.semi.common.heart.model.vo.Heart;
 import com.kh.semi.common.heart.model.vo.NoticeHeart;
 
-
-public class HeartDao {
+public class AjaxHeartDao {
 	
 	
 	private Properties prop = new Properties();
 	
-	public HeartDao() {
-		String filePath = HeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
+	public AjaxHeartDao() {
+		String filePath = AjaxHeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
