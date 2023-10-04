@@ -43,6 +43,94 @@ public class AjaxHeartService {
 	}
 	
 	
+	public int htChangeBookmark(Heart ht) {
+
+		boolean flag = false;
+		int result = 0;
+		AjaxHeartDao ahd = new AjaxHeartDao();
+		Connection conn = getConnection();
+		
+		flag = ahd.isHeartBookmark(ht, conn);
+	
+		if(!flag && (ahd.insertHeartBookmark(ht, conn) > 0)) {
+			result = 1;
+			commit(conn);
+		} else if(flag && (ahd.deleteHeartBookmark(ht, conn) > 0)) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htChangeNotice(Heart ht) {
+
+		boolean flag = false;
+		int result = 0;
+		AjaxHeartDao ahd = new AjaxHeartDao();
+		Connection conn = getConnection();
+		
+		flag = ahd.isHeartNotice(ht, conn);
+	
+		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+			result = 1;
+			commit(conn);
+		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htChangeRecipe(Heart ht) {
+
+		boolean flag = false;
+		int result = 0;
+		AjaxHeartDao ahd = new AjaxHeartDao();
+		Connection conn = getConnection();
+		
+		flag = ahd.isHeartRecipe(ht, conn);
+	
+		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+			result = 1;
+			commit(conn);
+		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htChangeRecipe(Heart ht) {
+
+		boolean flag = false;
+		int result = 0;
+		AjaxHeartDao ahd = new AjaxHeartDao();
+		Connection conn = getConnection();
+		
+		flag = ahd.isHeartRecipe(ht, conn);
+	
+		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+			result = 1;
+			commit(conn);
+		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	
 	
 	
 	

@@ -48,8 +48,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeBookmark(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeBookmark(ht);
 		}
 		return result;
 	}
@@ -63,8 +63,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeNotice(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeNotice(ht);
 		}
 		return result;
 	}
@@ -78,8 +78,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeSubsc(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeSubsc(ht);
 		}
 		return result;
 	}
@@ -93,8 +93,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeReply(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeReply(ht);
 		}
 		return result;
 	}
