@@ -24,15 +24,11 @@
     #detailview-wrap>div:nth-child(3), div:nth-child(4), div:nth-child(5){
         grid-column: 1 / 3;
     }
-
-    
-    
-
-
-
-
 </style>
 <body>
+    
+    <%@ include file="buyMenubar.jsp" %>
+    
     
     <div id="detailview-wrap">
         <div>
@@ -91,5 +87,7 @@
             <p>리뷰내용</p>
         </div>
     </div>
+    
+    <%@ include file="buyFooter.jsp" %>
 </body>
 </html>

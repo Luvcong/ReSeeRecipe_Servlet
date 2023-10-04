@@ -66,6 +66,8 @@
     </style>
 </head>
 <body>
+
+	<%@ include file="buyMenubar.jsp" %>
     
     <div id="searchpage-wrap">
         <div style="margin-bottom: 50px;">
@@ -114,8 +116,9 @@
             </div>
         </div>
         <div>
-            
         </div>
     </div>
+    
+    <%@ include file="buyFooter.jsp" %>
 </body>
 </html>

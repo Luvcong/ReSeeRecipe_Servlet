@@ -42,6 +42,8 @@
     </style>
 </head>
 <body>
+
+	<%@ include file="buyMenubar.jsp" %>
     
     <div id="orderfinish_wrap">
         <br><br>
@@ -75,7 +77,8 @@
                 </tr>
             </table>
         </div>
-        
     </div>
+    
+    <%@ include file="buyFooter.jsp" %>
 </body>
 </html>

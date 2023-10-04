@@ -51,6 +51,8 @@
     </style>
 </head>
 <body>
+
+	<%@ include file="buyMenubar.jsp" %>
     
     <div id="cart_wrap">
         <div class="cart_top">
@@ -109,5 +111,7 @@
             <button class="btn btn-dark" type="submit">선택상품구매</button>
         </form>
     </div>
+    
+    <%@ include file="buyFooter.jsp" %>
 </body>
 </html>

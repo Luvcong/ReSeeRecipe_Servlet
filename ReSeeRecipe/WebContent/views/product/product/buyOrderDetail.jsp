@@ -12,6 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
+
+	<%@ include file="buyMenubar.jsp" %>
     
     <div id="orderdetail_wrap">
         <div>
@@ -135,5 +137,7 @@
         <br>
         <button class="btn btn-secondary">결제하기</button>
     </div>
+    
+    <%@ include file="buyFooter.jsp" %>
 </body>
 </html>
