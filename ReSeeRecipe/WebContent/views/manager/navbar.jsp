@@ -173,8 +173,8 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : 'hlmembermanage.ma',
-    		dataType : "json",
+    		url : '/views/member/memberManager.jsp',
+    		//dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
@@ -186,8 +186,9 @@
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
-    			createMemTable(result);
-    			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
+    			//createMemTable(result);
+    			$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
+    			//$('.rs-content').jsp(result);
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');

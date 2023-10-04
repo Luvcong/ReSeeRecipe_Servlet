@@ -41,9 +41,16 @@ public class MemberManagerController extends HttpServlet {
 		// 3) Service 호출 전체 회원 정보 SELECT
 		ArrayList<Member> list = new MemberService().selectMemberAll();
 		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/member/memberManager.jsp").forward(request, response);
+		
+		
+		
+		
+		// ------ Ajax 처리 --------
 		
 		// 5) 형식, 인코딩 지정
-		response.setContentType("application/json; charset=UTF-8");
+		//response.setContentType("application/json; charset=UTF-8");
 		
 		// JSON ArrayList 생성
 		/*
@@ -69,9 +76,10 @@ public class MemberManagerController extends HttpServlet {
 		*/
 		// Gson객체 생성
 		//Gson gson = new Gson();
-		new Gson().toJson(list, response.getWriter());
+		//new Gson().toJson(list, response.getWriter());
 		//request.getRequestDispatcher("views/member/memberManager.jsp").forward(request, response);
 		//response.sendRedirect(request.getContextPath() + );
+		
 	}
 
 	/**
