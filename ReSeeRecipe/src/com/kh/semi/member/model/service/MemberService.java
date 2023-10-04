@@ -1,8 +1,10 @@
 package com.kh.semi.member.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Member;
@@ -18,6 +20,17 @@ public class MemberService {
 		close(conn);
 		
 		return m;
+	}
+	
+	public ArrayList<Member> selectMemberAll(){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectMemberAll(conn);
+		
+		close(conn);
+		
+		return list;
 	}
 
 }

@@ -55,7 +55,7 @@
 			</div>
 			<div id="HL_memberList">
 				<ul>
-					<li><a href="#">회원 관리</a></li>
+					<li><a href="#" id="HL_memberSetting">회원 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
@@ -75,6 +75,9 @@
 			<div class="nav-item">
 				<a href="#">쿠폰 관리</a>
 			</div>
+		</div>
+		<div class="rs-content">
+			
 		</div>
 		<!-- rs-content추가 -->
 	</div>
@@ -104,6 +107,7 @@
 
 <!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
 <script>
+
     $(function(){
         let main = document.querySelector('.rs-main');
         let content = document.querySelector('.rs-content');
@@ -160,6 +164,24 @@
         });
     }
     
+    $(function(){
+    	$('#HL_memberSetting').on("click", goMember);
+    });
+    function goMember(){
+    	$.ajax({
+    		type : "GET",
+    		url : 'hlmembermanage.ma',
+    		success : function(result){
+    			$('.rs-content').val(result);
+    			console.log('회원 정보 조회 성공');
+    		},
+    		error : function(){
+    			console.log('회원 정보 조회 실패');
+    		}
+    	
+    	});
+    	
+    }
 </script>
 
 </html>

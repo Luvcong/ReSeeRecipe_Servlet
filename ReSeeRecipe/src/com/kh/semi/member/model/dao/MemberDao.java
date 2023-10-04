@@ -1,14 +1,16 @@
 package com.kh.semi.member.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.member.model.vo.Member;
 
 public class MemberDao {
@@ -67,7 +69,37 @@ public class MemberDao {
 		return m;
 	}
 	
-	
+	public ArrayList<Member> selectMemberAll(Connection conn){
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberAll");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemReward(rset.getInt("MEM_REWARD"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 
 }
