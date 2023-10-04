@@ -155,6 +155,32 @@ public class HeartDao {
 		}
 		return result;
 	}
+	/****************************************************************************/
+	
+	
+	public boolean insertHeart(Heart ht, Connection conn) {
+		// 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
+		
+		boolean result = false;
+		String sql = prop.getProperty("insertHeart");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	public boolean deleteHeart(Heart ht, Connection conn) {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	
 	
 	
 	
