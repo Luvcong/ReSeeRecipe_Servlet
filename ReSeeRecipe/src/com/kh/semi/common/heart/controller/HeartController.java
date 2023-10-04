@@ -30,7 +30,7 @@ public class HeartController {
 		// Controller단 입력값 검사
 		if(isNumber(htTargetStr)) {
 
-			// 검사 통과 후
+			// 자료형 검사 통과 후
 			int htTargetNo = Integer.parseInt(htTargetStr);
 			
 			Heart ht = new Heart();
@@ -58,7 +58,7 @@ public class HeartController {
 		// Controller단 입력값 검사
 		if(isNumber(memNoStr) && isNumber(htTargetNoStr)) {
 			
-			// 검사 통과 후
+			// 자료형 검사 통과 후
 			int memNo = Integer.parseInt(memNoStr);
 			int htTargetNo = Integer.parseInt(htTargetNoStr);
 			
