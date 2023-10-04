@@ -47,6 +47,8 @@ public class MemberManagerController extends HttpServlet {
 		// Gson객체 생성
 		//Gson gson = new Gson();
 		new Gson().toJson(list, response.getWriter());
+		//request.getRequestDispatcher("views/member/memberManager.jsp").forward(request, response);
+		//response.sendRedirect(request.getContextPath() + );
 	}
 
 	/**

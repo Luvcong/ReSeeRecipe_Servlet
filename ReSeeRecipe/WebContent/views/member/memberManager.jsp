@@ -14,6 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <!-- JSON -->
+    
+    <!-- GSON -->
 <style>
 
     h2{
@@ -41,10 +45,11 @@
 
 </head>
 <body>
-	
+
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>
     <br><br>
+    
     <div class="container">
         <div class="header1">
             <div class="input-group mt-3 mb-3">
@@ -121,6 +126,7 @@
           </tbody>
         </table>
     </div>
+   
     <br><br><br><br>
     <div class="w3-bar">
         <a href="#" class="w3-button">«</a>
