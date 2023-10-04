@@ -10,6 +10,7 @@
 <title>관리자화면 네비바</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -173,24 +174,26 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : '/views/member/memberManager.jsp',
-    		//dataType : "html",
+    		url : 'hlmembermanage.ma',
+    		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
     			//JSON.parse(result);
-    			console.log(result);
+    			//console.log(result);
     			//selectMemberAll();
     			//$('.rs-content').text('회원번호' + result[0].memNo);
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
     			//createMemTable(result);
-    			$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
+    			$('.rs-content').html(result);
+    			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
     			//$('.rs-content').jsp(result);
     		},
-    		error : function(){
+    		error : function(result){
+    			console.log(JSON.parse(result));
     			console.log('회원 정보 조회 실패');
     			$('.rs-content').text('조회된 회원이 없습니다');
     		}

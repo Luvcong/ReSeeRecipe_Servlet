@@ -41,11 +41,12 @@ public class MemberManagerController extends HttpServlet {
 		// 3) Service 호출 전체 회원 정보 SELECT
 		ArrayList<Member> list = new MemberService().selectMemberAll();
 		
+		// -- request.attribute로 하기 포워딩
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/member/memberManager.jsp").forward(request, response);
 		
 		
-		
+		System.out.print("list"+ list);
 		
 		// ------ Ajax 처리 --------
 		
