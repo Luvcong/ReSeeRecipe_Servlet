@@ -75,7 +75,7 @@ public class AjaxHeartServlet extends HttpServlet {
 				case "heartCount" : result = htc.heartCount(request, response); break;
 				
 				/* 하트 추가 전 체크, Ajax요청 */
-				case "heartAddCancel" : result =- htc.heartAddCancel(request, response); break;
+				case "heartAddCancel" : result = htc.heartAddCancel(request, response); break;
 				
 				
 				
