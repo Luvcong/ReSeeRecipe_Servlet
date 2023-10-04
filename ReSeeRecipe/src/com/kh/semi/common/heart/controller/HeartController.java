@@ -1,12 +1,13 @@
-package com.kh.semi.heart.controller;
+package com.kh.semi.common.heart.controller;
 
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.heart.model.service.HeartService;
-import com.kh.semi.heart.model.vo.Heart;
+import com.kh.semi.common.heart.model.service.HeartService;
+import com.kh.semi.common.heart.model.vo.Heart;
+
 
 public class HeartController {
 	

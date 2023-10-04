@@ -1,4 +1,4 @@
-package com.kh.semi.heart.model.service;
+package com.kh.semi.common.heart.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
@@ -6,9 +6,10 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.semi.heart.model.dao.HeartDao;
-import com.kh.semi.heart.model.vo.Heart;
-import com.kh.semi.heart.model.vo.NoticeHeart;
+import com.kh.semi.common.heart.model.dao.HeartDao;
+import com.kh.semi.common.heart.model.vo.Heart;
+import com.kh.semi.common.heart.model.vo.NoticeHeart;
+
 
 public class HeartService {
 	

@@ -1,4 +1,4 @@
-package com.kh.semi.heart.model.vo;
+package com.kh.semi.common.heart.model.vo;
 
 /**
  * @author JY

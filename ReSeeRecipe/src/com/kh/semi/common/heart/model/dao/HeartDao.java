@@ -1,4 +1,4 @@
-package com.kh.semi.heart.model.dao;
+package com.kh.semi.common.heart.model.dao;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 
@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.semi.heart.model.vo.Heart;
-import com.kh.semi.heart.model.vo.NoticeHeart;
+import com.kh.semi.common.heart.model.vo.Heart;
+import com.kh.semi.common.heart.model.vo.NoticeHeart;
+
 
 public class HeartDao {
 	
