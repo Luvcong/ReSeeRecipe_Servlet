@@ -37,6 +37,7 @@ public class MemberManagerController extends HttpServlet {
 		
 		// 2) request 값 뽑을게 없음
 		
+		request.setCharacterEncoding("UTF-8");
 		// 3) Service 호출 전체 회원 정보 SELECT
 		ArrayList<Member> list = new MemberService().selectMemberAll();
 		
@@ -44,6 +45,28 @@ public class MemberManagerController extends HttpServlet {
 		// 5) 형식, 인코딩 지정
 		response.setContentType("application/json; charset=UTF-8");
 		
+		// JSON ArrayList 생성
+		/*
+		JSONArray jArr = new JSONArray();
+		
+		JSONObject jObj1 = new JSONObject();
+		
+		for(Member m : list) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("memNo", m.getMemNo());
+			jObj.put("memName", m.getMemName());
+			jObj.put("memId", m.getMemId());
+			jObj.put("memNickname", m.getMemNickname());
+			jObj.put("memEmail", m.getMemEmail());
+			jObj.put("enrollDate", m.getEnrollDate());
+			jObj.put("memReward", m.getMemReward());
+			
+			jArr.add(jObj);
+		}
+		
+		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().print(jArr);
+		*/
 		// Gson객체 생성
 		//Gson gson = new Gson();
 		new Gson().toJson(list, response.getWriter());
