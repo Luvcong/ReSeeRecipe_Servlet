@@ -48,6 +48,8 @@
   				TB_MEMBER A
  		WHERE 
  				MEM_GRADE != 4
+ 		  AND	
+ 		  		MEM_STATUS = 'Y'
 	    ORDER 
 	       BY 
 	       		MEM_NO DESC

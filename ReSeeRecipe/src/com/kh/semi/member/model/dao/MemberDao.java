@@ -76,6 +76,29 @@ public class MemberDao {
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMemberAll");
 		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemReward(rset.getInt("MEM_REWARD"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 
