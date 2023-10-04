@@ -245,7 +245,7 @@
 		            <a href="">셰프</a>
 		        </li>
 		        <li>
-		            <a href="">마켓</a>
+		            <a href="<%= contextPath %>/main.po">마켓</a>
 		        </li>
 			</ul>
 		</div>

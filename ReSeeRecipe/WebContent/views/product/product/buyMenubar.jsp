@@ -154,13 +154,13 @@
     <div id="header">
             <div class="header_top">
                 <div>
-                    <a href="<%= contextPath %>"> <!-- 홈 화면으로 리다이렉트 -->
+                    <a href="<%= contextPath %>">
                         <img src="../image/hello.png">
                     </a>
                 </div>
                 <% if(loginMember == null) {%>
 	                <div>
-	                    <a href="<%= contextPath %>/yrloginForm.me">로그인</a> <!-- 로그인 화면으로 포워딩 -->
+	                    <a href="<%= contextPath %>/yrloginForm.me">로그인</a>
 	                </div>
 	                <div>
 	                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
@@ -168,14 +168,14 @@
                 <% } else { %>
                 	<% if(loginMember.getMemGrade() == 4) { %>
 	                	<div>
-		                    <a href="<%= contextPath %>/hllogin.ma">관리자메뉴</a> <!-- 관리자메뉴 화면으로 포워딩 -->
+		                    <a href="<%= contextPath %>/hllogin.ma">관리자메뉴</a>
 		                </div>
 	                <% } %>
                 	<div>
                     	<b>내 리워드 : 123원</b>
                 	</div>
                 	<div>
-	                    <a href="<%= contextPath %>/yrlogout.me">로그아웃</a> <!-- 로그인세션 삭제 -->
+	                    <a href="<%= contextPath %>/yrlogout.me">로그아웃</a>
 	                </div>
 	                <div>
                     <a href="#">마이페이지</a> <!-- 마이페이지 화면으로 포워딩 -->
