@@ -32,8 +32,10 @@ public class Member {
 	private String memPicture;
 	private int memGrade;
 	// private String memGradeName;
+	private int memReward;
 	
 	
+
 	public Member() {
 		super();
 	}
@@ -55,6 +57,26 @@ public class Member {
 		this.memGrade = memGrade;
 	}
 	
+	
+	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
+			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade,
+			int memReward) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.memNickname = memNickname;
+		this.memEmail = memEmail;
+		this.memStatus = memStatus;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.deleteDate = deleteDate;
+		this.memPicture = memPicture;
+		this.memGrade = memGrade;
+		this.memReward = memReward;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
@@ -127,6 +149,13 @@ public class Member {
 	public void setMemGrade(int memGrade) {
 		this.memGrade = memGrade;
 	}
+	public int getMemReward() {
+		return memReward;
+	}
+
+	public void setMemReward(int memReward) {
+		this.memReward = memReward;
+	}
 	
 	@Override
 	public String toString() {
@@ -135,5 +164,7 @@ public class Member {
 				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", deleteDate=" + deleteDate
 				+ ", memPicture=" + memPicture + ", memGrade=" + memGrade + "]";
 	}
+	
+	
 	
 }
