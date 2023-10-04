@@ -68,12 +68,13 @@ public class AjaxHeartServlet extends HttpServlet {
 			
 				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 				/* 단일 대상에 하트가 몇개인지 count : String반환 */
+				/*
 				case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
 				case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
 				case "htCountNotice" : result = htc.htCountNotice(request, response); break;
 				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
 				case "htCountReply" : result = htc.htCountReply(request, response); break;
-				
+				*/
 				/* 하트 추가 or 삭제 : 1 or 0반환 (SELECT + IN/DEL) */
 				case "htChangeRecipe" : result = htc.htChangeRecipe(request, response); break;
 				case "htChangeBookmark" : result = htc.htChangeBookmark(request, response); break;

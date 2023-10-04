@@ -15,24 +15,103 @@
 	<script>
 		$(function(){
 			
-			/* 특정 대상의 좋아요 수 카운트 */
-			$("#heartTest").click(function(){
+			/* 좋아요하기 레시피 */
+			$("#heartTest1").click(function(){
 				$.ajax({
 					url : 'htChangeRecipe.ht',
-					type : 'get',
+					type : 'post',
 					data : { htTargetNo : 22 },
 					success : function(result){
 						console.log('결과');
 						if(result > 0) {
-							$('#heartTest').html(result).css('background-color', 'red');
+							$('#heartTest1').html(result).css('background-color', 'red');
 						}
 						else {
-							$('#heartTest').html(result).css('background-color', 'white');
+							$('#heartTest1').html(result).css('background-color', 'white');
 						}
 					},
 					error : function(result){
-						console.log('실패');
-						$('#heartTest').html('님머함');
+						$('#heartTest').html('실패');
+					}
+				})
+			});
+			/* 좋아요하기 북마크 */
+			$("#heartTest2").click(function(){
+				$.ajax({
+					url : 'htChangeBookmark.ht',
+					type : 'post',
+					data : { htTargetNo : 22 },
+					success : function(result){
+						console.log('결과');
+						if(result > 0) {
+							$('#heartTest2').html(result).css('background-color', 'red');
+						}
+						else {
+							$('#heartTest2').html(result).css('background-color', 'white');
+						}
+					},
+					error : function(result){
+						$('#heartTest2').html('실패');
+					}
+				})
+			});
+			/* 좋아요하기 노티스 */
+			$("#heartTest3").click(function(){
+				$.ajax({
+					url : 'htChangeNotice.ht',
+					type : 'post',
+					data : { htTargetNo : 1 },
+					success : function(result){
+						console.log('결과');
+						if(result > 0) {
+							$('#heartTest3').html(result).css('background-color', 'red');
+						}
+						else {
+							$('#heartTest3').html(result).css('background-color', 'white');
+						}
+					},
+					error : function(result){
+						$('#heartTest3').html('실패');
+					}
+				})
+			});
+			/* 좋아요하기 subsc */
+			$("#heartTest4").click(function(){
+				$.ajax({
+					url : 'htChangeSubsc.ht',
+					type : 'post',
+					data : { htTargetNo : 3 },
+					success : function(result){
+						console.log('결과');
+						if(result > 0) {
+							$('#heartTest4').html(result).css('background-color', 'red');
+						}
+						else {
+							$('#heartTest4').html(result).css('background-color', 'white');
+						}
+					},
+					error : function(result){
+						$('#heartTest4').html('실패');
+					}
+				})
+			});
+			/* 좋아요하기 리플 */
+			$("#heartTest5").click(function(){
+				$.ajax({
+					url : 'htChangeReply.ht',
+					type : 'post',
+					data : { htTargetNo : 22 },
+					success : function(result){
+						console.log('결과');
+						if(result > 0) {
+							$('#heartTest5').html(result).css('background-color', 'red');
+						}
+						else {
+							$('#heartTest5').html(result).css('background-color', 'white');
+						}
+					},
+					error : function(result){
+						$('#heartTest5').html('실패');
 					}
 				})
 			})

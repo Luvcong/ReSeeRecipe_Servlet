@@ -164,7 +164,7 @@
 	
 	
 	<!--===========================================================-->
-	<!-- 추가, 삭제 (STATUS종류 검증 필요 시 isHeart종류 메소드 시행 후 사용) -->
+	<!-- 추가, 삭제 (STATUS검증 추가해야함) -->
 	<entry key="insertHeartRecipe">
 	INSERT
 		  INTO
@@ -272,16 +272,31 @@
 	<entry key="insertHeartReply">
 		INSERT
 		  INTO
-			   TB_HT_REPLY
-			   (
+		  	   TB_HT_REPLY(MEM_NO, REPLY_NO)
+		SELECT
 			   MEM_NO,
-			   REPLY_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )	
+			   (SELECT REPLY_NO
+			      FROM TB_REPLY
+			      JOIN
+				       (SELECT RECIPE_NO
+				          FROM TB_RECIPE
+				          JOIN TB_MEMBER
+				            ON (RECIPE_WRITER_NO = MEM_NO)
+				         WHERE RECIPE_STATUS = 'Y'
+				           AND MEM_STATUS = 'Y'
+				       )
+				 USING (RECIPE_NO)
+				  JOIN TB_MEMBER
+				    ON (REPLY_WRITER_NO = MEM_NO)
+				 WHERE MEM_STATUS = 'Y'
+			       AND REPLY_NO = ?
+			   ) REPLY_NO
+		  FROM
+		  	   TB_MEMBER
+		 WHERE
+		 	   MEM_STATUS = 'Y'
+	   	   AND
+	   	   	   MEM_NO = ?
 	</entry>
 	
 	
