@@ -31,7 +31,9 @@ public class AjaxHeartDao {
 	
 	
 	/****************************************************************************/
+	// 레시피 좋아요여부
 	public boolean isHeartRecipe(Heart ht, Connection conn) {
+		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartRecipe");
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -49,8 +51,84 @@ public class AjaxHeartDao {
 	}
 	
 	
+	// 북마크여부
+	public boolean isHeartBookmark(Heart ht, Connection conn) {
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartBookmark");
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
 	
 	
+	// 공지사항 좋아요여부
+	public boolean isHeartNotice(Heart ht, Connection conn) {
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartNotice");
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	// 구독여부
+	public boolean isHeartSubsc(Heart ht, Connection conn) {
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	// 리플 좋아요여부
+	public boolean isHeartReply(Heart ht, Connection conn) {
+		boolean result = false;
+		String sql = prop.getProperty("isHeartReply");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2,ht.getMemNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	/****************************************************************************/
 	
 	
@@ -168,67 +246,6 @@ public class AjaxHeartDao {
 		return result;
 	}
 	/****************************************************************************/
-	
-	
-	public boolean isHeartGeneralBoard(Heart ht, Connection conn) {
-		boolean result = false;
-		String sql = prop.getProperty("isHeartGeneralBoard").replace("$BASEKEY", ht.getHtKind());
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
-			
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
-					result = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	
-	public boolean isHeartSubsc(Heart ht, Connection conn) {
-		boolean result = false;
-		String sql = prop.getProperty("isHeartSubsc");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
-			
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
-					result = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	
-	public boolean isHeartReply(Heart ht, Connection conn) {
-		boolean result = false;
-		String sql = prop.getProperty("isHeartReply");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2,ht.getMemNo());
-			
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
-					result = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 	/****************************************************************************/
 	
 	

@@ -39,6 +39,147 @@
 	</entry>
 
 
+	<entry key="isHeartBookmark">
+		SELECT
+			   RECIPE_NO
+		  FROM
+		  	   TB_HT_BOOKMARK
+		  JOIN
+		       (SELECT RECIPE_NO
+				  FROM TB_RECIPE
+				  JOIN TB_MEMBER
+					ON(RECIPE_WRITER_NO = MEM_NO)
+				 WHERE RECIPE_STATUS = 'Y'
+				   AND MEM_STATUS = 'Y')
+		 USING
+		 	   (RECIPE_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   RECIPE_NO = ?
+		   AND
+		   	   MEM_NO = ?
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		 	BY
+		 	   HT_BOOKMARK_DATE DESC
+	</entry>
+	
+	
+	<entry key="isHeartNotice">
+		SELECT
+			   NOTICE_NO
+		  FROM
+		  	   TB_HT_NOTICE
+		  JOIN
+		       (SELECT NOTICE_NO
+				  FROM TB_NOTICE
+				  JOIN TB_MEMBER
+					ON(NOTICE_WRITER = MEM_NO)
+				 WHERE NOTICE_STATUS = 'Y'
+				   AND MEM_STATUS = 'Y')
+		 USING
+		 	   (NOTICE_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   NOTICE_NO = ?
+		   AND
+		   	   MEM_NO = ?
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		 	BY
+		 	   HT_NOTICE_DATE DESC
+	</entry>
+	
+	
+	<entry key="isHeartSubsc">
+		SELECT CHEF_NO
+		  FROM TB_HT_SUBSC
+		  JOIN
+			   (SELECT CHEF_NO
+				  FROM TB_CHEF
+				  JOIN TB_MEMBER
+					ON (CHEF_MEM_NO = MEM_NO)
+				 WHERE MEM_STATUS = 'Y'
+				 )
+	 	 USING
+	 	 	   (CHEF_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   CHEF_NO = ?
+		   AND
+		   	   MEM_NO = ?
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		 	   BY HT_SUBSC_DATE DESC
+	</entry>
+	
+	
+	<entry key="isHeartReply">
+		SELECT
+			   REPLY_NO
+		  FROM
+		  	   TB_HT_REPLY
+		  JOIN
+			   (SELECT REPLY_NO
+				 FROM TB_REPLY
+			     JOIN
+				      (SELECT RECIPE_NO
+						FROM TB_RECIPE
+						JOIN TB_MEMBER
+						  ON (RECIPE_WRITER_NO = MEM_NO)
+					   WHERE RECIPE_STATUS = 'Y'
+						 AND MEM_STATUS = 'Y'
+					  )
+				USING (RECIPE_NO)
+				 JOIN TB_MEMBER
+				   ON (REPLY_WRITER_NO = MEM_NO)
+				WHERE MEM_STATUS = 'Y'
+			   )
+		 USING
+		 	   (REPLY_NO)
+		  JOIN
+		  	   TB_MEMBER
+		 USING
+		 	   (MEM_NO)
+		 WHERE
+		 	   REPLY_NO = ?
+		   AND
+		   	   MEM_NO = ?
+		   AND
+		   	   MEM_STATUS = 'Y'
+		 ORDER
+		    BY
+		       HT_REPLY_DATE DESC
+	</entry>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<!-- 추가, 삭제 (STATUS종류 검증 필요 시 isHeart종류 메소드 시행 후 사용) -->
 	<entry key="insertHeartRecipe">
 	INSERT
@@ -72,7 +213,7 @@
 
 
 
-	<!-- 특정 단일 대상 좋아요 카운트 -->
+	<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 특정 단일 대상 좋아요 카운트 -->
 	<entry key="heartCountGeneralBoard">
 		SELECT COUNT(*)
 		FROM TB_HT_$BASEKEY
@@ -162,132 +303,6 @@
 		       HT_REPLY_DATE DESC
 	</entry>
 	
-	
-	<!-- 특정 유저가 특정 단일 대상에 좋아요 했는지 여부 -->
-	<entry key="isHeartGeneralBoard">
-	SELECT
-		   COUNT(*)
-	  FROM
-	  	   TB_HT_$BASEKEY
-	  JOIN
-	       (SELECT $BASEKEY_NO
-			  FROM TB_$BASEKEY
-			  JOIN TB_MEMBER
-				ON($BASEKEY_WRITER_NO = MEM_NO)
-			 WHERE $BASEKEY_STATUS = 'Y'
-			   AND MEM_STATUS = 'Y')
-	 USING
-	 	   ($BASEKEY_NO)
-	  JOIN
-	  	   TB_MEMBER
-	 USING
-	 	   (MEM_NO)
-	 WHERE
-	 	   $BASEKEY_NO = ?
-	   AND
-	   	   MEM_NO = ?
-	   AND
-	   	   MEM_STATUS = 'Y'
-	 ORDER
-	 	BY
-	 	   HT_$BASEKEY_DATE DESC
-	</entry>
-	
-	
-	<entry key="isHeartSubsc">
-		SELECT COUNT(*)
-		  FROM TB_HT_SUBSC
-		  JOIN
-			   (SELECT CHEF_NO
-				  FROM TB_CHEF
-				  JOIN TB_MEMBER
-					ON (CHEF_MEM_NO = MEM_NO)
-				 WHERE MEM_STATUS = 'Y'
-				 )
-	 	 USING
-	 	 	   (CHEF_NO)
-		  JOIN
-		  	   TB_MEMBER
-		 USING
-		 	   (MEM_NO)
-		 WHERE
-		 	   CHEF_NO = ?
-		   AND
-		   	   MEM_NO = ?
-		   AND
-		   	   MEM_STATUS = 'Y'
-		 ORDER
-		 	   BY HT_SUBSC_DATE DESC
-	</entry>
-	
-	
-	<entry key="isHeartReply">
-		SELECT
-				   COUNT(*)
-			  FROM
-			  	   TB_HT_REPLY
-			  JOIN
-				   (SELECT REPLY_NO
-					 FROM TB_REPLY
-				     JOIN
-					      (SELECT RECIPE_NO
-							FROM TB_RECIPE
-							JOIN TB_MEMBER
-							  ON (RECIPE_WRITER_NO = MEM_NO)
-						   WHERE RECIPE_STATUS = 'Y'
-							 AND MEM_STATUS = 'Y'
-						  )
-					USING (RECIPE_NO)
-					 JOIN TB_MEMBER
-					   ON (REPLY_WRITER_NO = MEM_NO)
-					WHERE MEM_STATUS = 'Y'
-				   )
-			 USING
-			 	   (REPLY_NO)
-			  JOIN
-			  	   TB_MEMBER
-			 USING
-			 	   (MEM_NO)
-			 WHERE
-			 	   REPLY_NO = ?
-			   AND
-			   	   MEM_NO = ?
-			   AND
-			   	   MEM_STATUS = 'Y'
-			 ORDER
-			    BY
-			       HT_REPLY_DATE DESC
-	</entry>
-	
-	
-	<!-- 추가, 삭제 (STATUS종류 검증 필요 시 heartCheck종류 메소드 시행 후 사용) -->
-	<entry key="insertHeart">
-		INSERT
-		  INTO
-			   TB_HT_$BASEKEY
-			   (
-			   MEM_NO,
-			   $BASEKEY_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
-	</entry>
-	
-	
-	<entry key="deleteHeart">
-	DELETE
-		   TB_HT_RECIPE
-	 WHERE
-		   MEM_NO = ?
-	   AND
-	   	   RECIPE_NO = ?
-	</entry>
-	
-	
-
 
 
 

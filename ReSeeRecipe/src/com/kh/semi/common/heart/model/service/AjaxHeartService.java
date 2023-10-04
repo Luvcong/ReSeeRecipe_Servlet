@@ -74,10 +74,10 @@ public class AjaxHeartService {
 		
 		flag = ahd.isHeartNotice(ht, conn);
 	
-		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartNotice(ht, conn) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartNotice(ht, conn) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -87,7 +87,7 @@ public class AjaxHeartService {
 	}
 	
 	
-	public int htChangeRecipe(Heart ht) {
+	public int htChangeSubsc(Heart ht) {
 
 		boolean flag = false;
 		int result = 0;
@@ -96,10 +96,10 @@ public class AjaxHeartService {
 		
 		flag = ahd.isHeartRecipe(ht, conn);
 	
-		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartSubsc(ht, conn) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartSubsc(ht, conn) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -109,19 +109,19 @@ public class AjaxHeartService {
 	}
 	
 	
-	public int htChangeRecipe(Heart ht) {
+	public int htChangeReply(Heart ht) {
 
 		boolean flag = false;
 		int result = 0;
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartRecipe(ht, conn);
+		flag = ahd.isHeartReply(ht, conn);
 	
-		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartReply(ht, conn) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartReply(ht, conn) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
