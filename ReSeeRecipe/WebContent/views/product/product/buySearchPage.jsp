@@ -110,7 +110,8 @@
                 <a href="#">별점</a>
             </div>
         </div>
-        <div>
+        <div class="paging-area">
+        	
         </div>
     </div>
     

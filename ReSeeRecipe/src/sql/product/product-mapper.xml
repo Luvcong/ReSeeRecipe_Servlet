@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectListCount">
+		SELECT
+				COUNT(*)
+			FROM
+				TB_PRODUCT
+			WHERE
+				PRODUCT_STATUS = 'Y'
+	</entry>
+
+
+
+
+
+
+</properties>
