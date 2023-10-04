@@ -12,6 +12,10 @@
     
     <style>
     
+    	#content_1{
+    		position:relative;
+    		z-index: 0;
+    	}
 	    /* 이미지 영역 사이즈 조절 */
 	    .swiper {
 	        width: 1200px;
