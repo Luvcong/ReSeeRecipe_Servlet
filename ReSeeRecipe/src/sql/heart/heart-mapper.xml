@@ -95,7 +95,7 @@
 	</entry>
 	
 	
-	<!-- 특정 유저, 특정 단일 대상에 좋아요 했는지 여부 -->
+	<!-- 특정 유저가 특정 단일 대상에 좋아요 했는지 여부 -->
 	<entry key="heartCheckGeneralBoard">
 	SELECT
 		   COUNT(*)
@@ -117,7 +117,7 @@
 	 WHERE
 	 	   $BASEKEY_NO = ?
 	   AND
-	   	   $MEMKEY_NO = ?
+	   	   MEM_NO = ?
 	   AND
 	   	   MEM_STATUS = 'Y'
 	 ORDER

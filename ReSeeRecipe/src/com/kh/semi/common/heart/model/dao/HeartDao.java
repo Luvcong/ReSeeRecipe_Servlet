@@ -105,7 +105,7 @@ public class HeartDao {
 			pstmt.setInt(2, ht.getMemNo());
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next()) {
+				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
 					result = true;
 				}
 			}
@@ -115,15 +115,44 @@ public class HeartDao {
 		return result;
 	}
 	
+	
 	public boolean heartCheckSubsc(Heart ht, Connection conn) {
 		boolean result = false;
-		String sql = prop.getProperty("")
+		String sql = prop.getProperty("heartCheckSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return result;
 	}
+	
+	
 	public boolean heartCheckReply(Heart ht, Connection conn) {
 		boolean result = false;
+		String sql = prop.getProperty("heartCheckReply");
 		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2,ht.getMemNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next() && (0 < rset.getInt("COUNT(*)"))) {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 	
