@@ -216,7 +216,7 @@
     }
     
     function createMemTable(result){
-    	 $newTable = $("<table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
+    	 $newTable = $("<br><br><table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
     	 $('.rs-content').append($newTable);
     	 for(let i in result){
     		 let $newTbody = $("<tr>" + 
