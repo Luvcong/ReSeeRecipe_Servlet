@@ -154,13 +154,13 @@
     <div id="header">
             <div class="header_top">
                 <div>
-                    <a href="<%= contextPath %>"> <!-- 홈 화면으로 리다이렉트 -->
+                    <a href="<%= contextPath %>">
                         <img src="../image/hello.png">
                     </a>
                 </div>
                 <% if(loginMember == null) {%>
 	                <div>
-	                    <a href="<%= contextPath %>/yrloginForm.me">로그인</a> <!-- 로그인 화면으로 포워딩 -->
+	                    <a href="<%= contextPath %>/yrloginForm.me?buy=buy">로그인</a>
 	                </div>
 	                <div>
 	                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
@@ -168,14 +168,14 @@
                 <% } else { %>
                 	<% if(loginMember.getMemGrade() == 4) { %>
 	                	<div>
-		                    <a href="<%= contextPath %>/hllogin.ma">관리자메뉴</a> <!-- 관리자메뉴 화면으로 포워딩 -->
+		                    <a href="<%= contextPath %>/hllogin.ma">관리자메뉴</a>
 		                </div>
 	                <% } %>
                 	<div>
                     	<b>내 리워드 : 123원</b>
                 	</div>
                 	<div>
-	                    <a href="<%= contextPath %>/yrlogout.me">로그아웃</a> <!-- 로그인세션 삭제 -->
+	                    <a href="<%= contextPath %>/yrlogout.me?buy=buy">로그아웃</a>
 	                </div>
 	                <div>
                     <a href="#">마이페이지</a> <!-- 마이페이지 화면으로 포워딩 -->
@@ -189,34 +189,34 @@
                 <div id="m_title">
                    	<p>전체카테고리</p>
                     <ul>
-                        <li><a href="#">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=meat&cpage=1">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=fish&cpage=1">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=vegi&cpage=1">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=slim&cpage=1">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
                     </ul>
                 </div>
                 <div>
                     <a href="<%= contextPath %>/main.po">스토어홈</a> <!-- 홈 화면으로 리다이렉트 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">베스트</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=best&cpage=1">베스트</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">추천</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=good&cpage=1">추천</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=new&cpage=1">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
                     <a href="#"> <!-- 레시피메인 화면으로 포워딩 -->
                         <img src="../image/hello.png">
                     </a>
                 </div>
-                <a href="<%= contextPath %>/"> <!-- 장바구니 화면으로 포워딩 -->
+                <a href="<%= contextPath %>/basketlist.po"> <!-- 장바구니 화면으로 포워딩 -->
                     <img id="shopping-basket" src="../image/hello.png">
                 </a>
-                <form action="<%= contextPath %>/">
-                    <input type="text">
+                <form action="<%= contextPath %>/searchlist.po?cpage=1">
+                    <input type="text" name="search">
                     <button type="submit">검색</button> <!-- 검색페이지 화면으로 포워딩 -->
                 </form>
             </div>

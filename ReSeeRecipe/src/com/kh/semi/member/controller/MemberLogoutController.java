@@ -27,9 +27,15 @@ public class MemberLogoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath());
+		// 추가
+		String buy = request.getParameter("buy");
 		
+		request.getSession().invalidate();
+		if(buy.equals("buy")) {
+			response.sendRedirect(request.getContextPath() + "/main.po");
+		} else {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

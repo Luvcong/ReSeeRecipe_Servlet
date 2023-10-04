@@ -1,4 +1,4 @@
-package com.kh.semi.heart.controller;
+package com.kh.semi.common.heart.controller;
 
 import java.io.IOException;
 
@@ -18,14 +18,14 @@ import com.kh.semi.member.model.vo.Member;
  * 매핑값은 *.ht입니다
  * 
  */
-@WebServlet("*.ht")
-public class HeartServlet extends HttpServlet {
+@WebServlet("*.ah")
+public class AjaxHeartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HeartServlet() {
+    public AjaxHeartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,13 +39,8 @@ public class HeartServlet extends HttpServlet {
 		Object result = "";
 		
 		// loginMember 검사
-		int loginMemNo = 0;
-		if((request.getSession().getAttribute("loginMember")) != null) {
-			loginMemNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
-		}
-		
-		// 관리자만 기능 이용가능 (테스트 위해 잠시 블러처리)
-		//if(0 < loginMemNo && loginMemNo < 3) {
+		// 로그인유저만 요청 가능 (테스트 위해 잠시 블러처리)
+		//if((request.getSession().getAttribute("loginMember")) != null) {
 			HeartController htc = new HeartController();
 			request.setCharacterEncoding("UTF-8");
 
@@ -56,22 +51,43 @@ public class HeartServlet extends HttpServlet {
 			switch(mapping) {
 			
 				/* 
-				 * 단일 대상 하트 개수 카운트 기능 ajax요청 시 인스트럭션
+				 * - ajax요청 시 인스트럭션
+				 * - heartCount : 단일 대상 하트 개수 카운트 기능
+				 * - heartCheck : 해당 유저가 해당 대상에 하트를 눌렀는지 체크 후 Add/Cancel
 				 * type : 'post'
-				 * url  : heartCount.ht
-				 * data :
-				 * 	{ htTargetNo : 하트 받은 대상(게시글/유저)의 PK
-				 * 	  htKind     : 레시피의 경우 RECIPE
-				 * 				      북마크의 경우 BOOKMARK
-				 * 				      노티스의 경우 NOTICE
-				 * 				      구독의 경우    SUBSC
-				 * 				      리플의 경우    REPLY }
+				 * url  : switch-case의 매핑값이름.ah
+				 * data : 필요한 data들 아래 키값으로 넘김
+				 * 	{
+				 * 	  memNo		 : 하트를 누른 멤버의 PK
+				 * 	  htTargetNo : 하트 받은 대상(게시글/유저)의 PK
+				 * }
 				 * 
 				 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
 				 */
+			
 				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
-				case "heartCount" : result = htc.heartCount(request, response); break;
-		
+				/* 단일 대상에 하트가 몇개인지 count : String반환, Ajax요청
+				case "ajHtCountRecipe" : result = htc.ajaxHeartCount(request, response); break;
+				case "ajHtCountBookmark" : break;
+				case "ajHtCountNotice" : break;
+				case "ajHtCountSubsc" : break;
+				case "ajHtCountReply" : break;*/
+				
+				/* 하트 추가 or 삭제 : boolean반환, Ajax요청 */
+				case "ajHtChangeRecipe" : result = htc.ajHtChangeRecipe(request, response); break;
+				case "ajHtChangeBookmark" : result = htc.ajHtChangeBookmark(request, response); break;
+				case "ajHtChangeNotice" : result = htc.ajHtChangeNotice(request, response); break;
+				case "ajHtChangeSubsc" : result = htc.ajHtChangeSubsc(request, response); break;
+				case "ajHtChangeReply" : result = htc.ajHtChangeReply(request, response); break;
+
+				/* 하트 추가 전 체크, Ajax요청
+				case "heartAddCancel" : result = htc.ajaxHeartAddCancel(request, response); break;
+				*/
+				
+				
+				
+				
+				
 				default : break; // 뭔가 실패 시 빈문자열 반환
 			}
 		//}

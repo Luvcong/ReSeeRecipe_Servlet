@@ -1,4 +1,4 @@
-package com.kh.semi.heart.model.vo;
+package com.kh.semi.common.heart.model.vo;
 
 /**
  * @author JY
@@ -23,12 +23,6 @@ public class Heart {
 	
 	public Heart() {
 		super();
-	}
-	
-	public Heart(int htTargetNo, String htKind) {
-		super();
-		this.htTargetNo = htTargetNo;
-		this.htKind = htKind;
 	}
 
 	public Heart(int memNo, int htTargetNo, String htDate, String htKind, String htCount) {
