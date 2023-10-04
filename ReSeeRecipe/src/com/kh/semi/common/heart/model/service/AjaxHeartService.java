@@ -1,16 +1,66 @@
 package com.kh.semi.common.heart.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.semi.common.heart.model.dao.HeartDao;
+import com.kh.semi.common.heart.model.dao.AjaxHeartDao;
 import com.kh.semi.common.heart.model.vo.Heart;
 import com.kh.semi.common.heart.model.vo.NoticeHeart;
 
+import static com.kh.semi.common.JDBCTemplate.*;
 
-public class HeartService {
+public class AjaxHeartService {
+	
+	/****************************************************************************/
+	
+	
+	
+	
+	
+	/****************************************************************************/
+	public int htChangeRecipe(int htTargetNo) {
+		
+		boolean flag = false;
+		int result = 0;
+		AjaxHeartDao ahd = new AjaxHeartDao();
+		Connection conn = getConnection();
+		
+		// Dao의 메소드 호출
+		flag = ahd.ht(htTargetNo, conn);
+		
+		// 좋아요 내역 없을 경우 (result false일 경우) + insert구문 수행 후 성공 시 true반환
+		if((!flag && (ahd.insertHeart(htTargetNo, conn) > 0))
+		// 좋아요 내역 있을 경우 (result true일 경우) + delete구문 수행 후 성공 시 true
+		 || (flag && (ahd.deleteHeart(htTargetNo, conn) > 0))) { 
+			flag = true;
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public String ajaxHeartCount(Heart ht) {
@@ -75,21 +125,6 @@ public class HeartService {
 		} else {
 			rollback(conn);
 		}
-		
-		switch(result) {
-		case !result: break;
-		case result : break;
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		close(conn);
 		return result;
