@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.member.model.vo.Member" %>
+<%
+	// 메인경로	
+	String contextPath = request.getContextPath();
+
+	// 로그인한 회원
+	Member loginMember = (Member)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,108 +17,109 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <style>
 	#top{
-            text-align: center; 
-            letter-spacing: -0.05em; 
-            height: 50px;
-            width: auto;
-            position: relative;
-        }
+        text-align: center; 
+        letter-spacing: -0.05em; 
+        height: 50px;
+        width: auto;
+        position: relative;
+    }
     #top>img{
-            height: 100%;
-            width: 100%;
-        }
+        height: 100%;
+        width: 100%;
+    }
     #top>button{
-            position: absolute;
-            top: 10%;
-            left : 90%;
-        }
+        position: absolute;
+        top: 10%;
+        left : 90%;
+    }
         
-        a{
-            text-decoration: none;
-            color: black;
-        }
-        a:hover{
-            text-decoration: none;  
-            color: grey; 
-        }
-        hr{
-            border: 1px outset lightgrey;
-        }
-        li{
-            list-style-type: none;
-        }
-        ul{
-            margin: 0;
-            padding: 0;
-        }
-        
-        /* 헤더 */
-        #header{
-            height: 150px;
-            width: 1200px;
-            margin: auto;
-        }
-        /* 헤더위쪽 */
-        .header_top{
-            height: 70px;
-            display: grid;
-            grid-auto-flow: column;
-            grid-template-columns: 1fr;
-        }
-        .header_top>div{
-            display: inline-block; 
-            margin-top: 23px;
-            margin-left: 10px;
-        }
-        .header_top img{
-            display: inline-block;
-            height: 20px;
-            width: 50px;
-        }
-        .header_top>div:nth-child(7){
-            margin-right: 10px;
-        }
-        .header_top>div:nth-child(8){
-            margin-right: 10px;
-        }
-        .header_top>div:nth-child(2){
-            color: green;
-        }
-        /* 헤더아래쪽 */
-        .header_bottom>div{
-            display: inline-block;
-            margin-top: 10px;
-            margin-left: 15px;
-            font-size: 35px;
-        }
-        .header_bottom>div:nth-child(1){
-            margin-right: 15px;
-        }
-        .header_bottom img{
-            height: 20px;
-            width: 50px;
-        }
-        #shopping-basket{
-            height: 50px;
-            width: 50px;
-            margin-left: 130px;
-        }
-        .header_bottom input:nth-child(1){
-            position: relative;
-            left: 970px;
-            bottom: 40px;
-            height: 30px;
-            width: 180px;
-        }
-        .header_bottom button:nth-child(2){
-            position: relative;
-            left: 965px;
-            bottom: 40px;
-            height: 30px;
-            width: 50px;
-        }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    a:hover{
+        text-decoration: none;  
+        color: grey; 
+    }
+    hr{
+        border: 1px outset lightgrey;
+    }
+    li{
+        list-style-type: none;
+    }
+    ul{
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* 헤더 */
+    #header{
+        height: 150px;
+        width: 1200px;
+        margin: auto;
+    }
+    /* 헤더위쪽 */
+    .header_top{
+        height: 70px;
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr;
+    }
+    .header_top>div{
+        display: inline-block; 
+        margin-top: 23px;
+        margin-left: 10px;
+    }
+    .header_top img{
+        display: inline-block;
+        height: 20px;
+        width: 50px;
+    }
+    .header_top>div:nth-child(7){
+        margin-right: 10px;
+    }
+    .header_top>div:nth-child(8){
+        margin-right: 10px;
+    }
+    .header_top>div:nth-child(2){
+        color: green;
+    }
+    /* 헤더아래쪽 */
+    .header_bottom>div{
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 15px;
+        font-size: 35px;
+    }
+    .header_bottom>div:nth-child(1){
+        margin-right: 15px;
+    }
+    .header_bottom img{
+        height: 20px;
+        width: 50px;
+    }
+    #shopping-basket{
+        height: 50px;
+        width: 50px;
+        margin-left: 130px;
+    }
+    .header_bottom input:nth-child(1){
+        position: relative;
+        left: 970px;
+        bottom: 40px;
+        height: 30px;
+        width: 180px;
+    }
+    .header_bottom button:nth-child(2){
+        position: relative;
+        left: 965px;
+        bottom: 40px;
+        height: 30px;
+        width: 50px;
+    }
 </style>
 
 </head>
@@ -127,27 +136,32 @@
                         <img src="../image/hello.png">
                     </a>
                 </div>
-                <div>
-                    <b>내 리워드 : 123원</b>
-                </div>
-                <div>
-                    <a href="#">로그인</a> <!-- 로그인 화면으로 포워딩 -->
-                </div>
-                <div style="display: none">
-                    <a href="#">로그아웃</a> <!-- 로그인세션 삭제 -->
-                </div>
-                <div>
-                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
-                </div>
-                <div style="display: none">
+                <% if(loginMember == null) {%>
+	                <div>
+	                    <a href="#">로그인</a> <!-- 로그인 화면으로 포워딩 -->
+	                </div>
+	                <div>
+	                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
+	                </div>
+                <% } else { %>
+                	<% if(loginMember.getMemGrade() == 4) { %>
+	                	<div>
+		                    <a href="#">관리자메뉴</a> <!-- 관리자메뉴 화면으로 포워딩 -->
+		                </div>
+	                <% } %>
+                	<div>
+                    	<b>내 리워드 : 123원</b>
+                	</div>
+                	<div style="display: none">
+	                    <a href="#">로그아웃</a> <!-- 로그인세션 삭제 -->
+	                </div>
+	                <div style="display: none">
                     <a href="#">마이페이지</a> <!-- 마이페이지 화면으로 포워딩 -->
-                </div>
-                <div>
-                    <a href="#">장바구니</a> <!-- 장바구니 화면으로 포워딩 -->
-                </div>
-                <div style="display: none">
-                    <a href="#">관리자메뉴</a> <!-- 관리자메뉴 화면으로 포워딩 -->
-                </div>
+	                </div>
+	                <div>
+	                    <a href="#">장바구니</a> <!-- 장바구니 화면으로 포워딩 -->
+	                </div>
+	            <% } %>
             </div>
             <div class="header_bottom">
                 <div>
