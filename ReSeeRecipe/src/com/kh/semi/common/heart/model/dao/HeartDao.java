@@ -28,7 +28,6 @@ public class HeartDao {
 			e.printStackTrace();
 		}
 	}
-	
 	/****************************************************************************/
 	
 	
@@ -95,8 +94,38 @@ public class HeartDao {
 		}
 		return result;
 	}
+	/****************************************************************************/
 	
 	
+	public boolean heartCheckGeneralBoard(Heart ht, Connection conn) {
+		boolean result = false;
+		String sql = prop.getProperty("heartCheckGeneralBoard").replace("$BASEKEY", ht.getHtKind());
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public boolean heartCheckSubsc(Heart ht, Connection conn) {
+		boolean result = false;
+		String sql = prop.getProperty("")
+		
+		return result;
+	}
+	public boolean heartCheckReply(Heart ht, Connection conn) {
+		boolean result = false;
+		
+		return result;
+	}
 	
 	
 	
