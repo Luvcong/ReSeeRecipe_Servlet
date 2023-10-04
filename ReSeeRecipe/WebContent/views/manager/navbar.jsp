@@ -55,7 +55,7 @@
 			</div>
 			<div id="HL_memberList">
 				<ul>
-					<li><a href="#">회원 관리</a></li>
+					<li><a href="#" id="HL_memberSetting">회원 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
@@ -160,6 +160,23 @@
         });
     }
     
+    $(function(){
+    	$('#HL_memberSetting').on("click", goMember);
+    });
+    function goMembr(){
+    	$.ajax({
+    		url : 'hlmembermanage.ma',
+    		success : function(result){
+    			$('.rs-content').jsp(result);
+    			console.log('회원 정보 조회 성공');
+    		},
+    		error : function(){
+    			console.log('회원 정보 조회 실패');
+    		}
+    	
+    	});
+    	
+    }
 </script>
 
 </html>
