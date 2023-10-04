@@ -18,7 +18,7 @@ public class HeartController {
 	}
 	
 	
-	public String heartCount(HttpServletRequest request, HttpServletResponse response) {
+	public String ajaxHeartCount(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 변수세팅
 		String result = "";

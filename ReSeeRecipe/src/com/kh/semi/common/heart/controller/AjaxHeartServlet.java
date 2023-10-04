@@ -72,10 +72,10 @@ public class AjaxHeartServlet extends HttpServlet {
 			
 				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 				/* 단일 대상에 하트가 몇개인지 체크, Ajax요청 */
-				case "heartCount" : result = htc.heartCount(request, response); break;
+				case "heartCount" : result = htc.ajaxHeartCount(request, response); break;
 				
 				/* 하트 추가 전 체크, Ajax요청 */
-				case "heartAddCancel" : result = htc.heartAddCancel(request, response); break;
+				case "heartAddCancel" : result = htc.ajaxHeartAddCancel(request, response); break;
 				
 				
 				
