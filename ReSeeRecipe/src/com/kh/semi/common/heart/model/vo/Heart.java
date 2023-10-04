@@ -24,6 +24,12 @@ public class Heart {
 	public Heart() {
 		super();
 	}
+	
+	public Heart(int memNo, int htTargetNo) {
+		super();
+		this.memNo = memNo;
+		this.htTargetNo = htTargetNo;
+	}
 
 	public Heart(int memNo, int htTargetNo, String htDate, String htKind, String htCount) {
 		super();

@@ -40,14 +40,14 @@ public class AjaxHeartServlet extends HttpServlet {
 	
 		// loginMember 검사
 		// 로그인유저만 요청 가능 (테스트 위해 잠시 블러처리)
-		//if((request.getSession().getAttribute("loginMember")) != null) {
+		if((request.getSession().getAttribute("loginMember")) != null) {
 			AjaxHeartController htc = new AjaxHeartController();
 			request.setCharacterEncoding("UTF-8");
 
 			// 매핑문자열 키워드 추출
 			String uri = request.getRequestURI();
 			String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-			
+			System.out.println(mapping);
 			// Controller 분배 구문
 			switch(mapping) {
 			
@@ -91,10 +91,9 @@ public class AjaxHeartServlet extends HttpServlet {
 				
 				default : break; // 뭔가 실패 시 빈문자열 반환
 			}
-		//}
+		}
 			
 		// 응답 전 세팅 및 응답 (키값은 전부 result)
-			
 			
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(result, response.getWriter());

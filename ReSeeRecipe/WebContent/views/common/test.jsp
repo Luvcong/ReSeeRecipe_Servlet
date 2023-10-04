@@ -18,18 +18,16 @@
 			/* 특정 대상의 좋아요 수 카운트 */
 			$("#heartTest").click(function(){
 				$.ajax({
-					url : 'heartCount.ht',
-					type : 'post',
-					data : {
-							htTargetNo : 2,
-							htKind : 'recipe'
-							},
+					url : 'htChangeRecipe.ht',
+					type : 'get',
+					data : { htTargetNo : 22 },
 					success : function(result){
 						console.log('결과');
-						if(result != '') {
-							$('#heartTest').html(result);
-						} else {
-							$('#heartTest').html('님머함');
+						if(result > 0) {
+							$('#heartTest').html(result).css('background-color', 'red');
+						}
+						else {
+							$('#heartTest').html(result).css('background-color', 'white');
 						}
 					},
 					error : function(result){

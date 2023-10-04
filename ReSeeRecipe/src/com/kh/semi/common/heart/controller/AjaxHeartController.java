@@ -12,8 +12,10 @@ import com.kh.semi.member.model.vo.Member;
 public class AjaxHeartController {
 	
 	
-	private boolean isNumber(String target) {
-		boolean validation = Pattern.matches("^[0-9]$", target);
+	private boolean isNumber(String htTargetNoStr) {
+		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
+		System.out.println(htTargetNoStr);
+		System.out.println(validation);
 		return validation;
 	}
 	/****************************************************************************/
@@ -21,7 +23,6 @@ public class AjaxHeartController {
 	
 	/****************************************************************************/
 	public int htChangeRecipe(HttpServletRequest request, HttpServletResponse response) {
-		
 		// 변수세팅
 		int result = 0;
 		
@@ -32,12 +33,8 @@ public class AjaxHeartController {
 		// Controller단 입력값 검사
 		if(isNumber(htTargetNoStr)) {
 			// 자료형 검사 통과 후 ht객체에 담기
-			Heart ht = new Heart();
-			ht.setMemNo(memNo);
-			ht.setHtTargetNo(Integer.parseInt(htTargetNoStr));
-			
-			
-			result = new AjaxHeartService().htChangeRecipe(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeRecipe(ht);
 		}
 		return result;
 	}
@@ -51,8 +48,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeBookmark(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeBookmark(ht);
 		}
 		return result;
 	}
@@ -66,8 +63,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeNotice(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeNotice(ht);
 		}
 		return result;
 	}
@@ -81,8 +78,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeSubsc(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeSubsc(ht);
 		}
 		return result;
 	}
@@ -96,8 +93,8 @@ public class AjaxHeartController {
 		String htTargetNoStr = request.getParameter("htTargetNo");
 		
 		if(isNumber(htTargetNoStr)) {
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			result = new AjaxHeartService().htChangeReply(htTargetNo);
+			Heart ht = new Heart(memNo, Integer.parseInt(htTargetNoStr));
+			result = new AjaxHeartService().htChangeReply(ht);
 		}
 		return result;
 	}
