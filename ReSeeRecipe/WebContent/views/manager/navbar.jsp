@@ -180,7 +180,7 @@
     			//JSON.parse(result);
     			console.log(result);
     			//selectMemberAll();
-    			$('.rs-content').text('회원번호' + result[0].memNo);
+    			//$('.rs-content').text('회원번호' + result[0].memNo);
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
