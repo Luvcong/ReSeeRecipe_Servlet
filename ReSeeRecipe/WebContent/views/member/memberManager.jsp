@@ -16,8 +16,32 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <!-- JSON -->
-    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- GSON -->
+    
+    <!--GSON Ajax 통신 하기 위해 필요  -->
+    <!-- 
+    <script type="text/javascript">
+    
+    $.getJSON("/views/member/memberManager.jsp", function(data){
+		var htmlContent = "";
+		data.forEach((m) => {
+			htmlContent += "<tr>";
+			htmlContent += "<td>"+ m.getMemNo +"<td>";
+			htmlContent += "<td>"+ m.getMemName +"<td>";
+			htmlContent += "<td>"+ m.getMemId +"<td>";
+			htmlContent += "<td>"+ m.getMemNickName +"<td>";
+			htmlContent += "<td>"+ m.getMemEmail +"<td>";
+			htmlContent += "<td>"+ m.getEnrollDate +"<td>";
+			htmlContent += "<td>"+ m.getMemReward +"<td>";
+			htmlContent += "</tr>";
+		})
+		document.querySelector("#memAll tbody").innerHTML = htmlContent;
+	})
+    
+    
+    </script>
+    -->
 <style>
 
     h2{
@@ -45,7 +69,7 @@
 
 </head>
 <body>
-
+<div class="rs-content">
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>
     <br><br>
@@ -75,7 +99,7 @@
             <button class="w3-button w3-round w3-yellow">회원 삭제</button>
         </div>
         <!--<h2>총 회원 103 명</h2>-->
-        <table class="table">
+        <table class="table" id="memAll">
             <caption class="totalMem">총 회원 <%= list.size() %>명</caption>
           <thead class="thead-light">
             <tr>
@@ -113,6 +137,7 @@
                    			</label>
                 			</div>
              			 </td>
+             		  
                 		<td><%= m.getMemNo() %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
@@ -120,6 +145,7 @@
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemReward() %></td>
+                		
                 	</tr>
                 <% } %>
 			<% } %>
@@ -137,7 +163,7 @@
         <a href="#" class="w3-button">5</a>
         <a href="#" class="w3-button">»</a>
     </div>
-	
+</div>	
 	
 	
 	

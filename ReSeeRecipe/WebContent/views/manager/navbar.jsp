@@ -174,6 +174,7 @@
     		success : function(result){
     			$('.rs-content').val(result);
     			console.log('회원 정보 조회 성공');
+    			console.log(result);
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');
