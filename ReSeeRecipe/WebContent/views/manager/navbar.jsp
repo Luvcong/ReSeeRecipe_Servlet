@@ -76,12 +76,15 @@
 				<a href="#">쿠폰 관리</a>
 			</div>
 		</div>
-
+	<div class="rs-content">
+	
+	</div>
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
 
     <!-- 카테고리 리스트 -->
+    <!--  
     <div class="rs-main">
         <div class="rs-navbar">
             <div class="nav-item">
@@ -99,10 +102,9 @@
             <div class="nav-item">
                 <a href="#">쿠폰 관리</a></div>
         </div>
+        -->
     <!-- rs-content추가 -->
-    <div class="rs-content">
-    
-    </div>
+
     </div>  <!-- rs-main -->
 </body>
 
@@ -118,7 +120,7 @@
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
-    		let $thisele = $(this);// 다음 div
+    		//let $thisele = $(this);// 다음 div
     		let $prevShowList = $(this).parent();// 다음 div
     		let $showList =  $prevShowList.next();// 다음 div
     		/*
