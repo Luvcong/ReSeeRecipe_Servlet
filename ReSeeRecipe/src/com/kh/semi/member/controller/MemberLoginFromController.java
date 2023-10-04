@@ -27,7 +27,10 @@ public class MemberLoginFromController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String buy = request.getParameter("buy");
 		// 사용자가 로그인 버튼 클릭시 보이는 양식 띄워주는 서블릿
+		//request.setAttribute("buy", buy);
+		request.setAttribute("buy", buy);
 		request.getRequestDispatcher("views/member/memberLogin.jsp").forward(request, response);
 		
 	}

@@ -39,6 +39,9 @@ public class MemberLoginController extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		
+		// 추가
+		String buy = request.getParameter("buy");
+		
 		// Service 호출
 		Member loginMember = new MemberService().loginMember(memberId, memberPwd);
 		//System.out.println("loginMem >> " + loginMember); 작동 잘 해서 블러처리하였습니다 - MJY
@@ -50,7 +53,11 @@ public class MemberLoginController extends HttpServlet {
 		} else { // 로그인 성공 시
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
-			response.sendRedirect(request.getContextPath());
+			if(buy.equals("buy")) {
+				response.sendRedirect(request.getContextPath() + "/main.po");
+			} else {
+				response.sendRedirect(request.getContextPath());
+			}
 		}
 	}
 

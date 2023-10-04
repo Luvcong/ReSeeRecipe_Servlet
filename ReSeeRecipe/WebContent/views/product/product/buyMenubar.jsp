@@ -160,7 +160,7 @@
                 </div>
                 <% if(loginMember == null) {%>
 	                <div>
-	                    <a href="<%= contextPath %>/yrloginForm.me">로그인</a>
+	                    <a href="<%= contextPath %>/yrloginForm.me?buy=buy">로그인</a>
 	                </div>
 	                <div>
 	                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
@@ -175,7 +175,7 @@
                     	<b>내 리워드 : 123원</b>
                 	</div>
                 	<div>
-	                    <a href="<%= contextPath %>/yrlogout.me">로그아웃</a>
+	                    <a href="<%= contextPath %>/yrlogout.me?buy=buy">로그아웃</a>
 	                </div>
 	                <div>
                     <a href="#">마이페이지</a> <!-- 마이페이지 화면으로 포워딩 -->
@@ -189,33 +189,33 @@
                 <div id="m_title">
                    	<p>전체카테고리</p>
                     <ul>
-                        <li><a href="#">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="#">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=meat">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=fish">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=vegi">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=slim">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
                     </ul>
                 </div>
                 <div>
                     <a href="<%= contextPath %>/main.po">스토어홈</a> <!-- 홈 화면으로 리다이렉트 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">베스트</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=best">베스트</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">추천</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=good">추천</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=new">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
                     <a href="#"> <!-- 레시피메인 화면으로 포워딩 -->
                         <img src="../image/hello.png">
                     </a>
                 </div>
-                <a href="<%= contextPath %>/"> <!-- 장바구니 화면으로 포워딩 -->
+                <a href="<%= contextPath %>/basketlist.po"> <!-- 장바구니 화면으로 포워딩 -->
                     <img id="shopping-basket" src="../image/hello.png">
                 </a>
-                <form action="<%= contextPath %>/">
+                <form action="<%= contextPath %>/searchlist.po">
                     <input type="text">
                     <button type="submit">검색</button> <!-- 검색페이지 화면으로 포워딩 -->
                 </form>
