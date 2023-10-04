@@ -46,6 +46,7 @@
 .modal .modal-footer{
 	height: 50px;
 	border: 1px solid gray;
+	justify-content: center;
 }
 .modal-table {
 	width:100%;
@@ -298,8 +299,6 @@
 			
 		}
 		
-
-		
 		$('#dmRepliedForm').modal('show');
 	}
 	</script>
@@ -309,9 +308,24 @@
 	<script>
 		function deleteDm(){
 			
+			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
+			let checked_tr = null;
+			for(let tr of trs){
+				let input = tr.children[0].children[0];
+				if(input.checked){
+					checked_tr = tr;
+					break;
+				}
+			}
+			
+			if(checked_tr == null){
+				swal('실패', '쪽지를 선택해주세요!', 'error');
+				return;
+			}
+			
 			$(function() {
 				swal({
-					title: "해당 쪽지를 삭제하시겠습니까?",
+					title: "쪽지를 삭제하시겠습니까?",
 					text : "※ 삭제 후 복원이 불가합니다",
 					type: "warning",
 					showCancelButton: true,
@@ -388,7 +402,7 @@
 	$(function() {
 		$('.table th').on('click', sortTable);
 	})
-
+	
 	function sortTable(){
 		let idx = parseInt(this.getAttribute('data-idx'));
 		if(idx == 0){
