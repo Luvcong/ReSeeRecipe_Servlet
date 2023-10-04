@@ -30,6 +30,80 @@ public class AjaxHeartDao {
 	/****************************************************************************/
 	
 	
+	/****************************************************************************/
+	public boolean isHeartRecipe(Heart ht, Connection conn) {
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartRecipe");
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	
+	
+	/****************************************************************************/
+	
+	
+	/****************************************************************************/
+	public int insertHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("insertHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int deleteHeartRecipe(Heart ht, Connection conn) {
+		int result = 0;
+		String sql = prop.getProperty("deleteHeartRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	case "RECIPE" :
 	case "BOOKMARK" :
@@ -158,7 +232,7 @@ public class AjaxHeartDao {
 	/****************************************************************************/
 	
 	
-	public int insertHeart(Heart ht, Connection conn) {
+	public int insertHt(Heart ht, Connection conn) {
 		// 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
 		
 		int resultProceed = false;
@@ -174,7 +248,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeart(Heart ht, Connection conn) {
+	public int deleteHt(Heart ht, Connection conn) {
 		// heartCheck종류 메소드 선행했을 시 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
 		
 		int result = 0;

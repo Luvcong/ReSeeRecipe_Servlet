@@ -18,26 +18,26 @@ public class AjaxHeartService {
 	
 	
 	/****************************************************************************/
-	public int htChangeRecipe(int htTargetNo) {
-		
+	public int htChangeRecipe(Heart ht) {
+		// 기본 변수 세팅
 		boolean flag = false;
 		int result = 0;
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		// Dao의 메소드 호출
-		flag = ahd.ht(htTargetNo, conn);
-		
-		// 좋아요 내역 없을 경우 (result false일 경우) + insert구문 수행 후 성공 시 true반환
-		if((!flag && (ahd.insertHeart(htTargetNo, conn) > 0))
-		// 좋아요 내역 있을 경우 (result true일 경우) + delete구문 수행 후 성공 시 true
-		 || (flag && (ahd.deleteHeart(htTargetNo, conn) > 0))) { 
-			flag = true;
+		// Dao의 좋아요여부 체크하는 메소드 호출
+		flag = ahd.isHeartRecipe(ht, conn);
+	
+		// false(좋아요내역 없을 경우) : 좋아요 INSERT메소드 호출 result에 int결과 받음
+		// true(좋아요 내역 있을 경우) : 좋아요 DELETE메소드 호출 result에 int결과 받음
+		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+			result = 1;
+			commit(conn);
+		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
 		close(conn);
 		return result;
 	}
