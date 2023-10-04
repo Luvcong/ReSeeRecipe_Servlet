@@ -76,9 +76,7 @@
 				<a href="#">쿠폰 관리</a>
 			</div>
 		</div>
-		<div class="rs-content">
-			
-		</div>
+
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
@@ -188,12 +186,13 @@
     	
     }
     
+   
     function selectMemberAll(){
     	
     	$.ajax({
     		url : "views/member/meberManager.jsp",
     		success : function(result){
-    			$('.rs-content').jsp(result);
+    			$('.rs-content').html(result);
     			console.log('고객정보들어간다');
     		},
     		error : function(){
@@ -203,6 +202,7 @@
     	})
     	
     }
+
 </script>
 
 </html>

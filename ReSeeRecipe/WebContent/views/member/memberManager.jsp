@@ -20,7 +20,7 @@
     <!-- GSON -->
     
     <!--GSON Ajax 통신 하기 위해 필요  -->
-    <!-- 
+     
     <script type="text/javascript">
     
     $.getJSON("/views/member/memberManager.jsp", function(data){
@@ -39,9 +39,23 @@
 		document.querySelector("#memAll tbody").innerHTML = htmlContent;
 	})
     
+	<!-- Ajax 써보자 -->
+    
+    function selectMembers(){
+    	$.ajax({
+    		url : 'hlmembermanage.ma',
+    		success : function(result){
+    			console.log('내가 들어왔다');
+    		},
+    		error : function(){
+    			console.log('이래도 못들어오네');
+    		}
+    	})
+    	
+    }
     
     </script>
-    -->
+    
 <style>
 
     h2{
