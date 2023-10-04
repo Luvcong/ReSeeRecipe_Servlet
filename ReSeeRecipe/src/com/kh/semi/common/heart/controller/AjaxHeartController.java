@@ -123,7 +123,7 @@ public class AjaxHeartController {
 	
 	
 	
-	/*
+	
 	public String ajaxHeartCount(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 변수세팅
@@ -149,9 +149,8 @@ public class AjaxHeartController {
 		
 		return result;
 	}
-	*/
 	
-	/*
+	
 	public boolean ajaxHeartAddCancel(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 변수세팅
@@ -178,7 +177,7 @@ public class AjaxHeartController {
 		}
 		return result;
 	}
-	*/
+	
 	
 	
 	

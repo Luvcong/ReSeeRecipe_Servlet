@@ -4,7 +4,10 @@
 	<comment>좋아요 관련 SQL문</comment>
 
 
-	<!--===========================================================-->
+
+
+	<!-- 특정 단일 대상 좋아요 카운트 -->
+
 	<!-- 특정 유저가 특정 단일 대상에 좋아요 했는지 여부 -->
 	<entry key="isHeartRecipe">
 		SELECT
@@ -160,10 +163,23 @@
 		    BY
 		       HT_REPLY_DATE DESC
 	</entry>
-	<!--===========================================================-->
 	
-	
-	<!--===========================================================-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<!-- 추가, 삭제 (STATUS종류 검증 필요 시 isHeart종류 메소드 시행 후 사용) -->
 	<entry key="insertHeartRecipe">
 	INSERT
@@ -190,119 +206,6 @@
 			   RECIPE_NO = ?
 	</entry>
 	
-	
-	<entry key="insertHeartBookmark">
-		INSERT
-		  INTO
-			   TB_HT_BOOKMARK
-			   (
-			   MEM_NO,
-			   RECIPE_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
-	</entry>
-	
-	
-	<entry key="deleteHeartBookmark">
-		DELETE
-			   TB_HT_BOOKMARK
-		 WHERE
-			   MEM_NO = ?
-		   AND
-			   RECIPE_NO = ?	
-	</entry>
-	
-	
-	<entry key="insertHeartNotice">
-		INSERT
-		  INTO
-			   TB_HT_NOTICE
-			   (
-			   MEM_NO,
-			   NOTICE_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
-	</entry>
-	
-	
-	<entry key="deleteHeartNotice">
-		DELETE
-			   TB_HT_NOTICE
-		 WHERE
-			   MEM_NO = ?
-		   AND
-			   NOTICE_NO = ?	
-	</entry>
-	
-	
-	<entry key="insertHeartSubsc">
-		INSERT
-		  INTO
-			   TB_HT_SUBSC
-			   (
-			   MEM_NO,
-			   CHEF_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )	
-	</entry>
-	
-	
-	<entry key="deleteHeartSubsc">
-		DELETE
-			   TB_HT_SUBSC
-		 WHERE
-			   MEM_NO = ?
-		   AND
-			   CHEF_NO = ?	
-	</entry>
-	
-	
-	<entry key="insertHeartReply">
-		INSERT
-		  INTO
-			   TB_HT_REPLY
-			   (
-			   MEM_NO,
-			   REPLY_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )	
-	</entry>
-	
-	
-	<entry key="deleteHeartReply">
-		DELETE
-			   TB_HT_REPLY
-		 WHERE
-			   MEM_NO = ?
-		   AND
-			   REPLY_NO = ?	
-	</entry>
-	<!--===========================================================-->
-
-
-
-
-
-
-
-
-
 
 
 
