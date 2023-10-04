@@ -1,11 +1,16 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberManagerController
@@ -27,8 +32,18 @@ public class MemberManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// 1) 인코딩 a태그 -> GET방식
+		
+		// 2) request 값 뽑을게 없음
+		
+		// 3) Service 호출 전체 회원 정보 SELECT
+		ArrayList<Member> list = new MemberService().selectMemberAll();
 		
 		
+		// 5) 형식, 인코딩 지정
+		response.setContentType("application/json; charset=UTF-8");
+		
+		// Gson객체 생성
 		
 	}
 
