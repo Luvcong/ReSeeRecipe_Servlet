@@ -91,6 +91,36 @@
 		    BY
 		       HT_REPLY_DATE DESC
 	</entry>
+	
+	
+	<entry key="heartCheckGeneralBoard">
+	SELECT
+		   COUNT(*)
+	  FROM
+	  	   TB_HT_$BASEKEY
+	  JOIN
+	       (SELECT $BASEKEY_NO
+			  FROM TB_$BASEKEY
+			  JOIN TB_MEMBER
+				ON($BASEKEY_WRITER_NO = MEM_NO)
+			 WHERE $BASEKEY_STATUS = 'Y'
+			   AND MEM_STATUS = 'Y')
+	 USING
+	 	   ($BASEKEY_NO)
+	  JOIN
+	  	   TB_MEMBER
+	 USING
+	 	   (MEM_NO)
+	 WHERE
+	 	   $BASEKEY_NO = ?
+	   AND
+	   	   $MEMKEY_NO = ?
+	   AND
+	   	   MEM_STATUS = 'Y'
+	 ORDER
+	 	BY
+	 	   HT_$BASEKEY_DATE DESC;
+	</entry>
 
 
 
