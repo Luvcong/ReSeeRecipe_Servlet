@@ -35,7 +35,7 @@
 				,MEM_ID
 				,MEM_NICKNAME
 				,MEM_EMAIL
-				,ENROLL_DATE
+				,ENROLL_DATE <!-- TO_CHAR(ENROLL_DATE, 'RRRR-MM-DD') ENROLL_DATE -->
 				,(
 					SELECT
 								SUM(REWARD_SCORE)
@@ -48,7 +48,7 @@
   				TB_MEMBER A
  		WHERE 
  				MEM_GRADE != 4
- 		  AND	
+ 		  AND   
  		  		MEM_STATUS = 'Y'
 	    ORDER 
 	       BY 

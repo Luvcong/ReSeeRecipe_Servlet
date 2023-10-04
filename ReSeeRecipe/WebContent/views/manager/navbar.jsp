@@ -172,16 +172,23 @@
     	$.ajax({
     		type : "GET",
     		url : 'hlmembermanage.ma',
+    		dataType : "json",
     		success : function(result){
-    			$('.rs-content').html(result);
+    			//$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
     			//JSON.parse(result);
     			console.log(result);
-    			selectMemberAll();
+    			//selectMemberAll();
+    			//$('.rs-content').text('회원번호' + result[0].memNo);
+    			/* $('.rs-content').html(
+    					'<'
+    					'회원번호' + result[0].memNo); */
+    			createMemTable(result);
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');
+    			$('.rs-content').text('조회된 회원이 없습니다');
     		}
     	
     	});
@@ -204,6 +211,23 @@
     		
     	})
     	
+    }
+    
+    function createMemTable(result){
+    	 $newTable = $("<table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
+    	 $('.rs-content').append($newTable);
+    	 for(let i in result){
+    		 let $newTbody = $("<tr>" + 
+    			"<td>" + result[i].memNo + "</td>" +
+    			"<td>" + result[i].memName + "</td>" +
+    			"<td>" + result[i].memId + "</td>" +
+    			"<td>" + result[i].memNickname + "</td>" +
+    			"<td>" + result[i].memEmail + "</td>" +
+    			"<td>" + result[i].enrollDate + "</td>" +
+    			"<td>" + result[i].memReward + "</td>"
+    			+ "</tr>");
+    		$newTable.append($newTbody);
+    	 }
     }
 
 </script>

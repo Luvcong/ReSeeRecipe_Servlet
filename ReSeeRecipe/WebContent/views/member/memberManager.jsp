@@ -133,7 +133,7 @@
               <th>리워드</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="memAllList">
           <!-- 회원이 있을 수도 있고 없을 수도 있음 -->
           
 		  <!-- <% if(list.isEmpty()) { %> -->
