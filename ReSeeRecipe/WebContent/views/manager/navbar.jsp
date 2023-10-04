@@ -76,12 +76,15 @@
 				<a href="#">쿠폰 관리</a>
 			</div>
 		</div>
-
+	<div class="rs-content">
+	
+	</div>
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
 
     <!-- 카테고리 리스트 -->
+    <!--  
     <div class="rs-main">
         <div class="rs-navbar">
             <div class="nav-item">
@@ -99,10 +102,9 @@
             <div class="nav-item">
                 <a href="#">쿠폰 관리</a></div>
         </div>
+        -->
     <!-- rs-content추가 -->
-    <div class="rs-content">
-    
-    </div>
+
     </div>  <!-- rs-main -->
 </body>
 
@@ -118,7 +120,7 @@
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
-    		let $thisele = $(this);// 다음 div
+    		//let $thisele = $(this);// 다음 div
     		let $prevShowList = $(this).parent();// 다음 div
     		let $showList =  $prevShowList.next();// 다음 div
     		/*
@@ -185,6 +187,7 @@
     					'<'
     					'회원번호' + result[0].memNo); */
     			createMemTable(result);
+    			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');
@@ -214,7 +217,7 @@
     }
     
     function createMemTable(result){
-    	 $newTable = $("<table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
+    	 $newTable = $("<br><br><table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
     	 $('.rs-content').append($newTable);
     	 for(let i in result){
     		 let $newTbody = $("<tr>" + 
