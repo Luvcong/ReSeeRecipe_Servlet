@@ -76,6 +76,9 @@
 				<a href="#">쿠폰 관리</a>
 			</div>
 		</div>
+		<div class="rs-content">
+			
+		</div>
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
@@ -104,6 +107,7 @@
 
 <!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
 <script>
+
     $(function(){
         let main = document.querySelector('.rs-main');
         let content = document.querySelector('.rs-content');
@@ -163,11 +167,12 @@
     $(function(){
     	$('#HL_memberSetting').on("click", goMember);
     });
-    function goMembr(){
+    function goMember(){
     	$.ajax({
+    		type : "GET",
     		url : 'hlmembermanage.ma',
     		success : function(result){
-    			$('.rs-content').jsp(result);
+    			$('.rs-content').val(result);
     			console.log('회원 정보 조회 성공');
     		},
     		error : function(){
