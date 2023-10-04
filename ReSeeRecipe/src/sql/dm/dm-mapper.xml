@@ -12,7 +12,8 @@
 				MEM_NICKNAME,
 				DM_CONTENT,
 				SEND_DATE,
-				DM_STATUS
+				DM_STATUS,
+				DM_REPLY
 		 FROM
 		 		TB_DM
 		 JOIN

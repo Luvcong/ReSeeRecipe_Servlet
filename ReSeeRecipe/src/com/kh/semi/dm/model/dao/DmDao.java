@@ -59,8 +59,11 @@ public class DmDao {
 				dm.setDmContent(rset.getString("DM_CONTENT"));
 				dm.setSendDate(rset.getDate("SEND_DATE"));
 				dm.setDmStatus(rset.getString("DM_STATUS"));
+				dm.setDmReply(rset.getString("DM_REPLY"));
 				
 				list.add(dm);
+				
+				// System.out.println(list);
 			}
 			
 		} catch (SQLException e) {
