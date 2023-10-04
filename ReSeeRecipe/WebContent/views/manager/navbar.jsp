@@ -110,13 +110,13 @@
 
 <!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
 <script>
-
+/*
     $(function(){
         let main = document.querySelector('.rs-main');
         let content = document.querySelector('.rs-content');
         main.appendChild(content);
     });
-    
+*/    
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -175,10 +175,10 @@
     		type : "GET",
     		url : 'hlmembermanage.ma',
     		success : function(result){
-    			$('.rs-content').val(result);
+    			$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
-    			selectMemberAll(result);
+    			selectMemberAll();
     		},
     		error : function(){
     			console.log('회원 정보 조회 실패');
@@ -188,7 +188,7 @@
     	
     }
     
-    function selectMemberAll(result){
+    function selectMemberAll(){
     	
     	$.ajax({
     		url : "views/member/meberManager.jsp",
