@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String buy = (String)request.getAttribute("buy");
+%>
 <!-- 임시용_230928 yr -->
 
 <!DOCTYPE html>
@@ -92,6 +95,7 @@
 <body>
 
     <form action="yrlogin.me" method="post">
+    	<input type="hidden" name="buy" value="<%= buy %>">
         <div class="imgcontainer">
           <img src="img_avatar2.png" alt="Avatar" class="avatar">
         </div>
