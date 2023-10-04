@@ -16,6 +16,82 @@ public class HeartController {
 		boolean validation = Pattern.matches("^[0-9]$", target);
 		return validation;
 	}
+	/****************************************************************************/
+	
+	
+	public boolean ajHtChangeRecipe(HttpServletRequest request, HttpServletResponse response) {
+		// 변수세팅
+		boolean result = false;
+		
+		// 값 추출
+		String memNoStr = request.getParameter("memNo");
+		String htTargetNoStr = request.getParameter("htTargetNo");
+		String htKind = request.getParameter("htKind");
+		
+		// Controller단 입력값 검사
+		if(isNumber(memNoStr) && isNumber(htTargetNoStr)) {
+			
+			// 자료형 검사 통과 후
+			int memNo = Integer.parseInt(memNoStr);
+			int htTargetNo = Integer.parseInt(htTargetNoStr);
+			
+			Heart ht = new Heart();
+			ht.setMemNo(memNo);
+			ht.setHtTargetNo(htTargetNo);
+			ht.setHtKind(htKind);
+			
+			result = new HeartController().ajaxHeartAddCancel(ht);
+		}
+		return result;
+	}
+	
+	public boolean ajHtChangeBookmark(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	public boolean ajHtChangeNotice(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	public boolean ajHtChangeSubsc(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		return result;
+	}
+	
+	public boolean ajHtChangeReply(HttpServletRequest request, HttpServletResponse response) {
+		boolean result = false;
+		
+		return result;
+	}
+	/****************************************************************************/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public String ajaxHeartCount(HttpServletRequest request, HttpServletResponse response) {
@@ -38,14 +114,14 @@ public class HeartController {
 			ht.setHtKind(htKind);
 			
 			// Service의 메소드 호출
-			result = new HeartService().heartCount(ht);
+			result = new HeartService().ajaxHeartCount(ht);
 		}
 		
 		return result;
 	}
 	
 	
-	public boolean heartAddCancel(HttpServletRequest request, HttpServletResponse response) {
+	public boolean ajaxHeartAddCancel(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 변수세팅
 		boolean result = false;
@@ -67,7 +143,7 @@ public class HeartController {
 			ht.setHtTargetNo(htTargetNo);
 			ht.setHtKind(htKind);
 			
-			result = new HeartController().heartAddCancel(ht);
+			result = new HeartController().ajaxHeartAddCancel(ht);
 		}
 		return result;
 	}

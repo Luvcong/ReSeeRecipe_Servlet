@@ -39,7 +39,7 @@ public class HeartDao {
 	case "REPLY" : result = new HeartDao().heartCountReply(ht, conn); break;
 	*/
 	public int heartCountGeneralBoard(Heart ht, Connection conn) {
-		int resultCount = 0;
+		int result = 0;
 		String sql = prop.getProperty("heartCountGeneralBoard").replace("$BASEKEY", ht.getHtKind());
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,19 +47,19 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					resultCount = rset.getInt("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		System.out.println();
-		return resultCount;
+		return result;
 	}
 	
 	
 	public int heartCountSubsc(Heart ht, Connection conn) {
-		int resultCount = 0;
+		int result = 0;
 		String sql = prop.getProperty("heartCountSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -67,18 +67,18 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					resultCount = rset.getInt("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return resultCount;
+		return result;
 	}
 	
 	
 	public int heartCountReply(Heart ht, Connection conn) {
-		int resultCount = 0;
+		int result = 0;
 		String sql = prop.getProperty("heartCountReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -86,13 +86,13 @@ public class HeartDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
-					resultCount = rset.getInt("COUNT(*)");
+					result = rset.getInt("COUNT(*)");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return resultCount;
+		return result;
 	}
 	/****************************************************************************/
 	
@@ -162,7 +162,7 @@ public class HeartDao {
 	public int insertHeart(Heart ht, Connection conn) {
 		// 현재 유저 STATUS = 'Y', 타겟의 STATUS = 'Y'
 		
-		boolean result = false;
+		int resultProceed = false;
 		String sql = prop.getProperty("insertHeart");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
