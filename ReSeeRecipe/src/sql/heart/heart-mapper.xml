@@ -164,20 +164,27 @@
 	
 	
 	<!--===========================================================-->
-	<!-- 추가, 삭제 (STATUS검증 추가해야함) -->
+	<!-- 추가 시 조건 검증 / 삭제는 isHeart와 INSERT 시 검사 했으므로 삭제는 조건필요 X -->
 	<entry key="insertHeartRecipe">
-	INSERT
+		INSERT
 		  INTO
-			   TB_HT_RECIPE
-			   (
+		  	   TB_HT_RECIPE(MEM_NO, RECIPE_NO)
+		SELECT
 			   MEM_NO,
-			   RECIPE_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
+		       (SELECT RECIPE_NO
+		    	  FROM TB_RECIPE
+		   		  JOIN TB_MEMBER
+		    		ON(RECIPE_WRITER_NO = MEM_NO)
+		    	 WHERE RECIPE_STATUS = 'Y'
+		    	   AND MEM_STATUS = 'Y'
+		    	   AND RECIPE_NO = ?
+		       ) RECIPE_NO
+		  FROM
+		  	   TB_MEMBER
+		 WHERE
+		 	   MEM_STATUS = 'Y'
+		   AND
+		   	   MEM_NO = ?
 	</entry>
 	
 	
@@ -194,16 +201,22 @@
 	<entry key="insertHeartBookmark">
 		INSERT
 		  INTO
-			   TB_HT_BOOKMARK
-			   (
-			   MEM_NO,
-			   RECIPE_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
+		  	   TB_HT_BOOKMARK(MEM_NO, RECIPE_NO)
+		SELECT MEM_NO,
+		       (SELECT RECIPE_NO
+		   		  FROM TB_RECIPE
+		  		  JOIN TB_MEMBER
+		    		ON (RECIPE_WRITER_NO = MEM_NO)
+		    	 WHERE RECIPE_STATUS = 'Y'
+		    	   AND MEM_STATUS = 'Y'
+		    	   AND RECIPE_NO = ?
+		       ) RECIPE_NO
+		  FROM
+		  	   TB_MEMBER
+		 WHERE
+		 	   MEM_STATUS = 'Y'
+		   AND
+		   	   MEM_NO = ?
 	</entry>
 	
 	
@@ -219,17 +232,23 @@
 	
 	<entry key="insertHeartNotice">
 		INSERT
-		  INTO
-			   TB_HT_NOTICE
-			   (
+			   INTO TB_HT_NOTICE(MEM_NO, NOTICE_NO)
+		SELECT
 			   MEM_NO,
-			   NOTICE_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )
+		       (SELECT NOTICE_NO
+		    	  FROM TB_NOTICE
+		    	  JOIN TB_MEMBER
+		    		ON(NOTICE_WRITER = MEM_NO)
+		    	 WHERE NOTICE_STATUS = 'Y'
+		    	   AND MEM_STATUS = 'Y'
+		    	   AND NOTICE_NO = ?
+		       ) NOTICE_NO
+		  FROM
+		  	   TB_MEMBER
+		 WHERE
+		 	   MEM_STATUS = 'Y'
+		   AND
+		   	   MEM_NO = ?
 	</entry>
 	
 	
@@ -246,16 +265,22 @@
 	<entry key="insertHeartSubsc">
 		INSERT
 		  INTO
-			   TB_HT_SUBSC
-			   (
+		  	   TB_HT_SUBSC(MEM_NO, CHEF_NO)
+		SELECT
 			   MEM_NO,
-			   CHEF_NO
-			   )
-		VALUES
-			   (
-			   ?,
-			   ?
-			   )	
+		       (SELECT CHEF_NO
+		    	  FROM TB_CHEF
+		    	  JOIN TB_MEMBER
+		    		ON (CHEF_MEM_NO = MEM_NO)
+		    	  WHERE MEM_STATUS = 'Y'
+		    	    AND CHEF_NO = ?
+			   ) CHEF_NO
+		  FROM
+		  	   TB_MEMBER
+		 WHERE
+		 	   MEM_STATUS = 'Y'
+		   AND
+		   	   MEM_NO = ?
 	</entry>
 	
 	
