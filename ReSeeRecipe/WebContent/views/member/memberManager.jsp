@@ -193,6 +193,7 @@
     	<% if(memlistPage != memMaxPage) { %>
     		<button onclick="page('<%=memlistPage + 1 %>');" class="w3-button w3-yellow">&gt;</button>
     	<% } %>
+    	<!--  
         <a href="#" class="w3-button">«</a>
         <a href="#" class="w3-button w3-yellow">1</a>
         <a href="#" class="w3-button">2</a>
@@ -200,6 +201,7 @@
         <a href="#" class="w3-button">4</a>
         <a href="#" class="w3-button">5</a>
         <a href="#" class="w3-button">»</a>
+        -->
     </div>
 </div>	
 	
