@@ -208,13 +208,13 @@
 </div>	
 	
 	<script>
-	
+		// 회원 리스트 페이징처리 함수
 		function page(e){
 			
 			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
 		}
 		
-		
+		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
 		$(function(){
 			$('#memAllList > tr').on("click", detailMember);
 		});
