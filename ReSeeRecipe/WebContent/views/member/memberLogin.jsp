@@ -35,7 +35,7 @@
 
         /* Set a style for all buttons */
         button {
-        background-color: #04AA6D;
+        background-color: rgb(88, 87, 87);
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -56,21 +56,10 @@
         background-color: #f44336;
         }
 
-        /* Center the avatar image inside this container */
-        .imgcontainer {
-        text-align: center;
-        margin: 24px 0 12px 0;
-        }
-
-        /* Avatar image */
-        img.avatar {
-        width: 40%;
-        border-radius: 50%;
-        }
 
         /* Add padding to containers */
         .container {
-        padding: 16px;
+        padding: 100px 300px;
         }
 
         /* The "Forgot password" text */
@@ -89,6 +78,10 @@
             width: 100%;
         }
         }
+
+        #title{
+          text-align: "center";
+        }
     </style>
 
 </head>
@@ -96,30 +89,36 @@
 
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
-        <div class="imgcontainer">
-          <img src="img_avatar2.png" alt="Avatar" class="avatar">
-        </div>
+
+      <div class="container">
+          <h1 id="title"><b>로그인</b></h1> <br><br>
+          <h4>
+          <b>
+            반갑습니다. <br>
+            오늘도 맛있는 식사하세요.
+          </b>
+          </h4>
+          <!-- <label for="uname"><b>아이디</b></label> -->
+          <input type="text" placeholder="아이디" name="memberId" required>
       
-        <div class="container">
-          <label for="uname"><b>아이디</b></label>
-          <input type="text" placeholder="Enter Username" name="memberId" required>
+          <!-- <label for="psw"><b>비밀번호</b></label> -->
+          <input type="password" placeholder="비밀번호" name="memberPwd" required>
       
-          <label for="psw"><b>비밀번호</b></label>
-          <input type="password" placeholder="Enter Password" name="memberPwd" required>
-      
-          <button type="submit">Login</button>
+          <button type="submit">로그인</button>
           <!-- 
           <label>
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
            -->
         </div>
-      
+        
         <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
+          <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+          <div class="psw">회원가입 <a href="#"></a></div>
+          <div class="psw">아이디 찾기 <a href="#"></a></div>
+          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
         </div>
       </form>
 
-</body>
+  </body>
 </html>
