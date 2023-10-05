@@ -1,6 +1,7 @@
 package com.kh.semi.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,13 +34,12 @@ public class ProductDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int pno = Integer.parseInt(request.getParameter("pno"));
-		System.out.println(pno);
 		
 		Product p = new ProductService().selectProduct(pno);
-		ProductPicture pp = new ProductService().selectPicture(pno);
+		ArrayList<ProductPicture> list = new ProductService().selectPicture(pno);
 		
 		request.setAttribute("p", p);
-		request.setAttribute("pp", pp);
+		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/views/product/product/buyDetailView.jsp").forward(request, response);
 	}

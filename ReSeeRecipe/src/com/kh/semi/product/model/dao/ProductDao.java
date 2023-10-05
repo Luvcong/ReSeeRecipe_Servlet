@@ -135,9 +135,9 @@ public class ProductDao {
 	}
 	
 	
-	public ProductPicture selectPicture(Connection conn, int pno) {
+	public ArrayList<ProductPicture> selectPicture(Connection conn, int pno) {
 		
-		ProductPicture pp = null;
+		ArrayList<ProductPicture> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectPicture");
@@ -147,12 +147,14 @@ public class ProductDao {
 			pstmt.setInt(1, pno);
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
-				pp = new ProductPicture();
+			while(rset.next()) {
+				ProductPicture pp = new ProductPicture();
 				pp.setPictureNo(rset.getInt("PRODUCT_PICTURE_NO"));
 				pp.setPictureOname(rset.getString("PRODUCT_PICTURE_ONAME"));
 				pp.setPictureCname(rset.getString("PRODUCT_PICTURE_CNAME"));
 				pp.setPicturePath(rset.getString("PRODUCT_PICTURE_PATH"));
+				
+				list.add(pp);
 			}
 			
 		} catch (SQLException e) {
@@ -161,7 +163,7 @@ public class ProductDao {
 			close(rset);
 			close(pstmt);
 		}
-		return pp;
+		return list;
 	}
 	
 	
