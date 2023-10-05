@@ -70,6 +70,40 @@ public class MemberDao {
 		return m;
 	}
 	
+	public int selectMemlistCount(Connection conn) {
+		
+		int memlistCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMemlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memlistCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memlistCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public ArrayList<Member> selectMemberAll(Connection conn, PageInfo pi){
 		
 		ArrayList<Member> list = new ArrayList();

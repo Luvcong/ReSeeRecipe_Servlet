@@ -28,6 +28,17 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectMemlistCount">
+		SELECT
+				COUNT(*)
+		 FROM
+		 		TB_MEMBER
+		WHERE
+				MEM_STATUS = 'Y'
+		  AND
+		  		MEM_GRADE_NO != 4
+	</entry>
+	
 	<entry key="selectMemberAll">
 		SELECT *
 		 FROM(SELECT ROWNUM, A.* 
