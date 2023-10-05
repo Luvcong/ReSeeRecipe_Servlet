@@ -31,10 +31,10 @@ public class MemberLogoutController extends HttpServlet {
 		String buy = request.getParameter("buy");
 		
 		request.getSession().invalidate();
-		if(buy.equals("buy")) {
-			response.sendRedirect(request.getContextPath() + "/main.po");
-		} else {
+		if(buy == null) {
 			response.sendRedirect(request.getContextPath());
+		} else {
+			response.sendRedirect(request.getContextPath() + "/main.po");
 		}
 	}
 
