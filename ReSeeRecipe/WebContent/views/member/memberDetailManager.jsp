@@ -73,12 +73,13 @@
 </body>
 
 <script>
+	// 회원 정보 수정 폼으로 Ajax 처리
 	$(function(){
-		$('#memberupdatebtn').on('click', updateMember);
+		$('#memberupdatebtn').on('click', updateMemberForm);
 	});
-	function updateMember(){
+	function updateMemberForm(){
 		$.ajax({
-			url : 'hlupdatemember.ma',
+			url : 'hlupdatemeberForm.ma',
 			data : {mno : $('.table').children().eq(1).text()},
 			success : function(result){
 				console.log(result);
