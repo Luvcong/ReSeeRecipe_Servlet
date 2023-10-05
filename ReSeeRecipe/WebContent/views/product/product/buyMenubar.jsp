@@ -208,16 +208,16 @@
                     <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
                 </div>
                 <div>
-                    <a href="#"> <!-- 레시피메인 화면으로 포워딩 -->
+                    <a href="#">
                         <img src="../image/hello.png">
                     </a>
                 </div>
-                <a href="<%= contextPath %>/basketlist.po"> <!-- 장바구니 화면으로 포워딩 -->
+                <a href="<%= contextPath %>/basketlist.po"> 
                     <img id="shopping-basket" src="../image/hello.png">
                 </a>
                 <form action="<%= contextPath %>/searchlist.po?title=검색결과&cpage=1" method="get">
                     <input type="text" name="search">
-                    <button type="submit">검색</button> <!-- 검색페이지 화면으로 포워딩 -->
+                    <button type="submit">검색</button> 
                 </form>
             </div>
         </div>

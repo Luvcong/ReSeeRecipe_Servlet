@@ -12,11 +12,17 @@ public class Product {
 	private String origin;
 	private String productCategory;
 	private String titleImg;
-	private int productScoreReviewAvg;
+	private Double productScoreReviewAvg;
 	
 	
+	public Double getProductScoreReviewAvg() {
+		return productScoreReviewAvg;
+	}
+	public void setProductScoreReviewAvg(Double productScoreReviewAvg) {
+		this.productScoreReviewAvg = productScoreReviewAvg;
+	}
 	public Product(int productNo, String productName, String productSubname, int price, String productDetail,
-			int dilivery, String productStatus, String origin, String productCategory, String titleImg, int productScoreReviewAvg) {
+			int dilivery, String productStatus, String origin, String productCategory, String titleImg, Double productScoreReviewAvg) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
@@ -93,19 +99,16 @@ public class Product {
 	public void setTitleImg(String titleImg) {
 		this.titleImg = titleImg;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "Product [productNo=" + productNo + ", productName=" + productName + ", productSubname=" + productSubname
 				+ ", price=" + price + ", productDetail=" + productDetail + ", dilivery=" + dilivery
 				+ ", productStatus=" + productStatus + ", origin=" + origin + ", productCategory=" + productCategory
-				+ ", titleImg=" + titleImg + "]";
+				+ ", titleImg=" + titleImg + ", productScoreReviewAvg=" + productScoreReviewAvg + "]";
 	}
-	public int getProductScoreReviewAvg() {
-		return productScoreReviewAvg;
-	}
-	public void setProductScoreReviewAvg(int productScoreReviewAvg) {
-		this.productScoreReviewAvg = productScoreReviewAvg;
-	}
+
 	
 	
 	
