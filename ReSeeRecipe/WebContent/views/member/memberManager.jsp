@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.member.model.vo.Member" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.member.model.vo.Member, com.kh.semi.common.model.vo.PageInfo" %>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+
+	// 페이징바 만들 때 필요한 변수 미리 세팅
+	int memlistPage = pi.getCurrentPage();
+	int memStartPage = pi.getStartPage();
+	int memEndPage = pi.getEndPage();
+	int memMaxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -171,6 +178,21 @@
    
     <br><br><br><br>
     <div class="w3-bar">
+    	<% if(memlistPage != 1) { %>
+    		<button onclick="page('<%=memlistPage -1 %>');" class="w3-button w3-yellow">&lt;</button>
+    	<% } %>
+    	
+    	<% for(int i = memStartPage; i <= memEndPage; i++) { %>
+    		<% if(memlistPage != i) { %>
+    			<button onclick="page('<%=i %>');" class="w3-button w3-yellow"><%=i %></button>
+    		<% } else { %>
+    			<button disabled class="w3-button w3-yellow"><%=i %></button>
+    		<% } %>
+    	<% } %>
+    	
+    	<% if(memlistPage != memMaxPage) { %>
+    		<button onclick="page('<%=memlistPage + 1 %>');" class="w3-button w3-yellow">&gt;</button>
+    	<% } %>
         <a href="#" class="w3-button">«</a>
         <a href="#" class="w3-button w3-yellow">1</a>
         <a href="#" class="w3-button">2</a>
@@ -181,7 +203,13 @@
     </div>
 </div>	
 	
+	<script>
 	
+		function page(e){
+			
+			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
+		}
+	</script>
 	
 	
 </body>
