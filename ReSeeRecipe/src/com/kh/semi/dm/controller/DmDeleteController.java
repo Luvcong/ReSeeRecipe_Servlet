@@ -34,7 +34,7 @@ public class DmDeleteController extends HttpServlet {
 		
 		// 1) 인코딩x
 		// 2) 전달값
-		String[] dmNoArr = request.getParameterValues("dmNo[]");	// ajax 배열은 [] 넣어야하는지 물어보기
+		String[] dmNoArr = request.getParameterValues("dmNo[]");	// ajax 배열은 [] 넣어야하는지 물어보기 -- No / View단에서 datatype-json으로 넘겨서 그런거임
 		// 3) 데이터가공x
 		// 4)
 		int successCount = 0;

@@ -1,6 +1,7 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.board.recipe.model.service.CategoryManagerService;
+import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 
 /**
- * Servlet implementation class MemberDetailManagerController
+ * Servlet implementation class CategoryListController
  */
-@WebServlet("/hldetailmember.ma")
-public class MemberDetailManagerController extends HttpServlet {
+@WebServlet("/jhselect.ct")
+public class CategoryListManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private CategoryManagerService categoryService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDetailManagerController() {
+    public CategoryListManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,19 +33,17 @@ public class MemberDetailManagerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 값 뽑기 - 회원번호("mno")
-		int memNo = Integer.parseInt(request.getParameter("mno"));
-		System.out.println("mno>>>" + memNo);
-		// Service호출 회원번호로 해당 회원 정보 SELECT
-		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
-		Member m = new MemberService().selectMemInfo(memNo); 
-		// 응답화면 지정
-		request.setAttribute("m", m);
-		request.setAttribute("memNo", memNo);
 		
-		request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
-	
+		// 1) get - 인코딩x
+		// 2) 전달값 뽑기 - select문으로 없음
+		// 3) 데이터가공 xx
+		// 4) service 호출
+		ArrayList<RecipeCategory> list = 
+		// 5) 응답화면 지정 (ajax사용)
+		// 5-1) 인코딩과 형식 지정해주기
+		response.setContentType("application/json; charset=UTF-8");
+		
+		
 	}
 
 	/**

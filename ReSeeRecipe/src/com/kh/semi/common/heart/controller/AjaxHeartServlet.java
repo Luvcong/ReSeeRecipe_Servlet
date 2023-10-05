@@ -47,34 +47,30 @@ public class AjaxHeartServlet extends HttpServlet {
 			// 매핑문자열 키워드 추출
 			String uri = request.getRequestURI();
 			String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-			System.out.println(mapping);
 			// Controller 분배 구문
 			switch(mapping) {
 			
 				/* 
 				 * - ajax요청 시 인스트럭션
-				 * - heartCount : 단일 대상이 받은 총 하트 개수 카운트
-				 * - heartCheck : 해당 유저가 해당 대상에 하트를 눌렀는지 체크 후 하트추가/삭제
+				 * - heartCount*  : 단일 대상이 받은 총 하트 개수 카운트
+				 * - heartChange* : 해당 유저가 해당 대상에 하트를 눌렀는지 체크 후 하트추가/삭제
 				 * 
 				 * type : 'post'
 				 * url  : switch-case의 매핑값이름.ht
-				 * data : 필요한 data들 아래 키값으로 넘김
-				 * 	{
-				 * 	  htTargetNo : 하트 받은 대상(게시글/유저)의 PK
-				 * }
+				 * data : { htTargetNo : 하트 받은 대상(게시글/유저)의 PK를 같이 넘겨야함 }
 				 * 
-				 * p.s. success, error등의 경우 화면단에서 각자 자유롭게 구현			
 				 */
 			
 				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
 				/* 단일 대상에 하트가 몇개인지 count : String반환 */
-				/*
 				case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
+				/*
 				case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
 				case "htCountNotice" : result = htc.htCountNotice(request, response); break;
 				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
 				case "htCountReply" : result = htc.htCountReply(request, response); break;
 				*/
+			
 				/* 하트 추가 or 삭제 : 1 or 0반환 (SELECT + IN/DEL) */
 				case "htChangeRecipe" : result = htc.htChangeRecipe(request, response); break;
 				case "htChangeBookmark" : result = htc.htChangeBookmark(request, response); break;

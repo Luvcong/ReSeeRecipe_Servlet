@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.member.model.vo.Member" %>
+<%
+	Member m = (Member)request.getAttribute("m");
+	//int memNo = Integer.parseInt(request.getAttribute("memNo"));
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,31 +36,31 @@
             <table class="table">
                 <tr>
                     <th>회원번호</th>
-                    <td></td>
+                    <td><%=m.getMemNo() %></td>
                 </tr>
                 <tr>
                     <th>회원이름</th>
-                    <td></td>
+                    <td><%=m.getMemName() %></td>
                 </tr>    
                 <tr>
                     <th>회원아이디</th>
-                    <td></td>
+                    <td><%=m.getMemId() %></td>
                 </tr>        
                 <tr>
                     <th>회원닉네임</th>
-                    <td></td>
+                    <td><%=m.getMemNickname() %></td>
                 </tr>      
                 <tr>
                     <th>이메일</th>
-                    <td></td>
+                    <td><%=m.getMemEmail() %></td>
                 </tr>        
                 <tr>
                     <th>가입일자</th>
-                    <td></td>
+                    <td><%=m.getEnrollDate() %></td>
                 </tr>        
                 <tr>
                     <th>회원등급명</th>
-                    <td></td>
+                    <td><%=m.getMemGradeName() %></td>
                 </tr>        
             </table>
             <br><br>

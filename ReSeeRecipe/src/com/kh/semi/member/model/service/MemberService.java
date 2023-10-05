@@ -47,5 +47,15 @@ public class MemberService {
 		
 		return list;
 	}
-
+	
+	public Member selectMemInfo(int memNo){
+		
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectMemInfo(conn, memNo);
+		
+		close(conn);
+		
+		return m;
+	}
 }
