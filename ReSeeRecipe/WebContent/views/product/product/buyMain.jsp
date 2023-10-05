@@ -151,7 +151,7 @@
                     <b>베스트상품</b>
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best">더보기</a>
                 </div>
             </div>
                 
@@ -204,7 +204,7 @@
                     	추천상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good">더보기</a>
                 </div>
             </div>
 
@@ -237,7 +237,7 @@
                 </div>
                 <div class="product3">
                     <div class="p_img">
-                        <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">
+                        <a href="#">
                             <img src="/view/image/hello.png">
                         </a>
                     </div>
@@ -257,7 +257,7 @@
                     	신상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new">더보기</a>
                 </div>
             </div>
 
@@ -304,6 +304,20 @@
             </div>
         </div>
     </div>
+    
+    <script>
+	    $('document').ready(function () {
+	        $.ajax({
+	            type: "GET",
+	            url: "<%= contextPath %>/asearchlist.po",
+	            data: {cate: [best, good, new]},
+	            success: function (result) {
+	                // 구상: cate속성값으로 db에 3번 왔다갔다해서 그 결과리스트 3개를 담아서 돌아와서 여기서 각각 뿌려줌
+					
+	            }
+	        })
+	    });
+    </script>
 
     <%@ include file="buyFooter.jsp" %>
 </body>

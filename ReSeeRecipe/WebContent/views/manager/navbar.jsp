@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">카테고리 관리</a></li>
+					<li><a href="#" id="categoryManager">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -175,7 +175,8 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : 'hlmembermanage.ma?cmpage=1', //?cmpage=1
+    		url : 'hlmembermanage.ma', //?cmpage=1
+    		data : {cmpage : 1},
     		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
@@ -244,5 +245,14 @@
 	}	// 쪽지함리스트(dmListView)
 
 </script> -->
+
+<!-- 카테고리관리 ajax -->
+<script>
+
+	$(function(){
+		
+	});
+
+</script>
 
 </html>

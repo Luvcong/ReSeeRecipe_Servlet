@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.kh.semi.product.model.service.ProductService;
+import com.kh.semi.product.model.vo.Product;
 
 /**
- * Servlet implementation class MemberDetailManagerController
+ * Servlet implementation class AjaxSearchListController
  */
-@WebServlet("/hldetailmember.ma")
-public class MemberDetailManagerController extends HttpServlet {
+@WebServlet("/asearchlist.po")
+public class AjaxSearchListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDetailManagerController() {
+    public AjaxSearchListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +32,13 @@ public class MemberDetailManagerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 값 뽑기 - 회원번호("mno")
-		int memNo = Integer.parseInt(request.getParameter("mno"));
 		
-		// Service호출 회원번호로 해당 회원 정보 SELECT
-		ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
+		ArrayList<Product> list = new ProductService().selectProductList();
 		
-		// 응답화면 지정
-		request.setAttribute("list", list);
-		request.setAttribute("memNo", memNo);
+		response.setContentType("application/json; charset=UTF-8");
 		
-		request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
-	
+		new Gson().toJson(list, response.getWriter());
+		
 	}
 
 	/**

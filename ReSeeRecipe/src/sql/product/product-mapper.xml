@@ -11,7 +11,7 @@
 				PRODUCT_STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectProductList">
+	<entry key="selectList">
 		SELECT *
 		    FROM (SELECT ROWNUM RNUM, A.*
 		            FROM (SELECT
@@ -27,7 +27,8 @@
 		                    WHERE
 		                        PRODUCT_STATUS = 'Y'
 		                    AND
-		                    	PRODUCT_PICTURE_LEVEL = 1) A)
+		                    	PRODUCT_PICTURE_LEVEL = 1
+		                    ORDER BY ?) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
@@ -65,9 +66,40 @@
 			PRODUCT_PICTURE_STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectPicture">
+		SELECT 
+			PRODUCT_PICTURE_NO,
+			PRODUCT_PICTURE_ONAME,
+			PRODUCT_PICTURE_CNAME,
+			PRODUCT_PICTURE_PATH
+		FROM 
+			TB_PRODUCT_PICTURE
+		WHERE
+			PRODUCT_NO = ?
+		AND
+			PRODUCT_PICTURE_PRSTATUS = '1'
+		AND
+			PRODUCT_PICTURE_STATUS = 'Y'
+	</entry>
 	
 	
-
+	
+	<entry key="selectProductList">
+		SELECT
+	          PRODUCT_NO,
+	          PRODUCT_NAME,
+	          PRODUCT_PRICE,
+	          PRODUCT_PICTURE_PATH||'/'||PRODUCT_PICTURE_CNAME TITLEIMG,
+	          PRODUCT_SCORE_AVG
+	      FROM
+	          TB_PRODUCT
+	      JOIN
+	          TB_PRODUCT_PICTURE USING(PRODUCT_NO)
+	      WHERE
+	          PRODUCT_STATUS = 'Y'
+	      AND
+	      	PRODUCT_PICTURE_LEVEL = 1
+		</entry>
 
 
 
