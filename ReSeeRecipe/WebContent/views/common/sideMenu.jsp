@@ -85,7 +85,7 @@
 
 
 
-<%@ include file="/views/common/header.jspf" %>
+
    
     <div id="side-top">
         <p>방문자 수 : </p><p> 내 리워드 :</p>
@@ -112,7 +112,7 @@
 
 
 
-<%@ include file="/views/common/footer.jspf" %>
+
 
 </body>
 </html>
