@@ -94,7 +94,7 @@ public class AjaxHeartService {
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartRecipe(ht, conn);
+		flag = ahd.isHeartSubsc(ht, conn);
 	
 		if(!flag && (ahd.insertHeartSubsc(ht, conn) > 0)) {
 			result = 1;

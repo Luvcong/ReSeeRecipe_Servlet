@@ -44,7 +44,7 @@
 				$.ajax({
 					url : 'htChangeBookmark.ht',
 					type : 'post',
-					data : { htTargetNo : 22 },
+					data : { htTargetNo : 4 },
 					success : function(result){
 						console.log('결과');
 						if(result > 0) {
