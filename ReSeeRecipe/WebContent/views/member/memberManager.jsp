@@ -23,7 +23,7 @@
      
     <script type="text/javascript">
     
-    $.getJSON("/views/member/memberManager.jsp", function(data){
+/*     $.getJSON("/views/member/memberManager.jsp", function(data){
 		var htmlContent = "";
 		data.forEach((m) => {
 			htmlContent += "<tr>";
@@ -37,11 +37,11 @@
 			htmlContent += "</tr>";
 		})
 		document.querySelector("#memAll tbody").innerHTML = htmlContent;
-	})
+	}) */
     
-	<!-- Ajax 써보자 -->
+	//<!-- Ajax 써보자 -->
     
-    function selectMembers(){
+ /*    function selectMembers(){
     	$.ajax({
     		url : 'hlmembermanage.ma',
     		success : function(result){
@@ -53,7 +53,7 @@
     	})
     	
     }
-    
+     */
     </script>
     
 <style>
@@ -101,7 +101,7 @@
                     <a class="dropdown-item" href="#">이름</a>
                   </div>
                 </div>
-                <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchContent" name="searchMember" required>
+                <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
                     <button class="btn btn-warning" type="submit">검색</button>
                 </div>
@@ -133,17 +133,17 @@
               <th>리워드</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="memAllList">
           <!-- 회원이 있을 수도 있고 없을 수도 있음 -->
           
-		  <!-- <% if(list.isEmpty()) { %> -->
+		  <% if(list.isEmpty()) { %> 
                 <!-- 회원이 없을 때 -->
                 <tr>
                     <td colspan="5">회원이 존재하지 않습니다.</td>
                 </tr>
-			<!--	<%} else { %> -->
+		  <%} else { %> 
                 <!-- 회원이 있을 때 -->
-           <!--     <% for(Member m : list) { %> -->
+                <% for(Member m : list) { %> 
                     <tr>
                     	<td>
                 			<div class="form-check">
@@ -152,18 +152,18 @@
                    			</label>
                 			</div>
              			 </td>
-             		 <!--  
-                		<td><%= m.getMemNo() %></td>
+             		   
+                		<td><%= (m.getMemNo() -2) %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
                 		<td><%= m.getMemNickname() %></td>
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemReward() %></td>
-                	 -->	
+                	 	
                 	</tr>  
-         <!--       <% } %>  -->
-		<!--	<% } %>   -->
+               <% } %>  
+			<% } %>   
 			 
           </tbody>
         </table>

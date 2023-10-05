@@ -10,6 +10,7 @@
 <title>관리자화면 네비바</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -76,12 +77,15 @@
 				<a href="#">쿠폰 관리</a>
 			</div>
 		</div>
-
+	<div class="rs-content">
+	
+	</div>
 		<!-- rs-content추가 -->
 	</div>
 	<!-- rs-main -->
 
     <!-- 카테고리 리스트 -->
+    <!--  
     <div class="rs-main">
         <div class="rs-navbar">
             <div class="nav-item">
@@ -99,10 +103,9 @@
             <div class="nav-item">
                 <a href="#">쿠폰 관리</a></div>
         </div>
+        -->
     <!-- rs-content추가 -->
-    <div class="rs-content">
-    
-    </div>
+
     </div>  <!-- rs-main -->
 </body>
 
@@ -118,7 +121,7 @@
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
-    		let $thisele = $(this);// 다음 div
+    		//let $thisele = $(this);// 다음 div
     		let $prevShowList = $(this).parent();// 다음 div
     		let $showList =  $prevShowList.next();// 다음 div
     		/*
@@ -172,18 +175,30 @@
     	$.ajax({
     		type : "GET",
     		url : 'hlmembermanage.ma',
+    		dataType : "html",
     		success : function(result){
-    			$('.rs-content').html(result);
+    			//$('.rs-content').html(result);
     			console.log('회원 정보 조회 성공');
     			console.log(result);
-    			selectMemberAll();
+    			//JSON.parse(result);
+    			//console.log(result);
+    			//selectMemberAll();
+    			//$('.rs-content').text('회원번호' + result[0].memNo);
+    			/* $('.rs-content').html(
+    					'<'
+    					'회원번호' + result[0].memNo); */
+    			//createMemTable(result);
+    			$('.rs-content').html(result);
+    			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
+    			//$('.rs-content').jsp(result);
     		},
-    		error : function(){
+    		error : function(result){
+    			console.log(JSON.parse(result));
     			console.log('회원 정보 조회 실패');
+    			$('.rs-content').text('조회된 회원이 없습니다');
     		}
     	
     	});
-    	
     }
     
    
@@ -191,16 +206,35 @@
     	
     	$.ajax({
     		url : "views/member/meberManager.jsp",
+    		dataType :"json", 
     		success : function(result){
-    			$('.rs-content').html(result);
+    			$('.rs-content').text(result);
     			console.log('고객정보들어간다');
     		},
-    		error : function(){
+    		error : function(e){
     			console.log('고객정보 못들어온다');
+    			console.log(e);
     		}
     		
     	})
     	
+    }
+    
+    function createMemTable(result){
+    	 $newTable = $("<br><br><table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
+    	 $('.rs-content').append($newTable);
+    	 for(let i in result){
+    		 let $newTbody = $("<tr>" + 
+    			"<td>" + result[i].memNo + "</td>" +
+    			"<td>" + result[i].memName + "</td>" +
+    			"<td>" + result[i].memId + "</td>" +
+    			"<td>" + result[i].memNickname + "</td>" +
+    			"<td>" + result[i].memEmail + "</td>" +
+    			"<td>" + result[i].enrollDate + "</td>" +
+    			"<td>" + result[i].memReward + "</td>"
+    			+ "</tr>");
+    		$newTable.append($newTbody);
+    	 }
     }
 
 </script>

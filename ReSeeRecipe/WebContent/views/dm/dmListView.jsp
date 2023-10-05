@@ -98,12 +98,13 @@
                         <th data-idx=4>닉네임<div class="sort"></div></th>
                         <th data-idx=5>쪽지 문의내용<div class="sort"></div></th>
                         <th data-idx=6>답변여부<div class="sort"></div></th>
+                        <th data-idx=7 style="display: none">답변내용 (hidden처리예정)<div class="sort"></div></th>
                     </tr>
                 </thead>
                 <tbody>
                 <% if(list == null || list.isEmpty()) { %>
    	                <tr>
-	                    <td colspan="6">받은 쪽지가 없습니다</td>
+	                    <td colspan="7">받은 쪽지가 없습니다</td>
 	                </tr>
 	            <% } else { %>
 	            	<% for(Dm dm : list) { %>    
@@ -117,9 +118,10 @@
 	                        <td class="<%= dm.getDmStatus().equals("Y") ? "replied" : "waiting" %>">
 	                        	답변<%= dm.getDmStatus().equals("Y") ? "완료": "대기"  %>
 	                        </td>
+	                        <td style="display: none"><%= dm.getDmReply() %></td>
 	                    </tr>
    	                <% } %>
-                <% } %>     
+                <% } %>   
                 </tbody>
             </table>
         </div>
@@ -157,20 +159,68 @@
 									<td height="200px"></td>
 								</tr>
 								<tr>
-									<th class="text-danger">문의 답변</th>
-									<td><textarea name="dmReply" placeholder="&#10;&#10;&#10;답변할 내용을 입력하세요&#10;(최대 500byte)"></textarea></td>
+									<th class="text-danger">문의 답변<div style="color: gray"><span id="count">0</span>/500 byte</div></th>
+									<td><textarea id="reply-textarea" name="dmReply" onkeyup="checkedByte(this)" placeholder="&#10;&#10;&#10;답변할 내용을 입력하세요&#10;(최대 500byte)"></textarea></td>
 								</tr>
 							</table>
 	                </div>
 	                <!-- Modal footer -->
 	                <div class="modal-footer">
-	             		 <button type="submit" class="btn btn-sm btn-warning">답변</button>
-	                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+	             		<button type="submit" class="btn btn-sm btn-warning">답변</button>
+	                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
 	                </div>
 	            </div>
 	        </div>
 	</form>
   </div>
+
+  <!-- 쪽지 글자 byte count -->
+  <script>
+		let limitByte = 500;
+		let totalByte;
+
+		function checkedByte(obj){
+			totalByte = 0;
+			let message = $(obj).val();
+
+			for(let i = 0; i < message.length; i++){
+				var countByte = message.charCodeAt(i);
+				if(countByte > 128){
+					totalByte += 3;
+				} else {
+					totalByte++;
+				}
+			}
+			$('#count').text(totalByte);
+
+		}
+
+  </script>
+  
+	
+  
+  <!-- <script>
+
+  		$(function(){
+			  
+			  $('#reply-textarea').keyup(function(){
+				let totalByte = 0;
+				let message = $('#count').text($(this).val());
+  				let msg_length = $('#count').text($(this).val().length);
+				console.log(msg_length);
+
+				for(let i = 0; i < msg_length; i++){
+					let countByte = message.charAt(i);
+					if(escape(countByte).length > 4){
+						totalByte += 3;
+					} else {
+						totalByte++;
+					}
+				}
+				
+  			})
+  		})
+  </script> -->
   
 	<!-- alertMsg script -->
 	<script>
@@ -207,7 +257,7 @@
 		}
 		
 		if(checked_tr == null){
-			alert('쪽지를 선택해주세요!');
+			swal('실패', '쪽지를 선택해주세요!', 'error');
 			return;
 		}
 		
@@ -219,10 +269,35 @@
 		input.value = dmNo;
 		// console.log(input);
 		
-		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디
+		let textarea = document.getElementById('reply-textarea');
+		// let textval = textarea.value;
+		console.log(textarea);
+		// console.log(textval);	// 1) 여기서는 빈문자열 -- 값을 넣어주지 않아서 (type: string)
+		
+		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정(반복문사용)
 		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
 		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
 		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
+		
+//		textval = modal_trs[4].children[1].textContent = checked_tr.children[7].textContent;	// 답변내용		-- 2) 컬럼값 넣어줌
+//		console.log(textval);	// dmReply 컬럼에 있는 값 가져오기 ok	-- (type : string)
+		
+		// 내가 하고싶은 조건!
+		// 1) dmReply 컬럼의 값이 null이라면? >> textarea 작성할 수 있게끔
+		// 2) dmReply 컬럼의 값이 존재한다면? >> textarea value값에 textval를 넣어준다 (readonly)
+		
+		
+		if(textarea.value != 'null'){
+			textarea.value = checked_tr.children[7].textContent;
+			textarea.readOnly = true;
+			console.log(textarea.value);
+		}
+		
+		if(textarea.value == 'null'){
+			textarea.readOnly = false;
+			textarea.value = '';
+			
+		}
 		
 		$('#dmRepliedForm').modal('show');
 	}
@@ -233,9 +308,24 @@
 	<script>
 		function deleteDm(){
 			
+			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
+			let checked_tr = null;
+			for(let tr of trs){
+				let input = tr.children[0].children[0];
+				if(input.checked){
+					checked_tr = tr;
+					break;
+				}
+			}
+			
+			if(checked_tr == null){
+				swal('실패', '쪽지를 선택해주세요!', 'error');
+				return;
+			}
+			
 			$(function() {
 				swal({
-					title: "해당 쪽지를 삭제하시겠습니까?",
+					title: "쪽지를 삭제하시겠습니까?",
 					text : "※ 삭제 후 복원이 불가합니다",
 					type: "warning",
 					showCancelButton: true,
@@ -312,7 +402,7 @@
 	$(function() {
 		$('.table th').on('click', sortTable);
 	})
-
+	
 	function sortTable(){
 		let idx = parseInt(this.getAttribute('data-idx'));
 		if(idx == 0){
