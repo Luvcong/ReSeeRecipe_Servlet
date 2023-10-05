@@ -161,7 +161,6 @@
                    			</label>
                 			</div>
              			 </td>
-             		   
                 		<td><%= m.getMemNo()  %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
@@ -169,7 +168,6 @@
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemGradeName() %></td>
-                	 	
                 	</tr>  
                <% } %>  
 			<% } %>   
