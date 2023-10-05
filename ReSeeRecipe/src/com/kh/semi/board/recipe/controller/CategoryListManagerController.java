@@ -1,4 +1,4 @@
-package com.kh.semi.product.controller;
+package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.semi.product.model.service.ProductService;
-import com.kh.semi.product.model.vo.Product;
+import com.kh.semi.board.recipe.model.service.CategoryManagerService;
+import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 
 /**
- * Servlet implementation class AjaxSearchListController
+ * Servlet implementation class CategoryListController
  */
-@WebServlet("/asearchlist.po")
-public class AjaxSearchListController extends HttpServlet {
+@WebServlet("/jhselect.ct")
+public class CategoryListManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private CategoryManagerService categoryService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSearchListController() {
+    public CategoryListManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +34,15 @@ public class AjaxSearchListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Product> list = new ProductService().selectProductList();
-		
+		// 1) get - 인코딩x
+		// 2) 전달값 뽑기 - select문으로 없음
+		// 3) 데이터가공 xx
+		// 4) service 호출
+		ArrayList<RecipeCategory> list = 
+		// 5) 응답화면 지정 (ajax사용)
+		// 5-1) 인코딩과 형식 지정해주기
 		response.setContentType("application/json; charset=UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
 		
 	}
 

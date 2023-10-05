@@ -96,14 +96,6 @@ public class MemberDao {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ArrayList<Member> selectMemberAll(Connection conn, PageInfo pi){
 		
 		ArrayList<Member> list = new ArrayList();
@@ -144,5 +136,36 @@ public class MemberDao {
 		return list;
 	}
 	
-
+	
+	public Member selectMemInfo(Connection conn, int memNo) {
+		
+		//ArrayList<Member> list = new ArrayList();
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemName(rset.getString("MEM_GRADE_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
 }
