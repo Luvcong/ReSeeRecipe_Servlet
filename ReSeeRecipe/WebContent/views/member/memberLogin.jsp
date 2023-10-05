@@ -74,14 +74,29 @@
             display: block;
             float: none;
         }
-        .cancelbtn {
+        .cancel-btn {
             width: 100%;
         }
         }
 
-        #title{
-          text-align: "center";
+        #loginTitle{
+          padding-top: 100px;
+          display : flex;
+          align-items: center;
+          justify-content: center;
         }
+
+        .login-searchmenu  > div{
+          float: left;
+          padding : 0px 20px;
+        }
+        
+        .login-searchmenu{
+          display : flex;
+          align-items: center;
+          justify-content: center;
+        }
+
     </style>
 
 </head>
@@ -90,8 +105,8 @@
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
 
+      <h1 id="loginTitle"><b>로그인</b></h1>
       <div class="container">
-          <h1 id="title"><b>로그인</b></h1> <br><br>
           <h4>
           <b>
             반갑습니다. <br>
@@ -112,8 +127,8 @@
            -->
         </div>
         
-        <div class="container" style="background-color:#f1f1f1">
-          <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+        <div class="login-searchmenu">
+          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
           <div class="psw">회원가입 <a href="#"></a></div>
           <div class="psw">아이디 찾기 <a href="#"></a></div>
           <div class="psw">비밀번호 찾기 <a href="#"></a></div>

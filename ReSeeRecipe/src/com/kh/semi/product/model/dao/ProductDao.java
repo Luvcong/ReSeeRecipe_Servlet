@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.vo.Product;
+import com.kh.semi.product.model.vo.ProductPicture;
 
 public class ProductDao {
 	
@@ -98,6 +99,69 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public Product selectProduct(Connection conn, int pno) {
+		
+		Product p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setProductSubname(rset.getString("PRODUCT_SUBNAME"));
+				p.setPrice(rset.getInt("PRODUCT_PRICE"));
+				p.setProductDetail(rset.getString("PRODUCT_DETAIL"));
+				p.setDilivery(rset.getInt("PRODUCT_DILIVERY"));
+				p.setOrigin(rset.getString("PRODUCT_ORIGIN"));
+				p.setProductScoreReviewAvg(rset.getInt("PRODUCT_SCORE_AVG"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+	
+	
+	public ProductPicture selectPicture(Connection conn, int pno) {
+		
+		ProductPicture pp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPicture");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pp = new ProductPicture();
+				pp.setPictureNo(rset.getInt("PRODUCT_PICTURE_NO"));
+				pp.setPictureOname(rset.getString("PRODUCT_PICTURE_ONAME"));
+				pp.setPictureCname(rset.getString("PRODUCT_PICTURE_CNAME"));
+				pp.setPicturePath(rset.getString("PRODUCT_PICTURE_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pp;
 	}
 	
 	

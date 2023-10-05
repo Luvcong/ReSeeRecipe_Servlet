@@ -1,23 +1,28 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.product.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.product.model.service.ProductService;
+import com.kh.semi.product.model.vo.Product;
+import com.kh.semi.product.model.vo.ProductPicture;
+
 /**
- * Servlet implementation class MemberLogoutController
+ * Servlet implementation class ProductDetailController
  */
-@WebServlet("/yrlogout.me")
-public class MemberLogoutController extends HttpServlet {
+@WebServlet("/prodetail.po")
+public class ProductDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLogoutController() {
+    public ProductDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,15 +32,16 @@ public class MemberLogoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 추가
-		String buy = request.getParameter("buy");
+		int pno = Integer.parseInt(request.getParameter("pno"));
+		System.out.println(pno);
 		
-		request.getSession().invalidate();
-		if(buy == null) {
-			response.sendRedirect(request.getContextPath());
-		} else {
-			response.sendRedirect(request.getContextPath() + "/main.po");
-		}
+		Product p = new ProductService().selectProduct(pno);
+		ProductPicture pp = new ProductService().selectPicture(pno);
+		
+		request.setAttribute("p", p);
+		request.setAttribute("pp", pp);
+		
+		request.getRequestDispatcher("/views/product/product/buyDetailView.jsp").forward(request, response);
 	}
 
 	/**
