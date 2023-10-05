@@ -31,8 +31,10 @@ public class MemberDetailManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
 		// 값 뽑기 - 회원번호("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
+		
 		System.out.println("mno>>>" + memNo);
 		// Service호출 회원번호로 해당 회원 정보 SELECT
 		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);

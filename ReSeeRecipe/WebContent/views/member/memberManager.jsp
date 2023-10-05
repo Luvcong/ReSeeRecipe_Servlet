@@ -219,9 +219,10 @@
 			$('#memAllList > tr').on("click", detailMember);
 		});
 		function detailMember(){
+			$.ajaxSettings.traditional = true;
 			$.ajax({
 				url : 'hldetailmember.ma',
-				data : {mno : <%= list<Member>[m.getMemNo()]  %>},
+				data : {mno : $(this).children().eq(1).text()},
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
