@@ -14,8 +14,6 @@ public class AjaxHeartController {
 	
 	private boolean isNumber(String htTargetNoStr) {
 		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
-		System.out.println(htTargetNoStr);
-		System.out.println(validation);
 		return validation;
 	}
 	/****************************************************************************/

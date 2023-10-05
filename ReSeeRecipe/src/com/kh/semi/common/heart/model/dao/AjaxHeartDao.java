@@ -288,7 +288,6 @@ public class AjaxHeartDao {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartReply");
-		System.out.println("DAO 입력 시 ht 정보 : " + ht);
 	
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
