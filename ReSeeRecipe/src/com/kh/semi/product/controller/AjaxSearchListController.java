@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.service.ProductService;
 import com.kh.semi.product.model.vo.Product;
 
 /**
- * Servlet implementation class SearchList
+ * Servlet implementation class AjaxSearchListController
  */
-@WebServlet("/searchlist.po")
-public class SearchListController extends HttpServlet {
+@WebServlet("/asearchlist.po")
+public class AjaxSearchListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchListController() {
+    public AjaxSearchListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,30 +33,12 @@ public class SearchListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String title = request.getParameter("title");
-		String cate = request.getParameter("cate");
-		String search = request.getParameter("search");
+		ArrayList<Product> list = new ProductService().selectProductList();
 		
-		int listCount; // 상품의 총 개수
-		int currentPage; // 현재페이지(사용자 요청 페이지)
-		int pageLimit; // 페이징바의 개수(10개)
-		int productLimit; // 한 페이지에 보여질 상품의 최대 개수 => 12개
+		response.setContentType("application/json; charset=UTF-8");
 		
-		listCount = new ProductService().selectListCount();
-		currentPage = Integer.parseInt(request.getParameter("cpage"));
-		pageLimit = 10;
-		productLimit = 12;
+		new Gson().toJson(list, response.getWriter());
 		
-		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, productLimit);
-		
-		ArrayList<Product> list = new ProductService().selectProductList(pi, cate);
-		
-		request.setAttribute("list", list);
-		request.setAttribute("pi", pi);
-		request.setAttribute("title", title);
-		
-		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
-	
 	}
 
 	/**
