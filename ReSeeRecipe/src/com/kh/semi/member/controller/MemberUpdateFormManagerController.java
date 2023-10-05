@@ -39,8 +39,6 @@ public class MemberUpdateFormManagerController extends HttpServlet {
 		request.setAttribute("memNo", memNo);
 	
 		request.getRequestDispatcher("views/member/memberUpdateFormManager.jsp").forward(request, response);
-	
-	
 	}
 
 	/**
