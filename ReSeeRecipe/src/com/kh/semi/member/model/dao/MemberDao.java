@@ -89,7 +89,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				//m.setMemReward(rset.getInt("MEM_REWARD"));
-				m.setMemGradeName("MEM_GRADE_NAME");
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
 			}
