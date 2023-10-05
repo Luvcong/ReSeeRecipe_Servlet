@@ -70,7 +70,7 @@
 </head>
 <body>
 
-		<%@ include file="../manager/navbar.jsp" %>
+		<%@ include file="../manager/navbarJH.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -172,6 +172,10 @@
 	            </div>
 	        </div>
 	</form>
+	
+	<div class="paging-area">
+	
+	</div>	<!-- paging-area -->
   </div>
 
   <!-- 쪽지 글자 byte count -->
@@ -307,6 +311,7 @@
 	<!-- 쪽지 삭제 -->
 	<script>
 		function deleteDm(){
+			
 			
 			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
 			let checked_tr = null;

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 
 public class MemberDao {
@@ -69,7 +70,7 @@ public class MemberDao {
 		return m;
 	}
 	
-	public ArrayList<Member> selectMemberAll(Connection conn){
+	public ArrayList<Member> selectMemberAll(Connection conn, PageInfo pi){
 		
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -78,6 +79,13 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

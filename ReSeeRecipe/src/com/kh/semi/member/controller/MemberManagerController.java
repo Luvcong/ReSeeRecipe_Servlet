@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
@@ -75,34 +75,27 @@ public class MemberManagerController extends HttpServlet {
 		}
 		
 		// 여기까지 총 7개의 변수를 만들었음!
-		PageInfo pi = new PageInfo(memlistCount, )
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		PageInfo pi = new PageInfo();
+		pi.setListCount(memlistCount);
+		pi.setCurrentPage(memlistPage);
+		pi.setPageLimit(mempageLimit);
+		pi.setBoardLimit(memLimit);
+		pi.setMaxPage(memMaxPage);
+		pi.setStartPage(memStartPage);
+		pi.setEndPage(memEndPage);
 		
 		request.setCharacterEncoding("UTF-8");
 		// 3) Service 호출 전체 회원 정보 SELECT
-		ArrayList<Member> list = new MemberService().selectMemberAll();
+		ArrayList<Member> list = new MemberService().selectMemberAll(pi);
 		
 		// -- request.attribute로 하기 포워딩
 		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/member/memberManager.jsp").forward(request, response);
 		
 		
 		System.out.print("list"+ list);
-		
+		System.out.println("pi" + pi);
 		// ------ Ajax 처리 --------
 		
 		// 5) 형식, 인코딩 지정

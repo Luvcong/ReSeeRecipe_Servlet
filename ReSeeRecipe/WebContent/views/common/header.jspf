@@ -192,23 +192,24 @@
 		                </a>
 		            </div>
 		            <div id="header_3_1_2">
-		            <!-- 로그인 클릭 시 로그인 화면으로 이동 yr -->
 		          <% if(loginMember == null) { %>
+		            <!-- 로그인 클릭 시 로그인 화면으로 이동 yr -->
 		              <a href="<%= contextPath %>/yrloginForm.me">
 		                  <i class="fa-regular fa-user"></i><br>
 		                  <img src="" alt="">로그인 
 		              </a>
-		          <!-- 로그인 시 로그아웃으로 변경 yr -->
 		          <% } else { %>
+		          	<!-- 로그인 시 로그아웃으로 변경 yr -->
 		          	<a href="<%= contextPath %>/yrlogout.me">
 		                  <i class="fa-regular fa-user"></i><br>
 		                  <img src="" alt="">로그아웃
-		              </a>
+		          	</a>
 		          <% } %>
 		          </div>
 		          <div id="header_3_1_3">
 		              <% if(loginMember == null) { %>
-		              <a href="#">
+		              <!-- 회원가입을 누르면 회원가입 화면으로 이동 yr -->
+		              <a href="<%= contextPath %>/yrenrollForm.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">회원가입
 		              </a>
