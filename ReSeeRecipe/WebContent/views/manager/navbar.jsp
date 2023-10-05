@@ -18,20 +18,14 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
 <!-- css파일 따로 뺴서 link -->
 <style>
-#HL_boardList {
-	display: none;
-}
-
-#HL_memberList {
+.category{
 	display: none;
 }
 </style>
-<link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
-
 </head>
-
 
 <body>
 
@@ -41,83 +35,90 @@
 	<!-- 카테고리 리스트 -->
 	<div class="rs-main">
 		<div class="rs-navbar">
+			<!-- 게시판 관리 카테고리 -->
 			<div class="nav-item">
-				<a href="#" id="HL_boardMange">게시판 관리</a>
+				<a href="#" id="HL_memberManage">게시판 관리</a>
 			</div>
-			<div id="HL_boardList">
+			<div class="category" id="HL_boardList">
 				<ul>
 					<li><a href="#" id="HL_NoticeManage">공지사항 게시판</a></li>
 					<li><a href="#">레시피 게시판</a></li>
-					<li><a href="#">셰프</a></li>
+					<li><a href="#">셰프 게시판</a></li>
 				</ul>
 			</div>
+			<!-- 회원 관리 카테고리 -->
 			<div class="nav-item">
 				<a href="#" id="HL_memberManage">회원 관리</a>
 			</div>
-			<div id="HL_memberList">
+			<div class="category" id="HL_memberList">
 				<ul>
-					<li><a href="#" id="HL_memberSetting">회원 관리</a></li>
+					<li><a href="#" id="HL_memberSetting">회원정보 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
 			</div>
-			<div class="nav-item">
-				<a href="#">주문 관리</a>
+			<!-- 주문 관리 카테고리 -->
+			<div class="nav-item" >
+				<a href="#">상품/주문 관리</a>
 			</div>
+			<div class="category">
+				<ul>
+					<li><a href="#">상품 등록</a></li>
+					<li><a href="#">상품 조회/수정/삭제</a></li>
+					<li><a href="#">주문 관리</a></li>
+				</ul>
+			</div>
+			<!-- 문의 관리 카테고리 -->
 			<div class="nav-item">
 				<a href="#">문의 관리</a>
 			</div>
+			<div class="category">
+				<ul>
+					<li><a href="#">쪽지함 관리</a></li>
+					<li><a href="#">신고함 관리</a></li>
+					<li><a href="#">주문 관리</a></li>
+				</ul>
+			</div>
+			<!-- 메뉴 관리 카테고리 -->
 			<div class="nav-item">
 				<a href="#">메뉴 관리</a>
 			</div>
+			<div class="category">
+				<ul>
+					<li><a href="#">카테고리 관리</a></li>
+					<li><a href="#">해시태그 관리</a></li>
+				</ul>
+			</div>
+			<!-- 리워드 관리 카테고리 -->
 			<div class="nav-item">
 				<a href="#">리워드 관리</a>
 			</div>
+			<div class="category">
+				<ul>
+					<li><a href="#">리워드 지급/차감</a></li>
+					<li><a href="#">리워드 사용내역</a></li>
+				</ul>
+			</div>
+			<!-- 쿠폰 관리 카테고리 -->
 			<div class="nav-item">
 				<a href="#">쿠폰 관리</a>
 			</div>
-		</div>
-	<div class="rs-content">
-	
-	</div>
-		<!-- rs-content추가 -->
-	</div>
-	<!-- rs-main -->
-
-    <!-- 카테고리 리스트 -->
-    <!--  
-    <div class="rs-main">
-        <div class="rs-navbar">
-            <div class="nav-item">
-                <a href="#">게시판 관리</a></div>
-            <div class="nav-item">
-                <a href="#">회원 관리</a></div>
-            <div class="nav-item">
-                <a href="#">주문 관리</a></div>
-            <div class="nav-item">
-                <a href="#">문의 관리</a></div>
-            <div class="nav-item">
-                <a href="#">메뉴 관리</a></div>
-            <div class="nav-item">
-                <a href="#">리워드 관리</a></div>
-            <div class="nav-item">
-                <a href="#">쿠폰 관리</a></div>
-        </div>
-        -->
-    <!-- rs-content추가 -->
-
+			<div class="category">
+				<ul>
+					<li><a href="#">쿠폰 등록/삭제</a></li>
+					<li><a href="#">쿠폰 발급</a></li>
+					<li><a href="#">쿠폰 사용내역</a></li>
+				</ul>
+			</div>
+			
+			<div class="rs-content">
+			</div>	<!-- rs-content -->
+		
+		</div>	<!-- rs-navbar -->
     </div>  <!-- rs-main -->
 </body>
 
-<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
 <script>
-/*
-    $(function(){
-        let main = document.querySelector('.rs-main');
-        let content = document.querySelector('.rs-content');
-        main.appendChild(content);
-    });
-*/    
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
