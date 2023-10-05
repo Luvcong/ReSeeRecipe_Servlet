@@ -40,6 +40,7 @@ public class AjaxHeartController {
 		return result;
 	}
 	
+	
 	public int htCountNotice(HttpServletRequest request, HttpServletResponse response) {
 		
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
