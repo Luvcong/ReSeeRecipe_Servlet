@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.product.model.vo.Product, com.kh.semi.product.model.vo.ProductPicture" %>
+<%
+	Product p = (Product)request.getAttribute("p");
+	ProductPicture pp = (ProductPicture)request.getAttribute("pp");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +41,9 @@
         </div>
 
         <div id="d_content">
-            <h2>상품이름</h2>
-            <h3>부제목</h3>
-            <p>원산지</p>
+            <h2><%= p.getProductName() %></h2>
+            <h3><%= p.getProductSubname() %></h3>
+            <p><%= p.get %></p>
             <p>별점</p>
             <h2>가격</h2>
             <h3>배송비</h3>

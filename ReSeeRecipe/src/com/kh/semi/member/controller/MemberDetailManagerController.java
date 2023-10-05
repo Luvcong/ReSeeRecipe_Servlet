@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberLogoutController
+ * Servlet implementation class MemberDetailManagerController
  */
-@WebServlet("/yrlogout.me")
-public class MemberLogoutController extends HttpServlet {
+@WebServlet("/hldetailmember.ma")
+public class MemberDetailManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLogoutController() {
+    public MemberDetailManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +26,11 @@ public class MemberLogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		
-		// 추가
-		String buy = request.getParameter("buy");
-		
-		request.getSession().invalidate();
-		if(buy == null) {
-			response.sendRedirect(request.getContextPath());
-		} else {
-			response.sendRedirect(request.getContextPath() + "/main.po");
-		}
+	
+	
+	
 	}
 
 	/**

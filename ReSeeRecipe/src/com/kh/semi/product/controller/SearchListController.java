@@ -34,6 +34,7 @@ public class SearchListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String title = request.getParameter("title");
+		String search = request.getParameter("search");
 		
 		int listCount; // 상품의 총 개수
 		int currentPage; // 현재페이지(사용자 요청 페이지)
@@ -47,12 +48,11 @@ public class SearchListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, productLimit);
 		
-		
-		
 		ArrayList<Product> list = new ProductService().selectProductList(pi);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("title", title);
 		
 		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
 	}

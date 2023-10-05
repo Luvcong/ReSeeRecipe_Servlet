@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.dao.ProductDao;
 import com.kh.semi.product.model.vo.Product;
+import com.kh.semi.product.model.vo.ProductPicture;
 
 public class ProductService {
 	
@@ -34,7 +35,29 @@ public class ProductService {
 		return list;
 	}
 	
+	public Product selectProduct(int pno) {
+		
+		Connection conn = getConnection();
+		
+		Product p = new ProductDao().selectProduct(conn, pno);
+		
+		close(conn);
+		
+		return p;
+		
+	}
 	
+	public ProductPicture selectPicture(int pno) {
+		
+		Connection conn = getConnection();
+		
+		ProductPicture pp = new ProductDao().selectPicture(conn, pno);
+		
+		close(conn);
+		
+		return pp;
+		
+	}
 	
 	
 	
