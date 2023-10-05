@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
+
 /**
  * Servlet implementation class MemberUpdateFormManagerController
  */
@@ -26,8 +29,18 @@ public class MemberUpdateFormManagerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// 값 뽑기 - 회원번홀("mno")
+		int memNo = Integer.parseInt(request.getParameter("mno"));
+	
+		Member m = new MemberService().selectMemInfo(memNo); 
+		// 응답화면 지정
+		request.setAttribute("m", m);
+		request.setAttribute("memNo", memNo);
+	
+		request.getRequestDispatcher("views/member/memberUpdateFormManager.jsp").forward(request, response);
+	
+	
 	}
 
 	/**
