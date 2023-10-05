@@ -6,15 +6,54 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+
+<style>
+button {
+	width: 30px;
+	height: 30px;
+}
+button:hover {
+	cursor: pointer;
+	background-color: grey;
+}
+</style>
+
+
 </head>
 <body>
 
-	<!-- http://localhost:8001/recipe/views/common/test.jsp 로 접속해 임시 테스트가능 -->
-	레시피 : <button type="button" id="heartTest1">레시피</button>
-	북마크 :<button type="button" id="heartTest2">0</button>
-	노티스 :<button type="button" id="heartTest3">0</button>
-	구독   :<button type="button" id="heartTest4">0</button>
-	리플   :<button type="button" id="heartTest5">0</button>
+	
+
+	특정레시피 : <button type="button" id="heartCount1"></button><br>
+	특정북마크 : <button type="button" id="heartCount2"></button><br>
+	특정노티스 : <button type="button" id="heartCount3"></button><br>
+	특정구독 　: <button type="button" id="heartCount4"></button><br>
+	특정리플 　: <button type="button" id="heartCount5"></button><br>
+	
+	<script>
+		$(function(){
+			$.ajax({
+				url : 'htChangeRecipe.ht',
+				method : 'get',
+				data : { htTargetNo : 22 },
+				success : function(result){
+					$('#heartCount1').append(result);
+				}
+			
+				
+			})
+		})
+	
+	</script>
+	<br><br><br><br><br>
+	
+	
+	<!-- http://localhost:포트번호/recipe/views/common/test.jsp 로 접속해 임시 테스트가능 -->
+	레시피 : <button type="button" id="heartTest1">레</button><br>
+	북마크 : <button type="button" id="heartTest2">북</button><br>
+	노티스 : <button type="button" id="heartTest3">노</button><br>
+	구독 　: <button type="button" id="heartTest4">구</button><br>
+	리플 　: <button type="button" id="heartTest5">리</button><br>
 	
 	<script>
 		$(function(){
@@ -122,5 +161,11 @@
 			
 		})
 	</script>
+	<br><br>
+
+	
+	
+	
+	
 </body>
 </html>
