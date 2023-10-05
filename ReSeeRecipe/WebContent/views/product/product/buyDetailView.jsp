@@ -34,31 +34,34 @@
     <div id="detailview-wrap">
         <div>
             <img src="<%= contextPath %>/<%= list.get(0).getPicturePath() %>/<%= list.get(0).getPictureCname() %>" width="500" height="500">
+            <br><br>
             <div>
             	<% for(int i = 1; i < list.size(); i++) {%>
 					<img src="<%= contextPath %>/<%= list.get(i).getPicturePath() %>/<%= list.get(i).getPictureCname() %>" id="contentImg<%= i %>" width="200" height="200">
 				<% } %>
             </div>
         </div>
-
+		
         <div id="d_content">
-            <h2><%= p.getProductName() %></h2>
-            <% if(p.getProductSubname() != null) { %>
-            	<h3><%= p.getProductSubname() %></h3>
-            <% } %>
-            <p><%= p.getOrigin() %></p>
-            <p>★<%= p.getProductScoreReviewAvg() %></p>
-            <h2><%= p.getPrice() %></h2>
-            <h3><%= p.getDilivery() %></h3>
-            <select name="" id="">
-                <option value="">옵션 1 가격</option>
-                <option value="">옵션 2 가격</option>
-            </select>
-            <input type="number" min="0">
-            <h2>총 가격 0원</h2>
-            <button>선물하기</button>
-            <button>장바구니</button>
-            <button>바로구매</button>
+        	<form>
+	            <h2><%= p.getProductName() %></h2>
+	            <% if(p.getProductSubname() != null) { %>
+	            	<h3><%= p.getProductSubname() %></h3>
+	            <% } %>
+	            <p><%= p.getOrigin() %></p>
+	            <p>★<%= p.getProductScoreReviewAvg() %></p>
+	            <h2><%= p.getPrice() %></h2>
+	            <h3><%= p.getDilivery() %></h3>
+	            <select name="" id="">
+	                <option value="">옵션 1 가격</option>
+	                <option value="">옵션 2 가격</option>
+	            </select>
+	            <input type="number" min="0">
+	            <h2>총 가격 0원</h2>
+	            <button type="submit" formaction="">선물하기</button>
+	            <button type="submit" formaction="">장바구니</button>
+	            <button type="submit" formaction="">바로구매</button>
+            </form>
         </div>
 
         <div align="center">
@@ -71,10 +74,12 @@
             <div style="background-color: #e2e2e2;">
             <br>
                 <%= p.getProductDetail() %>
+                <br><br>
             </div>
             <br>
             <div style="background-color: #e2e2e2;">
                 asdf
+                <br><br>
             </div>
         </div>
         

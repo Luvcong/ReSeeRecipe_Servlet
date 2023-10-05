@@ -23,6 +23,20 @@ public class MemberService {
 		return m;
 	}
 	
+	public int selectMemlistCount() {
+		
+		Connection conn = getConnection();
+		
+		int memlistCount = new MemberDao().selectMemlistCount(conn);
+		
+		close(conn);
+		
+		return memlistCount;
+	}
+	
+	
+	
+	
 	public ArrayList<Member> selectMemberAll(PageInfo pi){
 		
 		Connection conn = getConnection();
