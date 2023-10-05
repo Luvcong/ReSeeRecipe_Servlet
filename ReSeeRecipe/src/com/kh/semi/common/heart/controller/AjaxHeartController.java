@@ -25,7 +25,7 @@ public class AjaxHeartController {
 		
 		// 값 추출 + 가공
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
-		
+		System.out.println(htTargetNo);
 		// Service호출
 		int result = new AjaxHeartService().htCountRecipe(htTargetNo);
 		

@@ -41,7 +41,7 @@ public class AjaxHeartDao {
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
-			
+			System.out.println("실행되나ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
 			try(ResultSet rset = pstmt.executeQuery()){
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -58,10 +58,10 @@ public class AjaxHeartDao {
 		
 		int result = 0;
 		String sql = prop.getProperty("htCountBookmark");
-		
+		System.out.println(sql + "여기까지실행ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
-			
+			System.out.println("하트타겟넘버" + htTargetNo);
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -120,9 +120,9 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("htCountReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				pstmt.setInt(1, htTargetNo);
-				
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
 				}
