@@ -52,6 +52,8 @@ public class AjaxHeartDao {
 		}
 		return result;
 	}
+	
+	
 	public int htCountBookmark(Connection conn, int htTargetNo) {
 		
 		int result = 0;
@@ -70,15 +72,65 @@ public class AjaxHeartDao {
 		}
 		return result;
 	}
+	
+	
 	public int htCountNotice(Connection conn, int htTargetNo) {
 		
-		return 0;
+		int result = 0;
+		String sql = prop.getProperty("htCountNotice");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+ 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
+
+	
 	public int htCountSubsc(Connection conn, int htTargetNo) {
-		return 0;
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
+	
+	
 	public int htCountReply(Connection conn, int htTargetNo) {
-		return 0;
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountReply");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			try(ResultSet rset = pstmt.executeQuery()) {
+				pstmt.setInt(1, htTargetNo);
+				
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	/****************************************************************************/
 	

@@ -69,7 +69,7 @@ button:hover {
 		$(function(){
 			$.ajax({
 				url : 'htCountNotice.ht',
-				method : 'get',
+				method : 'post',
 				data : { htTargetNo : 1 },
 				success : function(result){
 					console.log('성공');
@@ -150,6 +150,7 @@ button:hover {
 					}
 				})
 			});
+			
 			/* 좋아요하기 북마크 */
 			$("#heartTest2").click(function(){
 				$.ajax({
@@ -170,6 +171,7 @@ button:hover {
 					}
 				})
 			});
+			
 			/* 좋아요하기 노티스 */
 			$("#heartTest3").click(function(){
 				$.ajax({
@@ -190,6 +192,7 @@ button:hover {
 					}
 				})
 			});
+			
 			/* 좋아요하기 subsc */
 			$("#heartTest4").click(function(){
 				$.ajax({
@@ -210,6 +213,7 @@ button:hover {
 					}
 				})
 			});
+			
 			/* 좋아요하기 리플 */
 			$("#heartTest5").click(function(){
 				$.ajax({
@@ -233,7 +237,7 @@ button:hover {
 			
 		})
 	</script>
-	<br><br>
+	<br><br><br><br><br>
 
 	
 	

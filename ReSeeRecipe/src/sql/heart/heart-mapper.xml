@@ -3,7 +3,8 @@
 <properties>
 	<comment>좋아요 관련 SQL문</comment>
 	
-	
+	<!--===========================================================-->
+	<!-- 특정 대상 하트카운트 조회 기능(detail view용) -->
 	<entry key="htCountRecipe">
 		SELECT
 			   COUNT(*)
@@ -15,6 +16,12 @@
 			BY
 			   HT_RECIPE_DATE
 			   DESC
+	</entry>
+	
+	
+	<entry key="htCountBookmark">
+		SELECT
+		COUNT(*)
 	</entry>
 	
 	
