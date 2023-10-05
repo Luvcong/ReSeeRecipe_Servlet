@@ -70,6 +70,7 @@
 </head>
 <body>
 
+	<%@ include file="../manager/navbarJH.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -170,7 +171,7 @@
 	                </div>
 	            </div>
 	        </div>
-	</form>
+		</form>
 	
 	<div class="paging-area">
 	</div>	<!-- paging-area -->
