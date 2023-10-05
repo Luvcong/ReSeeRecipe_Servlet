@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.service.ProductService;
 import com.kh.semi.product.model.vo.Product;
@@ -34,6 +35,7 @@ public class SearchListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String title = request.getParameter("title");
+		String cate = request.getParameter("cate");
 		String search = request.getParameter("search");
 		
 		int listCount; // 상품의 총 개수
@@ -48,13 +50,14 @@ public class SearchListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, productLimit);
 		
-		ArrayList<Product> list = new ProductService().selectProductList(pi);
+		ArrayList<Product> list = new ProductService().selectProductList(pi, cate);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("title", title);
 		
 		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
+	
 	}
 
 	/**
