@@ -151,7 +151,7 @@
                     <b>베스트상품</b>
                 </div>
                 <div class="more">
-                    <a href="#">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1">더보기</a>
                 </div>
             </div>
                 
@@ -201,10 +201,10 @@
         <div class="content_good" style="background-color: #e2e2e2;">
             <div class="c_head">
                 <div class="c_title">
-                    추천상품
+                    	추천상품
                 </div>
                 <div class="more">
-                    <a href="#">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">더보기</a>
                 </div>
             </div>
 
@@ -229,7 +229,7 @@
                         </a>
                     </div>
                     <div class="p_name">
-                        상품이름
+                        	상품이름
                     </div>
                     <div class="p_price">
                         <a href="#">가격</a>
@@ -237,7 +237,7 @@
                 </div>
                 <div class="product3">
                     <div class="p_img">
-                        <a href="#">
+                        <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">
                             <img src="/view/image/hello.png">
                         </a>
                     </div>
@@ -254,10 +254,10 @@
         <div class="content_new">
             <div class="c_head">
                 <div class="c_title">
-                    신상품
+                    	신상품
                 </div>
                 <div class="more">
-                    <a href="#">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1">더보기</a>
                 </div>
             </div>
 

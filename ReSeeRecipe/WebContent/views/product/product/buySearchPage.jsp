@@ -4,6 +4,7 @@
 <%
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String title = (String)request.getAttribute("title");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -76,7 +77,7 @@
     
     <div id="searchpage-wrap">
         <div style="margin-bottom: 50px;">
-            <div style="font-size: 40px; text-align: left;"><b>검색결과/베스트/추천/신상</b></div>
+            <div style="font-size: 40px; text-align: left;"><b><%= title %></b></div>
             <ul id="s_list">
                 <li class="btn btn-secondary"><a href="">추천순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">별점높은순</a></li>
@@ -89,12 +90,13 @@
         <div id="pro_area">
         	<% for(Product p : list) { %>
         		<div class="pro_list">
-	                <a href="#">
+        			<a style="display: none;"><%= p.getProductNo() %></a>
+	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>">
 	                    <img src="<%= p.getTitleImg() %>">
 	                </a>
-	                <a href="#"><%= p.getProductName() %></a>
-	                <a href="#"><%= p.getPrice() %></a>
-	                <a href="#">★<%= p.getProductScoreReviewAvg() %></a>
+	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>"><%= p.getProductName() %></a>
+	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>"><%= p.getPrice() %></a>
+	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>">★<%= p.getProductScoreReviewAvg() %></a>
 	            </div>
         	<% } %>
         
@@ -134,10 +136,33 @@
                 <a href="#">별점</a>
             </div>  -->
         </div>
-        <div class="paging-area">
-        	
+        
+        <!--  <script>
+        	$(function(){
+        		$('.pro_list').click(function(){
+        			location.href='<%=contextPath%>/prodetail.po?pno='+$(this).children().eq(0).text();
+        		})
+        	})
+        </script>-->
+        
+        
+        <div class="paging-area" align="center">
+        	<% if(currentPage != 1) { %>
+        		<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + - 1 %>'">&lt;</button>
+        	<% } %>	
+        	<% for(int i = startPage; i <= endPage; i++) { %>
+        		<% if(currentPage != i) { %>
+        			<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= i %>'"><%= i %></button>
+        		<% } else { %>
+        			<button disabled><%= i %></button>
+        		<% } %>	
+        	<% } %>
+        	<% if(currentPage != maxPage) { %>
+        		<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + 1 %>'">&gt;</button>
+       		<% } %>	
         </div>
     </div>
+    <br><br>
     
     <%@ include file="buyFooter.jsp" %>
 </body>
