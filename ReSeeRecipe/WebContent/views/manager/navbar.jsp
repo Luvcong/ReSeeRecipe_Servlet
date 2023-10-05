@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">카테고리 관리</a></li>
+					<li><a href="#" id="categoryManager">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -244,5 +244,14 @@
 	}	// 쪽지함리스트(dmListView)
 
 </script> -->
+
+<!-- 카테고리관리 ajax -->
+<script>
+
+	$(function(){
+		
+	});
+
+</script>
 
 </html>
