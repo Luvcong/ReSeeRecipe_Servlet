@@ -61,12 +61,21 @@ public class MemberManagerController extends HttpServlet {
 		memLimit = 10;
 		
 		// * memMaxPage : 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
-		memMaxPage = 
+		memMaxPage = (int)Math.ceil((double)memlistCount / memLimit); // 더 큰 쪽의 자료형으로 자료형이 바뀜 기본자료형 잘 하기!!
 		
+		// * memStartPage : 페이징 하단에 보여질 페이징바의 시작 수
+		memStartPage = (memlistPage - 1) / mempageLimit * memLimit + 1;
 		
+		// * memEndPage : 페이징 하단에 보여질 페이징바의 끝 수
+		memEndPage = memStartPage + mempageLimit -1;
 		
+		// memEndPage값을 memMaxPage값으로 변경
+		if(memEndPage > memMaxPage) {
+			memEndPage = memMaxPage;
+		}
 		
-		
+		// 여기까지 총 7개의 변수를 만들었음!
+		PageInfo pi = new PageInfo(memlistCount, )
 		
 		
 		
