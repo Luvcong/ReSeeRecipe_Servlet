@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.semi.product.model.vo.Product, com.kh.semi.common.model.vo.PageInfo" %>
+<%
+	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +87,21 @@
 
         
         <div id="pro_area">
-            <div class="pro_list">
+        	<% for(Product p : list) { %>
+        		<div class="pro_list">
+	                <a href="#">
+	                    <img src="<%= p.getTitleImg() %>">
+	                </a>
+	                <a href="#"><%= p.getProductName() %></a>
+	                <a href="#"><%= p.getPrice() %></a>
+	                <a href="#">★<%= p.getProductScoreReviewAvg() %></a>
+	            </div>
+        	<% } %>
+        
+        
+        
+        
+            <!--<div class="pro_list">
                 <a href="#">
                     <img src="/view/image/hello.png">
                 </a>
@@ -108,7 +132,7 @@
                 <a href="#">상품이름</a>
                 <a href="#">가격</a>
                 <a href="#">별점</a>
-            </div>
+            </div>  -->
         </div>
         <div class="paging-area">
         	

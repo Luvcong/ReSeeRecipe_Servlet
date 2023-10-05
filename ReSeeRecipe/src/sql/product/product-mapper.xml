@@ -10,6 +10,26 @@
 			WHERE
 				PRODUCT_STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectProductList">
+		SELECT *
+		    FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT
+		                        PRODUCT_NO,
+		                        PRODUCT_NAME,
+		                        PRODUCT_PRICE,
+		                        PRODUCT_PICTURE_PATH||'/'||PRODUCT_PICTURE_CNAME TITLEIMG,
+		                        PRODUCT_SCORE_AVG
+		                    FROM
+		                        TB_PRODUCT
+		                    JOIN
+		                        TB_PRODUCT_PICTURE USING(PRODUCT_NO)
+		                    WHERE
+		                        PRODUCT_STATUS = 'Y'
+		                    AND
+		                    	PRODUCT_PICTURE_LEVEL = 1) A)
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
 
 

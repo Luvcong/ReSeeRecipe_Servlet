@@ -1,6 +1,7 @@
 package com.kh.semi.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.service.ProductService;
+import com.kh.semi.product.model.vo.Product;
 
 /**
  * Servlet implementation class SearchList
@@ -45,15 +47,14 @@ public class SearchListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, productLimit);
 		
-		ArrayList<>
 		
 		
+		ArrayList<Product> list = new ProductService().selectProductList(pi);
 		
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
 		
-		
-		
-		
-		
+		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
 	}
 
 	/**
