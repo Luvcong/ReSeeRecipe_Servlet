@@ -110,11 +110,12 @@
 					<li><a href="#">쿠폰 사용내역</a></li>
 				</ul>
 			</div>
-			
-			<div class="rs-content">
-			</div>	<!-- rs-content -->
-		
 		</div>	<!-- rs-navbar -->
+			
+		<div class="rs-content">
+		
+		</div>	<!-- rs-content -->
+		
     </div>  <!-- rs-main -->
 </body>
 
