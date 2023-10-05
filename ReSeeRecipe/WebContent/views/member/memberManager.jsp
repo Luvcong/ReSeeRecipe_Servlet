@@ -101,7 +101,7 @@
                     <a class="dropdown-item" href="#">이름</a>
                   </div>
                 </div>
-                <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchContent" name="searchMember" required>
+                <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
                     <button class="btn btn-warning" type="submit">검색</button>
                 </div>
@@ -153,7 +153,7 @@
                 			</div>
              			 </td>
              		   
-                		<td><%= m.getMemNo() %></td>
+                		<td><%= (m.getMemNo() -2) %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
                 		<td><%= m.getMemNickname() %></td>
