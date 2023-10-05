@@ -32,8 +32,26 @@ public class AjaxHeartDao {
 	/****************************************************************************/
 	
 	
+	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	public int htCountRecipe(Connection conn, int htTargetNo) {
+		return 0;
+	}
+	public int htCountBookmark(Connection conn, int htTargetNo) {
+		return 0;
+	}
+	public int htCountNotice(Connection conn, int htTargetNo) {
+		return 0;
+	}
+	public int htCountSubsc(Connection conn, int htTargetNo) {
+		return 0;
+	}
+	public int htCountReply(Connection conn, int htTargetNo) {
+		return 0;
+	}
+	
+	
 	/*************** 좋아요 여부 체크 기능 *********************************************/
-	public boolean isHeartRecipe(Heart ht, Connection conn) {
+	public boolean isHeartRecipe(Connection conn, Heart ht) {
 		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartRecipe");
@@ -54,7 +72,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public boolean isHeartBookmark(Heart ht, Connection conn) {
+	public boolean isHeartBookmark(Connection conn, Heart ht) {
 		
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartBookmark");
@@ -75,7 +93,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public boolean isHeartNotice(Heart ht, Connection conn) {
+	public boolean isHeartNotice(Connection conn, Heart ht) {
 		
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartNotice");
@@ -96,7 +114,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public boolean isHeartSubsc(Heart ht, Connection conn) {
+	public boolean isHeartSubsc(Connection conn, Heart ht) {
 		
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartSubsc");
@@ -117,7 +135,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public boolean isHeartReply(Heart ht, Connection conn) {
+	public boolean isHeartReply(Connection conn, Heart ht) {
 		
 		boolean result = false;
 		String sql = prop.getProperty("isHeartReply");
@@ -140,7 +158,7 @@ public class AjaxHeartDao {
 	
 
 	/*************** 좋아요 추가/삭제(INSERT/DELETE) 기능 ******************************/
-	public int insertHeartRecipe(Heart ht, Connection conn) {
+	public int insertHeartRecipe(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartRecipe");
@@ -158,7 +176,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
+	public int deleteHeartRecipe(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartRecipe");
@@ -176,7 +194,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartBookmark(Heart ht, Connection conn) {
+	public int insertHeartBookmark(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartBookmark");
@@ -194,7 +212,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartBookmark(Heart ht, Connection conn) {
+	public int deleteHeartBookmark(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartBookmark");
@@ -212,7 +230,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartNotice(Heart ht, Connection conn) {
+	public int insertHeartNotice(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartNotice");
@@ -230,7 +248,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartNotice(Heart ht, Connection conn) {
+	public int deleteHeartNotice(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartNotice");
@@ -248,7 +266,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartSubsc(Heart ht, Connection conn) {
+	public int insertHeartSubsc(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartSubsc");
@@ -266,7 +284,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartSubsc(Heart ht, Connection conn) {
+	public int deleteHeartSubsc(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartSubsc");
@@ -284,7 +302,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartReply(Heart ht, Connection conn) {
+	public int insertHeartReply(Connection conn, Heart ht) {
 		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartReply");
@@ -302,7 +320,7 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartReply(Heart ht, Connection conn) {
+	public int deleteHeartReply(Connection conn, Heart ht) {
 	
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartReply");
