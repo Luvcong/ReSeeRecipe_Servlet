@@ -3,7 +3,8 @@
 <properties>
 	<comment>좋아요 관련 SQL문</comment>
 	
-	
+	<!--===========================================================-->
+	<!-- 특정 대상 하트카운트 조회 기능(detail view용) -->
 	<entry key="htCountRecipe">
 		SELECT
 			   COUNT(*)
@@ -17,6 +18,61 @@
 			   DESC
 	</entry>
 	
+	
+	<entry key="htCountBookmark">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_BOOKMARK
+		 WHERE
+			   RECIPE_NO = ?
+		 ORDER
+		    BY
+			   HT_BOOKMARK_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountNotice">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_NOTICE
+		 WHERE
+		 	   NOTICE_NO = ?
+		 ORDER
+			BY
+			   HT_NOTICE_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountSubsc">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_SUBSC
+		 WHERE
+			   CHEF_NO = ?
+		 ORDER
+			BY
+			   HT_SUBSC_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountReply">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_HT_REPLY
+		 WHERE
+		 	   REPLY_NO = ?
+		 ORDER
+			BY
+			   HT_REPLY_DATE
+			   DESC
+	</entry>
 	
 
 	<!--===========================================================-->
