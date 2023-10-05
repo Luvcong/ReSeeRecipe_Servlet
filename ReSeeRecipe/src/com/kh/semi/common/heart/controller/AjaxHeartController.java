@@ -12,6 +12,7 @@ import com.kh.semi.member.model.vo.Member;
 public class AjaxHeartController {
 	
 	
+	/*************** 숫자 검증 *****************************************************/
 	private boolean isNumber(String htTargetNoStr) {
 		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
 		return validation;
@@ -19,7 +20,52 @@ public class AjaxHeartController {
 	/****************************************************************************/
 	
 	
+	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	public int htCountRecipe(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 값 추출 + 가공
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		
+		// Service호출
+		int result = new AjaxHeartService().htCountRecipe(htTargetNo);
+		
+		return result;
+	}
+	
+	
+	public int htCountBookmark(HttpServletRequest request, HttpServletResponse response) {
+		
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountBookmark(htTargetNo);
+		return result;
+	}
+	
+	public int htCountNotice(HttpServletRequest request, HttpServletResponse response) {
+		
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountNotice(htTargetNo);
+		return result;
+	}
+	
+	
+	public int htCountSubsc(HttpServletRequest request, HttpServletResponse response) {
+		
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountSubsc(htTargetNo);
+		return result;
+	}
+	
+	
+	public int htCountReply(HttpServletRequest request, HttpServletResponse response) {
+		
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountReply(htTargetNo);
+		return result;
+	}
 	/****************************************************************************/
+	
+	
+	/*************** 하트 추가/삭제 기능 ***********************************************/
 	public int htChangeRecipe(HttpServletRequest request, HttpServletResponse response) {
 		// 변수세팅
 		int result = 0;
