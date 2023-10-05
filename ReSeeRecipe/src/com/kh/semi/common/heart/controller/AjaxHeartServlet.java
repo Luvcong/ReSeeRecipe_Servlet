@@ -66,7 +66,7 @@ public class AjaxHeartServlet extends HttpServlet {
 				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
 				case "htCountReply" : result = htc.htCountReply(request, response); break;
 				*/
-		
+				default : break; // default 빈문자열 반환
 			}
 		} else {
 			// 로그인유저만 요청 가능한 기능
@@ -79,16 +79,7 @@ public class AjaxHeartServlet extends HttpServlet {
 				case "htChangeNotice" : result = htc.htChangeNotice(request, response); break;
 				case "htChangeSubsc" : result = htc.htChangeSubsc(request, response); break;
 				case "htChangeReply" : result = htc.htChangeReply(request, response); break;
-
-				/* 하트 추가 전 체크, Ajax요청
-				case "heartAddCancel" : result = htc.ajaxHeartAddCancel(request, response); break;
-				*/
-				
-				
-				
-				
-				
-				default : break; // 뭔가 실패 시 빈문자열 반환
+				default : break; // default 빈문자열 반환
 			}
 		}
 			

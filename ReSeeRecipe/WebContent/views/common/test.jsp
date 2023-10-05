@@ -31,16 +31,88 @@ button:hover {
 	특정리플 　: <button type="button" id="heartCount5"></button><br>
 	
 	<script>
+		/* 레시피 단일대상(detail view용) 좋아요 카운트 */
 		$(function(){
 			$.ajax({
 				url : 'htCountRecipe.ht',
-				method : 'get',
-				data : { htTargetNo : 22 },
+				method : 'post',
+				data : { htTargetNo : 1 },
 				success : function(result){
+					console.log('성공');
 					$('#heartCount1').append(result);
+				},
+				error : function(){
+					console.log('실패');
+					$('#heartCount1').css('background-color', 'black');
 				}
-			
-				
+			})
+		});
+		
+		/* 북마크 단일대상(detail view용) 좋아요 카운트 */
+		$(function(){
+			$.ajax({
+				url : 'htCountBookmark.ht',
+				method : 'post',
+				data : { htTargetNo : 1 },
+				success : function(result){
+					console.log('성공');
+					$('#heartCount2').append(result);
+				},
+				error : function(){
+					console.log('실패');
+					$('#heartCount2').css('background-color', 'black');
+				}
+			})
+		});
+		
+		/* 노티스 단일대상(detail view용) 좋아요 카운트 */
+		$(function(){
+			$.ajax({
+				url : 'htCountNotice.ht',
+				method : 'get',
+				data : { htTargetNo : 1 },
+				success : function(result){
+					console.log('성공');
+					$('#heartCount3').append(result);
+				},
+				error : function(){
+					console.log('실패');
+					$('#heartCount3').css('background-color', 'black');
+				}
+			})
+		});
+		
+		/* 구독 단일대상(detail view용) 좋아요 카운트 */
+		$(function(){
+			$.ajax({
+				url : 'htCountSubsc.ht',
+				method : 'post',
+				data : { htTargetNo : 1 },
+				success : function(result){
+					console.log('성공');
+					$('#heartCount4').append(result);
+				},
+				error : function(){
+					console.log('실패');
+					$('#heartCount4').css('background-color', 'black');
+				}
+			})
+		});
+		
+		/* 리플 단일대상(detail view용) 좋아요 카운트 */
+		$(function(){
+			$.ajax({
+				url : 'htCountReply.ht',
+				method : 'post',
+				data : { htTargetNo : 1 },
+				success : function(result){
+					console.log('성공');
+					$('#heartCount5').append(result);
+				},
+				error : function(){
+					console.log('실패');
+					$('#heartCount5').css('background-color', 'black');
+				}
 			})
 		})
 	
@@ -65,7 +137,7 @@ button:hover {
 					type : 'post',
 					data : { htTargetNo : 22 },
 					success : function(result){
-						console.log('결과');
+						console.log('성공');
 						if(result > 0) {
 							$('#heartTest1').html(result).css('background-color', 'red');
 						}
@@ -85,7 +157,7 @@ button:hover {
 					type : 'post',
 					data : { htTargetNo : 4 },
 					success : function(result){
-						console.log('결과');
+						console.log('성공');
 						if(result > 0) {
 							$('#heartTest2').html(result).css('background-color', 'red');
 						}
@@ -105,7 +177,7 @@ button:hover {
 					type : 'post',
 					data : { htTargetNo : 1 },
 					success : function(result){
-						console.log('결과');
+						console.log('성공');
 						if(result > 0) {
 							$('#heartTest3').html(result).css('background-color', 'red');
 						}
@@ -125,7 +197,7 @@ button:hover {
 					type : 'post',
 					data : { htTargetNo : 3 },
 					success : function(result){
-						console.log('결과');
+						console.log('성공');
 						if(result > 0) {
 							$('#heartTest4').html(result).css('background-color', 'red');
 						}
@@ -145,7 +217,7 @@ button:hover {
 					type : 'post',
 					data : { htTargetNo : 22 },
 					success : function(result){
-						console.log('결과');
+						console.log('성공');
 						if(result > 0) {
 							$('#heartTest5').html(result).css('background-color', 'red');
 						}

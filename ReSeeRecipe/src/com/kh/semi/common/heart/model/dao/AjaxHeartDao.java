@@ -39,7 +39,7 @@ public class AjaxHeartDao {
 		int result = 0;
 		String sql = prop.getProperty("htCountRecipe");
 		
-		try(PreparedStatement pstmt = conn.prepareStatement("sql")) {
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()){
