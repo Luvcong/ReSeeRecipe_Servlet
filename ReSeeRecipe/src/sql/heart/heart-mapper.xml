@@ -21,9 +21,58 @@
 	
 	<entry key="htCountBookmark">
 		SELECT
-		COUNT(*)
+			   COUNT(*)
+		  FROM
+			   TB_HT_BOOKMARK
+		 WHERE
+			   RECIPE_NO = ?
+		 ORDER
+		    BY
+			   HT_BOOKMARK_DATE
+			   DESC
 	</entry>
 	
+	
+	<entry key="htCountNotice">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_NOTICE
+		 WHERE
+		 	   NOTICE_NO = ?
+		 ORDER
+			BY
+			   HT_NOTICE_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountSubsc">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_SUBSC
+		 WHERE
+			   CHEF_NO = ?
+		 ORDER
+			BY
+			   HT_SUBSC_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountReply">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_HT_REPLY
+		 WHERE
+		 	   REPLY_NO = ?
+		 ORDER
+			BY
+			   HT_REPLY_DATE
+			   DESC
+	</entry>
 	
 
 	<!--===========================================================-->
