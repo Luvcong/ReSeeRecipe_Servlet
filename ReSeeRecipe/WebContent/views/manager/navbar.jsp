@@ -175,7 +175,8 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : 'hlmembermanage.ma?cmpage=1', //?cmpage=1
+    		url : 'hlmembermanage.ma', //?cmpage=1
+    		data : {cmpage : 1},
     		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);

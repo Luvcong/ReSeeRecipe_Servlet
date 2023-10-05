@@ -162,7 +162,7 @@
                 			</div>
              			 </td>
              		   
-                		<td><%= (m.getMemNo() -2) %></td>
+                		<td><%= m.getMemNo()  %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
                 		<td><%= m.getMemNickname() %></td>
@@ -212,6 +212,21 @@
 		function page(e){
 			
 			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
+		}
+		
+		
+		$(function(){
+			$('#memAllList > tr').on("click", detailMember);
+		});
+		function detailMember(){
+			$.ajax({
+				url : 'hldetailmember.ma',
+				data : {mno : '$(this).children().eq(1).text()'},
+				success : function(result){
+					
+				}
+				
+			})
 		}
 	</script>
 	
