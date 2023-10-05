@@ -31,7 +31,7 @@ public class Member {
 	private Date deleteDate;
 	private String memPicture;
 	private int memGrade;
-	// private String memGradeName;
+	private String memGradeName;
 	private int memReward;
 	
 	
@@ -157,6 +157,15 @@ public class Member {
 		this.memReward = memReward;
 	}
 	
+	
+	public String getMemGradeName() {
+		return memGradeName;
+	}
+
+	public void setMemGradeName(String memGradeName) {
+		this.memGradeName = memGradeName;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
