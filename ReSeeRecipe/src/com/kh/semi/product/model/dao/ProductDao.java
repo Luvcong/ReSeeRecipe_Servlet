@@ -86,7 +86,7 @@ public class ProductDao {
 				p.setProductNo(rset.getInt("PRODUCT_NO"));
 				p.setProductName(rset.getString("PRODUCT_NAME"));
 				p.setPrice(rset.getInt("PRODUCT_PRICE"));
-				p.setProductScoreReviewAvg(rset.getInt("PRODUCT_SCORE_AVG"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
 				p.setTitleImg(rset.getString("TITLEIMG"));
 				
 				list.add(p);
@@ -122,7 +122,7 @@ public class ProductDao {
 				p.setProductDetail(rset.getString("PRODUCT_DETAIL"));
 				p.setDilivery(rset.getInt("PRODUCT_DILIVERY"));
 				p.setOrigin(rset.getString("PRODUCT_ORIGIN"));
-				p.setProductScoreReviewAvg(rset.getInt("PRODUCT_SCORE_AVG"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
 			}
 			
 		} catch (SQLException e) {
