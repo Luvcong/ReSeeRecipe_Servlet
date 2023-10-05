@@ -190,9 +190,9 @@
                    	<p>전체카테고리</p>
                     <ul>
                         <li><a href="<%= contextPath %>/searchlist.po?title=육류&cpage=1&cate=meat">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cate=fish">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cate=vegi">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cate=sim">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cpage=1&cate=fish">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cpage=1&cate=vegi">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cpage=1&cate=sim">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
                     </ul>
                 </div>
                 <div>
