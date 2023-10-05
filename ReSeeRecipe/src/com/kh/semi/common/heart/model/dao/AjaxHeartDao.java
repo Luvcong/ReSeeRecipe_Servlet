@@ -50,15 +50,28 @@ public class AjaxHeartDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		System.out.println("오나???");
 		return result;
 	}
 	public int htCountBookmark(Connection conn, int htTargetNo) {
-		return 0;
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountBookmark");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	public int htCountNotice(Connection conn, int htTargetNo) {
+		
 		return 0;
 	}
 	public int htCountSubsc(Connection conn, int htTargetNo) {

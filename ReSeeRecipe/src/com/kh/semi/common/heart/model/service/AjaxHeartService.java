@@ -11,7 +11,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 public class AjaxHeartService {
 	
-	/****************************************************************************/
+	
 	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
 	public int htCountRecipe(int htTargetNo) {
 		
