@@ -77,6 +77,7 @@ public class Member {
 		this.memReward = memReward;
 	}
 
+	
 	public int getMemNo() {
 		return memNo;
 	}
