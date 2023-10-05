@@ -40,6 +40,7 @@ public class AjaxHeartDao {
 			pstmt.setInt(2, ht.getMemNo());
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
+					System.out.println(rset.getString("RECIPE_NO" + "execuete결과"));
 					flag = true;
 				}
 			}
