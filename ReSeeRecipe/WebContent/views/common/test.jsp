@@ -10,7 +10,11 @@
 <body>
 
 	<!-- http://localhost:8001/recipe/views/common/test.jsp 로 접속해 임시 테스트가능 -->
-	<button type="button" id="heartTest">0</button>
+	레시피 : <button type="button" id="heartTest1">레시피</button>
+	북마크 :<button type="button" id="heartTest2">0</button>
+	노티스 :<button type="button" id="heartTest3">0</button>
+	구독   :<button type="button" id="heartTest4">0</button>
+	리플   :<button type="button" id="heartTest5">0</button>
 	
 	<script>
 		$(function(){
