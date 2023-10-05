@@ -65,7 +65,7 @@
             </table>
             <br><br>
             <div id="memberdetailbtn">
-                <button class="w3-button w3-round w3-yellow">수정하기</button>
+                <button id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>
                 <button class="w3-button w3-round w3-yellow">목록으로</button>
             </div>
         </div>
