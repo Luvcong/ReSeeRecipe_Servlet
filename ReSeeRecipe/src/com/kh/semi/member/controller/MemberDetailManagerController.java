@@ -33,7 +33,7 @@ public class MemberDetailManagerController extends HttpServlet {
 
 		// 값 뽑기 - 회원번호("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
-		
+		System.out.println("mno>>>" + memNo);
 		// Service호출 회원번호로 해당 회원 정보 SELECT
 		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
 		Member m = new MemberService().selectMemInfo(memNo); 

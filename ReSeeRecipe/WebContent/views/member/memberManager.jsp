@@ -221,7 +221,7 @@
 		function detailMember(){
 			$.ajax({
 				url : 'hldetailmember.ma',
-				data : {mno : '$(this).children().eq(1).text()'},
+				data : {mno : <%= list<Member>[m.getMemNo()]  %>},
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
