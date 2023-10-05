@@ -35,17 +35,24 @@ public class AjaxHeartDao {
 		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartRecipe");
+		System.out.println("ht : " + ht);
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getHtTargetNo());
 			pstmt.setInt(2, ht.getMemNo());
+			
 			try(ResultSet rset = pstmt.executeQuery()) {
+				
 				if(rset.next()) {
+					System.out.println(rset.getString("RECIPE_NO"));
 					flag = true;
 				}
 			}
+				
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("여기까지실행된 flag는 : " +  flag);
 		return flag;
 	}
 	
@@ -133,8 +140,10 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("insertHeartRecipe");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
+			System.out.println("targetNo : " + ht.getHtTargetNo());
+			System.out.println("memNo : " + ht.getMemNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,8 +172,8 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("insertHeartBookmark");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -193,8 +202,8 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("insertHeartNotice");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,8 +232,8 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("insertHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -253,8 +262,8 @@ public class AjaxHeartDao {
 		String sql = prop.getProperty("insertHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getMemNo());
-			pstmt.setInt(2, ht.getHtTargetNo());
+			pstmt.setInt(1, ht.getHtTargetNo());
+			pstmt.setInt(2, ht.getMemNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -318,7 +327,6 @@ public class AjaxHeartDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println();
 		return result;
 	}
 	

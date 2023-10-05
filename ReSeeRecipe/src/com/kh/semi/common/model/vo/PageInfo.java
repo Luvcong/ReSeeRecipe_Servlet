@@ -56,7 +56,10 @@ public class PageInfo {
 		this.startRow = (currentPage - 1) * boardLimit + 1;
 		this.endRow = startRow + boardLimit - 1;
 	}
-
+	
+	
+	
+	
 	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,
 			int endPage, int startRow, int endRow) {
 		super();
