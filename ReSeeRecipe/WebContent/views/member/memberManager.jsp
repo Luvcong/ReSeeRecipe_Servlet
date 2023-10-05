@@ -130,7 +130,7 @@
               <th>닉네임</th>
               <th>이메일</th>
               <th>가입일자</th>
-              <th>리워드</th>
+              <th>회원등급명</th>
             </tr>
           </thead>
           <tbody id="memAllList">
@@ -159,7 +159,7 @@
                 		<td><%= m.getMemNickname() %></td>
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
-                		<td><%= m.getMemReward() %></td>
+                		<td><%= m.getMemGradeName() %></td>
                 	 	
                 	</tr>  
                <% } %>  

@@ -4,7 +4,7 @@
 .rs-main {
     display: flex;  /* 가로 배치, 해당 class가 parent */
     width: 100vw;    /* vw vh */
-    height: 93vh;
+    height: 100vh;
 }
 
 .rs-title {
@@ -20,6 +20,7 @@
 .rs-navbar {
     width: 250px;
     background-color: rgb(255, 217, 64);
+   	cursor: pointer;
 }
 
 .nav-item {
