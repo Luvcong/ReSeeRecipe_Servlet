@@ -53,6 +53,7 @@ public class MemberLoginController extends HttpServlet {
 		} else { // 로그인 성공 시
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
+			// 
 			if(buy.equals("buy")) {
 				response.sendRedirect(request.getContextPath() + "/main.po");
 			} else {

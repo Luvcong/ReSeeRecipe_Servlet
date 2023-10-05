@@ -64,7 +64,9 @@
 		AND
 			PRODUCT_PICTURE_STATUS = 'Y'
 	</entry>
-
+	
+	
+	
 
 
 
