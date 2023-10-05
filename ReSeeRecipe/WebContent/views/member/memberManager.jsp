@@ -127,7 +127,7 @@
               <th>
                 <div class="form-check">
                     <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="">Option 1
+                    <input type="checkbox" class="form-check-input" value="">
                     </label>
                 </div>
               </th>
@@ -155,7 +155,7 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                   			 <input type="checkbox" class="form-check-input" value="">Option 1
+                   			 <input type="checkbox" class="form-check-input" value="">
                    			</label>
                 			</div>
              			 </td>
