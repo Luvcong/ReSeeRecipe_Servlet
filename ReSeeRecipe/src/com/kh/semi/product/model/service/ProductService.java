@@ -24,11 +24,22 @@ public class ProductService {
 		return listCount;
 	}
 	
-	public ArrayList<Product> selectProductList(PageInfo pi){
+	public ArrayList<Product> selectProductList(){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().selectProductList(conn, pi);
+		ArrayList<Product> list = new ProductDao().selectProductList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Product> selectProductList(PageInfo pi, String cate){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectProductList(conn, pi, cate);
 		
 		close(conn);
 		
