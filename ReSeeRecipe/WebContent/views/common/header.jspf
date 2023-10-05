@@ -207,10 +207,16 @@
 		          <% } %>
 		          </div>
 		          <div id="header_3_1_3">
+		              <% if(loginMember == null) { %>
 		              <a href="#">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">회원가입
 		              </a>
+		              <% } else { %>
+		                  <a href="#">
+		                  <i class="fa-regular fa-handshake"></i><br> 
+		                  <img src="" alt="">블로그
+		              <%} %>
 		          </div>
 		          <div id="header_3_1_4">
 		              <a href="<%= contextPath %>/hllist.no">
