@@ -127,7 +127,8 @@
               <th>
                 <div class="form-check">
                     <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="">
+                    <!-- <input type="checkbox" class="form-check-input" value="">-->
+                     <input type="checkbox"  name="example1">
                     </label>
                 </div>
               </th>
@@ -155,7 +156,8 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                   			 <input type="checkbox" class="form-check-input" value="">
+                    		<input type="checkbox" name="example2">
+                   		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
              			 </td>
