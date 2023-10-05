@@ -201,25 +201,7 @@
     	});
     }
     
-   
-    function selectMemberAll(){
-    	
-    	$.ajax({
-    		url : "views/member/meberManager.jsp",
-    		dataType :"json", 
-    		success : function(result){
-    			$('.rs-content').text(result);
-    			console.log('고객정보들어간다');
-    		},
-    		error : function(e){
-    			console.log('고객정보 못들어온다');
-    			console.log(e);
-    		}
-    		
-    	})
-    	
-    }
-    
+	/* 나중에 사용할 수 도 있을거 같아유 */
     function createMemTable(result){
     	 $newTable = $("<br><br><table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
     	 $('.rs-content').append($newTable);
