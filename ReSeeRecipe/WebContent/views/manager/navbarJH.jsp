@@ -111,14 +111,19 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
-		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+
+<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
+
+    $(function(){
+        let main = document.querySelector('.rs-main');
+        let content = document.querySelector('.rs-content');
+        main.appendChild(content);
+    });
+
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -175,7 +180,7 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : 'hlmembermanage.ma', //?cmpage=1
+    		url : 'hlmembermanage.ma',
     		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
