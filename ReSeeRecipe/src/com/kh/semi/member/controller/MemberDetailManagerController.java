@@ -38,12 +38,18 @@ public class MemberDetailManagerController extends HttpServlet {
 		System.out.println("mno>>>" + memNo);
 		// Service호출 회원번호로 해당 회원 정보 SELECT
 		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
-		Member m = new MemberService().selectMemInfo(memNo); 
-		// 응답화면 지정
-		request.setAttribute("m", m);
-		request.setAttribute("memNo", memNo);
+		if(memNo > 0) {
+			Member m = new MemberService().selectMemInfo(memNo); 
+			// 응답화면 지정
+			request.setAttribute("m", m);
+			request.setAttribute("memNo", memNo);
 		
-		request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
+			request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
+		} else {
+			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 	
 	}
 
