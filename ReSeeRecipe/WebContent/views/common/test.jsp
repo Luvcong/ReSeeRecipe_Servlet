@@ -36,7 +36,7 @@ button:hover {
 			$.ajax({
 				url : 'htCountRecipe.ht',
 				method : 'post',
-				data : { htTargetNo : 1 },
+				data : { htTargetNo : 22 },
 				success : function(result){
 					console.log('성공');
 					$('#heartCount1').append(result);
@@ -87,7 +87,7 @@ button:hover {
 			$.ajax({
 				url : 'htCountSubsc.ht',
 				method : 'post',
-				data : { htTargetNo : 1 },
+				data : { htTargetNo : 3 },
 				success : function(result){
 					console.log('성공');
 					$('#heartCount4').append(result);
@@ -104,7 +104,7 @@ button:hover {
 			$.ajax({
 				url : 'htCountReply.ht',
 				method : 'post',
-				data : { htTargetNo : 1 },
+				data : { htTargetNo : 22 },
 				success : function(result){
 					console.log('성공');
 					$('#heartCount5').append(result);

@@ -55,20 +55,19 @@ public class AjaxHeartServlet extends HttpServlet {
 		
 		
 		// Controller 분배 구문
-		if((request.getSession().getAttribute("loginMember")) == null) {
-			switch(mapping) {
-				// 로그인 안해도 요청 가능한 기능
-				/*************** 특정 대상 하트 카운트 조회 기능 : String => 성공 시 Count 실패 시 빈문자열 *****/
-				case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
-				case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
-				case "htCountNotice" : result = htc.htCountNotice(request, response); break;
-				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
-				case "htCountReply" : result = htc.htCountReply(request, response); break;
-				
-				default : break; // default 빈문자열 반환
-			}
-		} else {
-			// 로그인유저만 요청 가능한 기능
+		switch(mapping) {
+			// 로그인 안해도 요청 가능한 기능
+			/*************** 특정 대상 하트 카운트 조회 기능 : String => 성공 시 Count 실패 시 빈문자열 *****/
+			case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
+			case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
+			case "htCountNotice" : result = htc.htCountNotice(request, response); break;
+			case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
+			case "htCountReply" : result = htc.htCountReply(request, response); break;
+			default : break; // default 빈문자열 반환
+		}
+		
+		// Controller 분배 구문 (로그인유저만 요청 가능한 기능)
+		if((request.getSession().getAttribute("loginMember")) != null) {
 			switch(mapping) {
 				/*************** 하트 추가/삭제 기능 : int => 성공 시 1 실패 시 0 반환 *********************/
 				case "htChangeRecipe" : result = htc.htChangeRecipe(request, response); break;
