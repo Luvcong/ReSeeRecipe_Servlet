@@ -35,7 +35,7 @@
 
         /* Set a style for all buttons */
         button {
-        background-color: #04AA6D;
+        background-color: rgb(88, 87, 87);
         color: white;
         padding: 14px 20px;
         margin: 8px 0;
@@ -90,7 +90,6 @@
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
 
-      
       <div class="container">
           <h1 id="title"><b>로그인</b></h1> <br><br>
           <h4>
@@ -114,8 +113,10 @@
         </div>
         
         <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
+          <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+          <div class="psw">회원가입 <a href="#"></a></div>
+          <div class="psw">아이디 찾기 <a href="#"></a></div>
+          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
         </div>
       </form>
 
