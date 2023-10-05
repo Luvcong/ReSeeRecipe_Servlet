@@ -35,18 +35,33 @@ public class AjaxHeartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 기본변수 / POST용 Encoding 세팅
+		// POST용 Encoding 세팅
+		request.setCharacterEncoding("UTF-8");
+		
+		// 기본 변수 세팅
 		Object result = "";
-	
+		AjaxHeartController htc = new AjaxHeartController();
+		
+		// 매핑문자열 키워드 추출
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		// loginMember 검사
 		// 로그인유저만 요청 가능 (테스트 위해 잠시 블러처리)
-		if((request.getSession().getAttribute("loginMember")) != null) {
-			AjaxHeartController htc = new AjaxHeartController();
-			request.setCharacterEncoding("UTF-8");
+		if((request.getSession().getAttribute("loginMember")) == null) {
+			switch(mapping) {
+				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
+				/* 단일 대상에 하트가 몇개인지 count : String반환 */
+				case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
+				/*
+				case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
+				case "htCountNotice" : result = htc.htCountNotice(request, response); break;
+				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
+				case "htCountReply" : result = htc.htCountReply(request, response); break;
+				*/
+		
+			}
+		} else {
 
-			// 매핑문자열 키워드 추출
-			String uri = request.getRequestURI();
-			String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 			// Controller 분배 구문
 			switch(mapping) {
 			
@@ -61,16 +76,7 @@ public class AjaxHeartServlet extends HttpServlet {
 				 * 
 				 */
 			
-				// 성공 시 하트 카운트 수(0 ~ 의 숫자) or 혹시라도 뭔가 일이있어 실패 시 빈문자열
-				/* 단일 대상에 하트가 몇개인지 count : String반환 */
-				case "htCountRecipe" : result = htc.htCountRecipe(request, response); break;
-				/*
-				case "htCountBookmark" : result = htc.htCountBookmark(request, response); break;
-				case "htCountNotice" : result = htc.htCountNotice(request, response); break;
-				case "htCountSubsc" : result = htc.htCountSubsc(request, response); break;
-				case "htCountReply" : result = htc.htCountReply(request, response); break;
-				*/
-			
+				
 				/* 하트 추가/삭제 : 1이나 0반환 (SELECT + IN/DEL) */
 				case "htChangeRecipe" : result = htc.htChangeRecipe(request, response); break;
 				case "htChangeBookmark" : result = htc.htChangeBookmark(request, response); break;

@@ -12,11 +12,13 @@ import com.kh.semi.member.model.vo.Member;
 public class AjaxHeartController {
 	
 	
+	/*************** 숫자 검증 *****************************************************/
 	private boolean isNumber(String htTargetNoStr) {
 		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
 		return validation;
 	}
 	/****************************************************************************/
+	
 	
 	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
 	public int htCountRecipe(HttpServletRequest request, HttpServletResponse response) {
@@ -29,6 +31,8 @@ public class AjaxHeartController {
 		
 		return result;
 	}
+	
+	
 	public int htCountBookmark(HttpServletRequest request, HttpServletResponse response) {
 		
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
@@ -43,6 +47,7 @@ public class AjaxHeartController {
 		return result;
 	}
 	
+	
 	public int htCountSubsc(HttpServletRequest request, HttpServletResponse response) {
 		
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
@@ -50,15 +55,14 @@ public class AjaxHeartController {
 		return result;
 	}
 	
+	
 	public int htCountReply(HttpServletRequest request, HttpServletResponse response) {
 		
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
 		int result = new AjaxHeartService().htCountReply(htTargetNo);
 		return result;
 	}
-	
-	
-	
+	/****************************************************************************/
 	
 	
 	/*************** 하트 추가/삭제 기능 ***********************************************/

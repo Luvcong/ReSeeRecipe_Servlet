@@ -23,9 +23,11 @@ public class AjaxHeartService {
 		
 		// 자원반납
 		close(conn);
-		
+
 		return result;
 	}
+	
+	
 	public int htCountBookmark(int htTargetNo) {
 		
 		Connection conn = getConnection();
@@ -33,6 +35,8 @@ public class AjaxHeartService {
 		close(conn);
 		return result;
 	}
+	
+	
 	public int htCountNotice(int htTargetNo) {
 		
 		Connection conn = getConnection();
@@ -40,6 +44,8 @@ public class AjaxHeartService {
 		close(conn);
 		return result;
 	}
+	
+	
 	public int htCountSubsc(int htTargetNo) {
 		
 		Connection conn = getConnection();
@@ -47,6 +53,8 @@ public class AjaxHeartService {
 		close(conn);
 		return result;
 	}
+	
+	
 	public int htCountReply(int htTargetNo) {
 		
 		Connection conn = getConnection();
@@ -54,8 +62,7 @@ public class AjaxHeartService {
 		close(conn);
 		return result;
 	}
-	
-	
+	/****************************************************************************/
 	
 	
 	/*************** 하트 추가/삭제 기능 ***********************************************/

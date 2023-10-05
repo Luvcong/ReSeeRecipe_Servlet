@@ -33,7 +33,7 @@ button:hover {
 	<script>
 		$(function(){
 			$.ajax({
-				url : 'htChangeRecipe.ht',
+				url : 'htCountRecipe.ht',
 				method : 'get',
 				data : { htTargetNo : 22 },
 				success : function(result){

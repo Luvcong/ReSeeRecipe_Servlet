@@ -34,7 +34,26 @@ public class AjaxHeartDao {
 	
 	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
 	public int htCountRecipe(Connection conn, int htTargetNo) {
-		return 0;
+		
+		// 기본 변수 세팅
+		int result = 0;
+		String sql = prop.getProperty("htCountRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement("sql")) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()){
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("오나???");
+		return result;
 	}
 	public int htCountBookmark(Connection conn, int htTargetNo) {
 		return 0;
@@ -48,6 +67,7 @@ public class AjaxHeartDao {
 	public int htCountReply(Connection conn, int htTargetNo) {
 		return 0;
 	}
+	/****************************************************************************/
 	
 	
 	/*************** 좋아요 여부 체크 기능 *********************************************/
