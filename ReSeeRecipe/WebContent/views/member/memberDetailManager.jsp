@@ -71,4 +71,25 @@
         </div>
     </div>
 </body>
+
+<script>
+	$(function(){
+		$('#memberupdatebtn').on('click', updateMember);
+	});
+	function updateMember(){
+		$.ajax({
+			url : 'hlupdatemember.ma',
+			data : {mno : $('.table').children().eq(1).text()},
+			success : function(result){
+				
+			},
+			error : function(result){
+				
+			}
+		})
+	}
+
+
+
+</script>
 </html>
