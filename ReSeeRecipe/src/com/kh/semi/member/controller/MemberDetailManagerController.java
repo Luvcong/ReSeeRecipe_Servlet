@@ -1,7 +1,6 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,12 +33,12 @@ public class MemberDetailManagerController extends HttpServlet {
 
 		// 값 뽑기 - 회원번호("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
-		
+		System.out.println("mno>>>" + memNo);
 		// Service호출 회원번호로 해당 회원 정보 SELECT
-		ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
-		
+		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
+		Member m = new MemberService().selectMemInfo(memNo); 
 		// 응답화면 지정
-		request.setAttribute("list", list);
+		request.setAttribute("m", m);
 		request.setAttribute("memNo", memNo);
 		
 		request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
