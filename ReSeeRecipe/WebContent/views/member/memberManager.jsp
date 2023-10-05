@@ -223,7 +223,13 @@
 				url : 'hldetailmember.ma',
 				data : {mno : '$(this).children().eq(1).text()'},
 				success : function(result){
-					
+					console.log(result);
+					console.log('회원 상세 조회 성공');
+					$('.rs-content').html(result);
+				},
+				error : function(result){
+					console.log('회원 상세 조회 실패');
+					$('.rs-content').text('회원 상세 조회가 되지 않습니다');
 				}
 				
 			})
