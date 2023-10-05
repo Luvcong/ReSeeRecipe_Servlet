@@ -29,13 +29,15 @@
 	</entry>
 	
 	<entry key="selectMemberAll">
-		SELECT 
-				 MEM_NO
-				,MEM_NAME
-				,MEM_ID
-				,MEM_NICKNAME
-				,MEM_EMAIL
-				,ENROLL_DATE <!-- TO_CHAR(ENROLL_DATE, 'RRRR-MM-DD') ENROLL_DATE -->
+		SELECT *
+		 FROM(SELECT ROWNUM, A.* 
+				 FROM (SELECT
+				 			MEM_NO
+						   ,MEM_NAME
+						   ,MEM_ID
+						   ,MEM_NICKNAME
+						   ,MEM_EMAIL
+						   ,ENROLL_DATE <!-- TO_CHAR(ENROLL_DATE, 'RRRR-MM-DD') ENROLL_DATE -->
 				,(
 					SELECT
 								SUM(REWARD_SCORE)
