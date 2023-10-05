@@ -47,15 +47,15 @@ public class ProductService {
 		
 	}
 	
-	public ProductPicture selectPicture(int pno) {
+	public ArrayList<ProductPicture> selectPicture(int pno) {
 		
 		Connection conn = getConnection();
 		
-		ProductPicture pp = new ProductDao().selectPicture(conn, pno);
+		ArrayList<ProductPicture> list = new ProductDao().selectPicture(conn, pno);
 		
 		close(conn);
 		
-		return pp;
+		return list;
 		
 	}
 	

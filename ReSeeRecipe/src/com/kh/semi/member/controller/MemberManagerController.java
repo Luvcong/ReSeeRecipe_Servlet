@@ -37,6 +37,61 @@ public class MemberManagerController extends HttpServlet {
 		
 		// 2) request 값 뽑을게 없음
 		
+		// -- 페이징 처리 --
+		// 필요한 변수들
+		int memlistCount; // 현재  회원 리스트의 총 회원 수
+		int memlistPage; // 현재 페이지(관리자가 요청한 페이지) => request.getParameter("cpage")
+		int mempageLimit; // 페이지 하단에 페이징바의 최대 개수 => 10개로 고정
+		int memLimit; // 한 페이지에 보여질 회원의 최대 수 => 10개
+		
+		int memMaxPage; // 가장 마지막 페이지가 몇 번 페이지인지 (총 페이지의 개수)
+		int memStartPage; // 페이지 하단에 보여질 페이징바의 시작 수
+		int memEndPage; // 페이징 하단에 보여질 페이징바의 끝 수
+		
+		// * memlistCount : 총 회원 수
+		memlistCount = new MemberService().selectMemlistCount();
+		
+		// * memlistPage : 현재페이지(관리자가 요청한 페이지)
+		memlistPage = Integer.parseInt(request.getParameter("cmpage")); //1
+		
+		// * mempageLimit : 페이징바 최대 개수
+		mempageLimit = 10;
+		
+		// * memLimit : 한 페이지에 보여질 회원의 최대 수
+		memLimit = 10;
+		
+		// * memMaxPage : 가장 마지막 페이지가 몇 번 페이지인지(총 페이지의 개수)
+		memMaxPage = (int)Math.ceil((double)memlistCount / memLimit); // 더 큰 쪽의 자료형으로 자료형이 바뀜 기본자료형 잘 하기!!
+		
+		// * memStartPage : 페이징 하단에 보여질 페이징바의 시작 수
+		memStartPage = (memlistPage - 1) / mempageLimit * memLimit + 1;
+		
+		// * memEndPage : 페이징 하단에 보여질 페이징바의 끝 수
+		memEndPage = memStartPage + mempageLimit -1;
+		
+		// memEndPage값을 memMaxPage값으로 변경
+		if(memEndPage > memMaxPage) {
+			memEndPage = memMaxPage;
+		}
+		
+		// 여기까지 총 7개의 변수를 만들었음!
+		PageInfo pi = new PageInfo(memlistCount, )
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		request.setCharacterEncoding("UTF-8");
 		// 3) Service 호출 전체 회원 정보 SELECT
 		ArrayList<Member> list = new MemberService().selectMemberAll();

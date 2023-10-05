@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.semi.product.model.vo.Product, com.kh.semi.product.model.vo.ProductPicture" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.product.model.vo.Product, com.kh.semi.product.model.vo.ProductPicture" %>
 <%
 	Product p = (Product)request.getAttribute("p");
-	ProductPicture pp = (ProductPicture)request.getAttribute("pp");
+	ArrayList<ProductPicture> list = (ArrayList<ProductPicture>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,20 +33,23 @@
     
     <div id="detailview-wrap">
         <div>
-            <img src="/view/image/hello.png" width="500" height="500">
+            <img src="<%= contextPath %>/<%= list.get(0).getPicturePath() %>/<%= list.get(0).getPictureCname() %>" width="500" height="500">
             <div>
-                <img src="/view/image/hello.png" width="200" height="200">
-                <img src="/view/image/hello.png" width="200" height="200">
+            	<% for(int i = 1; i < list.size(); i++) {%>
+					<img src="<%= contextPath %>/<%= list.get(i).getPicturePath() %>/<%= list.get(i).getPictureCname() %>" id="contentImg<%= i %>" width="200" height="200">
+				<% } %>
             </div>
         </div>
 
         <div id="d_content">
             <h2><%= p.getProductName() %></h2>
-            <h3><%= p.getProductSubname() %></h3>
-            <p><%= p.get %></p>
-            <p>별점</p>
-            <h2>가격</h2>
-            <h3>배송비</h3>
+            <% if(p.getProductSubname() != null) { %>
+            	<h3><%= p.getProductSubname() %></h3>
+            <% } %>
+            <p><%= p.getOrigin() %></p>
+            <p>★<%= p.getProductScoreReviewAvg() %></p>
+            <h2><%= p.getPrice() %></h2>
+            <h3><%= p.getDilivery() %></h3>
             <select name="" id="">
                 <option value="">옵션 1 가격</option>
                 <option value="">옵션 2 가격</option>
@@ -66,15 +69,15 @@
 
         <div>
             <div style="background-color: #e2e2e2;">
-                상세내용<br>
-                asdf
+            <br>
+                <%= p.getProductDetail() %>
             </div>
             <br>
             <div style="background-color: #e2e2e2;">
-                상세내용<br>
                 asdf
             </div>
         </div>
+        
         
         <div class="d_reply">
             <h2>후기</h2>
