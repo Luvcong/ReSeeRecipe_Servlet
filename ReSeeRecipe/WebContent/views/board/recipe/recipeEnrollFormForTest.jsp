@@ -336,20 +336,20 @@
 				<div id="cook-steps-basic-info" class="cook-steps-block">
 					<table style="border: 1px solid black;">
 						<tr>
-							<td rowspan="5"><img src="d" alt="">ㅇ</td>
-							<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
+							<td rowspan="5" id="cook-steps-thumbnail"><img src="d" alt="">ㅇ</td>
+							<td id="cook-steps-title"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 						</tr>
 						<tr>
-							<td>김xx셰프</td>
+							<td id="cook-steps-chef">김xx셰프</td>
 						</tr>
 						<tr>
-							<td>해시태그입력</td>
+							<td id="cook-steps-hashtag">해시태그입력</td>
 						</tr>
 						<tr>
-							<td>재료</td>
+							<td id="cook-steps-ingredient-title">재료</td>
 						</tr>
 						<tr>
-							<td>재료추가영역</td>
+							<td id="cook-steps-ingredient-content">재료추가영역</td>
 						</tr>
 			
 					</table>
