@@ -222,6 +222,8 @@
 		}
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
+		// Ajax 통신
+		/*
 		$(function(){
 			$('#memAllList > tr').on("click", detailMember);
 		});
@@ -285,25 +287,24 @@
 				
 			})
 		};
+		*/
 		
+		/*
 		$(function(){
-			/*
-			$('#memberList').click(function(){
-				location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
-			})\
-			*/
+		
 			$('#memberList').click(function(){
 			
 				abc();
 			})	
 		});
+		*/
 		
-		function abc(){
+		
+//		function abc(){
 			
-				location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
-			
+			location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
 		}
-	
+		
 		
 		
 		
