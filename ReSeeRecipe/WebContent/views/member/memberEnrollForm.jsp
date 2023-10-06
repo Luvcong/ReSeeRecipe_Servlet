@@ -3,7 +3,7 @@
 <%
 	String buy = (String)request.getAttribute("buy");
 %>
-<!-- 초본_231005 yr -->
+<!-- 초본_231005_yr -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,21 +86,16 @@
           justify-content: center;
         }
 
-        .login-searchmenu  > div{
-          float: left;
-          padding : 0px 20px;
-        }
-        
-        .login-searchmenu{
-          display : flex;
-          align-items: center;
-          justify-content: center;
+        .enroll-checkbox > div{ 
+          
         }
 
     </style>
 
 </head>
   <body>
+  	<!-- header부분 (상단 메인 메뉴바) -->
+	<%@ include file="/views/common/header.jspf" %>
 
 
     <form action="yrenroll.me" method="post">
@@ -121,12 +116,16 @@
 
         </div>
         
-        <div class="login-searchmenu">
-          <div class="psw">회원가입 <a href="#"></a></div>
-          <div class="psw">아이디 찾기 <a href="#"></a></div>
-          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
+        <div class="enroll-checkbox">
+          <div><input type="checkbox" id="agreeAll"><label for="agreeAll">전체 동의</label></div>
+          <input type="checkbox" id="agreeSite"><label for="agreeSite">사이트 이용약관 동의(필수)</label>
+          <input type="checkbox" id="agreePerson"><label for="agreePerson">개인정보 수집 및 이용 동의(필수)</label>
         </div>
       </form>
+      
+    <!-- footer 푸터영역 -->
+    <%@ include file="/views/common/footer.jspf" %>
+      
 
   </body>
 </html>
