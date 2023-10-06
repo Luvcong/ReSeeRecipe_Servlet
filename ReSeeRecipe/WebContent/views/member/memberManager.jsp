@@ -90,6 +90,8 @@
 
 </head>
 <body>
+
+	<%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>

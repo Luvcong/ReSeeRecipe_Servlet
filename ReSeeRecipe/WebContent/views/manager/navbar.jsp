@@ -52,7 +52,7 @@
 			</div>
 			<div class="category" id="HL_memberList">
 				<ul>
-					<li><a href="#" id="HL_memberSetting">회원정보 관리</a></li>
+					<li><a href="#" id="HL_memberSetting" onclick="goMenu('/hlmembermanage.ma');">회원정보 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
@@ -111,14 +111,21 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
+	<!-- rs-content -->
 		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+	$(function(){
+	    let main = document.querySelector('.rs-main');
+	    let content = document.querySelector('.rs-content');
+	    main.appendChild(content);
+	});
+
+
+
+
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -148,7 +155,10 @@
     	
     })
     
-    
+    function goMenu(e){
+		this.location.href = "<%=contextPath %>" + e;
+	}
+
     
     $(function(){
     	
@@ -168,7 +178,7 @@
 
         });
     }
-    
+    /*
     $(function(){
     	$('#HL_memberSetting').on("click", goMember);
     });
@@ -189,7 +199,7 @@
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
-    			//createMemTable(result);
+  /*  			//createMemTable(result);
     			$('.rs-content').html(result);
     			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
     			//$('.rs-content').jsp(result);
@@ -202,6 +212,7 @@
     	
     	});
     }
+    */
     
 	/* 나중에 사용할 수 도 있을거 같아유 */
     function createMemTable(result){
