@@ -80,13 +80,20 @@
 	/* 양식 내용 입력부분 크기 기본세팅 */
 	#cook-steps-basic-info {
 		width: 100%;
-		height: 30%;
+		height: 20%;
 	}
 
-	#recipe-enroll-context-wrap .cook-steps-block table {
+	#cook-steps-instruction {
 		width: 100%;
-		height: 100%;
+		height: 75%;
 	}
+
+	#cook-steps-buttons {
+		width: 100%;
+		height: 5%;
+	}
+
+
 
 
 	/**********************************************************
@@ -219,8 +226,15 @@
 		height: 50%;
 	}
 
+	#cook-steps-ingredient-content div {
+		width: 50%;
+		height: 100%;
+		box-sizing: border-box;
+		display: inline-block;
+	}
+
 	/* 입력창 종류 세팅 */
-	
+
 	
 
 		
@@ -350,33 +364,44 @@
 			<!--------------------------------------------------------------->
 			<!-- 레시피 글 작성 내용 영역 -->
 			<div id="recipe-enroll-context-wrap">
-				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-				<div id="cook-steps-basic-info" class="cook-steps-block">
-					<table>
-						<tr>
-							<td rowspan="5" id="cook-steps-thumbnail" class="cook-steps-input-content"><img src="d" alt="">ㅇ</td>
-							<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
-						</tr>
-						<tr>
-							<td id="cook-steps-chef" class="cook-steps-input-content">김xx셰프</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-hashtag" class="cook-steps-input-content">해시태그입력</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-ingredient-title" class="cook-steps-input-content">재료</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-ingredient-content" class="cook-steps-input-content">재료추가영역</td>
-						</tr>
-			
-					</table>
+				<div id="cook-steps-basic-info">
+				
+					<div class="cook-steps-input-content">
+						<img src="d" alt="">dddddddddd
+					</div>
+
+					<div class="cook-steps-input-content">
+						<table>
+							<tr>
+								<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
+							</tr>
+							<tr>
+								<td id="cook-steps-chef" class="cook-steps-input-content">김xx셰프</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-hashtag" class="cook-steps-input-content">해시태그입력</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-ingredient-title" class="cook-steps-input-content">재료</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-ingredient-content" class="cook-steps-input-content">
+									<div>재료영역1</div>
+									<div>재료영역2</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+
+					
 					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
-				<div id="cook-steps-instruction" class="cook-steps-block">
+				<div id="cook-steps-instruction">
 					<table>
 						<!-- 1 ~ 2번째 -->
 						<tr>
@@ -419,16 +444,17 @@
 					</table>
 				</div>
 
+				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
+				<div id="cook-steps-buttons" align="center">
+					<button type="button" id="recipe-enrolling-btn"
+						class="btn btn-primary">글작성</button>
+					<button type="reset" id="recipe-resetting-btn"
+						onclick="return confirmReset();">초기화</button>
+				</div>
 
 			</div><!-- 레시피 글 작성 내용 영역 끝 -->
 
-			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
-			<div align="center">
-				<button type="button" id="recipe-enrolling-btn"
-					class="btn btn-primary">글작성</button>
-				<button type="reset" id="recipe-resetting-btn"
-					onclick="return confirmReset();">초기화</button>
-			</div><!-- 레시피 작성 요청 / 초기화 버튼 영역 끝 -->
+			
 		</form><!-- 글 작성 전체 form 끝 -->
 
 	</div><!-- 전체 wrap 끝 -->
