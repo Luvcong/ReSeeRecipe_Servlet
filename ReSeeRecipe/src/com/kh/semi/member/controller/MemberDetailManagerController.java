@@ -1,6 +1,7 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
@@ -36,8 +38,17 @@ public class MemberDetailManagerController extends HttpServlet {
 		int memNo = Integer.parseInt(request.getParameter("mno"));
 		
 		System.out.println("mno>>>" + memNo);
+		
 		// Service호출 회원번호로 해당 회원 정보 SELECT
-		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
+		ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
+		
+		// GSON이용 => ArrayList를 JSON타입의 데이터로 반환
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
+		
+		
+		
 		/*
 		if(memNo > 0) {
 			Member m = new MemberService().selectMemInfo(memNo); 
