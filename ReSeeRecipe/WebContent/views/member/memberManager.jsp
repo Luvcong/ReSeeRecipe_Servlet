@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.member.model.vo.Member" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.member.model.vo.Member, com.kh.semi.common.model.vo.PageInfo" %>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+
+	// 페이징바 만들 때 필요한 변수 미리 세팅
+	int memlistPage = pi.getCurrentPage();
+	int memStartPage = pi.getStartPage();
+	int memEndPage = pi.getEndPage();
+	int memMaxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -120,7 +127,8 @@
               <th>
                 <div class="form-check">
                     <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="">Option 1
+                    <!-- <input type="checkbox" class="form-check-input" value="">-->
+                     <input type="checkbox"  name="example1">
                     </label>
                 </div>
               </th>
@@ -148,19 +156,18 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                   			 <input type="checkbox" class="form-check-input" value="">Option 1
+                    		<input type="checkbox" name="example2">
+                   		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
              			 </td>
-             		   
-                		<td><%= (m.getMemNo() -2) %></td>
+                		<td><%= m.getMemNo()  %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
                 		<td><%= m.getMemNickname() %></td>
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemGradeName() %></td>
-                	 	
                 	</tr>  
                <% } %>  
 			<% } %>   
@@ -171,6 +178,22 @@
    
     <br><br><br><br>
     <div class="w3-bar">
+    	<% if(memlistPage != 1) { %>
+    		<button onclick="page('<%=memlistPage -1 %>');" class="w3-button w3-yellow">&lt;</button>
+    	<% } %>
+    	
+    	<% for(int i = memStartPage; i <= memEndPage; i++) { %>
+    		<% if(memlistPage != i) { %>
+    			<button onclick="page('<%=i %>');" class="w3-button w3-yellow"><%=i %></button>
+    		<% } else { %>
+    			<button disabled class="w3-button w3-yellow"><%=i %></button>
+    		<% } %>
+    	<% } %>
+    	
+    	<% if(memlistPage != memMaxPage) { %>
+    		<button onclick="page('<%=memlistPage + 1 %>');" class="w3-button w3-yellow">&gt;</button>
+    	<% } %>
+    	<!--  
         <a href="#" class="w3-button">«</a>
         <a href="#" class="w3-button w3-yellow">1</a>
         <a href="#" class="w3-button">2</a>
@@ -178,10 +201,39 @@
         <a href="#" class="w3-button">4</a>
         <a href="#" class="w3-button">5</a>
         <a href="#" class="w3-button">»</a>
+        -->
     </div>
 </div>	
 	
-	
+	<script>
+		// 회원 리스트 페이징처리 함수
+		function page(e){
+			
+			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
+		}
+		
+		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
+		$(function(){
+			$('#memAllList > tr').on("click", detailMember);
+		});
+		function detailMember(){
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url : 'hldetailmember.ma',
+				data : {mno : $(this).children().eq(1).text()},
+				success : function(result){
+					console.log(result);
+					console.log('회원 상세 조회 성공');
+					$('.rs-content').html(result);
+				},
+				error : function(result){
+					console.log('회원 상세 조회 실패');
+					$('.rs-content').text('회원 상세 조회가 되지 않습니다');
+				}
+				
+			})
+		}
+	</script>
 	
 	
 </body>

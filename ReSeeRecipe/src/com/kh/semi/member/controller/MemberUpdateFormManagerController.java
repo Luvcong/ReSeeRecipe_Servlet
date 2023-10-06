@@ -1,7 +1,6 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +11,16 @@ import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberDetailManagerController
+ * Servlet implementation class MemberUpdateFormManagerController
  */
-@WebServlet("/hldetailmember.ma")
-public class MemberDetailManagerController extends HttpServlet {
+@WebServlet("/hlupdatemeberForm.ma")
+public class MemberUpdateFormManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDetailManagerController() {
+    public MemberUpdateFormManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +30,15 @@ public class MemberDetailManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		// 값 뽑기 - 회원번호("mno")
+		// 값 뽑기 - 회원번홀("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
-		
-		System.out.println("mno>>>" + memNo);
-		// Service호출 회원번호로 해당 회원 정보 SELECT
-		//ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
-		if(memNo > 0) {
-			Member m = new MemberService().selectMemInfo(memNo); 
-			// 응답화면 지정
-			request.setAttribute("m", m);
-			request.setAttribute("memNo", memNo);
-		
-			request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
-		} else {
-			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-		
 	
+		Member m = new MemberService().selectMemInfo(memNo); 
+		// 응답화면 지정
+		request.setAttribute("m", m);
+		request.setAttribute("memNo", memNo);
+	
+		request.getRequestDispatcher("views/member/memberUpdateFormManager.jsp").forward(request, response);
 	}
 
 	/**

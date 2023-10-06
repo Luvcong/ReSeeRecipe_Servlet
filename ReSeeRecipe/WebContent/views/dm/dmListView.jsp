@@ -70,7 +70,7 @@
 </head>
 <body>
 
-		<%@ include file="../manager/navbar.jsp" %>
+	<%@ include file="../manager/navbarJH.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -91,14 +91,14 @@
             <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll(element)"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>등록일<div class="sort"></div></th>
                         <th data-idx=3>아이디<div class="sort"></div></th>
                         <th data-idx=4>닉네임<div class="sort"></div></th>
                         <th data-idx=5>쪽지 문의내용<div class="sort"></div></th>
                         <th data-idx=6>답변여부<div class="sort"></div></th>
-                        <th data-idx=7 style="display: none">답변내용 (hidden처리예정)<div class="sort"></div></th>
+                        <th data-idx=7 style="display: none">답변내용<div class="sort"></div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,9 +171,13 @@
 	                </div>
 	            </div>
 	        </div>
-	</form>
+		</form>
+	
+	<div class="paging-area">
+	</div>	<!-- paging-area -->
+	
   </div>
-
+  
   <!-- 쪽지 글자 byte count -->
   <script>
 		let limitByte = 500;
@@ -308,6 +312,7 @@
 	<script>
 		function deleteDm(){
 			
+			
 			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
 			let checked_tr = null;
 			for(let tr of trs){
@@ -403,6 +408,36 @@
 		$('.table th').on('click', sortTable);
 	})
 	
+	function checkAll(element){
+		console.log(element);	// input요소 (table의 헤더부분)
+		
+		let table = document.getElementById('tb-dm');
+		let inputs = document.querySelectorAll('tr input');
+		
+		console.log(table);		// 테이블 값 확인 ok
+		console.log(inputs);	// 헤더 체크박스 값 ok
+		
+		// 헤더 체크박스 클릭시 == checked속성 true > 전체 체크되도록
+		// 헤더 체크박스 해제시 == checked속성 false > 전체 해제되도록 
+		
+		// element의 checked속성이 true인경우 체크 == table의 모든 tr > input 요소가 checked
+		// element의 checked속성이 false인 경우 똑같이 flase로 해주어야 함
+		// 즉, element.checked == table tr input.checked가 서로 일치하다는 의미
+		for(let input of inputs){
+			input.checked = element.checked;	// element.checked가 해제/선택일때의 경우 모두 input에 넣음
+		}
+		
+			// 기능 추가 예정
+		// table tr input.checked가 하나라도 false가 된다면
+		// element의 checekd속성도 false가 되어야 한다
+		
+		// 체크되어 있는 개수 확인
+		// 체크박스 전체 개수
+		// 서로 일치하면 true / 일치하지 않으면 false
+		
+		
+	}	// checkAll
+	
 	function sortTable(){
 		let idx = parseInt(this.getAttribute('data-idx'));
 		if(idx == 0){
@@ -484,7 +519,7 @@
 			tbody.append(tr);
 		}
 		
-	}
+	}	// sortTable
 </script>
 
 </body>

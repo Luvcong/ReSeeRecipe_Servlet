@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#" id="categoryManager">카테고리 관리</a></li>
+					<li><a href="#">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -111,14 +111,19 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
-		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+
+<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
+
+    $(function(){
+        let main = document.querySelector('.rs-main');
+        let content = document.querySelector('.rs-content');
+        main.appendChild(content);
+    });
+
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -175,8 +180,7 @@
     function goMember(){
     	$.ajax({
     		type : "GET",
-    		url : 'hlmembermanage.ma', //?cmpage=1
-    		data : {cmpage : 1},
+    		url : 'hlmembermanage.ma',
     		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
@@ -245,14 +249,5 @@
 	}	// 쪽지함리스트(dmListView)
 
 </script> -->
-
-<!-- 카테고리관리 ajax -->
-<script>
-
-	$(function(){
-		
-	});
-
-</script>
 
 </html>

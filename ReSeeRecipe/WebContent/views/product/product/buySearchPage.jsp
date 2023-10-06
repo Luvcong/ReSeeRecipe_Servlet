@@ -90,7 +90,7 @@
         <div id="pro_area">
         	<% for(Product p : list) { %>
         		<div class="pro_list">
-        			<a style="display: none;"><%= p.getProductNo() %></a>
+        			<!-- <a style="display: none;"><%= p.getProductNo() %></a> -->
 	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>">
 	                    <img src="<%= p.getTitleImg() %>">
 	                </a>

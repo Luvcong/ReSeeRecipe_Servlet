@@ -28,30 +28,58 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
+	<entry key="selectMemlistCount">
+		SELECT
+				COUNT(*)
+		 FROM
+		 		TB_MEMBER
+		WHERE
+				MEM_STATUS = 'Y'
+		  AND
+		  		MEM_GRADE != 4
+	</entry>
+	
 	<entry key="selectMemberAll">
-		SELECT 
-				 MEM_NO
-				,MEM_NAME
-				,MEM_ID
-				,MEM_NICKNAME
-				,MEM_EMAIL
-				,ENROLL_DATE <!-- TO_CHAR(ENROLL_DATE, 'RRRR-MM-DD') ENROLL_DATE -->
-				,(
-					SELECT
-								SUM(REWARD_SCORE)
-             		  FROM 
-             		 			TB_REWARD B
-              		 WHERE 
-              					A.MEM_NO = B.MEM_NO
-              	)MEM_REWARD
-  		FROM 
-  				TB_MEMBER A
- 		WHERE 
- 				MEM_GRADE != 4
- 		  AND   
- 		  		MEM_STATUS = 'Y'
-	    ORDER 
-	       BY 
-	       		MEM_NO DESC
+		SELECT *
+		 FROM(SELECT ROWNUM RNUM, A.* 
+				 FROM (SELECT 
+				 			MEM_NO
+				 		   ,MEM_NAME
+				 		   ,MEM_NICKNAME
+				 		   ,MEM_ID
+				 		   ,MEM_EMAIL
+				 		   ,ENROLL_DATE
+				 		   ,MEM_GRADE_NAME
+					 FROM 	
+					 		TB_MEMBER
+					 JOIN 
+					 		TB_MEMBER_GRADE ON(MEM_GRADE = MEM_GRADE_NO)
+					WHERE 
+							MEM_GRADE != 4
+					 AND
+					 		MEM_STATUS = 'Y'
+					ORDER 
+					   BY 
+					   		MEM_NO DESC) A)
+				WHERE RNUM BETWEEN ? AND ?					   		
+	</entry>
+	
+	<entry key="selectMemInfo">
+		SELECT
+				MEM_NO
+			   ,MEM_NAME
+			   ,MEM_ID
+			   ,MEM_NICKNAME
+			   ,MEM_EMAIL
+			   ,ENROLL_DATE
+			   ,MEM_GRADE_NAME
+	     FROM
+	     		TB_MEMBER
+	     JOIN
+	     		TB_MEMBER_GRADE ON(MEM_GRADE = MEM_GRADE_NO)
+	     WHERE
+	     		MEM_NO = ?
+	       AND
+	       		MEM_STATUS = 'Y'
 	</entry>
 </properties>

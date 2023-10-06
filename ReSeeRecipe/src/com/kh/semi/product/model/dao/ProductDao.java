@@ -36,7 +36,10 @@ public class ProductDao {
 		}
 	}
 	
-	
+	/**
+	 * 상품의 총 개수 셀렉트해오는 메소드
+	 * @return 개수
+	 */
 	public int selectListCount(Connection conn) {
 		
 		int listCount = 0;
@@ -63,12 +66,22 @@ public class ProductDao {
 		return listCount;
 	}
 	
-	public ArrayList<Product> selectProductList(Connection conn, PageInfo pi){
+	/**
+	 * 상품리스트 페이징처리로 뿌려주는 메소드
+	 * @return 페이징처리된 상품리스트
+	 */
+	public ArrayList<Product> selectProductList(Connection conn, PageInfo pi, String cate){
 		
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectProductList");
+		String sql = null;
+		switch(cate) {
+		case "best": sql = prop.getProperty("selectList1"); break;
+		case "good": sql = prop.getProperty("selectList2"); break;
+		case "new": sql = prop.getProperty("selectList3"); break;
+		}
+		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
@@ -86,7 +99,7 @@ public class ProductDao {
 				p.setProductNo(rset.getInt("PRODUCT_NO"));
 				p.setProductName(rset.getString("PRODUCT_NAME"));
 				p.setPrice(rset.getInt("PRODUCT_PRICE"));
-				p.setProductScoreReviewAvg(rset.getInt("PRODUCT_SCORE_AVG"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
 				p.setTitleImg(rset.getString("TITLEIMG"));
 				
 				list.add(p);
@@ -101,6 +114,100 @@ public class ProductDao {
 		return list;
 	}
 	
+	/**
+	 * 카테고리별 상품리스트 페이징처리해서 뿌려주는 메소드
+	 */
+	public ArrayList<Product> selectCategoryProductList(Connection conn, PageInfo pi, String cate){
+		
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int num = 0;
+		String sql = prop.getProperty("selectCategoryList");
+		
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			switch(cate) {
+			case "meat": num = 1; break;
+			case "fish": num = 2; break;
+			case "vegi": num = 3; break;
+			case "sim": num = 4; break;
+			}
+			
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Product p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRODUCT_PRICE"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
+				p.setTitleImg(rset.getString("TITLEIMG"));
+				
+				list.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	/**
+	 * 상품리스트가져오는 메소드
+	 * @return 상품리스트
+	 */
+	public ArrayList<Product> selectList(Connection conn){
+		
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProductList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Product p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRODUCT_PRICE"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
+				p.setTitleImg(rset.getString("TITLEIMG"));
+				
+				list.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	/**
+	 * 상품번호로 디테일하게 가져오는 메소드
+	 * @return 상품정보
+	 */
 	public Product selectProduct(Connection conn, int pno) {
 		
 		Product p = null;
@@ -122,7 +229,7 @@ public class ProductDao {
 				p.setProductDetail(rset.getString("PRODUCT_DETAIL"));
 				p.setDilivery(rset.getInt("PRODUCT_DILIVERY"));
 				p.setOrigin(rset.getString("PRODUCT_ORIGIN"));
-				p.setProductScoreReviewAvg(rset.getInt("PRODUCT_SCORE_AVG"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
 			}
 			
 		} catch (SQLException e) {
@@ -134,7 +241,10 @@ public class ProductDao {
 		return p;
 	}
 	
-	
+	/**
+	 * 상품번호로 사진 가져오는 메소드
+	 * @return 상품정보의 사진
+	 */
 	public ArrayList<ProductPicture> selectPicture(Connection conn, int pno) {
 		
 		ArrayList<ProductPicture> list = new ArrayList();
@@ -155,6 +265,48 @@ public class ProductDao {
 				pp.setPicturePath(rset.getString("PRODUCT_PICTURE_PATH"));
 				
 				list.add(pp);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	/**
+	 * 메인화면 상품 가져오는 메소드
+	 * @param 정렬기준값
+	 */
+	public ArrayList<Product> selectMainList(Connection conn, String cate){
+		
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = null;
+		switch(cate) {
+		case "best": sql = prop.getProperty("selectMainList1"); break;
+		case "good": sql = prop.getProperty("selectMainList2"); break;
+		case "new": sql = prop.getProperty("selectMainList3"); break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Product p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRODUCT_PRICE"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
+				p.setTitleImg(rset.getString("TITLEIMG"));
+				
+				list.add(p);
 			}
 			
 		} catch (SQLException e) {

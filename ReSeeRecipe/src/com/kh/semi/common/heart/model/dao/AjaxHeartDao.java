@@ -20,7 +20,9 @@ public class AjaxHeartDao {
 	private Properties prop = new Properties();
 	
 	public AjaxHeartDao() {
+		
 		String filePath = AjaxHeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
+		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
@@ -30,69 +32,118 @@ public class AjaxHeartDao {
 	/****************************************************************************/
 	
 	
+	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	public int htCountRecipe(Connection conn, int htTargetNo) {
+		
+		// 기본 변수 세팅
+		int result = 0;
+		String sql = prop.getProperty("htCountRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			System.out.println("실행되나ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+			try(ResultSet rset = pstmt.executeQuery()){
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int htCountBookmark(Connection conn, int htTargetNo) {
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountBookmark");
+		System.out.println(sql + "여기까지실행ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			System.out.println("하트타겟넘버" + htTargetNo);
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int htCountNotice(Connection conn, int htTargetNo) {
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountNotice");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+ 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
+	public int htCountSubsc(Connection conn, int htTargetNo) {
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public int htCountReply(Connection conn, int htTargetNo) {
+		
+		int result = 0;
+		String sql = prop.getProperty("htCountReply");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, htTargetNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					result = rset.getInt("COUNT(*)");
+				}
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	/****************************************************************************/
+	
+	
 	/*************** 좋아요 여부 체크 기능 *********************************************/
-	public boolean isHeartRecipe(Heart ht, Connection conn) {
+	public boolean isHeartRecipe(Connection conn, Heart ht) {
 		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartRecipe");
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next()) {
-					flag = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
-	
-	
-	public boolean isHeartBookmark(Heart ht, Connection conn) {
-		boolean flag = false;
-		String sql = prop.getProperty("isHeartBookmark");
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next()) {
-					flag = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
-	
-	
-	public boolean isHeartNotice(Heart ht, Connection conn) {
-		boolean flag = false;
-		String sql = prop.getProperty("isHeartNotice");
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
-			try(ResultSet rset = pstmt.executeQuery()) {
-				if(rset.next()) {
-					flag = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return flag;
-	}
-	
-	
-	public boolean isHeartSubsc(Heart ht, Connection conn) {
-		boolean flag = false;
-		String sql = prop.getProperty("isHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2, ht.getMemNo());
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
@@ -106,13 +157,77 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public boolean isHeartReply(Heart ht, Connection conn) {
+	public boolean isHeartBookmark(Connection conn, Heart ht) {
+		
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartBookmark");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+	
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	public boolean isHeartNotice(Connection conn, Heart ht) {
+		
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartNotice");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	public boolean isHeartSubsc(Connection conn, Heart ht) {
+		
+		boolean flag = false;
+		String sql = prop.getProperty("isHeartSubsc");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					flag = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	
+	
+	public boolean isHeartReply(Connection conn, Heart ht) {
+		
 		boolean result = false;
 		String sql = prop.getProperty("isHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, ht.getHtTargetNo());
-			pstmt.setInt(2,ht.getMemNo());
+			pstmt.setInt(1,ht.getMemNo());
+			pstmt.setInt(2, ht.getHtTargetNo());
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
@@ -128,14 +243,17 @@ public class AjaxHeartDao {
 	
 
 	/*************** 좋아요 추가/삭제(INSERT/DELETE) 기능 ******************************/
-	public int insertHeartRecipe(Heart ht, Connection conn) {
+	public int insertHeartRecipe(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartRecipe");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+			
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -143,14 +261,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartRecipe(Heart ht, Connection conn) {
+	public int deleteHeartRecipe(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartRecipe");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+			
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -158,14 +279,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartBookmark(Heart ht, Connection conn) {
+	public int insertHeartBookmark(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartBookmark");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -173,14 +297,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartBookmark(Heart ht, Connection conn) {
+	public int deleteHeartBookmark(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartBookmark");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+			
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -188,14 +315,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartNotice(Heart ht, Connection conn) {
+	public int insertHeartNotice(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartNotice");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+			
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -203,14 +333,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartNotice(Heart ht, Connection conn) {
+	public int deleteHeartNotice(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartNotice");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+		
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -218,14 +351,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartSubsc(Heart ht, Connection conn) {
+	public int insertHeartSubsc(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+	
 			result = pstmt.executeUpdate();
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -233,14 +369,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartSubsc(Heart ht, Connection conn) {
+	public int deleteHeartSubsc(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartSubsc");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+		
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -248,14 +387,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int insertHeartReply(Heart ht, Connection conn) {
+	public int insertHeartReply(Connection conn, Heart ht) {
+		
 		int result = 0;
 		String sql = prop.getProperty("insertHeartReply");
-		
+	
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+		
 			result = pstmt.executeUpdate();
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -263,14 +405,17 @@ public class AjaxHeartDao {
 	}
 	
 	
-	public int deleteHeartReply(Heart ht, Connection conn) {
+	public int deleteHeartReply(Connection conn, Heart ht) {
+	
 		int result = 0;
 		String sql = prop.getProperty("deleteHeartReply");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
+		
 			result = pstmt.executeUpdate();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -318,7 +463,6 @@ public class AjaxHeartDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println();
 		return result;
 	}
 	
@@ -383,7 +527,6 @@ public class AjaxHeartDao {
 			
 			for(NoticeHeart n : heartNoticeNo) {
 				pstmt.setInt(1, n.getNoticeNo());
-				System.out.println("get >> " + n.getNoticeNo());
 				noticeHeartList.add(n);
 			}
 			
@@ -397,8 +540,6 @@ public class AjaxHeartDao {
 				nh.setNoticeHeartCount(rset.getInt("COUNT(NOTICE_NO)"));
 				noticeHeartList.add(nh);
 			 }
-			 System.out.println("noticeHeartList >> " + noticeHeartList);
-			 System.out.println("count >> " + nh.getNoticeHeartCount());
 		 } catch(SQLException e) { 
 			 e.printStackTrace(); 
 		} finally {

@@ -6,6 +6,7 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Member;
 
@@ -22,15 +23,39 @@ public class MemberService {
 		return m;
 	}
 	
-	public ArrayList<Member> selectMemberAll(){
+	public int selectMemlistCount() {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Member> list = new MemberDao().selectMemberAll(conn);
+		int memlistCount = new MemberDao().selectMemlistCount(conn);
+		
+		close(conn);
+		
+		return memlistCount;
+	}
+	
+	
+	
+	
+	public ArrayList<Member> selectMemberAll(PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectMemberAll(conn, pi);
 		
 		close(conn);
 		
 		return list;
 	}
-
+	
+	public Member selectMemInfo(int memNo){
+		
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectMemInfo(conn, memNo);
+		
+		close(conn);
+		
+		return m;
+	}
 }

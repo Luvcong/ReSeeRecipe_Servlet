@@ -24,11 +24,27 @@ public class ProductService {
 		return listCount;
 	}
 	
-	public ArrayList<Product> selectProductList(PageInfo pi){
+	public ArrayList<Product> selectList(){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Product> list = new ProductDao().selectProductList(conn, pi);
+		ArrayList<Product> list = new ProductDao().selectList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Product> selectProductList(PageInfo pi, String cate){
+		
+		Connection conn = getConnection();
+		ArrayList<Product> list = null;
+		
+		if(cate.equals("meat") || cate.equals("fish") || cate.equals("vegi") || cate.equals("sim")) {
+			list = new ProductDao().selectCategoryProductList(conn, pi, cate);
+		} else {
+			list = new ProductDao().selectProductList(conn, pi, cate);
+		}
 		
 		close(conn);
 		
@@ -57,6 +73,17 @@ public class ProductService {
 		
 		return list;
 		
+	}
+	
+	public ArrayList<Product> selectMainList(String cate){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectMainList(conn, cate);
+		
+		close(conn);
+		
+		return list;
 	}
 	
 	
