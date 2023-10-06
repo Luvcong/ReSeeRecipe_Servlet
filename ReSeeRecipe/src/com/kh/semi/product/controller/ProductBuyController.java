@@ -1,7 +1,6 @@
 package com.kh.semi.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.product.model.service.ProductService;
-import com.kh.semi.product.model.vo.Option;
 import com.kh.semi.product.model.vo.Product;
-import com.kh.semi.product.model.vo.ProductPicture;
 
 /**
- * Servlet implementation class ProductDetailController
+ * Servlet implementation class ProductBuyController
  */
-@WebServlet("/prodetail.po")
-public class ProductDetailController extends HttpServlet {
+@WebServlet("/probuy.po")
+public class ProductBuyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailController() {
+    public ProductBuyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +29,25 @@ public class ProductDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String p = request.getParameter("p"); // Product객체
+		String list = request.getParameter("list"); // 사진리스트
+		String ono = request.getParameter("ono");
+		String oname = request.getParameter("oname");
 		
-		int pno = Integer.parseInt(request.getParameter("pno"));
+		System.out.println(ono);
 		
-		Product p = new ProductService().selectProduct(pno);
-		ArrayList<ProductPicture> list = new ProductService().selectPicture(pno);
-		ArrayList<Option> list2 = new ProductService().selectOption(pno);
 		
-		request.setAttribute("p", p);
-		request.setAttribute("list", list);
-		request.setAttribute("list2", list2);
 		
-		request.getRequestDispatcher("/views/product/product/buyDetailView.jsp").forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**
