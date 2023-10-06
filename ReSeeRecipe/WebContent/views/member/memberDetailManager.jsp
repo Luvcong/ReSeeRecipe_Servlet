@@ -30,6 +30,7 @@
 </head>
 <body>
 	<%@ include file="../manager/navbar.jsp" %>
+<div class="rs-content">
     <br><br>
     <h2>회원 정보 상세보기</h2>
     <br><br>
@@ -73,6 +74,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 <script>

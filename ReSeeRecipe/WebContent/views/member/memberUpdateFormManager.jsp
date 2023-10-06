@@ -31,6 +31,9 @@
 </style>  
 </head>
 <body>
+<body>
+	<%@ include file="../manager/navbar.jsp" %>
+<div class="rs-content">
 	<div class="rs-content">
     <br><br>
     <h2>회원 정보 수정</h2>
@@ -61,13 +64,14 @@
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon"></label>
-            	<textarea name="memUpdateWhyCon"></textarea>
+            	<textarea id="memUpdateWhyCon" name="memUpdateWhyCon"></textarea>
             </div>
             <br><br>
             <button type="submit" class="btn btn-warning">수정하기</button>
             <button type="button" class="btn btn-warning" onclick="history.back();">돌아가기</button>
         </form>
     </div> 
-    </div> 
+    </div>
+</div> 
 </body>
 </html>
