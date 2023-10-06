@@ -229,7 +229,34 @@
 					
 					let resultStr = '';
 					resultStr += '<tr>'
-					
+							   + '<th>' + 회원번호 + '</th>'
+							   + '<td>' + m.getMemNo() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원이름 + '</th>'
+							   + '<td>' + m.getMemName() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원아이디 + '</th>'
+							   + '<td>' + m.getMemId() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원닉네임 + '</th>'
+							   + '<td>' + m.getMemNickname() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원이메일 + '</th>'
+							   + '<td>' + m.getMemEmail() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 가입일자 + '</th>'
+							   + '<td>' + m.getEnrollDate() + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원등급명 + '</th>'
+							   + '<td>' + m.getMemGradeName() + '<td>'
+							   + '</tr>';
+							   
 					$('.rs-content').html(resultStr);
 				},
 				error : function(result){
