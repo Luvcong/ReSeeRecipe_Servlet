@@ -250,11 +250,11 @@
 							   + '</tr>'
 							   + '<tr>'
 							   + '<th>' + '가입일자' + '</th>'
-							   + '<td>' + result.memEnrolldate + '<td>'
+							   + '<td>' + result.enrollDate + '<td>'
 							   + '</tr>'
 							   + '<tr>'
 							   + '<th>' + '회원등급명' + '</th>'
-							   + '<td>' + result.memGradename + '<td>'
+							   + '<td>' + result.memGrade + '<td>'
 							   + '</tr>';
 							   
 					$('.rs-content').html(resultStr);
