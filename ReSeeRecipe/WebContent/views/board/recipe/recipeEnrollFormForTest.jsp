@@ -37,27 +37,29 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 	/**********************************************************
-		입력양식 / 내부 상단바 등 wrap div세팅
+		wrap div + wrap내부 div 세팅
 	**********************************************************/
 	div {
 		box-sizing: border-box;
 	}
 
-	/* 전체 양식wrap */
-	body #recipe-enroll-form-wrap {
+	/* 전체 div wrap */
+	#recipe-enroll-form-wrap {
 		width: 1000px;
 		box-sizing: border-box;
 		margin: auto;
 	}
-
+	/*******************************************/
+	/* > 글쓰기 양식 form태그wrap */
 	#recipe-enrolling-form { 
 		width: 100%;
 		box-sizing: border-box;
 		position: relative;
 	}
 
-	/* 양식 내 상단바wrap div 세팅 */
-	body #recipe-enroll-top-bar-wrap {
+	/*******************************************/
+	/* > > 상단바wrap div 세팅 */
+	#recipe-enroll-top-bar-wrap {
 		width: 100%;
 		height: 70px;
 		margin: auto;
@@ -65,29 +67,31 @@
 		position: relative;
 	}
 
-	/* 상단바 내 div요소 기본 세팅 */
+	/* > >... 상단바 내부 div요소 default 세팅 */
 	#recipe-enroll-top-bar-wrap div {
 		height: 100%;
 		float: left;
 	}
 
-	/* 양식 내용 부분wrap 세팅 */
+	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
 		width: 100%;
 		height: 1500px;
 	}
 
-	/* 양식 내용 입력부분 크기 기본세팅 */
+	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
 		width: 100%;
 		height: 20%;
 	}
 
+	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cook-steps-instruction {
 		width: 100%;
 		height: 75%;
 	}
 
+	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
 	#cook-steps-buttons {
 		width: 100%;
 		height: 5%;
