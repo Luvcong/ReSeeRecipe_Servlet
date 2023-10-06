@@ -74,7 +74,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="<%= contextPath %>/jhselect.dm" id="dmManager">쪽지함 관리</a></li>	<!-- 추후 ajax처리 -->
+					<li><a href="<%= contextPath %>/jhselect.dm">쪽지함 관리</a></li>	<!-- 매핑값 include navbarJH로 되어있음 양식 통일되면 navbar로 변경예정 -->
 					<li><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#" id="categoryManager">카테고리 관리</a></li>
+					<li><a href="<%= contextPath %>/jhselect.ct">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -110,10 +110,10 @@
 				</ul>
 			</div>
 		</div>	<!-- rs-navbar -->
-			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
+								
+							<div class="rs-content">
+							
+							</div>	<!-- rs-content -->
 		
     </div>  <!-- rs-main -->
 </body>

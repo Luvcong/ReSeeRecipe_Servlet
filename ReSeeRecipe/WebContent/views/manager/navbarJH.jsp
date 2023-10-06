@@ -74,7 +74,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#" id="dmManager">쪽지함 관리</a></li>
+					<li><a href="<%= contextPath %>/jhselect.dm">쪽지함 관리</a></li>
 					<li><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">카테고리 관리</a></li>
+					<li><a href="<%= contextPath %>/jhselect.ct">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
