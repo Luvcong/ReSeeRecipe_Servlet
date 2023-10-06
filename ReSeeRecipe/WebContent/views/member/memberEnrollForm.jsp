@@ -110,7 +110,7 @@
 </head>
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
-	<%@ include file="/views/common/header.jspf" %>
+	  <%@ include file="/views/common/header.jspf" %>
 
     <form action="yrenroll.me" method="post">
 
