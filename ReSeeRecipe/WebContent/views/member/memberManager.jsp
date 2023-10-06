@@ -270,7 +270,7 @@
 							   + '</table>'
 					           + '<br><br>'
 					           + '<div id="memberdetailbtn">'
-					           + '<button class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
+					           + '<button id="memberupdateFormbtn" class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
 					           + '<button class="w3-button w3-round w3-yellow">목록으로</button>'
 					           + '</div>'
 					           + '</div>'
@@ -284,7 +284,13 @@
 				}
 				
 			})
-		}
+		};
+		
+		$(function(){
+			$('#memberupdateFormbtn').on("click", updateFormMember);
+			console.log('클릭된다');
+		});
+		
 	</script>
 	
 	
