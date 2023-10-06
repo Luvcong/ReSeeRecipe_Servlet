@@ -271,7 +271,7 @@
 					           + '<br><br>'
 					           + '<div id="memberdetailbtn">'
 					           + '<button id="memberupdateFormbtn" class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
-					           + '<button class="w3-button w3-round w3-yellow">목록으로</button>'
+					           + '<button onclick="abc()" id="memberList" class="w3-button w3-round w3-yellow">목록으로</button>'
 					           + '</div>'
 					           + '</div>'
 					   		   + '</div>';
@@ -285,6 +285,31 @@
 				
 			})
 		};
+		
+		$(function(){
+			/*
+			$('#memberList').click(function(){
+				location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
+			})\
+			*/
+			$('#memberList').click(function(){
+			
+				abc();
+			})	
+		});
+		
+		function abc(){
+			
+				location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
+			
+		}
+	
+		
+		
+		
+		
+		
+		
 		/*
 		$(function(){
 			$('#memberupdateFormbtn').on("click", updateFormMember);
