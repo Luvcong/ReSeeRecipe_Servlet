@@ -78,6 +78,11 @@
 	}
 
 	/* 양식 내용 입력부분 크기 기본세팅 */
+	#cook-steps-basic-info {
+		width: 100%;
+		height: 25%;
+	}
+
 	#recipe-enroll-context-wrap .cook-steps-block table {
 		width: 100%;
 		height: 100%;
@@ -193,17 +198,27 @@
 		입력양식 내용 영역
 	**********************************************************/
 	/* 양식내용 기본세팅 (썸네일, 제목, 해시태그, 재료 영역) */
+	#cook-steps-basic-info .cook-steps-input-content {
+		width: 50%;
+		text-align: center;
+	}
 
+	#cook-steps-title {
+		
+	}
+	#cook-steps-chef {
 
-	/* 양식 내용 입력부분 크기 기본세팅 */
+	}
+	#cook-steps-hashtag {
 
+	}
+	#cook-steps-ingredient-title {
 
-	/* 썸네일 이미지 기본세팅 */
+	}
+	#cook-steps-ingredient-content {
 
-
-
-	/* 레시피 제목 / 세프이름 / 해시태그 */
-
+	}
+	
 
 		
 
@@ -336,20 +351,20 @@
 				<div id="cook-steps-basic-info" class="cook-steps-block">
 					<table style="border: 1px solid black;">
 						<tr>
-							<td rowspan="5" id="cook-steps-thumbnail"><img src="d" alt="">ㅇ</td>
-							<td id="cook-steps-title"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
+							<td rowspan="5" id="cook-steps-thumbnail" class="cook-steps-input-content"><img src="d" alt="">ㅇ</td>
+							<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 						</tr>
 						<tr>
-							<td id="cook-steps-chef">김xx셰프</td>
+							<td id="cook-steps-chef" class="cook-steps-input-content">김xx셰프</td>
 						</tr>
 						<tr>
-							<td id="cook-steps-hashtag">해시태그입력</td>
+							<td id="cook-steps-hashtag" class="cook-steps-input-content">해시태그입력</td>
 						</tr>
 						<tr>
-							<td id="cook-steps-ingredient-title">재료</td>
+							<td id="cook-steps-ingredient-title" class="cook-steps-input-content">재료</td>
 						</tr>
 						<tr>
-							<td id="cook-steps-ingredient-content">재료추가영역</td>
+							<td id="cook-steps-ingredient-content" class="cook-steps-input-content">재료추가영역</td>
 						</tr>
 			
 					</table>
