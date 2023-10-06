@@ -20,12 +20,12 @@ public class CategoryListManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private CategoryManagerService categoryService;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CategoryListManagerController() {
         super();
+        categoryService = new CategoryManagerService();
         // TODO Auto-generated constructor stub
     }
 
@@ -38,7 +38,7 @@ public class CategoryListManagerController extends HttpServlet {
 		// 2) 전달값 뽑기 - select문으로 없음
 		// 3) 데이터가공 xx
 		// 4) service 호출
-		ArrayList<RecipeCategory> list = 
+		ArrayList<RecipeCategory> list = categoryService.selectCategoryList();
 		// 5) 응답화면 지정 (ajax사용)
 		// 5-1) 인코딩과 형식 지정해주기
 		response.setContentType("application/json; charset=UTF-8");
