@@ -3,7 +3,7 @@
 <%
 	String buy = (String)request.getAttribute("buy");
 %>
-<!-- 초본_231005 yr -->
+<!-- 초본_231005_yr -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,6 +101,8 @@
 
 </head>
   <body>
+  	<!-- header부분 (상단 메인 메뉴바) -->
+	<%@ include file="/views/common/header.jspf" %>
 
 
     <form action="yrenroll.me" method="post">
@@ -127,6 +129,10 @@
           <div class="psw">비밀번호 찾기 <a href="#"></a></div>
         </div>
       </form>
+      
+    <!-- footer 푸터영역 -->
+    <%@ include file="/views/common/footer.jspf" %>
+      
 
   </body>
 </html>
