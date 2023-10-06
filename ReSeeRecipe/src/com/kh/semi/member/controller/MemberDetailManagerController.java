@@ -68,7 +68,7 @@ public class MemberDetailManagerController extends HttpServlet {
 		
 			request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
 		} else {
-			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
+			request.setAttribute("errorMsg", "회원 상세 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
