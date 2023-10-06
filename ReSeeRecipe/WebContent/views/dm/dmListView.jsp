@@ -70,7 +70,7 @@
 </head>
 <body>
 
-	<%@ include file="../manager/navbarJH.jsp" %>
+		<%@ include file="../manager/navbar.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -91,14 +91,14 @@
             <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox" onclick="checkAll(element)"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>등록일<div class="sort"></div></th>
                         <th data-idx=3>아이디<div class="sort"></div></th>
                         <th data-idx=4>닉네임<div class="sort"></div></th>
                         <th data-idx=5>쪽지 문의내용<div class="sort"></div></th>
                         <th data-idx=6>답변여부<div class="sort"></div></th>
-                        <th data-idx=7 style="display: none">답변내용<div class="sort"></div></th>
+                        <th data-idx=7 style="display: none">답변내용 (hidden처리예정)<div class="sort"></div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,13 +171,9 @@
 	                </div>
 	            </div>
 	        </div>
-		</form>
-	
-	<div class="paging-area">
-	</div>	<!-- paging-area -->
-	
+	</form>
   </div>
-  
+
   <!-- 쪽지 글자 byte count -->
   <script>
 		let limitByte = 500;
@@ -519,7 +515,7 @@
 			tbody.append(tr);
 		}
 		
-	}	// sortTable
+	}
 </script>
 
 </body>

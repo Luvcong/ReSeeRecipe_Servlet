@@ -6,6 +6,7 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 
 	// 페이징바 만들 때 필요한 변수 미리 세팅
+	int memlistCount = pi.getListCount();
 	int memlistPage = pi.getCurrentPage();
 	int memStartPage = pi.getStartPage();
 	int memEndPage = pi.getEndPage();
@@ -121,9 +122,9 @@
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
             <button class="w3-button w3-round w3-yellow">회원 삭제</button>
         </div>
-        <!--<h2>총 회원 103 명</h2>-->
+       <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
         <table class="table" id="memAll">
-            <caption class="totalMem">총 회원 <%=list.size() %>명</caption>
+            <caption class="totalMem">총 회원  <%=pi.getListCount() %>명</caption>
           <thead class="thead-light">
             <tr>
               <th>
