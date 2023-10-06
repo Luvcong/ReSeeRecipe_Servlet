@@ -9,15 +9,6 @@
 			     com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe,
 			     com.kh.semi.board.board_common.model.vo.IngredientMeasure" %>
 
-<--%	
-	ArrayList<UnRecipe> uList = new ArrayList();
-	HashMap<String, Object> enMap = (HashMap)request.getAttribute("mapEnrollForm");
-	ArrayList<RecipeCategory> cList = (ArrayList)enMap.get("cList");
-	ArrayList<IngredientMeasure> iList = (ArrayList)enMap.get("iList");
-	if(enMap.containsKey("uList")) {
-		uList = (ArrayList<UnRecipe>)enMap.get("uList");
-	}
-%-->
 
 <!DOCTYPE html>
 <html>
@@ -46,12 +37,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 	/**********************************************************
+		입력양식 폼 기본 전체 wrap div세팅
+	**********************************************************/
+	body #recipe-enroll-form-wrap {
+		width: 1000px;
+		box-sizing: border-box;
+		display: block;
+		margin: auto;
+		
+	}
+	
+	
+	
+	/**********************************************************
 		입력양식 폼 상단 바 영역
 	**********************************************************/
 	/* 입력양식 폼 상단 바 기본 아우터 div 세팅 */
-	#recipe-enroll-bar-wrap {
-		width: 1000px;
-		height: 50px;
+	body #recipe-enroll-bar-wrap {
+		width: 100%;
 		margin: auto;
 		box-sizing: border-box;
 		position: relative;
@@ -173,11 +176,6 @@
 		입력양식 폼 영역
 	**********************************************************/
 	
-	#recipe-enroll-form-wrap {
-		/********지울부분****************/
-		height: 1200px;
-	}	
-		
 		
 
 	/**********지울부분***************************************/
@@ -208,8 +206,9 @@
 	<!--<--%= contextPath %>/insertRecipe.re-->
 
 	<div id="recipe-enroll-form-wrap">
-		<form action="#" id="recipe-enrolling-form" method="post"
-			enctype="multipart/form-data">
+
+		<!-- 글작성 전체 form태그 / 요청 시점 memNo같이넘김 -->
+		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memNo"
 				value="<%=loginMember.getMemNo()%>">
 
@@ -222,16 +221,19 @@
 				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
 					<h3>카테고리 선택</h3>
 					<select name="recipeCategoryNo">
-						<% for (int i = 0; i < cList.size(); i++) { %>
-							<option value="<%=cList.get(i).getRecipeCategoryNo()%>">
-								<%=cList.get(i).getRecipeCategoryName()%>
-							</option>
-						<% } %>
+							<option value="한식">
+							<option value="양식">
+							<option value="중식">
+							<option value="일식">
+							<option value="아시안">
+							<option value="야식">
+							<option value="디저트">
+							<option value="음료">
 					</select>
 				</div>
 
 
-				<!-- 임시저장 버튼 -->
+				<!-- 임시저장 버튼 / 클릭 시 모달 호출 -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);"
 						class='fas fa-folder' data-toggle="modal" data-target="#">
@@ -281,12 +283,9 @@
 								<h5>기존 임시저장글을 지운 후 이 글을 저장합니다.</h5>
 								<p>아래 목록에서 지울 대상을 선택하세요.</p>
 								<p>주의! 해시태그와 사진은 저장되지 않습니다.</p>
-									<input type="radio" name="unRecipeDelNo" value="<%= uList.get(0).getUnRecipeTitle() %>" id="unRecipeDelNo1" checked>
-									<label for="unRecipeDelNo1"><%= uList.get(0).getUnRecipeTitle() %></label>
-									<% for (int i = 1; i < uList.size(); i++) { %>
-										<input type="radio" name="unRecipeDelNo" value="<%= uList.get(i).getUnRecipeNo() %>" id="unRecipeDelNo<%= i + 1 %>">
-										<label for="unRecipeDelNo<%= i + 1 %>"><%= uList.get(i).getUnRecipeTitle() %></label>
-									<% } %>
+									<input type="radio" class="testList" name="unRecipeDelNo1" id="unRecipeDelNo1" value="1" checked><label for="unRecipeDelNo1">레시피제목1</label>
+									<input type="radio" class="testList" name="unRecipeDelNo2" id="unRecipeDelNo2" value="2"><label for="unRecipeDelNo2">레시피제목2</label>
+									<input type="radio" class="testList" name="unRecipeDelNo3" id="unRecipeDelNo3" value="3"><label for="unRecipeDelNo3">레시피제목3</label>
 							</div>
 	
 							<div class="modal-content"></div>
@@ -314,7 +313,7 @@
 								<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 							</tr>
 							<tr>
-								<td><%= loginMember.getMemNickname() %> 셰프</td>
+								<td>김XX 셰프</td>
 							</tr>
 							<tr>
 								<td>해시태그입력</td>
@@ -399,11 +398,11 @@
 	<script>
 		// 임시저장 아이콘 클릭 시 모달창 설정
 		function unrecipeModalRequest(e) {
-			<% if(uList.size() < 3) { %>
+			if(document.getElementsByClassName('.testList').length < 3 ) {
 				e.dataset.target = '#unrecipe-modal';
-			<% } else { %>
+			} else {
 				e.dataset.target = '#unrecipe-unavailable-modal';
-			<% } %>
+			}
 		}
 		
 		// 양식 초기화 요청 confirm
