@@ -74,7 +74,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="<%= contextPath %>/jhselect.dm">쪽지함 관리</a></li>	<!-- 매핑값 include navbarJH로 되어있음 양식 통일되면 navbar로 변경예정 -->
+					<li onclick="goMenu('/jhselect.dm')"><a href="#">쪽지함 관리</a></li>
 					<li><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="<%= contextPath %>/jhselect.ct">카테고리 관리</a></li>
+					<li onclick="goMenu('/jhselect.ct')"><a href="#">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -111,20 +111,18 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-	<!-- rs-content -->
+		<!-- rs-content 추가된 영역 부분 -->
 		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+	<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
 	$(function(){
 	    let main = document.querySelector('.rs-main');
 	    let content = document.querySelector('.rs-content');
 	    main.appendChild(content);
 	});
-
-
-
 
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
