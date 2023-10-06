@@ -123,7 +123,7 @@
         </div>
         <!--<h2>총 회원 103 명</h2>-->
         <table class="table" id="memAll">
-            <caption class="totalMem">총 회원 <%= list.size() %>명</caption>
+            <caption class="totalMem">총 회원 <%=list.size() %>명</caption>
           <thead class="thead-light">
             <tr>
               <th>
@@ -213,7 +213,7 @@
 		// 회원 리스트 페이징처리 함수
 		function page(e){
 			
-			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
+			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
 		}
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
