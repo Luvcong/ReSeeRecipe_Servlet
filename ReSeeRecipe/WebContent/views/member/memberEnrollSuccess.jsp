@@ -25,12 +25,23 @@
         }
 
         button:hover {
-        opacity: 0.8;
+            opacity: 0.8;
         }
 
         div{
             box-sizing : border-box;
             border : none;
+        }
+
+        .container {
+            padding: 100px 250px;
+        }
+
+        .success{
+            border : none;
+            display : flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 
@@ -40,11 +51,11 @@
     <!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
 
-    <div id="enrollSuccess">
-        <div>
+    <div class="container">
+        <div class="success">
             <h1>회원가입이 완료되었습니다.</h1>
         </div>
-        <div>
+        <div class="success">
             <button type="button" class="btn btn-secondary">로그인하러 가기</button>
         </div>
     </div>

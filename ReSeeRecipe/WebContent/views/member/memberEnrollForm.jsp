@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String buy = (String)request.getAttribute("buy");
-%>
 <!-- 초본_231005_yr -->
+<!-- 수정_231006_yr -->
 
 <!DOCTYPE html>
 <html lang="en">
