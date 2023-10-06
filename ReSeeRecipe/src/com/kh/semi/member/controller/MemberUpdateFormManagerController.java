@@ -30,7 +30,7 @@ public class MemberUpdateFormManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 값 뽑기 - 회원번홀("mno")
+		// 값 뽑기 - 회원번호("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
 	
 		Member m = new MemberService().selectMemInfo(memNo); 
