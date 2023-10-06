@@ -77,6 +77,12 @@
 		height: 1500px;
 	}
 
+	/* 양식 내용 입력부분 크기 기본세팅 */
+	#recipe-enroll-context-wrap .cook-steps-block table {
+		width: 100%;
+		height: 100%;
+	}
+
 
 	/**********************************************************
 		상단바 영역
@@ -186,19 +192,18 @@
 	/**********************************************************
 		입력양식 내용 영역
 	**********************************************************/
-	/* 양색내용 상단 (썸네일, 제목, 해시태그, 재료 영역) */
-	#cook-steps-basic-info {
-		width: 100%;
-		height: 30%;
-	}
+	/* 양식내용 기본세팅 (썸네일, 제목, 해시태그, 재료 영역) */
 
-	/* 썸네일 이미지 */
-	#cook-steps-basic-info > table img {
-		width: 450px;
-		height: 450px;
-	}
+
+	/* 양식 내용 입력부분 크기 기본세팅 */
+
+
+	/* 썸네일 이미지 기본세팅 */
+
+
 
 	/* 레시피 제목 / 세프이름 / 해시태그 */
+
 
 		
 
@@ -329,27 +334,26 @@
 				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info" class="cook-steps-block">
-					<table>
-						<tr id="cook-steps-tr-title">
-							<td rowspan="5"><img src="d" alt=""></td>
-							<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
-						</tr>
-						<tr id="cook-steps-tr-chef">
-							<td>김XX 셰프</td>
-						</tr>
-						<tr id="cook-steps-tr-hashtag">
-							<td>해시태그입력</td>
-						</tr>
-						<tr id="cook-steps-tr-ingredient">
-							<td>재료</td>
-							<td><input type="text" placeholder="재료입력"></td>
+					<table style="border: 1px solid black;">
+						<tr>
+							<td rowspan="5" id="cook-steps-thumbnail"><img src="d" alt="">ㅇ</td>
+							<td id="cook-steps-title"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 						</tr>
 						<tr>
-							<td type="text"><td><input type="text" placeholder="재료입력"></td></td>
+							<td id="cook-steps-chef">김xx셰프</td>
 						</tr>
-						<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
+						<tr>
+							<td id="cook-steps-hashtag">해시태그입력</td>
+						</tr>
+						<tr>
+							<td id="cook-steps-ingredient-title">재료</td>
+						</tr>
+						<tr>
+							<td id="cook-steps-ingredient-content">재료추가영역</td>
+						</tr>
+			
 					</table>
-
+					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
