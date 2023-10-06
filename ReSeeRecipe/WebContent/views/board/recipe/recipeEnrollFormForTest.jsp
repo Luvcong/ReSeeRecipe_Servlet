@@ -42,19 +42,22 @@
 	body #recipe-enroll-form-wrap {
 		width: 1000px;
 		box-sizing: border-box;
-		display: block;
 		margin: auto;
-		
+	}
+
+	div {
+		box-sizing: border-box;
 	}
 	
 	
 	
 	/**********************************************************
-		입력양식 폼 상단 바 영역
+		입력양식 폼 내 상단 바 영역
 	**********************************************************/
-	/* 입력양식 폼 상단 바 기본 아우터 div 세팅 */
+	/* 입력양식 폼 내 상단 바 기본 아우터 div 세팅 */
 	body #recipe-enroll-bar-wrap {
 		width: 100%;
+		height: 80px;
 		margin: auto;
 		box-sizing: border-box;
 		position: relative;
@@ -64,7 +67,6 @@
 	#recipe-enroll-bar-wrap div {
 		height: 100%;
 		float: left;
-		box-sizing: border-box;
 
 	}
 	
@@ -108,6 +110,7 @@
 		left: 27%;
 		top: 15%;
 		text-align: center;
+		background-color: black;
 	}
 
 	/* 임시저장 버튼 세팅 */
@@ -210,7 +213,7 @@
 		<!-- 글작성 전체 form태그 / 요청 시점 memNo같이넘김 -->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memNo"
-				value="<%=loginMember.getMemNo()%>">
+				value="2">
 
 			<!------------- 입력양식 폼 상단 바 영역 ------------->
 			<div id="recipe-enroll-bar-wrap">
@@ -398,11 +401,13 @@
 	<script>
 		// 임시저장 아이콘 클릭 시 모달창 설정
 		function unrecipeModalRequest(e) {
-			if(document.getElementsByClassName('.testList').length < 3 ) {
-				e.dataset.target = '#unrecipe-modal';
-			} else {
-				e.dataset.target = '#unrecipe-unavailable-modal';
-			}
+			console.log(document.getElementsByClassName('.testList'));
+			//if(document.getElementsByClassName('.testList').length < 3 ) {
+
+				//e.dataset.target = '#unrecipe-modal';
+			//} else {
+				//e.dataset.target = '#unrecipe-unavailable-modal';
+			//}
 		}
 		
 		// 양식 초기화 요청 confirm
