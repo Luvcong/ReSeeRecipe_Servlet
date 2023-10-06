@@ -90,6 +90,8 @@
 
 </head>
 <body>
+
+	<%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>
@@ -121,7 +123,7 @@
         </div>
         <!--<h2>총 회원 103 명</h2>-->
         <table class="table" id="memAll">
-            <caption class="totalMem">총 회원 <%= list.size() %>명</caption>
+            <caption class="totalMem">총 회원 <%=list.size() %>명</caption>
           <thead class="thead-light">
             <tr>
               <th>
@@ -211,7 +213,7 @@
 		// 회원 리스트 페이징처리 함수
 		function page(e){
 			
-			this.location.href = "ReSeeRecipe/hlmembermanage.ma?cmpage=" + e;
+			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
 		}
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
@@ -226,35 +228,35 @@
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
-					
+					console.log(typeof(result.memEnrolldate))
 					let resultStr = '';
 					resultStr += '<tr>'
-							   + '<th>' + 회원번호 + '</th>'
-							   + '<td>' + result.getMemNo + '<td>'
+							   + '<th>' + '회원번호' + '</th>'
+							   + '<td>' + result.memNo + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원이름 + '</th>'
-							   + '<td>' + result.getMemName + '<td>'
+							   + '<th>' + '회원이름' + '</th>'
+							   + '<td>' + result.memName + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원아이디 + '</th>'
-							   + '<td>' + result.getMemId + '<td>'
+							   + '<th>' + '회원아이디' + '</th>'
+							   + '<td>' + result.memId + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원닉네임 + '</th>'
-							   + '<td>' + result.getMemNickname + '<td>'
+							   + '<th>' + '회원닉네임' + '</th>'
+							   + '<td>' + result.memNickname + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원이메일 + '</th>'
-							   + '<td>' + result.getMemEmail + '<td>'
+							   + '<th>' + '회원이메일' + '</th>'
+							   + '<td>' + result.memEmail + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 가입일자 + '</th>'
-							   + '<td>' + result.getEnrollDate + '<td>'
+							   + '<th>' + '가입일자' + '</th>'
+							   + '<td>' + result.enrollDate + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원등급명 + '</th>'
-							   + '<td>' + result.getMemGradeName + '<td>'
+							   + '<th>' + '회원등급명' + '</th>'
+							   + '<td>' + result.memGrade + '<td>'
 							   + '</tr>';
 							   
 					$('.rs-content').html(resultStr);

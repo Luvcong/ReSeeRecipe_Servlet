@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
+import com.google.gson.Gson;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
@@ -33,7 +32,7 @@ public class MemberDetailManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 		// 값 뽑기 - 회원번호("mno")
 		int memNo = Integer.parseInt(request.getParameter("mno"));
 		
@@ -45,18 +44,18 @@ public class MemberDetailManagerController extends HttpServlet {
 		// Member VO 가공
 		//m.setMemNo(memNo);
 		// 자바타입객체 => JSON타입 객체로 변환 JSONObject
-		JSONObject jObj = new JSONObject();
-		jObj.put("memNo", m.getMemNo());
-		jObj.put("memName", m.getMemName());
-		jObj.put("memId", m.getMemId());
-		jObj.put("memNickname", m.getMemNickname());
-		jObj.put("memEmail", m.getMemEmail());
-		jObj.put("memEnrolldate", m.getEnrollDate());
-		jObj.put("memGradename", m.getMemGradeName());
+//		JSONObject jObj = new JSONObject();
+//		jObj.put("memNo", m.getMemNo());
+//		jObj.put("memName", m.getMemName());
+//		jObj.put("memId", m.getMemId());
+//		jObj.put("memNickname", m.getMemNickname());
+//		jObj.put("memEmail", m.getMemEmail());
+//		jObj.put("memEnrolldate", m.getEnrollDate());
+//		jObj.put("memGradename", m.getMemGradeName());
 		// GSON이용 => ArrayList를 JSON타입의 데이터로 반환
 		response.setContentType("application/json; charset=UTF-8");
-		response.getWriter().print(jObj);
-		//new Gson().toJson(list, response.getWriter());
+		//response.getWriter().print(jObj);
+		new Gson().toJson(m, response.getWriter());
 		
 		
 		

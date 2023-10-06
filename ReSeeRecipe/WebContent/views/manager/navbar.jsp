@@ -52,7 +52,7 @@
 			</div>
 			<div class="category" id="HL_memberList">
 				<ul>
-					<li><a href="#" id="HL_memberSetting">회원정보 관리</a></li>
+					<li><a href="#" id="HL_memberSetting" onclick="goMenu('/hlmembermanage.ma?cmpage=1');">회원정보 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
@@ -74,7 +74,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="<%= contextPath %>/jhselect.dm" id="dmManager">쪽지함 관리</a></li>	<!-- 추후 ajax처리 -->
+					<li onclick="goMenu('/jhselect.dm')"><a href="#">쪽지함 관리</a></li>
 					<li><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#" id="categoryManager">카테고리 관리</a></li>
+					<li onclick="goMenu('/jhselect.ct')"><a href="#">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -111,14 +111,19 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
+		<!-- rs-content 추가된 영역 부분 -->
 		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+	<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
+	$(function(){
+	    let main = document.querySelector('.rs-main');
+	    let content = document.querySelector('.rs-content');
+	    main.appendChild(content);
+	});
+
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -148,7 +153,10 @@
     	
     })
     
-    
+    function goMenu(e){
+		this.location.href = "<%=contextPath %>" + e;
+	}
+
     
     $(function(){
     	
@@ -168,7 +176,7 @@
 
         });
     }
-    
+    /*
     $(function(){
     	$('#HL_memberSetting').on("click", goMember);
     });
@@ -189,7 +197,7 @@
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
-    			//createMemTable(result);
+  /*  			//createMemTable(result);
     			$('.rs-content').html(result);
     			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
     			//$('.rs-content').jsp(result);
@@ -202,6 +210,7 @@
     	
     	});
     }
+    */
     
 	/* 나중에 사용할 수 도 있을거 같아유 */
     function createMemTable(result){
