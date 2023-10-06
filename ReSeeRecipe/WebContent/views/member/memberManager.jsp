@@ -302,9 +302,10 @@
 		
 //		function abc(){
 			
-			location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
-		}
-		
+/*
+		//	location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
+	//	}
+*/
 		
 		
 		
@@ -324,6 +325,17 @@
 					console.log(result);
 		}
 				*/
+				
+				
+		// /hldetailmember.ma		
+		$(function(){
+			$('#memAllList > tr').click(function(){
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + $(this).children().eq(1).text();
+			})
+			
+		
+		}
+	
 	</script>
 	
 	

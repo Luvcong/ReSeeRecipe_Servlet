@@ -71,6 +71,36 @@ public class CategoryDao {
 	
 	
 	
+	/**
+	 * 카테고리 추가 요청을 처리해주는 method
+	 * @param conn
+	 * @param recipeCategoryName - 추가 카테고리명
+	 * @return 카테고리 추가 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 6.
+	 */
+	public int insertCategory(Connection conn, String recipeCategoryName) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, recipeCategoryName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}	// insertCategory
 	
 	
 	
