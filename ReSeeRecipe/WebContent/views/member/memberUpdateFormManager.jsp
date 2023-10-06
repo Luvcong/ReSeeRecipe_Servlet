@@ -39,7 +39,7 @@
     <h2>회원 정보 수정</h2>
     <br><br>
     <div class="container">
-        <form class="form" action="/hlupdateMember.ma" method="post" id="member-updateForm">
+        <form class="form" action="<%=contextPath %>/hlupdateMember.ma" method="post" id="member-updateForm">
             
             <label for="memberNo">회원번호</label>
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
