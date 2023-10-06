@@ -2,7 +2,78 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment>좋아요 관련 SQL문</comment>
-
+	
+	<!--===========================================================-->
+	<!-- 특정 대상 하트카운트 조회 기능(detail view용) -->
+	<entry key="htCountRecipe">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_RECIPE
+		 WHERE
+			   RECIPE_NO = ?
+		 ORDER
+			BY
+			   HT_RECIPE_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountBookmark">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_BOOKMARK
+		 WHERE
+			   RECIPE_NO = ?
+		 ORDER
+		    BY
+			   HT_BOOKMARK_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountNotice">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_NOTICE
+		 WHERE
+		 	   NOTICE_NO = ?
+		 ORDER
+			BY
+			   HT_NOTICE_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountSubsc">
+		SELECT
+			   COUNT(*)
+		  FROM
+			   TB_HT_SUBSC
+		 WHERE
+			   CHEF_NO = ?
+		 ORDER
+			BY
+			   HT_SUBSC_DATE
+			   DESC
+	</entry>
+	
+	
+	<entry key="htCountReply">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_HT_REPLY
+		 WHERE
+		 	   REPLY_NO = ?
+		 ORDER
+			BY
+			   HT_REPLY_DATE
+			   DESC
+	</entry>
+	
 
 	<!--===========================================================-->
 	<!-- 특정 유저가 특정 단일 대상에 좋아요 했는지 여부 -->
@@ -326,56 +397,6 @@
 
 
 
-
-
-<!-- 노티스 매퍼 -->
- 	<entry key="insertnoticeHeart">
- 		INSERT
- 		  INTO
- 		  		TB_HT_NOTICE
- 		VALUES 
- 				(
- 				?
- 			   ,?
- 			   ,SYSDATE
- 				)
- 		WHERE
- 				NOTICE_NO = ?
- 	</entry>
- 	
- 	<entry key="countnoticeHeart">
- 		SELECT
- 				COUNT(NOTICE_NO)
- 		  FROM
- 		  		TB_HT_NOTICE
- 		 WHERE
- 		 		NOTICE_NO = ?
- 	</entry>
- 	
- 	<entry key="selectnoticeHeartList">
- 		SELECT
- 				 MEM_NO
- 			    ,NOTICE_NO
- 				,HT_NOTICE_DATE
- 		 FROM
- 		 		TB_HT_NOTICE
- 		 LEFT
- 		 JOIN
- 		 		TB_NOTICE USING(NOTICE_NO)
- 		 ORDER
- 		    BY
- 		    	NOTICE_NO DESC
- 	</entry>
-
- 	<entry key="cancelnoticeHeart"> <!-- 좋아요 취소는 아예 delete 구문인가요? 아니면 Y, N 식별컬럼 추가요망? => del입니다 (이것도 한번에 만들 예정입니다!) - MJY -->
- 		DELETE
- 		  FROM
- 		  		TB_HT_NOTICE
- 		 WHERE
- 		 		MEM_NO = ?
- 		   AND
- 		   		NOTICE_NO = ?
- 	</entry>
 
 
 

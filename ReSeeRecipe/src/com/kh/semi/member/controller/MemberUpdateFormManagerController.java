@@ -1,29 +1,26 @@
-package com.kh.semi.product.controller;
+package com.kh.semi.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.semi.product.model.service.ProductService;
-import com.kh.semi.product.model.vo.Product;
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class AjaxSearchListController
+ * Servlet implementation class MemberUpdateFormManagerController
  */
-@WebServlet("/asearchlist.po")
-public class AjaxSearchListController extends HttpServlet {
+@WebServlet("/hlupdatemeberForm.ma")
+public class MemberUpdateFormManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSearchListController() {
+    public MemberUpdateFormManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +29,16 @@ public class AjaxSearchListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Product> list = new ProductService().selectProductList();
-		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
-		
+
+		// 값 뽑기 - 회원번홀("mno")
+		int memNo = Integer.parseInt(request.getParameter("mno"));
+	
+		Member m = new MemberService().selectMemInfo(memNo); 
+		// 응답화면 지정
+		request.setAttribute("m", m);
+		request.setAttribute("memNo", memNo);
+	
+		request.getRequestDispatcher("views/member/memberUpdateFormManager.jsp").forward(request, response);
 	}
 
 	/**

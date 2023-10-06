@@ -11,13 +11,61 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 public class AjaxHeartService {
 	
+	
+	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	public int htCountRecipe(int htTargetNo) {
+		
+		// 기본 변수 세팅
+		Connection conn = getConnection();
+		
+		// 서비스 호출
+		int result = new AjaxHeartDao().htCountRecipe(conn, htTargetNo);
+		
+		// 자원반납
+		close(conn);
+
+		return result;
+	}
+	
+	
+	public int htCountBookmark(int htTargetNo) {
+		
+		Connection conn = getConnection();
+		int result = new AjaxHeartDao().htCountBookmark(conn, htTargetNo);
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htCountNotice(int htTargetNo) {
+		
+		Connection conn = getConnection();
+		int result = new AjaxHeartDao().htCountNotice(conn, htTargetNo);
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htCountSubsc(int htTargetNo) {
+		
+		Connection conn = getConnection();
+		int result = new AjaxHeartDao().htCountSubsc(conn, htTargetNo);
+		close(conn);
+		return result;
+	}
+	
+	
+	public int htCountReply(int htTargetNo) {
+		
+		Connection conn = getConnection();
+		int result = new AjaxHeartDao().htCountReply(conn, htTargetNo);
+		close(conn);
+		return result;
+	}
 	/****************************************************************************/
 	
 	
-	
-	
-	
-	/*************** 하트 추가/삭제 기능 ******************************************/
+	/*************** 하트 추가/삭제 기능 ***********************************************/
 	public int htChangeRecipe(Heart ht) {
 		// 기본 변수 세팅
 		boolean flag = false;
@@ -26,14 +74,14 @@ public class AjaxHeartService {
 		Connection conn = getConnection();
 		
 		// Dao의 좋아요여부 체크하는 메소드 호출
-		flag = ahd.isHeartRecipe(ht, conn);
+		flag = ahd.isHeartRecipe(conn, ht);
 	
 		// false(좋아요내역 없을 경우) : 좋아요 INSERT메소드 호출 result에 int결과 받음
 		// true(좋아요 내역 있을 경우) : 좋아요 DELETE메소드 호출 result에 int결과 받음
-		if(!flag && (ahd.insertHeartRecipe(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartRecipe(conn, ht) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartRecipe(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartRecipe(conn, ht) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -50,12 +98,12 @@ public class AjaxHeartService {
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartBookmark(ht, conn);
+		flag = ahd.isHeartBookmark(conn, ht);
 	
-		if(!flag && (ahd.insertHeartBookmark(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartBookmark(conn, ht) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartBookmark(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartBookmark(conn, ht) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -72,12 +120,12 @@ public class AjaxHeartService {
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartNotice(ht, conn);
+		flag = ahd.isHeartNotice(conn, ht);
 	
-		if(!flag && (ahd.insertHeartNotice(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartNotice(conn, ht) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartNotice(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartNotice(conn, ht) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -94,12 +142,12 @@ public class AjaxHeartService {
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartSubsc(ht, conn);
+		flag = ahd.isHeartSubsc(conn, ht);
 	
-		if(!flag && (ahd.insertHeartSubsc(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartSubsc(conn, ht) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartSubsc(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartSubsc(conn, ht) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -116,12 +164,12 @@ public class AjaxHeartService {
 		AjaxHeartDao ahd = new AjaxHeartDao();
 		Connection conn = getConnection();
 		
-		flag = ahd.isHeartReply(ht, conn);
+		flag = ahd.isHeartReply(conn, ht);
 	
-		if(!flag && (ahd.insertHeartReply(ht, conn) > 0)) {
+		if(!flag && (ahd.insertHeartReply(conn, ht) > 0)) {
 			result = 1;
 			commit(conn);
-		} else if(flag && (ahd.deleteHeartReply(ht, conn) > 0)) {
+		} else if(flag && (ahd.deleteHeartReply(conn, ht) > 0)) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -129,126 +177,6 @@ public class AjaxHeartService {
 		close(conn);
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public String ajaxHeartCount(Heart ht) {
+
 		
-		String result = "";
-		HeartDao hd = new HeartDao();
-		Connection conn = getConnection();
-		
-		// Dao의 메소드 호출 분배
-		switch(ht.getHtKind()) {
-			case "RECIPE" :
-			case "BOOKMARK" :
-			case "NOTICE" : result = String.valueOf(hd.heartCountGeneralBoard(ht, conn)); break;
-			case "SUBSC" : result = String.valueOf(hd.heartCountSubsc(ht, conn)); break;
-			case "REPLY" : result = String.valueOf(hd.heartCountReply(ht, conn)); break;
-			default : break;
-		}
-		close(conn);
-		return result;
-	}
-	/****************************************************************************/
-	
-	
-	public boolean ajaxHeartAddCancel(Heart ht) {
-		
-		boolean result = false;
-		HeartDao hd = new HeartDao();
-		Connection conn = getConnection();
-		
-		// Dao의 메소드 호출 분배
-		switch(ht.getHtKind()) {
-			case "RECIPE" :
-			case "BOOKMARK" :
-			case "NOTICE" : result = hd.isHeartGeneralBoard(ht, conn); break;
-			case "SUBSC" : result = hd.isHeartSubsc(ht, conn); break;
-			case "REPLY" : result = hd.isHeartReply(ht, conn); break;
-			default : break;
-		}
-		
-		
-		if(!result) { // 좋아요 내역 없을 경우 (result false일 경우)
-			if(hd.insertHeart(ht, conn) > 0) { // insert구문 수행 후 성공 시 true
-				result = true;
-				commit(conn);
-			}
-		} else if(result) { // 좋아요 내역 있을 경우 (result true일 경우)
-			if(hd.deleteHeart(ht, conn) > 0) { // delete구문 수행 후 성공 시 true
-				result = true;
-				commit(conn);
-			}
-		} else {
-			rollback(conn);
-		}
-		
-		
-		
-		
-		if((!result && (hd.insertHeart(ht, conn) > 0))
-		 || (result && (hd.deleteHeart(ht, conn) > 0))) { 
-			result = true;
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		return result;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	/****************************************************************************/
-	
-	public ArrayList<NoticeHeart> countnoticeHeart(ArrayList<NoticeHeart> heartNoticeNo){
-		
-		Connection conn = getConnection();
-		
-		ArrayList<NoticeHeart> noticeHeartList = new HeartDao().countnoticeHeart(conn, heartNoticeNo);
-		
-		close(conn);
-		
-		return noticeHeartList;
-	}
-	
-	public ArrayList<NoticeHeart> selectnoticeHeartList(){
-		
-		Connection conn = getConnection();
-		
-		ArrayList<NoticeHeart> selectnoticeHeartList = new HeartDao().selectnoticeHeartList(conn);
-		
-		close(conn);
-		
-		return selectnoticeHeartList;
-		
-	}
-	
-	
-}
+}//class.end

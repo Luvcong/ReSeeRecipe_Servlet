@@ -65,10 +65,35 @@
             </table>
             <br><br>
             <div id="memberdetailbtn">
-                <button class="w3-button w3-round w3-yellow">수정하기</button>
+                <button id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>
                 <button class="w3-button w3-round w3-yellow">목록으로</button>
             </div>
         </div>
     </div>
 </body>
+
+<script>
+	// 회원 정보 수정 폼으로 Ajax 처리
+	$(function(){
+		$('#memberupdatebtn').on('click', updateMemberForm);
+	});
+	function updateMemberForm(){
+		$.ajax({
+			url : 'hlupdatemeberForm.ma',
+			data : {mno : $('.table').children().eq(1).text()},
+			success : function(result){
+				console.log(result);
+				console.log('회원 정보 수정 성공');
+				$('.rs-content').html(result);
+			},
+			error : function(result){
+				console.log('회원 정보 수정 실패');
+				$('.rs-content').text('회원 정보 수정이 되지 않습니다');
+			}
+		})
+	}
+
+
+
+</script>
 </html>

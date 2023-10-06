@@ -57,10 +57,9 @@
         background-color: #f44336;
         }
 
-
         /* Add padding to containers */
         .container {
-        padding: 100px 300px;
+        padding: 100px 350px;
         }
 
         /* The "Forgot password" text */
