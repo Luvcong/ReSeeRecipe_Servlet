@@ -87,12 +87,13 @@
         }
 
         .login-searchmenu  > div{
+          border: none;
           float: left;
           padding : 0px 20px;
         }
         
         .login-searchmenu{
-          border: 3px solid #f1f1f1;
+          border: none;
           display : flex;
           align-items: center;
           justify-content: center;
@@ -112,8 +113,8 @@
       <div class="container">
           <h4>
           <b>
-            반갑습니다. <br>
-            오늘도 맛있는 식사하세요.
+          	 반갑습니다. <br>
+           	 오늘도 맛있는 식사하세요.
           </b>
           </h4>
           <!-- <label for="uname"><b>아이디</b></label> -->

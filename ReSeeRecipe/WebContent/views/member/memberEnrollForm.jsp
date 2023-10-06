@@ -86,15 +86,8 @@
           justify-content: center;
         }
 
-        .login-searchmenu  > div{
-          float: left;
-          padding : 0px 20px;
-        }
-        
-        .login-searchmenu{
-          display : flex;
-          align-items: center;
-          justify-content: center;
+        .enroll-checkbox > input{ 
+          display: inline;
         }
 
     </style>
@@ -123,10 +116,10 @@
 
         </div>
         
-        <div class="login-searchmenu">
-          <div class="psw">회원가입 <a href="#"></a></div>
-          <div class="psw">아이디 찾기 <a href="#"></a></div>
-          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
+        <div class="enroll-checkbox">
+          <input type="checkbox" id="agreeAll"><label for="agreeAll">전체 동의</label>
+          <input type="checkbox" id="agreeSite"><label for="agreeSite">사이트 이용약관 동의(필수)</label>
+          <input type="checkbox" id="agreePerson"><label for="agreePerson">개인정보 수집 및 이용 동의(필수)</label>
         </div>
       </form>
       
