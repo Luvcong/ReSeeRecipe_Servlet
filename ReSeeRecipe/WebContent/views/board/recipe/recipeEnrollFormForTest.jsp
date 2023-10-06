@@ -80,7 +80,7 @@
 	/* 양식 내용 입력부분 크기 기본세팅 */
 	#cook-steps-basic-info {
 		width: 100%;
-		height: 25%;
+		height: 30%;
 	}
 
 	#recipe-enroll-context-wrap .cook-steps-block table {
@@ -204,20 +204,23 @@
 	}
 
 	#cook-steps-title {
-		
+		height: 24%;
 	}
 	#cook-steps-chef {
-
+		height: 8%;
 	}
 	#cook-steps-hashtag {
-
+		height: 8%;
 	}
 	#cook-steps-ingredient-title {
-
+		height: 10%;
 	}
 	#cook-steps-ingredient-content {
-
+		height: 50%;
 	}
+
+	/* 입력창 종류 세팅 */
+	
 	
 
 		
@@ -226,6 +229,7 @@
 	div {
 		border: 1px solid black;
 	}
+	table td { border: 1px solid black }
 	
 </style>
 
@@ -349,7 +353,7 @@
 				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info" class="cook-steps-block">
-					<table style="border: 1px solid black;">
+					<table>
 						<tr>
 							<td rowspan="5" id="cook-steps-thumbnail" class="cook-steps-input-content"><img src="d" alt="">ㅇ</td>
 							<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
