@@ -78,12 +78,18 @@
     <div id="searchpage-wrap">
         <div style="margin-bottom: 50px;">
             <div style="font-size: 40px; text-align: left;"><b><%= title %></b></div>
-            <ul id="s_list">
+            <select>
+            	<option>추천순</option>
+            	<option>별점높은순</option>
+            	<option>가격낮은순</option>
+            </select>
+            
+            <!-- <ul id="s_list">
                 <li class="btn btn-secondary"><a href="">추천순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">별점높은순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">가격낮은순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">가격높은순</a></li>
-            </ul>
+            </ul> -->
         </div>
 
         
