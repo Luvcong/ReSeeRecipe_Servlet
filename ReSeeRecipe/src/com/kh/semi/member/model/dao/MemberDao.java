@@ -158,7 +158,7 @@ public class MemberDao {
 				m.setMemNickname(rset.getString("MEM_NICKNAME"));
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				m.setMemName(rset.getString("MEM_GRADE_NAME"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
