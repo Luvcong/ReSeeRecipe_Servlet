@@ -79,11 +79,10 @@
 	
 	$(function(){
 		$('#memberupdatebtn').on("click", updateMemberForm);
+		
 	});
 	function updateMemberForm(){
-	
-		$.ajaxSettings.traditional = true;
-		$.ajax({//$('.table').children().eq(1).text()
+		$.ajax({
 			url : 'hlupdatemeberForm.ma',
 			data : {mno : <%=m.getMemNo() %>},
 			success : function(result){
@@ -96,9 +95,8 @@
 				$('.rs-content').text('회원 정보 수정이 되지 않습니다');
 			}
 		})
-		
+
 	}
-	
 
 
 </script>
