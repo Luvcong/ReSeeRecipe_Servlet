@@ -57,7 +57,7 @@
 	}
 
 	/* 양식 내 상단바wrap div 세팅 */
-	body #recipe-enroll-bar-wrap {
+	body #recipe-enroll-top-bar-wrap {
 		width: 100%;
 		height: 70px;
 		margin: auto;
@@ -66,7 +66,7 @@
 	}
 
 	/* 상단바 내 div요소 기본 세팅 */
-	#recipe-enroll-bar-wrap div {
+	#recipe-enroll-top-bar-wrap div {
 		height: 100%;
 		float: left;
 	}
@@ -274,26 +274,30 @@
 			<input type="hidden" name="memNo" value="2">
 
 			<!------------- 입력양식 상단 바 영역 ------------->
-			<div id="recipe-enroll-bar-wrap">
+			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
 				<div id="recipe-enroll-bar-img" class="recipe-enroll-category">
 					<i class='fas fa-align-left'></i>
 				</div>
 				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
-					<h3>카테고리 선택</h3>
-					<select name="recipeCategoryNo">
-							<option value="한식">한식
-							<option value="양식">양식
-							<option value="중식">중식
-							<option value="일식">일식
-							<option value="아시안">아시안
-							<option value="야식">야식
-							<option value="디저트">디저트
-							<option value="음료">음료
-					</select>
+					<div>
+						<h3>카테고리 선택</h3>
+					</div>
+					<div>
+						<select name="recipeCategoryNo">
+								<option value="한식">한식
+								<option value="양식">양식
+								<option value="중식">중식
+								<option value="일식">일식
+								<option value="아시안">아시안
+								<option value="야식">야식
+								<option value="디저트">디저트
+								<option value="음료">음료
+						</select>
+					</div>
 				</div>
 
-				<!-- 임시저장 버튼 / 클릭 시 모달 호출 -->
+				<!-- 임시저장 아이콘 (클릭 시 모달 호출) -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);"
 						class='fas fa-folder' data-toggle="modal" data-target="#">
@@ -402,54 +406,85 @@
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cook-steps-instruction">
-					<table>
-						<!-- 1 ~ 2번째 -->
-						<tr>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="cookStepsTitle1"
-								maxlength="30" required></td>
-							<td><input type="text" name="cookStepsTitle2"
-								maxlength="30"></td>
-						</tr>
-						<tr>
-							<td><textarea name="cookStepsContent1" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-							<td><textarea name="cookStepsContent2" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-						</tr>
-						<!-- 3 ~ 4 번째 -->
-						<tr>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="cookStepsTitle3"
-								maxlength="30"></td>
-							<td><input type="text" name="cookStepsTitle4"
-								maxlength="30"></td>
-						</tr>
-						<tr>
-							<td><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-							<td><textarea name="cookStepsContent4" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-						</tr>
-					</table>
+					<div class="cook-steps-inst-outer-div">
+						<div>
+							<div class="cook-steps-inst-inner-div">
+								<div></div>
+								<div>
+									<div>1</div>
+									<div>내용제목1 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>2</div>
+									<div>내용제목2 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</div>
+						<divv class="cook-steps-inst-outer-div">
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>3</div>
+									<div>내용제목3 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>4</div>
+									<div>내용제목4 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</divv>
+						<divv class="cook-steps-inst-outer-div">
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>5</div>
+									<div>내용제목5 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>6</div>
+									<div>내용제목6 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</divv>
+					</div>
+
 				</div>
 
 				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
-					<button type="button" id="recipe-enrolling-btn"
-						class="btn btn-primary">글작성</button>
-					<button type="reset" id="recipe-resetting-btn"
-						onclick="return confirmReset();">초기화</button>
+					<div>
+						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+					</div>
+					<div>
+						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
+					</div>
 				</div>
 
 			</div><!-- 레시피 글 작성 내용 영역 끝 -->
