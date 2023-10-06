@@ -314,14 +314,14 @@
 
 
 			<!--------------------------------------------------------------->
-			<!-- 레시피 글 작성 내용 영역 끝 -->
+			<!-- 레시피 글 작성 내용 영역 -->
 			<div id="recipe-enroll-context-wrap">
 
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info" class="cook-steps-block">
 					<table>
 						<tr>
-							<td rowspan="5"></td>
+							<td rowspan="5"><img src="" alt="" width="500px" height="500px"></td>
 							<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 						</tr>
 						<tr>
@@ -332,10 +332,10 @@
 						</tr>
 						<tr>
 							<td>재료</td>
-							<td><input type="text"><></td>
+							<td><input type="text" placeholder="재료입력"></td>
 						</tr>
 						<tr>
-							<td id="">재료엔터치면요소생성</td>
+							<td type="text"><td><input type="text" placeholder="재료입력"></td></td>
 						</tr>
 						<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 					</table>
