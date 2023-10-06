@@ -183,7 +183,18 @@
 			 
           </tbody>
         </table>
+        
+        <script>
+			function page(e){
+				this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
+			}
+        
+        </script>
     </div>
+   
+   
+   
+   
    
     <br><br><br><br>
     <div class="w3-bar">
@@ -215,13 +226,17 @@
 </div>	
 	
 	<script>
-		// 회원 리스트 페이징처리 함수
-		$(fuction({
-			function page(e){
+		$(function(){
+			$('#memAllList > tr').click(function(){
+				const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+			};
 			
-			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
-		}
-		});
+		})
+	
+	
+		// 회원 리스트 페이징처리 함수
+	
 		
 		
 		
@@ -337,7 +352,7 @@
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 			};
 				
-		});
+		})
 			
 		
 		
