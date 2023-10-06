@@ -161,6 +161,7 @@
                    			</label>
                 			</div>
              			 </td>
+             		   
                 		<td><%= m.getMemNo()  %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
@@ -168,6 +169,7 @@
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemGradeName() %></td>
+                	 	
                 	</tr>  
                <% } %>  
 			<% } %>   
@@ -223,9 +225,39 @@
 				data : {mno : $(this).children().eq(1).text()},
 				success : function(result){
 					console.log(result);
-					
 					console.log('회원 상세 조회 성공');
-					$('.rs-contenWt').html(result);
+					
+					let resultStr = '';
+					resultStr += '<tr>'
+							   + '<th>' + 회원번호 + '</th>'
+							   + '<td>' + result.getMemNo + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원이름 + '</th>'
+							   + '<td>' + result.getMemName + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원아이디 + '</th>'
+							   + '<td>' + result.getMemId + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원닉네임 + '</th>'
+							   + '<td>' + result.getMemNickname + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원이메일 + '</th>'
+							   + '<td>' + result.getMemEmail + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 가입일자 + '</th>'
+							   + '<td>' + result.getEnrollDate + '<td>'
+							   + '</tr>'
+							   + '<tr>'
+							   + '<th>' + 회원등급명 + '</th>'
+							   + '<td>' + result.getMemGradeName + '<td>'
+							   + '</tr>';
+							   
+					$('.rs-content').html(resultStr);
 				},
 				error : function(result){
 					console.log('회원 상세 조회 실패');
