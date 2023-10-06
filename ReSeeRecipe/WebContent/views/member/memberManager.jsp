@@ -85,6 +85,10 @@
     #searchMember{
         max-width: 300px;
     }
+    
+    #memberdetailbtn{
+        text-align : center;
+    }
 </style>
 
 
@@ -229,7 +233,7 @@
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
-					console.log(typeof(result.memEnrolldate))
+					console.log(typeof(result.enrollDate));
 					let resultStr = '';
 					resultStr += '<br><br>'+ '<h2>회원 정보 상세보기</h2>'
 					    	   + '<br><br>' + '<div class="container">' 
@@ -266,7 +270,7 @@
 							   + '</table>'
 					           + '<br><br>'
 					           + '<div id="memberdetailbtn">'
-					           + '<button class="w3-button w3-round w3-yellow">수정하기</button>'
+					           + '<button class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
 					           + '<button class="w3-button w3-round w3-yellow">목록으로</button>'
 					           + '</div>'
 					           + '</div>'
