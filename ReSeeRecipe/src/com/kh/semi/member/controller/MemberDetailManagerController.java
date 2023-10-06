@@ -40,12 +40,14 @@ public class MemberDetailManagerController extends HttpServlet {
 		System.out.println("mno>>>" + memNo);
 		
 		// Service호출 회원번호로 해당 회원 정보 SELECT
-		ArrayList<Member> list = new MemberService().selectMemInfo(memNo);
+		Member m = new MemberService().selectMemInfo(memNo);
 		
+		// Member VO 가공
+		//m.setMemNo(memNo);
 		// GSON이용 => ArrayList를 JSON타입의 데이터로 반환
 		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
+		response.getWriter().print(m);
+		//new Gson().toJson(list, response.getWriter());
 		
 		
 		

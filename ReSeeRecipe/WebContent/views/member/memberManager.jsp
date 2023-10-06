@@ -161,6 +161,7 @@
                    			</label>
                 			</div>
              			 </td>
+             		   
                 		<td><%= m.getMemNo()  %></td>
                 		<td><%= m.getMemName() %></td>
                 		<td><%= m.getMemId() %></td>
@@ -168,6 +169,7 @@
                 		<td><%= m.getMemEmail() %></td>
                 		<td><%= m.getEnrollDate() %></td>
                 		<td><%= m.getMemGradeName() %></td>
+                	 	
                 	</tr>  
                <% } %>  
 			<% } %>   
@@ -223,9 +225,12 @@
 				data : {mno : $(this).children().eq(1).text()},
 				success : function(result){
 					console.log(result);
-					
 					console.log('회원 상세 조회 성공');
-					$('.rs-contenWt').html(result);
+					
+					let resultStr = '';
+					resultStr += '<tr>'
+					
+					$('.rs-content').html(resultStr);
 				},
 				error : function(result){
 					console.log('회원 상세 조회 실패');
