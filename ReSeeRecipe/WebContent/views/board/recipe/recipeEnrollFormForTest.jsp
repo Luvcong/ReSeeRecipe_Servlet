@@ -64,7 +64,6 @@
 		height: 70px;
 		margin: auto;
 		box-sizing: border-box;
-		position: relative;
 	}
 
 	/* > >... 상단바 내부 div요소 default 세팅 */
@@ -78,6 +77,7 @@
 		width: 100%;
 		height: 1500px;
 	}
+
 
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
@@ -101,64 +101,71 @@
 
 
 	/**********************************************************
-		상단바 영역
+		상단바 영역 (#recipe-enroll-top-bar-wrap 내부)
 	**********************************************************/
-	/* 카테고리 아이콘 이미지 관련 세팅 */
+	/* 1. 아이콘 이미지 세팅 */
 	#recipe-enroll-bar-img {
-		width: 5%;
-		margin-left: 30px;
+		width: 10%;
 	}
 
 	#recipe-enroll-bar-img > i {
-		font-size: 40px;
+		font-size: 45px;
 		color: rgb(255, 145, 77);
-		padding: 13px 6px 13px 6px;
-
+		padding: 10px 30px 10px 30px;
 	}
 
-	/* 카테고리 선택 블록 관련 세팅 */
+	/* 2. 카테고리 메뉴 세팅 */
 	#recipe-enroll-bar-menu {
-		width: 50%;
+		width: 80%;
 	}
 
-	#recipe-enroll-bar-menu > h3 {
-		width: 50%;
+	/* 카테고리 글씨 부분 */
+	#recipe-enroll-bar-inner1 {
+		width: 25%;
 		height: 100%;
+		text-align: center;
+	}
+	
+	#recipe-enroll-bar-inner1 > h3 {
 		font-size: 27px;
-		float: left;
 		box-sizing: border-box;
 		padding-top : 17px;
-		padding-left: 30px;
 	}
 
-	/* 카테고리 선택 블록 내부 select요소 세팅 */
+	/* select요소 */
+	#recipe-enroll-bar-inner2 {
+		width: 75%;
+		position: relative;
+	}
+	
 	#recipe-enroll-bar-menu select {
 		width: 40%;
 		height: 70%;
-		float: left;
-		box-sizing: border-box;
 		text-align: center;
-		margin-top: 10px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
 	}
 
-	/* 임시저장 버튼 세팅 */
+	/* 3. 임시저장 버튼 세팅 */
 	#unrecipe-modal-request-div {
-		width:7%;
-		position: absolute;
-		top : 0px;
-		right : 30px;
+		width:10%;
 	}
 
 	#unrecipe-modal-request-div > button {
-		font-size: 50px;
+		width: 100%;
+		height: 100%;
+		font-size: 55px;
+		text-align: center;
+		color: rgb(255, 145, 77);
 		appearance: none;
 		border: none;
         background-color: transparent;
-		padding: 8px 9px 8px 9px;
-		color: rgb(255, 145, 77);
+	
 	}
 	/******************여기부터아직스타일정리X***********************/
-	/* 임시저장 모달창 세팅 */
+	/* 4. 임시저장 입력폼 모달창 세팅 */
+	/*
 	#unrecipe-modal, #unrecipe-unavailable-modal{
 		position: fixed;
 		top: 3%;
@@ -203,41 +210,26 @@
 		height: 100px;
 		padding: 10px;
 	}
+	*/
 
 
 	/**********************************************************
-		입력양식 내용 영역
+		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
 	**********************************************************/
-	/* 양식내용 기본세팅 (썸네일, 제목, 해시태그, 재료 영역) */
-	#cook-steps-basic-info .cook-steps-input-content {
-		width: 50%;
-		text-align: center;
+	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	#cook-steps-basic-info {
+	
 	}
 
-	#cook-steps-title {
-		height: 24%;
-	}
-	#cook-steps-chef {
-		height: 8%;
-	}
-	#cook-steps-hashtag {
-		height: 8%;
-	}
-	#cook-steps-ingredient-title {
-		height: 10%;
-	}
-	#cook-steps-ingredient-content {
-		height: 50%;
+	/*2. 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
+	#cook-steps-instruction {
+
 	}
 
-	#cook-steps-ingredient-content div {
-		width: 50%;
-		height: 100%;
-		box-sizing: border-box;
-		display: inline-block;
-	}
+	/* 3. 입력폼 내부 하단 div (submit + reset 버튼) */
+	#cook-steps-buttons {
 
-	/* 입력창 종류 세팅 */
+	}
 
 	
 
@@ -280,14 +272,14 @@
 			<!------------- 입력양식 상단 바 영역 ------------->
 			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
-				<div id="recipe-enroll-bar-img" class="recipe-enroll-category">
+				<div id="recipe-enroll-bar-img">
 					<i class='fas fa-align-left'></i>
 				</div>
-				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
-					<div>
+				<div id="recipe-enroll-bar-menu">
+					<div id="recipe-enroll-bar-inner1">
 						<h3>카테고리 선택</h3>
 					</div>
-					<div>
+					<div id="recipe-enroll-bar-inner2">
 						<select name="recipeCategoryNo">
 								<option value="한식">한식
 								<option value="양식">양식
