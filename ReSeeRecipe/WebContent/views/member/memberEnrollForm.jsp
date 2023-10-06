@@ -56,7 +56,6 @@
         background-color: #f44336;
         }
 
-
         /* Add padding to containers */
         .container {
         padding: 100px 300px;
@@ -86,9 +85,25 @@
           justify-content: center;
         }
 
-        .enroll-checkbox > div{ 
-          
+        .enroll-checkbox{
+          border : none;
+          margin : 20px 0px;
         }
+
+        .enroll-checkbox > div{ 
+          border : none;
+        }
+
+        .enroll-checkbox > div > a{
+          float : right;
+          margin-right : 20px;
+          color: black;
+        }
+
+        input[type="checkbox"]{
+          margin : 5px;
+        }
+
 
     </style>
 
@@ -96,7 +111,6 @@
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
-
 
     <form action="yrenroll.me" method="post">
 
@@ -112,19 +126,118 @@
           
           <input type="text" placeholder="이메일" name="memEmail" required>
           
-          <button type="submit">가입하기</button>
+          
+          
+          <div class="enroll-checkbox">
+            <div>
+              <input type="checkbox" id="agreeAll" required><label for="agreeAll"><b>전체 동의</b></label>
+            </div>
 
-        </div>
+            <div>
+              <input type="checkbox" id="agreeSite" class="agree"><label for="agreeSite">사이트 이용약관 동의(필수)</label>
+              <!-- 사이트 이용약관 동의 모달창-->
+              <a data-toggle="modal" href="#agreeSiteModal">보기</a>
+
+              <div class="modal" id="agreeSiteModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">사이트 이용약관 동의</h4>
+                      <button type="button" class="close" data-dismiss="modal" id="close">&times;</button>
+                      
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <label for="close">
+                      서비스 이용약관
+                      </label>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div>
+              <input type="checkbox" id="agreePerson" class="agree"><label for="agreePerson">개인정보 수집 및 이용 동의(필수)</label>
+              <!-- 개인정보 수집 및 이용 동의 모달창-->
+              <a data-toggle="modal" href="#agreePersonModal">보기</a>
+
+              <div class="modal" id="agreePersonModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">개인정보 수집 및 이용 동의</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      서비스 이용약관
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <button type="submit">가입하기</button>
+      </div>
         
-        <div class="enroll-checkbox">
-          <div><input type="checkbox" id="agreeAll"><label for="agreeAll">전체 동의</label></div>
-          <input type="checkbox" id="agreeSite"><label for="agreeSite">사이트 이용약관 동의(필수)</label>
-          <input type="checkbox" id="agreePerson"><label for="agreePerson">개인정보 수집 및 이용 동의(필수)</label>
-        </div>
-      </form>
+    </form>
       
     <!-- footer 푸터영역 -->
     <%@ include file="/views/common/footer.jspf" %>
+
+    <script>
+      $(function(){
+        // 전체 동의 시 하위항목 동의체크 / 미동의 시 체크해제
+        $('#agreeAll').on('change', function(){
+
+          let agreeAllCheck = $('#agreeAll').prop('checked');
+
+          if(agreeAllCheck){
+            $('#agreeSite, #agreePerson').prop('checked', true);
+          }
+          else{
+            $('#agreeSite, #agreePerson').prop('checked', false);
+          }
+        });
+
+        // 하위항목 동의 체크 시 전체동의 체크
+        $('.agree').on('change', function(){
+          let agreeCount = 0;
+
+          $('.agree').each(function(){
+            if($(this).prop('checked') == true){
+              agreeCount++;
+            } 
+            else{
+              agreeCount--;
+            }
+          });
+
+          if(agreeCount == $('.agree').length){
+            $('#agreeAll').prop('checked', true);
+          }
+          else{
+            $('#agreeAll').prop('checked', false);
+          }
+        });
+      })
+
+
+
+    </script>
       
 
   </body>
