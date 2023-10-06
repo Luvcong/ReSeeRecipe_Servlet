@@ -285,12 +285,19 @@
 				
 			})
 		};
-		
+		/*
 		$(function(){
 			$('#memberupdateFormbtn').on("click", updateFormMember);
 			console.log('클릭된다');
 		});
-		
+		function updateFormMember(){
+			$.ajax({
+				url : 'hlupdatemeberForm.ma',
+				data : {mno : $('.table > childredn() > eq(1).text()')},
+				success : function(result){
+					console.log(result);
+		}
+				*/
 	</script>
 	
 	
