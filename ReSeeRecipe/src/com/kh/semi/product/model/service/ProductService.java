@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.dao.ProductDao;
+import com.kh.semi.product.model.vo.Option;
 import com.kh.semi.product.model.vo.Product;
 import com.kh.semi.product.model.vo.ProductPicture;
 
@@ -86,6 +87,16 @@ public class ProductService {
 		return list;
 	}
 	
+	public ArrayList<Option> selectOption(int pno){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Option> list2 = new ProductDao().selectOption(conn, pno);
+		
+		close(conn);
+		
+		return list2;
+	}
 	
 	
 	
