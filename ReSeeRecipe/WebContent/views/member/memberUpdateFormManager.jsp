@@ -64,7 +64,7 @@
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>
-            	<textarea id="memUpdateWhyCon" name="memUpdateWhyCon"></textarea>
+            	<textarea id="memUpdateWhyCon" name="memUpdateWhyCon" class="form-control"></textarea>
             </div>
             <br><br>
             <button type="submit" class="btn btn-warning">수정하기</button>
