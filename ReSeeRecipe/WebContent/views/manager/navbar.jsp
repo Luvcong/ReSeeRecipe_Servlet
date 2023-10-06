@@ -250,8 +250,21 @@
 <script>
 
 	$(function(){
-		
+		$('#categoryManager').on('click', categoryListView);
 	});
+	
+	function categoryListView(){
+		$.ajax({
+			url : 'jhselect.ct',
+			type : 'get',
+			success : function(result){
+				$('.rs-content').html(result);
+			},
+			error : function(result){
+				$('.rs-content').text('Error 다시 시도해주세요');
+			}
+		});
+	}	// 카테고리리스트(categoryListView)
 
 </script>
 
