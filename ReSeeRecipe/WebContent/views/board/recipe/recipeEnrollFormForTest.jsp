@@ -39,16 +39,24 @@
 	/**********************************************************
 		입력양식 폼 기본 전체 wrap div세팅
 	**********************************************************/
+	div {
+		box-sizing: border-box;
+	}
+	
 	body #recipe-enroll-form-wrap {
 		width: 1000px;
 		box-sizing: border-box;
 		margin: auto;
 	}
 
-	div {
-		box-sizing: border-box;
-	}
 	
+	
+	body #recipe-enroll-form-wrap #recipe-enrolling-form { 
+		width: 100%;
+		height: 70px;
+		box-sizing: border-box;
+		position: relative;
+	}
 	
 	
 	/**********************************************************
