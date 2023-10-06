@@ -52,7 +52,7 @@
 			</div>
 			<div class="category" id="HL_memberList">
 				<ul>
-					<li><a href="#" id="HL_memberSetting" onclick="goMenu('/hlmembermanage.ma');">회원정보 관리</a></li>
+					<li><a href="#" id="HL_memberSetting" onclick="goMenu('/hlmembermanage.ma?cmpage=1');">회원정보 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
