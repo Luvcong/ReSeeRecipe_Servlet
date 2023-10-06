@@ -6,6 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>구매</title>
+    <style>
+	    #orderdetail_wrap{
+	        width: 1200px;
+	        margin: auto;
+	    }
+    </style>
 </head>
 <body>
 
@@ -133,6 +139,7 @@
         <br>
         <button class="btn btn-secondary">결제하기</button>
     </div>
+    <br><br>
     
     <%@ include file="buyFooter.jsp" %>
 </body>

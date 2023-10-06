@@ -14,6 +14,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.product.model.vo.Option;
 import com.kh.semi.product.model.vo.Product;
 import com.kh.semi.product.model.vo.ProductPicture;
 
@@ -316,6 +317,39 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	/**
+	 * 상품번호로 옵션 가져오는 메소드
+	 */
+	public ArrayList<Option> selectOption(Connection conn, int pno){
+		
+		ArrayList<Option> list2 = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOption");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Option o = new Option();
+				o.setOptionName(rset.getString("OPTION_NAME"));
+				o.setOptionNo(rset.getInt("OPTION_NO"));
+				o.setOptionPrice(rset.getInt("OPTION_PRICE"));
+				
+				list2.add(o);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list2;
 	}
 	
 	
