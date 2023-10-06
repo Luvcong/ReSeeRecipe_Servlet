@@ -226,35 +226,35 @@
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
-					
+					console.log(typeof(result.memEnrolldate))
 					let resultStr = '';
 					resultStr += '<tr>'
-							   + '<th>' + 회원번호 + '</th>'
-							   + '<td>' + result.getMemNo + '<td>'
+							   + '<th>' + '회원번호' + '</th>'
+							   + '<td>' + result.memNo + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원이름 + '</th>'
-							   + '<td>' + result.getMemName + '<td>'
+							   + '<th>' + '회원이름' + '</th>'
+							   + '<td>' + result.memName + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원아이디 + '</th>'
-							   + '<td>' + result.getMemId + '<td>'
+							   + '<th>' + '회원아이디' + '</th>'
+							   + '<td>' + result.memId + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원닉네임 + '</th>'
-							   + '<td>' + result.getMemNickname + '<td>'
+							   + '<th>' + '회원닉네임' + '</th>'
+							   + '<td>' + result.memNickname + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원이메일 + '</th>'
-							   + '<td>' + result.getMemEmail + '<td>'
+							   + '<th>' + '회원이메일' + '</th>'
+							   + '<td>' + result.memEmail + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 가입일자 + '</th>'
-							   + '<td>' + result.getEnrollDate + '<td>'
+							   + '<th>' + '가입일자' + '</th>'
+							   + '<td>' + result.memEnrolldate + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + 회원등급명 + '</th>'
-							   + '<td>' + result.getMemGradeName + '<td>'
+							   + '<th>' + '회원등급명' + '</th>'
+							   + '<td>' + result.memGradename + '<td>'
 							   + '</tr>';
 							   
 					$('.rs-content').html(resultStr);
