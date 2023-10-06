@@ -29,6 +29,7 @@
 </style>    
 </head>
 <body>
+	<%@ include file="../manager/navbar.jsp" %>
     <br><br>
     <h2>회원 정보 상세보기</h2>
     <br><br>
@@ -66,7 +67,7 @@
             </table>
             <br><br>
             <div id="memberdetailbtn">
-            	<a href="#" class="w3-button w3-round w3-yellow" id="memberupdatebtn">수정하기</a>
+            	<a href="<%=contextPath %>/hlupdatemeberForm.ma?mno=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="memberupdatebtn">수정하기</a>
              <!-- <button type="submit" id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>-->
                 <button type="button" class="w3-button w3-round w3-yellow">목록으로</button>
             </div>
@@ -75,12 +76,16 @@
 </body>
 
 <script>
+
 	// 회원 정보 수정 폼으로 Ajax 처리
-	
+	/*
 	$(function(){
 		$('#memberupdatebtn').on("click", updateMemberForm);
 		
 	});
+	*/
+	
+	
 	function updateMemberForm(){
 		$.ajax({
 			url : 'hlupdatemeberForm.ma',
@@ -97,7 +102,8 @@
 		})
 
 	}
-
+	
+	
 
 </script>
 </html>
