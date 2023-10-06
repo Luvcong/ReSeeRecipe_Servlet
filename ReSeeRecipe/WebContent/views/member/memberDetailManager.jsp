@@ -70,7 +70,7 @@
             <div id="memberdetailbtn">
             	<a href="<%=contextPath %>/hlupdatemeberForm.ma?mno=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="memberupdatebtn">수정하기</a>
              <!-- <button type="submit" id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>-->
-                <button type="button" class="w3-button w3-round w3-yellow">목록으로</button>
+                <button type="button" class="w3-button w3-round w3-yellow" onclick="history.back();">목록으로</button>
             </div>
         </div>
     </div>
