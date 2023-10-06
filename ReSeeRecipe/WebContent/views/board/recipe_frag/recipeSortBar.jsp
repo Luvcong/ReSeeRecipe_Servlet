@@ -67,6 +67,10 @@
 	div[class='recipe-sort-bar-menu'] {
 		width: 15%;
 	}
+	div[class='recipe-sort-bar-menu']:hover {
+		cursor: pointer;
+		background-color: rgb(255, 243, 190);
+	}
 	
 	/* 글쓰기 버튼 세팅 */
 	.recipe-sort-bar-menu > form > input + button {
