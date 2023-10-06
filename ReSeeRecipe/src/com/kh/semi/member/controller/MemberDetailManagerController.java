@@ -40,7 +40,7 @@ public class MemberDetailManagerController extends HttpServlet {
 		
 		// Service호출 회원번호로 해당 회원 정보 SELECT
 		Member m = new MemberService().selectMemInfo(memNo);
-		
+		System.out.println("m>>>>" + m);
 		// Member VO 가공
 		//m.setMemNo(memNo);
 		// 자바타입객체 => JSON타입 객체로 변환 JSONObject
