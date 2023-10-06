@@ -85,6 +85,10 @@
     #searchMember{
         max-width: 300px;
     }
+    
+    #memberdetailbtn{
+        text-align : center;
+    }
 </style>
 
 
@@ -218,6 +222,8 @@
 		}
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
+		// Ajax 통신
+		/*
 		$(function(){
 			$('#memAllList > tr').on("click", detailMember);
 		});
@@ -229,36 +235,48 @@
 				success : function(result){
 					console.log(result);
 					console.log('회원 상세 조회 성공');
-					console.log(typeof(result.memEnrolldate))
+					console.log(typeof(result.enrollDate));
 					let resultStr = '';
-					resultStr += '<tr>'
-							   + '<th>' + '회원번호' + '</th>'
+					resultStr += '<br><br>'+ '<h2>회원 정보 상세보기</h2>'
+					    	   + '<br><br>' + '<div class="container">' 
+					    	   + '<div class="from-control">'
+					    	   + '<table class="table">'
+					      	   + '<tr>'
+							   + '<th>회원번호</th>'
 							   + '<td>' + result.memNo + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '회원이름' + '</th>'
+							   + '<th>회원이름</th>'
 							   + '<td>' + result.memName + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '회원아이디' + '</th>'
+							   + '<th>회원아이디</th>'
 							   + '<td>' + result.memId + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '회원닉네임' + '</th>'
+							   + '<th>회원닉네임</th>'
 							   + '<td>' + result.memNickname + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '회원이메일' + '</th>'
+							   + '<th>회원이메일</th>'
 							   + '<td>' + result.memEmail + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '가입일자' + '</th>'
+							   + '<th>가입일자</th>'
 							   + '<td>' + result.enrollDate + '<td>'
 							   + '</tr>'
 							   + '<tr>'
-							   + '<th>' + '회원등급명' + '</th>'
-							   + '<td>' + result.memGrade + '<td>'
-							   + '</tr>';
+							   + '<th>회원등급명</th>'
+							   + '<td>' + result.memGradeName + '<td>'
+							   + '</tr>' 
+							   + '</table>'
+					           + '<br><br>'
+					           + '<div id="memberdetailbtn">'
+					           + '<button id="memberupdateFormbtn" class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
+					           + '<button onclick="abc()" id="memberList" class="w3-button w3-round w3-yellow">목록으로</button>'
+					           + '</div>'
+					           + '</div>'
+					   		   + '</div>';
 							   
 					$('.rs-content').html(resultStr);
 				},
@@ -268,7 +286,56 @@
 				}
 				
 			})
+		};
+		*/
+		
+		/*
+		$(function(){
+		
+			$('#memberList').click(function(){
+			
+				abc();
+			})	
+		});
+		*/
+		
+		
+//		function abc(){
+			
+/*
+		//	location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
+	//	}
+*/
+		
+		
+		
+		
+		
+		
+		/*
+		$(function(){
+			$('#memberupdateFormbtn').on("click", updateFormMember);
+			console.log('클릭된다');
+		});
+		function updateFormMember(){
+			$.ajax({
+				url : 'hlupdatemeberForm.ma',
+				data : {mno : $('.table > childredn() > eq(1).text()')},
+				success : function(result){
+					console.log(result);
 		}
+				*/
+				
+				
+		// /hldetailmember.ma		
+		$(function(){
+			$('#memAllList > tr').click(function(){
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + $(this).children().eq(1).text();
+			})
+			
+		
+		}
+	
 	</script>
 	
 	

@@ -37,112 +37,135 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
 	/**********************************************************
-		입력양식 / 내부 상단바 등 wrap div세팅
+		wrap div + wrap내부 div 세팅
 	**********************************************************/
 	div {
 		box-sizing: border-box;
 	}
 
-	/* 전체 양식wrap */
-	body #recipe-enroll-form-wrap {
+	/* 전체 div wrap */
+	#recipe-enroll-form-wrap {
 		width: 1000px;
 		box-sizing: border-box;
 		margin: auto;
 	}
-
+	/*******************************************/
+	/* > 글쓰기 양식 form태그wrap */
 	#recipe-enrolling-form { 
 		width: 100%;
 		box-sizing: border-box;
 		position: relative;
 	}
 
-	/* 양식 내 상단바wrap div 세팅 */
-	body #recipe-enroll-bar-wrap {
+	/*******************************************/
+	/* > > 상단바wrap div 세팅 */
+	#recipe-enroll-top-bar-wrap {
 		width: 100%;
 		height: 70px;
 		margin: auto;
 		box-sizing: border-box;
-		position: relative;
 	}
 
-	/* 상단바 내 div요소 기본 세팅 */
-	#recipe-enroll-bar-wrap div {
+	/* > >... 상단바 내부 div요소 default 세팅 */
+	#recipe-enroll-top-bar-wrap div {
 		height: 100%;
 		float: left;
 	}
 
-	/* 양식 내용 부분wrap 세팅 */
+	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
 		width: 100%;
 		height: 1500px;
 	}
 
-	/* 양식 내용 입력부분 크기 기본세팅 */
-	#recipe-enroll-context-wrap .cook-steps-block table {
+
+	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	#cook-steps-basic-info {
 		width: 100%;
-		height: 100%;
+		height: 20%;
 	}
+
+	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
+	#cook-steps-instruction {
+		width: 100%;
+		height: 75%;
+	}
+
+	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
+	#cook-steps-buttons {
+		width: 100%;
+		height: 5%;
+	}
+
+
 
 
 	/**********************************************************
-		상단바 영역
+		상단바 영역 (#recipe-enroll-top-bar-wrap 내부)
 	**********************************************************/
-	/* 카테고리 아이콘 이미지 관련 세팅 */
+	/* 1. 아이콘 이미지 세팅 */
 	#recipe-enroll-bar-img {
-		width: 5%;
-		margin-left: 30px;
+		width: 10%;
 	}
 
 	#recipe-enroll-bar-img > i {
-		font-size: 40px;
+		font-size: 45px;
 		color: rgb(255, 145, 77);
-		padding: 13px 6px 13px 6px;
-
+		padding: 10px 30px 10px 30px;
 	}
 
-	/* 카테고리 선택 블록 관련 세팅 */
+	/* 2. 카테고리 메뉴 세팅 */
 	#recipe-enroll-bar-menu {
-		width: 50%;
+		width: 80%;
 	}
 
-	#recipe-enroll-bar-menu > h3 {
-		width: 50%;
+	/* 카테고리 글씨 부분 */
+	#recipe-enroll-bar-inner1 {
+		width: 25%;
 		height: 100%;
+		text-align: center;
+	}
+	
+	#recipe-enroll-bar-inner1 > h3 {
 		font-size: 27px;
-		float: left;
 		box-sizing: border-box;
 		padding-top : 17px;
-		padding-left: 30px;
 	}
 
-	/* 카테고리 선택 블록 내부 select요소 세팅 */
+	/* select요소 */
+	#recipe-enroll-bar-inner2 {
+		width: 75%;
+		position: relative;
+	}
+	
 	#recipe-enroll-bar-menu select {
 		width: 40%;
 		height: 70%;
-		float: left;
-		box-sizing: border-box;
 		text-align: center;
-		margin-top: 10px;
+		position: absolute;
+		top: 10px;
+		left: 10px;
 	}
 
-	/* 임시저장 버튼 세팅 */
+	/* 3. 임시저장 버튼 세팅 */
 	#unrecipe-modal-request-div {
-		width:7%;
-		position: absolute;
-		top : 0px;
-		right : 30px;
+		width:10%;
 	}
 
 	#unrecipe-modal-request-div > button {
-		font-size: 50px;
+		width: 100%;
+		height: 100%;
+		font-size: 55px;
+		text-align: center;
+		color: rgb(255, 145, 77);
 		appearance: none;
 		border: none;
         background-color: transparent;
-		padding: 8px 9px 8px 9px;
-		color: rgb(255, 145, 77);
+	
 	}
 	/******************여기부터아직스타일정리X***********************/
-	/* 임시저장 모달창 세팅 */
+	/* 4. 임시저장 입력폼 모달창 세팅 */
+	/*
 	#unrecipe-modal, #unrecipe-unavailable-modal{
 		position: fixed;
 		top: 3%;
@@ -187,23 +210,28 @@
 		height: 100px;
 		padding: 10px;
 	}
+	*/
 
 
 	/**********************************************************
-		입력양식 내용 영역
+		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
 	**********************************************************/
-	/* 양식내용 기본세팅 (썸네일, 제목, 해시태그, 재료 영역) */
+	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	#cook-steps-basic-info {
+	
+	}
 
+	/*2. 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
+	#cook-steps-instruction {
 
-	/* 양식 내용 입력부분 크기 기본세팅 */
+	}
 
+	/* 3. 입력폼 내부 하단 div (submit + reset 버튼) */
+	#cook-steps-buttons {
 
-	/* 썸네일 이미지 기본세팅 */
+	}
 
-
-
-	/* 레시피 제목 / 세프이름 / 해시태그 */
-
+	
 
 		
 
@@ -211,6 +239,7 @@
 	div {
 		border: 1px solid black;
 	}
+	table td { border: 1px solid black }
 	
 </style>
 
@@ -241,26 +270,30 @@
 			<input type="hidden" name="memNo" value="2">
 
 			<!------------- 입력양식 상단 바 영역 ------------->
-			<div id="recipe-enroll-bar-wrap">
+			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
-				<div id="recipe-enroll-bar-img" class="recipe-enroll-category">
+				<div id="recipe-enroll-bar-img">
 					<i class='fas fa-align-left'></i>
 				</div>
-				<div id="recipe-enroll-bar-menu" class="recipe-enroll-category">
-					<h3>카테고리 선택</h3>
-					<select name="recipeCategoryNo">
-							<option value="한식">한식
-							<option value="양식">양식
-							<option value="중식">중식
-							<option value="일식">일식
-							<option value="아시안">아시안
-							<option value="야식">야식
-							<option value="디저트">디저트
-							<option value="음료">음료
-					</select>
+				<div id="recipe-enroll-bar-menu">
+					<div id="recipe-enroll-bar-inner1">
+						<h3>카테고리 선택</h3>
+					</div>
+					<div id="recipe-enroll-bar-inner2">
+						<select name="recipeCategoryNo">
+								<option value="한식">한식
+								<option value="양식">양식
+								<option value="중식">중식
+								<option value="일식">일식
+								<option value="아시안">아시안
+								<option value="야식">야식
+								<option value="디저트">디저트
+								<option value="음료">음료
+						</select>
+					</div>
 				</div>
 
-				<!-- 임시저장 버튼 / 클릭 시 모달 호출 -->
+				<!-- 임시저장 아이콘 (클릭 시 모달 호출) -->
 				<div id="unrecipe-modal-request-div">
 					<button type="button" onclick="unrecipeModalRequest(this);"
 						class='fas fa-folder' data-toggle="modal" data-target="#">
@@ -331,85 +364,128 @@
 			<!--------------------------------------------------------------->
 			<!-- 레시피 글 작성 내용 영역 -->
 			<div id="recipe-enroll-context-wrap">
-				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-				<div id="cook-steps-basic-info" class="cook-steps-block">
-					<table style="border: 1px solid black;">
-						<tr>
-							<td rowspan="5" id="cook-steps-thumbnail"><img src="d" alt="">ㅇ</td>
-							<td id="cook-steps-title"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
-						</tr>
-						<tr>
-							<td id="cook-steps-chef">김xx셰프</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-hashtag">해시태그입력</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-ingredient-title">재료</td>
-						</tr>
-						<tr>
-							<td id="cook-steps-ingredient-content">재료추가영역</td>
-						</tr>
-			
-					</table>
+				<div id="cook-steps-basic-info">
+				
+					<div class="cook-steps-input-content">
+						<img src="d" alt="">dddddddddd
+					</div>
+
+					<div class="cook-steps-input-content">
+						<table>
+							<tr>
+								<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
+							</tr>
+							<tr>
+								<td id="cook-steps-chef" class="cook-steps-input-content">김xx셰프</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-hashtag" class="cook-steps-input-content">해시태그입력</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-ingredient-title" class="cook-steps-input-content">재료</td>
+							</tr>
+							<tr>
+								<td id="cook-steps-ingredient-content" class="cook-steps-input-content">
+									<div>재료영역1</div>
+									<div>재료영역2</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+
+					
 					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
-				<div id="cook-steps-instruction" class="cook-steps-block">
-					<table>
-						<!-- 1 ~ 2번째 -->
-						<tr>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="cookStepsTitle1"
-								maxlength="30" required></td>
-							<td><input type="text" name="cookStepsTitle2"
-								maxlength="30"></td>
-						</tr>
-						<tr>
-							<td><textarea name="cookStepsContent1" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-							<td><textarea name="cookStepsContent2" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-						</tr>
-						<!-- 3 ~ 4 번째 -->
-						<tr>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-							<td><img
-								src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif"></td>
-						</tr>
-						<tr>
-							<td><input type="text" name="cookStepsTitle3"
-								maxlength="30"></td>
-							<td><input type="text" name="cookStepsTitle4"
-								maxlength="30"></td>
-						</tr>
-						<tr>
-							<td><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-							<td><textarea name="cookStepsContent4" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea></td>
-						</tr>
-					</table>
+				<div id="cook-steps-instruction">
+					<div class="cook-steps-inst-outer-div">
+						<div>
+							<div class="cook-steps-inst-inner-div">
+								<div></div>
+								<div>
+									<div>1</div>
+									<div>내용제목1 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>2</div>
+									<div>내용제목2 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</div>
+						<divv class="cook-steps-inst-outer-div">
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>3</div>
+									<div>내용제목3 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>4</div>
+									<div>내용제목4 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</divv>
+						<divv class="cook-steps-inst-outer-div">
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>5</div>
+									<div>내용제목5 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="cook-steps-inst-div">
+								<div></div>
+								<div>
+									<div>6</div>
+									<div>내용제목6 재료를 손질해 요리한다</div>
+								</div>
+								<div><textarea name="cookStepsContent3" id="" cols="30"
+									rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
+							</div>
+						</divv>
+					</div>
+
 				</div>
 
+				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
+				<div id="cook-steps-buttons" align="center">
+					<div>
+						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+					</div>
+					<div>
+						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
+					</div>
+				</div>
 
 			</div><!-- 레시피 글 작성 내용 영역 끝 -->
 
-			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
-			<div align="center">
-				<button type="button" id="recipe-enrolling-btn"
-					class="btn btn-primary">글작성</button>
-				<button type="reset" id="recipe-resetting-btn"
-					onclick="return confirmReset();">초기화</button>
-			</div><!-- 레시피 작성 요청 / 초기화 버튼 영역 끝 -->
+			
 		</form><!-- 글 작성 전체 form 끝 -->
 
 	</div><!-- 전체 wrap 끝 -->
