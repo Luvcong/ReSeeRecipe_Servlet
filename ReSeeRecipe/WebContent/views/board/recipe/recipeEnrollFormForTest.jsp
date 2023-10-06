@@ -52,7 +52,6 @@
 
 	#recipe-enrolling-form { 
 		width: 100%;
-		height: 70px;
 		box-sizing: border-box;
 		position: relative;
 	}
@@ -60,7 +59,7 @@
 	/* 양식 내 상단바wrap div 세팅 */
 	body #recipe-enroll-bar-wrap {
 		width: 100%;
-		height: 100%;
+		height: 70px;
 		margin: auto;
 		box-sizing: border-box;
 		position: relative;
@@ -70,12 +69,18 @@
 	#recipe-enroll-bar-wrap div {
 		height: 100%;
 		float: left;
-
 	}
-	
-	
 
-	/**********************************************************/
+	/* 양식 내용 부분wrap 세팅 */
+	#recipe-enroll-context-wrap {
+		width: 100%;
+		height: 1500px;
+	}
+
+
+	/**********************************************************
+		상단바 영역
+	**********************************************************/
 	/* 카테고리 아이콘 이미지 관련 세팅 */
 	#recipe-enroll-bar-img {
 		width: 5%;
@@ -177,10 +182,14 @@
 		padding: 10px;
 	}
 
+
 	/**********************************************************
-		입력양식 폼 영역
+		입력양식 내용 영역
 	**********************************************************/
 	
+	#cook-steps-basic-info {
+
+	}
 		
 
 	/**********지울부분***************************************/
@@ -235,7 +244,6 @@
 							<option value="음료">음료
 					</select>
 				</div>
-			
 
 				<!-- 임시저장 버튼 / 클릭 시 모달 호출 -->
 				<div id="unrecipe-modal-request-div">
@@ -245,7 +253,7 @@
 					</button>
 				</div>
 
-				<!-- 임시작성글 모달 (if else는 script에서 처리) -->
+				<!-- 1. 임시작성 기본 모달 (if else는 script에서 처리) -->
 				<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
 				<div class="modal" id="unrecipe-modal">
 					<div class="modal-dialog modal-lg">
@@ -270,7 +278,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 임시작성글 3개 이상 시 모달 -->
+				<!-- 2. 임시작성 글 3개 이상 시 모달 -->
 				<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
 				 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
 				  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
@@ -393,7 +401,7 @@
 	</div><!-- 전체 wrap 끝 -->
 
 
-	
+
 	<script>
 		// 임시저장 아이콘 클릭 시 모달창 설정
 		function unrecipeModalRequest(e) {
@@ -409,7 +417,7 @@
 		// 양식 초기화 요청 confirm
 		function confirmReset() {
 			return confirm("입력한 정보를 초기화하시겠습니까?");
-		});
+		}
 		
 		$(function(){
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
