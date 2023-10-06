@@ -93,7 +93,7 @@
 		border-radius: 5px;
 		position: absolute;
 		top : 7px;
-		right : 30px;
+		right : 35px;
 	}
 
 	#recipe-keyword-search-box::placeholder {
@@ -103,7 +103,7 @@
 	}
 
 	#recipe-keyword-search-btn {
-		font-size:15px;
+		font-size:20px;
 		appearance: none;
 		border: none;
         background-color: transparent;
@@ -111,8 +111,8 @@
 		padding-bottom: 2%;
 		color: rgb(255, 145, 77);
 		position: absolute;
-		top : 17px;
-		right : 8px;
+		top : 15px;
+		right : 10px;
 	}
 	
 	/**********************************************/
@@ -166,7 +166,7 @@
 		<div id="recipe-search-area">
 			<form action="searchKeyWord.re" method="get">
 				<input type="hidden" value="recipeSearch">
-				<input type="search" id="recipe-keyword-search-box" name="searchKeyWord" placeholder="     제목 / 작성자 검색">
+				<input type="search" id="recipe-keyword-search-box" name="searchKeyWord" placeholder="　레시피 제목 / 작성자">
 				<button type="submit" id="recipe-keyword-search-btn" class="fa fa-search btn"></button>
 			</form>
 		</div>
