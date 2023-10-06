@@ -86,18 +86,24 @@
           justify-content: center;
         }
 
-        .login-searchmenu  > div{
-          border: none;
-          float: left;
-          padding : 0px 20px;
-        }
-        
         .login-searchmenu{
           border: none;
           display : flex;
           align-items: center;
           justify-content: center;
         }
+
+        .login-searchmenu  > div{
+          border: none;
+          float: left;
+          padding : 0px 20px;
+        }
+
+        .login-searchmenu > div > a{
+          color : gray;
+        }
+        
+
 
     </style>
 
@@ -131,9 +137,9 @@
            -->
 	        <div class="login-searchmenu">
 	          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
-	          <div class="psw">회원가입 <a href="#"></a></div>
-	          <div class="psw">아이디 찾기 <a href="#"></a></div>
-	          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
+	          <div class="psw"><a href="#">회원가입</a></div>
+	          <div class="psw"><a href="#">아이디 찾기</a></div>
+	          <div class="psw"><a href="#">비밀번호 찾기</a></div>
 	        </div>
         </div>
         
