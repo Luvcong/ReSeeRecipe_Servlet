@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
@@ -48,7 +49,14 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
 		m.setMemGradeName(memGradename);
+		m.setMemUpdateWhyCon(memUpdateWhyCon);
 		
+		// 4) 서비스 요청
+		int result = new MemberService().updateMemInfo(m);
+		
+		if(result > 0) {
+			
+		}
 	}
 
 	/**
