@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자화면 네비바</title>
+<title>ReSee:Recipe 관리자화면</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -74,7 +74,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#" id="dmManager">쪽지함 관리</a></li>
+					<li><a href="<%= contextPath %>/jhselect.dm" id="dmManager">쪽지함 관리</a></li>	<!-- 추후 ajax처리 -->
 					<li><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
@@ -257,11 +257,14 @@
 		$.ajax({
 			url : 'jhselect.ct',
 			type : 'get',
+    		dataType : 'html',
 			success : function(result){
 				$('.rs-content').html(result);
+				console.log("성공");
 			},
 			error : function(result){
-				$('.rs-content').text('Error 다시 시도해주세요');
+				$('.rs-content').text('Error! 다시 시도해주세요');
+				console.log("실패");
 			}
 		});
 	}	// 카테고리리스트(categoryListView)

@@ -3,6 +3,7 @@
 <properties>
 	<comment>레시피 게시판 / 임시저장 레시피 게시판 관련 SQL문</comment>
 	
+	<!-- 카테고리 리스트 조회 SQL문 -->
 	<entry key="selectRecipeCategoryList">
 		SELECT
 			   RECIPE_CATEGORY_NO,

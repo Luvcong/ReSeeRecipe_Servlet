@@ -3,8 +3,8 @@
 <%
 	String buy = (String)request.getAttribute("buy");
 %>
-<!-- 임시_230928 yr -->
-<!-- 수정 231005 yr-->
+<!-- 임시_230928_yr -->
+<!-- 수정_231005_yr-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,11 +87,13 @@
         }
 
         .login-searchmenu  > div{
+          border: none;
           float: left;
           padding : 0px 20px;
         }
         
         .login-searchmenu{
+          border: none;
           display : flex;
           align-items: center;
           justify-content: center;
@@ -101,7 +103,8 @@
 
 </head>
 <body>
-
+	<!-- header부분 (상단 메인 메뉴바) -->
+	<%@ include file="/views/common/header.jspf" %>
 
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
@@ -110,8 +113,8 @@
       <div class="container">
           <h4>
           <b>
-            반갑습니다. <br>
-            오늘도 맛있는 식사하세요.
+          	 반갑습니다. <br>
+           	 오늘도 맛있는 식사하세요.
           </b>
           </h4>
           <!-- <label for="uname"><b>아이디</b></label> -->
@@ -126,15 +129,18 @@
             <input type="checkbox" checked="checked" name="remember"> Remember me
           </label>
            -->
+	        <div class="login-searchmenu">
+	          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
+	          <div class="psw">회원가입 <a href="#"></a></div>
+	          <div class="psw">아이디 찾기 <a href="#"></a></div>
+	          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
+	        </div>
         </div>
         
-        <div class="login-searchmenu">
-          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
-          <div class="psw">회원가입 <a href="#"></a></div>
-          <div class="psw">아이디 찾기 <a href="#"></a></div>
-          <div class="psw">비밀번호 찾기 <a href="#"></a></div>
-        </div>
       </form>
+      
+    <!-- footer 푸터영역 -->
+	<%@ include file="/views/common/footer.jspf" %>
 
   </body>
 </html>
