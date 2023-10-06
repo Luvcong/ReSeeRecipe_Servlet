@@ -59,7 +59,7 @@
 	            <h3><%= p.getDilivery() %></h3>
 	            
 	            	<% if(!list2.isEmpty()) { %>
-	            		<select id="select" name="oname">
+	            		<select id="select">
 			            	<% for(int i = 0; i < list2.size(); i++) { %>
 			                	<option><%= list2.get(i).getOptionName() %></option>
 			                <% } %>

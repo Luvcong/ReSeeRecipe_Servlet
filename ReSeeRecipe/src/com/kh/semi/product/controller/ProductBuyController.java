@@ -33,9 +33,6 @@ public class ProductBuyController extends HttpServlet {
 		String p = request.getParameter("p"); // Product객체
 		String list = request.getParameter("list"); // 사진리스트
 		String ono = request.getParameter("ono");
-		String oname = request.getParameter("oname");
-		
-		System.out.println(ono);
 		
 		
 		
@@ -47,6 +44,7 @@ public class ProductBuyController extends HttpServlet {
 		
 		
 		
+		request.getRequestDispatcher("/views/product/product/buyOrderDetail.jsp").forward(request, response);
 		
 	}
 
