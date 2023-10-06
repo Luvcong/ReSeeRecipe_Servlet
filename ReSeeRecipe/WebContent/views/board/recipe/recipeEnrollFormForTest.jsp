@@ -186,10 +186,20 @@
 	/**********************************************************
 		입력양식 내용 영역
 	**********************************************************/
-	
+	/* 양색내용 상단 (썸네일, 제목, 해시태그, 재료 영역) */
 	#cook-steps-basic-info {
-
+		width: 100%;
+		height: 30%;
 	}
+
+	/* 썸네일 이미지 */
+	#cook-steps-basic-info > table img {
+		width: 450px;
+		height: 450px;
+	}
+
+	/* 레시피 제목 / 세프이름 / 해시태그 */
+
 		
 
 	/**********지울부분***************************************/
@@ -314,28 +324,28 @@
 
 
 			<!--------------------------------------------------------------->
-			<!-- 레시피 글 작성 내용 영역 끝 -->
+			<!-- 레시피 글 작성 내용 영역 -->
 			<div id="recipe-enroll-context-wrap">
-
+				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info" class="cook-steps-block">
 					<table>
-						<tr>
-							<td rowspan="5"></td>
+						<tr id="cook-steps-tr-title">
+							<td rowspan="5"><img src="d" alt=""></td>
 							<td><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
 						</tr>
-						<tr>
+						<tr id="cook-steps-tr-chef">
 							<td>김XX 셰프</td>
 						</tr>
-						<tr>
+						<tr id="cook-steps-tr-hashtag">
 							<td>해시태그입력</td>
 						</tr>
-						<tr>
+						<tr id="cook-steps-tr-ingredient">
 							<td>재료</td>
-							<td><input type="text"><></td>
+							<td><input type="text" placeholder="재료입력"></td>
 						</tr>
 						<tr>
-							<td id="">재료엔터치면요소생성</td>
+							<td type="text"><td><input type="text" placeholder="재료입력"></td></td>
 						</tr>
 						<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 					</table>
