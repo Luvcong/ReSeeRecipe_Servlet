@@ -257,7 +257,7 @@
 							   + '</tr>'
 							   + '<tr>'
 							   + '<th>' + '회원등급명' + '</th>'
-							   + '<td>' + result.memGrade + '<td>'
+							   + '<td>' + result.memGradeName + '<td>'
 							   + '</tr>';
 							   
 					$('.rs-content').html(resultStr);
