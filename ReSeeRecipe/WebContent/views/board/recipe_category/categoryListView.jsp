@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.RecipeCategory" %>    
 <%
 	String contextPath = request.getContextPath();
+	ArrayList<RecipeCategory> list = new ArrayList();
 %>            
 <!DOCTYPE html>
 <html>

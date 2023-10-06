@@ -212,6 +212,35 @@
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectOption">
+		SELECT
+			OPTION_NO,
+			OPTION_NAME,
+			OPTION_PRICE
+		FROM
+			TB_OPTION
+		JOIN
+			TB_PRODUCT USING(PRODUCT_NO)
+		WHERE
+			PRODUCT_NO = ?
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 

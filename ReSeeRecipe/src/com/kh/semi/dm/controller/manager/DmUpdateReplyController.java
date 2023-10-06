@@ -1,27 +1,31 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.dm.controller.manager;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.dm.model.service.DmService;
+import com.kh.semi.dm.model.vo.Dm;
 
 /**
- * Servlet implementation class MemberUpdateFormManagerController
+ * Servlet implementation class DmInsertController
  */
-@WebServlet("/hlupdatemeberForm.ma")
-public class MemberUpdateFormManagerController extends HttpServlet {
+@WebServlet("/jhupdate.dm")
+public class DmUpdateReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private DmService dmService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberUpdateFormManagerController() {
+    public DmUpdateReplyController() {
         super();
+        dmService = new DmService();
         // TODO Auto-generated constructor stub
     }
 
@@ -29,16 +33,30 @@ public class MemberUpdateFormManagerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 1) post
 		request.setCharacterEncoding("UTF-8");
-		// 값 뽑기 - 회원번호("mno")
-		int memNo = Integer.parseInt(request.getParameter("mno"));
-	
-		Member m = new MemberService().selectMemInfo(memNo); 
-		// 응답화면 지정
-		request.setAttribute("m", m);
-		request.setAttribute("memNo", memNo);
-	
-		request.getRequestDispatcher("views/member/memberUpdateFormManager.jsp").forward(request, response);
+		
+		// 2) 전달값
+		String dmReply = request.getParameter("dmReply");
+		int dmNo = Integer.parseInt(request.getParameter("dmNo"));
+		
+		// 3) 데이터 가공
+		Dm dm = new Dm();
+		dm.setDmReply(dmReply);
+		dm.setDmNo(dmNo);
+		
+		// 4)
+		int result = dmService.updateReply(dm);
+		
+		// 5)
+		if(result > 0) {
+			request.getSession().setAttribute("successMsg", "쪽지 답변이 완료되었습니다!");
+		} else {
+			request.getSession().setAttribute("failMsg", "Error 다시 시도해주세요!");
+		}
+		response.sendRedirect(request.getContextPath() + "/jhselect.dm");
+		
 	}
 
 	/**

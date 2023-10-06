@@ -1,6 +1,7 @@
-package com.kh.semi.dm.controller;
+package com.kh.semi.dm.controller.manager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,18 +13,17 @@ import com.kh.semi.dm.model.service.DmService;
 import com.kh.semi.dm.model.vo.Dm;
 
 /**
- * Servlet implementation class DmInsertController
+ * Servlet implementation class DmListController
  */
-@WebServlet("/jhupdate.dm")
-public class DmUpdateReplyController extends HttpServlet {
+@WebServlet("/jhselect.dm")
+public class DmListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private DmService dmService;
        
+	private DmService dmService;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DmUpdateReplyController() {
+    public DmListController() {
         super();
         dmService = new DmService();
         // TODO Auto-generated constructor stub
@@ -34,29 +34,16 @@ public class DmUpdateReplyController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 1) post
-		request.setCharacterEncoding("UTF-8");
+		// 1) get방식 - 인코딩x
+		// 2) 전달값 뽑기 - select문으로 x
+		// 3) 데이터가공 xx
+		// 4) Service요청
+		ArrayList<Dm> list = dmService.selectDmList();
+		request.setAttribute("list", list);
+		request.setAttribute("waitingCount", dmService.getWaitingCount(list));
 		
-		// 2) 전달값
-		String dmReply = request.getParameter("dmReply");
-		int dmNo = Integer.parseInt(request.getParameter("dmNo"));
-		
-		// 3) 데이터 가공
-		Dm dm = new Dm();
-		dm.setDmReply(dmReply);
-		dm.setDmNo(dmNo);
-		
-		// 4)
-		int result = dmService.updateReply(dm);
-		
-		// 5)
-		if(result > 0) {
-			request.getSession().setAttribute("successMsg", "쪽지 답변이 완료되었습니다!");
-		} else {
-			request.getSession().setAttribute("failMsg", "Error 다시 시도해주세요!");
-		}
-		response.sendRedirect(request.getContextPath() + "/jhselect.dm");
-		
+		// 5) 응답화면 지정
+		request.getRequestDispatcher("views/dm/dmListView.jsp").forward(request, response);
 	}
 
 	/**
