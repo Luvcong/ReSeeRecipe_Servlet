@@ -91,7 +91,7 @@
             <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll()" class="dmCheck" id="all"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>등록일<div class="sort"></div></th>
                         <th data-idx=3>아이디<div class="sort"></div></th>
@@ -109,7 +109,7 @@
 	            <% } else { %>
 	            	<% for(Dm dm : list) { %>    
 	                    <tr>
-	                        <td><input type="checkbox"></td>
+	                        <td><input type="checkbox" class="chk"></td>
 	                        <td><%= dm.getDmNo() %></td>
 	                        <td><%= dm.getSendDate() %></td>
 	                        <td><%= dm.getMemId() %></td>
@@ -403,8 +403,29 @@
 	$(function() {
 		$('.table th').on('click', sortTable);
 	})
-	
-	function checkAll(element){
+
+/* 	$(function checkAll(){
+		$('dmCheck').on('change', function(){
+			if($(this).prop('checked') == false){
+				$('#all').prop('checked', false);
+			}
+		});
+
+		$('#all').on('change', function(){
+			let $all = $('#all').prop('checked');
+			console.log($all);		// true
+			if($all){
+				$('.dmCheck .chk').prop('checked', true);
+			}
+			else {
+				$('.dmCheck .chk').prop('checked', false);
+			}
+		})
+	}); */
+		
+		
+		
+		
 		console.log(element);	// input요소 (table의 헤더부분)
 		
 		let table = document.getElementById('tb-dm');
