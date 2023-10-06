@@ -222,6 +222,8 @@
 		}
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
+		// Ajax 통신
+		/*
 		$(function(){
 			$('#memAllList > tr').on("click", detailMember);
 		});
@@ -270,8 +272,8 @@
 							   + '</table>'
 					           + '<br><br>'
 					           + '<div id="memberdetailbtn">'
-					           + '<button class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
-					           + '<button class="w3-button w3-round w3-yellow">목록으로</button>'
+					           + '<button id="memberupdateFormbtn" class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
+					           + '<button onclick="abc()" id="memberList" class="w3-button w3-round w3-yellow">목록으로</button>'
 					           + '</div>'
 					           + '</div>'
 					   		   + '</div>';
@@ -284,7 +286,44 @@
 				}
 				
 			})
+		};
+		*/
+		
+		/*
+		$(function(){
+		
+			$('#memberList').click(function(){
+			
+				abc();
+			})	
+		});
+		*/
+		
+		
+//		function abc(){
+			
+			location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
 		}
+		
+		
+		
+		
+		
+		
+		
+		/*
+		$(function(){
+			$('#memberupdateFormbtn').on("click", updateFormMember);
+			console.log('클릭된다');
+		});
+		function updateFormMember(){
+			$.ajax({
+				url : 'hlupdatemeberForm.ma',
+				data : {mno : $('.table > childredn() > eq(1).text()')},
+				success : function(result){
+					console.log(result);
+		}
+				*/
 	</script>
 	
 	
