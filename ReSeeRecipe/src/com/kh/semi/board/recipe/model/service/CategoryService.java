@@ -36,6 +36,30 @@ public class CategoryService {
 	
 	
 	
+	/**
+	 * 카테고리 추가를 요청하는 method
+	 * @param recipeCategoryName - 추가 카테고리명
+	 * @return 카테고리 추가 성공여부
+	 * @author JH
+	 * @Date : 2023. 10. 6.
+	 */
+	public int insertCategory(String recipeCategoryName) {
+		
+		Connection conn = getConnection();
+		
+		int result = categoryDao.insertCategory(conn, recipeCategoryName);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}	// insertCategory
+	
 	
 	
 

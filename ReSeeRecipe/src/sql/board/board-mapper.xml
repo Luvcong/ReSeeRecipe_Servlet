@@ -66,6 +66,16 @@
 		 	   RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="insertCategory">
+		INSERT
+		  INTO
+				TB_RECIPE_CATEGORY
+		 VALUES
+		 		(
+		 		SEQ_RECIPE_CATEGORY.NEXTVAL,
+		 		?
+		 		)
+	</entry>
 	
 	
 	
