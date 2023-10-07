@@ -11,6 +11,11 @@
 <head>
 <meta charset="UTF-8">
 <title>[메뉴관리] 카테고리 관리</title>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <style>
 .sort {
 	display: inline-block;
@@ -59,6 +64,7 @@
     cursor: pointer;
     border: none;
 }
+</style>
 
 <!-- sweetalert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
