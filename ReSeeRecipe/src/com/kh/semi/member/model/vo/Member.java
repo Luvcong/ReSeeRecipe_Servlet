@@ -33,7 +33,7 @@ public class Member {
 	private int memGrade;
 	private String memGradeName;
 	private int memReward;
-	
+	private String memUpdateWhyCon;
 	
 
 	public Member() {
@@ -178,6 +178,15 @@ public class Member {
 
 	public void setMemGradeName(String memGradeName) {
 		this.memGradeName = memGradeName;
+	}
+
+	
+	public String getMemUpdateWhyCon() {
+		return memUpdateWhyCon;
+	}
+
+	public void setMemUpdateWhyCon(String memUpdateWhyCon) {
+		this.memUpdateWhyCon = memUpdateWhyCon;
 	}
 
 	@Override

@@ -39,8 +39,8 @@ public class MemberDetailManagerController extends HttpServlet {
 		System.out.println("mno>>>" + memNo);
 		
 		// Service호출 회원번호로 해당 회원 정보 SELECT
-		Member m = new MemberService().selectMemInfo(memNo);
-		System.out.println("m>>>>" + m);
+		//Member m = new MemberService().selectMemInfo(memNo);
+		//System.out.println("m>>>>" + m);
 		// Member VO 가공
 		//m.setMemNo(memNo);
 		// 자바타입객체 => JSON타입 객체로 변환 JSONObject
@@ -53,13 +53,13 @@ public class MemberDetailManagerController extends HttpServlet {
 //		jObj.put("memEnrolldate", m.getEnrollDate());
 //		jObj.put("memGradename", m.getMemGradeName());
 		// GSON이용 => ArrayList를 JSON타입의 데이터로 반환
-		response.setContentType("application/json; charset=UTF-8");
+		//response.setContentType("application/json; charset=UTF-8");
 		//response.getWriter().print(jObj);
-		new Gson().toJson(m, response.getWriter());
+		//new Gson().toJson(m, response.getWriter());
 		
 		
+		// JSP include 방식
 		
-		/*
 		if(memNo > 0) {
 			Member m = new MemberService().selectMemInfo(memNo); 
 			// 응답화면 지정
@@ -68,10 +68,10 @@ public class MemberDetailManagerController extends HttpServlet {
 		
 			request.getRequestDispatcher("views/member/memberDetailManager.jsp").forward(request, response);
 		} else {
-			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
+			request.setAttribute("errorMsg", "회원 상세 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		*/
+		
 	
 	}
 

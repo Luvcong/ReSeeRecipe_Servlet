@@ -217,9 +217,17 @@
 		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
 	**********************************************************/
 	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	#cook-steps-basic-info {
-	
+	#cook-steps-basic-info .cook-steps-input-content {
+		width: 50%;
+		height: 100%;
+		display: inline-block;
 	}
+
+
+
+
+
+
 
 	/*2. 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cook-steps-instruction {

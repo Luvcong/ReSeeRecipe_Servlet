@@ -183,7 +183,22 @@
 			 
           </tbody>
         </table>
+        
+        <script>
+        $(function(){
+			$('#memAllList > tr').click(function(){
+				const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+			});
+			
+		});
+        
+        </script>
     </div>
+   
+   
+   
+   
    
     <br><br><br><br>
     <div class="w3-bar">
@@ -215,11 +230,14 @@
 </div>	
 	
 	<script>
+	
+	
 		// 회원 리스트 페이징처리 함수
 		function page(e){
-			
 			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
 		}
+		
+		
 		
 		// 회원 정보 조회 테이블에서 회원 행을 클릭하면 자세히보기 기능
 		// Ajax 통신
@@ -302,10 +320,9 @@
 		
 //		function abc(){
 			
-/*
-		//	location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=1";
+
 	//	}
-*/
+
 		
 		
 		
@@ -328,13 +345,9 @@
 				
 				
 		// /hldetailmember.ma		
-		$(function(){
-			$('#memAllList > tr').click(function(){
-				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + $(this).children().eq(1).text();
-			})
 			
 		
-		}
+		
 	
 	</script>
 	
