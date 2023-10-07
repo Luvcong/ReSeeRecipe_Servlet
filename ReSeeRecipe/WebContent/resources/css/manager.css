@@ -4,7 +4,7 @@
 .rs-main {
     display: flex;  /* 가로 배치, 해당 class가 parent */
     width: 100vw;    /* vw vh */
-    height: 100vh;
+    min-height: 93vh;
 }
 
 .rs-title {
@@ -43,7 +43,7 @@
 
 .header {
     width: 100%;
-    height: 150px;
+    margin-bottom: 10px;
 }
 
 .h-title, .h-content {

@@ -256,7 +256,7 @@
 </script> -->
 
 <!-- 카테고리관리 ajax -->
-<script>
+<!-- <script>
 
 	$(function(){
 		$('#categoryManager').on('click', categoryListView);
@@ -278,6 +278,6 @@
 		});
 	}	// 카테고리리스트(categoryListView)
 
-</script>
+</script> -->
 
 </html>
