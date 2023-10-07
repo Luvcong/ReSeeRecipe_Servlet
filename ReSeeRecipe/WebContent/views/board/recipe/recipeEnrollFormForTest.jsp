@@ -429,45 +429,43 @@
 							</tr>
 						</table>
 					</div>
-
-
-
-
-					
 					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
+
+				<!-- 타이틀 글자수 바이트 수 세기 -->
 				<script>
 					$(function(){
-						const textArea = $('#cook-steps-title > textarea');
 						
-						textArea.keyup(function(){
+						$('#cook-steps-title > textarea').keyup(function(){
+							
 							var textAreaBytes = 0;
+							var textArea = $(this).val();
+
 							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
 							var patternBlank = /[\s]/m;
 							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
-							for(let i = 0; i < textArea.val().length; i++){
+							
+							for(let i = 0; i < textArea.length; i++){
+								
 								textAreaBytesBefore = textAreaBytes;
-								if(patternKor.test(textArea.val().charAt(i))) {
-									console.log('aaaaaa')
+								if(patternKor.test(textArea.charAt(i))) {
 									textAreaBytes += 3;
 								}
-								else if(patternBlank.test(textArea.val().charAt(i)) || patternOne.test(textArea.val().charAt(i))) {
-									textArea.val().replace(patternBlank, ' ');
+								else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+									textArea.replace(patternBlank, ' '); // 엔터, 탭 등 모두 한칸 스페이스로 변경
 									textAreaBytes++;
-									console.log('bbbbbb');
-								} else {
+								}
+								else {
 									textAreaBytes += 3;
 								}
-								console.log(textAreaBytes);
 								$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
+								
 								if(60 < textAreaBytes) {
 									$(this).val($(this).val().substring(0, i));
 									$('#cook-steps-title').children('span').eq(0).text(textAreaBytesBefore);
 									alert('더 이상 입력할 수 없습니다!')
 								}
-								
 							}
-							
 						})
 					})
 				</script>
