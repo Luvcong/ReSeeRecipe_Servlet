@@ -232,6 +232,10 @@
 		resize: none;
 		text-align: center;
 		border-radius: 10px;
+		padding : 2px 70px 2px 70px;
+	}
+	#cook-steps-title > textarea::placeholder {
+		padding-top: 15px;
 	}
 
 	#cook-steps-chef {
@@ -405,7 +409,7 @@
 							<tr>
 								<td id="cook-steps-title" class="cook-steps-inner">
 									<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
-									<span>abdc</span><span>/60 bytes</span>
+									<span>0</span><span>/60 bytes</span>
 								</td>
 							</tr>
 							<tr>
@@ -440,9 +444,9 @@
 							var textAreaBytes = 0;
 							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
 							var patternBlank = /[\s]/m;
-							var patternOne = /[\w!@#$%^&*()_+-=]/m;
-
+							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
 							for(let i = 0; i < textArea.val().length; i++){
+								textAreaBytesBefore = textAreaBytes;
 								if(patternKor.test(textArea.val().charAt(i))) {
 									console.log('aaaaaa')
 									textAreaBytes += 3;
@@ -456,6 +460,12 @@
 								}
 								console.log(textAreaBytes);
 								$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
+								if(60 < textAreaBytes) {
+									$(this).val($(this).val().substring(0, i));
+									$('#cook-steps-title').children('span').eq(0).text(textAreaBytesBefore);
+									alert('더 이상 입력할 수 없습니다!')
+								}
+								
 							}
 							
 						})
