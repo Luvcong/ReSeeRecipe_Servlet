@@ -17,24 +17,14 @@
 <title>레시피 글 작성 양식</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-<!-- 버튼 부트스트랩 -->
+<!-- 버튼 / 모달 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <!-- 아이콘 부트스트랩 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<!-- 모달 부트스트랩 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <style>
 	/**********************************************************
 		wrap div + wrap내부 div 세팅
@@ -45,7 +35,7 @@
 
 	/* 전체 div wrap */
 	#recipe-enroll-form-wrap {
-		width: 1000px;
+		width: 1002px;
 		box-sizing: border-box;
 		margin: auto;
 	}
@@ -75,7 +65,7 @@
 	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
 		width: 100%;
-		height: 1500px;
+		height: 2000px;
 	}
 
 
@@ -96,8 +86,6 @@
 		width: 100%;
 		height: 5%;
 	}
-
-
 
 
 	/**********************************************************
@@ -220,11 +208,47 @@
 	#cook-steps-basic-info .cook-steps-input-content {
 		width: 50%;
 		height: 100%;
-		display: inline-block;
+		float: left;
+		text-align: center;
 	}
 
+	/* 내부 상단 div 우측 입력 영역 */
+	#cook-steps-basic-info table {
+		width: 100%;
+		height: 100%;
+	}
+	
+	#cook-steps-basic-info .cook-steps-inner {
+		width: 100%;
+	}
 
+	#cook-steps-title {
+		height: 20%;
+	}
 
+	#cook-steps-title > textarea {
+		width: 465px;
+		height: 60px;
+		resize: none;
+		text-align: center;
+		border-radius: 10px;
+	}
+
+	#cook-steps-chef {
+		height: 10%;
+	}
+
+	#cook-steps-hashtag {
+		height: 15%;
+	}
+
+	#cook-steps-ingredient-title {
+		height: 10%;
+	}
+
+	#cook-steps-ingredient-content {
+		height: 45%;
+	}
 
 
 
@@ -245,7 +269,7 @@
 
 	/**********지울부분***************************************/
 	div {
-		border: 1px solid black;
+	
 	}
 	table td { border: 1px solid black }
 	
@@ -255,7 +279,6 @@
 <body>
 
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
-	
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
 		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
@@ -374,27 +397,28 @@
 			<div id="recipe-enroll-context-wrap">
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info">
-				
 					<div class="cook-steps-input-content">
 						<img src="d" alt="">dddddddddd
 					</div>
-
 					<div class="cook-steps-input-content">
 						<table>
 							<tr>
-								<td id="cook-steps-title" class="cook-steps-input-content"><input type="text" name="title" placeholder="레시피 제목을 입력하세요" required></td>
+								<td id="cook-steps-title" class="cook-steps-inner">
+									<textarea name="title" cols="10" rows="2" maxlength="20" placeholder="레시피 제목을 입력하세요" required></textarea>
+									<span>abdc</span><span>/60 bytes</span>
+								</td>
 							</tr>
 							<tr>
-								<td id="cook-steps-chef" class="cook-steps-input-content">김xx셰프</td>
+								<td id="cook-steps-chef" class="cook-steps-inner">김xx셰프</td>
 							</tr>
 							<tr>
-								<td id="cook-steps-hashtag" class="cook-steps-input-content">해시태그입력</td>
+								<td id="cook-steps-hashtag" class="cook-steps-inner">해시태그입력</td>
 							</tr>
 							<tr>
-								<td id="cook-steps-ingredient-title" class="cook-steps-input-content">재료</td>
+								<td id="cook-steps-ingredient-title" class="cook-steps-inner">재료</td>
 							</tr>
 							<tr>
-								<td id="cook-steps-ingredient-content" class="cook-steps-input-content">
+								<td id="cook-steps-ingredient-content" class="cook-steps-inner">
 									<div>재료영역1</div>
 									<div>재료영역2</div>
 								</td>
@@ -402,6 +426,44 @@
 						</table>
 					</div>
 
+
+					<script>
+
+
+						$(function(){
+							const textArea = $('#cook-steps-title > textarea');
+							textArea.keyup(function(){
+								var textAreaBytes = 0;
+								if(textAreaBytes <= 60) {
+									var patternBlank = /[\s]/;
+									var patternOne = /[\w!@#$%^&*()_+-=]/;
+
+									for(let i = 0; i < textArea.val().length; i++){
+										if(patternBlank.test(textArea.val())) {
+											textArea.val().replace(patternBlank, ' ');
+											textAreaBytes++;
+										}
+										else if(patternOne.test(textArea.val())){
+											textAreaBytes++;
+										}
+										else {
+											textAreaBytes += 3;
+										}
+										$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
+									}
+								} else {
+									alert('더 이상 입력할 수 없습니다.');
+								}
+							})
+						})
+						
+
+
+
+					
+
+
+					</script>
 
 
 					

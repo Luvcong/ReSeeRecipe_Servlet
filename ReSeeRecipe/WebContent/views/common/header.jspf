@@ -30,8 +30,8 @@
 	/*****************************************/
 	/* header 스타일 */
 	div {
-		border: 1px solid black;
 		box-sizing: border-box;
+		border: 1px solid black;
 	}
 	
 	#wrap_header {
