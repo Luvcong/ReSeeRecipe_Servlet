@@ -213,7 +213,7 @@
 	}
 
 	/* 내부 상단 div 우측 입력 영역 */
-	#cook-steps-basic-info table {
+	#cook-steps-basic-info .cook-steps-input-content > div {
 		width: 100%;
 		height: 100%;
 	}
@@ -222,6 +222,7 @@
 		width: 100%;
 	}
 
+	/* 제목 */
 	#cook-steps-title {
 		height: 20%;
 	}
@@ -237,21 +238,30 @@
 	#cook-steps-title > textarea::placeholder {
 		padding-top: 15px;
 	}
-
+	
+	/* 셰프이름 */
 	#cook-steps-chef {
 		height: 10%;
 	}
 
+	/* 해시태그 */
 	#cook-steps-hashtag {
 		height: 15%;
 	}
 
+	/* 재료 */
 	#cook-steps-ingredient-title {
 		height: 10%;
 	}
 
+	/* 재료 입력 */
 	#cook-steps-ingredient-content {
 		height: 45%;
+	}
+
+	#cook-steps-ingredient-content div {
+		width: 100%;
+		height: 30%;
 	}
 
 
@@ -405,6 +415,31 @@
 						<img src="d" alt="">dddddddddd
 					</div>
 					<div class="cook-steps-input-content">
+						<div>
+							<div id="cook-steps-title" class="cook-steps-inner">
+								<div><textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea></div>
+								<span>0</span><span>/60 bytes</span>
+							</div>
+							<div id="cook-steps-chef" class="cook-steps-inner">
+								김xx셰프
+							</div>
+							<div id="cook-steps-hashtag" class="cook-steps-inner">
+								해시태그입력
+							</div>
+							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
+								재료
+							</div>
+							<div>
+								<div>
+									<input type="text">
+								</div>
+								<div id="cook-steps-ingredient-content" class="cook-steps-inner">
+									재료영역2
+								</div>
+							</div>
+						</div>
+					</div>
+						<!--
 						<table>
 							<tr>
 								<td id="cook-steps-title" class="cook-steps-inner">
@@ -423,12 +458,15 @@
 							</tr>
 							<tr>
 								<td id="cook-steps-ingredient-content" class="cook-steps-inner">
-									<div>재료영역1</div>
+									<div>
+										<input type="text">
+									</div>
 									<div>재료영역2</div>
 								</td>
 							</tr>
 						</table>
 					</div>
+					-->
 					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
 
@@ -446,24 +484,25 @@
 							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
 							
 							for(let i = 0; i < textArea.length; i++){
-								
-								textAreaBytesBefore = textAreaBytes;
-								if(patternKor.test(textArea.charAt(i))) {
-									textAreaBytes += 3;
+								if(textAreaBytes <= 60) {
+									textAreaBytesBefore = textAreaBytes;
+									if(patternKor.test(textArea.charAt(i))) {
+										textAreaBytes += 3;
+									}
+									else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+										textArea.replace(patternBlank, ' '); // 엔터, 탭 등 모두 한칸 스페이스로 변경
+										textAreaBytes++;
+									}
+									else {
+										textAreaBytes += 3;
+									}
+									$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
 								}
-								else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-									textArea.replace(patternBlank, ' '); // 엔터, 탭 등 모두 한칸 스페이스로 변경
-									textAreaBytes++;
-								}
-								else {
-									textAreaBytes += 3;
-								}
-								$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
-								
 								if(60 < textAreaBytes) {
 									$(this).val($(this).val().substring(0, i));
 									$('#cook-steps-title').children('span').eq(0).text(textAreaBytesBefore);
-									alert('더 이상 입력할 수 없습니다!')
+									alert('더 이상 입력할 수 없습니다!');
+									return false;
 								}
 							}
 						})
