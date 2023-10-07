@@ -404,7 +404,7 @@
 						<table>
 							<tr>
 								<td id="cook-steps-title" class="cook-steps-inner">
-									<textarea name="title" cols="10" rows="2" maxlength="20" placeholder="레시피 제목을 입력하세요" required></textarea>
+									<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
 									<span>abdc</span><span>/60 bytes</span>
 								</td>
 							</tr>
@@ -427,48 +427,40 @@
 					</div>
 
 
-					<script>
-
-
-						$(function(){
-							const textArea = $('#cook-steps-title > textarea');
-							textArea.keyup(function(){
-								var textAreaBytes = 0;
-								if(textAreaBytes <= 60) {
-									var patternBlank = /[\s]/;
-									var patternOne = /[\w!@#$%^&*()_+-=]/;
-
-									for(let i = 0; i < textArea.val().length; i++){
-										if(patternBlank.test(textArea.val())) {
-											textArea.val().replace(patternBlank, ' ');
-											textAreaBytes++;
-										}
-										else if(patternOne.test(textArea.val())){
-											textAreaBytes++;
-										}
-										else {
-											textAreaBytes += 3;
-										}
-										$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
-									}
-								} else {
-									alert('더 이상 입력할 수 없습니다.');
-								}
-							})
-						})
-						
-
-
-
-					
-
-
-					</script>
 
 
 					
 					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
+				<script>
+					$(function(){
+						const textArea = $('#cook-steps-title > textarea');
+						
+						textArea.keyup(function(){
+							var textAreaBytes = 0;
+							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
+							var patternBlank = /[\s]/m;
+							var patternOne = /[\w!@#$%^&*()_+-=]/m;
+
+							for(let i = 0; i < textArea.val().length; i++){
+								if(patternKor.test(textArea.val().charAt(i))) {
+									console.log('aaaaaa')
+									textAreaBytes += 3;
+								}
+								else if(patternBlank.test(textArea.val().charAt(i)) || patternOne.test(textArea.val().charAt(i))) {
+									textArea.val().replace(patternBlank, ' ');
+									textAreaBytes++;
+									console.log('bbbbbb');
+								} else {
+									textAreaBytes += 3;
+								}
+								console.log(textAreaBytes);
+								$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
+							}
+							
+						})
+					})
+				</script>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cook-steps-instruction">
