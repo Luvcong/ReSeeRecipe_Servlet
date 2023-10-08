@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.MemberUpdate;
 
 /**
  * Servlet implementation class MemberUpdateManagerController
@@ -49,9 +50,11 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
 		m.setMemGradeName(memGradename);
-		m.setMemUpdateWhyCon(memUpdateWhyCon);
+		//m.setMemUpdateWhyCon(memUpdateWhyCon);
 		
 		// VO 가공  Member Update 생성(?)
+		MemberUpdate mu = new MemberUpdate();
+		
 		
 		// 4) 서비스 요청
 		int result = new MemberService().updateMemInfo(m);
