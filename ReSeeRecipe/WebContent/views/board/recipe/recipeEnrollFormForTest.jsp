@@ -611,44 +611,49 @@
 					$(function(){
 
 						$('#cook-steps-title textarea').keyup(function(e){
-							
 							var textAreaBytes = 0;
 							var textArea = $(this).val();
+							var numberingSpan = $('#cook-steps-title').find('span').eq(0);
 
 							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
 							var patternBlank = /[\s]/m;
 							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
 							
-							for(let i = 0; i < textArea.length; i++){
-								console.log('d');
-								if(textAreaBytes <= 60) {
-									textAreaBytesBefore = textAreaBytes;
-									if(patternKor.test(textArea.charAt(i))) {
-										textAreaBytes += 3;
-									}
-									else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-										if(e.key == 'Enter') {
-											textAreaBytes += 2;
+							if(textArea.length != 0){
+								for(let i = 0; i < textArea.length; i++){
+									console.log('d');
+									if(textAreaBytes <= 60) {
+										textAreaBytesBefore = textAreaBytes;
+										if(patternKor.test(textArea.charAt(i))) {
+											textAreaBytes += 3;
+										}
+										else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+											if(e.key == 'Enter') {
+												textAreaBytes += 2;
+											}
+											else {
+												textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
+												textAreaBytes++;
+											}
 										}
 										else {
-											textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
-											textAreaBytes++;
+											textAreaBytes += 3;
 										}
+										numberingSpan.text(textAreaBytes);
 									}
-									else {
-										textAreaBytes += 3;
+									if(60 < textAreaBytes) { // if처리
+										$(this).val(textArea.substring(0, i));
+										numberingSpan.text(textAreaBytesBefore);
+										alert('더 이상 입력할 수 없습니다!');
+										return false;
 									}
-									$('#cook-steps-title').find('span').eq(0).text(textAreaBytes);
-								}
-								if(60 < textAreaBytes) {
-									$(this).val($(this).val().substring(0, i));
-									$('#cook-steps-title').find('span').eq(0).text(textAreaBytesBefore);
-									alert('더 이상 입력할 수 없습니다!');
-									return false;
 								}
 							}
-						})
-					})
+							else {
+								numberingSpan.text(0);
+							}
+						});
+					});
 					
 				</script>
 
