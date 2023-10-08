@@ -265,7 +265,8 @@
 
 	#cook-steps-chef > p {
 		margin: 0px;
-		font-size: 25px;
+		margin-top: 5px;
+		font-size: 20px;
 		font-weight: 1000;
 		color: rgb(122, 113, 107);
 	}
@@ -289,16 +290,26 @@
 		height: 10%;
 	}
 
-	#cook-steps-ingredient-title div {
-		display: inline-block;
+	#cook-steps-ingredient-title > label {
+		margin: 0px;
+		font-size: 25px;
+		font-weight: 1000;
+		color: rgb(122, 113, 107);
+		position: absolute;
+		top: 295px;
+		right: 250px;
 	}
-	
-	#cook-steps-ingredient-title > div > button {
+
+	#cook-steps-ingredient-title > button {
+		font-size: 50px;
+		padding: 0px;
 		appearance: none;
 		border: none;
 		background-color: transparent;
-		font-size: 30px;
 		color: rgb(58, 98, 246);
+		position: absolute;
+		top: 290px;
+		right: 185px;
 	}
 
 
@@ -479,9 +490,8 @@
 								<button type="button" class="btn btn-info">해시태그입력</button>
 							</div>
 							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-								<div><p>재료</p></div>
-								<div><button type="button" class="fa fa-plus-square"></button></div>
-								
+								<label for="ingredient-title-btn">재료</label>
+								<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button></>
 							</div>
 							<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 								<div>
