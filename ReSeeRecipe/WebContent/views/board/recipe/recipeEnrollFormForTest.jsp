@@ -261,7 +261,13 @@
 	/* 셰프이름 */
 	#cook-steps-chef {
 		height: 7%;
-		
+	}
+
+	#cook-steps-chef > p {
+		margin: 0px;
+		font-size: 25px;
+		font-weight: 1000;
+		color: rgb(122, 113, 107);
 	}
 
 	/* 해시태그 */
@@ -269,12 +275,34 @@
 		height: 8%;
 	}
 
-	/* 재료 */
+	#cook-steps-hashtag > button {
+		width: 90%;
+		height: 83%;
+		border-radius: 50px;
+		border-color: rgb(255, 145, 77);
+		margin-top : 4px;
+	
+	}
+
+	/* 재료 제목 */
 	#cook-steps-ingredient-title {
 		height: 10%;
 	}
 
-	/* 재료 입력 */
+	#cook-steps-ingredient-title div {
+		display: inline-block;
+	}
+	
+	#cook-steps-ingredient-title > div > button {
+		appearance: none;
+		border: none;
+		background-color: transparent;
+		font-size: 30px;
+		color: rgb(58, 98, 246);
+	}
+
+
+	/* 재료 콘텐트 */
 	#cook-steps-ingredient-content {
 		height: 45%;
 	}
@@ -283,6 +311,7 @@
 		width: 100%;
 		height: 30%;
 	}
+	
 
 
 
@@ -415,10 +444,8 @@
 	
 							<div class="modal-content"></div>
 							<div class="modal-footer">
-								<button type="button" id="unrecipe-del-enrolling-btn"
-									class="btn btn-primary">글작성</button>
-								<button type="button" class="btn btn-danger"
-									data-dismiss="modal">Close</button>
+								<button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
@@ -449,11 +476,11 @@
 								<p>김xx셰프</p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<button type="button">해시태그입력</button>
+								<button type="button" class="btn btn-info">해시태그입력</button>
 							</div>
 							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
 								<div><p>재료</p></div>
-								<div><button type="button">+</button></div>
+								<div><button type="button" class="fa fa-plus-square"></button></div>
 								
 							</div>
 							<div id="cook-steps-ingredient-content" class="cook-steps-inner">
@@ -624,7 +651,7 @@
 						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
 					</div>
 					<div>
-						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();">초기화</button>
+						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
 					</div>
 				</div>
 
