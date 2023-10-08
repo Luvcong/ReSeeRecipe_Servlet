@@ -11,7 +11,7 @@ import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe;
+import com.kh.semi.board.un_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
