@@ -35,7 +35,7 @@
 
 	/* 전체 div wrap */
 	#recipe-enroll-form-wrap {
-		width: 1000px;
+		width: 900px;
 		box-sizing: border-box;
 		margin: auto;
 	}
@@ -51,9 +51,11 @@
 	/* > > 상단바wrap div 세팅 */
 	#recipe-enroll-top-bar-wrap {
 		width: 100%;
-		height: 70px;
+		height: 100px;
 		margin: auto;
 		box-sizing: border-box;
+		/*지울부분*/
+		background-color: aqua;
 	}
 
 	/* > >... 상단바 내부 div요소 default 세팅 */
@@ -99,7 +101,7 @@
 	#recipe-enroll-bar-img > i {
 		font-size: 45px;
 		color: rgb(255, 145, 77);
-		padding: 10px 30px 10px 30px;
+		padding: 25px 30px 25px 30px;
 	}
 
 	/* 2. 카테고리 메뉴 세팅 */
@@ -252,7 +254,7 @@
 	#cook-steps-title > #title-bytes-span {
 		display: inline-block;
 		font-size: 2px;
-		z-index: 2;
+		z-index: 1;
 		position: absolute;
 		top: 145px;
 		right: 23px;
@@ -268,54 +270,91 @@
 		margin-top: 5px;
 		font-size: 20px;
 		font-weight: 1000;
-		color: rgb(122, 113, 107);
+		color: rgb(132, 137, 143);
 	}
 
 	/* 해시태그 */
 	#cook-steps-hashtag {
-		height: 8%;
+		height: 10%;
 	}
 
 	#cook-steps-hashtag > button {
 		width: 90%;
-		height: 83%;
+		height: 75%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
-		margin-top : 4px;
+		margin-top : 7px;
 	
 	}
 
 	/* 재료 제목 */
 	#cook-steps-ingredient-title {
-		height: 10%;
+		height: 13%;
 	}
 
-	#cook-steps-ingredient-title > label {
+	#cook-steps-ingredient-title > div {
+		height: 100%;
+		float: left;
+	}
+
+	#ingredient-title-div1 {
+		width: 65%;
+	}
+
+	#ingredient-title-div2 {
+		width: 35%;
+		text-align: left;
+		padding-top: 28px;
+		padding-left: 7px;
+	}
+
+
+	#ingredient-add-msg-div {
+		display: inline-block;
+		position: absolute;
+		top: 310px;
+		right: 185px;
+	}
+
+	#ingredient-add-msg-div label {
 		margin: 0px;
+		margin-top: 2px;
+		margin-right: 5px;
 		font-size: 25px;
 		font-weight: 1000;
-		color: rgb(122, 113, 107);
-		position: absolute;
-		top: 295px;
-		right: 250px;
+		color: rgb(132, 137, 143);
+		display: inline-block;
 	}
-
-	#cook-steps-ingredient-title > button {
-		font-size: 50px;
+	
+	#ingredient-add-msg-div button {
+		font-size: 40px;
 		padding: 0px;
 		appearance: none;
 		border: none;
 		background-color: transparent;
-		color: rgb(58, 98, 246);
-		position: absolute;
-		top: 290px;
-		right: 185px;
+		color: rgb(89, 164, 255);
+		float: right;
+	}
+	
+	#ingredient-add-msg-div label:hover {
+		cursor: pointer;
+	}
+	
+	#ingredient-title-div1 button:hover {
+		color: rgb(59, 134, 225);
+	}
+	
+
+	#ingredient-title-div2 > p {
+		margin-bottom: 0px;
+		font-size: 1px;
+		color: rgb(142, 147, 153);
 	}
 
 
 	/* 재료 콘텐트 */
 	#cook-steps-ingredient-content {
-		height: 45%;
+		height: 50%;
 	}
 
 	#cook-steps-ingredient-content div {
@@ -342,8 +381,8 @@
 		
 
 	/**********지울부분***************************************/
-	div {
-	
+	#recipe-enroll-form-wrap div {
+		border: none;
 	}
 	table td { border: 1px solid black }
 	
@@ -353,6 +392,9 @@
 <body>
 
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
+	
+	
+	
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
 		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
@@ -490,8 +532,15 @@
 								<button type="button" class="btn btn-info">해시태그입력</button>
 							</div>
 							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-								<label for="ingredient-title-btn">재료</label>
-								<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button></>
+								<div id="ingredient-title-div1">
+									<div id="ingredient-add-msg-div">
+										<label for="ingredient-title-btn">재료추가</label>
+										<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
+									</div>
+								</div>
+								<div id="ingredient-title-div2">
+									<p>dd개까지 입력 가능</p>
+								</div>
 							</div>
 							<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 								<div>
@@ -709,6 +758,12 @@
 
 		})
 	</script>
-
+	<script>
+		$(function(){
+			$('#ingredient-title-btn').click(function(){
+				alert('a');
+			})
+		})
+	</script>
 </body>
 </html>

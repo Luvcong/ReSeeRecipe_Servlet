@@ -10,7 +10,7 @@
     /*****************************************************/
     /* 전체 래핑 div 세팅 */
     #recipe-category-wrap {
-        width: 1000px;
+        width: 900px;
         margin: auto;
         text-align: center;
         box-sizing: border-box;
@@ -19,7 +19,7 @@
     /* 테이블영역 div 세팅 */
     #category-toggle-menu{
         width: 100%;
-		height: 150px;
+		height: 120px;
     }
     
     /* 더보기 영역 div 세팅 */
@@ -91,7 +91,7 @@
                 </table>
             </div>
             <div id="category-toggle-msg">
-                <h3>접기</h3>
+                <h3>카테고리 접기</h3>
             </div>
         </div>
 
@@ -99,14 +99,15 @@
         <script>
             $(function(){
                 $('#category-toggle-msg > h3').click(function(){
-                    if($(this).text() == '접기') {
-                        $(this).text('더보기');
+                    if($(this).text() == '카테고리 접기') {
+                        $(this).text('카테고리 더보기');
                     }
                     else {
-                        $(this).text('접기');
+                        $(this).text('카테고리 접기');
                     }
                     $('#category-toggle-menu').slideToggle();
-                })
+                });
+
             });
         </script>
 

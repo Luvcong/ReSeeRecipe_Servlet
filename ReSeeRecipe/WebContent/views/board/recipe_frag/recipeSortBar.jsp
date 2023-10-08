@@ -29,7 +29,7 @@
 <style>
 	/* 기본 아우터 div 세팅 */
 	#recipe-sort-bar-wrap {
-		width: 1000px;
+		width: 900px;
 		height: 50px;
 		margin: auto;
 		box-sizing: border-box;
