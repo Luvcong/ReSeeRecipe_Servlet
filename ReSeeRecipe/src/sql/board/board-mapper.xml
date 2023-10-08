@@ -66,6 +66,8 @@
 		 	   RNUM BETWEEN ? AND ?
 	</entry>
 	
+	
+	<!-- 레시피 카테고리 추가 SQL문 -->
 	<entry key="insertCategory">
 		INSERT
 		  INTO
@@ -77,7 +79,23 @@
 		 		)
 	</entry>
 	
-	
+	<!-- 관리자 카테고리 리스트 화면 SQL문 -->
+	<entry key="selectCategoryListManager">
+	SELECT  RC.RECIPE_CATEGORY_NO, 
+	        RC.RECIPE_CATEGORY_NAME, 
+	        R.CNT
+	  FROM
+	        (
+	        SELECT RECIPE_CATEGORY_NO AS CNO, 
+	        COUNT(*) AS CNT
+	        FROM TB_RECIPE
+	        GROUP BY RECIPE_CATEGORY_NO) R, 
+	        TB_RECIPE_CATEGORY RC
+	 WHERE
+	 		R.CNO = RC.RECIPE_CATEGORY_NO
+	 ORDER BY
+	 		RC.RECIPE_CATEGORY_NO ASC;
+	</entry>
 	
 	
 	
