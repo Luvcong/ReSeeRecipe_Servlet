@@ -303,22 +303,20 @@
 	}
 
 	#ingredient-title-div1 {
-		width: 65%;
+		width: 67%;
+		padding-top: 15px;
 	}
 
 	#ingredient-title-div2 {
-		width: 35%;
+		width: 33%;
 		text-align: left;
-		padding-top: 28px;
-		padding-left: 7px;
+		padding-top: 32px;
+		padding-left: 2px;
 	}
 
 
 	#ingredient-add-msg-div {
-		display: inline-block;
-		position: absolute;
-		top: 310px;
-		right: 185px;
+		float: right;
 	}
 
 	#ingredient-add-msg-div label {
@@ -554,25 +552,38 @@
 								</div>
 							</div>
 							<div id="ingredient-title-div2">
-								<p>dd개까지 입력 가능</p>
+								<p>(최대 30개)</p>
 							</div>
 						</div>
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-							<div>
-								<input type="text" placeholder="재료">
+							
+							<div class="input-group" style="width: 100%; height: 50px; margin: 1px;">
+								<div class="input-group-prepend" style="width: 20%; display: inline-block;">
+								  <span class="input-group-text">재료입력</span>
+								</div>
+								<input type="text" class="form-control" placeholder="First Name" style="width: 30%; display: inline-block;">
+								<input type="text" class="form-control" placeholder="Last Name" style="width: 30%; display: inline-block;">
 							</div>
+
+
 							<div>
-								<input type="number" placeholder="숫자" min="0">
+								<span>
+									<input type="text" placeholder="재료" required>
+								</span>
+								<span>
+									<input type="number" placeholder="숫자" min="0">
+								</span>
+								<span>
+									<select name="" id="">
+										<option value="">g</option>
+										<option value="">kg</option>
+										<option value="">cups</option>
+										<option value="">ml</option>
+										<option value="">L</option>
+									</select>
+								</span>
 							</div>
-							<div>
-								<select name="" id="">
-									<option value="">g</option>
-									<option value="">kg</option>
-									<option value="">cups</option>
-									<option value="">ml</option>
-									<option value="">L</option>
-								</select>
-							</div>
+							
 						</div>
 					</div>
 						<!--
