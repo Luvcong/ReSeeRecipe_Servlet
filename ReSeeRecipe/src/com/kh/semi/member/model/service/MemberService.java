@@ -58,4 +58,11 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public Member updateMemInfo(Member m) {
+		
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().updateMemInfo(conn, m);
+	}
 }

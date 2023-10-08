@@ -51,6 +51,8 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemGradeName(memGradename);
 		m.setMemUpdateWhyCon(memUpdateWhyCon);
 		
+		// VO 가공  Member Update 생성(?)
+		
 		// 4) 서비스 요청
 		int result = new MemberService().updateMemInfo(m);
 		
