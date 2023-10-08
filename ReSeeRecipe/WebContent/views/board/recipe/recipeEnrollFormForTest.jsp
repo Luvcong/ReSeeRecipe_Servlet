@@ -35,7 +35,7 @@
 
 	/* 전체 div wrap */
 	#recipe-enroll-form-wrap {
-		width: 1002px;
+		width: 1000px;
 		box-sizing: border-box;
 		margin: auto;
 	}
@@ -72,13 +72,13 @@
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
 		width: 100%;
-		height: 20%;
+		height: 30%;
 	}
 
 	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cook-steps-instruction {
 		width: 100%;
-		height: 75%;
+		height: 65%;
 	}
 
 	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
@@ -227,26 +227,46 @@
 		height: 20%;
 	}
 
-	#cook-steps-title > textarea {
-		width: 465px;
-		height: 60px;
+	#cook-steps-title > #title-text-area-div {
+		width: 100%;
+		height: 100%;
+	}
+
+	#cook-steps-title > div > textarea {
+		width: 470px;
+		height: 90px;
 		resize: none;
 		text-align: center;
 		border-radius: 10px;
-		padding : 2px 70px 2px 70px;
+		padding : 5px 95px 2px 95px;
+		margin: auto;
+		position: absolute;
+		top: 86px;
+		right: 16px;
 	}
-	#cook-steps-title > textarea::placeholder {
+
+	#cook-steps-title > div > textarea::placeholder {
 		padding-top: 15px;
 	}
-	
+
+	#cook-steps-title > #title-bytes-span {
+		display: inline-block;
+		font-size: 2px;
+		z-index: 2;
+		position: absolute;
+		top: 145px;
+		right: 23px;
+	}
+
 	/* 셰프이름 */
 	#cook-steps-chef {
-		height: 10%;
+		height: 7%;
+		
 	}
 
 	/* 해시태그 */
 	#cook-steps-hashtag {
-		height: 15%;
+		height: 8%;
 	}
 
 	/* 재료 */
@@ -417,24 +437,40 @@
 					<div class="cook-steps-input-content">
 						<div>
 							<div id="cook-steps-title" class="cook-steps-inner">
-								<div><textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea></div>
-								<span>0</span><span>/60 bytes</span>
+								<div id="title-text-area-div">
+									<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
+								</div>
+								<div id="title-bytes-span">
+									<span>0</span>
+									<span>/60 bytes</span>
+								</div>
 							</div>
 							<div id="cook-steps-chef" class="cook-steps-inner">
-								김xx셰프
+								<p>김xx셰프</p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								해시태그입력
+								<button type="button">해시태그입력</button>
 							</div>
 							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-								재료
+								<div><p>재료</p></div>
+								<div><button type="button">+</button></div>
+								
 							</div>
-							<div>
+							<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 								<div>
-									<input type="text">
+									<input type="text" placeholder="재료">
 								</div>
-								<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-									재료영역2
+								<div>
+									<input type="number" placeholder="숫자" min="0">
+								</div>
+								<div>
+									<select name="" id="">
+										<option value="">g</option>
+										<option value="">kg</option>
+										<option value="">cups</option>
+										<option value="">ml</option>
+										<option value="">L</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -474,7 +510,7 @@
 				<script>
 					$(function(){
 						
-						$('#cook-steps-title > textarea').keyup(function(){
+						$('#cook-steps-title textarea').keyup(function(){
 							
 							var textAreaBytes = 0;
 							var textArea = $(this).val();
@@ -496,11 +532,11 @@
 									else {
 										textAreaBytes += 3;
 									}
-									$('#cook-steps-title').children('span').eq(0).text(textAreaBytes);
+									$('#cook-steps-title').find('span').eq(0).text(textAreaBytes);
 								}
 								if(60 < textAreaBytes) {
 									$(this).val($(this).val().substring(0, i));
-									$('#cook-steps-title').children('span').eq(0).text(textAreaBytesBefore);
+									$('#cook-steps-title').find('span').eq(0).text(textAreaBytesBefore);
 									alert('더 이상 입력할 수 없습니다!');
 									return false;
 								}
