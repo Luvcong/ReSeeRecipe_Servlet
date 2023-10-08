@@ -555,26 +555,19 @@
 								<p>(최대 30개)</p>
 							</div>
 						</div>
+
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 							
-							<div class="input-group" style="width: 100%; height: 50px; margin: 1px;">
-								<div class="input-group-prepend" style="width: 20%; display: inline-block;">
-								  <span class="input-group-text">재료입력</span>
-								</div>
-								<input type="text" class="form-control" placeholder="First Name" style="width: 30%; display: inline-block;">
-								<input type="text" class="form-control" placeholder="Last Name" style="width: 30%; display: inline-block;">
-							</div>
-
-
-							<div>
-								<span>
-									<input type="text" placeholder="재료" required>
+							<!-- 기본 재료입력칸 -->
+							<div class="input-group ingredient-input-container">
+								<span id="write-ingredient-input1">
+									<input type="text" class="form-control" placeholder="재료입력" style="width: 30%; display: inline-block;">
 								</span>
-								<span>
-									<input type="number" placeholder="숫자" min="0">
+								<span id="amount-ingredient-input1">
+									<input type="number" class="form-control" placeholder="재료량" style="width: 30%; display: inline-block;">
 								</span>
-								<span>
-									<select name="" id="">
+								<span id="measurement-ingredient-input1">
+									<select name="" id="" class="custom-select">
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -582,8 +575,12 @@
 										<option value="">L</option>
 									</select>
 								</span>
+								<span>
+									<button type="button" class="btn btn-danger">-</button>
+								</span>
 							</div>
-							
+
+
 						</div>
 					</div>
 						<!--
@@ -666,6 +663,31 @@
 						});
 					});
 					
+					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 아이디 넘버링은 1, 2, 3. . . 되도록)
+						<div class="input-group ingredient-input-container">
+							<span id="write-ingredient-input0">
+								<input type="text" name="" class="form-control" placeholder="재료입력">
+							</span>
+							<span id="amount-ingredient-input0">
+								<input type="number" class="form-control" placeholder="재료량">
+							</span>
+							<span id="measurement-ingredient-input0">
+								RECIPE_CATEGORY_NO
+								<select name="recipeCategoryNo" id="" class="custom-select">
+									<option value="">g</option>
+									<option value="">kg</option>
+									<option value="">cups</option>
+									<option value="">ml</option>
+									<option value="">L</option>
+								</select>
+							</span>
+							<span>
+								<button id="input-container-del-btn0" type="button" id class="btn btn-danger">-</button>
+							</span>
+						</div>
+					*/
+
+
 				</script>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
