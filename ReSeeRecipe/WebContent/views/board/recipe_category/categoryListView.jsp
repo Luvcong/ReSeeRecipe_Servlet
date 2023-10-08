@@ -64,6 +64,9 @@
     cursor: pointer;
     border: none;
 }
+.searchTable{
+	padding: 0 10px;
+}
 </style>
 
 <!-- sweetalert -->
@@ -80,8 +83,7 @@
             <div class="h-title p-3">   <!-- 패딩 1rem -->
                 [메뉴 관리] 카테고리 관리
             </div>
-            <div >
-            <form method="get" action=""></form>
+            <div class="searchTable">
             	<table>
             		<tr>
             			<td><input type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button type="submit">조회</button></td>
@@ -95,12 +97,12 @@
                 <div >
                     <button onclick="showAddCategorydModal()" class="btn btn-sm btn-warning">카테고리 추가</button>
                     <button class="btn btn-sm btn-warning">카테고리 수정</button>
-                    <button class="btn btn-sm btn-secondary">카테고리 삭제</button>
+                    <button onclick="deleteCategory()" class="btn btn-sm btn-secondary">카테고리 삭제</button>
                 </div>
             </div>
         </div>
         <div class="tableBody">
-            <table id='tb-dm' class="table table-sm table-hover">
+            <table id='tb-category' class="table table-sm table-hover">
                 <thead>
                     <tr>
                         <th data-idx=0><input type="checkbox"></th>
@@ -120,12 +122,12 @@
 	                        <td><input type="checkbox"></td>
 	                        <td><%= recipeCategory.getRecipeCategoryNo() %></td>
 	                        <td><%= recipeCategory.getRecipeCategoryName() %></td>
-	                        <td>120</td>
+	                        <td><%= recipeCategory.getRecipeCategoryCount() %></td>
 	                    </tr>	
 	                    <% } %>
 					<% } %>    
                 </tbody>
-            </table>
+            </table>	<!-- tb-category -->
         </div>	<!-- tableBody  -->
    	</div>  <!-- rs-content -->
    	
@@ -162,6 +164,7 @@
 	</form>
   </div>	<!-- 카테고리 추가 modal -->
   
+  <!-- 카테고리 추가 modal -->
   <script>
   		function showAddCategorydModal(){
   			$('#addCategoryForm').modal('show');
@@ -183,12 +186,78 @@
 		
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
-  </script> 	
-   	
-   	
-   	
-   	
-   	
+  </script>
+  
+  <!-- 카테고리 삭제  -->
+  <script>
+  		function deleteCategory(){
+  			
+  			// 모든 table의 tr요소
+  			let trs = document.querySelectorAll('.table tr');
+  			// console.log(trs);
+  			
+  			let checked_tr = null;
+  			for(let tr of trs){
+  				let input = tr.children[0].children[0];
+  				if(input.checked){
+  					checked_tr = tr;
+  					// console.log(checked_tr);
+  					break;
+  				}
+  			}
+  			
+  			if(checked_tr == null){
+  				swal('실패', '카테고리를 선택해주세요!', 'error');
+  				return;
+  			}
+  			
+			$(function() {
+				swal({
+					title: "카테고리를 삭제하시겠습니까?",
+					text : "※ 삭제 후 복원이 불가합니다",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "삭제",
+					cancelButtonText: "취소",
+				}, function (isConfirm) {
+					if (!isConfirm) return;
+					
+					let table = document.getElementById('tb-category');
+					let trs = table.querySelectorAll('tr');
+					
+					let category_list = [];
+					
+					for(let tr of trs){
+						let input = tr.children[0].children[0];
+						if(input.checked == true){
+							category_list.push(tr.children[1].textContent);	
+						}
+					}
+					
+		 			$.ajax({
+		 				url : 'jhdelete.ct',
+						type : 'get',
+						data : {'categoryNo' : category_list},
+						success : function(result) {
+							//  성공인 경우 [배열로 받음]
+							console.log('성공');
+							for(let tr of trs){
+								let categoryNo = parseInt(tr.children[1].textContent);
+								if(result.includes(categoryNo)){
+									tr.remove();
+								}
+							}
+						},	// success
+						error : function(result){
+							console.log('실패');
+						}	// error
+					});
+		 			
+				});
+			});
+  		};
+  </script>	
    	
    	
 

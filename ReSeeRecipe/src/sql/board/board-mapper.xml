@@ -98,7 +98,10 @@
 		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
 	</entry>
 
-
+	<!-- 카테고리 삭제 SQL문 -->
+	<entry key="deleteCategory">
+	
+	</entry>
 
 
 

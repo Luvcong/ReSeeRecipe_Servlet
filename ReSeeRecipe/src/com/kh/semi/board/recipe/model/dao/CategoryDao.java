@@ -42,7 +42,7 @@ public class CategoryDao {
 		ArrayList<RecipeCategory> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectRecipeCategoryList");
+		String sql = prop.getProperty("selectCategoryListManager");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -54,6 +54,7 @@ public class CategoryDao {
 				
 				recipeCategory.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
 				recipeCategory.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
+				recipeCategory.setRecipeCategoryCount(rset.getInt("RECIPE_CATEGORY_CNT"));
 				
 				list.add(recipeCategory);
 			}
@@ -103,6 +104,23 @@ public class CategoryDao {
 	}	// insertCategory
 	
 	
+	
+	public int deleteCategory(Connection conn, int categoryNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
+	}	// deleteCategory
 	
 	
 	
