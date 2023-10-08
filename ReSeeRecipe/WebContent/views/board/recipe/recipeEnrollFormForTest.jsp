@@ -79,7 +79,7 @@
 	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cook-steps-instruction {
 		width: 100%;
-		height: 65%;
+		height: 63%;
 	}
 
 	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
@@ -94,8 +94,8 @@
 	**********************************************************/
 	/* 1. 아이콘 이미지 세팅 */
 	#recipe-enroll-bar-img {
-		width: 7%;
-		padding: 18px 0px 0px 20px;
+		width: 10%;
+		padding: 18px 0px 0px 30px;
 	}
 
 	#recipe-enroll-bar-img > i {
@@ -105,41 +105,30 @@
 
 	/* 2. 카테고리 메뉴 세팅 */
 	#recipe-enroll-bar-menu {
-		width: 80%;
-	}
-
-	/* 카테고리 글씨 부분 */
-	#recipe-enroll-bar-inner1 {
-		width: 15%;
-		height: 100%;
-		text-align: center;
-		padding-top : 23px;
-	}
-	
-	#recipe-enroll-bar-inner1 > h3 {
-		margin: 0px;
-		font-size: 27px;
-		box-sizing: border-box;
+		width: 75%;
 	}
 
 	/* select요소 */
-	#recipe-enroll-bar-inner2 {
-		width: 75%;
+	#recipe-enroll-bar-inner {
+		width: 45%;
 		position: relative;
 	}
 	
 	#recipe-enroll-bar-menu select {
-		width: 40%;
-		height: 70%;
+		width: 90%;
+		height: 60%;
 		text-align: center;
 		position: absolute;
-		top: 10px;
-		left: 10px;
+		top: 16px;
+	}
+
+	#enroll-bar-inner-blank1 {
+		width: 55%;
 	}
 
 	/* 3. 임시저장 버튼 세팅 */
 	#unrecipe-modal-request-div {
-		width:10%;
+		width:15%;
 	}
 
 	#unrecipe-modal-request-div > button {
@@ -207,26 +196,67 @@
 		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
 	**********************************************************/
 	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	#cook-steps-basic-info .cook-steps-input-content {
-		width: 50%;
-		height: 100%;
-		float: left;
-		text-align: center;
+	/* 여백 영역 */
+	#enroll-form-blank1 {
+		width: 100%;
+		height: 2%;
 	}
 
-	/* 내부 상단 div 우측 입력 영역 */
-	#cook-steps-basic-info .cook-steps-input-content > div {
-		width: 100%;
-		height: 100%;
+	/* 좌우 큰 div */
+	#cook-steps-basic-info .cook-steps-input-content {
+		width: 50%;
+		height: 98%;
+		float: left;
+		text-align: center;
 	}
 	
 	#cook-steps-basic-info .cook-steps-inner {
 		width: 100%;
 	}
 
+	/* --- 좌측 --- */
+	/* 썸네일 div */
+	#content-thumbnail-image {
+		width: 100%;
+		height: 76%;
+	}
+
+	/* 셰프이름 + 해시태그 div */
+	#content-writer-hashtag {
+		width: 100%;
+		height: 24%;
+	}
+
+	/* 셰프이름 */
+	#cook-steps-chef {
+		height: 40%;
+	}
+
+	#cook-steps-chef > p {
+		margin: 0px;
+		margin-top: 12px;
+		font-size: 20px;
+		font-weight: 1000;
+		color: rgb(132, 137, 143);
+	}
+
+	/* 해시태그 */
+	#cook-steps-hashtag {
+		height: 60%;
+	}
+
+	#cook-steps-hashtag > button {
+		width: 90%;
+		height: 70%;
+		border-radius: 50px;
+		border-color: rgb(255, 145, 77);
+		margin-top : 12px;
+	
+	}
+	/* --- 우측 --- */
 	/* 제목 */
 	#cook-steps-title {
-		height: 20%;
+		height: 24%;
 	}
 
 	#cook-steps-title > #title-text-area-div {
@@ -235,20 +265,21 @@
 	}
 
 	#cook-steps-title > div > textarea {
-		width: 470px;
-		height: 90px;
+		width: 420px;
+		height: 105px;
 		resize: none;
 		text-align: center;
 		border-radius: 10px;
-		padding : 5px 95px 2px 95px;
+		padding : 10px 120px 10px 50px;
 		margin: auto;
 		position: absolute;
-		top: 86px;
-		right: 16px;
+		top: 112px;
+		right: 15px;
 	}
 
 	#cook-steps-title > div > textarea::placeholder {
-		padding-top: 15px;
+		padding-top: 30px;
+		text-align: center;
 	}
 
 	#cook-steps-title > #title-bytes-span {
@@ -256,36 +287,10 @@
 		font-size: 2px;
 		z-index: 1;
 		position: absolute;
-		top: 145px;
-		right: 23px;
+		top: 182px;
+		right: 26px;
 	}
 
-	/* 셰프이름 */
-	#cook-steps-chef {
-		height: 7%;
-	}
-
-	#cook-steps-chef > p {
-		margin: 0px;
-		margin-top: 5px;
-		font-size: 20px;
-		font-weight: 1000;
-		color: rgb(132, 137, 143);
-	}
-
-	/* 해시태그 */
-	#cook-steps-hashtag {
-		height: 10%;
-	}
-
-	#cook-steps-hashtag > button {
-		width: 90%;
-		height: 75%;
-		border-radius: 50px;
-		border-color: rgb(255, 145, 77);
-		margin-top : 7px;
-	
-	}
 
 	/* 재료 제목 */
 	#cook-steps-ingredient-title {
@@ -354,7 +359,7 @@
 
 	/* 재료 콘텐트 */
 	#cook-steps-ingredient-content {
-		height: 50%;
+		height: 67%;
 	}
 
 	#cook-steps-ingredient-content div {
@@ -381,11 +386,9 @@
 		
 
 	/**********지울부분***************************************/
-	#recipe-enroll-form-wrap div {
-		border: none;
-	}
 	table td { border: 1px solid black }
-	
+
+
 </style>
 
 </head>
@@ -420,7 +423,7 @@
 	<!--<--%= contextPath %>/insertRecipe.re-->
 
 	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
-
+		
 		<!-- 글작성 전체 form / 요청 시점 memNo같이넘김 -->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memNo" value="2">
@@ -432,21 +435,19 @@
 					<i class='fas fa-align-left'></i>
 				</div>
 				<div id="recipe-enroll-bar-menu">
-					<div id="recipe-enroll-bar-inner1">
-						<h3>카테고리 선택</h3>
-					</div>
-					<div id="recipe-enroll-bar-inner2">
+					<div id="recipe-enroll-bar-inner">
 						<select name="recipeCategoryNo">
-								<option value="한식">한식
-								<option value="양식">양식
-								<option value="중식">중식
-								<option value="일식">일식
-								<option value="아시안">아시안
-								<option value="야식">야식
-								<option value="디저트">디저트
-								<option value="음료">음료
+								<option	value="한식">한식</option>
+								<option value="양식">양식</option>
+								<option value="중식">중식</option>
+								<option value="일식">일식</option>
+								<option value="아시안">아시안</option>
+								<option value="야식">야식</option>
+								<option value="디저트">디저트</option>
+								<option value="음료">음료</option>
 						</select>
 					</div>
+					<div id="enroll-bar-inner-blank1"></div>
 				</div>
 
 				<!-- 임시저장 아이콘 (클릭 시 모달 호출) -->
@@ -514,59 +515,63 @@
 				</div>
 			</div><!-- 입력양식 상단 바 영역 끝 -->
 
-
+			
 			<!--------------------------------------------------------------->
 			<!-- 레시피 글 작성 내용 영역 -->
 			<div id="recipe-enroll-context-wrap">
+				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info">
+					<div id="enroll-form-blank1"></div>
 					<div class="cook-steps-input-content">
-						<img src="d" alt="">dddddddddd
-					</div>
-					<div class="cook-steps-input-content">
-						<div>
-							<div id="cook-steps-title" class="cook-steps-inner">
-								<div id="title-text-area-div">
-									<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
-								</div>
-								<div id="title-bytes-span">
-									<span>0</span>
-									<span>/60 bytes</span>
-								</div>
-							</div>
+						<div id="content-writer-hashtag">
 							<div id="cook-steps-chef" class="cook-steps-inner">
 								<p>김xx셰프</p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
 								<button type="button" class="btn btn-info">해시태그입력</button>
 							</div>
-							<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-								<div id="ingredient-title-div1">
-									<div id="ingredient-add-msg-div">
-										<label for="ingredient-title-btn">재료추가</label>
-										<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
-									</div>
-								</div>
-								<div id="ingredient-title-div2">
-									<p>dd개까지 입력 가능</p>
+						</div>
+						<div id="content-thumbnail-image">
+							<img src="d" alt="">dddddddddd
+						</div>
+					</div>
+					<div class="cook-steps-input-content">
+						<div id="cook-steps-title" class="cook-steps-inner">
+							<div id="title-text-area-div">
+								<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
+							</div>
+							<div id="title-bytes-span">
+								<span>0</span>
+								<span>/60 bytes</span>
+							</div>
+						</div>
+						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
+							<div id="ingredient-title-div1">
+								<div id="ingredient-add-msg-div">
+									<label for="ingredient-title-btn">재료추가</label>
+									<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
 								</div>
 							</div>
-							<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-								<div>
-									<input type="text" placeholder="재료">
-								</div>
-								<div>
-									<input type="number" placeholder="숫자" min="0">
-								</div>
-								<div>
-									<select name="" id="">
-										<option value="">g</option>
-										<option value="">kg</option>
-										<option value="">cups</option>
-										<option value="">ml</option>
-										<option value="">L</option>
-									</select>
-								</div>
+							<div id="ingredient-title-div2">
+								<p>dd개까지 입력 가능</p>
+							</div>
+						</div>
+						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
+							<div>
+								<input type="text" placeholder="재료">
+							</div>
+							<div>
+								<input type="number" placeholder="숫자" min="0">
+							</div>
+							<div>
+								<select name="" id="">
+									<option value="">g</option>
+									<option value="">kg</option>
+									<option value="">cups</option>
+									<option value="">ml</option>
+									<option value="">L</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -604,8 +609,8 @@
 				<!-- 타이틀 글자수 바이트 수 세기 -->
 				<script>
 					$(function(){
-						
-						$('#cook-steps-title textarea').keyup(function(){
+
+						$('#cook-steps-title textarea').keyup(function(e){
 							
 							var textAreaBytes = 0;
 							var textArea = $(this).val();
@@ -615,14 +620,20 @@
 							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
 							
 							for(let i = 0; i < textArea.length; i++){
+								console.log('d');
 								if(textAreaBytes <= 60) {
 									textAreaBytesBefore = textAreaBytes;
 									if(patternKor.test(textArea.charAt(i))) {
 										textAreaBytes += 3;
 									}
 									else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-										textArea.replace(patternBlank, ' '); // 엔터, 탭 등 모두 한칸 스페이스로 변경
-										textAreaBytes++;
+										if(e.key == 'Enter') {
+											textAreaBytes += 2;
+										}
+										else {
+											textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
+											textAreaBytes++;
+										}
 									}
 									else {
 										textAreaBytes += 3;
@@ -638,6 +649,7 @@
 							}
 						})
 					})
+					
 				</script>
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
@@ -771,7 +783,7 @@
 	<script>
 		$(function(){
 			$('#ingredient-title-btn').click(function(){
-				alert('a');
+				alert('재료추가');
 			})
 		});
 	</script>
