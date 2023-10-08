@@ -64,5 +64,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().updateMemInfo(conn, m);
+		
+		
 	}
 }
