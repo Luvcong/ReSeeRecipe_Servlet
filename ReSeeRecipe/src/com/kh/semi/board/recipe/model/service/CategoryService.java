@@ -62,5 +62,29 @@ public class CategoryService {
 	
 	
 	
+	/**
+	 * 카테고리 삭제를 요청하는 method
+	 * @param categoryNo 카테고리 SEQ_NO
+	 * @return 카테고리 삭제 성공여부
+	 * @author JH
+	 * @Date : 2023. 10. 9.
+	 */
+	public int deleteCategory(int categoryNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = categoryDao.deleteCategory(conn, categoryNo);
+		
+		if(result > 0) commit(conn);
+		
+		rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}	// deleteCategory
+	
+	
+	
 
 }	// end class
