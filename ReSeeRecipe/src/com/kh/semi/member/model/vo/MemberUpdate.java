@@ -1,16 +1,16 @@
 package com.kh.semi.member.model.vo;
 
-public class MemerUpdate {
+public class MemberUpdate {
 	
 	private int memUpdateNo; //MEM_UPDATE_NO	NUMBER 회원업데이트PK
 	private int memNo; //MEM_NO	NUMBER 회원번호
 	private String memUpdateCon; //MEM_UPDATE_CON	VARCHAR2(300 BYTE) 회원정보업데이트사유
 	private String memUpdateStatus; //MEM_UPDATE_STATUS	VARCHAR2(1 BYTE) 회원정보업데이트상태
 	
-	public MemerUpdate() {
+	public MemberUpdate() {
 		super();
 	}
-	public MemerUpdate(int memUpdateNo, int memNo, String memUpdateCon, String memUpdateStatus) {
+	public MemberUpdate(int memUpdateNo, int memNo, String memUpdateCon, String memUpdateStatus) {
 		super();
 		this.memUpdateNo = memUpdateNo;
 		this.memNo = memNo;
