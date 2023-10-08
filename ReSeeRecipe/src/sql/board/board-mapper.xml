@@ -81,26 +81,27 @@
 	
 	<!-- 관리자 카테고리 리스트 화면 SQL문 -->
 	<entry key="selectCategoryListManager">
-	SELECT  RC.RECIPE_CATEGORY_NO, 
-	        RC.RECIPE_CATEGORY_NAME, 
-	        R.CNT
-	  FROM
-	        (
-	        SELECT RECIPE_CATEGORY_NO AS CNO, 
-	        COUNT(*) AS CNT
-	        FROM TB_RECIPE
-	        GROUP BY RECIPE_CATEGORY_NO) R, 
-	        TB_RECIPE_CATEGORY RC
-	 WHERE
-	 		R.CNO = RC.RECIPE_CATEGORY_NO
-	 ORDER BY
-	 		RC.RECIPE_CATEGORY_NO ASC;
+		SELECT 
+		       RC.RECIPE_CATEGORY_NO,
+		       RC.RECIPE_CATEGORY_NAME,
+		       NVL(CTGR_CNT.CNT, 0) AS RECIPE_CATEGORY_CNT
+		  FROM 
+		       TB_RECIPE_CATEGORY RC
+		  LEFT OUTER JOIN
+						(SELECT
+		                        RECIPE_CATEGORY_NO, COUNT(*) CNT
+		                  FROM 
+		                        TB_RECIPE
+		              GROUP BY
+		              			RECIPE_CATEGORY_NO) CTGR_CNT
+					ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
+		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
 	</entry>
-	
-	
-	
-	
-	
+
+
+
+
+
 	
 	
 	<entry key="selectUnRecipeForModal">
