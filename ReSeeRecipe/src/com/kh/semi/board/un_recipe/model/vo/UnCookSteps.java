@@ -1,4 +1,4 @@
-package com.kh.semi.board.unsaved_recipe.model.vo;
+package com.kh.semi.board.un_recipe.model.vo;
 
 public class UnCookSteps {
 	

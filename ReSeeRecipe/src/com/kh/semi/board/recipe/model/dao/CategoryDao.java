@@ -19,7 +19,7 @@ public class CategoryDao {
 	
 	public CategoryDao() {
 		
-		String file = CategoryDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+		String file = CategoryDao.class.getResource("/sql/board/recipe-mapper.xml").getPath();
 		
 		// 파일 읽기
 		try {

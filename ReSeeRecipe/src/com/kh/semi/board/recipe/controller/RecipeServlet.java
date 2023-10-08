@@ -70,7 +70,7 @@ public class RecipeServlet extends HttpServlet {
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
-		if(flag) { request.getRequestDispatcher(viewPath).forward(request,response); }
+		if(flag) { request.getRequestDispatcher(viewPath).forward(request, response); }
 		else 	 { response.sendRedirect(viewPath); }
 	
 	

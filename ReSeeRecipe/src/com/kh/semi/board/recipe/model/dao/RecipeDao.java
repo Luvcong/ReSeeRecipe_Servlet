@@ -12,7 +12,7 @@ import java.util.Properties;
 import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import com.kh.semi.board.unsaved_recipe.model.vo.UnRecipe;
+import com.kh.semi.board.un_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeDao {
@@ -20,7 +20,7 @@ public class RecipeDao {
 	private Properties prop = new Properties();
 	
 	public RecipeDao() {
-		String filePath = RecipeDao.class.getResource("/sql/board/board-mapper.xml").getPath();
+		String filePath = RecipeDao.class.getResource("/sql/board/recipe-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {

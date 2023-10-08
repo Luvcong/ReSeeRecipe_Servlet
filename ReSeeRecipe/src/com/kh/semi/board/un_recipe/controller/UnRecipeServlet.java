@@ -1,6 +1,7 @@
-package com.kh.semi.board.unsaved_recipe.controller;
+package com.kh.semi.board.un_recipe.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +27,30 @@ public class UnRecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		// 기본 변수 세팅
+		boolean flag = true;
+		String viewPath = "";
+		
+		UnRecipeController urc = new UnRecipeController();
+		
+		// 인코딩
+		request.setCharacterEncoding("UTF-8");
+		
+		// URI 매핑 문자열 추출
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
+		
+		// Controller로 분배
+		switch(mapping) {
+			case "" : break;
+			default : System.out.println("잘못된 요청"); break;
+		}
+		
+		// forward or sendRedirect ( flag = false로 만들면 redrect)
+		if(flag) { request.getRequestDispatcher(viewPath).forward(request, response); }
+		else	 { response.sendRedirect(viewPath); }
+	
 	}
 
 	/**
