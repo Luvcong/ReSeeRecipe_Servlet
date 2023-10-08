@@ -130,8 +130,7 @@
 </style>
 </head>
 <body>
-
-
+	
 	<div id="recipe-sort-bar-wrap">
 	
 		<div id="recipe-sort-bar-img">

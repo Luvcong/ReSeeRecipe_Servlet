@@ -70,46 +70,47 @@
 </style>
 </head>
 <body>
-        <div id="recipe-category-wrap">
-            <div id="category-toggle-menu">
-                <table id="recipe-category-table">
-                    <tr>
-                        <td rowspan="2" id="recipe-category-logo">
-                            <img src=".."> 로고 이미지<!-- 다른곳에서 include 시 깨짐 -> 인크루드 생각해서 경로 정하거나 절대경로 -->
-                        </td>
-                        <td><h3>한식</h3></td>
-                        <td><h3>양식</h3></td>
-                        <td><h3>중식</h3></td>
-                        <td><h3>일식</h3></td>
-                    </tr>
-                    <tr>
-                        <td><h3>아시안</h3></td>
-                        <td><h3>야식</h3></td>
-                        <td><h3>디저트</h3></td>
-                        <td><h3>음료</h3></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="category-toggle-msg">
-                <h3>카테고리 접기</h3>
-            </div>
+
+    <div id="recipe-category-wrap">
+        <div id="category-toggle-menu">
+            <table id="recipe-category-table">
+                <tr>
+                    <td rowspan="2" id="recipe-category-logo">
+                        <img src=".."> 로고 이미지<!-- 다른곳에서 include 시 깨짐 -> 인크루드 생각해서 경로 정하거나 절대경로 -->
+                    </td>
+                    <td><h3>한식</h3></td>
+                    <td><h3>양식</h3></td>
+                    <td><h3>중식</h3></td>
+                    <td><h3>일식</h3></td>
+                </tr>
+                <tr>
+                    <td><h3>아시안</h3></td>
+                    <td><h3>야식</h3></td>
+                    <td><h3>디저트</h3></td>
+                    <td><h3>음료</h3></td>
+                </tr>
+            </table>
         </div>
+        <div id="category-toggle-msg">
+            <h3>카테고리 접기</h3>
+        </div>
+    </div>
 
-        <!-- 카테고리메뉴 토글 -->
-        <script>
-            $(function(){
-                $('#category-toggle-msg > h3').click(function(){
-                    if($(this).text() == '카테고리 접기') {
-                        $(this).text('카테고리 더보기');
-                    }
-                    else {
-                        $(this).text('카테고리 접기');
-                    }
-                    $('#category-toggle-menu').slideToggle();
-                });
+    <!-- 카테고리메뉴 토글 -->
+    <script>
+        $(function(){
+            $('#category-toggle-msg > h3').click(function(){
+                if($(this).text() == '카테고리 접기') {
+                    $(this).text('카테고리 더보기');
+                }
+                else {
+                    $(this).text('카테고리 접기');
+                }
+                $('#category-toggle-menu').slideToggle();
+            })
 
-            });
-        </script>
+        })
+    </script>
 
 
 </body>

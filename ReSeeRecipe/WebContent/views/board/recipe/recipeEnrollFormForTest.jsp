@@ -51,7 +51,7 @@
 	/* > > 상단바wrap div 세팅 */
 	#recipe-enroll-top-bar-wrap {
 		width: 100%;
-		height: 100px;
+		height: 80px;
 		margin: auto;
 		box-sizing: border-box;
 		/*지울부분*/
@@ -69,7 +69,6 @@
 		width: 100%;
 		height: 2000px;
 	}
-
 
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
@@ -95,13 +94,13 @@
 	**********************************************************/
 	/* 1. 아이콘 이미지 세팅 */
 	#recipe-enroll-bar-img {
-		width: 10%;
+		width: 7%;
+		padding: 18px 0px 0px 20px;
 	}
 
 	#recipe-enroll-bar-img > i {
 		font-size: 45px;
 		color: rgb(255, 145, 77);
-		padding: 25px 30px 25px 30px;
 	}
 
 	/* 2. 카테고리 메뉴 세팅 */
@@ -111,15 +110,16 @@
 
 	/* 카테고리 글씨 부분 */
 	#recipe-enroll-bar-inner1 {
-		width: 25%;
+		width: 15%;
 		height: 100%;
 		text-align: center;
+		padding-top : 23px;
 	}
 	
 	#recipe-enroll-bar-inner1 > h3 {
+		margin: 0px;
 		font-size: 27px;
 		box-sizing: border-box;
-		padding-top : 17px;
 	}
 
 	/* select요소 */
@@ -394,8 +394,15 @@
 	<%@ include file="/views/common/header.jspf" %>
 	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
-	
-	
+
+	<script>
+		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
+		$(function(){
+			const categoryFoldingText = $('#category-toggle-msg > h3');
+			categoryFoldingText.text('카테고리 더보기');
+			$('#category-toggle-menu').css('display', 'none');
+		});
+	</script>
 	
 	<!-- 같이 넘어가야 할 것
 		TB_RECIPE
@@ -724,7 +731,6 @@
 	</div><!-- 전체 wrap 끝 -->
 
 
-
 	<script>
 		// 임시저장 아이콘 클릭 시 모달창 설정
 		function unrecipeModalRequest(e) {
@@ -735,14 +741,15 @@
 			//} else {
 				//e.dataset.target = '#unrecipe-unavailable-modal';
 			//}
-		}
+		};
 		
 		// 양식 초기화 요청 confirm
 		function confirmReset() {
 			return confirm("입력한 정보를 초기화하시겠습니까?");
-		}
+		};
 		
 		$(function(){
+
 			// 레시피 글 작성요청 form태그 속성 설정 및 submit
 			$('#recipe-enrolling-btn').click(function(){
 				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
@@ -756,16 +763,17 @@
 			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
 			$('#unrecipe-del-enrolling-btn').click(function(){
 				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsertInstead.un').submit();
-			});
-
-		})
+			})
+		});
 	</script>
+
+
 	<script>
 		$(function(){
 			$('#ingredient-title-btn').click(function(){
 				alert('a');
 			})
-		})
+		});
 	</script>
 </body>
 </html>
