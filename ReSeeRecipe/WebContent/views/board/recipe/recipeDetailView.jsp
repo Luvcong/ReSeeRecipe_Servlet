@@ -692,17 +692,17 @@
 					
 					
 					
+					/*
 					// 재료 입력 디스플레이 생성
 					function addIngredientDisplay(){
 						var count = document.getElementsByClassName('ingredientContainer').length;
 						console.log(count);
 
 						// 입력된 재료 값 받기
-						/*
 						var ingredientIn = document.getElementById('ingredientIn').value;
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
-						*/
+						
 
 						// 제일 바깥쪽 띄워줄 영역 세팅
 						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
@@ -736,7 +736,7 @@
 
 
 						
-						/*
+						
 
 						measureAreaDiv.appendChild('s');
 						console.log('dd');
@@ -756,11 +756,11 @@
 			
 						//const displayingContainer1 = document.getElementById('displaying-input-area1');
 						//const displayingContainer2 = document.getElementById('displaying-input-area2');
-						*/
-			
+						
 						count++;
 					};
-			
+					*/
+					
 					
 					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
 						<div class="displayIngredient">
