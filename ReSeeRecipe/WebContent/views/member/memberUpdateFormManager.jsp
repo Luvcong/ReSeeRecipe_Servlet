@@ -80,9 +80,9 @@
 
 <script>
 	$(function(){
-		if($('#membergradeName').val() == null) {
-			console.log($('#membergradeName').val());
-			$('#membergradeName').text() = '';
+		if($('#memberModifydate').val() == null) {
+			console.log($('#memberModifydate').val());
+			$('#memberModifydate').val() = '';
 		}
 	});
 
