@@ -77,4 +77,14 @@
     </div>
 </div> 
 </body>
+
+<script>
+	$(function(){
+		if($('#membergradeName').val() == null) {
+			console.log($('#membergradeName').val());
+			$('#membergradeName').text() = '';
+		}
+	});
+
+</script>
 </html>
