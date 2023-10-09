@@ -69,10 +69,11 @@ public class MemberService {
 		//java.sql.Date memberModifyDate = java.sql.Date.valueOf(m.getModifyDate());
 		int result2 = 1; //new MemberDao().updateMemInfo(conn, mu);
 		Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-		if(m.getModifyDate() != null) {
-		
+		if(m.getModifyDate() == null) {
+			result2 = new MemberDao().insertMemUpdate(conn, mu);
 		} else if(m.getModifyDate().before(sqlDate)) {
 			System.out.print("적음");
+			result2 = new MemberDao().updateMemUpdate(conn, mu);
 		}
 		
 	}
