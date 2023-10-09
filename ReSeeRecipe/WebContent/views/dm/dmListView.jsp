@@ -13,8 +13,11 @@
 <meta charset="UTF-8">
 <title>[문의관리] 쪽지함관리</title>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" /> -->
 
 <style>
 .sort {
@@ -91,14 +94,14 @@
             <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox" onclick="checkAll()" class="dmCheck" id="all"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll(this)" class="dmCheck" id="all"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>등록일<div class="sort"></div></th>
                         <th data-idx=3>아이디<div class="sort"></div></th>
                         <th data-idx=4>닉네임<div class="sort"></div></th>
                         <th data-idx=5>쪽지 문의내용<div class="sort"></div></th>
                         <th data-idx=6>답변여부<div class="sort"></div></th>
-                        <th data-idx=7 style="display: none">답변내용 (hidden처리예정)<div class="sort"></div></th>
+                        <th data-idx=7 style="display: none">답변내용<div class="sort"></div></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -191,6 +194,7 @@
 					totalByte++;
 				}
 			}
+			
 			$('#count').text(totalByte);
 
 		}
@@ -228,11 +232,11 @@
 		var failMsg = '<%= failMsg %>';
 		
 		if(successMsg != 'null'){
-			swal('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
+			Swal.fire('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
 		}
 		
 		if(failMsg != 'null'){
-			swal('실패', failMsg, 'error');
+			Swal.fire('실패', failMsg, 'error');
 		}
 		
 		<% session.removeAttribute("successMsg"); %>
@@ -244,7 +248,7 @@
   <script>
 	function showDmRepliedModal() {
 		// table에 있는 tr요소 모두 선택해서 trs변수에 저장
-		let trs = document.querySelectorAll('.table tr');
+		let trs = document.querySelectorAll('.table tbody tr');
 		// tr요소 체크여부 변수 생성
 		let checked_tr = null;
 		for(let tr of trs){
@@ -257,7 +261,7 @@
 		}
 		
 		if(checked_tr == null){
-			swal('실패', '쪽지를 선택해주세요!', 'error');
+			Swal.fire('실패', '쪽지를 선택해주세요!', 'error');
 			return;
 		}
 		
@@ -271,7 +275,7 @@
 		
 		let textarea = document.getElementById('reply-textarea');
 		// let textval = textarea.value;
-		console.log(textarea);
+		// console.log(textarea);
 		// console.log(textval);	// 1) 여기서는 빈문자열 -- 값을 넣어주지 않아서 (type: string)
 		
 		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정(반복문사용)
@@ -287,17 +291,27 @@
 		// 2) dmReply 컬럼의 값이 존재한다면? >> textarea value값에 textval를 넣어준다 (readonly)
 		
 		
-		if(textarea.value != 'null'){
-			textarea.value = checked_tr.children[7].textContent;
+/* 		if(textarea.value != 'null'){
 			textarea.readOnly = true;
+			textarea.value = checked_tr.children[7].textContent;
 			console.log(textarea.value);
 		}
 		
 		if(textarea.value == 'null'){
 			textarea.readOnly = false;
 			textarea.value = '';
-			
+		} */
+		
+		
+		let replied_txt = checked_tr.children[7].textContent;
+		if(replied_txt == 'null'){
+			replied_txt = ''; 
 		}
+		
+		textarea.value    = replied_txt;
+		textarea.readOnly = (replied_txt != '');
+		
+ 		checkedByte(document.getElementById('reply-textarea'));
 		
 		$('#dmRepliedForm').modal('show');
 	}
@@ -307,12 +321,10 @@
 	<!-- 쪽지 삭제 -->
 	<script>
 		function deleteDm(){
-			
-			
 			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
 			let checked_tr = null;
 			for(let tr of trs){
-				let input = tr.children[0].children[0];
+				let input = tr.querySelector('input');
 				if(input.checked){
 					checked_tr = tr;
 					break;
@@ -320,50 +332,85 @@
 			}
 			
 			if(checked_tr == null){
-				swal('실패', '쪽지를 선택해주세요!', 'error');
+				Swal.fire('실패', '쪽지를 선택해주세요!', 'error');
 				return;
 			}
 			
-			$(function() {
-				swal({
-					title: "쪽지를 삭제하시겠습니까?",
-					text : "※ 삭제 후 복원이 불가합니다",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "삭제",
-					cancelButtonText: "취소",
-				}, function (isConfirm) {
-					if (!isConfirm) {
-						return;
+			Swal.fire({
+				title: "쪽지를 삭제하시겠습니까?",
+				text : "※ 삭제 후 복원이 불가합니다",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "삭제",
+				cancelButtonText: "취소"
+				}).then((result) => {
+					if (!result.isConfirmed) {
+					  return;
 					}
-					
-					let table = document.getElementById('tb-dm');
-					let trs = table.querySelectorAll('tr');
-					
-					let dm_list = [];
+				  
+				  	let table = document.getElementById('tb-dm');
+				  	let trs = table.querySelectorAll('tbody tr');
+					let dm_list = {};
 					
 					for(let tr of trs){
-						let input = tr.children[0].children[0];			// input요소
+						let input = tr.querySelector('input');			// input요소
 						if(input.checked == true){
-							dm_list.push(tr.children[1].textContent);	// dmNo
+							let key = tr.children[1].textContent;
+							let val = tr.children[6].classList.contains('replied');
+							dm_list[key] = val; 
 						}
 					}
-					
 					// dm_list = ['100','101','102','103']; // 실패테스트
+					// Object.keys 설명
+					// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
 		 			$.ajax({
 		 				url : 'jhdelete.dm',
 						type : 'get',
 						dataType: 'json',
-						data : {'dmNo' : dm_list},
-						complete : function () {
-							//$('#tb-dm').load();
-							window.location.reload();		// 새로고침 방법 다시 작성해보기
+						data : {'dmNo' : Object.keys(dm_list)},
+						success : function(result){
+							for(let tr of trs){
+								let categoryNo = parseInt(tr.children[1].textContent);
+								if(result.includes(categoryNo)){
+									tr.remove();
+								}
+							}
+							
+							let header = document.querySelector('.rs-content .header');
+							let waiting = header.querySelector('.waiting');
+							let replied = header.querySelector('.replied');
+							
+							let waiting_cnt = <%= waitingCount%>;
+							let replied_cnt = <%= list.size() - waitingCount %>;
+							for(let key in dm_list) {
+								if(dm_list[key] == true){
+									replied_cnt -= 1;
+								}
+								else {
+									waiting_cnt -= 1;
+								}
+							}
+							waiting.textContent = waiting_cnt;
+							replied.textContent = replied_cnt;
+							
+							//swal("성공", "쪽지 삭제가 완료되었습니다!", "success");
+						},
+						error: function(result) {
+							console.log('실패');
+						},
+						complete : function (result) {
+						    Swal.fire('성공', '쪽지 삭제가 완료되었습니다!', 'success');
+							/* console.log(result.responseJSON);
+							for(let tr of trs) {
+								let dmno = parseInt(tr.children[1].textContent);
+								if(result.responseJSON.includes(dmno)){
+									tr.remove();
+								}
+							} */
 						}
 					});
 				});
-			});
-
 			
 			// confirm 라이브러리 적용
 /* 			if(!confirm('해당 쪽지를 정말 삭제하시겠습니까?\n삭제 후 복원이 불가합니다.')){
@@ -400,9 +447,6 @@
   
   <!-- 컬럼 sort -->
   <script>
-	$(function() {
-		$('.table th').on('click', sortTable);
-	})
 
 /* 	$(function checkAll(){
 		$('dmCheck').on('change', function(){
@@ -422,17 +466,19 @@
 			}
 		})
 	}); */
-		
-		
-		
-		
-		console.log(element);	// input요소 (table의 헤더부분)
+	
+	$(function() {
+		$('.table th').on('click', sortTable);
+	})
+	
+	function checkAll(element){
+		// console.log(element);	// input요소 (table의 헤더부분)
 		
 		let table = document.getElementById('tb-dm');
 		let inputs = document.querySelectorAll('tr input');
 		
-		console.log(table);		// 테이블 값 확인 ok
-		console.log(inputs);	// 헤더 체크박스 값 ok
+		// console.log(table);		// 테이블 값 확인 ok
+		// console.log(inputs);	// 헤더 체크박스 값 ok
 		
 		// 헤더 체크박스 클릭시 == checked속성 true > 전체 체크되도록
 		// 헤더 체크박스 해제시 == checked속성 false > 전체 해제되도록 
@@ -454,8 +500,9 @@
 		
 		
 	}	// checkAll
-	
+		
 	function sortTable(){
+		// this -> th
 		let idx = parseInt(this.getAttribute('data-idx'));
 		if(idx == 0){
 			checkAll(this.children[0]);			
@@ -465,12 +512,13 @@
 		let type = this.getAttribute('data-type');
 		
 		let tbody = document.querySelector('.table tbody');
-		let rows = Array.from(tbody.children);
+		let rows = Array.from(tbody.children); // HTMLCollection 객체이기 때문에 Array로 변환
+		
+		// 현재 sort 상태가 뭔지 저장하기위한 변수
 		let is_desc = false;
 		
-		// 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
+		// #1. 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
 		let ths = document.querySelectorAll('.table th');
-		
 		for(let th of ths) {
 			let sort = th.children[0];
 
@@ -499,7 +547,7 @@
 		}	// for
 		
 		
-/* 		sort함수 참고 -- 삭제예정
+/* 		sort함수 참고 -- 삭제예정 (오름차순 기준)
  		rows.sort(function(a, b) {
 			if(a < b)
 				return -1;
@@ -511,6 +559,7 @@
 				return 0;
 		}) */
 		
+		// #2. 실제 정렬 작업을 하는 부분
 		rows.sort(function (trA, trB) {
 			let txtA = trA.children[idx].textContent;
 			let txtB = trB.children[idx].textContent;
