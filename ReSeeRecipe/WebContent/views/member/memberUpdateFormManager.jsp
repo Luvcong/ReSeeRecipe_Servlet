@@ -60,7 +60,7 @@
             <input type="text" class="form-control"  id="memberEnrolldate" name="memEnrolldate" value="<%=m.getEnrollDate()%>" readonly>
             <br>
             <lable for="memberModifydate">수정일자</lable>
-            <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate %>" readonly>
+            <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate() %>" readonly>
             <br>
             <label for="membergradeName">회원등급명</label>
             <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" readonly>
