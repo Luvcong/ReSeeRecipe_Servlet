@@ -2,6 +2,7 @@ package com.kh.semi.member.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -76,5 +77,14 @@ public class MemberService {
 			result2 = new MemberDao().updateMemUpdate(conn, mu);
 		}
 		
+		if((result1 * result2) > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return(result1 * result2);
 	}
 }
