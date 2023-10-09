@@ -5,13 +5,15 @@ public class UnIngredient {
 	
 	/*
 	UN_INGREDIENT_NO	NUMBER
-	UN_INGREDIENT	VARCHAR2(40 BYTE)
+	UN_INGREDIENT	VARCHAR2(45 BYTE)
+	UN_INGREDIENT_AMOUNT	VARCHAR2(45 BYTE)
 	UN_RECIPE_NO	NUMBER
 	INGREDIENT_MEASURE_NO	NUMBER
 	*/
 	
 	private int unIngredientNo;
-	private String ingredient;
+	private String unIngredient;
+	private String unIngredientAmount;
 	private int recipeNo;
 	private int ingredientMeasureNo;
 	
@@ -19,10 +21,12 @@ public class UnIngredient {
 	public UnIngredient() {
 		super();
 	}
-	public UnIngredient(int unIngredientNo, String ingredient, int recipeNo, int ingredientMeasureNo) {
+	public UnIngredient(int unIngredientNo, String unIngredient, String unIngredientAmount, int recipeNo,
+			int ingredientMeasureNo) {
 		super();
 		this.unIngredientNo = unIngredientNo;
-		this.ingredient = ingredient;
+		this.unIngredient = unIngredient;
+		this.unIngredientAmount = unIngredientAmount;
 		this.recipeNo = recipeNo;
 		this.ingredientMeasureNo = ingredientMeasureNo;
 	}
@@ -34,11 +38,17 @@ public class UnIngredient {
 	public void setUnIngredientNo(int unIngredientNo) {
 		this.unIngredientNo = unIngredientNo;
 	}
-	public String getIngredient() {
-		return ingredient;
+	public String getUnIngredient() {
+		return unIngredient;
 	}
-	public void setIngredient(String ingredient) {
-		this.ingredient = ingredient;
+	public void setUnIngredient(String unIngredient) {
+		this.unIngredient = unIngredient;
+	}
+	public String getUnIngredientAmount() {
+		return unIngredientAmount;
+	}
+	public void setUnIngredientAmount(String unIngredientAmount) {
+		this.unIngredientAmount = unIngredientAmount;
 	}
 	public int getRecipeNo() {
 		return recipeNo;
@@ -56,8 +66,9 @@ public class UnIngredient {
 	
 	@Override
 	public String toString() {
-		return "UnIngredient [unIngredientNo=" + unIngredientNo + ", ingredient=" + ingredient + ", recipeNo="
-				+ recipeNo + ", ingredientMeasureNo=" + ingredientMeasureNo + "]";
+		return "UnIngredient [unIngredientNo=" + unIngredientNo + ", unIngredient=" + unIngredient
+				+ ", unIngredientAmount=" + unIngredientAmount + ", recipeNo=" + recipeNo + ", ingredientMeasureNo="
+				+ ingredientMeasureNo + "]";
 	}
 	
 	

@@ -73,13 +73,13 @@
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
 		width: 100%;
-		height: 30%;
+		height: 33%;
 	}
 
 	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cook-steps-instruction {
 		width: 100%;
-		height: 63%;
+		height: 60%;
 	}
 
 	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
@@ -218,13 +218,13 @@
 	/* 썸네일 div */
 	#content-thumbnail-image {
 		width: 100%;
-		height: 76%;
+		height: 79%;
 	}
 
 	/* 셰프이름 + 해시태그 div */
 	#content-writer-hashtag {
 		width: 100%;
-		height: 24%;
+		height: 21%;
 	}
 
 	/* 셰프이름 */
@@ -256,7 +256,7 @@
 	/* --- 우측 --- */
 	/* 제목 */
 	#cook-steps-title {
-		height: 24%;
+		height: 21%;
 	}
 
 	#cook-steps-title > #title-text-area-div {
@@ -273,7 +273,7 @@
 		padding : 10px 120px 10px 50px;
 		margin: auto;
 		position: absolute;
-		top: 112px;
+		top: 110px;
 		right: 15px;
 	}
 
@@ -292,9 +292,9 @@
 	}
 
 
-	/* 재료 제목 */
+	/* 재료 제목 (재료추가 버튼) */
 	#cook-steps-ingredient-title {
-		height: 13%;
+		height: 9%;
 	}
 
 	#cook-steps-ingredient-title > div {
@@ -304,13 +304,13 @@
 
 	#ingredient-title-div1 {
 		width: 67%;
-		padding-top: 15px;
+		padding-top: 7px;
 	}
 
 	#ingredient-title-div2 {
 		width: 33%;
 		text-align: left;
-		padding-top: 32px;
+		padding-top: 26px;
 		padding-left: 2px;
 	}
 
@@ -355,15 +355,51 @@
 	}
 
 
-	/* 재료 콘텐트 */
+	/* 재료 콘텐트 (입력요소들) */
 	#cook-steps-ingredient-content {
-		height: 67%;
+		height: 70%;
 	}
 
-	#cook-steps-ingredient-content div {
-		width: 100%;
-		height: 30%;
+	#cook-steps-ingredient-content .ingredient-input-container {
+		width: 50%;
+		height: 30px;
 	}
+
+	#cook-steps-ingredient-content .ingredient-input-container span {
+		height: 100%;
+	}
+	
+	#cook-steps-ingredient-content .ingredient-input-container input {
+		width: 100%;
+		height: 100%;
+		padding: 1px;
+		font-size: 2px;
+		text-align: center;
+	}
+
+	#cook-steps-ingredient-content .ingredient-input-container select {
+		width: 100%;
+		height: 100%;
+		padding: 1px;
+		font-size: 2px;
+	}
+
+	#cook-steps-ingredient-content .write-ingredient-input{
+		width: 65%;
+		
+	}
+
+
+	#cook-steps-ingredient-content .amount-ingredient-input {
+		width: 20%;
+		padding: 1px;
+		text-align: center;
+	}
+
+	#cook-steps-ingredient-content .measurement-ingredient-selection {
+		width: 15%;
+	}
+
 	
 
 
@@ -560,14 +596,14 @@
 							
 							<!-- 기본 재료입력칸 -->
 							<div class="input-group ingredient-input-container">
-								<span id="write-ingredient-input1">
-									<input type="text" class="form-control" placeholder="재료입력" style="width: 30%; display: inline-block;">
+								<span class="write-ingredient-input">
+									<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
 								</span>
-								<span id="amount-ingredient-input1">
-									<input type="number" class="form-control" placeholder="재료량" style="width: 30%; display: inline-block;">
+								<span class="amount-ingredient-input">
+									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="10" required>
 								</span>
-								<span id="measurement-ingredient-input1">
-									<select name="" id="" class="custom-select">
+								<span class="measurement-ingredient-selection">
+									<select name="recipeCategoryNo0" class="custom-select" required>
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -575,44 +611,17 @@
 										<option value="">L</option>
 									</select>
 								</span>
-								<span>
-									<button type="button" class="btn btn-danger">-</button>
+								<span class="del-ingredient-input">
+									<button id="ingredient-del-btn0" type="button" id class="btn btn-danger">-</button>
 								</span>
 							</div>
 
 
 						</div>
 					</div>
-						<!--
-						<table>
-							<tr>
-								<td id="cook-steps-title" class="cook-steps-inner">
-									<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
-									<span>0</span><span>/60 bytes</span>
-								</td>
-							</tr>
-							<tr>
-								<td id="cook-steps-chef" class="cook-steps-inner">김xx셰프</td>
-							</tr>
-							<tr>
-								<td id="cook-steps-hashtag" class="cook-steps-inner">해시태그입력</td>
-							</tr>
-							<tr>
-								<td id="cook-steps-ingredient-title" class="cook-steps-inner">재료</td>
-							</tr>
-							<tr>
-								<td id="cook-steps-ingredient-content" class="cook-steps-inner">
-									<div>
-										<input type="text">
-									</div>
-									<div>재료영역2</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-					-->
-					<!-- 재료 엔터치면 디스플레이용 요소 생성, 요소 클릭하면 input으로 변화 후 엔터치면 요소생성 -->
 				</div>
+
+
 
 				<!-- 타이틀 글자수 바이트 수 세기 -->
 				<script>
@@ -663,17 +672,16 @@
 						});
 					});
 					
-					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 아이디 넘버링은 1, 2, 3. . . 되도록)
+					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
 						<div class="input-group ingredient-input-container">
-							<span id="write-ingredient-input0">
-								<input type="text" name="" class="form-control" placeholder="재료입력">
+							<span>
+								<input type="text" name="ingredient0" class="form-control write-ingredient-input" placeholder="재료입력" maxlength="15" required>
 							</span>
-							<span id="amount-ingredient-input0">
-								<input type="number" class="form-control" placeholder="재료량">
+							<span>
+								<input type="text" name="ingredientAmount0" class="form-control amount-ingredient-input" placeholder="재료량" maxlength="10" required>
 							</span>
-							<span id="measurement-ingredient-input0">
-								RECIPE_CATEGORY_NO
-								<select name="recipeCategoryNo" id="" class="custom-select">
+							<span>
+								<select name="recipeCategoryNo0" class="custom-select measurement-ingredient-selection" required>
 									<option value="">g</option>
 									<option value="">kg</option>
 									<option value="">cups</option>
@@ -682,7 +690,7 @@
 								</select>
 							</span>
 							<span>
-								<button id="input-container-del-btn0" type="button" id class="btn btn-danger">-</button>
+								<button id="ingredient-del-btn0" type="button" id class="btn btn-danger del-ingredient-input">-</button>
 							</span>
 						</div>
 					*/
