@@ -611,28 +611,29 @@
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 							
 							<!-- 첫번째 재료 -->
-							<div id="addedIngredient0">
-								<div>
-									<div id="ingredientDiv0">
-										<input type="text" id="ingredient0" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
-									</div>
-									<div id="amountIngredient0">
-										<input type="text" id="ingredientAmount0" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
-									</div>
-									<div id="measurementIngredientDiv0">
-										<select id="ingredientMeasureNo0" name="ingredientMeasureNo0" class="custom-select" required>
-											<option value="">g</option>
-											<option value="">kg</option>
-											<option value="">cups</option>
-											<option value="">ml</option>
-											<option value="">작은술(ts)</option>
-										</select>
-									</div>
+							<!--
+							<div id="ingredientContainer0">
+								<div id="ingredientDiv0">
+									<input type="text" id="ingredient0" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+								</div>
+								<div id="amountIngredient0">
+									<input type="text" id="ingredientAmount0" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+								</div>
+								<div id="measurementIngredientDiv0">
+									<select id="ingredientMeasureNo0" name="ingredientMeasureNo0" class="custom-select" required>
+										<option value="">g</option>
+										<option value="">kg</option>
+										<option value="">cups</option>
+										<option value="">ml</option>
+										<option value="">작은술(ts)</option>
+									</select>
 								</div>
 								<div>
 									<button type="button" id="ingredient-title-btn" onclick="deleteIngredientDisplay();" class="fas fa-minus-square"></button>
 								</div>
 							</div>
+							-->
+				
 
 						
 						</div>
@@ -690,7 +691,7 @@
 					});
 					
 					
-					var count = 2;
+					var count = 0;
 					// 재료 입력 디스플레이 생성
 					function addIngredientDisplay(){
 						// 입력된 재료 값 받기
@@ -698,10 +699,23 @@
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
 						
-						// div만들기
-						var addedDiv = document.createElement('div');
+						// 요소 생성 + 아이디세팅 (Container)
+						var ingredientContainer = document.createElement('div');
+						ingredientContainer.id = 'addedIngredient' + count;
+						
+						// 요소생성 + 아이디세팅 (Container 내부 작은 div들)
+						var ingredientDiv = document.createElement('div');
+						ingredientDiv.is = 'ingredientDiv' + count;
+						var amountIngredient = document.createElement('div');
+						amountIngredient.id = 'amountIngredient' + count;
 
-			
+						// 요소생성 + 세부세팅 (ingredient인풋)
+						// 요소생성 + 세부세팅 (amountIngredient인풋)
+						// 요소생성 + 세부세팅 (ingredientMeasureNo인풋)
+						
+						
+						var added
+						
 			
 						return false;
 						//console.log(ingredientMeasureNo);
