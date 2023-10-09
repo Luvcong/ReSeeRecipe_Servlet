@@ -43,7 +43,7 @@ public class CategoryListController extends HttpServlet {
 		// 5-1) 인코딩과 형식 지정해주기
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/board/recipe_category/categoryListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/recipe_category/manager/categoryListView.jsp").forward(request, response);
 	}
 
 	/**

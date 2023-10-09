@@ -3,9 +3,10 @@
 <%@ page import="java.util.ArrayList, com.kh.semi.dm.model.vo.Dm" %>       
 <%
 	ArrayList<Dm> list = (ArrayList<Dm>)request.getAttribute("list");
-	int waitingCount = (int)request.getAttribute("waitingCount");
 	String successMsg = (String)session.getAttribute("successMsg");
 	String failMsg = (String)session.getAttribute("failMsg");
+	int waitingCount = (int)request.getAttribute("waitingCount");
+	int repliedCount = list.size() - waitingCount;
 %>    
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,6 @@
 <title>[문의관리] 쪽지함관리</title>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" /> -->
@@ -73,7 +73,7 @@
 </head>
 <body>
 
-		<%@ include file="../manager/navbar.jsp" %>
+	<%@ include file="../../manager/navbar.jsp" %>
 
     <div class="rs-content">        
         <div class="header">
@@ -82,7 +82,7 @@
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
-                    미답변 <span class="waiting"><%= waitingCount %></span> 개 / 답변완료 <span class="replied"><%= list.size() - waitingCount %></span>개
+                    미답변 <span class="waiting"><%= waitingCount %></span> 개 / 답변완료 <span class="replied"><%= repliedCount %></span>개
                 </div>
                 <div >
                     <button class="btn btn-sm btn-warning" onclick="showDmRepliedModal()">쪽지 답변</button>
@@ -194,37 +194,10 @@
 					totalByte++;
 				}
 			}
-			
 			$('#count').text(totalByte);
-
-		}
+		}	// checkedByte
 
   </script>
-  
-	
-  
-  <!-- <script>
-
-  		$(function(){
-			  
-			  $('#reply-textarea').keyup(function(){
-				let totalByte = 0;
-				let message = $('#count').text($(this).val());
-  				let msg_length = $('#count').text($(this).val().length);
-				console.log(msg_length);
-
-				for(let i = 0; i < msg_length; i++){
-					let countByte = message.charAt(i);
-					if(escape(countByte).length > 4){
-						totalByte += 3;
-					} else {
-						totalByte++;
-					}
-				}
-				
-  			})
-  		})
-  </script> -->
   
 	<!-- alertMsg script -->
 	<script>
@@ -301,7 +274,6 @@
 			textarea.readOnly = false;
 			textarea.value = '';
 		} */
-		
 		
 		let replied_txt = checked_tr.children[7].textContent;
 		if(replied_txt == 'null'){
@@ -382,7 +354,7 @@
 							let replied = header.querySelector('.replied');
 							
 							let waiting_cnt = <%= waitingCount%>;
-							let replied_cnt = <%= list.size() - waitingCount %>;
+							let replied_cnt = <%= repliedCount %>;
 							for(let key in dm_list) {
 								if(dm_list[key] == true){
 									replied_cnt -= 1;

@@ -76,7 +76,7 @@
 </head>
 <body>
 
-	<%@ include file="../../manager/navbar.jsp" %>
+	<%@ include file="../../../manager/navbar.jsp" %>
 	
     <div class="rs-content">        
         <div class="header">
@@ -248,9 +248,11 @@
 									tr.remove();
 								}
 							}
+							swal('성공', '카테고리 삭제가 완료되었습니다! ', 'success');
 						},	// success
 						error : function(result){
 							console.log('실패');
+							swal('실패', 'Error 다시 시도해주세요', 'error');
 						}	// error
 					});
 		 			
