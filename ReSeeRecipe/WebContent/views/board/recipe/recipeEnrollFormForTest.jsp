@@ -424,11 +424,11 @@
 
 	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
 		
-		<!-- 글작성 전체 form / 요청 시점 memNo같이넘김 -->
+		<!---------------------- 글작성 전체 form / 요청 시점 memNo같이넘김 ----------------------->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memNo" value="2">
 
-			<!------------- 입력양식 상단 바 영역 ------------->
+			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
 				<div id="recipe-enroll-bar-img">
@@ -514,10 +514,47 @@
 					</div>
 				</div>
 			</div><!-- 입력양식 상단 바 영역 끝 -->
+			<!------------------------------------------ Script (모달) ------------------------------------------>
+			<script>
+				// 임시저장 아이콘 클릭 시 모달창 설정
+				function unrecipeModalRequest(e) {
+					console.log(document.getElementsByClassName('.testList'));
+					//if(document.getElementsByClassName('.testList').length < 3 ) {
+		
+						//e.dataset.target = '#unrecipe-modal';
+					//} else {
+						//e.dataset.target = '#unrecipe-unavailable-modal';
+					//}
+				};
+				
+				// 양식 초기화 요청 confirm
+				function confirmReset() {
+					return confirm("입력한 정보를 초기화하시겠습니까?");
+				};
+				
+				$(function(){
+		
+					// 레시피 글 작성요청 form태그 속성 설정 및 submit
+					$('#recipe-enrolling-btn').click(function(){
+						$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
+					});
+					
+					// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
+					$('#unrecipe-enrolling-btn').click(function(){
+						$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();
+					});
+					
+					// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
+					$('#unrecipe-del-enrolling-btn').click(function(){
+						$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsertInstead.un').submit();
+					})
+				});
+			</script>
+			<!------------------------------------------ Script ------------------------------------------>
 
 			
-			<!--------------------------------------------------------------->
-			<!-- 레시피 글 작성 내용 영역 -->
+		
+			<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
 			<div id="recipe-enroll-context-wrap">
 				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
@@ -546,17 +583,18 @@
 								<span>/60 bytes</span>
 							</div>
 						</div>
+						<!-- 입력받는 영역 -->
 						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
+							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
-								<!-- 기본 재료입력칸 -->
 								<div id="write-ingredient-input">
-									<input type="text" id="ingredient" class="form-control" placeholder="재료입력" maxlength="15" required>
+									<input type="text" id="ingredientIn" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" id="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4" required>
+									<input type="text" id="ingredientAmountIn" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNo" class="custom-select" required>
+									<select id="ingredientMeasureNoIn" class="custom-select">
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -566,22 +604,23 @@
 								</div>
 							</div>
 							<div id="ingredient-title-div2">
-								<button type="submit" id="ingredient-title-btn" onclick="return displayIngredientInput();" class="fa fa-plus-square"></button>
+								<button type="button" id="ingredient-title-btn" onclick="addIngredientDisplay();" class="fa fa-plus-square"></button>
 							</div>
 						</div>
 						<!-- 띄워줄 영역 -->
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-							<div id="displaying-input-area1">
-								<!-- 첫번째 재료 -->
-								<div class="displaying-ingredients-0" style="display:none;">
-									<div class="displaying-write-ingredient">
-										<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15">
+							
+							<!-- 첫번째 재료 -->
+							<div id="addedIngredient0">
+								<div>
+									<div id="ingredientDiv0">
+										<input type="text" id="ingredient0" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
 									</div>
-									<div class="displaying-amount-ingredient">
-										<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4">
+									<div id="amountIngredient0">
+										<input type="text" id="ingredientAmount0" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
 									</div>
-									<div class="displaying-measurement-ingredient">
-										<select name="ingredientMeasureNo0" class="custom-select" required>
+									<div id="measurementIngredientDiv0">
+										<select id="ingredientMeasureNo0" name="ingredientMeasureNo0" class="custom-select" required>
 											<option value="">g</option>
 											<option value="">kg</option>
 											<option value="">cups</option>
@@ -589,20 +628,117 @@
 											<option value="">작은술(ts)</option>
 										</select>
 									</div>
-									<div id="ingredient-title-div2">
-										<button type="button" id="ingredient-title-btn" onclick="displayIngredientInput();" class="fa fa-plus-square"></button>
-									</div>
+								</div>
+								<div>
+									<button type="button" id="ingredient-title-btn" onclick="deleteIngredientDisplay();" class="fas fa-minus-square"></button>
 								</div>
 							</div>
-							<div id="displaying-input-area2">
-								
-							</div>
+
+						
 						</div>
 
 					</div>
 				</div>
+				<!------------------------------------------ Script (바이트 카운트 / 재료입력 디스플레이) ------------------------------------------>
+				<script>
 
+					// 타이틀 글자수 바이트 수 세기
+					$(function(){
+						$('#cook-steps-title textarea').keyup(function(e){
+							var textAreaBytes = 0;
+							var textArea = $(this).val();
+							var numberingSpan = $('#cook-steps-title').find('span').eq(0);
+			
+							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
+							var patternBlank = /[\s]/m;
+							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
+							
+							if(textArea.length != 0){
+								for(let i = 0; i < textArea.length; i++){
+									console.log('d');
+									if(textAreaBytes <= 60) {
+										textAreaBytesBefore = textAreaBytes;
+										if(patternKor.test(textArea.charAt(i))) {
+											textAreaBytes += 3;
+										}
+										else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+											if(e.key == 'Enter') {
+												textAreaBytes += 2;
+											}
+											else {
+												textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
+												textAreaBytes++;
+											}
+										}
+										else {
+											textAreaBytes += 3;
+										}
+										numberingSpan.text(textAreaBytes);
+									}
+									if(60 < textAreaBytes) { // if처리
+										$(this).val(textArea.substring(0, i));
+										numberingSpan.text(textAreaBytesBefore);
+										alert('더 이상 입력할 수 없습니다!');
+										return false;
+									}
+								}
+							}
+							else {
+								numberingSpan.text(0);
+							}
+						});
+					});
+					
+					
+					var count = 2;
+					// 재료 입력 디스플레이 생성
+					function addIngredientDisplay(){
+						// 입력된 재료 값 받기
+						var ingredientIn = document.getElementById('ingredientIn').value;
+						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
+						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
+						
+						// div만들기
+						var addedDiv = document.createElement('div');
 
+			
+			
+						return false;
+						//console.log(ingredientMeasureNo);
+			
+						//const ingredientIndex = document.getElementsByClassName('inputs-in-order');
+						//console.log(ingredientIndex);
+			
+			
+						//const displayingContainer1 = document.getElementById('displaying-input-area1');
+						//const displayingContainer2 = document.getElementById('displaying-input-area2');
+			
+			
+			
+					};
+			
+					
+					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
+						<div class="displayIngredient">
+							<div id="write-ingredient-input">
+								<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+							</div>
+							<div id="amount-ingredient-input">
+								<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+							</div>
+							<div id="measurement-ingredient-selection">
+								<select name="recipeCategoryNo0" class="custom-select" required>
+									<option value="">g</option>
+									<option value="">kg</option>
+									<option value="">cups</option>
+									<option value="">ml</option>
+									<option value="">작은술(ts)</option>
+								</select>
+							</div>
+						</div>
+					*/
+				</script>
+				<!------------------------------------------ Script ------------------------------------------>
 
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
@@ -688,153 +824,15 @@
 					</div>
 				</div>
 
-			</div><!-- 레시피 글 작성 내용 영역 끝 -->
-
-			
-		</form><!-- 글 작성 전체 form 끝 -->
-
-	</div><!-- 전체 wrap 끝 -->
-	<script>
-
-
-		$(function(){
-			
-			// 타이틀 글자수 바이트 수 세기
-			$('#cook-steps-title textarea').keyup(function(e){
-				var textAreaBytes = 0;
-				var textArea = $(this).val();
-				var numberingSpan = $('#cook-steps-title').find('span').eq(0);
-
-				var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
-				var patternBlank = /[\s]/m;
-				var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
-				
-				if(textArea.length != 0){
-					for(let i = 0; i < textArea.length; i++){
-						console.log('d');
-						if(textAreaBytes <= 60) {
-							textAreaBytesBefore = textAreaBytes;
-							if(patternKor.test(textArea.charAt(i))) {
-								textAreaBytes += 3;
-							}
-							else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-								if(e.key == 'Enter') {
-									textAreaBytes += 2;
-								}
-								else {
-									textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
-									textAreaBytes++;
-								}
-							}
-							else {
-								textAreaBytes += 3;
-							}
-							numberingSpan.text(textAreaBytes);
-						}
-						if(60 < textAreaBytes) { // if처리
-							$(this).val(textArea.substring(0, i));
-							numberingSpan.text(textAreaBytesBefore);
-							alert('더 이상 입력할 수 없습니다!');
-							return false;
-						}
-					}
-				}
-				else {
-					numberingSpan.text(0);
-				}
-			});
-		});
-		
-
-		// 재료 입력 디스플레이
-		function displayIngredientInput(){
-
-			var ingredient = document.getElementById('ingredient').value;
-			var ingredientAmount = document.getElementById('ingredientAmount').value;
-			var ingredientMeasureNo = document.getElementById('ingredientMeasureNo').value;
-
-			console.log(ingredient);
-			console.log(ingredientAmount);
-
-
-
-			return false;
-			//console.log(ingredientMeasureNo);
-
-			//const ingredientIndex = document.getElementsByClassName('inputs-in-order');
-			//console.log(ingredientIndex);
-
-
-			//const displayingContainer1 = document.getElementById('displaying-input-area1');
-			//const displayingContainer2 = document.getElementById('displaying-input-area2');
-
-
-
-		};
-
-		
-		/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
-			<div class="displayIngredient">
-				<div id="write-ingredient-input">
-					<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
-				</div>
-				<div id="amount-ingredient-input">
-					<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
-				</div>
-				<div id="measurement-ingredient-selection">
-					<select name="recipeCategoryNo0" class="custom-select" required>
-						<option value="">g</option>
-						<option value="">kg</option>
-						<option value="">cups</option>
-						<option value="">ml</option>
-						<option value="">작은술(ts)</option>
-					</select>
-				</div>
 			</div>
-		*/
+			<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
+	
+		</form>
+		<!---------------------- 글 작성 전체 form 끝 ---------------------->
+	</div>
+	<!---------------------- 전체 wrap 끝 ---------------------->
 
 
-		
-
-
-	</script>
-
-
-	<script>
-		// 임시저장 아이콘 클릭 시 모달창 설정
-		function unrecipeModalRequest(e) {
-			console.log(document.getElementsByClassName('.testList'));
-			//if(document.getElementsByClassName('.testList').length < 3 ) {
-
-				//e.dataset.target = '#unrecipe-modal';
-			//} else {
-				//e.dataset.target = '#unrecipe-unavailable-modal';
-			//}
-		};
-		
-		// 양식 초기화 요청 confirm
-		function confirmReset() {
-			return confirm("입력한 정보를 초기화하시겠습니까?");
-		};
-		
-		$(function(){
-
-			// 레시피 글 작성요청 form태그 속성 설정 및 submit
-			$('#recipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
-			});
-			
-			// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
-			$('#unrecipe-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();
-			});
-			
-			// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
-			$('#unrecipe-del-enrolling-btn').click(function(){
-				$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsertInstead.un').submit();
-			})
-		});
-	</script>
 
 
 	
