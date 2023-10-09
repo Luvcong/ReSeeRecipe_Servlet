@@ -72,6 +72,7 @@
 			   ,MEM_NICKNAME
 			   ,MEM_EMAIL
 			   ,ENROLL_DATE
+			   ,MODIFY_DATE
 			   ,MEM_GRADE_NAME
 	     FROM
 	     		TB_MEMBER
