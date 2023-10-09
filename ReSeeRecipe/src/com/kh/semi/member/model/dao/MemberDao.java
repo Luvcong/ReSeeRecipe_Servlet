@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.MemberUpdate;
 
 public class MemberDao {
 	
@@ -158,6 +159,7 @@ public class MemberDao {
 				m.setMemNickname(rset.getString("MEM_NICKNAME"));
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setModifyDate(rset.getDate("MODIFY_DATE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 			}
 		} catch (SQLException e) {
@@ -177,10 +179,60 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemName());
+			pstmt.setString(2, m.getMemNickname());
+			pstmt.setString(3, m.getMemEmail());
+			pstmt.setString(4, m.getMemGradeName());
+			pstmt.setInt(5, m.getMemNo());
 			
+			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-				
+		return result1;
+	}
+	
+	public int insertMemUpdate(Connection conn, MemberUpdate mu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMemUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mu.getMemNo());
+			pstmt.setString(2,mu.getMemUpdateCon());
+			pstmt.setInt(3, mu.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMemUpdate(Connection conn, MemberUpdate mu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mu.getMemUpdateCon());
+			pstmt.setInt(2, mu.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

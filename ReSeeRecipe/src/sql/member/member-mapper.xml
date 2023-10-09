@@ -72,6 +72,7 @@
 			   ,MEM_NICKNAME
 			   ,MEM_EMAIL
 			   ,ENROLL_DATE
+			   ,MODIFY_DATE
 			   ,MEM_GRADE_NAME
 	     FROM
 	     		TB_MEMBER
@@ -105,5 +106,39 @@
                     WHERE MEM_GRADE_NAME LIKE '%'||?||'%'))
 	    WHERE
 	    		MEM_NO = ?
+	</entry>
+	
+	<entry key="insertMemUpdate">
+		INSERT
+		  INTO
+		  		TB_MEMBER_UPDATE
+		VALUES
+				(
+				SEQ_MEM_UPDATE.NEXTVAL
+			   ,?
+			   ,?
+			   ,'Y'
+			   )
+		WHERE
+				TB_MEMBER_UPDATE.MEM_NO = ?
+				
+				)  
+	</entry>
+	
+	<entry key="updateMemUpdate">
+		UPDATE
+				TB_MEMBER_UPDATE
+		   SET
+		   		(
+		   	   	MEM_UPDATE_CON
+			   ,MEM_UPDATE_STATUS		   		
+		   		)
+		VALUES
+				(
+				?
+			   ,'Y'
+				)
+		WHERE
+				MEM_N0 = ?
 	</entry>
 </properties>
