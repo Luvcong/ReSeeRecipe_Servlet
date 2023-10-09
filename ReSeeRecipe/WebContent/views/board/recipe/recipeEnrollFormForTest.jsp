@@ -547,16 +547,16 @@
 							</div>
 						</div>
 						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-							<div id="ingredient-title-div1">
+							<div id="ingredient-title-div1" class="inputs-in-order">
 								<!-- 기본 재료입력칸 -->
 								<div id="write-ingredient-input">
-									<input type="text" class="form-control" placeholder="재료입력" maxlength="15">
+									<input type="text" id="ingredient" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" class="form-control" placeholder="재료량" maxlength="4">
+									<input type="text" id="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select class="custom-select" required>
+									<select id="ingredientMeasureNo" class="custom-select" required>
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -569,18 +569,19 @@
 								<button type="button" id="ingredient-title-btn" onclick="displayIngredientInput();" class="fa fa-plus-square"></button>
 							</div>
 						</div>
+						<!-- 띄워줄 영역 -->
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
 							<div id="displaying-input-area1">
 								<!-- 첫번째 재료 -->
-								<div class="displaying-ingredients0">
+								<div class="displaying-ingredients-0" style="display:none;">
 									<div class="displaying-write-ingredient">
-										<input type="text" name="" class="form-control" placeholder="재료입력" maxlength="15">
+										<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15">
 									</div>
 									<div class="displaying-amount-ingredient">
-										<input type="text" name="" class="form-control" placeholder="재료량" maxlength="4">
+										<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4">
 									</div>
 									<div class="displaying-measurement-ingredient">
-										<select name="" class="custom-select" required>
+										<select name="ingredientMeasureNo0" class="custom-select" required>
 											<option value="">g</option>
 											<option value="">kg</option>
 											<option value="">cups</option>
@@ -657,7 +658,24 @@
 
 					// 재료 입력 디스플레이
 					function displayIngredientInput(){
-						
+
+						var ingredient = document.getElementById('ingredient').value;
+						var ingredientAmount = document.getElementById('amount-ingredient-input').getElementsByTagName('input');
+						//var ingredientMeasureNo = document.getElementById('mesurement-ingredient-selection').getAttribute();
+
+						console.log(ingredient);
+						console.log(ingredientAmount);
+						//console.log(ingredientMeasureNo);
+
+						//const ingredientIndex = document.getElementsByClassName('inputs-in-order');
+						//console.log(ingredientIndex);
+
+
+						//const displayingContainer1 = document.getElementById('displaying-input-area1');
+						//const displayingContainer2 = document.getElementById('displaying-input-area2');
+
+
+
 					};
 
 					
