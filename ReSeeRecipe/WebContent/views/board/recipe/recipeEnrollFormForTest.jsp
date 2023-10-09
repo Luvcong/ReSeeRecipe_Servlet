@@ -612,7 +612,7 @@
 							
 							<!-- 첫번째 재료 -->
 							<!--
-							<div id="ingredientContainer0">
+							<div id="ingredientContainer0" class="ingredientContainer">
 								<div id="ingredientDiv0">
 									<input type="text" id="ingredient0" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
 								</div>
@@ -691,9 +691,12 @@
 					});
 					
 					
-					var count = 0;
+					
 					// 재료 입력 디스플레이 생성
 					function addIngredientDisplay(){
+						var count = document.getElementsByClassName('ingredientContainer').length;
+						console.log(count);
+
 						// 입력된 재료 값 받기
 						var ingredientIn = document.getElementById('ingredientIn').value;
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
@@ -708,14 +711,17 @@
 						ingredientDiv.is = 'ingredientDiv' + count;
 						var amountIngredient = document.createElement('div');
 						amountIngredient.id = 'amountIngredient' + count;
+						var measurementIngredientDiv = document.createElement('div');
+						measurementIngredientDiv.id = 'measurementIngredientDiv' + count;
 
 						// 요소생성 + 세부세팅 (ingredient인풋)
+						var ingredient = createElement('input');
+
 						// 요소생성 + 세부세팅 (amountIngredient인풋)
+						var amountIngredient = createElement('input');
+
 						// 요소생성 + 세부세팅 (ingredientMeasureNo인풋)
-						
-						
-						var added
-						
+						var ingredientMeasureNo = createElement('select');
 			
 						return false;
 						//console.log(ingredientMeasureNo);
