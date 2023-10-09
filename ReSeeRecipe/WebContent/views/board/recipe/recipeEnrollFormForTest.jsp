@@ -704,29 +704,39 @@
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
 						*/
 
-						// 제일 바깥쪽 띄워줄 영역
+						// 제일 바깥쪽 띄워줄 영역 세팅
 						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
 						
-						// 만들어줄 Container
+						// 새로 만든 Container 세팅
 						var ingredientContainer = document.createElement('div');
 						ingredientContainer.id = 'ingredientContainer' + count;
 						ingredientContainer.classList.add('ingredientContainer');
-						cookStepsIngredientContent.appendChild(ingredientContainer);
-
-
-						// Container 내부 div들 3파트
+						
+						
+						
+						
+						// Container 내부 div들 3파트 세팅
 						var ingredientAreaDiv = document.createElement('div');
 						ingredientAreaDiv.id = 'ingredientAreaDiv' + count;
-						ingredientContainer.appendChild(ingredientAreaDiv);
-						
-						/*
+
 						var amountAreaDiv = document.createElement('div');
 						amountAreaDiv.id = 'amountAreaDiv' + count;
-						ingredientContainer.appendChild(amountAreaDiv);
-
+						
 						var measureAreaDiv = document.createElement('div');
 						measureAreaDiv.id = 'measureAreaDiv' + count;
+
+						
+						// appendChild
+						cookStepsIngredientContent.appendChild(ingredientContainer);
+
+						ingredientContainer.appendChild(ingredientAreaDiv);
+						ingredientContainer.appendChild(amountAreaDiv);
 						ingredientContainer.appendChild(measureAreaDiv);
+						
+
+
+						
+						/*
 
 						measureAreaDiv.appendChild('s');
 						console.log('dd');
