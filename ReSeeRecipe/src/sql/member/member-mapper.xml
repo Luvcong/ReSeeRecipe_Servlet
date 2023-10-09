@@ -87,12 +87,23 @@
 		UPDATE
 		   		TB_MEMBER
 		   SET
-		   		
-		   		
-	
-	
-	
-	
-	
+		   		(
+				MEM_NAME
+			   ,MEM_NICKNAME
+			   ,MEM_EMAIL
+			   ,MODIFY_DATE
+			   ,MEM_GRADE
+				)
+		VALUES
+				(
+				?
+			   ,?
+			   ,?
+			   ,SYSDATE
+			   ,(SELECT MEM_GRADE_NO
+                    FROM TB_MEMBER_GRADE
+                    WHERE MEM_GRADE_NAME LIKE '%'||?||'%'))
+	    WHERE
+	    		MEM_NO = ?
 	</entry>
 </properties>
