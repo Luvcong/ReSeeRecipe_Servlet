@@ -44,23 +44,11 @@
         		DM_NO = ?
 	</entry>
 	
-	
-	<!-- 삭제 예정 -->
-	<entry key="selectDm">
-		SELECT
-				DM_NO,
-				MEM_ID,
-				MEM_NICKNAME,
-				DM_CONTENT,
-				SEND_DATE,
-				DM_STATUS
-		 FROM
-		 		TB_DM
-		 JOIN
-		 		TB_MEMBER ON(SEND_MEM = MEM_NO)
-		WHERE
-				DM_NO = ?
+	<!-- 쪽지 미답변 개수 카운트 SQL문  -->
+	<entry key="getWaitingCount">		
+		SELECT COUNT(*)
+		FROM TB_DM
+		WHERE DM_STATUS = 'N'
 	</entry>
-
 	
 </properties>

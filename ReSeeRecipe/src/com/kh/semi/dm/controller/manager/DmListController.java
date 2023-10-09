@@ -43,7 +43,7 @@ public class DmListController extends HttpServlet {
 		request.setAttribute("waitingCount", dmService.getWaitingCount(list));
 		
 		// 5) 응답화면 지정
-		request.getRequestDispatcher("views/dm/dmListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/dm/manager/dmListView.jsp").forward(request, response);
 	}
 
 	/**

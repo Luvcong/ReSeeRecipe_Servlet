@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>회원 정보 수정하기</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+   	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -39,7 +39,7 @@
     <h2>회원 정보 수정</h2>
     <br><br>
     <div class="container">
-        <form class="form" action="<%=contextPath %>/hlupdateMember.ma" method="post" id="member-updateForm">
+        <form class="form" action="<%=contextPath %>/hlupdatemember.ma" method="post" id="member-updateForm">
             
             <label for="memberNo">회원번호</label>
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
@@ -59,8 +59,11 @@
             <label for="memberEnrolldate">가입일자</label>
             <input type="text" class="form-control"  id="memberEnrolldate" name="memEnrolldate" value="<%=m.getEnrollDate()%>" readonly>
             <br>
+            <label for="memberModifydate">수정일자</lable>
+            <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate() %>" readonly>
+            <br>
             <label for="membergradeName">회원등급명</label>
-            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" readonly>
+            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" >
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>
@@ -74,4 +77,14 @@
     </div>
 </div> 
 </body>
+
+<script>
+	$(function(){
+		if($('#memberModifydate').val() == null) {
+			console.log($('#memberModifydate').val());
+			$('#memberModifydate').val() = '';
+		}
+	});
+
+</script>
 </html>

@@ -111,7 +111,6 @@ public class DmDao {
 	}	// updateReply
 	
 	
-	
 	/**
 	 * 쪽지 삭제 요청을 처리해주는 method
 	 * @param conn
@@ -143,39 +142,12 @@ public class DmDao {
 	}	// deleteDm
 	
 	
+
 	
 	
 	
-//	public Dm selectDm(Connection conn, int dmNo) {
-//		
-//		Dm dm = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		String sql = prop.getProperty("selectDm");
-//		
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1,  dmNo);
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				dm = new Dm();
-//				dm.setDmNo(rset.getInt("DM_NO"));
-//				dm.setMemId(rset.getString("MEM_ID"));
-//				dm.setMemNickname(rset.getString("MEM_NICKNAME"));
-//				dm.setDmContent(rset.getString("DM_CONTENT"));
-//				dm.setSendDate(rset.getDate("SEND_DATE"));
-//				dm.setDmStatus(rset.getString("DM_STATUS"));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return dm;
-//		
-//	}	// selectDm
+	
+
 	
 	
 	

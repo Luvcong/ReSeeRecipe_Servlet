@@ -55,7 +55,7 @@ public class DmService {
 		return result;
 	}	// getWaitingCount
 	
-	
+
 	/**
 	 * 쪽지 답변 method
 	 * @param dm 답변내용 / 쪽지seqNo(식별값)

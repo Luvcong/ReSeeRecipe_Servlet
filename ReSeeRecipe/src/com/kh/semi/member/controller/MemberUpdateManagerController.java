@@ -1,6 +1,8 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,15 +36,23 @@ public class MemberUpdateManagerController extends HttpServlet {
 
 		// 1) POST => 인코딩
 		request.setCharacterEncoding("UTF-8");
-	
+		
 		// 2) 값 뽑기 member UPDATE 이름 닉네임 이메일 회원등급명 수정사유
-		int memNo = Integer.parseInt(request.getParameter("memberNo")); //updateForm에서 hidden 으로 받아와야할 듯
+		
+		int memNo = Integer.parseInt(request.getParameter("memNo")); 
 		String memberName = request.getParameter("memberName");
 		String memNickname = request.getParameter("memNickname");
 		String memEmail = request.getParameter("memEmail");
 		String memGradename = request.getParameter("memGradename");
 		String memUpdateWhyCon = request.getParameter("memUpdateWhyCon");
+		String memModifyDate = request.getParameter("memModifydate");
 		
+		// Date -> String
+		//SimpleDateFormat memModifyDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date memberModifyDate = java.sql.Date.valueOf(memModifyDate);
+		//Date memberModifyDate = memModifyDateFormat.parse(memModifyDate);
+		
+		//System.out.print(""+memberModifyDate);
 		// 3) Member VO 가공 - memUpdateWhyCon 필드 추가해야 할 듯
 		Member m = new Member();
 		m.setMemNo(memNo);
@@ -50,6 +60,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
 		m.setMemGradeName(memGradename);
+		//m.setModifyDate(memModifyDate);
 		//m.setMemUpdateWhyCon(memUpdateWhyCon);
 		
 		// VO 가공  Member Update 생성(?)
@@ -62,7 +73,11 @@ public class MemberUpdateManagerController extends HttpServlet {
 		int result = new MemberService().updateMemInfo(m, mu);
 		
 		if(result > 0) {
-			
+			System.out.println("result>>" + result);
+			response.sendRedirect(request.getContextPath() + "/hldetailmember.ma?mno=" + memNo);
+		} else {
+			request.setAttribute("errorMsg", "회원 정보 수정 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 
