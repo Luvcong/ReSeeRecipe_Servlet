@@ -363,7 +363,7 @@
 	
 
 	/* 재료 콘텐트 (입력요소 띄우는 부분) */
-	#cook-steps-ingredient-content {
+	#cookStepsIngredientContent {
 		height: 70%;
 	}
 	
@@ -608,19 +608,19 @@
 							</div>
 						</div>
 						<!-- 띄워줄 영역 -->
-						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
+						<div id="cookStepsIngredientContent" class="cook-steps-inner">
 							
 							<!-- 첫번째 재료 -->
 							<!--
 							<div id="ingredientContainer0" class="ingredientContainer">
-								<div id="ingredientDiv0">
-									<input type="text" id="ingredient0" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+								<div id="ingredientAreaDiv0">
+									<input type="text" id="ingredientIn0" name="ingredientIn0" class="form-control" placeholder="재료입력" maxlength="15" required>
 								</div>
-								<div id="amountIngredient0">
-									<input type="text" id="ingredientAmount0" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+								<div id="amountAreaDiv0">
+									<input type="text" id="ingredientAmountIn0" name="ingredientAmountIn0" class="form-control" placeholder="재료량" maxlength="4" required>
 								</div>
-								<div id="measurementIngredientDiv0">
-									<select id="ingredientMeasureNo0" name="ingredientMeasureNo0" class="custom-select" required>
+								<div id="measureAreaDiv0">
+									<select id="ingredientMeasureNoIn0" name="ingredientMeasureNoIn0" class="custom-select" required>
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -698,32 +698,46 @@
 						console.log(count);
 
 						// 입력된 재료 값 받기
+						/*
 						var ingredientIn = document.getElementById('ingredientIn').value;
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
+						*/
+
+						// 제일 바깥쪽 띄워줄 영역
+						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
 						
-						// 요소 생성 + 아이디세팅 (Container)
+						// 만들어줄 Container
 						var ingredientContainer = document.createElement('div');
-						ingredientContainer.id = 'addedIngredient' + count;
+						ingredientContainer.id = 'ingredientContainer' + count;
+						ingredientContainer.class = 'ingredientContainer';
+						cookStepsIngredientContent.appendChild(ingredientContainer);
+
+
+						// Container 내부 div들 3파트
+						var ingredientAreaDiv = document.createElement('div');
+						ingredientAreaDiv.id = 'ingredientAreaDiv' + count;
+						ingredientContainer.appendChild(ingredientAreaDiv);
 						
-						// 요소생성 + 아이디세팅 (Container 내부 작은 div들)
-						var ingredientDiv = document.createElement('div');
-						ingredientDiv.is = 'ingredientDiv' + count;
-						var amountIngredient = document.createElement('div');
-						amountIngredient.id = 'amountIngredient' + count;
-						var measurementIngredientDiv = document.createElement('div');
-						measurementIngredientDiv.id = 'measurementIngredientDiv' + count;
+						/*
+						var amountAreaDiv = document.createElement('div');
+						amountAreaDiv.id = 'amountAreaDiv' + count;
+						ingredientContainer.appendChild(amountAreaDiv);
 
+						var measureAreaDiv = document.createElement('div');
+						measureAreaDiv.id = 'measureAreaDiv' + count;
+						ingredientContainer.appendChild(measureAreaDiv);
+
+						measureAreaDiv.appendChild('s');
+						console.log('dd');
 						// 요소생성 + 세부세팅 (ingredient인풋)
-						var ingredient = createElement('input');
 
-						// 요소생성 + 세부세팅 (amountIngredient인풋)
-						var amountIngredient = createElement('input');
+						// 요소생성 + 세부세팅 (인풋)
+						
 
 						// 요소생성 + 세부세팅 (ingredientMeasureNo인풋)
-						var ingredientMeasureNo = createElement('select');
+					
 			
-						return false;
 						//console.log(ingredientMeasureNo);
 			
 						//const ingredientIndex = document.getElementsByClassName('inputs-in-order');
@@ -732,9 +746,9 @@
 			
 						//const displayingContainer1 = document.getElementById('displaying-input-area1');
 						//const displayingContainer2 = document.getElementById('displaying-input-area2');
+						*/
 			
-			
-			
+						count++;
 					};
 			
 					
