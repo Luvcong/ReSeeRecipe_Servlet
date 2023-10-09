@@ -303,12 +303,11 @@
 	}
 
 	#ingredient-title-div1 {
-		width: 80%;
+		width: 85%;
 	}
-
 	
-	#write-ingredient-input {
-		width: 60%;
+	write-ingredient-input {
+		width: 62%;
 		height: 100%;
 	}
 	
@@ -318,7 +317,7 @@
 	}
 	
 	#measurement-ingredient-selection {
-		width: 22%;
+		width: 20%;
 		height: 100%;
 	}
 	
@@ -341,26 +340,12 @@
 	}
 
 	#ingredient-title-div2 {
-		width: 20%;
+		width: 15%;
 		padding-top: 7px;
-		padding-right: 5px;
+		padding-right: 10px;
 	}
 
-	#ingredient-add-msg-div {
-		float: right !important;
-	}
-
-	#ingredient-add-msg-div label {
-		margin: 0px;
-		margin-top: 12px;
-		margin-right: 1px;
-		font-size: 5px;
-		font-weight: 1000;
-		color: rgb(132, 137, 143);
-		display: inline-block;
-	}
-	
-	#ingredient-add-msg-div button {
+	#ingredient-title-btn {
 		font-size: 40px;
 		padding: 0px;
 		margin-top: 2px;
@@ -371,11 +356,7 @@
 		float: right;
 	}
 	
-	#ingredient-add-msg-div label:hover {
-		cursor: pointer;
-	}
-	
-	#ingredient-title-div2 button:hover {
+	#ingredient-title-btn:hover {
 		color: rgb(59, 134, 225);
 	}
 
@@ -585,14 +566,36 @@
 								</div>
 							</div>
 							<div id="ingredient-title-div2">
-								<div id="ingredient-add-msg-div">
-									<label for="ingredient-title-btn">추가</label>
-									<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
-								</div>
+								<button type="button" id="ingredient-title-btn" onclick="displayIngredientInput();" class="fa fa-plus-square"></button>
 							</div>
 						</div>
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-							
+							<div id="displaying-input-area1">
+								<!-- 첫번째 재료 -->
+								<div class="displaying-ingredients0">
+									<div class="displaying-write-ingredient">
+										<input type="text" name="" class="form-control" placeholder="재료입력" maxlength="15">
+									</div>
+									<div class="displaying-amount-ingredient">
+										<input type="text" name="" class="form-control" placeholder="재료량" maxlength="4">
+									</div>
+									<div class="displaying-measurement-ingredient">
+										<select name="" class="custom-select" required>
+											<option value="">g</option>
+											<option value="">kg</option>
+											<option value="">cups</option>
+											<option value="">ml</option>
+											<option value="">작은술(ts)</option>
+										</select>
+									</div>
+									<div id="ingredient-title-div2">
+										<button type="button" id="ingredient-title-btn" onclick="displayIngredientInput();" class="fa fa-plus-square"></button>
+									</div>
+								</div>
+							</div>
+							<div id="displaying-input-area2">
+								
+							</div>
 						</div>
 
 					</div>
@@ -603,9 +606,9 @@
 				<script>
 
 
-					<!-- 타이틀 글자수 바이트 수 세기 -->
 					$(function(){
-
+						
+						// 타이틀 글자수 바이트 수 세기
 						$('#cook-steps-title textarea').keyup(function(e){
 							var textAreaBytes = 0;
 							var textArea = $(this).val();
@@ -652,15 +655,10 @@
 					});
 					
 
-
-					$(function(){
-						$('#ingredient-title-btn').onclick(function(){
-
-
-
-							
-						});
-					});
+					// 재료 입력 디스플레이
+					function displayIngredientInput(){
+						
+					};
 
 					
 					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
