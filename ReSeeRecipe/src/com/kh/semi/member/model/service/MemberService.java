@@ -59,11 +59,13 @@ public class MemberService {
 		return m;
 	}
 	
-	public Member updateMemInfo(Member m) {
+	public int updateMemInfo(Member m, MemberUpdate mu) {
 		
 		Connection conn = getConnection();
 		
-		Member m = new MemberDao().updateMemInfo(conn, m);
+		int result1 = new MemberDao().updateMemInfo(conn, m);
+		
+		int result2 = 1; //new MemberDao().updateMemInfo(conn, mu);
 		
 		
 	}

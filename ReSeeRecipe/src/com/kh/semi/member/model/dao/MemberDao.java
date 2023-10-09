@@ -168,4 +168,19 @@ public class MemberDao {
 		}
 		return m;
 	}
+	
+	public int updateMemInfo(Connection conn, Member m) {
+		
+		int result1 = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+	}
 }

@@ -59,7 +59,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		mu.setMemUpdateCon(memUpdateWhyCon);
 		
 		// 4) 서비스 요청
-		int result = new MemberService().updateMemInfo(m);
+		int result = new MemberService().updateMemInfo(m, mu);
 		
 		if(result > 0) {
 			
