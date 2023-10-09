@@ -85,7 +85,9 @@
 	
 	<entry key="updateMemInfo">
 		UPDATE
+		   		TB_MEMBER
 		   SET
+		   		
 		   		
 	
 	
