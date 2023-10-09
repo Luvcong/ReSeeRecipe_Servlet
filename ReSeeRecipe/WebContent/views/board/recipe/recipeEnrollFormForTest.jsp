@@ -710,7 +710,7 @@
 						// 만들어줄 Container
 						var ingredientContainer = document.createElement('div');
 						ingredientContainer.id = 'ingredientContainer' + count;
-						ingredientContainer.class = 'ingredientContainer';
+						ingredientContainer.classList.add('ingredientContainer');
 						cookStepsIngredientContent.appendChild(ingredientContainer);
 
 
