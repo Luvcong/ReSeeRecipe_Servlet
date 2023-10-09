@@ -42,6 +42,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		String memEmail = request.getParameter("memEmail");
 		String memGradename = request.getParameter("memGradename");
 		String memUpdateWhyCon = request.getParameter("memUpdateWhyCon");
+		String memModifyDate = request.getParameter("memberModifydate");
 		
 		// 3) Member VO 가공 - memUpdateWhyCon 필드 추가해야 할 듯
 		Member m = new Member();
