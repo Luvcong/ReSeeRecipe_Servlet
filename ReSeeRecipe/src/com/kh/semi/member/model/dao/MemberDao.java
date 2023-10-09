@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.MemberUpdate;
 
 public class MemberDao {
 	
@@ -191,5 +192,23 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result1;
+	}
+	
+	public int insertMemUpdate(Connection conn, MemberUpdate mu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMemUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 }

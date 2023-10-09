@@ -107,4 +107,21 @@
 	    WHERE
 	    		MEM_NO = ?
 	</entry>
+	
+	<entry key="insertMemUpdate">
+		INSERT
+		  INTO
+		  		TB_MEMBER_UPDATE
+		VALUES
+				(
+				SEQ_MEM_UPDATE.NEXTVAL
+			   ,?
+			   ,?
+			   ,'Y'
+			   )
+		WHERE
+				TB_MEMBER_UPDATE.MEM_NO = ?
+				
+				)  
+	</entry>
 </properties>
