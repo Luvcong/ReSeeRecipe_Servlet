@@ -569,13 +569,13 @@
 							<div id="ingredient-title-div1">
 								<!-- 기본 재료입력칸 -->
 								<div id="write-ingredient-input">
-									<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+									<input type="text" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+									<input type="text" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select name="recipeCategoryNo0" class="custom-select" required>
+									<select class="custom-select" required>
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
@@ -592,23 +592,7 @@
 							</div>
 						</div>
 						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-							<div id="">
-								<div id="write-ingredient-input">
-									<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
-								</div>
-								<div id="amount-ingredient-input">
-									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
-								</div>
-								<div id="measurement-ingredient-selection">
-									<select name="recipeCategoryNo0" class="custom-select" required>
-										<option value="">g</option>
-										<option value="">kg</option>
-										<option value="">cups</option>
-										<option value="">ml</option>
-										<option value="">작은술(ts)</option>
-									</select>
-								</div>
-							</div>
+							
 						</div>
 
 					</div>
@@ -616,8 +600,10 @@
 
 
 
-				<!-- 타이틀 글자수 바이트 수 세기 -->
 				<script>
+
+
+					<!-- 타이틀 글자수 바이트 수 세기 -->
 					$(function(){
 
 						$('#cook-steps-title textarea').keyup(function(e){
@@ -665,28 +651,40 @@
 						});
 					});
 					
+
+
+					$(function(){
+						$('#ingredient-title-btn').onclick(function(){
+
+
+
+							
+						});
+					});
+
+					
 					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
-						<div class="input-group ingredient-input-container">
-							<span>
-								<input type="text" name="ingredient0" class="form-control write-ingredient-input" placeholder="재료입력" maxlength="15" required>
-							</span>
-							<span>
-								<input type="text" name="ingredientAmount0" class="form-control amount-ingredient-input" placeholder="재료량" maxlength="10" required>
-							</span>
-							<span>
-								<select name="recipeCategoryNo0" class="custom-select measurement-ingredient-selection" required>
+						<div class="displayIngredient">
+							<div id="write-ingredient-input">
+								<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+							</div>
+							<div id="amount-ingredient-input">
+								<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+							</div>
+							<div id="measurement-ingredient-selection">
+								<select name="recipeCategoryNo0" class="custom-select" required>
 									<option value="">g</option>
 									<option value="">kg</option>
 									<option value="">cups</option>
 									<option value="">ml</option>
-									<option value="">L</option>
+									<option value="">작은술(ts)</option>
 								</select>
-							</span>
-							<span>
-								<button id="ingredient-del-btn0" type="button" id class="btn btn-danger del-ingredient-input">-</button>
-							</span>
+							</div>
 						</div>
 					*/
+
+		
+					
 
 
 				</script>
@@ -819,12 +817,6 @@
 	</script>
 
 
-	<script>
-		$(function(){
-			$('#ingredient-title-btn').click(function(){
-				alert('재료추가');
-			})
-		});
-	</script>
+	
 </body>
 </html>
