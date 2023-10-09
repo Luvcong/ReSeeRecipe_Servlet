@@ -202,13 +202,37 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mu.getMemNo());
+			pstmt.setString(2,mu.getMemUpdateCon());
+			pstmt.setInt(3, mu.getMemNo());
 			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		return result;
+	}
+	
+	public int updateMemUpdate(Connection conn, MemberUpdate mu) {
 		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemUpdate");
 		
-		
-		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mu.getMemUpdateCon());
+			pstmt.setInt(2, mu.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

@@ -124,4 +124,21 @@
 				
 				)  
 	</entry>
+	
+	<entry key="updateMemUpdate">
+		UPDATE
+				TB_MEMBER_UPDATE
+		   SET
+		   		(
+		   	   	MEM_UPDATE_CON
+			   ,MEM_UPDATE_STATUS		   		
+		   		)
+		VALUES
+				(
+				?
+			   ,'Y'
+				)
+		WHERE
+				MEM_N0 = ?
+	</entry>
 </properties>
