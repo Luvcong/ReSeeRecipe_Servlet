@@ -254,7 +254,7 @@
 	
 	}
 	/* --- 우측 --- */
-	/* 제목 */
+	/* 제목 입력칸 (textarea) */
 	#cook-steps-title {
 		height: 21%;
 	}
@@ -292,38 +292,69 @@
 	}
 
 
-	/* 재료 제목 (재료추가 버튼) */
+	/* 재료 타이틀 (재료 입력 및 추가하는 부분) */
 	#cook-steps-ingredient-title {
 		height: 9%;
 	}
 
-	#cook-steps-ingredient-title > div {
+	#cook-steps-ingredient-title div {
 		height: 100%;
 		float: left;
 	}
 
 	#ingredient-title-div1 {
-		width: 67%;
-		padding-top: 7px;
+		width: 80%;
+	}
+
+	
+	#write-ingredient-input {
+		width: 60%;
+		height: 100%;
+	}
+	
+	#amount-ingredient-input {
+		width: 18%;
+		height: 100%;
+	}
+	
+	#measurement-ingredient-selection {
+		width: 22%;
+		height: 100%;
+	}
+	
+	#ingredient-title-div1 input {
+		font-size: 2px;
+		text-align: center;
+		padding: 2px;
+	}
+
+	#ingredient-title-div1 select {
+		
+		text-align: right;
+		padding: 0px;
+		padding-right: 22px;
+	}
+	
+	#ingredient-title-div1 input, #ingredient-title-div1 select {
+		width: 100%;
+		height: 100%;
 	}
 
 	#ingredient-title-div2 {
-		width: 33%;
-		text-align: left;
-		padding-top: 26px;
-		padding-left: 2px;
+		width: 20%;
+		padding-top: 7px;
+		padding-right: 5px;
 	}
 
-
 	#ingredient-add-msg-div {
-		float: right;
+		float: right !important;
 	}
 
 	#ingredient-add-msg-div label {
 		margin: 0px;
-		margin-top: 2px;
-		margin-right: 5px;
-		font-size: 25px;
+		margin-top: 12px;
+		margin-right: 1px;
+		font-size: 5px;
 		font-weight: 1000;
 		color: rgb(132, 137, 143);
 		display: inline-block;
@@ -332,6 +363,7 @@
 	#ingredient-add-msg-div button {
 		font-size: 40px;
 		padding: 0px;
+		margin-top: 2px;
 		appearance: none;
 		border: none;
 		background-color: transparent;
@@ -343,63 +375,16 @@
 		cursor: pointer;
 	}
 	
-	#ingredient-title-div1 button:hover {
+	#ingredient-title-div2 button:hover {
 		color: rgb(59, 134, 225);
 	}
+
 	
 
-	#ingredient-title-div2 > p {
-		margin-bottom: 0px;
-		font-size: 1px;
-		color: rgb(142, 147, 153);
-	}
-
-
-	/* 재료 콘텐트 (입력요소들) */
+	/* 재료 콘텐트 (입력요소 띄우는 부분) */
 	#cook-steps-ingredient-content {
 		height: 70%;
 	}
-
-	#cook-steps-ingredient-content .ingredient-input-container {
-		width: 50%;
-		height: 30px;
-	}
-
-	#cook-steps-ingredient-content .ingredient-input-container span {
-		height: 100%;
-	}
-	
-	#cook-steps-ingredient-content .ingredient-input-container input {
-		width: 100%;
-		height: 100%;
-		padding: 1px;
-		font-size: 2px;
-		text-align: center;
-	}
-
-	#cook-steps-ingredient-content .ingredient-input-container select {
-		width: 100%;
-		height: 100%;
-		padding: 1px;
-		font-size: 2px;
-	}
-
-	#cook-steps-ingredient-content .write-ingredient-input{
-		width: 65%;
-		
-	}
-
-
-	#cook-steps-ingredient-content .amount-ingredient-input {
-		width: 20%;
-		padding: 1px;
-		text-align: center;
-	}
-
-	#cook-steps-ingredient-content .measurement-ingredient-selection {
-		width: 15%;
-	}
-
 	
 
 
@@ -582,42 +567,50 @@
 						</div>
 						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
 							<div id="ingredient-title-div1">
-								<div id="ingredient-add-msg-div">
-									<label for="ingredient-title-btn">재료추가</label>
-									<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
-								</div>
-							</div>
-							<div id="ingredient-title-div2">
-								<p>(최대 30개)</p>
-							</div>
-						</div>
-
-						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
-							
-							<!-- 기본 재료입력칸 -->
-							<div class="input-group ingredient-input-container">
-								<span class="write-ingredient-input">
+								<!-- 기본 재료입력칸 -->
+								<div id="write-ingredient-input">
 									<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
-								</span>
-								<span class="amount-ingredient-input">
-									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="10" required>
-								</span>
-								<span class="measurement-ingredient-selection">
+								</div>
+								<div id="amount-ingredient-input">
+									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+								</div>
+								<div id="measurement-ingredient-selection">
 									<select name="recipeCategoryNo0" class="custom-select" required>
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
 										<option value="">ml</option>
-										<option value="">L</option>
+										<option value="">작은술(ts)</option>
 									</select>
-								</span>
-								<span class="del-ingredient-input">
-									<button id="ingredient-del-btn0" type="button" id class="btn btn-danger">-</button>
-								</span>
+								</div>
 							</div>
-
-
+							<div id="ingredient-title-div2">
+								<div id="ingredient-add-msg-div">
+									<label for="ingredient-title-btn">추가</label>
+									<button type="button" id="ingredient-title-btn" class="fa fa-plus-square"></button>
+								</div>
+							</div>
 						</div>
+						<div id="cook-steps-ingredient-content" class="cook-steps-inner">
+							<div id="">
+								<div id="write-ingredient-input">
+									<input type="text" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15" required>
+								</div>
+								<div id="amount-ingredient-input">
+									<input type="text" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4" required>
+								</div>
+								<div id="measurement-ingredient-selection">
+									<select name="recipeCategoryNo0" class="custom-select" required>
+										<option value="">g</option>
+										<option value="">kg</option>
+										<option value="">cups</option>
+										<option value="">ml</option>
+										<option value="">작은술(ts)</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
