@@ -1,6 +1,8 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,6 +46,12 @@ public class MemberUpdateManagerController extends HttpServlet {
 		String memUpdateWhyCon = request.getParameter("memUpdateWhyCon");
 		String memModifyDate = request.getParameter("memberModifydate");
 		
+		// Date -> String
+		//SimpleDateFormat memModifyDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date memberModifyDate = java.sql.Date.valueOf(memModifyDate);
+		//Date memberModifyDate = memModifyDateFormat.parse(memModifyDate);
+		
+		System.out.print(""+memberModifyDate);
 		// 3) Member VO 가공 - memUpdateWhyCon 필드 추가해야 할 듯
 		Member m = new Member();
 		m.setMemNo(memNo);
@@ -51,6 +59,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
 		m.setMemGradeName(memGradename);
+		m.setModifyDate(memberModifyDate);
 		//m.setMemUpdateWhyCon(memUpdateWhyCon);
 		
 		// VO 가공  Member Update 생성(?)
