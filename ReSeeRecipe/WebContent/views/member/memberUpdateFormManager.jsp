@@ -40,7 +40,7 @@
     <h2>회원 정보 수정</h2>
     <br><br>
     <div class="container">
-        <form class="form" action="<%=contextPath %>/hlupdateMember.ma" method="post" id="member-updateForm">
+        <form class="form" action="<%=contextPath %>/hlupdateMember.ma?mno=<%=m.getMemNo() %>" method="post" id="member-updateForm">
             
             <label for="memberNo">회원번호</label>
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
@@ -64,7 +64,7 @@
             <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate() %>" readonly>
             <br>
             <label for="membergradeName">회원등급명</label>
-            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" readonly>
+            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" >
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>

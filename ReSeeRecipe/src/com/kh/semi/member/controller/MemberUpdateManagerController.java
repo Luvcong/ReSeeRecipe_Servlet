@@ -72,7 +72,8 @@ public class MemberUpdateManagerController extends HttpServlet {
 		int result = new MemberService().updateMemInfo(m, mu);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/hldetailmember.ma?mno=" + memNo );
+			System.out.println("result>>" + result);
+			response.sendRedirect(request.getContextPath() + "/hldetailmember.ma?mno=" + m.getMemNo() );
 		} else {
 			request.setAttribute("errorMsg", "회원 정보 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
