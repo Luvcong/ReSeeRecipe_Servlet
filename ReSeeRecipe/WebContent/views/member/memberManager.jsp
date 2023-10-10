@@ -224,13 +224,14 @@
         	
         	
         	function deleteMember(){
-        		let $trs = $('#memAllList > tr');
+        		let $trs = $('#memAllList > tr'); // .table tr
+        		console.log('$trs' + $trs);
         		let $tr_check = null;
-        		for(let $tr of $trs){
-    				let $cm = $($tr).children().eq(0).find('input:checkbox');
+        		for(let tr of $trs){
+    				let $cm = $(tr).find('input');
         			if($cm.prop('checked')){
         				console.log('$cm.prop' + $cm.prop('checked'));
-        				$tr_checked = $trs;
+        				$tr_checked = tr;
         				break; //break;
         			}
         		}
@@ -241,7 +242,7 @@
         		}	
         			
         		Swal.fire({
-	        			titile : "회원을 삭제하시겠습니까?",
+	        			title : "회원을 삭제하시겠습니까?",
 	        			text : "※  탈퇴회원에서 조회 가능합니다",
 	        			icon : "warning",
 	        			showCancelButton: true,
@@ -261,10 +262,10 @@
 	    					$([]) */
 	    					
 	    					for(let tr of $trs){
-	    						let $mc = $(this).children().eq(0).find('input:checkbox');
-	    						console.log($mc.next());
-	    						if($cm.prop('checked') == true){
-	    							mem_list.push('$trs > tbody > children().eq(1).text()');
+	    						let $mchk = $('tr').find('input:checkbox');
+	    						console.log($mchk );
+	    						if($mchk.prop('checked') == true){
+	    							mem_list.push('$trs > children().eq(1).text()');
 	    						}
 	    					}
 	    					
@@ -275,7 +276,10 @@
 	    						data : {'mno' :  mem_list},
 	    						success : function(result){
 	    							for(let tr of $trs){
-	    								let memNo = parseInt()
+	    								let memNo = parseInt(tr.children[1].textContent);
+	    								if(result.includes(memNo)){
+	    									tr.remove();
+	    								}
 	    							}
 	    						}
 	    					})
