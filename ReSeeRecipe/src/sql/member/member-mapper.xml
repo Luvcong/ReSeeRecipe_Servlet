@@ -97,9 +97,7 @@
                     FROM TB_MEMBER_GRADE
                     WHERE MEM_GRADE_NAME LIKE '%'||?||'%')
 	    WHERE
-	    		EXIST(SELECT MEM_NO
-	    				FROM TB_MEMBER
-	    				WHERE MEM_NO = ?)
+	    		TB_MEMBER.MEM_NO IS NOT NULL AND TB_MEMBER.MEM_NO = ?
 	</entry>
 	
 	<entry key="insertMemUpdate">
