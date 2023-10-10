@@ -105,6 +105,14 @@ public class CategoryDao {
 	
 	
 	
+	/**
+	 * 카테고리 삭제 요청을 처리해주는 method
+	 * @param conn
+	 * @param categoryNo 카테고리 SEQ_NO
+	 * @return 카테고리 삭제 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 9.
+	 */
 	public int deleteCategory(Connection conn, int categoryNo) {
 		
 		int result = 0;
@@ -113,14 +121,50 @@ public class CategoryDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, categoryNo);
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		
-		
 		
 		return result;
 	}	// deleteCategory
+	
+	
+	/**
+	 * 카테고리 삭제 요청시 해당 카테고리에 포함되어 있는 레시피 글 카테고리유형/글상태 업데이트
+	 * @param conn
+	 * @param categoryNo 카테고리 SEQ_NO 식별값
+	 * @return 레시피글 업데이트 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 10.
+	 */
+	public int updateRecipeStatus(Connection conn, int categoryNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRecipeStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, categoryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}	// updateRecipeStatus
 	
 	
 	
