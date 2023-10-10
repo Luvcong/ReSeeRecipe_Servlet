@@ -133,11 +133,14 @@
           <label for="memberName">* 한글 2 ~ 6자로 입력 가능합니다.</label>
           
           <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
+          <button type="button" onclick="nicknameCheck();">닉네임 중복확인</button>
           <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
+          
 
           <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
+          <button type="button" onclick="idCheck();">아이디 중복확인</button>
           <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
-		  <button type="button" onclick="idCheck();">중복확인</button>
+          
           
           <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
@@ -146,7 +149,9 @@
           <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다. </label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" required>
+          <button type="button" onclick="emailCheck();">이메일 중복확인</button>
           <label for="memberEmail">* 유효한 이메일이 아닙니다.</label>
+          
 
           
           <div class="enroll-checkbox">
@@ -298,17 +303,41 @@
       }
     </script>
     
-    
     <!-- ajax를 이용하여 아이디 중복체크 -->
     <script>
-		function idCheck(){
-			
-			const $memberId = $('#memberId');
-			// const $memberId = $('.container input[name=memberId]');
-			
+    	function nicknameCheck(){
 			$.ajax({
-				url : 'idCheck.me',
-				data : {checkId : $memberId.val()},
+				url : 'yrnicknameCheck.me',
+				data : {checkNickname : $('#memberNickname').val()},
+				// 중복체크 조회 성공 시
+				success : function(result) {
+					// 중복된 아이디
+					if(result == 'NNNNN'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '닉네임 중복',
+							  text: '이미 존재하거나 탈퇴한 회원의 아이디입니다!'
+						})
+						$('label[for="memberNickname"]').text("* 이미 존재하는 닉네임입니다!");
+						
+						$('#memberNickname').val('').focus();
+					// 사용가능한 아이디
+					} else{
+						$('label[for="memberNickname"]').text("* 사용가능한 닉네임입니다.");
+					}
+				},
+				// 중복체크 조회 실패 시
+				error : function(){
+					console.log('닉네임 중복체크 AJAX통신 실패!');
+				}
+			})
+    	}
+    
+    
+		function idCheck(){
+			$.ajax({
+				url : 'yridCheck.me',
+				data : {checkId : $('#memberId').val()},
 				// 중복체크 조회 성공 시
 				success : function(result) {
 					// 중복된 아이디
@@ -318,21 +347,48 @@
 							  title: '아이디 중복',
 							  text: '이미 존재하거나 탈퇴한 회원의 아이디입니다!'
 						})
+						$('label[for="memberId"]').text("* 이미 존재하거나 탈퇴한 회원의 아이디입니다!");
 						
-						$memberId.val('').focus();
+						$('#memberId').val('').focus();
 					// 사용가능한 아이디
+					} else{
+						$('label[for="memberId"]').text("* 사용가능한 아이디입니다.");
 					}
-					
 				},
 				// 중복체크 조회 실패 시
 				error : function(){
-					
+					console.log('아이디 중복체크 AJAX통신 실패!');
 				}
 			})
 		}
 		
-
-
+		function emailCheck(){
+			$.ajax({
+				url : 'yremailCheck.me',
+				data : {checkEmail : $('#memberEmail').val()},
+				// 중복체크 조회 성공 시
+				success : function(result) {
+					// 중복된 아이디
+					if(result == 'NNNNN'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '닉네임 중복',
+							  text: '이미 사용하고 있는 이메일입니다!'
+						})
+						$('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!");
+						
+						$('#memberEmail').val('').focus();
+					// 사용가능한 아이디
+					} else{
+						$('label[for="memberEmail"]').text("* 사용가능한 이메일입니다.");
+					}
+				},
+				// 중복체크 조회 실패 시
+				error : function(){
+					console.log('이메일 중복체크 AJAX통신 실패!');
+				}
+			})
+		}
     </script>
     
     
