@@ -88,7 +88,7 @@
             "?????????????" 입니다.
           </div>
       
-          <button type="button" location="<%= contextPath %>/yrloginForm.me">로그인하러 가기</button>
+          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
 
         </div>
         

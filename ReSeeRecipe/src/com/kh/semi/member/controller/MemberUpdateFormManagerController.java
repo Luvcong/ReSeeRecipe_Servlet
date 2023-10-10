@@ -34,6 +34,7 @@ public class MemberUpdateFormManagerController extends HttpServlet {
 		int memNo = Integer.parseInt(request.getParameter("mno"));
 	
 		Member m = new MemberService().selectMemInfo(memNo); 
+		System.out.println("m>>>>" + m);
 		// 응답화면 지정
 		request.setAttribute("m", m);
 		request.setAttribute("memNo", memNo);

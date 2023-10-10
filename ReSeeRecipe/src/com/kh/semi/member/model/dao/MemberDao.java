@@ -124,6 +124,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				//m.setMemReward(rset.getInt("MEM_REWARD"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
@@ -160,6 +161,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				m.setModifyDate(rset.getDate("MODIFY_DATE"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 			}
 		} catch (SQLException e) {
@@ -182,6 +184,7 @@ public class MemberDao {
 			pstmt.setString(1, m.getMemName());
 			pstmt.setString(2, m.getMemNickname());
 			pstmt.setString(3, m.getMemEmail());
+			//pstmt.setInt(4, m.getMemGrade());
 			pstmt.setString(4, m.getMemGradeName());
 			pstmt.setInt(5, m.getMemNo());
 			
