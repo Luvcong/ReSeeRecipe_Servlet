@@ -1,6 +1,8 @@
+<!--
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String errorMsg = (String)request.getAttribute("errorMsg"); %>
+-->
 <!-- 초본_231005_yr -->
 <!-- 수정_231006_yr -->
 
@@ -116,14 +118,14 @@
 </head>
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
-	<%@ include file="/views/common/header.jspf" %>
+	<!-- <%@ include file="/views/common/header.jspf" %> 
 	
 	<% if(errorMsg != null) { %>
 		<script>
 			alert("<%=errorMsg%>");
 		</script>
 	<% } %>
-
+  -->
     <form action="yrenroll.me" method="post">
 
       <h1 id="title"><b>회원가입</b></h1>
@@ -146,7 +148,7 @@
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
 
           <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
-          <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다. </label>
+          <label for="memberPwdCheck"></label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
           <button type="button" onclick="emailCheck();">이메일 중복확인</button>
@@ -223,7 +225,7 @@
     </form>
       
     <!-- footer 푸터영역 -->
-    <%@ include file="/views/common/footer.jspf" %>
+    <!-- <%@ include file="/views/common/footer.jspf" %> -->
 
     <script>
         function validate(){
@@ -310,9 +312,57 @@
 
       $(function(){
         // ★★★★★★★★★★★★★★★★★★클릭한거 뒤에 있는 label의 속성값 바꾸기~_231010
-        $('input').click(function(){
+
+        $('input').keyup(function(){
           // console.log($(this));
-          $('label[for="' + $(this).attr('id') + '"]').css('color', 'red');
+          var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
+
+          // 1) 이름 (2 ~ 6자 이내)
+          if($(this)[0] == $('#memberName')[0]) var $regExp = /^[가-힣]{2,6}$/;
+
+          // 2) 닉네임 (3 ~ 8자)
+          if($(this)[0] == $('#memberNickname')[0]) {
+            var $regExp = /^[a-z0-9가-힣]{3,8}$/;
+            // 중복체크 호출
+            nicknameCheck();
+          }
+          // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
+          if($(this)[0] == $('#memberId')[0]) {
+            var $regExp = /^[a-zA-Z0-9]{5,20}$/;
+            // 중복체크 호출
+            idCheck();
+          }
+          // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
+          if($(this)[0] == $('#memberPwd')[0]) var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
+
+          // 5) 비밀번호 확인
+          if($(this).val() != $('#memberPwd').val()) {
+            $('label[for="memberPwdCheck"]').css('color', 'red');
+            $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다. ');
+          } else{
+            $('label[for="memberPwdCheck"]').css('color', 'black');
+            $('label[for="memberPwdCheck"]').text('');
+          };
+
+          // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
+          if($(this)[0] == $('#memberEmail')[0]) {
+            var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{6,24}$/;
+            // 중복체크 호출
+            emailCheck();
+          }
+
+          if(!$regExp.test($(this).val())){
+            // labels[0].style.color = 'red';
+            // memberName.select();
+            
+            $errorCheck.css('color', 'red');
+
+            return false;
+          } else{
+            $errorCheck.css('color', 'black');
+          };
+
+
         });
       })
 
@@ -326,6 +376,7 @@
 				// 중복체크 조회 성공 시
 				success : function(result) {
 					// 중복된 아이디
+          const $nicknameLabel = $('label[for="memberNickname"]');
 					if(result == 'NNNNN'){
             /*
 						Swal.fire({
@@ -334,14 +385,15 @@
 							  text: '이미 존재하거나 탈퇴한 회원의 닉네임입니다!'
 						})
             */
-            const $nicknameLabel = $('label[for="memberNickname"]');
+            
 						$nicknameLabel.text("* 이미 존재하는 닉네임입니다!");
             $nicknameLabel.css('color', 'red');
 						
 						$('#memberNickname').val('').focus();
 					// 사용가능한 아이디
 					} else{
-						$('label[for="memberNickname"]').text("* 사용가능한 닉네임입니다.");
+						$nicknameLabel.text("* 사용가능한 닉네임입니다.");
+            $nicknameLabel.css('color', 'black');
 					}
 				},
 				// 중복체크 조회 실패 시
