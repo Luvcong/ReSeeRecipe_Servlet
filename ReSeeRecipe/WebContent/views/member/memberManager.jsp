@@ -232,13 +232,23 @@
         	console.log($memdetail);
         	let $md = $('#memAllList > tbody > tr > td > eq(0)');
         	console.log($md);
+        	$('#memAllList > tbody > tr').on('click', function(){
+        		let $mdi = $(this).children().eq(1);
+        		console.log($mdi);
+        		if($mdi.prop('checked') == true){
+        			$mdi.prop('checked', false);
+        		} else {
+        			$mdi.prop('checked', true);
+        		}
+        	})
+        	
         })
         
         
         
         
         // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
-        $(function(){
+/*         $(function(){
         	$('#memberCheckbox').on('click', function(){
         		let $memDetailCheck = $(this).prop('checked');
         		console.log($memDetailCheck);
@@ -248,7 +258,7 @@
         			$($memDetailCheck) == true;
         		}
         	})
-        })
+        }) */
         
         
         
