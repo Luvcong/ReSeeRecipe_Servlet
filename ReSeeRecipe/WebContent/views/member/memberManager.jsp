@@ -171,7 +171,7 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                    		<input type="checkbox" name="memberCheckbox" id="memberCheckbox">
+                    		<input type="checkbox" name="memberCheckbox" id="memberCheckbox" value="<%= m.getMemNo() %>">
                    		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
@@ -211,29 +211,28 @@
         }); 
         
         // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
-/*         $(function(){
+/*          $(function(){
         	$('#memAllList > tr').on('click', function(){
         		let $mc = $(this).children().eq(0).find('input:checkbox');
-        		console.log('$mc' + $mc);
-        		if($mc.prop('checked') == true){
-        			console.log('모범시민');
-        			console.log($mc.prop('checked') == true);
-        			$($mc).prop('checked', false);
-        		} else {
+        		console.log('체크 전 >', $mc.prop('checked'));
+        		if($mc.prop('checked') == false){
         			$($mc).prop('checked', true);
+        			console.log('체크 후 >true 변환 ',$mc.prop('checked'));
+        		} else {
+        			$($mc).prop('checked', false);
+        			console.log('체크 후 >false 변환 ',$mc.prop('checked'));
         		}
         	});
-        }); */
+        });  */
         
-        $(function(){
+/*         $(function(){
         	let $memAll = $('#memAllList > tbody > tr');
         	console.log($memAll);
         	let $memdetail = $('#memAllList > tbody > tr > td');
         	console.log($memdetail);
-        	let $md = $('#memAllList > tbody > tr > td > eq(0)');
-        	console.log($md);
+        	//let $md = $('#memAllList > tbody > tr > td > eq(0)');
+        	//console.log($md);
         	$('#memAllList > tbody > tr').on('click', function(){
-        		
         		let $mdi = $(this).children().eq(1);
         		console.log($mdi);
         		if($mdi.prop('checked') == true){
@@ -243,23 +242,25 @@
         		}
         	})
         	
-        })
+        }) */
         
         
         
         
         // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
-/*         $(function(){
-        	$('#memberCheckbox').on('click', function(){
+          $(function(){
+        	$('#memberCheckbox').on('change', function(){
         		let $memDetailCheck = $(this).prop('checked');
-        		console.log($memDetailCheck);
-        		if($memDetailCheck == true){
-        			$($memDetailCheck) == false;
-        		} else {
-        			$($memDetailCheck) == true;
-        		}
+        		let $delList = [];
+        		console.log('this>?',$memDetailCheck);
+        		 if($memDetailCheck == true){
+						$delList.push($(this).val());
+ 			       		console.log('val?',$delList);
+        		 } else {
+        			$memDetailCheck = false;
+        		} 
         	})
-        }) */
+        })  
         
         
         
