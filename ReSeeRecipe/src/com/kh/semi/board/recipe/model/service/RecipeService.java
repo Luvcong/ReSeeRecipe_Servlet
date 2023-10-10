@@ -17,9 +17,18 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeService {
 	
 	
-	
-	
-	
+	/**
+	 * 레시피 카테고리 목록을 조회해 반환
+	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 */
+	public ArrayList<RecipeCategory> selectRecipeCategoryList() {
+		
+		Connection conn = getConnection();
+		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
+		close(conn);
+		return cList;
+	}
+
 	
 	public HashMap<String, Object> recipeEnrollForm(int memNo) {
 		Connection conn = getConnection();
