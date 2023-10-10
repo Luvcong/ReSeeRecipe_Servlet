@@ -215,33 +215,77 @@
         			$($mc).prop('checked', true);
         		}
         	});
+        });
+        
+        $(function(){
         	
         	// 회원 삭제 기능
         	$('#deleteMem').on('click', deleteMember);
+        	
+        	
         	function deleteMember(){
-        		if($mc.prop('checked') == true){
-        			console.log('$mc.prop' + $mc.prop('checked'));
-        			Swal.fire('실패', '회원을 선택해주세요', 'error');
-        			return; //break;
+        		let $trs = $('#memAllList > tr');
+        		let $tr_check = null;
+        		for(let $tr of $trs){
+    				let $cm = $($tr).children().eq(0).find('input:checkbox');
+        			if($cm.prop('checked')){
+        				console.log('$cm.prop' + $cm.prop('checked'));
+        				$tr_checked = $trs;
+        				break; //break;
+        			}
         		}
         		
+        		if($tr_check == null){
+        			Swal.fire('실패', '회원을 선택해주세요', 'error');
+        			return;
+        		}	
+        			
         		Swal.fire({
-        			titile : "회원을 삭제하시겠습니까?",
-        			text : "※  탈퇴회원에서 조회 가능합니다",
-        			icon : "warning",
-        			showCancelButton: true,
-    				confirmButtonColor: "#DD6B55",
-    				confirmButtonText: "삭제",
-    				cancelButtonText: "취소"
-    				}).then((result) => {
-    					if (!result.isConfirmed) {
-    					  return;
-    					}
-        		})
+	        			titile : "회원을 삭제하시겠습니까?",
+	        			text : "※  탈퇴회원에서 조회 가능합니다",
+	        			icon : "warning",
+	        			showCancelButton: true,
+	    				confirmButtonColor: "#DD6B55",
+	    				confirmButtonText: "삭제",
+	    				cancelButtonText: "취소"
+	    				}).then((result) => {
+	    					if (!result.isConfirmed) {
+	    					  return;
+	    					}
+	    					
+	    					//let $table = $('#memAll');
+	    					let $trs = $('#memAll > tbody > tr');
+	    					let mem_list = [];
+	    					
+/* 	    					[]
+	    					$([]) */
+	    					
+	    					for(let tr of $trs){
+	    						let $mc = $(this).children().eq(0).find('input:checkbox');
+	    						console.log($mc.next());
+	    						if($cm.prop('checked') == true){
+	    							mem_list.push('$trs > tbody > children().eq(1).text()');
+	    						}
+	    					}
+	    					
+	    					$.ajax({
+	    						url : 'hldeletemember.ma',
+	    						type : 'post',
+	    						dataType : 'json',
+	    						data : {'mno' :  mem_list},
+	    						success : function(result){
+	    							for(let tr of $trs){
+	    								let memNo = parseInt()
+	    							}
+	    						}
+	    					})
+	        	})	
+        		
         	}
-        });
+        })
         
-		$(function(){
+        
+/* 		$(function(){
 			
 			
 			
@@ -252,7 +296,7 @@
 			
 			
 		})
-        
+         */
         
         
         </script>
