@@ -40,9 +40,10 @@ public class RecipeServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		System.out.println(mapping);
+		
 		// Controller로 분배
 		switch(mapping) {
-			/* 홈페이지 메인 -> 레시피화면 메인으로 */
+		
 			// 카테고리 조회
 			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
 		

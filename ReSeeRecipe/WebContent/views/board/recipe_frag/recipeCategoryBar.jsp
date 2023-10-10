@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.semi.member.model.vo.Member" %>
+<%@ page import="com.kh.semi.member.model.vo.Member,
+				 com.kh.semi.board.recipe.model.vo.RecipeCategory,
+				 java.util.ArrayList" %>
 <%
 	// 경로 + 로그인유저
 	String contextPathCategoryBar = request.getContextPath();
@@ -12,6 +14,19 @@
 <meta charset="UTF-8">
 <title>레시피카테고리바</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+	$(function(){
+		// 카테고리 리스트 요청
+		location.href = '<%=contextPathCategoryBar%>/selectRecipeCategoryList.re';
+	});
+</script>
+<%
+	// 카테고리 리스트
+	ArrayList<RecipeCategory> cList = (ArrayList<RecipeCategory>)request.getAttribute("cList");
+%>
+
+
 <style>
     /*****************************************************/
     /* 전체 래핑 div 세팅 */
@@ -84,7 +99,6 @@
                     <td rowspan="2" id="recipe-category-logo">
                         <img src=".."> 로고 이미지<!-- 다른곳에서 include 시 깨짐 -> 인크루드 생각해서 경로 정하거나 절대경로 -->
                     </td>
-                    <a href="<%=contextPathCategoryBar%>/"></a>
                     <td><h3>한식</h3></td>
                     <td><h3>양식</h3></td>
                     <td><h3>중식</h3></td>
@@ -103,9 +117,15 @@
         </div>
     </div>
 
-    <!-- 카테고리메뉴 토글 -->
     <script>
-        $(function(){
+    	
+    
+    
+    
+    
+        	
+        	
+			// 카테고리메뉴 토글
             $('#category-toggle-msg > h3').click(function(){
                 if($(this).text() == '카테고리 접기') {
                     $(this).text('카테고리 더보기');
