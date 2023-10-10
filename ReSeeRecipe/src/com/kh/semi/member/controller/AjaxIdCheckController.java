@@ -37,8 +37,10 @@ public class AjaxIdCheckController extends HttpServlet {
 		response.setContentType("text.html; charset=UTF-8");
 		
 		if(count > 0) {
+			// 중복값이 있을 때 count == 1 ==> 'NNNNN'
 			response.getWriter().print("NNNNN");
 		} else {
+			// 중복값이 없을 때 count == 0 ==> 'NNNNY'
 			response.getWriter().print("NNNNY");
 		}
 	}

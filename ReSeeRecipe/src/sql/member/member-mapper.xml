@@ -55,9 +55,12 @@
 	
 	<!-- 회원가입 아이디 중복체크 -->
 	<entry key="idCheck">
-		SELECT COUNT(*)
-		  FROM TB_MEMBER
-		 WHERE MEM_ID = ?;
+		SELECT 
+				COUNT(*)
+		  FROM 
+		  		TB_MEMBER
+		 WHERE 
+		 		MEM_ID = ?
 	</entry>
 	
 	<entry key="selectMemlistCount">

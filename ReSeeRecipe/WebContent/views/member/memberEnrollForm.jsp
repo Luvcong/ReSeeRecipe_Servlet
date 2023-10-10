@@ -137,6 +137,7 @@
 
           <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
           <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
+		  <button type="button" onclick="idCheck();">중복확인</button>
           
           <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
@@ -303,10 +304,11 @@
 		function idCheck(){
 			
 			const $memberId = $('#memberId');
+			// const $memberId = $('.container input[name=memberId]');
 			
 			$.ajax({
 				url : 'idCheck.me',
-				date : {checkId : $memberId.val()},
+				data : {checkId : $memberId.val()},
 				// 중복체크 조회 성공 시
 				success : function(result) {
 					// 중복된 아이디
