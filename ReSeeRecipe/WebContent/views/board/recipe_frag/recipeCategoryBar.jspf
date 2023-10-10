@@ -32,7 +32,7 @@
     /*****************************************************/
     /* 전체 래핑 div 세팅 */
     #recipe-category-wrap {
-        width: 900px;
+        width: 1200px;
         margin: auto;
         text-align: center;
         box-sizing: border-box;
