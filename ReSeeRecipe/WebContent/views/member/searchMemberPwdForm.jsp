@@ -70,7 +70,7 @@
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
 
-    <form action="yrsearchMemberId.me" method="post">
+    <form action="yrsearchMemberPwd.me" method="post">
 
       <h1 id="title"><b>비밀번호 찾기</b></h1>
       <div class="container">
@@ -87,8 +87,7 @@
           <input type="password" placeholder="비밀번호 재설정" required>
           <input type="password" placeholder="비밀번호 재설정 확인" required>
       
-          <button type="button" location="<%= contextPath %>/yrloginForm.me">로그인하러 가기</button>
-
+          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
         </div>
         
       </form>
