@@ -233,6 +233,7 @@
         	let $md = $('#memAllList > tbody > tr > td > eq(0)');
         	console.log($md);
         	$('#memAllList > tbody > tr').on('click', function(){
+        		
         		let $mdi = $(this).children().eq(1);
         		console.log($mdi);
         		if($mdi.prop('checked') == true){
