@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String buy = (String)request.getAttribute("buy");
+	String errorMsg = (String)request.getAttribute("errorMsg");
 %>
 <!-- 임시_230928_yr -->
 <!-- 수정_231005_yr-->
@@ -17,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         /* Bordered form */
@@ -111,6 +113,17 @@
 <body>
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
+	
+	<% if(errorMsg != null){ %>
+		<script>
+		Swal.fire({
+			  icon: 'error',
+			  title: 'Oops...',
+			  text: 'Something went wrong!'
+			})
+		<% request.removeAttribute("errorMsg"); %>
+		</script>
+  	<% } %>
 
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
