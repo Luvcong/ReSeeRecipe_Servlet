@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.kh.semi.board.recipe.model.vo.Recipe" %>
 <%	
-	//페이지처리용 변수
-	/*
 	// ArrayList로 받아온 recipes
-	ArrayList<Recipe> rLsit = (ArrayList<Recipe>)request.getAttribute('rList');
+	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");
+	int i = 1;
+	for(Recipe r : rList) {
+		System.out.println(i + "메인화면에서   " + r);
+		i++;
+	}
+
+
+	/*
 	
+	//페이지처리용 변수
 	// PageInfo 객체 받음
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	

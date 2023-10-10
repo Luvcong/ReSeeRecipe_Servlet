@@ -25,8 +25,9 @@ public class RecipeController {
 		
 		// 변수세팅
 		String viewPath = "";
+		RecipeService rs = new RecipeService();
 		
-		int listCount = new RecipeService().selectRecipeListCount();
+		int listCount = rs.selectRecipeListCount();
 		int currentPage = request.getParameter("currentPage") != null ?
 						  Integer.parseInt(request.getParameter("currentPage"))
 						  : 1;
@@ -34,17 +35,24 @@ public class RecipeController {
 		int boardLimit = 9; // 한 페이지에 보일 게시글 수
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
-	
 		
-		// 서비스호출
+		// 페이지네이션을 위한 정보를 넘기며 서비스호출
+		ArrayList<Recipe> rList = rs.selectRecipeList(pi);
 		
+		// 넘길 값 지정
+		request.setAttribute("rList", rList);
 		
-
-		
+		System.out.println("A Starting Row : " + pi.getStartRow());
+		System.out.println("A End Row : " + pi.getEndRow());
+		int i = 1;
+		for(Recipe r : rList) {
+			System.out.println(i + "컨트롤단ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + r);
+			i++;
+		}
 		
 		// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 		//ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
-		viewPath = "/views/board/recipe/recipeMain.jsp";
+		viewPath = "/views/board/recipe/recipeMainView.jsp";
 		
 		return viewPath;
 	}

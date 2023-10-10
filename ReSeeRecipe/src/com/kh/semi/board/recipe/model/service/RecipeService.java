@@ -29,9 +29,14 @@ public class RecipeService {
 	}
 	
 	
+	/**
+	 * 페이지네이션 처리된 레시피 목록 조회 (최신순)
+	 * @param pi
+	 * @return
+	 */
 	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
+		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi);
 		close(conn);
 		return list;
 	}
