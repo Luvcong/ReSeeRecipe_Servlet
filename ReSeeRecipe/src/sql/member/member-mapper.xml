@@ -34,10 +34,10 @@
 		  	   TB_MEMBER 
 		  	   (
 		  	   MEM_NO
-		  	   , MEM_ID
-		  	   , MEM_PWD
-		  	   , MEM_NAME
+               , MEM_NAME
 		  	   , MEM_NICKNAME
+               , MEM_ID
+		  	   , MEM_PWD
 		  	   , MEM_EMAIL
 		  	   )
 		VALUES 
