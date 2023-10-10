@@ -1,6 +1,3 @@
-<!-- ※주의 : 이 fragment는 반드시 header.jspf와 함께 사용되어야 함 -->
-<!-- ※Alert : This fragment HAS TO BE USED with header.jspf! -->
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.member.model.vo.Member" %>

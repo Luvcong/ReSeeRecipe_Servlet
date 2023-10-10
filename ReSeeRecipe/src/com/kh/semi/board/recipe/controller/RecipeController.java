@@ -15,6 +15,25 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeController {
 	
 	
+	
+	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String viewPath = "";
+		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList();
+		
+		if(!cList.isEmpty()) {
+			request.setAttribute("cList", cList);
+		}
+		
+		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
+		
+		return viewPath;
+	}
+	
+	
+	
+	
+	
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
 		
 
@@ -34,10 +53,6 @@ public class RecipeController {
 		
 		return viewPath;
 	}
-	
-	
-	
-	
 	
 	
 	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
