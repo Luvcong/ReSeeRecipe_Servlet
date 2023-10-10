@@ -168,19 +168,19 @@
 							<div class="thumbnail-bottom-inner2">
 								<div class="thumbnail-left-bottom">
 									<div class="thumbnail-left-bottom-chef">
-										<p>셰프이름</p>
+										<p><%= rList.get(i).getMemNickName() %></p>
 									</div>
 								</div>
 	
 								<div class="thumbnail-right-bottom">
 									<div class="thumbnail-right-bottom-inner1">
 										<!-- 조회수 -->
-										<p>123</p>
+										<p><%= rList.get(i).getRecipeCount() %></p>
 										<i class='fas fa-eye'></i>
 									</div>
 									<div class="thumbnail-right-bottom-inner2">
 										<!-- 좋아요수 -->
-										<p>123</p>
+										<p></p>
 										<i class="fa fa-heart"></i>
 									</div>
 								</div>

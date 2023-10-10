@@ -23,6 +23,7 @@ public class Recipe {
 	private int recipeCategoryNo;
 	private String titleImg;
 	private String memNickName;
+	private String htCount;
 	
 	
 	public Recipe() {
@@ -41,6 +42,7 @@ public class Recipe {
 		this.recipeCategoryNo = recipeCategoryNo;
 		this.titleImg = titleImg;
 		this.memNickName = memNickName;
+		
 	}
 	
 	
