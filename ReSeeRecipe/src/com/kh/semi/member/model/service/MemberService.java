@@ -26,6 +26,26 @@ public class MemberService {
 		return m;
 	}
 	
+	// 회원가입
+	/**
+	 * @param m : 회원가입하는 Member객체
+	 * @return : 회원insert 성공 여부에 따른 결과값(성공1 또는 실패0)
+	 */
+	public int insertMember(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().insertMember(conn, m);
+		
+		// 회원가입 성공 / 실패
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	public int selectMemlistCount() {
 		
 		Connection conn = getConnection();

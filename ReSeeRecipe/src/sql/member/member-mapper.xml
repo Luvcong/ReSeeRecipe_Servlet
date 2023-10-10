@@ -28,6 +28,29 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
+	<entry key="insertMember">
+		INSERT
+		  INTO 
+		  	   TB_MEMBER 
+		  	   (
+		  	   MEM_NO
+		  	   , MEM_ID
+		  	   , MEM_PWD
+		  	   , MEM_NAME
+		  	   , MEM_NICKNAME
+		  	   , MEM_EMAIL
+		  	   )
+		VALUES 
+			   (
+			   SEQ_MEM.NEXTVAL
+			   , ?
+			   , ?
+			   , ?
+			   , ?
+			   , ?
+			   )
+	</entry>
+	
 	<entry key="selectMemlistCount">
 		SELECT
 				COUNT(*)
