@@ -130,16 +130,12 @@
           <input type="password" placeholder="비밀번호" name="memberPwd" required>
       
           <button type="submit">로그인</button>
-          <!-- 
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-           -->
+
 	        <div class="login-searchmenu">
 	          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
-	          <div class="psw"><a href="#">회원가입</a></div>
-	          <div class="psw"><a href="#">아이디 찾기</a></div>
-	          <div class="psw"><a href="#">비밀번호 찾기</a></div>
+	          <div class="psw"><a href="<%= contextPath %>/yrenrollForm.me">회원가입</a></div>
+	          <div class="psw"><a href="<%= contextPath %>/yrsearchMemberIdForm.me">아이디 찾기</a></div>
+	          <div class="psw"><a href="<%= contextPath %>/yrsearchMemberPwdForm.me>">비밀번호 찾기</a></div>
 	        </div>
         </div>
         
