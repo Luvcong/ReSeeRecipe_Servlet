@@ -16,9 +16,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" /> -->
-
 <style>
 .sort {
 	display: inline-block;
@@ -68,11 +65,11 @@
 	text-align: center;
 	border: none;
 }
-
 </style>
+
 </head>
 <body>
-
+	
 	<%@ include file="../../manager/navbar.jsp" %>
 
     <div class="rs-content">        
@@ -178,14 +175,14 @@
   </div>
 
   <!-- 쪽지 글자 byte count -->
-  <script>
+	<script>
 		let limitByte = 500;
 		let totalByte;
-
+		
 		function checkedByte(obj){
 			totalByte = 0;
 			let message = $(obj).val();
-
+		
 			for(let i = 0; i < message.length; i++){
 				var countByte = message.charCodeAt(i);
 				if(countByte > 128){
@@ -196,10 +193,9 @@
 			}
 			$('#count').text(totalByte);
 		}	// checkedByte
-
-  </script>
+	</script>
   
-	<!-- alertMsg script -->
+	<!-- alertMsg script : DmListController에서 사용 -->
 	<script>
 		var successMsg = '<%= successMsg %>';
 		var failMsg = '<%= failMsg %>';
@@ -216,79 +212,68 @@
 		<% session.removeAttribute("failMsg"); %>
 	</script>
   
-  
   <!-- 쪽지답변 modal창 내부 값 -->
-  <script>
-	function showDmRepliedModal() {
-		// table에 있는 tr요소 모두 선택해서 trs변수에 저장
-		let trs = document.querySelectorAll('.table tbody tr');
-		// tr요소 체크여부 변수 생성
-		let checked_tr = null;
-		for(let tr of trs){
-			// tr요소에 존재하는 input 요소를 가지고 와서 변수에 저장
-			let input = tr.children[0].children[0];
-			if(input.checked){
-				checked_tr = tr;
-				break;
+	<script>
+		function showDmRepliedModal() {
+			// table에 있는 tr요소 모두 선택해서 trs변수에 저장
+			let trs = document.querySelectorAll('.table tbody tr');
+			
+			// tr요소 체크여부 변수 생성
+			let checked_tr = null;
+			
+			for(let tr of trs){
+				// tr요소에 존재하는 input 요소를 가지고 와서 변수에 저장
+				let input = tr.querySelector('input')
+				if(input.checked){
+					checked_tr = tr;
+					break;	// 첫번째 선택 요소를 갖고 오기 위해 (미작성시, 마지막 선택 요소)
+				}
 			}
+			
+			if(checked_tr == null){
+				Swal.fire('실패', '쪽지를 선택해주세요!', 'error');
+				return;
+			}
+			
+			let modal = document.getElementById('dmRepliedForm');
+			let modal_trs = modal.querySelectorAll('table tr');
+			
+			let dmNo  = checked_tr.children[1].textContent;	// dmNo
+			let input = modal.querySelector("input[name='dmNo']");
+			input.value = dmNo;
+			// console.log(input);
+			
+			let textarea = document.getElementById('reply-textarea');
+			
+			modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정(반복문사용)
+			modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
+			modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
+			modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
+			
+	/* 		if(textarea.value != 'null'){
+				textarea.readOnly = true;
+				textarea.value = checked_tr.children[7].textContent;
+				console.log(textarea.value);
+			}
+			
+			if(textarea.value == 'null'){
+				textarea.readOnly = false;
+				textarea.value = '';
+			} */
+			
+			let replied_txt = checked_tr.children[7].textContent;
+			if(replied_txt == 'null'){
+				replied_txt = ''; 
+			}
+			
+			textarea.value    = replied_txt;
+			textarea.readOnly = (replied_txt != '');
+			
+	 		checkedByte(document.getElementById('reply-textarea'));
+			
+			$('#dmRepliedForm').modal('show');
 		}
-		
-		if(checked_tr == null){
-			Swal.fire('실패', '쪽지를 선택해주세요!', 'error');
-			return;
-		}
-		
-		let modal = document.getElementById('dmRepliedForm');
-		let modal_trs = modal.querySelectorAll('table tr');
-		
-		let dmNo  = checked_tr.children[1].textContent;	// dmNo
-		let input = modal.querySelector("input[name='dmNo']");
-		input.value = dmNo;
-		// console.log(input);
-		
-		let textarea = document.getElementById('reply-textarea');
-		// let textval = textarea.value;
-		// console.log(textarea);
-		// console.log(textval);	// 1) 여기서는 빈문자열 -- 값을 넣어주지 않아서 (type: string)
-		
-		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정(반복문사용)
-		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
-		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
-		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
-		
-//		textval = modal_trs[4].children[1].textContent = checked_tr.children[7].textContent;	// 답변내용		-- 2) 컬럼값 넣어줌
-//		console.log(textval);	// dmReply 컬럼에 있는 값 가져오기 ok	-- (type : string)
-		
-		// 내가 하고싶은 조건!
-		// 1) dmReply 컬럼의 값이 null이라면? >> textarea 작성할 수 있게끔
-		// 2) dmReply 컬럼의 값이 존재한다면? >> textarea value값에 textval를 넣어준다 (readonly)
-		
-		
-/* 		if(textarea.value != 'null'){
-			textarea.readOnly = true;
-			textarea.value = checked_tr.children[7].textContent;
-			console.log(textarea.value);
-		}
-		
-		if(textarea.value == 'null'){
-			textarea.readOnly = false;
-			textarea.value = '';
-		} */
-		
-		let replied_txt = checked_tr.children[7].textContent;
-		if(replied_txt == 'null'){
-			replied_txt = ''; 
-		}
-		
-		textarea.value    = replied_txt;
-		textarea.readOnly = (replied_txt != '');
-		
- 		checkedByte(document.getElementById('reply-textarea'));
-		
-		$('#dmRepliedForm').modal('show');
-	}
 	</script>
-	
 	
 	<!-- 쪽지 삭제 -->
 	<script>
@@ -383,37 +368,7 @@
 						}
 					});
 				});
-			
-			// confirm 라이브러리 적용
-/* 			if(!confirm('해당 쪽지를 정말 삭제하시겠습니까?\n삭제 후 복원이 불가합니다.')){
-				return;
-			} */
-			
-/* 			let table = document.getElementById('tb-dm');
-			let trs = table.querySelectorAll('tr');
-			
-			let dm_list = [];
-			
-			for(let tr of trs){
-				let input = tr.children[0].children[0];			// input요소
-				if(input.checked == true){
-					dm_list.push(tr.children[1].textContent);	// dmNo
-				}
-			}
-			
-			// dm_list = ['100','101','102','103']; // 실패테스트
- 			$.ajax({
- 				url : 'jhdelete.dm',
-				type : 'get',
-				dataType: 'json',
-				data : {'dmNo' : dm_list},
-				complete : function () {
-					//$('#tb-dm').load();
-					window.location.reload();		// 새로고침 방법 다시 작성해보기
-				}
-			}) */
 		}
-	
 	</script>
   
   
