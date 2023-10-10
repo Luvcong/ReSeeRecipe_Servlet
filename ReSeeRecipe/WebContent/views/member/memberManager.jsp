@@ -108,14 +108,20 @@
         <div class="header1">
             <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
-                  <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+      <!--             <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
                     조회
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">회원ID</a>
-                    <a class="dropdown-item" href="#">닉네임</a>
-                    <a class="dropdown-item" href="#">이름</a>
-                  </div>
+                  </button> -->
+                  <!-- <div class="dropdown-menu">
+                    <a type="dropdown" class="dropdown-item" href="#">회원ID</a>
+                    <a type="dropdown" class="dropdown-item" href="#">닉네임</a>
+                    <a type="dropdown" class="dropdown-item" href="#">이름</a>
+                  </div> -->
+                  <select id="memSearch"  value="회윈조회"class="btn btn-warning">
+                  	<option selected>회원조회</option>
+                  	<option>회원ID</option> 
+                  	<option>닉네임</option> 
+                  	<option>이름</option> 
+                  </select>
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
@@ -196,7 +202,7 @@
 			
 		}); --%> 
 
-        
+        // 더블클릭 시 회원 상세보기 기능
         $(function(){
         	$(document).on('dblclick','#memAllList > tr', function(){
         		const mno =  $(this).children().eq(1).text();
@@ -205,18 +211,50 @@
         }); 
         
         // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
-        $(function(){
+/*         $(function(){
         	$('#memAllList > tr').on('click', function(){
         		let $mc = $(this).children().eq(0).find('input:checkbox');
         		console.log('$mc' + $mc);
         		if($mc.prop('checked') == true){
+        			console.log('모범시민');
+        			console.log($mc.prop('checked') == true);
         			$($mc).prop('checked', false);
         		} else {
         			$($mc).prop('checked', true);
         		}
         	});
-        });
+        }); */
         
+        $(function(){
+        	let $memAll = $('#memAllList > tbody > tr');
+        	console.log($memAll);
+        	let $memdetail = $('#memAllList > tbody > tr > td');
+        	console.log($memdetail);
+        	let $md = $('#memAllList > tbody > tr > td > eq(0)');
+        	console.log($md);
+        })
+        
+        
+        
+        
+        // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
+        $(function(){
+        	$('#memberCheckbox').on('click', function(){
+        		let $memDetailCheck = $(this).prop('checked');
+        		console.log($memDetailCheck);
+        		if($memDetailCheck == true){
+        			$($memDetailCheck) == false;
+        		} else {
+        			$($memDetailCheck) == true;
+        		}
+        	})
+        })
+        
+        
+        
+        
+        
+        // 회원 삭제 기능
         $(function(){
         	
         	// 회원 삭제 기능

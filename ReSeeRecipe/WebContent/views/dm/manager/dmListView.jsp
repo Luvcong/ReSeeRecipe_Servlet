@@ -280,6 +280,7 @@
 		function deleteDm(){
 			let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
 			let checked_tr = null;
+			
 			for(let tr of trs){
 				let input = tr.querySelector('input');
 				if(input.checked){
@@ -313,9 +314,10 @@
 					for(let tr of trs){
 						let input = tr.querySelector('input');			// input요소
 						if(input.checked == true){
-							let key = tr.children[1].textContent;
-							let val = tr.children[6].classList.contains('replied');
-							dm_list[key] = val; 
+							let key = tr.children[1].textContent;		// dmNo
+							let val = tr.children[6].classList.contains('replied');	// boolean : true or false인지
+							// 속성 추가시 obj[key] = value;
+							dm_list[key] = val; // dmNo = true or dmNo = false
 						}
 					}
 					// dm_list = ['100','101','102','103']; // 실패테스트
@@ -328,24 +330,26 @@
 						data : {'dmNo' : Object.keys(dm_list)},
 						success : function(result){
 							for(let tr of trs){
-								let categoryNo = parseInt(tr.children[1].textContent);
-								if(result.includes(categoryNo)){
-									tr.remove();
+								let dmNo = parseInt(tr.children[1].textContent);	
+								if(result.includes(dmNo)){		// dmNo를 포함하는 문자열이 있으면 == true
+									tr.remove();				// 해당 tr remove
 								}
 							}
 							
+							// 답변완료 or 답변대기 count
 							let header = document.querySelector('.rs-content .header');
 							let waiting = header.querySelector('.waiting');
 							let replied = header.querySelector('.replied');
 							
 							let waiting_cnt = <%= waitingCount%>;
 							let replied_cnt = <%= repliedCount %>;
+							
 							for(let key in dm_list) {
 								if(dm_list[key] == true){
-									replied_cnt -= 1;
+									replied_cnt -= 1;	// 답변완료 숫자 -1개 
 								}
 								else {
-									waiting_cnt -= 1;
+									waiting_cnt -= 1;	// 답변대기 숫자 -1개
 								}
 							}
 							waiting.textContent = waiting_cnt;
@@ -368,6 +372,30 @@
 						}
 					});
 				});
+			
+			/* 			let table = document.getElementById('tb-dm');
+			let trs = table.querySelectorAll('tr');
+			
+			let dm_list = [];
+			
+			for(let tr of trs){
+				let input = tr.children[0].children[0];			// input요소
+				if(input.checked == true){
+					dm_list.push(tr.children[1].textContent);	// dmNo
+				}
+			}
+			
+			// dm_list = ['100','101','102','103']; // 실패테스트
+ 			$.ajax({
+ 				url : 'jhdelete.dm',
+				type : 'get',
+				dataType: 'json',
+				data : {'dmNo' : dm_list},
+				complete : function () {
+					//$('#tb-dm').load();
+					window.location.reload();		// 새로고침 방법 다시 작성해보기
+				}
+			}) */
 		}
 	</script>
   
@@ -429,30 +457,34 @@
 	}	// checkAll
 		
 	function sortTable(){
-		// this -> th
+		
+		// this -> th 선택한 나 자신이양~~
 		let idx = parseInt(this.getAttribute('data-idx'));
-		if(idx == 0){
-			checkAll(this.children[0]);			
+		if(idx == 0){								// data-idx == 0이면
+			// checkAll(this.children[0]);				// input요소를 주고 종료 체크는 정렬아뉘니까
+			// console.log(this.children[0]);
 			return;
 		}
 		
-		let type = this.getAttribute('data-type');
+		let type = this.getAttribute('data-type');	// num
 		
 		let tbody = document.querySelector('.table tbody');
-		let rows = Array.from(tbody.children); // HTMLCollection 객체이기 때문에 Array로 변환
+		let rows = Array.from(tbody.children); // HTMLCollection 객체이기 때문에 Array로 변환 == 유사배열이기 때문	
+											   // https://ko.javascript.info/searching-elements-dom
+											   // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 		
 		// 현재 sort 상태가 뭔지 저장하기위한 변수
 		let is_desc = false;
 		
-		// #1. 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
+		// 1) 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
 		let ths = document.querySelectorAll('.table th');
 		for(let th of ths) {
-			let sort = th.children[0];
+			let sort = th.children[0];	// input
 
 			// th요소가 현재 선택된 th인 경우
 			if(th == this){
 				// 내림차순인지 확인
-				is_desc = sort.classList.contains('desc');
+				is_desc = sort.classList.contains('desc');	// 화살표
 				
 				// 내림차순이면 오름차순으로 변경
 				if(is_desc){
@@ -486,29 +518,34 @@
 				return 0;
 		}) */
 		
-		// #2. 실제 정렬 작업을 하는 부분
-		rows.sort(function (trA, trB) {
+		// 2) 실제 정렬 작업을 하는 부분
+		rows.sort(function (trA, trB) {					// Array.from이용한 변수 rows사용
 			let txtA = trA.children[idx].textContent;
 			let txtB = trB.children[idx].textContent;
+			// console.log(txtA);
+			// console.log('****************');
+			// console.log(txtB);
+
 			
 			if(type == 'num')
 			{
 				txtA = parseInt(txtA);
 				txtB = parseInt(txtB);
+				// console.log(txtA);
 			} 
 			
 			if(txtA < txtB){
-				return is_desc ? -1 : 1;
+				return is_desc ? -1 : 1;	// 내림차순이면 -1
 			}
 			else if(txtA > txtB){
-				return is_desc ? 1 : -1;
+				return is_desc ? 1 : -1;	// 내림차순 아니면(오름차순) 1
 			}
 			else {
-				return 0;
+				return 0;				
 			}
 		});
 		
-		for(let tr of rows){
+		for(let tr of rows){				// 반복문으로 tbody에 tr영역 추가해서 계속 비교되게끔 해주어야 함
 			tbody.append(tr);
 		}
 		

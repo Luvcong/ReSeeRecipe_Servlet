@@ -102,6 +102,37 @@ public class MemberDao {
 		return result;
 	}
 	
+	// 회원가입시 id 중복체크
+	/**
+	 * @param conn : Connection 객체
+	 * @param checkId : 회원가입에 쓸 사용자 id 입력값
+	 * @return : 이미 존재하는 아이디 1 또는 사용가능 0
+	 */
+	public int idCheck(Connection conn, String checkId) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, checkId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
 	public int selectMemlistCount(Connection conn) {
 		
 		int memlistCount = 0;

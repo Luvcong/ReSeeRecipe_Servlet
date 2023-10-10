@@ -63,9 +63,9 @@ public class CategoryService {
 	
 	
 	/**
-	 * 카테고리 삭제를 요청하는 method
-	 * @param categoryNo 카테고리 SEQ_NO
-	 * @return 카테고리 삭제 성공여부
+	 * 카테고리 삭제 및 해당 레시피글 업데이트를 요청하는 method
+	 * @param categoryNo 카테고리 SEQ_NO 식별값
+	 * @return 카테고리 삭제 및 레시피글 업데이트성공여부
 	 * @author JH
 	 * @Date : 2023. 10. 9.
 	 */
@@ -73,16 +73,24 @@ public class CategoryService {
 		
 		Connection conn = getConnection();
 		
-		int result = categoryDao.deleteCategory(conn, categoryNo);
+		// 사용자가 삭제 요청한 카테고리의 레시피글 상태(STATUS = N && RECIPE_CATEGORY_NO = 0) 변경
+		int resultRecipe = categoryDao.updateRecipeStatus(conn, categoryNo);
 		
-		if(result > 0) commit(conn);
+		// 사용자가 요청한 카테고리 삭제
+		int resultCategory = categoryDao.deleteCategory(conn, categoryNo);
 		
-		rollback(conn);
+		if(resultRecipe * resultCategory > 0) commit(conn);
+		else rollback(conn);
+		
+//		if((resultCategory > 0) || (resultRecipe > 0) ) commit(conn);
+//		else rollback(conn);
 		
 		close(conn);
 		
-		return result;
+		return (resultRecipe * resultCategory);
 	}	// deleteCategory
+	
+	
 	
 	
 	
