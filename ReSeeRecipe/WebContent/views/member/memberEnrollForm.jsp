@@ -115,16 +115,15 @@
       <h1 id="title"><b>회원가입</b></h1>
       <div class="container">
 
-          <input type="text" placeholder="이름" name="memName" required>
-          <input type="text" placeholder="닉네임(활동명)" name="memNicname" required>
-          <input type="text" placeholder="아이디(중복불가)" name="memId" required>
+          <input type="text" placeholder="이름" name="memberName" id="memberName" required>
+          <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
+          <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
           
-          <input type="password" placeholder="비밀번호" name="memberPwd" required>
-          <input type="password" placeholder="비밀번호" name="memberPwdCheck" required>
+          <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
+          <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" required>
           
-          <input type="text" placeholder="이메일" name="memEmail" required>
-          
-          
+          <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" required>
+
           
           <div class="enroll-checkbox">
             <div>
@@ -188,13 +187,71 @@
 
             </div>
           </div>
-          <button type="submit">가입하기</button>
+          <button type="submit" onclick = "return validate();">가입하기</button>
       </div>
         
     </form>
       
     <!-- footer 푸터영역 -->
     <%@ include file="/views/common/footer.jspf" %>
+
+    <script>
+        function validate(){
+        // 유효성 검사
+        var memberName = document.getElementById('memberName');
+        var memberNickname = document.getElementById('memberNickname');
+        var memberId = document.getElementById('memberId');
+        var memberPwd = documnet.getElementById('memberPwd');
+        var memberPwdCheck = document.getElementById('memberPwdCheck');
+        var memberEmail = document.getElementById('memberEmail');
+
+        // 1) 이름 (2 ~ 6자 이내)
+        var regExp = /^[가-힣]{2,6}$/;
+        
+        if(!regExp.test(memberName.value)){
+          membername.value = '다시 입력';
+          alert('다시');
+          return false;
+        };
+
+        // 2) 닉네임 (3 ~ 8자)
+        var regExp = /^[가-힣]{3,8}/;
+        if(!regExp.test(memberNickname.value)){
+          memberNickname.value = '붑';
+          return false;
+        };
+
+        // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
+        var regExp = /^[a-zA-Z0-9]{5,20}&/;
+        if(!regExp.test(memberId.value)){
+
+          return false;
+        };
+
+        // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
+        var regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}&/;
+        if(!regExp.test(memberPwd.value)){
+
+          return false;
+        };
+
+        // 5) 비밀번호 확인
+        if(memberPwdCheck.value != memberPwd.value){
+
+          return false;
+        }
+
+        // 6) 이메일 (이메일앞부분 6 ~ 30자 + @ + 뒷부분 6 ~ 14자가 들어간 형식)
+        var regExp = /^[a-zA-Z0-9]{6,30} @ [a-zA-Z0-9]{6,14}$/;
+        if(!regExp.test(memberEmail)){
+
+          return false;
+        };
+
+        return true;
+      }
+    </script>
+
 
     <script>
       $(function(){
