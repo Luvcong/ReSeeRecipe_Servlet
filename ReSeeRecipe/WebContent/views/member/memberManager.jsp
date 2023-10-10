@@ -22,13 +22,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- JSON -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- GSON -->
     
     <!--GSON Ajax 통신 하기 위해 필요  -->
-     
+    
+    <!-- Swal Alert CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>     
     <script type="text/javascript">
     
 /*     $.getJSON("/views/member/memberManager.jsp", function(data){
@@ -106,14 +108,20 @@
         <div class="header1">
             <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
-                  <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+      <!--             <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
                     조회
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">회원ID</a>
-                    <a class="dropdown-item" href="#">닉네임</a>
-                    <a class="dropdown-item" href="#">이름</a>
-                  </div>
+                  </button> -->
+                  <!-- <div class="dropdown-menu">
+                    <a type="dropdown" class="dropdown-item" href="#">회원ID</a>
+                    <a type="dropdown" class="dropdown-item" href="#">닉네임</a>
+                    <a type="dropdown" class="dropdown-item" href="#">이름</a>
+                  </div> -->
+                  <select id="memSearch"  value="회윈조회"class="btn btn-warning">
+                  	<option selected>회원조회</option>
+                  	<option>회원ID</option> 
+                  	<option>닉네임</option> 
+                  	<option>이름</option> 
+                  </select>
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
@@ -124,7 +132,7 @@
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
-            <button class="w3-button w3-round w3-yellow">회원 삭제</button>
+            <button id="deleteMem" class="w3-button w3-round w3-yellow">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
         <table class="table" id="memAll">
@@ -163,7 +171,7 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                    		<input type="checkbox" name="example2">
+                    		<input type="checkbox" name="memberCheckbox" id="memberCheckbox">
                    		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
@@ -185,13 +193,121 @@
         </table>
         
         <script>
-        $(function(){
+		
+<%--            $(function(){
 			$('#memAllList > tr').click(function(){
 				const mno =  $(this).children().eq(1).text();
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 			});
 			
-		});
+		}); --%> 
+
+        
+        $(function(){
+        	$(document).on('dblclick','#memAllList > tr', function(){
+        		const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        	});
+        }); 
+        
+        // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
+        $(function(){
+        	$('#memAllList > tr').on('click', function(){
+        		let $mc = $(this).children().eq(0).find('input:checkbox');
+        		console.log('$mc' + $mc);
+        		if($mc.prop('checked') == true){
+        			$($mc).prop('checked', false);
+        		} else {
+        			$($mc).prop('checked', true);
+        		}
+        	});
+        });
+        
+        $(function(){
+        	
+        	// 회원 삭제 기능
+        	$('#deleteMem').on('click', deleteMember);
+        	
+        	
+        	function deleteMember(){
+        		let $trs = $('#memAllList > tr'); // .table tr
+        		console.log('$trs' + $trs);
+        		let $tr_check = null;
+        		for(let tr of $trs){
+    				let $cm = $(tr).find('input');
+        			if($cm.prop('checked')){
+        				console.log('$cm.prop' + $cm.prop('checked'));
+        				$tr_checked = tr;
+        				break; //break;
+        			}
+        		}
+        		
+        		if($tr_check == null){
+        			Swal.fire('실패', '회원을 선택해주세요', 'error');
+        			return;
+        		}	
+        			
+        		Swal.fire({
+	        			title : "회원을 삭제하시겠습니까?",
+	        			text : "※  탈퇴회원에서 조회 가능합니다",
+	        			icon : "warning",
+	        			showCancelButton: true,
+	    				confirmButtonColor: "#DD6B55",
+	    				confirmButtonText: "삭제",
+	    				cancelButtonText: "취소"
+	    				}).then((result) => {
+	    					if (!result.isConfirmed) {
+	    					  return;
+	    					}
+	    					
+	    					//let $table = $('#memAll');
+	    					let $trs = $('#memAll > tbody > tr');
+	    					let mem_list = [];
+	    					
+/* 	    					[]
+	    					$([]) */
+	    					
+	    					for(let tr of $trs){
+	    						let $mchk = $('tr').find('input:checkbox');
+	    						console.log($mchk );
+	    						if($mchk.prop('checked') == true){
+	    							mem_list.push('$trs > children().eq(1).text()');
+	    						}
+	    					}
+	    					
+	    					$.ajax({
+	    						url : 'hldeletemember.ma',
+	    						type : 'post',
+	    						dataType : 'json',
+	    						data : {'mno' :  mem_list},
+	    						success : function(result){
+	    							for(let tr of $trs){
+	    								let memNo = parseInt(tr.children[1].textContent);
+	    								if(result.includes(memNo)){
+	    									tr.remove();
+	    								}
+	    							}
+	    						}
+	    					})
+	        	})	
+        		
+        	}
+        })
+        
+        
+/* 		$(function(){
+			
+			
+			
+				let checkMem = $('#memberCheckbox').prop('checked')
+				console.log(checkMem);
+				
+			}
+			
+			
+		})
+         */
+        
         
         </script>
     </div>

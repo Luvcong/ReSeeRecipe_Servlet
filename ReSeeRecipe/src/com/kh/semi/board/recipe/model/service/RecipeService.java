@@ -17,8 +17,44 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeService {
 	
 	
+	/**
+	 * 글과 작성자의 STATUS가 유효한 레시피 개수 조회
+	 * @return
+	 */
+	public int selectRecipeListCount() {
+		Connection conn = getConnection();
+		int listCount = new RecipeDao().selectRecipeListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	
+	/**
+	 * 페이지네이션 처리된 레시피 목록 조회 (최신순)
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	
+	/**
+	 * 레시피 카테고리 목록을 조회해 반환
+	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 */
+	public ArrayList<RecipeCategory> selectRecipeCategoryList() {
+		Connection conn = getConnection();
+		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
+		close(conn);
+		return cList;
+	}
+
+	
 	public HashMap<String, Object> recipeEnrollForm(int memNo) {
-		
 		Connection conn = getConnection();
 		HashMap<String, Object> enMap = new HashMap();
 		
@@ -42,25 +78,6 @@ public class RecipeService {
 	}
 	
 	
-	
-	
-	
-	public int selectRecipeListCount() {
-		
-		Connection conn = getConnection();
-		int listCount = new RecipeDao().selectRecipeListCount(conn);
-		close(conn);
-		return listCount;
-	}
-	
-	
-	public ArrayList<Recipe> selectRecipeListLt(PageInfo pi){
-		
-		Connection conn = getConnection();
-		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
-		close(conn);
-		return list;
-	}
 	
 	
 	

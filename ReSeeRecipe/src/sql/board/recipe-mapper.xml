@@ -3,25 +3,7 @@
 <properties>
 	<comment>레시피 게시판 관련 SQL문</comment>
 	
-	<!-- 카테고리 리스트 조회 SQL문 -->
-	<entry key="selectRecipeCategoryList">
-		SELECT
-			   RECIPE_CATEGORY_NO,
-			   RECIPE_CATEGORY_NAME
-		  FROM
-		  	   TB_RECIPE_CATEGORY
-	</entry>
-	
-	<entry key="selectIngredientMeasureList">
-		SELECT
-			   INGREDIENT_MEASURE_NO,
-			   INGREDIENT_MEASURE
-		  FROM
-		  	   TB_INGREDIENT_MEASURE
-	</entry>
-	
-	
-	
+	<!-- 글과 작성자의 STATUS가 유효한 레시피 개수 조회 -->
 	<entry key="selectRecipeListCount">
 		SELECT
 			   COUNT(*)
@@ -36,7 +18,7 @@
 	</entry>
 	
 	
-	<entry key="selectRecipeListLt">
+	<entry key="selectRecipeList">
 		SELECT
 			   RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME
 		  FROM (SELECT
@@ -65,6 +47,27 @@
 		 WHERE
 		 	   RNUM BETWEEN ? AND ?
 	</entry>
+	
+	
+	<!-- 카테고리 리스트 조회 SQL문 -->
+	<entry key="selectRecipeCategoryList">
+		SELECT
+			   RECIPE_CATEGORY_NO,
+			   RECIPE_CATEGORY_NAME
+		  FROM
+		  	   TB_RECIPE_CATEGORY
+	</entry>
+	
+	<entry key="selectIngredientMeasureList">
+		SELECT
+			   INGREDIENT_MEASURE_NO,
+			   INGREDIENT_MEASURE
+		  FROM
+		  	   TB_INGREDIENT_MEASURE
+	</entry>
+	
+	
+	
 	
 	
 	<!-- 레시피 카테고리 추가 SQL문 -->

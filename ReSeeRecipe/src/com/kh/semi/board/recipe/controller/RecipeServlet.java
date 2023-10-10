@@ -42,23 +42,26 @@ public class RecipeServlet extends HttpServlet {
 		System.out.println(mapping);
 		// Controller로 분배
 		switch(mapping) {
-			/* 홈페이지 메인 -> 레시피화면 메인으로 */
-			//
-		
-			// 레시피보기 기본 (최신순) selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
-			case "selectRecipeList" : System.out.println(mapping); break;
+			/* 레시피보기 기본 (최신순) */
+			case "selectRecipeList" : viewPath = rc.selectRecipeList(request, response); break;
 			
-			// 좋아요순 selectRecipeListHt
+			// 레시피보기 좋아요순 selectRecipeListHt
 			//case "selectRecipeListHt" : System.out.println(mapping); break;
 			
-			// 조회수순 selectRecipeListVw
+			// 레시피보기 조회수순 selectRecipeListVw
 			//case "selectRecipeListVw" : System.out.println(mapping); break;
 			
-			// 인기셰프순 selectRecipeListPo
+			// 레시피보기 인기셰프순 selectRecipeListPo
 			//case "selectRecipeListPo" : System.out.println(mapping); break;
+			
+			
+			
+			/* 카테고리 리스트 조회 */
+			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
 			
 			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax => 이후 forward
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
+			
 			
 			// 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect
 			//case "insertRecipe" : break;

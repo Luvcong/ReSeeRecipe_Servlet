@@ -40,9 +40,10 @@ public class MemberUpdateManagerController extends HttpServlet {
 		// 2) 값 뽑기 member UPDATE 이름 닉네임 이메일 회원등급명 수정사유
 		
 		int memNo = Integer.parseInt(request.getParameter("memNo")); 
-		String memberName = request.getParameter("memberName");
+		String memberName = request.getParameter("memName");
 		String memNickname = request.getParameter("memNickname");
 		String memEmail = request.getParameter("memEmail");
+		int memGrade = Integer.parseInt(request.getParameter("memgradeNo"));
 		String memGradename = request.getParameter("memGradename");
 		String memUpdateWhyCon = request.getParameter("memUpdateWhyCon");
 		String memModifyDate = request.getParameter("memModifydate");
@@ -59,6 +60,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemName(memberName);
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
+		m.setMemGrade(memGrade);
 		m.setMemGradeName(memGradename);
 		//m.setModifyDate(memModifyDate);
 		//m.setMemUpdateWhyCon(memUpdateWhyCon);

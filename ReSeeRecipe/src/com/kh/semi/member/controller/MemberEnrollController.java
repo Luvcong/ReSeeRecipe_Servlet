@@ -7,22 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberLoginController
+ * Servlet implementation class MemberEnrollController
  */
-@WebServlet("/yrlogin.me")
-public class MemberLoginController extends HttpServlet {
+@WebServlet("/yrenroll.me")
+public class MemberEnrollController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberLoginController() {
+    public MemberEnrollController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,35 +30,32 @@ public class MemberLoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 로그인 POST방식 인코딩
+		
+		// 1. POST방식 인코딩설정
 		request.setCharacterEncoding("UTF-8");
 		
-		// 사용자가 입력한 id와 pwd 값 뽑기
+		// 2. request객체로부터 요청 시 전달값 뽑기(이름, 닉네임, 아이디, 비밀번호, 이메일)
+		String memberName = request.getParameter("memberName");
+		String memberNickname = request.getParameter("memberNickname");
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
+		String memberEmail = request.getParameter("memberEamil");
 		
-		// 추가
-		String buy = request.getParameter("buy");
+		Member m = new Member();
+		m.setMemName(memberName);
+		m.setMemNickname(memberNickname);
+		m.setMemId(memberId);
+		m.setMemPwd(memberPwd);
+		m.setMemEmail(memberEmail);
 		
-		// Service 호출
-		Member loginMember = new MemberService().loginMember(memberId, memberPwd);
-		//System.out.println("loginMem >> " + loginMember); 작동 잘 해서 블러처리하였습니다 - MJY
+		int result = new MemberService().insertMember(m);
 		
-		// 로그인 실패 시
-		if(loginMember == null) {
-			request.setAttribute("errorMsg", "로그인에 실패하셨습니다.");
-			// request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			request.getRequestDispatcher("views/member/memberLogin.jsp").forward(request, response);
-		} else { // 로그인 성공 시
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			// 
-			if(buy.equals("buy")) {
-				response.sendRedirect(request.getContextPath() + "/main.po");
-			} else {
-				response.sendRedirect(request.getContextPath());
-			}
+		if(result > 0) {
+			request.setAttribute("alertMsg", "회원가입 성공~");
+			response.sendRedirect(request.getContextPath());
+		} else {
+			request.setAttribute("errorMsg", "회원가입에 실패하셨습니다.");
+			request.getRequestDispatcher("views/member/yrenrollForm.me").forward(request, response);
 		}
 	}
 

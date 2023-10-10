@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String alertMsg = (String)request.getAttribute("alertMsg"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,9 +111,15 @@
 </head>
 
 <body>
-
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="views/common/header.jspf" %>
+	
+	<% if(alertMsg != null) { %>
+		<script>
+			alert(<%= alertMsg %>);
+		</script>
+		
+	<% } %>
 	
 	
 	<!-- content부분 (홈페이지 메인) -->	

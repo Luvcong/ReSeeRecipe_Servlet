@@ -71,6 +71,37 @@ public class MemberDao {
 		return m;
 	}
 	
+	// 회원가입
+	/**
+	 * @param conn : Connection 객체
+	 * @param m : 회원가입하는 Member객체
+	 * @return : 회원insert 성공 여부에 따른 결과값(성공1 또는 실패0)
+	 */
+	public int insertMember(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getMemName());
+			pstmt.setString(2, m.getMemNickname());
+			pstmt.setString(3, m.getMemId());
+			pstmt.setString(4, m.getMemPwd());
+			pstmt.setString(5, m.getMemEmail());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int selectMemlistCount(Connection conn) {
 		
 		int memlistCount = 0;
@@ -124,6 +155,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				//m.setMemReward(rset.getInt("MEM_REWARD"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
@@ -160,6 +192,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				m.setModifyDate(rset.getDate("MODIFY_DATE"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 			}
 		} catch (SQLException e) {
@@ -182,6 +215,7 @@ public class MemberDao {
 			pstmt.setString(1, m.getMemName());
 			pstmt.setString(2, m.getMemNickname());
 			pstmt.setString(3, m.getMemEmail());
+			//pstmt.setInt(4, m.getMemGrade());
 			pstmt.setString(4, m.getMemGradeName());
 			pstmt.setInt(5, m.getMemNo());
 			

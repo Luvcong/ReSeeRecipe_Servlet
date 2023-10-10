@@ -17,12 +17,10 @@
 <title>레시피 글 작성 양식</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-<!-- 버튼 / 모달 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- 아이콘 부트스트랩 -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 
 
 <style>
@@ -395,8 +393,8 @@
 <body>
 
 	<%@ include file="/views/common/header.jspf" %>
-	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
-	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
+	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jspf" %>
+	<%@ include file="/views/board/recipe_frag/recipeSortBar.jspf" %>
 
 	<script>
 		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
@@ -698,11 +696,11 @@
 						console.log(count);
 
 						// 입력된 재료 값 받기
-						/*
+						
 						var ingredientIn = document.getElementById('ingredientIn').value;
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
-						*/
+						
 
 						// 제일 바깥쪽 띄워줄 영역 세팅
 						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
