@@ -88,24 +88,16 @@
 		UPDATE
 		   		TB_MEMBER
 		   SET
-		   		(
-				MEM_NAME
-			   ,MEM_NICKNAME
-			   ,MEM_EMAIL
-			   ,MODIFY_DATE
-			   ,MEM_GRADE
-				)
-		VALUES
-				(
-				?
-			   ,?
-			   ,?
-			   ,SYSDATE
-			   ,(SELECT MEM_GRADE_NO
+		   		
+				MEM_NAME = ?
+			   ,MEM_NICKNAME = ?
+			   ,MEM_EMAIL = ?
+			   ,MODIFY_DATE = SYSDATE
+			   ,MEM_GRADE = (SELECT MEM_GRADE_NO
                     FROM TB_MEMBER_GRADE
-                    WHERE MEM_GRADE_NAME = ?))
+                    WHERE MEM_GRADE_NAME = ?)
 	    WHERE
-	    		MEM_NO = ?
+	    		MEM_NO = ?;
 	</entry>
 	
 	<entry key="insertMemUpdate">
