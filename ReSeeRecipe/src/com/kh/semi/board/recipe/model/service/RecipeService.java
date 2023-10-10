@@ -22,7 +22,6 @@ public class RecipeService {
 	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
 	 */
 	public ArrayList<RecipeCategory> selectRecipeCategoryList() {
-		
 		Connection conn = getConnection();
 		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
 		close(conn);

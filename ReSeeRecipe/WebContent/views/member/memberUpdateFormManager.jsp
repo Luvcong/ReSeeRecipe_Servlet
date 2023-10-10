@@ -45,7 +45,7 @@
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
             <br>
             <label for="memberName">회원이름</label>
-            <input type="text" class="form-control"  id="memberName" name="memName" value="<%=m.getMemName()%>" required>
+            <input type="text" class="form-control"  id="memberName" name="memName" value="<%=m.getMemName() %>" required>
             <br>
             <label for="memberId">회원아이디</label>
             <input type="text" class="form-control"  id="memberId"  name="memId" value="<%=m.getMemId()%>" readonly>
@@ -63,10 +63,10 @@
             <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate() %>" readonly>
             <br>
             <label for="membergradeNo">회원등급번호</label>
-            <input type="text" class="form-control" id="membergradeNo" name="memgradeNo" value="<%= m.getMemGrade()%>">
+            <input type="text" class="form-control" id="membergradeNo" name="memgradeNo" value="<%= m.getMemGrade()%>" readonly>
             <br>
             <label for="membergradeName">회원등급명</label>
-            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" readonly >
+            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" required>
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>

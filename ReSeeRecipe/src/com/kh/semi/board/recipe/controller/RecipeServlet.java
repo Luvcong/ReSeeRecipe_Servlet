@@ -44,7 +44,7 @@ public class RecipeServlet extends HttpServlet {
 		// Controller로 분배
 		switch(mapping) {
 		
-			// 카테고리 조회
+			/* 카테고리 리스트 조회 */
 			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
 		
 			// 레시피보기 기본 (최신순) selectRecipeListLt : viewPath = rc.selectRecipeListLt(request, response); break;
