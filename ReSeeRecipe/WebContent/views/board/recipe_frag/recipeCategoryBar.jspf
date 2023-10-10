@@ -14,17 +14,18 @@
 <meta charset="UTF-8">
 <title>레시피카테고리바</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
+<!--
 <script>
 	$(function(){
 		// 카테고리 리스트 요청
 		location.href = '<%=contextPathCategoryBar%>/selectRecipeCategoryList.re';
 	});
 </script>
-<%
+-->
+<%--
 	// 카테고리 리스트
 	ArrayList<RecipeCategory> cList = (ArrayList<RecipeCategory>)request.getAttribute("cList");
-%>
+--%>
 
 
 <style>
