@@ -124,7 +124,7 @@
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
-            <button class="w3-button w3-round w3-yellow">회원 삭제</button>
+            <button id="deleteMem" class="w3-button w3-round w3-yellow">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
         <table class="table" id="memAll">
@@ -163,7 +163,7 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                    		<input type="checkbox" name="example2">
+                    		<input type="checkbox" name="memberCheckbox" id="memberCheckbox">
                    		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
@@ -201,18 +201,33 @@
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
         	});
         }); 
-        	
-<%--          function memdetailView(e){
-        	const mno =  $(this).children().eq(1).text();
-			location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
-        }  --%>  
         
-<%--         $(function(){
-        	$('#memAllList > tr').dbclick(function(){
-        		const mno =  $(this).children().eq(1).text();
-				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        $(function(){
+        	$('#memAllList > tr').on('click', function(){
+        		let $mc = $('#memAllList > tr').children().eq(0).find('input:checkbox').prop('checked');
+        		console.log('$mc' + $mc);
+        		if($mc == true){
+        			$($mc).prop('checked', false);
+        		} else {
+        			$($mc).prop('checked', true);
+        		}
         	});
-        }); --%>
+        });
+        
+		$(function(){
+			$('#deleteMem').on('click', deleteMember);
+			
+			function deleteMember(){
+				let checkMem = $('#memberCheckbox').prop('checked')
+				console.log(checkMem);
+				
+			}
+			
+			
+		})
+        
+        
+        
         </script>
     </div>
    
