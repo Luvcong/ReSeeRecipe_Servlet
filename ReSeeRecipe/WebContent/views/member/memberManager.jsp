@@ -204,9 +204,9 @@
         
         $(function(){
         	$('#memAllList > tr').on('click', function(){
-        		let $mc = $('#memAllList > tr').children().eq(0).find('input:checkbox').prop('checked');
+        		let $mc = $(this).children().eq(0).find('input:checkbox');
         		console.log('$mc' + $mc);
-        		if($mc == true){
+        		if($mc.prop('checked') == true){
         			$($mc).prop('checked', false);
         		} else {
         			$($mc).prop('checked', true);
