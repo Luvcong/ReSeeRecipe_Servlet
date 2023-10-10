@@ -42,12 +42,17 @@ public class RecipeController {
 		// 넘길 값 지정
 		request.setAttribute("rList", rList);
 		
-		System.out.println(rList);
-		
+		System.out.println("A Starting Row : " + pi.getStartRow());
+		System.out.println("A End Row : " + pi.getEndRow());
+		int i = 1;
+		for(Recipe r : rList) {
+			System.out.println(i + "컨트롤단ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" + r);
+			i++;
+		}
 		
 		// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 		//ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
-		viewPath = "/views/board/recipe/recipeMain.jsp";
+		viewPath = "/views/board/recipe/recipeMainView.jsp";
 		
 		return viewPath;
 	}
