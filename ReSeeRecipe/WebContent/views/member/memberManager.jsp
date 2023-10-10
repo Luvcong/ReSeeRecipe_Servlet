@@ -202,7 +202,7 @@
 			
 		}); --%> 
 
-        
+        // 더블클릭 시 회원 상세보기 기능
         $(function(){
         	$(document).on('dblclick','#memAllList > tr', function(){
         		const mno =  $(this).children().eq(1).text();
@@ -211,18 +211,50 @@
         }); 
         
         // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
-        $(function(){
+/*         $(function(){
         	$('#memAllList > tr').on('click', function(){
         		let $mc = $(this).children().eq(0).find('input:checkbox');
         		console.log('$mc' + $mc);
         		if($mc.prop('checked') == true){
+        			console.log('모범시민');
+        			console.log($mc.prop('checked') == true);
         			$($mc).prop('checked', false);
         		} else {
         			$($mc).prop('checked', true);
         		}
         	});
-        });
+        }); */
         
+        $(function(){
+        	let $memAll = $('#memAllList > tbody > tr');
+        	console.log($memAll);
+        	let $memdetail = $('#memAllList > tbody > tr > td');
+        	console.log($memdetail);
+        	let $md = $('#memAllList > tbody > tr > td > eq(0)');
+        	console.log($md);
+        })
+        
+        
+        
+        
+        // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
+        $(function(){
+        	$('#memberCheckbox').on('click', function(){
+        		let $memDetailCheck = $(this).prop('checked');
+        		console.log($memDetailCheck);
+        		if($memDetailCheck == true){
+        			$($memDetailCheck) == false;
+        		} else {
+        			$($memDetailCheck) == true;
+        		}
+        	})
+        })
+        
+        
+        
+        
+        
+        // 회원 삭제 기능
         $(function(){
         	
         	// 회원 삭제 기능
