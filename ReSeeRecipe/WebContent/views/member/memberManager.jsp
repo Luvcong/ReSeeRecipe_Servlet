@@ -216,16 +216,28 @@
         		}
         	});
         	
+        	// 회원 삭제 기능
         	$('#deleteMem').on('click', deleteMember);
         	function deleteMember(){
-        		if($mc.prop('checked')){
+        		if($mc.prop('checked') == true){
         			console.log('$mc.prop' + $mc.prop('checked'));
-        			break;
-        		}
-        		else {
         			Swal.fire('실패', '회원을 선택해주세요', 'error');
-        			return;
+        			return; //break;
         		}
+        		
+        		Swal.fire({
+        			titile : "회원을 삭제하시겠습니까?",
+        			text : "※  탈퇴회원에서 조회 가능합니다",
+        			icon : "warning",
+        			showCancelButton: true,
+    				confirmButtonColor: "#DD6B55",
+    				confirmButtonText: "삭제",
+    				cancelButtonText: "취소"
+    				}).then((result) => {
+    					if (!result.isConfirmed) {
+    					  return;
+    					}
+        		})
         	}
         });
         
