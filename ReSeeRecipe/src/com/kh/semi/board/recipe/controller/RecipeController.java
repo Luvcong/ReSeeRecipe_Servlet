@@ -16,6 +16,12 @@ public class RecipeController {
 	
 	
 	
+	/**
+	 * 레시피 카테고리 목록을 조회해 반환
+	 * @param request : HttpServletRequest객체
+	 * @param response : HttpServletResponse객체
+	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 */
 	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
