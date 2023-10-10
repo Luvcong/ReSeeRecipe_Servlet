@@ -103,7 +103,7 @@
 			   ,SYSDATE
 			   ,(SELECT MEM_GRADE_NO
                     FROM TB_MEMBER_GRADE
-                    WHERE MEM_GRADE_NAME LIKE '%'||?||'%'))
+                    WHERE MEM_GRADE_NAME = ?))
 	    WHERE
 	    		MEM_NO = ?
 	</entry>
