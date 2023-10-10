@@ -43,6 +43,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		String memberName = request.getParameter("memberName");
 		String memNickname = request.getParameter("memNickname");
 		String memEmail = request.getParameter("memEmail");
+		int memGrade = Integer.parseInt(request.getParameter("memgradeNo"));
 		String memGradename = request.getParameter("memGradename");
 		String memUpdateWhyCon = request.getParameter("memUpdateWhyCon");
 		String memModifyDate = request.getParameter("memModifydate");
@@ -59,6 +60,7 @@ public class MemberUpdateManagerController extends HttpServlet {
 		m.setMemName(memberName);
 		m.setMemNickname(memNickname);
 		m.setMemEmail(memEmail);
+		m.setMemGrade(memGrade);
 		m.setMemGradeName(memGradename);
 		//m.setModifyDate(memModifyDate);
 		//m.setMemUpdateWhyCon(memUpdateWhyCon);
