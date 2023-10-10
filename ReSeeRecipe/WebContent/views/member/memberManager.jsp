@@ -108,14 +108,20 @@
         <div class="header1">
             <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
-                  <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+      <!--             <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
                     조회
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">회원ID</a>
-                    <a class="dropdown-item" href="#">닉네임</a>
-                    <a class="dropdown-item" href="#">이름</a>
-                  </div>
+                  </button> -->
+                  <!-- <div class="dropdown-menu">
+                    <a type="dropdown" class="dropdown-item" href="#">회원ID</a>
+                    <a type="dropdown" class="dropdown-item" href="#">닉네임</a>
+                    <a type="dropdown" class="dropdown-item" href="#">이름</a>
+                  </div> -->
+                  <select id="memSearch"  value="회윈조회"class="btn btn-warning">
+                  	<option selected>회원조회</option>
+                  	<option>회원ID</option> 
+                  	<option>닉네임</option> 
+                  	<option>이름</option> 
+                  </select>
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
