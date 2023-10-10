@@ -20,10 +20,12 @@
 	
 	<entry key="selectRecipeList">
 		SELECT
-			   RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME
-		  FROM (SELECT
-		  	           ROWNUM RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME
-				  FROM (SELECT
+			   RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME, HT_COUNT
+		  FROM
+		  	   (SELECT
+		  	           ROWNUM RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME, HT_COUNT
+				  FROM
+					   (SELECT
 				  			   RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, RECIPE_PIC_PATH||'/'||RECIPE_PIC_NAME_UPLOAD TITLEIMG, MEM_NICKNAME
 						  FROM
 						  	   TB_RECIPE
@@ -41,8 +43,18 @@
 						   	   RECIPE_PIC_LEV = 1
 						 ORDER
 						    BY
-						       RECIPE_DATE DESC
-						)
+						       RECIPE_NO DESC
+					   )
+          		  LEFT
+          		  JOIN
+        	   		   (SELECT
+        	   		   		   COUNT(*) HT_COUNT, RECIPE_NO
+        		  		  FROM
+        		  	   		   TB_HT_RECIPE
+        		 		 GROUP
+        		 	  		BY
+        		 	  		   RECIPE_NO
+        		 	   ) USING (RECIPE_NO)
 			   )
 		 WHERE
 		 	   RNUM BETWEEN ? AND ?
