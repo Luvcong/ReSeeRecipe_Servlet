@@ -23,10 +23,11 @@ public class RecipeController {
 		
 		if(!cList.isEmpty()) {
 			request.setAttribute("cList", cList);
+		} else {
+			request.setAttribute("errorMsg", "에러가 발생했습니다");
+			return "/views/common/errorPage.jsp";
 		}
-		
 		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
-		
 		return viewPath;
 	}
 	
