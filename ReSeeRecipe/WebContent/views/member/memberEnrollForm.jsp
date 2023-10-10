@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String errorMsg = (String)request.getAttribute("errorMsg"); %>
 <!-- 초본_231005_yr -->
 <!-- 수정_231006_yr -->
 
@@ -25,7 +26,7 @@
         input[type=text], input[type=password] {
         width: 100%;
         padding: 12px 20px;
-        margin: 8px 0;
+        margin: 8px 0px 0px 0px;
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
@@ -102,13 +103,24 @@
           margin : 5px;
         }
 
+        .container > label{
+          font-size: 12px;
+          margin : 0px 0px 5px 0px;
+        }
+
 
     </style>
 
 </head>
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
-	  <%@ include file="/views/common/header.jspf" %>
+	<%@ include file="/views/common/header.jspf" %>
+	
+	<% if(errorMsg != null) { %>
+		<script>
+			alert("<%=errorMsg%>");
+		</script>
+	<% } %>
 
     <form action="yrenroll.me" method="post">
 
@@ -116,13 +128,21 @@
       <div class="container">
 
           <input type="text" placeholder="이름" name="memberName" id="memberName" required>
+          <label for="memberName">* 한글 2 ~ 6자로 입력 가능합니다.</label>
           <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
+          <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
+
           <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
+          <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
           
           <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
+          <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
+
           <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" required>
+          <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다. </label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" required>
+          <label for="memberEmail">* 유효한 이메일이 아닙니다.</label>
 
           
           <div class="enroll-checkbox">
@@ -198,54 +218,75 @@
     <script>
         function validate(){
         // 유효성 검사
+        
         var memberName = document.getElementById('memberName');
         var memberNickname = document.getElementById('memberNickname');
         var memberId = document.getElementById('memberId');
-        var memberPwd = documnet.getElementById('memberPwd');
+        var memberPwd = document.getElementById('memberPwd');
         var memberPwdCheck = document.getElementById('memberPwdCheck');
         var memberEmail = document.getElementById('memberEmail');
-
+        
+        // 각 input요소에 대응하는 label요소들
+        var labels = document.getElementsByTagName('label');
+        
         // 1) 이름 (2 ~ 6자 이내)
         var regExp = /^[가-힣]{2,6}$/;
-        
         if(!regExp.test(memberName.value)){
-          membername.value = '다시 입력';
-          alert('다시');
+          labels[0].style.color = 'red';
+          memberName.select();
           return false;
+        } else{
+          labels[0].style.display = 'none';
         };
 
         // 2) 닉네임 (3 ~ 8자)
-        var regExp = /^[가-힣]{3,8}/;
+        var regExp = /^[a-z0-9가-힣]{3,8}$/;
         if(!regExp.test(memberNickname.value)){
-          memberNickname.value = '붑';
+          labels[1].style.color = 'red';
+          memberNickname.select();
           return false;
+        } else{
+          labels[1].style.display = 'none';
         };
 
         // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
-        var regExp = /^[a-zA-Z0-9]{5,20}&/;
+        var regExp = /^[a-zA-Z0-9]{5,20}$/;
         if(!regExp.test(memberId.value)){
-
+          labels[2].style.color = 'red';
+          memberId.select();
           return false;
+        } else{
+          labels[2].style.display = 'none';
         };
 
         // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
-        var regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}&/;
+        var regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
         if(!regExp.test(memberPwd.value)){
-
+          labels[3].style.color = 'red';
+          memberPwd.select();
           return false;
+        } else{
+          labels[3].style.display = 'none';
         };
 
         // 5) 비밀번호 확인
         if(memberPwdCheck.value != memberPwd.value){
-
+          labels[4].style.color = 'red';
+          memberPwdCheck.select();
           return false;
-        }
+        } else{
+          labels[4].style.display = 'none';
+        };
 
-        // 6) 이메일 (이메일앞부분 6 ~ 30자 + @ + 뒷부분 6 ~ 14자가 들어간 형식)
-        var regExp = /^[a-zA-Z0-9]{6,30} @ [a-zA-Z0-9]{6,14}$/;
-        if(!regExp.test(memberEmail)){
-
+        // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
+        var regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{6,24}$/;
+        
+        if(!regExp.test(memberEmail.value)){
+          labels[5].style.color = 'red';
+          memberEmail.select();
           return false;
+        } else{
+          labels[5].style.display = 'none';
         };
 
         return true;
