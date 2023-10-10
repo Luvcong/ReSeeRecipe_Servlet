@@ -28,7 +28,9 @@
     <!-- GSON -->
     
     <!--GSON Ajax 통신 하기 위해 필요  -->
-     
+    
+    <!-- Swal Alert CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>     
     <script type="text/javascript">
     
 /*     $.getJSON("/views/member/memberManager.jsp", function(data){
@@ -124,7 +126,7 @@
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
-            <button class="w3-button w3-round w3-yellow">회원 삭제</button>
+            <button id="deleteMem" class="w3-button w3-round w3-yellow">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
         <table class="table" id="memAll">
@@ -163,7 +165,7 @@
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                    		<input type="checkbox" name="example2">
+                    		<input type="checkbox" name="memberCheckbox" id="memberCheckbox">
                    		<!-- <input type="checkbox" class="form-check-input" value=""> -->	
                    			</label>
                 			</div>
@@ -201,18 +203,86 @@
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
         	});
         }); 
-        	
-<%--          function memdetailView(e){
-        	const mno =  $(this).children().eq(1).text();
-			location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
-        }  --%>  
         
-<%--         $(function(){
-        	$('#memAllList > tr').dbclick(function(){
-        		const mno =  $(this).children().eq(1).text();
-				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
+        $(function(){
+        	$('#memAllList > tr').on('click', function(){
+        		let $mc = $(this).children().eq(0).find('input:checkbox');
+        		console.log('$mc' + $mc);
+        		if($mc.prop('checked') == true){
+        			$($mc).prop('checked', false);
+        		} else {
+        			$($mc).prop('checked', true);
+        		}
         	});
-        }); --%>
+        });
+        
+        $(function(){
+        	
+        	// 회원 삭제 기능
+        	$('#deleteMem').on('click', deleteMember);
+        	
+        	
+        	function deleteMember(){
+        		let $trs = $('#memAllList > tr');
+        		let $tr_check = null;
+        		for(let $tr of $trs){
+    				let $cm = $($trs).children().eq(0).find('input:checkbox');
+        			if($cm.prop('checked')){
+        				console.log('$cm.prop' + $cm.prop('checked'));
+        				$tr_checked = $tr;
+        				break; //break;
+        			}
+        		}
+        		
+        		if($tr_check == null){
+        			Swal.fire('실패', '회원을 선택해주세요', 'error');
+        			return;
+        		}	
+        			
+        		Swal.fire({
+	        			titile : "회원을 삭제하시겠습니까?",
+	        			text : "※  탈퇴회원에서 조회 가능합니다",
+	        			icon : "warning",
+	        			showCancelButton: true,
+	    				confirmButtonColor: "#DD6B55",
+	    				confirmButtonText: "삭제",
+	    				cancelButtonText: "취소"
+	    				}).then((result) => {
+	    					if (!result.isConfirmed) {
+	    					  return;
+	    					}
+	    					
+	    					//let $table = $('#memAll');
+	    					let $trs = $('#memAll > tbody > tr');
+	    					let mem_list = {};
+	    					
+	    					for(let tr of $trs){
+	    						let $mc = $(this).children().eq(0).find('input:checkbox');
+	    						if($cm.prop('checked') == true){
+	    							
+	    						}
+	    					}
+	        	})	
+        		
+        	}
+        })
+        
+        
+/* 		$(function(){
+			
+			
+			
+				let checkMem = $('#memberCheckbox').prop('checked')
+				console.log(checkMem);
+				
+			}
+			
+			
+		})
+         */
+        
+        
         </script>
     </div>
    
