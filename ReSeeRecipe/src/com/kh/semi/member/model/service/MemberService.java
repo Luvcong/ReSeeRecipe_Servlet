@@ -46,6 +46,23 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원가입 시 id 중복체크
+	/**
+	 * @param idCheck : 회원가입에 쓸 사용자 id 입력값
+	 * @return : 이미 존재하는 아이디 1 또는 사용가능 0
+	 */
+	public int idCheck(String idCheck) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDao().idCheck(conn, idCheck);
+		
+		close(conn);
+		
+		return count;
+	}
+	
+	
+	
 	public int selectMemlistCount() {
 		
 		Connection conn = getConnection();

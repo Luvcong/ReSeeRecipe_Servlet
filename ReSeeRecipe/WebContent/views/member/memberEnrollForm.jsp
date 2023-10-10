@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
 
     <style>
         /* Bordered form */
@@ -129,6 +131,7 @@
 
           <input type="text" placeholder="이름" name="memberName" id="memberName" required>
           <label for="memberName">* 한글 2 ~ 6자로 입력 가능합니다.</label>
+          
           <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
           <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
 
@@ -207,6 +210,7 @@
 
             </div>
           </div>
+          <!-- 제출버튼!!!!!!!!!!!!!!!!!! -->
           <button type="submit" onclick = "return validate();">가입하기</button>
       </div>
         
@@ -292,6 +296,44 @@
         return true;
       }
     </script>
+    
+    
+    <!-- ajax를 이용하여 아이디 중복체크 -->
+    <script>
+		function idCheck(){
+			
+			const $memberId = $('#memberId');
+			
+			$.ajax({
+				url : 'idCheck.me',
+				date : {checkId : $memberId.val()},
+				// 중복체크 조회 성공 시
+				success : function(result) {
+					// 중복된 아이디
+					if(result == 'NNNNN'){
+						Swal.fire({
+							  icon: 'error',
+							  title: '아이디 중복',
+							  text: '이미 존재하거나 탈퇴한 회원의 아이디입니다!'
+						})
+						
+						$memberId.val('').focus();
+					// 사용가능한 아이디
+					}
+					
+				},
+				// 중복체크 조회 실패 시
+				error : function(){
+					
+				}
+			})
+		}
+		
+
+
+    </script>
+    
+    
 
 
     <script>
