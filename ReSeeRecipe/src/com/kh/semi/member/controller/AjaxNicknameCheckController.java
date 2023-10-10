@@ -1,11 +1,14 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.member.model.service.MemberService;
 
 /**
  * Servlet implementation class AjaxNameCheckController
@@ -28,7 +31,15 @@ public class AjaxNicknameCheckController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String checkNickname = request.getParameter("checkNickname");
 		
+		int count = new MemberService().nicknameCheck(checkNickname);
 		
+		response.setContentType("text.html, charset=UTF-8");
+		
+		if(count > 0) {
+			response.getWriter().print("NNNNN");
+		} else {
+			response.getWriter().print("NNNNY");
+		}
 	}
 
 	/**

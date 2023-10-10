@@ -53,14 +53,24 @@
 			   )
 	</entry>
 	
+	<!-- 회원가입 닉네임 중복체크 -->
+	<entry key="nicknameCheck">
+		SELECT 
+			   COUNT(*)
+		  FROM
+			   TB_MEMBER
+		 WHERE
+			   MEM_NICKNAME = ?
+	</entry>
+	
 	<!-- 회원가입 아이디 중복체크 -->
 	<entry key="idCheck">
 		SELECT 
-				COUNT(*)
+			   COUNT(*)
 		  FROM 
-		  		TB_MEMBER
+		  	   TB_MEMBER
 		 WHERE 
-		 		MEM_ID = ?
+		 	   MEM_ID = ?
 	</entry>
 	
 	<entry key="selectMemlistCount">
@@ -73,6 +83,8 @@
 		  AND
 		  		MEM_GRADE != 4
 	</entry>
+	
+
 	
 	<entry key="selectMemberAll">
 		SELECT *

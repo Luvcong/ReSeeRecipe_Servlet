@@ -303,7 +303,7 @@
       }
     </script>
     
-    <!-- ajax를 이용하여 아이디 중복체크 -->
+    <!-- ajax를 이용하여 닉네임 중복체크 -->
     <script>
     	function nicknameCheck(){
 			$.ajax({
@@ -316,7 +316,7 @@
 						Swal.fire({
 							  icon: 'error',
 							  title: '닉네임 중복',
-							  text: '이미 존재하거나 탈퇴한 회원의 아이디입니다!'
+							  text: '이미 존재하거나 탈퇴한 회원의 닉네임입니다!'
 						})
 						$('label[for="memberNickname"]').text("* 이미 존재하는 닉네임입니다!");
 						
@@ -333,7 +333,7 @@
 			})
     	}
     
-    
+    	<!-- ajax를 이용하여 아이디 중복체크 -->
 		function idCheck(){
 			$.ajax({
 				url : 'yridCheck.me',
@@ -362,6 +362,7 @@
 			})
 		}
 		
+		<!-- ajax를 이용하여 이메일 중복체크 -->
 		function emailCheck(){
 			$.ajax({
 				url : 'yremailCheck.me',
@@ -372,7 +373,7 @@
 					if(result == 'NNNNN'){
 						Swal.fire({
 							  icon: 'error',
-							  title: '닉네임 중복',
+							  title: '이메일 중복',
 							  text: '이미 사용하고 있는 이메일입니다!'
 						})
 						$('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!");
