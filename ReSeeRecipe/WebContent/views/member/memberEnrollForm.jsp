@@ -129,26 +129,26 @@
       <h1 id="title"><b>회원가입</b></h1>
       <div class="container">
 
-          <input type="text" placeholder="이름" name="memberName" id="memberName" required>
-          <label for="memberName">* 한글 2 ~ 6자로 입력 가능합니다.</label>
+          <input type="text" placeholder="이름" name="memberName" id="memberName" maxlength="5" required>
+          <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
           
-          <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
+          <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" maxlength="8" required>
           <button type="button" onclick="nicknameCheck();">닉네임 중복확인</button>
           <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
           
 
-          <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
+          <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" maxlength="20" required>
           <button type="button" onclick="idCheck();">아이디 중복확인</button>
           <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
           
           
-          <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
+          <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20" required>
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
 
-          <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" required>
+          <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
           <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다. </label>
           
-          <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" required>
+          <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
           <button type="button" onclick="emailCheck();">이메일 중복확인</button>
           <label for="memberEmail">* 유효한 이메일이 아닙니다.</label>
           
@@ -235,6 +235,8 @@
         var memberPwd = document.getElementById('memberPwd');
         var memberPwdCheck = document.getElementById('memberPwdCheck');
         var memberEmail = document.getElementById('memberEmail');
+
+
         
         // 각 input요소에 대응하는 label요소들
         var labels = document.getElementsByTagName('label');
@@ -302,10 +304,22 @@
         return true;
       }
     </script>
+
     
-    <!-- ajax를 이용하여 닉네임 중복체크 -->
     <script>
+
+      $(function(){
+        // ★★★★★★★★★★★★★★★★★★클릭한거 뒤에 있는 label의 속성값 바꾸기~_231010
+        $('input').click(function(){
+          // console.log($(this));
+          $('label[for="' + $(this).attr('id') + '"]').css('color', 'red');
+        });
+      })
+
+
+   		// ajax를 이용하여 닉네임 중복체크
     	function nicknameCheck(){
+        
 			$.ajax({
 				url : 'yrnicknameCheck.me',
 				data : {checkNickname : $('#memberNickname').val()},
@@ -313,12 +327,16 @@
 				success : function(result) {
 					// 중복된 아이디
 					if(result == 'NNNNN'){
+            /*
 						Swal.fire({
 							  icon: 'error',
 							  title: '닉네임 중복',
 							  text: '이미 존재하거나 탈퇴한 회원의 닉네임입니다!'
 						})
-						$('label[for="memberNickname"]').text("* 이미 존재하는 닉네임입니다!");
+            */
+            const $nicknameLabel = $('label[for="memberNickname"]');
+						$nicknameLabel.text("* 이미 존재하는 닉네임입니다!");
+            $nicknameLabel.css('color', 'red');
 						
 						$('#memberNickname').val('').focus();
 					// 사용가능한 아이디
@@ -333,7 +351,7 @@
 			})
     	}
     
-    	<!-- ajax를 이용하여 아이디 중복체크 -->
+    	// ajax를 이용하여 아이디 중복체크
 		function idCheck(){
 			$.ajax({
 				url : 'yridCheck.me',
@@ -362,7 +380,7 @@
 			})
 		}
 		
-		<!-- ajax를 이용하여 이메일 중복체크 -->
+		// ajax를 이용하여 이메일 중복체크
 		function emailCheck(){
 			$.ajax({
 				url : 'yremailCheck.me',

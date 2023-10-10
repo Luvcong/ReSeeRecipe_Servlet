@@ -73,6 +73,16 @@
 		 	   MEM_ID = ?
 	</entry>
 	
+	<!-- 회원가입 이메일 중복체크 -->
+	<entry key="emailCheck">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_EMAIL = ?
+	</entry>
+	
 	<entry key="selectMemlistCount">
 		SELECT
 				COUNT(*)
