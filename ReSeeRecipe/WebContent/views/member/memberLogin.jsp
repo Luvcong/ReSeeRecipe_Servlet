@@ -137,10 +137,10 @@
           </b>
           </h4>
           <!-- <label for="uname"><b>아이디</b></label> -->
-          <input type="text" placeholder="아이디" name="memberId" required>
+          <input type="text" placeholder="아이디" name="memberId" maxlength="20" required>
       
           <!-- <label for="psw"><b>비밀번호</b></label> -->
-          <input type="password" placeholder="비밀번호" name="memberPwd" required>
+          <input type="password" placeholder="비밀번호" name="memberPwd" maxlength="20" required>
       
           <button type="submit">로그인</button>
 
