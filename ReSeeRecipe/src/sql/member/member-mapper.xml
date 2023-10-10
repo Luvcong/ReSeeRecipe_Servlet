@@ -90,7 +90,6 @@
 		UPDATE
 		   		TB_MEMBER
 		   SET
-		   		
 				MEM_NAME = ?
 			   ,MEM_NICKNAME = ?
 			   ,MEM_EMAIL = ?
