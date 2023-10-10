@@ -227,10 +227,10 @@
         		let $trs = $('#memAllList > tr');
         		let $tr_check = null;
         		for(let $tr of $trs){
-    				let $cm = $($trs).children().eq(0).find('input:checkbox');
+    				let $cm = $($tr).children().eq(0).find('input:checkbox');
         			if($cm.prop('checked')){
         				console.log('$cm.prop' + $cm.prop('checked'));
-        				$tr_checked = $tr;
+        				$tr_checked = $trs;
         				break; //break;
         			}
         		}
@@ -255,14 +255,30 @@
 	    					
 	    					//let $table = $('#memAll');
 	    					let $trs = $('#memAll > tbody > tr');
-	    					let mem_list = {};
+	    					let mem_list = [];
+	    					
+/* 	    					[]
+	    					$([]) */
 	    					
 	    					for(let tr of $trs){
 	    						let $mc = $(this).children().eq(0).find('input:checkbox');
+	    						console.log($mc.next());
 	    						if($cm.prop('checked') == true){
-	    							
+	    							mem_list.push('$trs > tbody > children().eq(1).text()');
 	    						}
 	    					}
+	    					
+	    					$.ajax({
+	    						url : 'hldeletemember.ma',
+	    						type : 'post',
+	    						dataType : 'json',
+	    						data : {'mno' :  mem_list},
+	    						success : function(result){
+	    							for(let tr of $trs){
+	    								let memNo = parseInt()
+	    							}
+	    						}
+	    					})
 	        	})	
         		
         	}
