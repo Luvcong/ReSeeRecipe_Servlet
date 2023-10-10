@@ -97,14 +97,26 @@
 					ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
 		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
 	</entry>
+	
+	<!-- 카테고리 삭제시 레시피글 변경(STATUS = N && CATEGORY_NO = 0) SQL문 -->
+	<entry key="updateRecipeStatus">
+		UPDATE
+				TB_RECIPE R
+		   SET
+		   		RECIPE_STATUS = 'N', RECIPE_CATEGORY_NO = 0
+		 WHERE
+		 		R.RECIPE_CATEGORY_NO IN (SELECT RR.RECIPE_CATEGORY_NO
+		                                   FROM TB_RECIPE RR, TB_RECIPE_CATEGORY RC
+		                                  WHERE RR.RECIPE_CATEGORY_NO = ?
+		                                    AND RR.RECIPE_CATEGORY_NO = RC.RECIPE_CATEGORY_NO)
+	</entry>
 
 	<!-- 카테고리 삭제 SQL문 -->
 	<entry key="deleteCategory">
-	
+		DELETE
+		  FROM TB_RECIPE_CATEGORY
+		 WHERE RECIPE_CATEGORY_NO = ?
 	</entry>
-
-
-
 	
 	
 	<entry key="selectUnRecipeForModal">
