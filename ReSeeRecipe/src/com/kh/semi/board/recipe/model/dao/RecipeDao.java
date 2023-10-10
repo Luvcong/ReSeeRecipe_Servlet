@@ -77,6 +77,7 @@ public class RecipeDao {
 					r.setRecipeCount(rset.getInt("RECIPE_COUNT"));
 					r.setTitleImg(rset.getString("TITLEIMG"));
 					r.setMemNickName(rset.getString("MEM_NICKNAME"));
+					r.setHtCount(rset.getInt("HT_COUNT"));
 					list.add(r);
 				}
 			}

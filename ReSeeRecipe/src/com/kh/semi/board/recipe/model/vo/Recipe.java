@@ -23,14 +23,15 @@ public class Recipe {
 	private int recipeCategoryNo;
 	private String titleImg;
 	private String memNickName;
-	private String htCount;
+	private int htCount;
 	
 	
 	public Recipe() {
 		super();
 	}
 	public Recipe(int recipeNo, String recipeTitle, String recipeDate, String recipeModified, String recipeStatus,
-			int recipeCount, int recipeWriterNo, int recipeCategoryNo, String titleImg, String memNickName) {
+			int recipeCount, int recipeWriterNo, int recipeCategoryNo, String titleImg, String memNickName,
+			int htCount) {
 		super();
 		this.recipeNo = recipeNo;
 		this.recipeTitle = recipeTitle;
@@ -42,7 +43,7 @@ public class Recipe {
 		this.recipeCategoryNo = recipeCategoryNo;
 		this.titleImg = titleImg;
 		this.memNickName = memNickName;
-		
+		this.htCount = htCount;
 	}
 	
 	
@@ -106,6 +107,12 @@ public class Recipe {
 	public void setMemNickName(String memNickName) {
 		this.memNickName = memNickName;
 	}
+	public int getHtCount() {
+		return htCount;
+	}
+	public void setHtCount(int htCount) {
+		this.htCount = htCount;
+	}
 	
 	
 	@Override
@@ -113,8 +120,8 @@ public class Recipe {
 		return "Recipe [recipeNo=" + recipeNo + ", recipeTitle=" + recipeTitle + ", recipeDate=" + recipeDate
 				+ ", recipeModified=" + recipeModified + ", recipeStatus=" + recipeStatus + ", recipeCount="
 				+ recipeCount + ", recipeWriterNo=" + recipeWriterNo + ", recipeCategoryNo=" + recipeCategoryNo
-				+ ", titleImg=" + titleImg + ", memNickName=" + memNickName + "]";
+				+ ", titleImg=" + titleImg + ", memNickName=" + memNickName + ", htCount=" + htCount + "]";
 	}
-	
 
+	
 }//class.end

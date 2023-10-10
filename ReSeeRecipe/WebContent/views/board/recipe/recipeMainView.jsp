@@ -162,7 +162,7 @@
 						<!-- 하단 레시피정보부분 -->
 						<div class="thumbnail-bottom">
 							<div class="thumbnail-bottom-inner1">
-								<p>레시피 제목</p>
+								<p><%= rList.get(i).getRecipeTitle() %></p>
 							</div>
 	
 							<div class="thumbnail-bottom-inner2">
@@ -180,7 +180,7 @@
 									</div>
 									<div class="thumbnail-right-bottom-inner2">
 										<!-- 좋아요수 -->
-										<p></p>
+										<p><%= rList.get(i).getHtCount() %></p>
 										<i class="fa fa-heart"></i>
 									</div>
 								</div>
