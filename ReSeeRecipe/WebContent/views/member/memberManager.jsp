@@ -186,11 +186,14 @@
         
         <script>
         $(function(){
-			$('#memAllList > tr').click(function(){
-				const mno =  $(this).children().eq(1).text();
-				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+			$('#memAllList > tr').on("dbclick", detailMemberView){
+				
 			});
 			
+        	function detailMebmerView(){
+        		const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        	}
 		});
         
         </script>

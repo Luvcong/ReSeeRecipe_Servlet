@@ -17,8 +17,11 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeService {
 	
 	
+	
+	
+	
+	
 	public HashMap<String, Object> recipeEnrollForm(int memNo) {
-		
 		Connection conn = getConnection();
 		HashMap<String, Object> enMap = new HashMap();
 		
@@ -43,10 +46,7 @@ public class RecipeService {
 	
 	
 	
-	
-	
 	public int selectRecipeListCount() {
-		
 		Connection conn = getConnection();
 		int listCount = new RecipeDao().selectRecipeListCount(conn);
 		close(conn);
@@ -55,7 +55,6 @@ public class RecipeService {
 	
 	
 	public ArrayList<Recipe> selectRecipeListLt(PageInfo pi){
-		
 		Connection conn = getConnection();
 		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
 		close(conn);

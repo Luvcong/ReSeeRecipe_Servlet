@@ -14,6 +14,7 @@ public class AjaxHeartController {
 	
 	/*************** 숫자 검증 *****************************************************/
 	private boolean isNumber(String htTargetNoStr) {
+		// 숫자 유효성 체크 후 리턴
 		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
 		return validation;
 	}
@@ -35,7 +36,9 @@ public class AjaxHeartController {
 	
 	public int htCountBookmark(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 값 추출 + 가공 
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		// Service호출
 		int result = new AjaxHeartService().htCountBookmark(htTargetNo);
 		return result;
 	}
@@ -43,14 +46,18 @@ public class AjaxHeartController {
 	
 	public int htCountNotice(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 값 추출 + 가공
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		// Service호출
 		int result = new AjaxHeartService().htCountNotice(htTargetNo);
+		
 		return result;
 	}
 	
 	
 	public int htCountSubsc(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 값 추출 + 가공
 		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
 		int result = new AjaxHeartService().htCountSubsc(htTargetNo);
 		return result;
