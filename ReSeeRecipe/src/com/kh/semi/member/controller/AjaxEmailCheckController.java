@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.member.model.service.MemberService;
 
 /**
- * Servlet implementation class AjaxIdCheckController
+ * Servlet implementation class AjaxEmailCheckController
  */
-@WebServlet("/yridCheck.me")
-public class AjaxIdCheckController extends HttpServlet {
+@WebServlet("/yremailCheck.me")
+public class AjaxEmailCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxIdCheckController() {
+    public AjaxEmailCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,17 +30,15 @@ public class AjaxIdCheckController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String checkId = request.getParameter("checkId");
+		String checkEmail = request.getParameter("checkEmail");
 		
-		int count = new MemberService().idCheck(checkId);
+		int count = new MemberService().emailCheck(checkEmail);
 		
-		response.setContentType("text.html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		if(count > 0) {
-			// 중복값이 있을 때 count == 1 ==> 'NNNNN'
 			response.getWriter().print("NNNNN");
 		} else {
-			// 중복값이 없을 때 count == 0 ==> 'NNNNY'
 			response.getWriter().print("NNNNY");
 		}
 	}
