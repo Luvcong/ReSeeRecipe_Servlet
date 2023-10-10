@@ -15,9 +15,45 @@ import com.kh.semi.common.model.vo.PageInfo;
 public class RecipeController {
 	
 	
+	/**
+	 * 페이지네이션 처리 된 레시피목록을 조회해옴 (레시피 전체조회)
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 변수세팅
+		String viewPath = "";
+		
+		int listCount = new RecipeService().selectRecipeListCount();
+		int currentPage = request.getParameter("currentPage") != null ?
+						  Integer.parseInt(request.getParameter("currentPage"))
+						  : 1;
+		int pageLimit = 10; // 페이징 바 개수
+		int boardLimit = 9; // 한 페이지에 보일 게시글 수
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
+	
+		
+		// 서비스호출
+		
+		
+
+		
+		
+		// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
+		//ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
+		viewPath = "/views/board/recipe/recipeMain.jsp";
+		
+		return viewPath;
+	}
+	
+	
+	
 	
 	/**
-	 * 레시피 카테고리 목록을 조회해 반환
+	 * 카테고리 목록을 조회해 반환
 	 * @param request : HttpServletRequest객체
 	 * @param response : HttpServletResponse객체
 	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
@@ -39,10 +75,12 @@ public class RecipeController {
 	
 	
 	
-	
-	
+	/**
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
-		
 
 		String viewPath = "";
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
@@ -61,31 +99,6 @@ public class RecipeController {
 		return viewPath;
 	}
 	
-	
-	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
-		
-		String viewPath = "";
-		// 레시피 전체 리스트 조회
-		// 값뽑기
-		// 데이터가공
-		// 서비스호출
-		// 응답화면지정
-		
-		
-		
-		// 페이징 관련 설정
-		int listCount = new RecipeService().selectRecipeListCount();
-		int currentPage = Integer.parseInt(request.getParameter("cpage"));
-		PageInfo pi = new PageInfo(listCount, currentPage, 10, 9);
-		
-		// 레시피 게시글 조회 (페이징적용)
-		ArrayList<Recipe> list = new RecipeService().selectRecipeListLt(pi);
-		
-		viewPath = "/views/board/recipe/recipeMain.jsp";
-		
-		
-		return viewPath;
-	}
 	
 	
 	

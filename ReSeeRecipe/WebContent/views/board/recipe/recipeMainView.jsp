@@ -4,7 +4,13 @@
 <%	
 	//페이지처리용 변수
 	/*
+	// ArrayList로 받아온 recipes
+	ArrayList<Recipe> rLsit = (ArrayList<Recipe>)request.getAttribute('rList');
+	
+	// PageInfo 객체 받음
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	// 받은 객체에서 int형 변수로 추출
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -139,6 +145,15 @@
 	
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">
+		<!-- ***********[[ 여기가 조회된 레시피 글 만들어줘야할 부분 ]] ***************** -->
+	
+		
+	
+
+
+
+
+
 
 
 		<!-- 레시피 글 블록 wrap -->
