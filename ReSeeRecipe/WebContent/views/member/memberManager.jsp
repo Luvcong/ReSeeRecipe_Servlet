@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- JSON -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- GSON -->
@@ -185,17 +185,34 @@
         </table>
         
         <script>
-        $(function(){
-			$('#memAllList > tr').on("dbclick", detailMemberView){
-				
+
+           $(function(){
+			$('#memAllList > tr').click(function(){
+				const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 			});
 			
-        	function detailMebmerView(){
+		}); 
+
+        
+<%--           $(function(){
+        	$('#memAllList > tr').on('dbclick', function(){
         		const mno =  $(this).children().eq(1).text();
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
-        	}
-		});
+        		});
+        	}); --%>
+        	
+<%--          function memdetailView(e){
+        	const mno =  $(this).children().eq(1).text();
+			location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        }  --%>  
         
+<%--         $(function(){
+        	$('#memAllList > tr').dbclick(function(){
+        		const mno =  $(this).children().eq(1).text();
+				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+        	});
+        }); --%>
         </script>
     </div>
    
