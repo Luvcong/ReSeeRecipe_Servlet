@@ -28,7 +28,9 @@
     <!-- GSON -->
     
     <!--GSON Ajax 통신 하기 위해 필요  -->
-     
+    
+    <!-- Swal Alert CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>     
     <script type="text/javascript">
     
 /*     $.getJSON("/views/member/memberManager.jsp", function(data){
@@ -202,6 +204,7 @@
         	});
         }); 
         
+        // 회원상세를 볼 회원 행(tr)을 클릭시 체크박스 체크되는 기능
         $(function(){
         	$('#memAllList > tr').on('click', function(){
         		let $mc = $(this).children().eq(0).find('input:checkbox');
@@ -212,12 +215,24 @@
         			$($mc).prop('checked', true);
         		}
         	});
+        	
+        	$('#deleteMem').on('click', deleteMember);
+        	function deleteMember(){
+        		if($mc.prop('checked')){
+        			console.log('$mc.prop' + $mc.prop('checked'));
+        			break;
+        		}
+        		else {
+        			Swal.fire('실패', '회원을 선택해주세요', 'error');
+        			return;
+        		}
+        	}
         });
         
 		$(function(){
-			$('#deleteMem').on('click', deleteMember);
 			
-			function deleteMember(){
+			
+			
 				let checkMem = $('#memberCheckbox').prop('checked')
 				console.log(checkMem);
 				
