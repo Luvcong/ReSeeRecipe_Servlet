@@ -225,7 +225,7 @@
         	
         	function deleteMember(){
         		let $trs = $('#memAllList > tr'); // .table tr
-        		console.log($trs);
+        		console.log('$trs' + $trs);
         		let $tr_check = null;
         		for(let tr of $trs){
     				let $cm = $(tr).find('input');
@@ -262,7 +262,7 @@
 	    					$([]) */
 	    					
 	    					for(let tr of $trs){
-	    						let $mchk = $(tr).find('input:checkbox');
+	    						let $mchk = $('tr').find('input:checkbox');
 	    						console.log($mchk );
 	    						if($mchk.prop('checked') == true){
 	    							mem_list.push('$trs > children().eq(1).text()');
