@@ -185,22 +185,22 @@
         </table>
         
         <script>
-
-           $(function(){
+		
+<%--            $(function(){
 			$('#memAllList > tr').click(function(){
 				const mno =  $(this).children().eq(1).text();
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 			});
 			
-		}); 
+		}); --%> 
 
         
-<%--           $(function(){
+        $(function(){
         	$('#memAllList > tr').on('dbclick', function(){
         		const mno =  $(this).children().eq(1).text();
 				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
-        		});
-        	}); --%>
+        	});
+        }); 
         	
 <%--          function memdetailView(e){
         	const mno =  $(this).children().eq(1).text();
