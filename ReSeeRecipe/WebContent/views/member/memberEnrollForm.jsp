@@ -25,7 +25,7 @@
         input[type=text], input[type=password] {
         width: 100%;
         padding: 12px 20px;
-        margin: 8px 0;
+        margin: 8px 0px 0px 0px;
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
@@ -102,6 +102,13 @@
           margin : 5px;
         }
 
+        .container > label{
+          color : red;
+          font-size: 12px;
+          /* display : none; */
+          margin : 0px 0px 5px 0px;
+        }
+
 
     </style>
 
@@ -116,13 +123,21 @@
       <div class="container">
 
           <input type="text" placeholder="이름" name="memberName" id="memberName" required>
+          <label for="memberName">* 2 ~ 6자 한글로 입력 가능합니다.</label>
           <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" required>
+          <label for="memberNickname">* 3 ~ 8자로 입력 가능합니다. </label>
+
           <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" required>
+          <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
           
           <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" required>
+          <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
+
           <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" required>
+          <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다. </label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" required>
+          <label for="memberEmail">* 유효한 이메일이 아닙니다.</label>
 
           
           <div class="enroll-checkbox">
@@ -205,6 +220,9 @@
         var memberPwdCheck = document.getElementById('memberPwdCheck');
         var memberEmail = document.getElementById('memberEmail');
 
+        // 각 input요소에 대응하는 label요소들
+        var labels = document.getElementsByTagName('label');
+
         // 1) 이름 (2 ~ 6자 이내)
         var regExp = /^[가-힣]{2,6}$/;
         
@@ -215,36 +233,37 @@
         };
 
         // 2) 닉네임 (3 ~ 8자)
-        var regExp = /^[가-힣]{3,8}/;
+        var regExp = /^[a-z0-9가-힣]{3,8}/;
         if(!regExp.test(memberNickname.value)){
-          memberNickname.value = '붑';
+
+          labels[1].setAttribute('display', 'block');
           return false;
         };
 
         // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
         var regExp = /^[a-zA-Z0-9]{5,20}&/;
         if(!regExp.test(memberId.value)){
-
+          labels[2].setAttribute('display', 'block');
           return false;
         };
 
         // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
         var regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}&/;
         if(!regExp.test(memberPwd.value)){
-
+          labels[3].setAttribute('display', 'block');
           return false;
         };
 
         // 5) 비밀번호 확인
         if(memberPwdCheck.value != memberPwd.value){
-
+          labels[4].setAttribute('display', 'block');
           return false;
         }
 
         // 6) 이메일 (이메일앞부분 6 ~ 30자 + @ + 뒷부분 6 ~ 14자가 들어간 형식)
         var regExp = /^[a-zA-Z0-9]{6,30} @ [a-zA-Z0-9]{6,14}$/;
         if(!regExp.test(memberEmail)){
-
+          labels[5].setAttribute('display', 'block');
           return false;
         };
 
