@@ -124,6 +124,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				//m.setMemReward(rset.getInt("MEM_REWARD"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
