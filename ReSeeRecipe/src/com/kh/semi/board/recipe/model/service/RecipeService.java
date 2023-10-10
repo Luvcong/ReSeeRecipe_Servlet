@@ -18,6 +18,26 @@ public class RecipeService {
 	
 	
 	/**
+	 * 글과 작성자의 STATUS가 유효한 레시피 개수 조회
+	 * @return
+	 */
+	public int selectRecipeListCount() {
+		Connection conn = getConnection();
+		int listCount = new RecipeDao().selectRecipeListCount(conn);
+		close(conn);
+		return listCount;
+	}
+	
+	
+	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
+		close(conn);
+		return list;
+	}
+	
+	
+	/**
 	 * 레시피 카테고리 목록을 조회해 반환
 	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
 	 */
@@ -53,21 +73,6 @@ public class RecipeService {
 	}
 	
 	
-	
-	public int selectRecipeListCount() {
-		Connection conn = getConnection();
-		int listCount = new RecipeDao().selectRecipeListCount(conn);
-		close(conn);
-		return listCount;
-	}
-	
-	
-	public ArrayList<Recipe> selectRecipeListLt(PageInfo pi){
-		Connection conn = getConnection();
-		ArrayList<Recipe> list = new RecipeDao().selectRecipeListLt(conn, pi);
-		close(conn);
-		return list;
-	}
 	
 	
 	
