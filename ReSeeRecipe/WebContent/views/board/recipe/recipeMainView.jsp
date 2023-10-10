@@ -1,10 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.kh.semi.board.recipe.model.vo.Recipe" %>
 <%	
-	//페이지처리용 변수
+	// ArrayList로 받아온 recipes
+	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");
+	int i = 1;
+	for(Recipe r : rList) {
+		System.out.println(i + "메인화면에서   " + r);
+		i++;
+	}
+
+
 	/*
+	
+	//페이지처리용 변수
+	// PageInfo 객체 받음
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	// 받은 객체에서 int형 변수로 추출
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -139,6 +152,15 @@
 	
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">
+		<!-- ***********[[ 여기가 조회된 레시피 글 만들어줘야할 부분 ]] ***************** -->
+	
+		
+	
+
+
+
+
+
 
 
 		<!-- 레시피 글 블록 wrap -->

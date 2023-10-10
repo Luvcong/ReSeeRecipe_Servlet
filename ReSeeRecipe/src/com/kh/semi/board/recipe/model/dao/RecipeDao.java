@@ -30,6 +30,61 @@ public class RecipeDao {
 
 	/****************************************************************************/
 	
+	
+	/**
+	 * 글과 작성자의 STATUS가 유효한 레시피 개수 조회
+	 * @param conn
+	 * @return
+	 */
+	public int selectRecipeListCount(Connection conn) {
+		
+		int listCount = 0;
+		String sql = prop.getProperty("selectRecipeListCount");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rset = pstmt.executeQuery()) {
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listCount;
+	}
+	
+	
+	/**
+	 * 페이지네이션 처리된 레시피 목록 조회 (최신순)
+	 * @param conn
+	 * @param pi
+	 * @return
+	 */
+	public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi) {
+		
+		ArrayList<Recipe> list = new ArrayList();
+		String sql = prop.getProperty("selectRecipeList");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			
+			pstmt.setInt(1, pi.getStartRow());
+			pstmt.setInt(2, pi.getEndRow());
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				while(rset.next()) {
+					Recipe r = new Recipe();
+					r.setRecipeNo(rset.getInt("RECIPE_NO"));
+					r.setRecipeTitle(rset.getString("RECIPE_TITLE"));
+					r.setRecipeCount(rset.getInt("RECIPE_COUNT"));
+					r.setTitleImg(rset.getString("TITLEIMG"));
+					r.setMemNickName(rset.getString("MEM_NICKNAME"));
+					list.add(r);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public ArrayList<RecipeCategory> selectRecipeCategoryList(Connection conn) {
 		
@@ -72,49 +127,6 @@ public class RecipeDao {
 	
 	
 	
-	public int selectRecipeListCount(Connection conn) {
-		
-		int listCount = 0;
-		String sql = prop.getProperty("selectRecipeListCount");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rset = pstmt.executeQuery()) {
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT(*)");
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		return listCount;
-	}
-	
-	
-	public ArrayList<Recipe> selectRecipeListLt(Connection conn, PageInfo pi) {
-		
-		ArrayList<Recipe> list = new ArrayList();
-		String sql = prop.getProperty("selectRecipeListLt");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			
-			pstmt.setInt(1, pi.getStartRow());
-			pstmt.setInt(2, pi.getEndRow());
-			
-			try(ResultSet rset = pstmt.executeQuery()) {
-				while(rset.next()) {
-					Recipe r = new Recipe();
-					r.setRecipeNo(rset.getInt("RECIPE_NO"));
-					r.setRecipeTitle(rset.getString("RECIPE_TITLE"));
-					r.setRecipeCount(rset.getInt("RECIPE_COUNT"));
-					r.setTitleImg(rset.getString("TITLEIMG"));
-					r.setMemNickName(rset.getString("MEM_NICKNAME"));
-					list.add(r);
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 	
 	
 	
