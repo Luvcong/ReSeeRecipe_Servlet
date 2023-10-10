@@ -19,7 +19,9 @@ public class AjaxHeartDao {
 	
 	private Properties prop = new Properties();
 	
-	// 생성자 내부 sql파일 laod
+	/**
+	 * AjaxHeartDao의 생성자로 객체 생성 시 heart-mapper.xml를 load, 내부의 SQL구문을 사용 가능.
+	 */
 	public AjaxHeartDao() {
 		
 		String filePath = AjaxHeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
@@ -30,16 +32,16 @@ public class AjaxHeartDao {
 			e.printStackTrace();
 		}
 	}
-	/****************************************************************************/
+
 	
 	
 	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
 	/**
-	 * 레시피 좋아요 테이블(TB_HT_RECIPE)에서 특정 레시피 번호(PK) 글의 총 좋아요 개수를 SELECT COUNT(*)문으로 조회.
+	 * 레시피 좋아요 테이블(TB_HT_RECIPE)에서 특정 레시피글 번호(PK)가 받은 총 좋아요 개수를 SELECT COUNT(*)문으로 조회.
 	 * 반환값에서 결과를 int형으로 추출 후 반환.
-	 * @param conn : AjaxHeartService에서 받은 Connection객체
-	 * @param htTargetNo : 조회하려는 레시피의 PK번호
-	 * @return : 특정 레시피 PK의 SELECT COUNT(*) 결과
+	 * @param conn : Connection객체
+	 * @param htTargetNo : 조회하려는 레시피 글의 PK번호
+	 * @return : 특정 레시피에 눌린 좋아요 수 총 합산
 	 */
 	public int htCountRecipe(Connection conn, int htTargetNo) {
 		
@@ -62,23 +64,20 @@ public class AjaxHeartDao {
 	
 	
 	/**
-	 * 레시피 북마크 테이블(TB_HT_BOOKMARK)에서 특정 레시피 번호(PK) 글의 총 북마크 개수를 SELECT COUNT(*)문으로 조회.
+	 * 레시피 북마크 테이블(TB_HT_RECIPE)에서 특정 레시피글 번호(PK)가 받은 총 북마크 개수를 SELECT COUNT(*)문으로 조회.
 	 * 반환값에서 결과를 int형으로 추출 후 반환.
-	 * @param conn : AjaxHeartService에서 받은 Connection객체
-	 * @param htTargetNo : 조회하려는 레시피의 PK번호
-	 * @return : 특정 레시피 PK의 SELECT COUNT(*) 결과
+	 * @param conn : Connection객체
+	 * @param htTargetNo : 조회하려는 레시피 글의 PK번호
+	 * @return : 특정 레시피가 북마킹된 수 총 합산
 	 */
 	public int htCountBookmark(Connection conn, int htTargetNo) {
 		
-		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountBookmark");
 		
-		// 특정 레시피PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
-			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -91,17 +90,21 @@ public class AjaxHeartDao {
 	}
 	
 	
+	/**
+	 * 공지사항 좋아요 테이블(TB_HT_NOTICE)에서 특정 공지사항글 번호(PK)가 받은 총 좋아요 개수를 SELECT COUNT(*)문으로 조회.
+	 * 반환값에서 결과를 int형으로 추출 후 반환.
+	 * @param conn : Connection객체
+	 * @param htTargetNo : 조회하려는 공지사항 글의 PK번호
+	 * @return : 특정 레시피에 눌린 좋아요 수 총 합산
+	 */
 	public int htCountNotice(Connection conn, int htTargetNo) {
 		
-		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountNotice");
 		
-		/// 특정 공지글PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
-			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -114,17 +117,21 @@ public class AjaxHeartDao {
 	}
 
 	
+	/**
+	 * 쉐프 구독 테이블(TB_HT_SUBSC)에서 특정 쉐프 번호(PK)가 받은 총 구독 개수를 SELECT COUNT(*)문으로 조회.
+	 * 반환값에서 결과를 int형으로 추출 후 반환.
+	 * @param conn : Connection객체
+	 * @param htTargetNo : 조회하려는 쉐프의 PK번호
+	 * @return : 특정 쉐프가 받은 구독 수 총 합산
+	 */
 	public int htCountSubsc(Connection conn, int htTargetNo) {
-		
-		// 기본 변수 세팅
+
 		int result = 0;
 		String sql = prop.getProperty("htCountSubsc");
 		
-		// 특정 쉐프PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
-			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -137,17 +144,21 @@ public class AjaxHeartDao {
 	}
 	
 	
+	/**
+	 * 리플 좋아요 테이블(TB_HT_REPLY)에서 특정 리플 번호(PK)가 받은 총 좋아요 개수를 SELECT COUNT(*)문으로 조회.
+	 * 반환값에서 결과를 int형으로 추출 후 반환.
+	 * @param conn : Connection객체
+	 * @param htTargetNo : 조회하려는 리플의 PK번호
+	 * @return : 특정 리플에 눌린 좋아요 수 총 합산
+	 */
 	public int htCountReply(Connection conn, int htTargetNo) {
 		
-		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountReply");
 		
-		// 특정 리플PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
-			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -158,10 +169,16 @@ public class AjaxHeartDao {
 		}
 		return result;
 	}
-	/****************************************************************************/
+
 	
 	
 	/*************** 좋아요 여부 체크 기능 *********************************************/
+	/**
+	 * 현재 로그인한 유저가 특정 레시피에 좋아요를 누른 상태인지 SELECT문으로 조회 후 좋아요 누른 여부를 boolean형으로 반환.
+	 * @param conn : Connection객체
+	 * @param ht : Heart객체로 현재 로그인한 멤버의 회원번호(PK) 조회하려는 레시피글 번호(PK)
+	 * @return : 좋아요를 누른 상태라면 true, 아니라면 false반환
+	 */
 	public boolean isHeartRecipe(Connection conn, Heart ht) {
 		
 		// 기본 변수 세팅
