@@ -45,7 +45,7 @@
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
             <br>
             <label for="memberName">회원이름</label>
-            <input type="text" class="form-control"  id="memberName" name="memName" value="<%=m.getMemName()%>" required>
+            <input type="text" class="form-control"  id="memberName" name="memName" value="<%=m.getMemName() %>" required>
             <br>
             <label for="memberId">회원아이디</label>
             <input type="text" class="form-control"  id="memberId"  name="memId" value="<%=m.getMemId()%>" readonly>

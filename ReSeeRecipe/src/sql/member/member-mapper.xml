@@ -74,6 +74,7 @@
 			   ,MEM_EMAIL
 			   ,ENROLL_DATE
 			   ,MODIFY_DATE
+			   ,MEM_GRADE
 			   ,MEM_GRADE_NAME
 	     FROM
 	     		TB_MEMBER
@@ -96,7 +97,7 @@
 			   ,MODIFY_DATE = SYSDATE
 			   ,MEM_GRADE = ?
 	    WHERE
-	    		TB_MEMBER.MEM_NO = ?
+	    		MEM_NO = ?
 	</entry>
 	
 	<entry key="insertMemUpdate">
