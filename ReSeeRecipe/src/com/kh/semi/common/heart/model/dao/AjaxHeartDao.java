@@ -19,6 +19,7 @@ public class AjaxHeartDao {
 	
 	private Properties prop = new Properties();
 	
+	// 생성자 내부 sql파일 laod
 	public AjaxHeartDao() {
 		
 		String filePath = AjaxHeartDao.class.getResource("/sql/heart/heart-mapper.xml").getPath();
@@ -33,15 +34,21 @@ public class AjaxHeartDao {
 	
 	
 	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	/**
+	 * 레시피 좋아요 테이블(TB_HT_RECIPE)에서 특정 레시피 번호(PK) 글의 총 좋아요 개수를 SELECT COUNT(*)문으로 조회.
+	 * 반환값에서 결과를 int형으로 추출 후 반환.
+	 * @param conn : AjaxHeartService에서 받은 Connection객체
+	 * @param htTargetNo : 조회하려는 레시피의 PK번호
+	 * @return : 특정 레시피 PK의 SELECT COUNT(*) 결과
+	 */
 	public int htCountRecipe(Connection conn, int htTargetNo) {
 		
-		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountRecipe");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
-			System.out.println("실행되나ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+			
 			try(ResultSet rset = pstmt.executeQuery()){
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -54,14 +61,24 @@ public class AjaxHeartDao {
 	}
 	
 	
+	/**
+	 * 레시피 북마크 테이블(TB_HT_BOOKMARK)에서 특정 레시피 번호(PK) 글의 총 북마크 개수를 SELECT COUNT(*)문으로 조회.
+	 * 반환값에서 결과를 int형으로 추출 후 반환.
+	 * @param conn : AjaxHeartService에서 받은 Connection객체
+	 * @param htTargetNo : 조회하려는 레시피의 PK번호
+	 * @return : 특정 레시피 PK의 SELECT COUNT(*) 결과
+	 */
 	public int htCountBookmark(Connection conn, int htTargetNo) {
 		
+		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountBookmark");
-		System.out.println(sql + "여기까지실행ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+		
+		// 특정 레시피PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
-			System.out.println("하트타겟넘버" + htTargetNo);
+			
+			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -76,12 +93,15 @@ public class AjaxHeartDao {
 	
 	public int htCountNotice(Connection conn, int htTargetNo) {
 		
+		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountNotice");
 		
+		/// 특정 공지글PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
+			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -96,12 +116,15 @@ public class AjaxHeartDao {
 	
 	public int htCountSubsc(Connection conn, int htTargetNo) {
 		
+		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountSubsc");
 		
+		// 특정 쉐프PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
+			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -116,12 +139,15 @@ public class AjaxHeartDao {
 	
 	public int htCountReply(Connection conn, int htTargetNo) {
 		
+		// 기본 변수 세팅
 		int result = 0;
 		String sql = prop.getProperty("htCountReply");
 		
+		// 특정 리플PK의 SELECT COUNT(*)구문 수행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, htTargetNo);
 			
+			// 반환값에서 int추출 후 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					result = rset.getInt("COUNT(*)");
@@ -137,14 +163,17 @@ public class AjaxHeartDao {
 	
 	/*************** 좋아요 여부 체크 기능 *********************************************/
 	public boolean isHeartRecipe(Connection conn, Heart ht) {
-		// 특정 멤버가 특정 대상에 좋아요를 했는지 확인 후 했다면 true반환
+		
+		// 기본 변수 세팅
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartRecipe");
 		
+		// TB_HT_RECIPE 테이블에 특정 멤버PK+레시피PK값을 가진 ROW가 있는지 SELECT구문 실행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
 			
+			// 만약 조회값이 존재한다면 boolean형 true값 반환
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
 					flag = true;
@@ -159,9 +188,11 @@ public class AjaxHeartDao {
 	
 	public boolean isHeartBookmark(Connection conn, Heart ht) {
 		
+		// 기본 변수 세팅
 		boolean flag = false;
 		String sql = prop.getProperty("isHeartBookmark");
 		
+		// 북마크 테이블에 특정 멤버PK+레시피PK값을 가진 ROW가 있는지 SELECT구문 실행
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, ht.getMemNo());
 			pstmt.setInt(2, ht.getHtTargetNo());
