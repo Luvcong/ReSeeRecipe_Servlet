@@ -63,10 +63,10 @@
             <input type="text" class="form-control" id="memberModifydate" name="memModifydate" value="<%=m.getModifyDate() %>" readonly>
             <br>
             <label for="membergradeNo">회원등급번호</label>
-            <input type="text" class="form-control" id="membergradeNo" name="memgradeNo" value="<%= m.getMemGrade()%>">
+            <input type="text" class="form-control" id="membergradeNo" name="memgradeNo" value="<%= m.getMemGrade()%>" readonly>
             <br>
             <label for="membergradeName">회원등급명</label>
-            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" readonly >
+            <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" required>
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>
