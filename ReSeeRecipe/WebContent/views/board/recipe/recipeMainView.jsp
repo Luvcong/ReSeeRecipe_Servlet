@@ -4,7 +4,13 @@
 <%	
 	//페이지처리용 변수
 	/*
+	// ArrayList로 받아온 recipes
+	ArrayList<Recipe> rLsit = (ArrayList<Recipe>)request.getAttribute('rList');
+	
+	// PageInfo 객체 받음
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	// 받은 객체에서 int형 변수로 추출
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
