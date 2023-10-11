@@ -415,4 +415,33 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<Member> searchMember(Connection conn, String memSearchoption, String memSearchcon){
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

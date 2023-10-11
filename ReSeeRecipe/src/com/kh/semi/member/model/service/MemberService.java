@@ -184,7 +184,30 @@ public class MemberService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		//String memoption = memSearchoption;
+//		swtich(memSearchoption){
+//		case "회원ID" : ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchoption, memSearchcon);
+//		break;
+//		case "닉네임" :
+//		break;
+//		case :"이름" :
+//		break;
+//		case : "회원조회" :
+//		break;		
+//		default : System.out.println("없는 옵션으로 검색하셨습니다");
+//		return;
+//		}
+		
+		if(memSearchoption == "회원ID") {
+			ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchoption, memSearchcon);
+		} else if(memSearchoption == "닉네임") {
+			
+		} else if(memSearchoption == "이름") {
+			
+		} else {
+			
+		}
+		//ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
 		
 		close(conn);
 		
