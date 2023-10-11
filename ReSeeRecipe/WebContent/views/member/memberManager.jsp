@@ -314,19 +314,27 @@
 						dataType : 'json',
 						data : {'mno' : del_list},
 						success : function(result){
+							Swal.fire('성공', '탈퇴회원에서 확인하세요!', 'success');
+							
 							for(let tr of memtrs){
-								let mno = parseInt(tr.querySelector('input').checked.value);
-								if(result.includes(mno)){
+								let mno = parseInt(tr.children[1].textContent);
+								console.log('result정체?', result)
+								let mnotr = result.indexOf(mno);
+								if(mnotr != -1){ //mno
 									tr.remove();
-									
+									console.log(tr);
 								}
+								console.log('mnotr', mnotr);
+								console.dir(mnotr);
+								console.log('result정체3?', result);
+								console.dir(result);
 							}
 						},
 						error : function(result){
 							console.log('실패');
 						},
 						complete : function(result) {
-							Swal.fire('성공', '탈퇴회원에서 확인하세요!', 'success');
+							
 						}
 					});
        			 });		
