@@ -49,7 +49,8 @@ public class MemberLoginController extends HttpServlet {
 		// 로그인 실패 시
 		if(loginMember == null) {
 			request.setAttribute("errorMsg", "로그인에 실패하셨습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			// request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/member/memberLogin.jsp").forward(request, response);
 		} else { // 로그인 성공 시
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);

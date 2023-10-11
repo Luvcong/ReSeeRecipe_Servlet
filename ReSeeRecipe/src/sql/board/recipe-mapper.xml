@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>레시피 게시판 관련 SQL문</comment>
+	
+	<!-- 글과 작성자의 STATUS가 유효한 레시피 개수 조회 -->
+	<entry key="selectRecipeListCount">
+		SELECT
+			   COUNT(*)
+		  FROM
+		  	   TB_RECIPE
+		  JOIN
+		  	   TB_MEMBER ON (RECIPE_WRITER_NO = MEM_NO)
+		 WHERE
+		 	   RECIPE_STATUS = 'Y'
+		   AND
+		   	   MEM_STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="selectRecipeList">
+		SELECT
+			   RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME, HT_COUNT
+		  FROM
+		  	   (SELECT
+		  	           ROWNUM RNUM, RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, TITLEIMG, MEM_NICKNAME, HT_COUNT
+				  FROM
+					   (SELECT
+				  			   RECIPE_NO, RECIPE_TITLE, RECIPE_COUNT, RECIPE_PIC_PATH||'/'||RECIPE_PIC_NAME_UPLOAD TITLEIMG, MEM_NICKNAME
+						  FROM
+						  	   TB_RECIPE
+						  JOIN
+						  	   TB_MEMBER ON(RECIPE_WRITER_NO = MEM_NO)
+						  JOIN
+						  	   TB_RECIPE_PIC ON(RECIPE_NO = REF_RNO)
+						 WHERE
+						 	   RECIPE_STATUS = 'Y'
+						   AND
+						   	   MEM_STATUS = 'Y'
+						   AND
+						   	   RECIPE_PIC_STATUS = 'Y'
+						   AND
+						   	   RECIPE_PIC_LEV = 1
+						 ORDER
+						    BY
+						       RECIPE_NO DESC
+					   )
+          		  LEFT
+          		  JOIN
+        	   		   (SELECT
+        	   		   		   COUNT(*) HT_COUNT, RECIPE_NO
+        		  		  FROM
+        		  	   		   TB_HT_RECIPE
+        		 		 GROUP
+        		 	  		BY
+        		 	  		   RECIPE_NO
+        		 	   ) USING (RECIPE_NO)
+			   )
+		 WHERE
+		 	   RNUM BETWEEN ? AND ?
+	</entry>
+	
+	
+	<!-- 카테고리 리스트 조회 SQL문 -->
+	<entry key="selectRecipeCategoryList">
+		SELECT
+			   RECIPE_CATEGORY_NO,
+			   RECIPE_CATEGORY_NAME
+		  FROM
+		  	   TB_RECIPE_CATEGORY
+	</entry>
+	
+	<entry key="selectIngredientMeasureList">
+		SELECT
+			   INGREDIENT_MEASURE_NO,
+			   INGREDIENT_MEASURE
+		  FROM
+		  	   TB_INGREDIENT_MEASURE
+	</entry>
+	
+	
+	
+	
+	
+	<!-- 레시피 카테고리 추가 SQL문 -->
+	<entry key="insertCategory">
+		INSERT
+		  INTO
+				TB_RECIPE_CATEGORY
+		 VALUES
+		 		(
+		 		SEQ_RECIPE_CATEGORY.NEXTVAL,
+		 		?
+		 		)
+	</entry>
+	
+	<!-- 관리자 카테고리 리스트 화면 SQL문 -->
+	<entry key="selectCategoryListManager">
+		SELECT *
+          FROM (SELECT ROWNUM RNUM, A.*
+                  FROM (SELECT
+		                       RC.RECIPE_CATEGORY_NO,
+		                       RC.RECIPE_CATEGORY_NAME,
+		                       NVL(CTGR_CNT.CNT, 0) AS RECIPE_CATEGORY_CNT
+		                  FROM 
+		                       TB_RECIPE_CATEGORY RC
+		                  LEFT OUTER JOIN
+		                                (SELECT
+		                                        RECIPE_CATEGORY_NO, COUNT(*) CNT
+		                                  FROM 
+		                                        TB_RECIPE
+		                              GROUP BY
+		                                        RECIPE_CATEGORY_NO) CTGR_CNT
+		                            ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
+		                 ORDER BY RC.RECIPE_CATEGORY_NO ASC) A)
+		                 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!-- 카테고리 삭제시 레시피글 변경(STATUS = N && CATEGORY_NO = 0) SQL문 -->
+	<entry key="updateRecipeStatus">
+		UPDATE
+				TB_RECIPE R
+		   SET
+		   		RECIPE_STATUS = 'N', RECIPE_CATEGORY_NO = 0
+		 WHERE
+		 		R.RECIPE_CATEGORY_NO IN (SELECT RR.RECIPE_CATEGORY_NO
+		                                   FROM TB_RECIPE RR, TB_RECIPE_CATEGORY RC
+		                                  WHERE RR.RECIPE_CATEGORY_NO = ?
+		                                    AND RR.RECIPE_CATEGORY_NO = RC.RECIPE_CATEGORY_NO)
+	</entry>
+
+	<!-- 카테고리 삭제 SQL문 -->
+	<entry key="deleteCategory">
+		DELETE
+		  FROM TB_RECIPE_CATEGORY
+		 WHERE RECIPE_CATEGORY_NO = ?
+	</entry>
+	
+	<!-- 카테고리명 변경 SQL문 -->
+	<entry key="updateCategory">
+		UPDATE TB_RECIPE_CATEGORY
+		   SET RECIPE_CATEGORY_NAME = ?
+		 WHERE RECIPE_CATEGORY_NAME = ?
+	</entry>
+	
+	<!-- 카테고리명 중복여부 체크 SQL문 -->
+	<entry key="categoryNameCheck">
+		SELECT
+	        	COUNT(*)
+		  FROM
+		        TB_RECIPE_CATEGORY
+		 WHERE
+		        RECIPE_CATEGORY_NAME = ?
+	</entry>
+	
+	
+	<entry key="selectCategoryListCount">
+		SELECT
+	        	COUNT(*)
+		  FROM
+		        TB_RECIPE_CATEGORY
+	</entry>
+	
+	
+	
+	<entry key="selectUnRecipeForModal">
+		SELECT
+			   UN_RECIPE_NO,
+			   UN_RECIPE_TITLE
+		  FROM
+			   TB_UN_RECIPE
+		 WHERE
+			   UN_RECIPE_WRITER_NO = ?
+	</entry>
+	
+	
+	
+	
+	
+	
+</properties>

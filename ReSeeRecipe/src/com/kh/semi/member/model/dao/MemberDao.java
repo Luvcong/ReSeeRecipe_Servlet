@@ -9,9 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.MemberUpdate;
 
 public class MemberDao {
 	
@@ -69,7 +72,255 @@ public class MemberDao {
 		return m;
 	}
 	
-	public ArrayList<Member> selectMemberAll(Connection conn){
+	// 회원가입
+	/**
+	 * @param conn : Connection 객체
+	 * @param m : 회원가입하는 Member객체
+	 * @return : 회원insert 성공 여부에 따른 결과값(성공1 또는 실패0)
+	 */
+	public int insertMember(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getMemName());
+			pstmt.setString(2, m.getMemNickname());
+			pstmt.setString(3, m.getMemId());
+			pstmt.setString(4, m.getMemPwd());
+			pstmt.setString(5, m.getMemEmail());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 회원가입 시 nickname 중복체크
+	/**
+	 * @param conn : Connection 객체
+	 * @param checkNickname : 회원가입에 쓸 사용자 nickname 입력값
+	 * @return : 이미 존재하는 아이디 1 또는 사용가능 0
+	 */
+	public int nicknameCheck(Connection conn, String checkNickname) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("nicknameCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkNickname);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	// 회원가입시 id 중복체크
+	/**
+	 * @param conn : Connection 객체
+	 * @param checkId : 회원가입에 쓸 사용자 id 입력값
+	 * @return : 이미 존재하는 아이디 1 또는 사용가능 0
+	 */
+	public int idCheck(Connection conn, String checkId) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, checkId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	// 회원가입시 email 중복체크
+	/**
+	 * @param conn : Connection 객체
+	 * @param checkEmail : 회원가입에 쓸 사용자 email 입력값
+	 * @return : 이미 사용중인 이메일 1 또는 사용가능 0
+	 */
+	public int emailCheck(Connection conn, String checkEmail) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("emailCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, checkEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	// 아이디 찾기
+	/**
+	 * @param conn : Connection 객체
+	 * @param memberName : 아이디를 찾고자 하는 사용자 이름 입력값
+	 * @param memberEmail : 아이디를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 회원
+	 */
+	public Member searchMemberId(Connection conn, String memberName, String memberEmail) {
+
+		Member searchMember = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMemberId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				searchMember = new Member(rset.getInt("MEM_NO"),
+										  rset.getString("MEM_ID"),
+										  rset.getString("MEM_PWD"),
+										  rset.getString("MEM_NAME"),
+										  rset.getString("MEM_NICKNAME"),
+										  rset.getString("MEM_EMAIL"),
+										  rset.getString("MEM_STATUS"),
+										  rset.getDate("ENROLL_DATE"),
+										  rset.getDate("MODIFY_DATE"),
+										  rset.getDate("DELETE_DATE"),
+										  rset.getString("MEM_PICTURE"),
+										  rset.getInt("MEM_GRADE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return searchMember;
+	}
+	
+	// 비밀번호 찾기
+	/**
+	 * @param conn : Connection 객체
+	 * @param memberId : 비밀번호를 찾고자 하는 사용자 아이디 입력값
+	 * @param memberEmail : 비밀번호를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 결과가 있다면 1 반환
+	 */
+	public int searchMemberPwd(Connection conn, String memberId, String memberEmail) {
+		
+		int result = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberEmail);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 회원 비밀번호 재설정
+	public int updateMemberPwd(Connection conn, String memberId, String memberPwd) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberPwd);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
+	public int selectMemlistCount(Connection conn) {
+		
+		int memlistCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMemlistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memlistCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return memlistCount;
+	}
+	
+	
+	public ArrayList<Member> selectMemberAll(Connection conn, PageInfo pi){
 		
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -78,6 +329,13 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -89,6 +347,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				//m.setMemReward(rset.getInt("MEM_REWARD"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
@@ -102,5 +361,277 @@ public class MemberDao {
 		return list;
 	}
 	
-
+	
+	public Member selectMemInfo(Connection conn, int memNo) {
+		
+		//ArrayList<Member> list = new ArrayList();
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setModifyDate(rset.getDate("MODIFY_DATE"));
+				m.setMemGrade(rset.getInt("MEM_GRADE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public int updateMemInfo(Connection conn, Member m) {
+		
+		int result1 = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemName());
+			pstmt.setString(2, m.getMemNickname());
+			pstmt.setString(3, m.getMemEmail());
+			//pstmt.setInt(4, m.getMemGrade());
+			pstmt.setString(4, m.getMemGradeName());
+			pstmt.setInt(5, m.getMemNo());
+			
+			result1 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result1;
+	}
+	
+	public int insertMemUpdate(Connection conn, MemberUpdate mu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMemUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mu.getMemNo());
+			pstmt.setString(2,mu.getMemUpdateCon());
+			pstmt.setInt(3, mu.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMemUpdate(Connection conn, MemberUpdate mu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mu.getMemUpdateCon());
+			pstmt.setInt(2, mu.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteMember(Connection conn, int mno) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, mno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Member> totalsearchMember(Connection conn, String memSearchoption, String memSearchcon) {
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("totalsearchMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memSearchcon);
+			pstmt.setString(2, memSearchcon);
+			pstmt.setString(3, memSearchcon);
+			pstmt.setString(4, memSearchcon);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	public ArrayList<Member> searchMember(Connection conn, String memSearchoption, String memSearchcon){
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String memop = "";
+		System.out.println(memSearchoption);
+		if(memSearchoption.equals("회원ID")) {
+			memop += "MEM_ID";
+		} else if(memSearchoption.equals("이름")) {
+			memop += "MEM_NAME";
+		} else if(memSearchoption.equals("닉네임")) {
+			memop += "MEM_NICKNAME";
+		} 
+		
+		/*else {
+			totalsearchMember(conn, memSearchoption, memSearchcon);
+		}*/
+		
+		
+		String sql = "SELECT"
+						   + "MEM_NO"
+						   + ",MEM_ID"
+						   + ",MEM_NAME"
+						   + ",MEM_NAME"
+						   + ",MEM_NICKNAME"
+						   + ",MEM_EMAIL"
+						   + ",ENROLL_DATE"
+						   + ",MEM_GRADE_NAME"
+					  + "FROM"
+						   + "TB_MEMBER"
+					  + "JOIN"
+						   + "TB_MEMBER_GRADE"
+					  + "ON"
+						   + "(MEM_GRADE = MEM_GRADE_NO)"
+					  + "WHERE"
+						   + memop + " = ?"
+					  + "AND"
+					  	   + "MEM_STATUS = 'Y'";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memSearchcon);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
+				System.out.println("회원정보조회리스트add>>"+  list);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("회원정보조회리스트리턴>"+  list);
+		return list;
+	}
+	
+	/*
+	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchmemId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memSearchcon);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemId(r)
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

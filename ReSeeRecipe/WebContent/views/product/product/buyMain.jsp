@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.semi.product.model.vo.Product" %>
+<%
+	ArrayList<Product> list1 = (ArrayList<Product>)request.getAttribute("list1");
+	ArrayList<Product> list2 = (ArrayList<Product>)request.getAttribute("list2");
+	ArrayList<Product> list3 = (ArrayList<Product>)request.getAttribute("list3");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,12 +157,27 @@
                     <b>베스트상품</b>
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best">더보기</a>
                 </div>
             </div>
                 
             <div class="c_product">
-                <div class="product1">
+                <% for(int i = 0; i < 3; i++) {%>
+                	<div class="product<%= i + 1 %>">
+                    <div class="p_img">
+                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list1.get(i).getProductNo() %>">
+                            <img src="/view/image/hello.png">
+                        </a>
+                    </div>
+                    <div class="p_name">
+                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list1.get(i).getProductNo() %>"><%= list1.get(i).getProductName() %></a>
+                    </div>
+                    <div class="p_price">
+                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list1.get(i).getProductNo() %>"><%= list1.get(i).getPrice() %></a>
+                    </div>
+                </div>
+                <% } %>
+                <!-- <div class="product1">
                     <div class="p_img">
                         <a href="#">
                             <img src="/view/image/hello.png">
@@ -194,7 +215,7 @@
                     <div class="p_price">
                         <a href="#">가격</a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -204,12 +225,27 @@
                     	추천상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good">더보기</a>
                 </div>
             </div>
 
             <div class="c_product">
-                <div class="product1">
+	            <% for(int i = 0; i < 3; i++) {%>
+	                	<div class="product<%= i + 1 %>">
+	                    <div class="p_img">
+	                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list2.get(i).getProductNo() %>">
+	                            <img src="/view/image/hello.png">
+	                        </a>
+	                    </div>
+	                    <div class="p_name">
+	                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list2.get(i).getProductNo() %>"><%= list2.get(i).getProductName() %></a>
+	                    </div>
+	                    <div class="p_price">
+	                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list2.get(i).getProductNo() %>"><%= list2.get(i).getPrice() %></a>
+	                    </div>
+	                </div>
+	                <% } %>
+                <!-- <div class="product1">
                     <div class="p_img">
                         <a href="#">
                             <img src="/view/image/hello.png">
@@ -237,7 +273,7 @@
                 </div>
                 <div class="product3">
                     <div class="p_img">
-                        <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">
+                        <a href="#">
                             <img src="/view/image/hello.png">
                         </a>
                     </div>
@@ -247,7 +283,7 @@
                     <div class="p_price">
                         <a href="#">가격</a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -257,12 +293,28 @@
                     	신상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new">더보기</a>
                 </div>
             </div>
 
             <div class="c_product">
-                <div class="product1">
+            	<% for(int i = 0; i < 3; i++) {%>
+		                <div class="product<%= i + 1 %>">
+		                    <div class="p_img">
+		                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list3.get(i).getProductNo() %>">
+		                            <img src="/view/image/hello.png">
+		                        </a>
+		                    </div>
+		                    <div class="p_name">
+		                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list3.get(i).getProductNo() %>"><%= list3.get(i).getProductName() %></a>
+		                    </div>
+		                    <div class="p_price">
+		                        <a href="<%=contextPath%>/prodetail.po?pno=<%= list3.get(i).getProductNo() %>"><%= list3.get(i).getPrice() %></a>
+		                    </div>
+		                </div>
+	                <% } %>
+            
+                <!-- <div class="product1">
                     <div class="p_img">
                         <a href="#">
                             <img src="/view/image/hello.png">
@@ -301,10 +353,10 @@
                         <a href="#">가격</a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
-
+    
     <%@ include file="buyFooter.jsp" %>
 </body>
 </html>

@@ -13,11 +13,11 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <style>
 	#top{
         text-align: center; 
@@ -163,7 +163,7 @@
 	                    <a href="<%= contextPath %>/yrloginForm.me?buy=buy">로그인</a>
 	                </div>
 	                <div>
-	                    <a href="#">회원가입</a> <!-- 회원가입 화면으로 포워딩 -->
+	                    <a href="#">회원가입</a> 
 	                </div>
                 <% } else { %>
                 	<% if(loginMember.getMemGrade() == 4) { %>
@@ -178,10 +178,10 @@
 	                    <a href="<%= contextPath %>/yrlogout.me?buy=buy">로그아웃</a>
 	                </div>
 	                <div>
-                    <a href="#">마이페이지</a> <!-- 마이페이지 화면으로 포워딩 -->
+                    <a href="#">마이페이지</a> 
 	                </div>
 	                <div>
-	                    <a href="<%= contextPath %>/cart.po">장바구니</a> <!-- 장바구니 화면으로 포워딩 -->
+	                    <a href="<%= contextPath %>/cart.po">장바구니</a> 
 	                </div>
 	            <% } %>
             </div>
@@ -189,35 +189,35 @@
                 <div id="m_title">
                    	<p>전체카테고리</p>
                     <ul>
-                        <li><a href="<%= contextPath %>/searchlist.po?title=육류&cpage=1">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cpage=1">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cpage=1">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cpage=1">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=육류&cpage=1&cate=meat">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cpage=1&cate=fish">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cpage=1&cate=vegi">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cpage=1&cate=sim">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
                     </ul>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/main.po">스토어홈</a> <!-- 홈 화면으로 리다이렉트 -->
+                    <a href="<%= contextPath %>/main.po">스토어홈</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1">베스트</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best">베스트</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1">추천</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good">추천</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1">신상</a> <!-- 검색페이지 화면으로 포워딩 -->
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new">신상</a>
                 </div>
                 <div>
-                    <a href="#"> <!-- 레시피메인 화면으로 포워딩 -->
+                    <a href="#">
                         <img src="../image/hello.png">
                     </a>
                 </div>
-                <a href="<%= contextPath %>/basketlist.po"> <!-- 장바구니 화면으로 포워딩 -->
+                <a href="<%= contextPath %>/basketlist.po"> 
                     <img id="shopping-basket" src="../image/hello.png">
                 </a>
-                <form action="<%= contextPath %>/searchlist.po?title=검색결과&cpage=1" method="get">
+                <form action="<%= contextPath %>/searchlist.po?title=검색결과&cpage=1&cate=q" method="get">
                     <input type="text" name="search">
-                    <button type="submit">검색</button> <!-- 검색페이지 화면으로 포워딩 -->
+                    <button type="submit">검색</button> 
                 </form>
             </div>
         </div>

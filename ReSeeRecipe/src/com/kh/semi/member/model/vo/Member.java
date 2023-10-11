@@ -33,7 +33,7 @@ public class Member {
 	private int memGrade;
 	private String memGradeName;
 	private int memReward;
-	
+	private String memUpdateWhyCon;
 	
 
 	public Member() {
@@ -76,8 +76,21 @@ public class Member {
 		this.memGrade = memGrade;
 		this.memReward = memReward;
 	}
-
 	
+	
+	
+	public Member(int memNo, String memId, String memName, String memNickname, String memEmail, Date enrollDate,
+			String memGradeName) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memName = memName;
+		this.memNickname = memNickname;
+		this.memEmail = memEmail;
+		this.enrollDate = enrollDate;
+		this.memGradeName = memGradeName;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
@@ -165,6 +178,15 @@ public class Member {
 
 	public void setMemGradeName(String memGradeName) {
 		this.memGradeName = memGradeName;
+	}
+
+	
+	public String getMemUpdateWhyCon() {
+		return memUpdateWhyCon;
+	}
+
+	public void setMemUpdateWhyCon(String memUpdateWhyCon) {
+		this.memUpdateWhyCon = memUpdateWhyCon;
 	}
 
 	@Override

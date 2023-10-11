@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.product.model.service.ProductService;
+import com.kh.semi.product.model.vo.Option;
 import com.kh.semi.product.model.vo.Product;
 import com.kh.semi.product.model.vo.ProductPicture;
 
@@ -37,9 +38,11 @@ public class ProductDetailController extends HttpServlet {
 		
 		Product p = new ProductService().selectProduct(pno);
 		ArrayList<ProductPicture> list = new ProductService().selectPicture(pno);
+		ArrayList<Option> list2 = new ProductService().selectOption(pno);
 		
 		request.setAttribute("p", p);
 		request.setAttribute("list", list);
+		request.setAttribute("list2", list2);
 		
 		request.getRequestDispatcher("/views/product/product/buyDetailView.jsp").forward(request, response);
 	}

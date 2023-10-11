@@ -30,8 +30,8 @@
 	/*****************************************/
 	/* header 스타일 */
 	div {
-		border: 1px solid black;
 		box-sizing: border-box;
+		border: 1px solid black;
 	}
 	
 	#wrap_header {
@@ -120,7 +120,7 @@
 	/*****************************************/
 	/* nav 스타일 */
 		div {
-		border: 1px solid red;
+		border: 1px solid blue;
 		box-sizing: border-box;
 	}
 	
@@ -246,7 +246,7 @@
 		<div id="navigator">
 	 		<ul id="navi">
 		        <li>
-		            <a href="<%= contextPath %>/selectRecipeList.re?cpage=1">레시피</a>
+		            <a href="<%= contextPath %>/selectRecipeList.re?currentPage=2">레시피</a>
 		        </li>
 		        <li>
 		            <a href="">셰프</a>

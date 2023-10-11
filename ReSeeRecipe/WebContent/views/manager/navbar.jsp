@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자화면 네비바</title>
+<title>ReSee:Recipe 관리자화면</title>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,7 +52,7 @@
 			</div>
 			<div class="category" id="HL_memberList">
 				<ul>
-					<li><a href="#" id="HL_memberSetting">회원정보 관리</a></li>
+					<li><a href="#" id="HL_memberSetting" onclick="goMenu('/hlmembermanage.ma?cmpage=1');">회원정보 관리</a></li>
 					<li><a href="#">블랙리스트 관리</a></li>
 					<li><a href="#">탈퇴회원 관리</a></li>
 				</ul>
@@ -74,9 +74,8 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">쪽지함 관리</a></li>
+					<li onclick="goMenu('/jhselect.dm')"><a href="#">쪽지함 관리</a></li>
 					<li><a href="#">신고함 관리</a></li>
-					<li><a href="#">주문 관리</a></li>
 				</ul>
 			</div>
 			<!-- 메뉴 관리 카테고리 -->
@@ -85,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">카테고리 관리</a></li>
+					<li onclick="goMenu('/jhselect.ct?page=1');"><a href="#">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
@@ -112,14 +111,19 @@
 			</div>
 		</div>	<!-- rs-navbar -->
 			
-		<div class="rs-content">
-		
-		</div>	<!-- rs-content -->
+		<!-- rs-content 추가된 영역 부분 -->
 		
     </div>  <!-- rs-main -->
 </body>
 
 <script>
+	<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
+	$(function(){
+	    let main = document.querySelector('.rs-main');
+	    let content = document.querySelector('.rs-content');
+	    main.appendChild(content);
+	});
+
     $(function(){
     	let $selectMenu = $('.nav-item').children();// a태그
     	$($selectMenu).click(function(){
@@ -149,7 +153,10 @@
     	
     })
     
-    
+    function goMenu(e){
+		this.location.href = "<%=contextPath %>" + e;
+	}
+
     
     $(function(){
     	
@@ -169,7 +176,7 @@
 
         });
     }
-    
+    /*
     $(function(){
     	$('#HL_memberSetting').on("click", goMember);
     });
@@ -177,6 +184,7 @@
     	$.ajax({
     		type : "GET",
     		url : 'hlmembermanage.ma', //?cmpage=1
+    		data : {cmpage : 1},
     		dataType : "html",
     		success : function(result){
     			//$('.rs-content').html(result);
@@ -189,7 +197,7 @@
     			/* $('.rs-content').html(
     					'<'
     					'회원번호' + result[0].memNo); */
-    			//createMemTable(result);
+  /*  			//createMemTable(result);
     			$('.rs-content').html(result);
     			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
     			//$('.rs-content').jsp(result);
@@ -202,6 +210,7 @@
     	
     	});
     }
+    */
     
 	/* 나중에 사용할 수 도 있을거 같아유 */
     function createMemTable(result){
@@ -222,5 +231,53 @@
     }
 
 </script>
+
+<!-- 문의관리 ajax -->
+<!-- <script>
+	$(function(){
+		$('#dmManager').on('click', dmListView);	// 해당 id를 갖고 있는 요소에 onclick event 속성을 준다 (호출 함수명 : dmListView)
+		});
+	
+	function dmListView(){
+		$.ajax({
+			url : 'jhselect.dm',
+			type : 'get',
+			dataType : 'html',
+			success : function(result){
+				$('.rs-content').html(result);		// 성공시 - 해당 ulr에 있는 .rs-content를 html로 뿌리기
+			},
+			error : function(result){
+				$('.rs-content').text('Error 다시 시도해주세요');
+			}
+		});
+	
+	}	// 쪽지함리스트(dmListView)
+
+</script> -->
+
+<!-- 카테고리관리 ajax -->
+<!-- <script>
+
+	$(function(){
+		$('#categoryManager').on('click', categoryListView);
+	});
+	
+	function categoryListView(){
+		$.ajax({
+			url : 'jhselect.ct',
+			type : 'get',
+    		dataType : 'html',
+			success : function(result){
+				$('.rs-content').html(result);
+				console.log("성공");
+			},
+			error : function(result){
+				$('.rs-content').text('Error! 다시 시도해주세요');
+				console.log("실패");
+			}
+		});
+	}	// 카테고리리스트(categoryListView)
+
+</script> -->
 
 </html>

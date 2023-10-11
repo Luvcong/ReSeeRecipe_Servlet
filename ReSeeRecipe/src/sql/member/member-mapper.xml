@@ -4,20 +4,21 @@
 
 	<comment>회원관련 SQL문</comment>
 	
+	<!-- 로그인 -->
 	<entry key="loginMember">
 		SELECT
-		       MEM_NO,
-		       MEM_ID,
-		       MEM_PWD,
-		       MEM_NAME,
-		       MEM_NICKNAME,
-		       MEM_EMAIL,
-		       MEM_STATUS,
-		       ENROLL_DATE,
-		       MODIFY_DATE,
-		       DELETE_DATE,
-		       MEM_PICTURE,
-		       MEM_GRADE
+		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
 		  FROM
 		       TB_MEMBER
 		 WHERE
@@ -28,30 +29,278 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
-	<entry key="selectMemberAll">
+	<!-- 회원가입 -->
+	<entry key="insertMember">
+		INSERT
+		  INTO 
+		  	   TB_MEMBER 
+		  	   (
+		  	    MEM_NO
+               ,MEM_NAME
+		  	   ,MEM_NICKNAME
+               ,MEM_ID
+		  	   ,MEM_PWD
+		  	   ,MEM_EMAIL
+		  	   )
+		VALUES 
+			   (
+			    SEQ_MEM.NEXTVAL
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			   )
+	</entry>
+	
+	<!-- 회원가입 닉네임 중복체크 -->
+	<entry key="nicknameCheck">
 		SELECT 
-				 MEM_NO
-				,MEM_NAME
-				,MEM_ID
-				,MEM_NICKNAME
-				,MEM_EMAIL
-				,ENROLL_DATE <!-- TO_CHAR(ENROLL_DATE, 'RRRR-MM-DD') ENROLL_DATE -->
-				,(
-					SELECT
-								SUM(REWARD_SCORE)
-             		  FROM 
-             		 			TB_REWARD B
-              		 WHERE 
-              					A.MEM_NO = B.MEM_NO
-              	)MEM_REWARD
-  		FROM 
-  				TB_MEMBER A
- 		WHERE 
- 				MEM_GRADE != 4
- 		  AND   
- 		  		MEM_STATUS = 'Y'
-	    ORDER 
-	       BY 
-	       		MEM_NO DESC
+			   COUNT(*)
+		  FROM
+			   TB_MEMBER
+		 WHERE
+			   MEM_NICKNAME = ?
+	</entry>
+	
+	<!-- 회원가입 아이디 중복체크 -->
+	<entry key="idCheck">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_ID = ?
+	</entry>
+	
+	<!-- 회원가입 이메일 중복체크 -->
+	<entry key="emailCheck">
+		SELECT 
+			   COUNT(*)
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_EMAIL = ?
+	</entry>
+	
+	<!-- 아이디 찾기 -->
+	<entry key="searchMemberId">
+		SELECT 
+   		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_NAME = ?
+		   AND 
+		 	   MEM_EMAIL = ?
+	</entry>
+	
+	<!-- 비밀번호 찾기 -->
+	<entry key="searchMemberPwd">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_ID = ?
+		   AND 
+		       MEM_EMAIL = ?
+		   AND 
+		       MEM_STATUS = 'Y'
+	</entry>
+	
+	<!-- 회원 비밀번호 재설정 -->
+	<entry key="updateMemberPwd">
+		UPDATE 
+			   TB_MEMBER
+		   SET 
+		       MEM_PWD = ?
+		 WHERE 
+		 	   MEM_ID = ?
+		   AND 
+		   	   MEM_STATUS = 'Y'
+	</entry>
+	
+	
+	<entry key="selectMemlistCount">
+		SELECT
+				COUNT(*)
+		 FROM
+		 		TB_MEMBER
+		WHERE
+				MEM_STATUS = 'Y'
+		  AND
+		  		MEM_GRADE != 4
+	</entry>
+	
+
+	<!-- 관리자 회원 정보 목록 전체  -->
+	<entry key="selectMemberAll">
+		SELECT *
+		 FROM(SELECT ROWNUM RNUM, A.* 
+				 FROM (SELECT 
+				 			MEM_NO
+				 		   ,MEM_NAME
+				 		   ,MEM_NICKNAME
+				 		   ,MEM_ID
+				 		   ,MEM_EMAIL
+				 		   ,ENROLL_DATE
+				 		   ,MEM_GRADE
+				 		   ,MEM_GRADE_NAME
+					 FROM 	
+					 		TB_MEMBER
+					 JOIN 
+					 		TB_MEMBER_GRADE ON(MEM_GRADE = MEM_GRADE_NO)
+					WHERE 
+							MEM_GRADE != 4
+					 AND
+					 		MEM_STATUS = 'Y'
+					ORDER 
+					   BY 
+					   		MEM_NO DESC) A)
+				WHERE RNUM BETWEEN ? AND ?					   		
+	</entry>
+	
+	<!-- 관리자 회원 정보 상세보기 -->
+	<entry key="selectMemInfo">
+		SELECT
+				MEM_NO
+			   ,MEM_NAME
+			   ,MEM_ID
+			   ,MEM_NICKNAME
+			   ,MEM_EMAIL
+			   ,ENROLL_DATE
+			   ,MODIFY_DATE
+			   ,MEM_GRADE
+			   ,MEM_GRADE_NAME
+	     FROM
+	     		TB_MEMBER
+	     JOIN
+	     		TB_MEMBER_GRADE ON(MEM_GRADE = MEM_GRADE_NO)
+	     WHERE
+	     		MEM_NO = ?
+	       AND
+	       		MEM_STATUS = 'Y'
+	</entry>
+	
+	<!-- 관리자 회원 정보 수정 -->
+	<entry key="updateMemInfo">
+		UPDATE
+		   		TB_MEMBER
+		   SET
+				MEM_NAME = ?
+			   ,MEM_NICKNAME = ?
+			   ,MEM_EMAIL = ?
+			   ,MODIFY_DATE = SYSDATE
+			   ,MEM_GRADE = (SELECT MEM_GRADE_NO
+                    FROM TB_MEMBER_GRADE
+                    WHERE MEM_GRADE_NAME = ?)
+	    WHERE
+	    		MEM_NO = ?
+	</entry>
+	
+	<!-- 관리자 회원 정보 수정 사유 입력 -->
+	<entry key="insertMemUpdate">
+		INSERT
+		  INTO
+		  		TB_MEMBER_UPDATE
+		VALUES
+				(
+				SEQ_MEM_UPDATE.NEXTVAL
+			   ,?
+			   ,?
+			   ,'Y'
+			   )
+		WHERE
+				TB_MEMBER_UPDATE.MEM_NO = ?
+	</entry>
+	
+	<!-- 관리자 회원 정보 사유 수정(재입력) -->
+	<entry key="updateMemUpdate">
+		UPDATE
+				TB_MEMBER_UPDATE
+		   SET
+		   		(
+		   	   	MEM_UPDATE_CON
+			   ,MEM_UPDATE_STATUS		   		
+		   		)
+		VALUES
+				(
+				?
+			   ,'Y'
+				)
+		WHERE
+				MEM_N0 = ?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE
+				TB_MEMBER
+		   SET
+		   		MEM_STATUS = 'N'
+		 WHERE
+		 		MEM_NO = ?
+	</entry>
+	
+	<entry key="totalsearchMember">
+		SELECT 
+		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,ENROLL_DATE
+		       ,MEM_GRADE_NAME
+		 FROM
+        		TB_MEMBER
+ 		 JOIN
+        		TB_MEMBER_GRADE 
+           ON	
+           		(MEM_GRADE = MEM_GRADE_NO)
+ 		WHERE
+        		MEM_ID LIKE '%'||?||'%' 
+           OR 
+           		MEM_NAME LIKE '%'||?||'%'
+           OR
+           		MEM_NICKNAME LIKE '%'||?||'%'
+           OR
+           		MEM_EMAIL LIKE '%'||?||'%'
+  		  AND
+        		MEM_STATUS = 'Y'
+        ORDER
+           BY
+           		ENROLL_DATE DESC
+	</entry>
+	
+	<entry key="searchmemId">
+		SELECT 
+		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,ENROLL_DATE
+		       ,MEM_GRADE_NAME
+		 FROM
+        		TB_MEMBER
+ 		 JOIN
+        		TB_MEMBER_GRADE 
+           ON	
+           		(MEM_GRADE = MEM_GRADE_NO)
+ 		WHERE
+        		MEM_ID = ?
+  		  AND
+        		MEM_STATUS = 'Y'
 	</entry>
 </properties>

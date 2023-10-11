@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.product.model.vo.Product, com.kh.semi.product.model.vo.ProductPicture" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.product.model.vo.Product, 
+				com.kh.semi.product.model.vo.ProductPicture,
+				com.kh.semi.product.model.vo.Option" %>
 <%
 	Product p = (Product)request.getAttribute("p");
 	ArrayList<ProductPicture> list = (ArrayList<ProductPicture>)request.getAttribute("list");
+	ArrayList<Option> list2 = (ArrayList<Option>)request.getAttribute("list2");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,32 +37,63 @@
     <div id="detailview-wrap">
         <div>
             <img src="<%= contextPath %>/<%= list.get(0).getPicturePath() %>/<%= list.get(0).getPictureCname() %>" width="500" height="500">
+            <br><br>
             <div>
             	<% for(int i = 1; i < list.size(); i++) {%>
 					<img src="<%= contextPath %>/<%= list.get(i).getPicturePath() %>/<%= list.get(i).getPictureCname() %>" id="contentImg<%= i %>" width="200" height="200">
 				<% } %>
             </div>
         </div>
-
+		
         <div id="d_content">
-            <h2><%= p.getProductName() %></h2>
-            <% if(p.getProductSubname() != null) { %>
-            	<h3><%= p.getProductSubname() %></h3>
-            <% } %>
-            <p><%= p.getOrigin() %></p>
-            <p>★<%= p.getProductScoreReviewAvg() %></p>
-            <h2><%= p.getPrice() %></h2>
-            <h3><%= p.getDilivery() %></h3>
-            <select name="" id="">
-                <option value="">옵션 1 가격</option>
-                <option value="">옵션 2 가격</option>
-            </select>
-            <input type="number" min="0">
-            <h2>총 가격 0원</h2>
-            <button>선물하기</button>
-            <button>장바구니</button>
-            <button>바로구매</button>
+        	<form>
+        		<input type="hidden" value="<%= p %>" name="p">
+        		<input type="hidden" value="<%= list %>" name="list">
+	            <h2><%= p.getProductName() %></h2>
+	            <% if(p.getProductSubname() != null) { %>
+	            	<h3><%= p.getProductSubname() %></h3>
+	            <% } %>
+	            <p><%= p.getOrigin() %></p>
+	            <p>★<%= p.getProductScoreReviewAvg() %></p>
+	            <h2><%= p.getPrice() %></h2>
+	            <h3><%= p.getDilivery() %></h3>
+	            
+	            	<% if(!list2.isEmpty()) { %>
+	            		<select id="select">
+			            	<% for(int i = 0; i < list2.size(); i++) { %>
+			                	<option><%= list2.get(i).getOptionName() %></option>
+			                <% } %>
+		                </select>
+		                <span><%= list2.get(0).getOptionPrice() %></span>
+		                <input type="hidden" value="<%= list2.get(0).getOptionNo() %>" name="ono">
+	                <% } %>
+	            <h2>총 가격 0원</h2>
+	            <!-- <% if(loginMember != null) { %>
+		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
+		            <button type="submit" formaction="">장바구니</button>
+		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=buy">바로구매</button>
+            	<% } else { %>
+            		<br><br>
+            		<h2>로그인 후 구매가능합니다</h2>
+            	<% } %> -->
+            	    <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
+		            <button type="submit" formaction="">장바구니</button>
+		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=buy">바로구매</button>
+            </form>
         </div>
+        
+        <script>
+        	$(function(){
+        		$('#select').on("change", function(){
+        			<% for(int i = 0; i < list2.size(); i++) { %>
+	        			if($(this).val() == '<%= list2.get(i).getOptionName() %>') {
+							$('#select').next().text('<%= list2.get(i).getOptionPrice() %>');
+							$('#select').next().next().val('<%= list2.get(i).getOptionNo() %>');
+						}
+        			<% } %>
+        		})
+        	})
+        </script>
 
         <div align="center">
             <h2 style="display: inline-block;">상세정보</h2>
@@ -71,10 +105,12 @@
             <div style="background-color: #e2e2e2;">
             <br>
                 <%= p.getProductDetail() %>
+            <br><br>
             </div>
             <br>
             <div style="background-color: #e2e2e2;">
                 asdf
+                <br><br>
             </div>
         </div>
         

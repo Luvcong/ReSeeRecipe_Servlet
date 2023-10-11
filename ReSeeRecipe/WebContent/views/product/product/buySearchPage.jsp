@@ -34,13 +34,13 @@
             color: grey;
         }
 
-        #s_list{
+        /*#s_list{
             display: block;
             float: right;
             position: absolute;
             width: 200px;
             left: 80.5%;
-        }
+        }*/
 
         #pro_area{
             display: flex;
@@ -69,6 +69,10 @@
             text-align: left;
             font-size: 18px;
         }
+        
+        select{
+        	float: right;
+        }
     </style>
 </head>
 <body>
@@ -78,19 +82,38 @@
     <div id="searchpage-wrap">
         <div style="margin-bottom: 50px;">
             <div style="font-size: 40px; text-align: left;"><b><%= title %></b></div>
-            <ul id="s_list">
+            <select id="select">
+            	<option onclick="sortroll();">추천순</option>
+            	<option onclick="sortstar();">별점높은순</option>
+            	<option onclick="sortprice();">가격낮은순</option>
+            </select>
+            <!-- <ul id="s_list">
                 <li class="btn btn-secondary"><a href="">추천순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">별점높은순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">가격낮은순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">가격높은순</a></li>
-            </ul>
+            </ul> -->
         </div>
+        
+        <script>
+        	function sortroll(){
+        		
+        	}
+        	
+        	function sortstar(){
+        		
+        	}
+        	
+        	function sortprice(){
+        		
+        	}
+        </script>
 
         
         <div id="pro_area">
         	<% for(Product p : list) { %>
         		<div class="pro_list">
-        			<a style="display: none;"><%= p.getProductNo() %></a>
+        			<!-- <a style="display: none;"><%= p.getProductNo() %></a> -->
 	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>">
 	                    <img src="<%= p.getTitleImg() %>">
 	                </a>

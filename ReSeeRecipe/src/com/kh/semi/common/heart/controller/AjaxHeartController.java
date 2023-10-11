@@ -12,16 +12,68 @@ import com.kh.semi.member.model.vo.Member;
 public class AjaxHeartController {
 	
 	
+	/*************** 숫자 검증 *****************************************************/
 	private boolean isNumber(String htTargetNoStr) {
+		// 숫자 유효성 체크 후 리턴
 		boolean validation = Pattern.matches("^[0-9]*$", htTargetNoStr);
-		System.out.println(htTargetNoStr);
-		System.out.println(validation);
 		return validation;
 	}
 	/****************************************************************************/
 	
 	
+	/*************** 특정 대상 하트 카운트 조회 기능 ***************************************/
+	public int htCountRecipe(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 값 추출 + 가공
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		System.out.println(htTargetNo);
+		// Service호출
+		int result = new AjaxHeartService().htCountRecipe(htTargetNo);
+		
+		return result;
+	}
+	
+	
+	public int htCountBookmark(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 값 추출 + 가공 
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		// Service호출
+		int result = new AjaxHeartService().htCountBookmark(htTargetNo);
+		return result;
+	}
+	
+	
+	public int htCountNotice(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 값 추출 + 가공
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		// Service호출
+		int result = new AjaxHeartService().htCountNotice(htTargetNo);
+		
+		return result;
+	}
+	
+	
+	public int htCountSubsc(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 값 추출 + 가공
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountSubsc(htTargetNo);
+		return result;
+	}
+	
+	
+	public int htCountReply(HttpServletRequest request, HttpServletResponse response) {
+		
+		int htTargetNo = Integer.parseInt(request.getParameter("htTargetNo"));
+		int result = new AjaxHeartService().htCountReply(htTargetNo);
+		return result;
+	}
 	/****************************************************************************/
+	
+	
+	/*************** 하트 추가/삭제 기능 ***********************************************/
 	public int htChangeRecipe(HttpServletRequest request, HttpServletResponse response) {
 		// 변수세팅
 		int result = 0;
@@ -98,94 +150,7 @@ public class AjaxHeartController {
 		}
 		return result;
 	}
-	/****************************************************************************/
+	/****************************************************************************/	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	public String ajaxHeartCount(HttpServletRequest request, HttpServletResponse response) {
-		
-		// 변수세팅
-		String result = "";
-		
-		// 값 추출
-		String htTargetStr = request.getParameter("htTargetNo").trim();
-		String htKind = request.getParameter("htKind").trim().toUpperCase();
-		
-		// Controller단 입력값 검사
-		if(isNumber(htTargetStr)) {
-
-			// 자료형 검사 통과 후
-			int htTargetNo = Integer.parseInt(htTargetStr);
-			
-			Heart ht = new Heart();
-			ht.setHtTargetNo(htTargetNo);
-			ht.setHtKind(htKind);
-			
-			// Service의 메소드 호출
-			result = new HeartService().ajaxHeartCount(ht);
-		}
-		
-		return result;
-	}
-	*/
-	
-	/*
-	public boolean ajaxHeartAddCancel(HttpServletRequest request, HttpServletResponse response) {
-		
-		// 변수세팅
-		boolean result = false;
-		
-		// 값 추출
-		String memNoStr = request.getParameter("memNo");
-		String htTargetNoStr = request.getParameter("htTargetNo");
-		String htKind = request.getParameter("htKind");
-		
-		// Controller단 입력값 검사
-		if(isNumber(memNoStr) && isNumber(htTargetNoStr)) {
-			
-			// 자료형 검사 통과 후
-			int memNo = Integer.parseInt(memNoStr);
-			int htTargetNo = Integer.parseInt(htTargetNoStr);
-			
-			Heart ht = new Heart();
-			ht.setMemNo(memNo);
-			ht.setHtTargetNo(htTargetNo);
-			ht.setHtKind(htKind);
-			
-			result = new AjaxHeartController().ajaxHeartAddCancel(ht);
-		}
-		return result;
-	}
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}//end
+}//class.end
