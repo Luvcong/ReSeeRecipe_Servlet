@@ -69,6 +69,9 @@ public class RecipeServlet extends HttpServlet {
 			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
 			//case "searchKeyWord" : System.out.println(mapping); break;
 			
+			
+			
+			case "errorNoRecipeList" : viewPath = rc.errorNoRecipeList(request, response); break;
 			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다"); break;
 		}
 		

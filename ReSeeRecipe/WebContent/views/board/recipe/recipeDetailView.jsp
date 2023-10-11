@@ -395,8 +395,8 @@
 <body>
 
 	<%@ include file="/views/common/header.jspf" %>
-	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jsp" %>
-	<%@ include file="/views/board/recipe_frag/recipeSortBar.jsp" %>
+	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jspf" %>
+	<%@ include file="/views/board/recipe_frag/recipeSortBar.jspf" %>
 
 	<script>
 		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
