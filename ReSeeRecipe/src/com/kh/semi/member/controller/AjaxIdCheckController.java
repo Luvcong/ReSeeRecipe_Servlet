@@ -34,7 +34,7 @@ public class AjaxIdCheckController extends HttpServlet {
 		
 		int count = new MemberService().idCheck(checkId);
 		
-		response.setContentType("text.html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		if(count > 0) {
 			// 중복값이 있을 때 count == 1 ==> 'NNNNN'

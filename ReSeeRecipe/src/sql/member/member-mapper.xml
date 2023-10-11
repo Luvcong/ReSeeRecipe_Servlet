@@ -120,6 +120,18 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 회원 비밀번호 재설정 -->
+	<entry key="updateMemberPwd">
+		UPDATE 
+			   TB_MEMBER
+		   SET 
+		       MEM_PWD = ?
+		 WHERE 
+		 	   MEM_ID = ?
+		   AND 
+		   	   MEM_STATUS = 'Y'
+	</entry>
+	
 	
 	<entry key="selectMemlistCount">
 		SELECT

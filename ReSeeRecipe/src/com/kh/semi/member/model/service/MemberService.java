@@ -78,6 +78,10 @@ public class MemberService {
 	}
 	
 	// 회원가입 시 email 중복체크
+	/**
+	 * @param checkEmail : 회원가입에 쓸 사용자 email 입력값
+	 * @return : 이미 존재하는 아이디 1 또는 사용가능 0
+	 */
 	public int emailCheck(String checkEmail) {
 		Connection conn = getConnection();
 		
@@ -89,6 +93,11 @@ public class MemberService {
 	}
 	
 	// 아이디 찾기
+	/**
+	 * @param memberName : 아이디를 찾고자 하는 사용자 이름 입력값
+	 * @param memberEmail : 아이디를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 회원
+	 */
 	public Member searchMemberId(String memberName, String memberEmail) {
 		
 		Connection conn = getConnection();
@@ -101,6 +110,11 @@ public class MemberService {
 	}
 	
 	// 비밀번호 찾기
+	/**
+	 * @param memberId : 비밀번호를 찾고자 하는 사용자 아이디 입력값
+	 * @param memberEmail : 비밀번호를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 결과가 있다면 1 반환
+	 */
 	public int searchMemberPwd(String memberId, String memberEmail) {
 		
 		Connection conn = getConnection();
@@ -112,7 +126,23 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원 비밀번호 재설정
+	public int updateMemberPwd(String memberId, String memberPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMemberPwd(conn, memberId, memberPwd);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
 	
+	
+
 	public int selectMemlistCount() {
 		
 		Connection conn = getConnection();

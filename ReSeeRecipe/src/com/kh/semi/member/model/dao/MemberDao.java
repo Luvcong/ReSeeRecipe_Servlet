@@ -270,6 +270,30 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 비밀번호 재설정
+	public int updateMemberPwd(Connection conn, String memberId, String memberPwd) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberPwd);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("DAO result");
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 	public int selectMemlistCount(Connection conn) {

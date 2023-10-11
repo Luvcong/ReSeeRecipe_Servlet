@@ -12,6 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+
 
 <style>
     /* Bordered form */
@@ -62,6 +64,10 @@
       align-items: center;
       justify-content: center;
     }
+    
+    #updateMemberPwd{
+    	display : none;
+    }
 
 </style>
 
@@ -88,12 +94,12 @@
           <div id="searchMemberPwd"> </div>
 
           <!-- 비밀번호 재설정 -->
-          <div id="resetMemberPwd">
-	          <input type="password" placeholder="비밀번호 재설정" required>
-	          <input type="password" placeholder="비밀번호 재설정 확인" required>
-	      
-	          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
+          <div id="updateMemberPwd">
+	          <input type="password" placeholder="비밀번호 재설정" name="memberPwd" required>
+	          <input type="password" placeholder="비밀번호 재설정 확인" name="memberPwdCheck" required>
+	      	  <button type="button" onclick="updateMemberPwd();">비밀번호 재설정하기</button>
           </div>
+	          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
         </div>
         
       <!-- </form> -->
@@ -115,13 +121,52 @@
 						$('#searchMemberPwd').text('조회된 결과가 없습니다.');
 					} else{
 						$('#searchMemberPwd').text('비밀번호 재설정');
-						$('#resetMemberPwd').attr('display', 'block');
+						$('#updateMemberPwd').attr('style', "display:block;");
 					}
 				},
 				error : function(){
 					console.log('비밀번호 찾기 AJAX통신 실패!');
 				}
 			})
+		};
+		
+		const $memberPwd = $('input[name=memberPwd]');
+		const $memberPwdCheck = $('input[name=memberPwdCheck]');
+		
+		function updateMemberPwd(){
+			
+			if($memberPwd.val() != $memberPwdCheck.val()){
+				console.log("비밀번호 달라");
+			} else{ // 비밀번호 재설정 및 확인 동일작성
+				
+			$.ajax({
+				url : 'yrupdateMemberPwd.me',
+				data : {memberId : $memberId.val(),
+						memberPwd : $memberPwd.val()		
+				},
+				success : function(result){
+					if(result == 'S'){
+						Swal.fire({
+							  icon: 'success',
+							  title: '비밀번호 재설정',
+							  text: '비밀번호가 변경되었습니다!'
+						})
+					} else{
+						
+					}
+
+				},
+				error : function(){
+					console.log('비밀번호 재설정 AJAX통신 실패!');
+				}
+				
+				
+			})
+				
+			}
+			
+			
+			
 			
 			
 			

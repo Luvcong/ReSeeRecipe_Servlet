@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.member.model.service.MemberService;
 
 /**
- * Servlet implementation class AjaxNameCheckController
+ * Servlet implementation class UpdateMemberPwdController
  */
-@WebServlet("/yrnicknameCheck.me")
-public class AjaxNicknameCheckController extends HttpServlet {
+@WebServlet("/yrupdateMemberPwd.me")
+public class UpdateMemberPwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxNicknameCheckController() {
+    public UpdateMemberPwdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +29,24 @@ public class AjaxNicknameCheckController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String checkNickname = request.getParameter("checkNickname");
 		
-		int count = new MemberService().nicknameCheck(checkNickname);
+		String memberId = request.getParameter("memberId");
+		String memberPwd = request.getParameter("memberPwd");
 		
-		response.setContentType("text/html, charset=UTF-8");
+		int result = new MemberService().updateMemberPwd(memberId, memberPwd);
 		
-		if(count > 0) {
-			response.getWriter().print("NNNNN");
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		if(result > 0) {
+			response.getWriter().print("S");
 		} else {
-			response.getWriter().print("NNNNY");
+			System.out.println("으ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+			response.getWriter().print("N");
 		}
+		
+		
+		
+		
 	}
 
 	/**
