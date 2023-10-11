@@ -435,6 +435,31 @@ public class MemberDao {
 		
 	}
 	
+	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchmemId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memSearchcon);
+			
+			rset = pstmt.executeQuery();
+			
+			Member m = new Member();
+			m.setMemNo(rset.getInt("MEM_NO"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
 	
 	
 	

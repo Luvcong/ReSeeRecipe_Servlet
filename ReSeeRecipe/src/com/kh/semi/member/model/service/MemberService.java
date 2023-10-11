@@ -197,9 +197,9 @@ public class MemberService {
 //		default : System.out.println("없는 옵션으로 검색하셨습니다");
 //		return;
 //		}
-		
+		ArrayList<Member> list = new ArrayList();
 		if(memSearchoption == "회원ID") {
-			ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchoption, memSearchcon);
+			list = new MemberDao().searchmemId(conn, memSearchcon);
 		} else if(memSearchoption == "닉네임") {
 			
 		} else if(memSearchoption == "이름") {
