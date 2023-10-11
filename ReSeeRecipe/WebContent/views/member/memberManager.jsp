@@ -125,10 +125,42 @@
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
-                    <button class="btn btn-warning" type="submit">검색</button>
+                    <button class="btn btn-warning" type="submit" name="HL_memSearch" id="HL_memSearch">검색</button>
                 </div>
             </div>
         </div>
+        
+        <script>
+        	$(function(){
+        		$('#HL_memSearch').on('click', HL_memSearch);
+        	});
+        	function HL_memSearch(){
+        		let $option = $('option:selected');
+        		console.log($option);
+        		let $searcon = $('#searchMember').val();
+        		console.log($searcon);
+        		$.ajax({
+        			url : 'hlsearchmem.ma',
+        			data : {
+        				option : $option,
+        				searhcon : $searcon
+        			},
+        			success : function(result){
+        				
+        			},
+        			error : function(result){
+        				
+        			}
+        		})
+        	}
+        
+        
+        
+        
+        
+        
+        </script>
+        
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
