@@ -168,5 +168,86 @@ public class CategoryDao {
 	
 	
 	
+	/**
+	 * 카테고리명 변경을 처리해주는 method
+	 * @param conn
+	 * @param categoryName 기존 카테고리명
+	 * @param categoryUpdateName 변경 카테고리명
+	 * @return 카테고리명 변경 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 11.
+	 */
+	public int updateCategory(Connection conn, String categoryName, String categoryUpdateName) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, categoryUpdateName);
+			pstmt.setString(2, categoryName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}	// updateCategory
+	
+	
+	/**
+	 * 카테고리명 중복여부 체크 method
+	 * @param conn
+	 * @param categoryName 기존 카테고리명
+	 * @return 기존 카테고리명 존재 여부 (1이면 존재 / 0이면 없음)
+	 * @author JH
+	 * @Date : 2023. 10. 11.
+	 */
+	public int categoryNameCheck(Connection conn, String categoryUpdateName) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("categoryNameCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, categoryUpdateName);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+			
+			System.out.println("dao : " + count);	// 존재하지 않는 경우로 test >> 1 나옴
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return count;
+	}	// categoryNameCheck
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }	// end class

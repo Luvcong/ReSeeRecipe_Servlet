@@ -96,6 +96,46 @@ public class CategoryService {
 	
 	
 	
+	/**
+	 * 카테고리명 변경 요청 및 중복체크를 요청하는 method 
+	 * @param categoryName 기존 카테고리명
+	 * @param categoryUpdateName 변경 카테고리명
+	 * @return 카테고리명 변경 성공 여부 및 중복체크
+	 * @author JH
+	 * @Date : 2023. 10. 11.
+	 */
+	public int updateCategory(String categoryName, String categoryUpdateName) {
+		
+		Connection conn = getConnection();
+		
+		// 중복확인 method >> 0이 돌아오면 updateCategory 실행해야함 1이 돌아오면 롤백
+		
+		int resultUpdate = 0;
+		int resultCheck = categoryDao.categoryNameCheck(conn, categoryUpdateName);
+		System.out.println("resultCheck : " + resultCheck );	// 존재하는 경우 1	, 존재하지 않는데도 현재 1 출력
+		
+		if(resultCheck == 0) {
+			resultUpdate = categoryDao.updateCategory(conn, categoryName, categoryUpdateName);
+		}
+		
+		if(resultUpdate > 0) commit(conn);
+			else rollback(conn);
+		
+		System.out.println("resultUpdate : " + resultUpdate );		// check : 1 / update : 0
+		
+		close(conn);
+		
+		return resultUpdate;
+	}	// updateCategory
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
