@@ -273,7 +273,7 @@
         		console.log('몇개선택', mem_input);
         		if(mem_input.checked){
         			check = tr;
-        			break;
+        			
         			console.log('체크돼나', check);
         		}
         	}
@@ -297,7 +297,7 @@
 					}
 					
 					let memtable = document.getElementById('memAll');
-					let memtrs = table.querySelectorAll('tbody tr');
+					let memtrs = memtable.querySelectorAll('tbody tr');
 					let del_list = [];
 					
 					for(let tr of memtrs){
