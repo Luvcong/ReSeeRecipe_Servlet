@@ -284,9 +284,6 @@ public class MemberDao {
 			pstmt.setString(2, memberId);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("DAO result");
-			System.out.println(result);
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -147,10 +147,20 @@
 				success : function(result){
 					if(result == 'S'){
 						Swal.fire({
-							  icon: 'success',
 							  title: '비밀번호 재설정',
-							  text: '비밀번호가 변경되었습니다!'
+							  text: "비밀번호가 변경되었습니다.",
+							  icon: 'success',
+							  confirmButtonColor: '#3085d6',
+							  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.isConfirmed) {
+							  $(location).attr("href", "views/member/memberLogin.jsp");
+						  }
 						})
+
+						
+						
+						
 					} else{
 						
 					}

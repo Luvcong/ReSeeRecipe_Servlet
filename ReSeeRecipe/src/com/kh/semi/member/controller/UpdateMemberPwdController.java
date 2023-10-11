@@ -36,11 +36,9 @@ public class UpdateMemberPwdController extends HttpServlet {
 		int result = new MemberService().updateMemberPwd(memberId, memberPwd);
 		
 		response.setContentType("text/html; charset=UTF-8");
-		System.out.println("아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
 		if(result > 0) {
 			response.getWriter().print("S");
 		} else {
-			System.out.println("으ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 			response.getWriter().print("N");
 		}
 		

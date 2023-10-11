@@ -147,7 +147,7 @@
           <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20" required>
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
 
-          <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
+          <input type="password" placeholder="비밀번호 확인" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
           <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다.</label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
@@ -219,7 +219,7 @@
             </div>
           </div>
           <!-- 제출버튼!!!!!!!!!!!!!!!!!! onclick = "return validate();"-->
-          <button type="submit" id="submitBtn">가입하기</button>
+          <button type="submit" id="submitBtn" disabled>가입하기</button>
       </div>
         
     </form>
@@ -228,8 +228,9 @@
     <!-- <%@ include file="/views/common/footer.jspf" %> -->
 
     <script>
-        function validate(){
+        /*
         // 유효성 검사
+        function validate(){
         
         var memberName = document.getElementById('memberName');
         var memberNickname = document.getElementById('memberNickname');
@@ -304,10 +305,11 @@
         };
 
         return true;
-        */
+        
       }
+      */
     </script>
-
+    
     
     <script>
 
@@ -318,21 +320,28 @@
           // console.log($(this));
           var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
 
+          
           // 1) 이름 (2 ~ 6자 이내)
-          if($(this)[0] == $('#memberName')[0]) var $regExp = /^[가-힣]{2,6}$/;
+          if($(this)[0] == $('#memberName')[0]) {
+            var $regExp = /^[가-힣]{2,6}$/;
+            
+          }
 
           // 2) 닉네임 (3 ~ 8자)
           if($(this)[0] == $('#memberNickname')[0]) {
             var $regExp = /^[a-z0-9가-힣]{3,8}$/;
             // 중복체크 호출
             nicknameCheck();
-            // console.log(nicknameCheck());
-            // if(nicknameCheck()) {
-            //   console.log('들어옴');
-            //   $errorCheck.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
-						//   $('#memberNickname').val('').focus();
-            // }
+            /*
+            console.log(nicknameCheck());
+            if(nicknameCheck()) {
+              console.log('들어옴');
+              $errorCheck.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
+						  $('#memberNickname').val('').focus();
+            }
+            */
             $errorCheck.text("* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. ").css('color', 'black');
+            
           };
 
           // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
@@ -340,10 +349,12 @@
             var $regExp = /^[a-zA-Z0-9]{5,20}$/;
             // 중복체크 호출
             idCheck();
-            // if(idCheck()) {
-            //   $errorCheck.text("* 이미 존재하는 아이디입니다!").css('color', 'red');
-            //   $('#memberId').val('').focus();
-            // }
+            /*
+            if(idCheck()) {
+              $errorCheck.text("* 이미 존재하는 아이디입니다!").css('color', 'red');
+              $('#memberId').val('').focus();
+            }
+            */
             $errorCheck.text("* 영문, 숫자 5 ~ 20자로 입력 가능합니다.").css('color', 'black');
           };
 
@@ -351,12 +362,12 @@
           if($(this)[0] == $('#memberPwd')[0]) var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
           
           // 5) 비밀번호 확인
-          if(/*$(this)[0] == $('#memberPwdCheck')[0] && */$(this).val() != $('#memberPwd').val()) {
+          // 비밀번호 또는 비밀번호 확인 input에 입력시, 비밀번호와 비밀번호 확인 값의 일치여부
+          
+          if(($(this)[0] == $('#memberPwdCheck')[0] || $(this)[0] == $('#memberPwd')[0] ) && $('#memberPwdCheck').val() != $('#memberPwd').val()) {
             $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
-            $('#submitBtn').attr('disabled', true);
           } else{
-            $('label[for="memberPwdCheck"]').css('color', 'black');
-            $('#submitBtn').attr('disabled', false);
+            $('label[for="memberPwdCheck"]').text("").css('color', 'black');
           };
 
           // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
@@ -364,26 +375,35 @@
             var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
             // 중복체크 호출
             emailCheck();
-            // if(emailCheck()) {
-            //   $errorCheck.text("* 이미 사용 중인 이메일입니다!").css('color', 'red');
-            //   $('#memberEmail').val('').focus();
-            // }
+            /*
+            if(emailCheck()) {
+              $errorCheck.text("* 이미 사용 중인 이메일입니다!").css('color', 'red');
+              $('#memberEmail').val('').focus();
+            }
+            */
             $errorCheck.text("인증받으실 이메일을 입력해 주세요.").css('color', 'black');
           };
-           
+
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
-            
             $errorCheck.css('color', 'red');
-            $('#submitBtn').attr('disabled', true);
-
           } else{
             $errorCheck.css('color', 'black');
             $('#submitBtn').attr('disabled', false);
           };
 
+
         });
+        
+        // 모든 유효성검사 통과 시 버튼 활성화
+        // var $count = $cName * $cNickname;
+        // if($count > 0){
+        //   $('#submitBtn').attr('disabled', false);
+        // } 
+
+        
+
       })
 
    		// ajax를 이용하여 닉네임 중복체크
