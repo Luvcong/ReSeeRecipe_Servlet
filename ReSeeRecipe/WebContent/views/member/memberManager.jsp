@@ -132,7 +132,7 @@
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
-            <button id="deleteMem" class="w3-button w3-round w3-yellow">회원 삭제</button>
+            <button id="deleteMem" class="w3-button w3-round w3-yellow" onclick="deleteMem();">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
         <table class="table" id="memAll">
@@ -262,12 +262,35 @@
         	})
         })  */ 
         
-        
-        
+		//회원 삭제 기능 3차 시도       
+        function deleteMem(){
+        	let mem_trs = document.querySelectorAll('#memAllList > tr');
+        	console.log(mem_trs);
+        	let check = null;
+        	
+        	for(let tr of mem_trs){
+        		let mem_input = tr.querySelector('input');
+        		console.log(mem_input);
+        		if(mem_input.checked){
+        			check = tr;
+        			break;
+        			console.log(check);
+        		}
+        	}
+        	
+        	if(check == null){
+        		Swal.fire('실패', '회원을 선택해주세요', 'error');
+    			return;
+        	}
+        }
+		
+		
+		
+		
         
         
         // 회원 삭제 기능
-        $(function(){
+/*         $(function(){
         	
         	// 회원 삭제 기능
         	$('#deleteMem').on('click', deleteMember);
@@ -283,14 +306,14 @@
         			console.log('$delList>>',$delList);
         		}
         		let $tr_check = null;s
-        		/* for(let tr of $trs){
+        		 for(let tr of $trs){
     				let $cm = $(tr).find('input');
         			if($cm.prop('checked')){
         				console.log('$cm.prop' + $cm.prop('checked'));
         				$tr_checked = tr;
         				break; //break;
         			}
-        		} */
+        		} 
         		
         		for(let i in $trs){
         			
@@ -321,8 +344,7 @@
 	    					let $trs = $('#memAll > tbody > tr');
 	    					let mem_list = [];
 	    					
-/* 	    					[]
-	    					$([]) */
+
 	    					
 	    					for(let tr of $trs){
 	    						let $mchk = $('tr').find('input:checkbox');
@@ -349,7 +371,7 @@
 	        	})	
         		
         	}
-        })
+        }) */
         
         
 /* 		$(function(){
