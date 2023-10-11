@@ -470,7 +470,7 @@ public class MemberDao {
 			totalsearchMember(conn, memSearchoption, memSearchcon);
 		}
 		
-		String sql = "SELECT "
+		String sql = "SELECT"
 						   + "MEM_NO"
 						   + ",MEM_ID"
 						   + ",MEM_NAME"
