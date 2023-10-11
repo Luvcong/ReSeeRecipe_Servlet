@@ -197,6 +197,7 @@ public class MemberService {
 //		default : System.out.println("없는 옵션으로 검색하셨습니다");
 //		return;
 //		}
+		/*
 		ArrayList<Member> list = new ArrayList();
 		if(memSearchoption == "회원ID") {
 			list = new MemberDao().searchmemId(conn, memSearchcon);
@@ -207,7 +208,8 @@ public class MemberService {
 		} else {
 			
 		}
-		//ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		*/
+		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
 		
 		close(conn);
 		

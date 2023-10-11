@@ -421,20 +421,57 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("searchMember");
+		String sql = "SELECT "
+						   + "MEM_NO"
+						   + ",MEM_ID"
+						   + ",MEM_NAME"
+						   + ",MEM_NAME"
+						   + ",MEM_NICKNAME"
+						   + ",MEM_EMAIL"
+						   + ",ENROLL_DATE"
+						   + ",MEM_GRADE_NAME"
+					  + "FROM"
+						   + "TB_MEMBER"
+					  + "JOIN"
+						   + "TB_MEMBER_GRADE"
+					  + "ON"
+						   + "(MEM_GRADE = MEM_GRADE_NO)"
+					  + "WHERE"
+						   + memSearchoption
+					  + "= ?"
+					  + "AND"
+					  	   + "MEM_STATUS = 'Y'";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, memSearchcon);
 			
 			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
+		return list;
 		
 	}
 	
+	/*
 	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
 		
 		ArrayList<Member> list = new ArrayList();
@@ -449,8 +486,13 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			Member m = new Member();
-			m.setMemNo(rset.getInt("MEM_NO"));
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemId(r)
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -459,7 +501,7 @@ public class MemberDao {
 		
 		
 	}
-	
+	*/
 	
 	
 	
