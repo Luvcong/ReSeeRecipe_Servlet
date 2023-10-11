@@ -1,4 +1,4 @@
-;package com.kh.semi.dm.controller.manager;
+package com.kh.semi.dm.controller.manager;
 
 import java.io.IOException;
 import java.util.ArrayList;
