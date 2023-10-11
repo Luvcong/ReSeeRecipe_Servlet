@@ -282,110 +282,54 @@
         		Swal.fire('실패', '회원을 선택해주세요', 'error');
     			return;
         	}
+        	
+        	Swal.fire({
+    			title : "회원을 삭제하시겠습니까?",
+    			text : "※  탈퇴회원에서 조회 가능합니다",
+    			icon : "warning",
+    			showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "삭제",
+				cancelButtonText: "취소"
+				}).then((result) => {
+					if (!result.isConfirmed) {
+					  return;
+					}
+					
+					let memtable = document.getElementById('memAll');
+					let memtrs = table.querySelectorAll('tbody tr');
+					let del_list = [];
+					
+					for(let tr of memtrs){
+						let memcheckbox = tr.querySelector('input');
+						if(memcheckbox.checked == true){
+							del_list.push(memcheckbox.value());
+						}
+					}
+        		
+					$.ajax({
+						url : 'hldeletemember.ma',
+						type : 'post',
+						dataType : 'json',
+						data : {'mno' : del_list},
+						success : function(result){
+							for(let tr of memtrs){
+								let mno = parseInt(tr.children[1].textContent);
+								if(result.includes(mno)){
+									tr.remove();
+								}
+							}
+						},
+						error : function(result){
+							console.log('실패');
+						},
+						complete : function(result) {
+							Swal.fire('성공', '탈퇴회원에서 확인하세요!', 'success');
+						}
+					});
+       			 });		
+		
         }
-		
-		
-		
-		
-        
-        
-        // 회원 삭제 기능
-/*         $(function(){
-        	
-        	// 회원 삭제 기능
-        	$('#deleteMem').on('click', deleteMember);
-        	
-        	
-        	function deleteMember(){
-        		let $trs = $('#memAllList > tr'); // tbody > tr
-        		console.log('$trs' + $trs);
-        		let $trch = $('$trs > td');
-        		let $delList = [];
-        		if($trch.prop('checked')){
-        			$delList.push(this);
-        			console.log('$delList>>',$delList);
-        		}
-        		let $tr_check = null;s
-        		 for(let tr of $trs){
-    				let $cm = $(tr).find('input');
-        			if($cm.prop('checked')){
-        				console.log('$cm.prop' + $cm.prop('checked'));
-        				$tr_checked = tr;
-        				break; //break;
-        			}
-        		} 
-        		
-        		for(let i in $trs){
-        			
-        		}
-        		
-        		
-        		
-        		
-        		if($tr_check == null){
-        			Swal.fire('실패', '회원을 선택해주세요', 'error');
-        			return;
-        		}	
-        			
-        		Swal.fire({
-	        			title : "회원을 삭제하시겠습니까?",
-	        			text : "※  탈퇴회원에서 조회 가능합니다",
-	        			icon : "warning",
-	        			showCancelButton: true,
-	    				confirmButtonColor: "#DD6B55",
-	    				confirmButtonText: "삭제",
-	    				cancelButtonText: "취소"
-	    				}).then((result) => {
-	    					if (!result.isConfirmed) {
-	    					  return;
-	    					}
-	    					
-	    					//let $table = $('#memAll');
-	    					let $trs = $('#memAll > tbody > tr');
-	    					let mem_list = [];
-	    					
-
-	    					
-	    					for(let tr of $trs){
-	    						let $mchk = $('tr').find('input:checkbox');
-	    						console.log($mchk );
-	    						if($mchk.prop('checked') == true){
-	    							mem_list.push('$trs > children().eq(1).text()');
-	    						}
-	    					}
-	    					
-	    					$.ajax({
-	    						url : 'hldeletemember.ma',
-	    						type : 'post',
-	    						dataType : 'json',
-	    						data : {'mno' :  mem_list},
-	    						success : function(result){
-	    							for(let tr of $trs){
-	    								let memNo = parseInt(tr.children[1].textContent);
-	    								if(result.includes(memNo)){
-	    									tr.remove();
-	    								}
-	    							}
-	    						}
-	    					})
-	        	})	
-        		
-        	}
-        }) */
-        
-        
-/* 		$(function(){
-			
-			
-			
-				let checkMem = $('#memberCheckbox').prop('checked')
-				console.log(checkMem);
-				
-			}
-			
-			
-		})
-         */
         
         
         </script>
