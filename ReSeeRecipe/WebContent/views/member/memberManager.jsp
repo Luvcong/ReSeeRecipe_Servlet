@@ -315,9 +315,10 @@
 						data : {'mno' : del_list},
 						success : function(result){
 							for(let tr of memtrs){
-								let mno = parseInt(tr.children[1].textContent);
+								let mno = parseInt(tr.querySelector('input').checked.value);
 								if(result.includes(mno)){
 									tr.remove();
+									
 								}
 							}
 						},
