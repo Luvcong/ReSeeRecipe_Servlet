@@ -69,6 +69,11 @@
     	display : none;
     }
 
+    #updateMemberPwd > label{
+      font-size: 12px;
+      margin : 0px 0px 5px 0px;
+    }
+
 </style>
 
 </head>
@@ -95,9 +100,11 @@
 
           <!-- 비밀번호 재설정 -->
           <div id="updateMemberPwd">
-	          <input type="password" placeholder="비밀번호 재설정" name="memberPwd" required>
-	          <input type="password" placeholder="비밀번호 재설정 확인" name="memberPwdCheck" required>
-	      	  <button type="button" onclick="updateMemberPwd();">비밀번호 재설정하기</button>
+	          <input type="password" placeholder="비밀번호 재설정" name="memberPwd" maxlength="20" required>
+            <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
+	          <input type="password" placeholder="비밀번호 재설정 확인" name="memberPwdCheck" maxlength="20" required>
+            <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다.</label>
+	      	  <button type="button" id="updatePwdBtn" onclick="updateMemberPwd();">비밀번호 재설정하기</button>
           </div>
 	          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
         </div>
@@ -132,13 +139,30 @@
 		
 		const $memberPwd = $('input[name=memberPwd]');
 		const $memberPwdCheck = $('input[name=memberPwdCheck]');
+
+    // 비밀번호 재설정 유효성 검사
+    // 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
+    $(function(){
+      $('input[name=memberPwd]').keyup(function(){
+
+        var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
+        
+        if(!$regExp.test($('input[name=memberPwd]').val())){
+          $('label[for="memberPwd"]').css('color', 'red');
+          $('#updatePwdBtn').attr('disabled', true);
+        } else{
+          $('label[for="memberPwd"]').css('color', 'black');
+          $('#updatePwdBtn').attr('disabled', false);
+        }
+      })
+    })
 		
 		function updateMemberPwd(){
 			
 			if($memberPwd.val() != $memberPwdCheck.val()){
 				console.log("비밀번호 달라");
+        $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
 			} else{ // 비밀번호 재설정 및 확인 동일작성
-				
 			$.ajax({
 				url : 'yrupdateMemberPwd.me',
 				data : {memberId : $memberId.val(),
@@ -147,7 +171,7 @@
 				success : function(result){
 					if(result == 'S'){
 						Swal.fire({
-							  title: '비밀번호 재설정',
+							  title: '비밀번호 재설정 성공',
 							  text: "비밀번호가 변경되었습니다.",
 							  icon: 'success',
 							  confirmButtonColor: '#3085d6',
@@ -158,30 +182,29 @@
 						  }
 						})
 
-						
-						
-						
 					} else{
-						
+						// ★★★★★★★★★★★★여기서 jsp로 보내니까 다시 입력하면 AJAX통신 오류가 뜸
+            Swal.fire({
+							  title: '비밀번호 재설정 실패',
+							  text: "다시 시도해 주십시오.",
+							  icon: 'error',
+							  confirmButtonColor: '#d33',
+							  confirmButtonText: '확인'
+						}).then((result) => {
+						  if (result.isConfirmed) {
+							  
+							  $(location).attr("href", "views/member/searchMemberPwdForm.jsp");
+						  }
+						})
 					}
 
 				},
 				error : function(){
 					console.log('비밀번호 재설정 AJAX통신 실패!');
 				}
-				
-				
 			})
-				
 			}
-			
-			
-			
-			
-			
-			
-		}
-	
+    };
 	
 	</script>
 
