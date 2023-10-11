@@ -43,7 +43,7 @@ public class MemberDeleteManagerController extends HttpServlet {
 			int mno = Integer.parseInt(jarr);
 			int result = new MemberService().deleteMember(mno);
 			if(result == 1) {
-				del_list.add(mno);
+				memdelsuccess.add(mno);
 			}
 		}
 		

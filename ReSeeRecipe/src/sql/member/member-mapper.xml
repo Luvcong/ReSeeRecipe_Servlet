@@ -193,4 +193,13 @@
 		WHERE
 				MEM_N0 = ?
 	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE
+				TB_MEMBER
+		   SET
+		   		MEM_STATUS = 'N'
+		 WHERE
+		 		MEM_NO = ?
+	</entry>
 </properties>
