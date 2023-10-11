@@ -329,6 +329,8 @@
 						dataType: 'json',
 						data : {'dmNo' : Object.keys(dm_list)},
 						success : function(result){
+						    Swal.fire('성공', '쪽지 삭제가 완료되었습니다!', 'success');
+						    
 							for(let tr of trs){
 								let dmNo = parseInt(tr.children[1].textContent);	
 								if(result.includes(dmNo)){		// dmNo를 포함하는 문자열이 있으면 == true
@@ -361,7 +363,6 @@
 							console.log('실패');
 						},
 						complete : function (result) {
-						    Swal.fire('성공', '쪽지 삭제가 완료되었습니다!', 'success');
 							/* console.log(result.responseJSON);
 							for(let tr of trs) {
 								let dmno = parseInt(tr.children[1].textContent);
