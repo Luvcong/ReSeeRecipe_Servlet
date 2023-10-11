@@ -241,7 +241,7 @@
 					/*
 					$.ajax({
 						type : 'get',
-						url : 'ajaxPagination.re',
+						url : 'ajaxRecipePagination.re',
 						data : {currentPage : $(this).val()},
 						//async : false,						
 						success : function(result){

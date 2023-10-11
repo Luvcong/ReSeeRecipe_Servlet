@@ -22,6 +22,8 @@ public class RecipeServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -32,6 +34,7 @@ public class RecipeServlet extends HttpServlet {
 		String viewPath = "";
 		
 		RecipeController rc = new RecipeController();
+		RecipeErrorController rec = new RecipeErrorController();
 		
 		// 인코딩 세팅
 		request.setCharacterEncoding("UTF-8");	
@@ -40,51 +43,56 @@ public class RecipeServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		System.out.println(mapping);
+		
 		// Controller로 분배
 		switch(mapping) {
-			/* 레시피보기 기본 (최신순) */
+			/* 1. 레시피 메인 보기 (전체조회 / 최신순==레시피PK번호순) */
 			case "selectRecipeList" : viewPath = rc.selectRecipeList(request, response); break;
 			
-			// 레시피보기 좋아요순 selectRecipeListHt
-			//case "selectRecipeListHt" : System.out.println(mapping); break;
+			/* 2. 레시피 상세글 보기 (디테일 조회) */
+			//case "recipeDetail" : viewPath = rc.selectRecipeList(request, response); break;
 			
-			// 레시피보기 조회수순 selectRecipeListVw
-			//case "selectRecipeListVw" : System.out.println(mapping); break;
-			
-			// 레시피보기 인기셰프순 selectRecipeListPo
-			//case "selectRecipeListPo" : System.out.println(mapping); break;
-			
-			
-			
-			/* 카테고리 리스트 조회 */
-			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
-			
-			// 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax => 이후 forward
+			/* 3_1. 글작성하기 양식 요청 recipeEnrollForm => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax => 이후 forward */
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
 			
-			
-			// 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect
-			//case "insertRecipe" : break;
-			
-			// 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자)
-			//case "searchKeyWord" : System.out.println(mapping); break;
+			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect */
+			//case "insertRecipe" : viewPath = rc.insertRecipe(request, response); break;
 			
 			
+			/* 위의 것 완료 후 */
 			
-			case "errorNoRecipeList" : viewPath = rc.errorNoRecipeList(request, response); break;
-			default : System.out.println("잘못된 요청입니다 이전 화면으로 돌아갑니다"); break;
+			/* 1_2. 레시피보기 좋아요순 selectRecipeListHt */
+			//case "selectRecipeListHt" : viewPath = rc.selectRecipeListHt(request, response); break;
+			
+			/* 1_3. 레시피보기 조회수순 selectRecipeListVw */
+			//case "selectRecipeListVw" : viewPath = rc.selectRecipeListVw(request, response); break;
+			
+			/* 1_4. 레시피보기 인기셰프순 selectRecipeListPo */
+			//case "selectRecipeListPo" : viewPath = rc.selectRecipeListPo(request, response); break;
+			
+			/* 4. 카테고리 리스트 조회 */
+			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
+			
+			
+			/* 4. 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자) */
+			//case "searchKeyWord" : viewPath = rc.searchKeyWord(request, response); break;
+			
+			
+			/* 에러메세지 종류 */
+			/* 레시피 전체조회 결과 없을 시 에러페이지로 포워딩 */
+			case "errorNoRecipeList" : viewPath = rec.errorNoRecipeList(request, response); break;
+			
+			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 포워딩 */
+			default : viewPath = rec.errorDefault(request, response); break;
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
 		if(flag) { request.getRequestDispatcher(viewPath).forward(request, response); }
 		else 	 { response.sendRedirect(viewPath); }
-	
-	
-	
-	
-	
 	}
 
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
