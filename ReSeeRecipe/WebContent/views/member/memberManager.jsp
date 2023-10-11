@@ -118,9 +118,9 @@
                   </div> -->
                   <select id="memSearch"  value="회윈조회"class="btn btn-warning">
                   	<option selected>회원조회</option>
-                  	<option>회원ID</option> 
-                  	<option>닉네임</option> 
-                  	<option>이름</option> 
+                  	<option value="MEM_ID">회원ID</option> 
+                  	<option value="MEM_NICKNAME">닉네임</option> 
+                  	<option value="MEM_NAME">이름</option> 
                   </select>
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
@@ -136,7 +136,7 @@
         	});
         	function HL_memSearch(){
         		let $option = $('option:selected');
-        		console.log($option.text());
+        		console.log($option.val());
         		let $searcon = $('#searchMember').val();
         		console.log($searcon);
         		$.ajax({
@@ -149,6 +149,9 @@
         			success : function(result){
         				console.log(result);
     					console.log('회원 정보 검색  성공');
+    					for(let i in result){
+    						console.log(result[memNo]);
+    					}
     					console.log(typeof(result.enrollDate));
     					let resultStr = '';
     					resultStr += '<br><br>'+ '<h2>회원 정보 검색 결과 보기</h2>'

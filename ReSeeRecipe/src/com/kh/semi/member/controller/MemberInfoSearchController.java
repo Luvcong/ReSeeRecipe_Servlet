@@ -38,7 +38,7 @@ public class MemberInfoSearchController extends HttpServlet {
 		
 		// 값 뽑기
 		String memSearchoption = request.getParameter("option");
-		String memSearchcon = request.getParameter("searchcon");
+		String memSearchcon = request.getParameter("searhcon");
 		
 		ArrayList<Member> list = new MemberService().searchMember(memSearchoption, memSearchcon);
 		

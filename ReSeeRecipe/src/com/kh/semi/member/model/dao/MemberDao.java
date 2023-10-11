@@ -537,14 +537,6 @@ public class MemberDao {
 		}
 		*/
 		
-		if(memSearchoption == "회원ID") {
-			memSearchoption = "MEM_ID";
-		} else if(memSearchoption == "이름") {
-			memSearchoption = "MEM_NAME";
-		} else if(memSearchoption == "닉네임") {
-			memSearchoption = "MEM_NICKNAME";
-		} 
-		
 		String sql = "SELECT"
 						   + "MEM_NO"
 						   + ",MEM_ID"
@@ -562,7 +554,7 @@ public class MemberDao {
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
 						   + memSearchoption
-					  + "= ?"
+					  + " = ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		
