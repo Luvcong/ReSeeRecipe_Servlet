@@ -118,14 +118,14 @@
 </head>
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
-	<!-- <%@ include file="/views/common/header.jspf" %> 
+	<%@ include file="/views/common/header.jspf" %> 
 	
 	<% if(errorMsg != null) { %>
 		<script>
 			alert("<%=errorMsg%>");
 		</script>
 	<% } %>
-  -->
+  
     <form action="yrenroll.me" method="post">
 
       <h1 id="title"><b>회원가입</b></h1>
@@ -152,7 +152,7 @@
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
           <!-- <button type="button" onclick="emailCheck();">이메일 중복확인</button> -->
-          <label for="memberEmail">* 인증받으실 이메일을 입력해 주세요.</label>
+          <label for="memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
           
 
           
@@ -225,7 +225,7 @@
     </form>
       
     <!-- footer 푸터영역 -->
-    <!-- <%@ include file="/views/common/footer.jspf" %> -->
+    <%@ include file="/views/common/footer.jspf" %>
 
     <script>
         /*
@@ -370,9 +370,9 @@
             $('label[for="memberPwdCheck"]').text("").css('color', 'black');
           };
 
-          // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
+          // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 6자가 들어간 형식)
           if($(this)[0] == $('#memberEmail')[0]) {
-            var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+            var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,6}$/;
             // 중복체크 호출
             emailCheck();
             /*
@@ -388,6 +388,7 @@
             // labels[0].style.color = 'red';
             // memberName.select();
             $errorCheck.css('color', 'red');
+            $('#submitBtn').attr('disabled', true);
           } else{
             $errorCheck.css('color', 'black');
             $('#submitBtn').attr('disabled', false);
@@ -396,7 +397,7 @@
 
         });
         
-        // 모든 유효성검사 통과 시 버튼 활성화
+        // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
         // var $count = $cName * $cNickname;
         // if($count > 0){
         //   $('#submitBtn').attr('disabled', false);

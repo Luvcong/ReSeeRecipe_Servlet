@@ -1,22 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.kh.semi.board.recipe.model.vo.Recipe,
+				 com.kh.semi.common.model.vo.PageInfo,
 				 java.util.ArrayList" %>
 <%	
 	// ArrayList로 받아온 recipes
 	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");
 	
-	/*
-	//페이지처리용 변수
-	// PageInfo 객체 받음
+	// 페이지네이션 변수
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	// 받은 객체에서 int형 변수로 추출
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage()
-	*/
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -199,8 +195,33 @@
 		
 		<!-- 페이지네이션 영역 -->
 		<div id="recipeMainPagationContainer">
-
+			<% if(currentPage != 1) { %>
+				<button id="prevPage">&lt;</button>
+			<% } %>
+			
+			<% for(int i = startPage; i <= endPage; i++) { %>
+				<% if(currentPage != i) { %>
+					<button class="certainPages" value="<%=i%>"><%=i%></button>
+				<% } else { %>
+					<button disabled><%=i%></button>
+				<% } %>
+			<% } %>
 		</div>
+		<script>
+			$(function(){
+				// 페이지네이션 요청
+				$('#prevPage').click(function(){
+				
+				});
+				
+				$('.certainPages').click(function(){
+					var cPage = $(this).val();
+					console.log(cPage);
+				});
+			});
+		</script>
+		
+		
 		
 	</div>
 	<!-- 전체를 감싸는 div -->
