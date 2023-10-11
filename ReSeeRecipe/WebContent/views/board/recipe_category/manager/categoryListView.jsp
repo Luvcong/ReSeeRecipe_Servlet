@@ -69,6 +69,18 @@
 .searchTable{
 	padding: 0 10px;
 }
+
+#updateCategoryForm th{
+	width: 170px;
+	height: 80px;
+}
+
+#updateCategoryForm td input{
+	height: 80px;
+	
+}
+
+
 </style>
 
 <!-- sweetalert -->
@@ -182,16 +194,16 @@
 					<table class="modal-table" border="1">
 						<tr>
 							<th>기존 카테고리명</th>
-							<td><input type="text" name="recipeCategoryName" readonly></td>
+							<td><input type="text" name="categoryName" readonly></td>
 						</tr>
 						<tr>
 							<th>현재 게시글 수</th>
-							<td><input type="text" name="recipeBoardCount" readonly></td>
+							<td><input type="text" name="boardCount" readonly></td>
 						</tr>
 						<tr>
-							<th>변경 카테고리명</th>
+							<th>변경 카테고리명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 20 byte</div></th>
 							<td>
-								<input type="text" name="recipeCategoryUpdateName" placeholder="변경 카테고리명을 입력하세요">
+								<input type="text" name="categoryUpdateName" placeholder="변경 카테고리명을 입력하세요" onkeyup="checkedByte(this)">
 							</td>
 						</tr>
 					</table>
@@ -219,15 +231,36 @@
 		var failMsg = '<%= failMsg %>';
 		
 		if(successMsg != 'null'){
-			swal('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
+			Swal.fire('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
 		}
 		
 		if(failMsg != 'null'){
-			swal('실패', failMsg, 'error');
+			Swal.fire('실패', failMsg, 'error');
 		}
 		
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
+  </script>
+  
+  <!-- 쪽지 글자 byte count -->
+  <script>
+	let limitByte = 500;
+	let totalByte;
+	
+	function checkedByte(obj){
+		totalByte = 0;
+		let message = $(obj).val();
+	
+		for(let i = 0; i < message.length; i++){
+			var countByte = message.charCodeAt(i);
+			if(countByte > 128){
+				totalByte += 3;
+			} else {
+				totalByte++;
+			}
+		}
+		$('#count').text(totalByte);
+	}	// checkedByte
   </script>
   
   <!-- 카테고리 삭제 -->
@@ -364,20 +397,26 @@
  			// 기존게시글 input value
  			let category_name = checked_tr.children[2].textContent;
  			// console.log(category_Name);	// input check 첫번째 요소 값 ok
- 			let modal_input = modal.querySelector("input[name='recipeCategoryName']");
+ 			let modal_input = modal.querySelector("input[name='categoryName']");
  			modal_input.value = category_name;
  			// console.log(modal_input);
  			
  			// 기존게시글 수 input value
  			let category_count = checked_tr.children[3].textContent;
- 			modal_input = modal.querySelector("input[name='recipeBoardCount']");
+ 			modal_input = modal.querySelector("input[name='boardCount']");
  			modal_input.value = category_count + '개';
 
  			
  			// 수정버튼 클릭시 중복여부 체크
  			// 중복값이 있는 경우 alert창
+ 			// let origin_name = trs[0].children[2].textContent; - 없음 출력
  			
- 				
+ 			
+			let origin_name = checked_tr.children[2].textContent;	
+ 			// console.log(origin_name);	- 카테고리명 ok
+ 			
+ 			console.log(checked_tr.children[2].textContent);
+ 			console.log(checked_tr);
  				
   			$('#updateCategoryForm').modal('show');
   			

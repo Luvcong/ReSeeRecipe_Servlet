@@ -159,7 +159,7 @@
 									<td height="200px"></td>
 								</tr>
 								<tr>
-									<th class="text-danger">문의 답변<div style="color: gray"><span id="count">0</span>/500 byte</div></th>
+									<th class="text-danger">문의 답변<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 500 byte</div></th>
 									<td><textarea id="reply-textarea" name="dmReply" onkeyup="checkedByte(this)" placeholder="&#10;&#10;&#10;답변할 내용을 입력하세요&#10;(최대 500byte)"></textarea></td>
 								</tr>
 							</table>
