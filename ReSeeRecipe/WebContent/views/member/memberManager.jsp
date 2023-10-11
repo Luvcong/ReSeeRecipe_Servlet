@@ -125,10 +125,88 @@
                 </div>
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchMember" name="searchMember" required>
                 <div class="input-group-append">
-                    <button class="btn btn-warning" type="submit">검색</button>
+                    <button class="btn btn-warning" type="submit" name="HL_memSearch" id="HL_memSearch">검색</button>
                 </div>
             </div>
         </div>
+        
+        <script>
+        	$(function(){
+        		$('#HL_memSearch').on('click', HL_memSearch);
+        	});
+        	function HL_memSearch(){
+        		let $option = $('option:selected');
+        		console.log($option.text());
+        		let $searcon = $('#searchMember').val();
+        		console.log($searcon);
+        		$.ajax({
+        			url : 'hlsearchmeminfo.ma',
+        			type : 'post',
+        			data : {
+        				option : $option.text(),
+        				searhcon : $searcon
+        			},
+        			success : function(result){
+        				console.log(result);
+    					console.log('회원 정보 검색  성공');
+    					console.log(typeof(result.enrollDate));
+    					let resultStr = '';
+    					resultStr += '<br><br>'+ '<h2>회원 정보 검색 결과 보기</h2>'
+    					    	   + '<br><br>' + '<div class="container">' 
+    					    	   + '<div class="from-control">'
+    					    	   + '<table class="table">'
+    					      	   + '<tr>'
+    							   + '<th>회원번호</th>'
+    							   + '<td>' + result.memNo + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>회원이름</th>'
+    							   + '<td>' + result.memName + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>회원아이디</th>'
+    							   + '<td>' + result.memId + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>회원닉네임</th>'
+    							   + '<td>' + result.memNickname + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>회원이메일</th>'
+    							   + '<td>' + result.memEmail + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>가입일자</th>'
+    							   + '<td>' + result.enrollDate + '<td>'
+    							   + '</tr>'
+    							   + '<tr>'
+    							   + '<th>회원등급명</th>'
+    							   + '<td>' + result.memGradeName + '<td>'
+    							   + '</tr>' 
+    							   + '</table>'
+    					           + '<br><br>'
+    					           + '<div id="memberdetailbtn">'
+    					           + '<button id="memberupdateFormbtn" class="w3-button w3-round w3-yellow">수정하기</button>' + '\t'
+    					           + '<button onclick="abc()" id="memberList" class="w3-button w3-round w3-yellow">목록으로</button>'
+    					           + '</div>'
+    					           + '</div>'
+    					   		   + '</div>';
+    							   
+    					$('.header2').html(resultStr);
+        			},
+        			error : function(result){
+        				
+        			}
+        		})
+        	}
+        
+        
+        
+        
+        
+        
+        </script>
+        
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
@@ -314,19 +392,27 @@
 						dataType : 'json',
 						data : {'mno' : del_list},
 						success : function(result){
+							Swal.fire('성공', '탈퇴회원에서 확인하세요!', 'success');
+							
 							for(let tr of memtrs){
-								let mno = parseInt(tr.querySelector('input').checked.value);
-								if(result.includes(mno)){
+								let mno = parseInt(tr.children[1].textContent);
+								console.log('result정체?', result)
+								let mnotr = result.indexOf(mno);
+								if(mnotr != -1){ //mno
 									tr.remove();
-									
+									console.log(tr);
 								}
+								console.log('mnotr', mnotr);
+								console.dir(mnotr);
+								console.log('result정체3?', result);
+								console.dir(result);
 							}
 						},
 						error : function(result){
 							console.log('실패');
 						},
 						complete : function(result) {
-							Swal.fire('성공', '탈퇴회원에서 확인하세요!', 'success');
+							
 						}
 					});
        			 });		
