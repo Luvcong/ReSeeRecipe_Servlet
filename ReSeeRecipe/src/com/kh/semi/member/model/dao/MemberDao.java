@@ -525,6 +525,7 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		/*
 		if(memSearchoption == "회원ID") {
 			memSearchoption = "MEM_ID";
 		} else if(memSearchoption == "이름") {
@@ -534,6 +535,7 @@ public class MemberDao {
 		} else {
 			totalsearchMember(conn, memSearchoption, memSearchcon);
 		}
+		*/
 		
 		String sql = "SELECT"
 						   + "MEM_NO"
@@ -552,7 +554,7 @@ public class MemberDao {
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
 						   + memSearchoption
-					  + "= ?"
+					  + " = ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		
@@ -574,15 +576,19 @@ public class MemberDao {
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
+				System.out.println("회원정보조회리스트add>>"+  list);
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return list;
 		
+		System.out.println("회원정보조회리스트리턴>"+  list);
+		return list;
 	}
 	
 	/*
