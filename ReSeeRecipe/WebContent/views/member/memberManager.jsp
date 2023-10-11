@@ -248,7 +248,7 @@
         
         
         // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
-          $(function(){
+/*           $(function(){
         	$('#memberCheckbox').on('change', function(){
         		let $memDetailCheck = $(this).prop('checked');
         		let $delList = [];
@@ -260,7 +260,7 @@
         			$memDetailCheck = false;
         		} 
         	})
-        })  
+        })  */ 
         
         
         
@@ -274,17 +274,30 @@
         	
         	
         	function deleteMember(){
-        		let $trs = $('#memAllList > tr'); // .table tr
+        		let $trs = $('#memAllList > tr'); // tbody > tr
         		console.log('$trs' + $trs);
-        		let $tr_check = null;
-        		for(let tr of $trs){
+        		let $trch = $('$trs.children().eq(0)');
+        		let $delList = [];
+        		if($trch.prop('checked')){
+        			$delList.push(this);
+        			console.log('$delList>>',$delList);
+        		}
+        		let $tr_check = null;s
+        		/* for(let tr of $trs){
     				let $cm = $(tr).find('input');
         			if($cm.prop('checked')){
         				console.log('$cm.prop' + $cm.prop('checked'));
         				$tr_checked = tr;
         				break; //break;
         			}
+        		} */
+        		
+        		for(let i in $trs){
+        			
         		}
+        		
+        		
+        		
         		
         		if($tr_check == null){
         			Swal.fire('실패', '회원을 선택해주세요', 'error');
