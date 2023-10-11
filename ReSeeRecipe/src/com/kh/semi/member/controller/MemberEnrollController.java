@@ -51,8 +51,7 @@ public class MemberEnrollController extends HttpServlet {
 		int result = new MemberService().insertMember(m);
 		
 		if(result > 0) {
-			request.setAttribute("alertMsg", "회원가입 성공~");
-			response.sendRedirect(request.getContextPath());
+			request.getRequestDispatcher("views/member/memberEnrollSuccess.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "회원가입에 실패하셨습니다.");
 			request.getRequestDispatcher("views/member/yrenrollForm.me").forward(request, response);

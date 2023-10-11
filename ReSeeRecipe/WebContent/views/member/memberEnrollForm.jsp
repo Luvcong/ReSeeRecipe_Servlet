@@ -148,7 +148,7 @@
           <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
 
           <input type="password" placeholder="비밀번호" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
-          <label for="memberPwdCheck"></label>
+          <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다.</label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
           <!-- <button type="button" onclick="emailCheck();">이메일 중복확인</button> -->
@@ -218,8 +218,8 @@
 
             </div>
           </div>
-          <!-- 제출버튼!!!!!!!!!!!!!!!!!! -->
-          <button type="submit" onclick = "return validate();">가입하기</button>
+          <!-- 제출버튼!!!!!!!!!!!!!!!!!! onclick = "return validate();"-->
+          <button type="submit" id="submitBtn">가입하기</button>
       </div>
         
     </form>
@@ -237,6 +237,7 @@
         var memberPwd = document.getElementById('memberPwd');
         var memberPwdCheck = document.getElementById('memberPwdCheck');
         var memberEmail = document.getElementById('memberEmail');
+        var submitBtn = document.getElementById('submitBtn');
 
         /*
         // 각 input요소에 대응하는 label요소들
@@ -310,7 +311,7 @@
     
     <script>
 
-      $(function(){
+      $(function() {
         // ★★★★★★★★★★★★★★★★★★클릭한거 뒤에 있는 label의 속성값 바꾸기~_231010
 
         $('input').keyup(function(){
@@ -352,13 +353,14 @@
           // 5) 비밀번호 확인
           if($(this)[0] == $('#memberPwdCheck')[0] && $(this).val() != $('#memberPwd').val()) {
             $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다. ').css('color', 'red');
+            $('#submitBtn').removeAttr('disabled');
           } else{
             $('label[for="memberPwdCheck"]').text('').css('color', 'black');
           };
 
           // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
           if($(this)[0] == $('#memberEmail')[0]) {
-            var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{6,24}$/;
+            var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
             // 중복체크 호출
             emailCheck();
             // if(emailCheck()) {
@@ -374,7 +376,8 @@
             
             $errorCheck.css('color', 'red');
 
-            return false;
+            $('#submitBtn').removeAttr('disabled');
+
           } else{
             $errorCheck.css('color', 'black');
           };
