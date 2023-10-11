@@ -270,11 +270,11 @@
         	
         	for(let tr of mem_trs){
         		let mem_input = tr.querySelector('input');
-        		console.log(mem_input);
+        		console.log('몇개선택', mem_input);
         		if(mem_input.checked){
         			check = tr;
         			break;
-        			console.log(check);
+        			console.log('체크돼나', check);
         		}
         	}
         	
@@ -303,7 +303,8 @@
 					for(let tr of memtrs){
 						let memcheckbox = tr.querySelector('input');
 						if(memcheckbox.checked == true){
-							del_list.push(memcheckbox.value());
+							let memcheckno = memcheckbox.value;
+							del_list.push(memcheckno);
 						}
 					}
         		
