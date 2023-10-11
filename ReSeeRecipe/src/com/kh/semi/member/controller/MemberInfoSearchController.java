@@ -41,7 +41,7 @@ public class MemberInfoSearchController extends HttpServlet {
 		String memSearchcon = request.getParameter("searhcon");
 		
 		ArrayList<Member> list = new MemberService().searchMember(memSearchoption, memSearchcon);
-		
+		System.out.println("회원정보조회리스트>>"+  list);
 		response.setContentType("application/json; charset=UTF-8");
 		
 		new Gson().toJson(list, response.getWriter());

@@ -576,15 +576,19 @@ public class MemberDao {
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
 				list.add(m);
+				System.out.println("회원정보조회리스트add>>"+  list);
 			}
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return list;
 		
+		System.out.println("회원정보조회리스트리턴>"+  list);
+		return list;
 	}
 	
 	/*
