@@ -207,16 +207,54 @@
 				<% } %>
 			<% } %>
 		</div>
+		
+		
+		
 		<script>
+		
 			$(function(){
+	
+				var $titleDiv = $('.thumbnail-bottom-inner1');
 				// 페이지네이션 요청
-				$('#prevPage').click(function(){
 				
+				$('#prevPage').click(function(){
+					console.log('aa');
 				});
 				
+			
+				
 				$('.certainPages').click(function(){
-					var cPage = $(this).val();
-					console.log(cPage);
+					console.log($titleDiv.children());
+					
+					
+					$titleDiv.children().each(function(index, value){
+						console.log(index);
+						console.log($(value).html());
+					});
+					
+					$titleDiv.children().each(function(){
+						console.log($(this).html());
+					});
+					
+					
+					
+					/*
+					$.ajax({
+						type : 'get',
+						url : 'ajaxPagination.re',
+						data : {currentPage : $(this).val()},
+						//async : false,						
+						success : function(result){
+							// 양식 div 내부 값만 변경해주기
+							//<p><--%= rList.get(i).getRecipeTitle() %--></p>
+						},
+						error : function(result){
+							alert('오류 발생!');
+						}
+					});
+					*/
+					
+					
 				});
 			});
 		</script>
