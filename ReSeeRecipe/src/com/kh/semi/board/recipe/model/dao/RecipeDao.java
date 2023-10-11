@@ -59,6 +59,13 @@ public class RecipeDao {
 	 * @param pi
 	 * @return
 	 */
+	/**
+	 * 레시피 메인 보기 기능, 페이지네이션 처리 된 레시피목록을 최신순(레시피 PK번호순)으로 조회한 후<br>
+	 * 목록과 PageInfo객체를 RecipeMainView로 포워딩함
+	 * @param conn : Connection객체
+	 * @param pi : 페이지네이션 처리를 위한 정보가 담긴 PageInfo객체<br>
+	 * @return
+	 */
 	public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi) {
 		
 		ArrayList<Recipe> list = new ArrayList();

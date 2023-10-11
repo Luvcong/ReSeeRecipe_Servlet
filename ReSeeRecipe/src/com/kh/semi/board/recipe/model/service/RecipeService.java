@@ -30,9 +30,14 @@ public class RecipeService {
 	
 	
 	/**
-	 * 페이지네이션 처리된 레시피 목록 조회 (최신순)
-	 * @param pi
+	 * 레시피 메인 보기 기능, 페이지네이션 처리 된 레시피목록을 최신순(레시피 PK번호순)으로 조회한 후<br>
+	 * 목록과 PageInfo객체를 RecipeMainView로 포워딩함
+	 * @param pi : 페이지네이션 처리를 위한 정보가 담긴 PageInfo객체<br>
+	 * PageInfo필드 : listCount(현재 게시글 총 개수), currentPage(요청온 페이지 번호),<br>
+	 * pageLimit(한 페이지에 보일 페이징 바의 최대 개수), boardLimit(한 페이지에 보일 게시글 최대 개수)<br>
 	 * @return
+	 * > ArrayList<Recipe> rList : 페이지네이션 처리되어 조회된 레시피 글 정보를 Recipe객체로 만든 후 ArrayList에 담음<br>
+	 * 	 Recipe필드 :  recipeNo, recipeTitle, recipeCount, titleImg, memNickName, htCount<br>
 	 */
 	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
 		Connection conn = getConnection();
