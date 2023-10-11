@@ -16,10 +16,14 @@ public class RecipeController {
 	
 	
 	/**
-	 * 페이지네이션 처리 된 레시피목록을 조회해옴 (레시피 전체조회)
-	 * @param request
-	 * @param response
-	 * @return
+	 * 레시피 메인 보기, 페이지네이션 처리 된 레시피목록을 조회해옴 (전체조회 / 최신순==레시피PK번호순)
+	 * @param request : 요청 온 페이지 번호(페이지 바의 현재 페이지)
+	 * @return :
+	 * > ArrayList<Recipe> rList : 페이지네이션 처리되어 조회된 레시피 글 정보를 Recipe객체로 만들어 어레이리스트에 담음<br>
+	 * 	 Recipe필드 :  recipeNo, recipeTitle, recipeCount, titleImg, memNickName, htCount<br>
+	 * > 페이지 정보가 담긴 PageInfo객체 : 페이지네이션 처리를 위한 정보가 담김<br>
+	 * 	 PageInfo필드 : listCount(현재 게시글 총 개수), currentPage(사용자가 요청한 페이지),<br>
+	 * 	 pageLimit(한 페이지에 보일 페이징 바의 최대 개수), boardLimit(한 페이지에 보일 게시글 최대 개수)<br>
 	 */
 	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -54,9 +58,7 @@ public class RecipeController {
 	
 	/**
 	 * 카테고리 목록을 조회해 반환
-	 * @param request : HttpServletRequest객체
-	 * @param response : HttpServletResponse객체
-	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 * @return : 레시피 카테고리 목록이 담긴 어레이리스트 ArrayList<RecipeCategory>
 	 */
 	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -98,19 +100,6 @@ public class RecipeController {
 		
 		return viewPath;
 	}
-	
-	
-	
-	public String errorNoRecipeList(HttpServletRequest request, HttpServletResponse response) {
-		request.setAttribute("errorMsg", "조회된 게시글이 존재하지 않습니다");
-		String viewPath = "/views/common/errorPage.jsp";
-		return viewPath;
-	}
-	
-	
-	
-	
-	
 	
 	
 }//class.end
