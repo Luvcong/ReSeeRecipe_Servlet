@@ -179,4 +179,15 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public ArrayList<Member> searchMember(String memSearchoption, String memSearchcon) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		
+		close(conn);
+		
+		return list;
+	}
 }

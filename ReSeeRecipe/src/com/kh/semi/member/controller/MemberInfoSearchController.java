@@ -40,7 +40,7 @@ public class MemberInfoSearchController extends HttpServlet {
 		String memSearchcon = request.getParameter("searchcon");
 		
 		ArrayList<Member> list = new MemberService().searchMember(memSearchoption, memSearchcon);
-	
+		
 	
 	}
 
