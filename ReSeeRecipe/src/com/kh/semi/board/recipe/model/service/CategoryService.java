@@ -1,11 +1,16 @@
 package com.kh.semi.board.recipe.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.board.recipe.model.dao.CategoryDao;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.common.model.vo.PageInfo;
 
 public class CategoryService {
 	
@@ -22,11 +27,11 @@ public class CategoryService {
 	 * @author JH
 	 * @Date : 2023. 10. 6.
 	 */
-	public ArrayList<RecipeCategory> selectCategoryList(){
+	public ArrayList<RecipeCategory> selectCategoryList(PageInfo pi){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<RecipeCategory> list = categoryDao.selectCategoryList(conn);
+		ArrayList<RecipeCategory> list = categoryDao.selectCategoryList(conn, pi);
 		
 		close(conn);
 		
@@ -129,7 +134,16 @@ public class CategoryService {
 	}	// updateCategory
 	
 	
-	
+	public int selectCategoryListCount() {
+		
+		Connection conn = getConnection();
+		
+		int categoryListCount = categoryDao.selectCategoryListCount(conn);
+		
+		close(conn);
+		
+		return categoryListCount;
+	}	// selectCategoryListCount
 	
 	
 	

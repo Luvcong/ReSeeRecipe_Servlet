@@ -1,5 +1,7 @@
 package com.kh.semi.board.recipe.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.common.model.vo.PageInfo;
 
 public class CategoryDao {
 	
@@ -37,7 +39,7 @@ public class CategoryDao {
 	 * @author JH
 	 * @Date : 2023. 10. 6.
 	 */
-	public ArrayList<RecipeCategory> selectCategoryList(Connection conn){
+	public ArrayList<RecipeCategory> selectCategoryList(Connection conn, PageInfo pi){
 		
 		ArrayList<RecipeCategory> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -46,6 +48,14 @@ public class CategoryDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+//			System.out.println(startRow);	// 1
+//			System.out.println(endRow);		// 10
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -232,6 +242,7 @@ public class CategoryDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rset);
 		}
 		
 		return count;
@@ -239,7 +250,31 @@ public class CategoryDao {
 	
 	
 	
-	
+	public int selectCategoryListCount(Connection conn) {
+		
+		int categoryListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectCategoryListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				categoryListCount = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return categoryListCount;
+	}	// selectCategoryListCount
 	
 	
 	

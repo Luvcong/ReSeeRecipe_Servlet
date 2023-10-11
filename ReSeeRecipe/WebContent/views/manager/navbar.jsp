@@ -84,7 +84,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li onclick="goMenu('/jhselect.ct')"><a href="#">카테고리 관리</a></li>
+					<li onclick="goMenu('/jhselect.ct?page=1');"><a href="#">카테고리 관리</a></li>
 					<li><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
