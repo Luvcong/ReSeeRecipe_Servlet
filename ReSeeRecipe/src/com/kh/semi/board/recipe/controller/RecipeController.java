@@ -41,6 +41,7 @@ public class RecipeController {
 		
 		// 넘길 값 지정
 		request.setAttribute("rList", rList);
+		request.setAttribute("pi", pi);
 		
 		// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 		viewPath = "/views/board/recipe/recipeMainView.jsp";
