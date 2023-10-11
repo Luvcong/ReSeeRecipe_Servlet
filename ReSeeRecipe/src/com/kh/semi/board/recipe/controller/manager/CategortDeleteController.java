@@ -1,12 +1,16 @@
 package com.kh.semi.board.recipe.controller.manager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -44,33 +48,29 @@ public class CategortDeleteController extends HttpServlet {
 //		System.out.println(categoryCountArr);
 		String[] categoryNoArr = request.getParameterValues("categoryNo[]");
 		String[] categoryCountArr = request.getParameterValues("categoryCount[]");
+		
+		// null체크
+		if(categoryNoArr.length != categoryCountArr.length) {
+			return;
+		}
+		
+		JsonArray jArr = new JsonArray();
+		
+		for(int i = 0; i < categoryNoArr.length; i++) {
+			int key = Integer.parseInt(categoryNoArr[i]);
+			int val = Integer.parseInt(categoryCountArr[i]);
+			int result = categoryService.deleteCategory(key, val);
+			
+			if(result > 0) {
+				jArr.add(key);	// categoryNo으로 tr remove
+			}
+		}
+
 		// System.out.println(categoryNo);
 		// System.out.println(categoryCount);
 		
-
-		
-		
-		
-		// System.out.println(categoryArr);
-		
-		// 3) 데이터가공 xx
-		// 4) Service호출
-		
-		
-//		JsonArray jArr = new JsonArray();
-//		
-//		for(String arr : categoryArr) {
-//			int categoryNo = Integer.parseInt(arr);
-//			int result = categoryService.deleteCategory(categoryNo);
-//			if(result > 0) {
-//				jArr.add(categoryNo);
-//			}
-//		}
-		
-		// 5) 형식 및 인코딩 / 화면
-//		response.setContentType("application/json; charset=UTF-8");
-//		new Gson().toJson(jArr, response.getWriter());
-		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(jArr, response.getWriter());
 		
 		
 	}

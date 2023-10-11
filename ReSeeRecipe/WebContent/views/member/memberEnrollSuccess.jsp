@@ -56,7 +56,7 @@
             <h1>회원가입이 완료되었습니다.</h1>
         </div>
         <div class="success">
-            <button type="button" class="btn btn-secondary">로그인하러 가기</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
         </div>
     </div>
 
