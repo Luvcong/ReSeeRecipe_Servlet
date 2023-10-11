@@ -276,7 +276,7 @@
         	function deleteMember(){
         		let $trs = $('#memAllList > tr'); // tbody > tr
         		console.log('$trs' + $trs);
-        		let $trch = $('$trs.children().eq(0)');
+        		let $trch = $('$trs > td');
         		let $delList = [];
         		if($trch.prop('checked')){
         			$delList.push(this);

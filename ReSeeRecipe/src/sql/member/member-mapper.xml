@@ -95,7 +95,7 @@
 	</entry>
 	
 
-	
+	<!-- 관리자 회원 정보 목록 전체  -->
 	<entry key="selectMemberAll">
 		SELECT *
 		 FROM(SELECT ROWNUM RNUM, A.* 
@@ -122,6 +122,7 @@
 				WHERE RNUM BETWEEN ? AND ?					   		
 	</entry>
 	
+	<!-- 관리자 회원 정보 상세보기 -->
 	<entry key="selectMemInfo">
 		SELECT
 				MEM_NO
@@ -143,6 +144,7 @@
 	       		MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 관리자 회원 정보 수정 -->
 	<entry key="updateMemInfo">
 		UPDATE
 		   		TB_MEMBER
@@ -158,6 +160,7 @@
 	    		MEM_NO = ?
 	</entry>
 	
+	<!-- 관리자 회원 정보 수정 사유 입력 -->
 	<entry key="insertMemUpdate">
 		INSERT
 		  INTO
@@ -173,6 +176,7 @@
 				TB_MEMBER_UPDATE.MEM_NO = ?
 	</entry>
 	
+	<!-- 관리자 회원 정보 사유 수정(재입력) -->
 	<entry key="updateMemUpdate">
 		UPDATE
 				TB_MEMBER_UPDATE
