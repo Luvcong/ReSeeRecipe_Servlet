@@ -133,6 +133,24 @@
 		 WHERE RECIPE_CATEGORY_NO = ?
 	</entry>
 	
+	<!-- 카테고리명 변경 SQL문 -->
+	<entry key="updateCategory">
+		UPDATE TB_RECIPE_CATEGORY
+		   SET RECIPE_CATEGORY_NAME = ?
+		 WHERE RECIPE_CATEGORY_NAME = ?
+	</entry>
+	
+	<!-- 카테고리명 중복여부 체크 SQL문 -->
+	<entry key="categoryNameCheck">
+		SELECT
+	        	COUNT(*)
+		  FROM
+		        TB_RECIPE_CATEGORY
+		 WHERE
+		        RECIPE_CATEGORY_NAME = ?
+	</entry>
+	
+	
 	
 	<entry key="selectUnRecipeForModal">
 		SELECT
