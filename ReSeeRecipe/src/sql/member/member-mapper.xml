@@ -7,18 +7,18 @@
 	<!-- 로그인 -->
 	<entry key="loginMember">
 		SELECT
-		       MEM_NO,
-		       MEM_ID,
-		       MEM_PWD,
-		       MEM_NAME,
-		       MEM_NICKNAME,
-		       MEM_EMAIL,
-		       MEM_STATUS,
-		       ENROLL_DATE,
-		       MODIFY_DATE,
-		       DELETE_DATE,
-		       MEM_PICTURE,
-		       MEM_GRADE
+		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
 		  FROM
 		       TB_MEMBER
 		 WHERE
@@ -35,21 +35,21 @@
 		  INTO 
 		  	   TB_MEMBER 
 		  	   (
-		  	   MEM_NO
-               , MEM_NAME
-		  	   , MEM_NICKNAME
-               , MEM_ID
-		  	   , MEM_PWD
-		  	   , MEM_EMAIL
+		  	    MEM_NO
+               ,MEM_NAME
+		  	   ,MEM_NICKNAME
+               ,MEM_ID
+		  	   ,MEM_PWD
+		  	   ,MEM_EMAIL
 		  	   )
 		VALUES 
 			   (
-			   SEQ_MEM.NEXTVAL
-			   , ?
-			   , ?
-			   , ?
-			   , ?
-			   , ?
+			    SEQ_MEM.NEXTVAL
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			   ,?
 			   )
 	</entry>
 	
@@ -82,6 +82,30 @@
 		 WHERE 
 		 	   MEM_EMAIL = ?
 	</entry>
+	
+	<!-- 아이디 찾기 -->
+	<entry key="searchMemberId">
+		SELECT 
+   		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_NAME = ?
+		   AND 
+		 	   MEM_EMAIL = ?
+	</entry>
+	
 	
 	<entry key="selectMemlistCount">
 		SELECT

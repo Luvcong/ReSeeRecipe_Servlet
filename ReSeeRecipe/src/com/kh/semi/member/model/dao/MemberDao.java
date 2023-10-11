@@ -163,6 +163,7 @@ public class MemberDao {
 		return count;
 	}
 	
+	// 회원가입시 email 중복체크
 	public int emailCheck(Connection conn, String checkEmail) {
 		
 		int count = 0;
@@ -188,6 +189,43 @@ public class MemberDao {
 		return count;
 	}
 	
+	// 아이디 찾기
+	public Member searchMemberId(Connection conn, String memberName, String memberEmail) {
+
+		Member searchMember = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMemberId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				searchMember = new Member(rset.getInt("MEM_NO"),
+										  rset.getString("MEM_ID"),
+										  rset.getString("MEM_PWD"),
+										  rset.getString("MEM_NAME"),
+										  rset.getString("MEM_NICKNAME"),
+										  rset.getString("MEM_EMAIL"),
+										  rset.getString("MEM_STATUS"),
+										  rset.getDate("ENROLL_DATE"),
+										  rset.getDate("MODIFY_DATE"),
+										  rset.getDate("DELETE_DATE"),
+										  rset.getString("MEM_PICTURE"),
+										  rset.getInt("MEM_GRADE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return searchMember;
+	}
 
 	
 	public int selectMemlistCount(Connection conn) {

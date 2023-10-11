@@ -70,8 +70,9 @@
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
 
+    <!-- ajax로 처리 
     <form action="yrsearchMemberPwd.me" method="post">
-
+	-->
       <h1 id="title"><b>비밀번호 찾기</b></h1>
       <div class="container">
 
@@ -81,7 +82,8 @@
 
           <!-- 인증코드 입력창 -->
           <input type="text" placeholder="인증코드 입력" name="certificationCode" required>
-          <button type="submit">확인</button>
+          <!-- <button type="submit">확인</button> -->
+          <button type="button" onclick="searchMemberPwd();">확인</button>
 
           <!-- 비밀번호 재설정 -->
           <input type="password" placeholder="비밀번호 재설정" required>
@@ -90,10 +92,23 @@
           <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
         </div>
         
-      </form>
+      <!-- </form> -->
       
     <!-- footer 푸터영역 -->
 	<%@ include file="/views/common/footer.jspf" %>
+	
+	<script>
+		function searchMemberPwd(){
+			$.ajax({
+				
+			})
+			
+			
+			
+		}
+	
+	
+	</script>
 
   </body>
 </html>
