@@ -100,7 +100,11 @@ public class RecipeController {
 	
 	
 	
-	
+	public String errorNoRecipeList(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("errorMsg", "조회된 게시글이 존재하지 않습니다");
+		String viewPath = "/views/common/errorPage.jsp";
+		return viewPath;
+	}
 	
 	
 	

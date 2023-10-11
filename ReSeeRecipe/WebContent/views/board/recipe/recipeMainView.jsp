@@ -149,8 +149,8 @@
 	<div id="recipeMainViewWrap">
 		<!-- 레시피 글 블록 wrap -->
 		<div id="recipeThumnailWrap">
-			
-			<!-- ***********[[ 여기가 조회된 레시피 글 만들어줘야할 부분 ]] ***************** -->
+			<% if(!rList.isEmpty()) { %>
+				<!-- ***********[[ 여기가 조회된 레시피 글 만들어줘야할 부분 ]] ***************** -->
 				<% for(int i = 0; i < rList.size(); i++) { %>
 					<!-- 레시피 글 블록 (* 9개 필요) -->
 					<div class="thumbnail-contariner">
@@ -188,52 +188,13 @@
 						</div>
 					</div>
 				<% } %>
-
-	
-
-
-
-
-
-
-
-			<!--
-			<레시피 글 블록 (* 9개 필요)
-			<div class="thumbnail-contariner">
-				상단 이미지부분
-				<div class="thumbnail-top">
-					<img src="https://dthezntil550i.cloudfront.net/by/latest/by2107310110043690021607870/742bb13f-97a0-4582-ad2f-b9c276ed1709.jpg">
-				</div>
-				
-				하단 레시피정보부분
-				<div class="thumbnail-bottom">
-					<div class="thumbnail-bottom-inner1">
-						<p>레시피 제목</p>
-					</div>
-
-					<div class="thumbnail-bottom-inner2">
-						<div class="thumbnail-left-bottom">
-							<div class="thumbnail-left-bottom-chef">
-								<p>셰프이름</p>
-							</div>
-						</div>
-
-						<div class="thumbnail-right-bottom">
-							<div class="thumbnail-right-bottom-inner1">
-								조회수
-								<p>123</p>
-								<i class='fas fa-eye'></i>
-							</div>
-							<div class="thumbnail-right-bottom-inner2">
-								좋아요수
-								<p>123</p>
-								<i class="fa fa-heart"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		-->
+			<% } else { %>
+				<script>
+					$(function(){
+						location.href = "<%=contextPath%>/errorNoRecipeList.re";
+					});
+				</script>
+			<% } %>
 		</div>
 		
 		<!-- 페이지네이션 영역 -->
