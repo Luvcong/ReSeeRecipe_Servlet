@@ -209,7 +209,13 @@ public class MemberService {
 			
 		}
 		*/
-		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		ArrayList<Member> list = new ArrayList();
+		if(memSearchoption == "회원조회") {
+			list = new MemberDao().totalsearchMember(conn, memSearchoption, memSearchcon);
+		} else {
+			
+			list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		}
 		
 		close(conn);
 		

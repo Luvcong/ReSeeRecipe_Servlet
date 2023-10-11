@@ -416,11 +416,60 @@ public class MemberDao {
 		return result;
 	}
 	
+	public ArrayList<Member> totalsearchMember(Connection conn, String memSearchoption, String memSearchcon) {
+		
+		ArrayList<Member> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("totalsearchMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memSearchcon);
+			pstmt.setString(2, memSearchcon);
+			pstmt.setString(3, memSearchcon);
+			pstmt.setString(4, memSearchcon);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member();
+				m.setMemNo(rset.getInt("MEM_NO"));
+				m.setMemId(rset.getString("MEM_ID"));
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
 	public ArrayList<Member> searchMember(Connection conn, String memSearchoption, String memSearchcon){
 		
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		if(memSearchoption == "회원ID") {
+			memSearchoption = "MEM_ID";
+		} else if(memSearchoption == "이름") {
+			memSearchoption = "MEM_NAME";
+		} else if(memSearchoption == "닉네임") {
+			memSearchoption = "MEM_NICKNAME";
+		} else {
+			totalsearchMember(conn, memSearchoption, memSearchcon);
+		}
+		
 		String sql = "SELECT "
 						   + "MEM_NO"
 						   + ",MEM_ID"
