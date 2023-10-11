@@ -525,6 +525,7 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		/*
 		if(memSearchoption == "회원ID") {
 			memSearchoption = "MEM_ID";
 		} else if(memSearchoption == "이름") {
@@ -534,6 +535,15 @@ public class MemberDao {
 		} else {
 			totalsearchMember(conn, memSearchoption, memSearchcon);
 		}
+		*/
+		
+		if(memSearchoption == "회원ID") {
+			memSearchoption = "MEM_ID";
+		} else if(memSearchoption == "이름") {
+			memSearchoption = "MEM_NAME";
+		} else if(memSearchoption == "닉네임") {
+			memSearchoption = "MEM_NICKNAME";
+		} 
 		
 		String sql = "SELECT"
 						   + "MEM_NO"
