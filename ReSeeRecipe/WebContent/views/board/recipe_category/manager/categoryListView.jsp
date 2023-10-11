@@ -64,9 +64,23 @@
     cursor: pointer;
     border: none;
 }
+
+
 .searchTable{
 	padding: 0 10px;
 }
+
+#updateCategoryForm th{
+	width: 170px;
+	height: 80px;
+}
+
+#updateCategoryForm td input{
+	height: 80px;
+	
+}
+
+
 </style>
 
 <!-- sweetalert -->
@@ -95,7 +109,7 @@
                 </div>
                 <div >
                     <button onclick="showAddCategorydModal()" class="btn btn-sm btn-warning">카테고리 추가</button>
-                    <button class="btn btn-sm btn-warning">카테고리 수정</button>
+                    <button onclick="showUpdateCategoryModal()"class="btn btn-sm btn-warning">카테고리 수정</button>
                     <button onclick="deleteCategory()" class="btn btn-sm btn-secondary">카테고리 삭제</button>
                 </div>
             </div>
@@ -163,6 +177,47 @@
 	</form>
   </div>	<!-- 카테고리 추가 modal -->
   
+  
+	<!-- 카테고리 수정  modal창 -->
+	<div class="modal" id="updateCategoryForm">
+		<form method="post" action="<%= contextPath %>/jhupdate.ct">
+			<div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			        <!-- Modal Header -->
+				     <div class="modal-header">
+				         <h4 class="modal-title">카테고리 수정</h4>
+				         <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
+				     </div> 
+				     <!-- Modal body -->
+			         <div class="modal-body">
+					<input type="hidden" name="dmNo">
+					<table class="modal-table" border="1">
+						<tr>
+							<th>기존 카테고리명</th>
+							<td><input type="text" name="categoryName" readonly></td>
+						</tr>
+						<tr>
+							<th>현재 게시글 수</th>
+							<td><input type="text" name="boardCount" readonly></td>
+						</tr>
+						<tr>
+							<th>변경 카테고리명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 20 byte</div></th>
+							<td>
+								<input type="text" name="categoryUpdateName" placeholder="변경 카테고리명을 입력하세요" onkeyup="checkedByte(this)">
+							</td>
+						</tr>
+					</table>
+		          	</div>
+		          	<!-- Modal footer -->
+		            <div class="modal-footer">
+		         		<button type="submit" class="btn btn-sm btn-warning">수정</button>
+		                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+		            </div>
+		    	</div>	<!-- modal-content -->
+		    </div>	<!-- modal-dialog  -->
+		</form>
+	</div>	<!-- 카테고리 추가 modal -->
+  
   <!-- 카테고리 추가 modal -->
   <script>
   		function showAddCategorydModal(){
@@ -176,15 +231,36 @@
 		var failMsg = '<%= failMsg %>';
 		
 		if(successMsg != 'null'){
-			swal('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
+			Swal.fire('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
 		}
 		
 		if(failMsg != 'null'){
-			swal('실패', failMsg, 'error');
+			Swal.fire('실패', failMsg, 'error');
 		}
 		
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
+  </script>
+  
+  <!-- 쪽지 글자 byte count -->
+  <script>
+	let limitByte = 500;
+	let totalByte;
+	
+	function checkedByte(obj){
+		totalByte = 0;
+		let message = $(obj).val();
+	
+		for(let i = 0; i < message.length; i++){
+			var countByte = message.charCodeAt(i);
+			if(countByte > 128){
+				totalByte += 3;
+			} else {
+				totalByte++;
+			}
+		}
+		$('#count').text(totalByte);
+	}	// checkedByte
   </script>
   
   <!-- 카테고리 삭제 -->
@@ -228,8 +304,8 @@
   					let table = document.getElementById('tb-category');			
 					let trs = table.querySelectorAll('tbody tr');		// 데이터 행 부분
 					// let categoryNo_list = [];		// categoryNo 저장위해 배열 생성
-					// let categoryCount_list = [];		// categoryCount 저장위해 배열 생성 (추가)	-- 틀린방법 key:value로 진행해야함
-					let category_list = {};				// categoryNo : categoryCount 저장을 위한 객체 생성
+					// let categoryCount_list = [];		// categoryCount 저장위해 배열 생성 (추가)	
+					let category_list = {};				// categoryNo : categoryCount 저장을 위한 객체 생성 - ** 어차피 배열로 넘어가니까 []로 각각 선언해도 될 듯? 담에 해보기..나중에..
 					
 					for(let tr of trs){
 						let input = tr.querySelector('input');
@@ -240,8 +316,8 @@
 							// console.log(key);			// categoryNo - ok
 							// console.log(val);			// categoryCount - ok
 							// 속성 추가시 obj[key] = value;
-							category_list[key] = val;
-							console.log(category_list);		// {categoryNo : categoryCount} ok
+							category_list[key] = parseInt(val);
+							// console.log(category_list);		// {categoryNo : categoryCount} ok
 							
 							// categoryNo_list.push(tr.children[1].textContent);		// categoryNo
 							// categoryCount_list.push(tr.children[3].textContent);	// categoryCount
@@ -256,31 +332,97 @@
 						type : 'get',
 						data : {
 								'categoryNo' : Object.keys(category_list),
-								'categoryCount' : Object.values(category_list)		
+								'categoryCount' : Object.values(category_list)			// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/values
 						},
 								// 'categoryNo' : categoryNo_list,				- 삭제			.keys(object1)
 								// 'categoryCount' : categoryCount_list	// 추가 - 삭제
 						dataType: 'json',
 						success : function(result){
+							
 							Swal.fire('성공', '카테고리 삭제가 완료되었습니다!', 'success');
+							
+							let removeCategoryCount = 0;
+							
 							for(let tr of trs){
 								let categoryNo = parseInt(tr.children[1].textContent);	
 								if(result.includes(categoryNo)){		// categoryNo를 포함하는 문자열이 있으면 == true
 									tr.remove();						// 해당 tr remove
+									removeCategoryCount += category_list[categoryNo];
+									console.log(category_list[categoryNo]);	
+									// console.log(removeCategoryCount);
 								}
 							}
-							console.log('성공');
+							
+							// 카테고리No:0의 기존 게시글 수
+							let origin_count = parseInt(trs[0].children[3].textContent);
+							// console.log(origin_count);
+							// 기존 게시글 수에 지워진 게시글 수만큼 ++
+							trs[0].children[3].textContent = origin_count + removeCategoryCount;
+								
 						},	// success
 						error : function(result){
 							Swal.fire('실패', '카테고리 삭제가 실패되었습니다!', 'error');
 							console.log('실패');
 						},	// error
-						complete : function(result){
-						}
 					});	// ajax
-				});		// confrim
+				});		// confrim	
   		}	// deleteCategory
   </script>	
+  
+  <!-- 카테고리 수정 modal -->
+  <script>
+  		function showUpdateCategoryModal(){
+  			
+ 			let trs = document.querySelectorAll('.table tbody tr');	// 데이터가 들어있는 행(tr) 모두 갖고와서 저장
+ 			let checked_tr = null									// tr체크여부 변수 생성
+ 			
+ 			for(let tr of trs){
+ 				let input = tr.querySelector('input');			// tr의 input 요소 저장
+ 					if(input.checked){							// input의 checked 속성이 true인 경우
+ 						checked_tr = tr;						// tr체크여부 변수에 checked == true인 행(tr)을 저장한다
+ 						break;									// input요소가 여러개인 경우 첫번째에 해당하는 요소만 선택하기 위해 break
+ 					}
+ 			}
+ 			// console.log(checked_tr);
+ 			
+ 			// 체크되어 있는 카테고리가 없을 경우 alert창 발생
+ 			if(checked_tr == null){
+ 				Swal.fire('실패', '카테고리를 선택해주세요!', 'error');
+ 				return;
+ 			}	
+ 			
+ 			let modal = document.getElementById('updateCategoryForm');
+ 			let modal_trs = modal.querySelectorAll('table tr');
+ 			
+ 			// 기존게시글 input value
+ 			let category_name = checked_tr.children[2].textContent;
+ 			// console.log(category_Name);	// input check 첫번째 요소 값 ok
+ 			let modal_input = modal.querySelector("input[name='categoryName']");
+ 			modal_input.value = category_name;
+ 			// console.log(modal_input);
+ 			
+ 			// 기존게시글 수 input value
+ 			let category_count = checked_tr.children[3].textContent;
+ 			modal_input = modal.querySelector("input[name='boardCount']");
+ 			modal_input.value = category_count + '개';
+
+ 			
+ 			// 수정버튼 클릭시 중복여부 체크
+ 			// 중복값이 있는 경우 alert창
+ 			// let origin_name = trs[0].children[2].textContent; - 없음 출력
+ 			
+ 			
+			let origin_name = checked_tr.children[2].textContent;	
+ 			// console.log(origin_name);	- 카테고리명 ok
+ 			
+ 			console.log(checked_tr.children[2].textContent);
+ 			console.log(checked_tr);
+ 				
+  			$('#updateCategoryForm').modal('show');
+  			
+  		}	// showUpdateCategoryModal
+  </script>
+   	
    	
    	
 
