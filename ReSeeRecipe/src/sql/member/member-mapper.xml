@@ -249,7 +249,7 @@
            OR
            		MEM_NICKNAME LIKE '%'||?||'%'
            OR
-           		MEM_EMAIL MEM_EMAIL
+           		MEM_EMAIL LIKE '%'||?||'%'
   		  AND
         		MEM_STATUS = 'Y'
         ORDER
