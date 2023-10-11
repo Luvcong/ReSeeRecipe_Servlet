@@ -77,6 +77,7 @@ public class MemberService {
 		return count;
 	}
 	
+	// 회원가입 시 email 중복체크
 	public int emailCheck(String checkEmail) {
 		Connection conn = getConnection();
 		
@@ -85,6 +86,18 @@ public class MemberService {
 		close(conn);
 		
 		return count;
+	}
+	
+	// 아이디 찾기
+	public Member searchMemberId(String memberName, String memberEmail) {
+		
+		Connection conn = getConnection();
+		
+		Member searchMember = new MemberDao().searchMemberId(conn, memberName, memberEmail);
+		
+		close(conn);
+		
+		return searchMember;
 	}
 	
 	
@@ -148,5 +161,22 @@ public class MemberService {
 		close(conn);
 		
 		return(result1 * result2);
+	}
+	
+	public int deleteMember(int mno) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().deleteMember(conn, mno);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 }

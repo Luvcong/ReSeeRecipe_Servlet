@@ -8,20 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberEnrollController
+ * Servlet implementation class SearchMemberIdController
  */
-@WebServlet("/yrenroll.me")
-public class MemberEnrollController extends HttpServlet {
+@WebServlet("/yrsearchMemberId.me")
+public class SearchMemberIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEnrollController() {
+    public SearchMemberIdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,30 +33,22 @@ public class MemberEnrollController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 1. POST방식 인코딩설정
-		request.setCharacterEncoding("UTF-8");
-		
-		// 2. request객체로부터 요청 시 전달값 뽑기(이름, 닉네임, 아이디, 비밀번호, 이메일)
 		String memberName = request.getParameter("memberName");
-		String memberNickname = request.getParameter("memberNickname");
-		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
 		String memberEmail = request.getParameter("memberEmail");
 		
-		Member m = new Member();
-		m.setMemName(memberName);
-		m.setMemNickname(memberNickname);
-		m.setMemId(memberId);
-		m.setMemPwd(memberPwd);
-		m.setMemEmail(memberEmail);
+		Member searchMember = new MemberService().searchMemberId(memberName, memberEmail);
 		
-		int result = new MemberService().insertMember(m);
-		
-		if(result > 0) {
-			request.getRequestDispatcher("views/member/memberEnrollSuccess.jsp").forward(request, response);
-		} else {
-			request.setAttribute("errorMsg", "회원가입에 실패하셨습니다.");
-			request.getRequestDispatcher("views/member/yrenrollForm.me").forward(request, response);
+		JSONObject jObj = new JSONObject();
+		// 조회된 아이디가 없다면 => 문자열 null 반환 => 조회된 아이디가 없습니다 처리
+		if(searchMember == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().print("null");
+		} else { // 조회된 아이디가 있다면 => jObj에 조회된 ID와 Status 객체 반환
+			jObj.put("searchMemberId", searchMember.getMemId());
+			jObj.put("searchMemberStatus", searchMember.getMemStatus());
+			
+			response.setContentType("application/json; charset=UTF-8");
+			response.getWriter().print(jObj);
 		}
 	}
 

@@ -7,18 +7,18 @@
 	<!-- 로그인 -->
 	<entry key="loginMember">
 		SELECT
-		       MEM_NO,
-		       MEM_ID,
-		       MEM_PWD,
-		       MEM_NAME,
-		       MEM_NICKNAME,
-		       MEM_EMAIL,
-		       MEM_STATUS,
-		       ENROLL_DATE,
-		       MODIFY_DATE,
-		       DELETE_DATE,
-		       MEM_PICTURE,
-		       MEM_GRADE
+		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
 		  FROM
 		       TB_MEMBER
 		 WHERE
@@ -35,21 +35,21 @@
 		  INTO 
 		  	   TB_MEMBER 
 		  	   (
-		  	   MEM_NO
-               , MEM_NAME
-		  	   , MEM_NICKNAME
-               , MEM_ID
-		  	   , MEM_PWD
-		  	   , MEM_EMAIL
+		  	    MEM_NO
+               ,MEM_NAME
+		  	   ,MEM_NICKNAME
+               ,MEM_ID
+		  	   ,MEM_PWD
+		  	   ,MEM_EMAIL
 		  	   )
 		VALUES 
 			   (
-			   SEQ_MEM.NEXTVAL
-			   , ?
-			   , ?
-			   , ?
-			   , ?
-			   , ?
+			    SEQ_MEM.NEXTVAL
+			   ,?
+			   ,?
+			   ,?
+			   ,?
+			   ,?
 			   )
 	</entry>
 	
@@ -83,6 +83,30 @@
 		 	   MEM_EMAIL = ?
 	</entry>
 	
+	<!-- 아이디 찾기 -->
+	<entry key="searchMemberId">
+		SELECT 
+   		        MEM_NO
+		       ,MEM_ID
+		       ,MEM_PWD
+		       ,MEM_NAME
+		       ,MEM_NICKNAME
+		       ,MEM_EMAIL
+		       ,MEM_STATUS
+		       ,ENROLL_DATE
+		       ,MODIFY_DATE
+		       ,DELETE_DATE
+		       ,MEM_PICTURE
+		       ,MEM_GRADE
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_NAME = ?
+		   AND 
+		 	   MEM_EMAIL = ?
+	</entry>
+	
+	
 	<entry key="selectMemlistCount">
 		SELECT
 				COUNT(*)
@@ -95,7 +119,7 @@
 	</entry>
 	
 
-	
+	<!-- 관리자 회원 정보 목록 전체  -->
 	<entry key="selectMemberAll">
 		SELECT *
 		 FROM(SELECT ROWNUM RNUM, A.* 
@@ -122,6 +146,7 @@
 				WHERE RNUM BETWEEN ? AND ?					   		
 	</entry>
 	
+	<!-- 관리자 회원 정보 상세보기 -->
 	<entry key="selectMemInfo">
 		SELECT
 				MEM_NO
@@ -143,6 +168,7 @@
 	       		MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 관리자 회원 정보 수정 -->
 	<entry key="updateMemInfo">
 		UPDATE
 		   		TB_MEMBER
@@ -158,6 +184,7 @@
 	    		MEM_NO = ?
 	</entry>
 	
+	<!-- 관리자 회원 정보 수정 사유 입력 -->
 	<entry key="insertMemUpdate">
 		INSERT
 		  INTO
@@ -173,6 +200,7 @@
 				TB_MEMBER_UPDATE.MEM_NO = ?
 	</entry>
 	
+	<!-- 관리자 회원 정보 사유 수정(재입력) -->
 	<entry key="updateMemUpdate">
 		UPDATE
 				TB_MEMBER_UPDATE
@@ -188,5 +216,14 @@
 				)
 		WHERE
 				MEM_N0 = ?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE
+				TB_MEMBER
+		   SET
+		   		MEM_STATUS = 'N'
+		 WHERE
+		 		MEM_NO = ?
 	</entry>
 </properties>
