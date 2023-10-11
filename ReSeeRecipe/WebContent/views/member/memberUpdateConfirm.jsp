@@ -71,8 +71,9 @@
         <form action="yrmemberUpdateConfirm.me" mothod="post">
             <h1 id="title"><b>회원정보변경</b></h1>
             <div class="container">
-            <input type="password" placeholder="비밀번호를 입력해 주세요." required>
-            <button type="submit" location="<%= contextPath %>/memberUpdateConfirm.me">확인</button>
+	            <input type="password" name="memberPwd" placeholder="비밀번호를 입력해 주세요." required>
+	            <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
+	            <button type="submit" location="<%= contextPath %>/memberUpdateConfirm.me">확인</button>
             </div>
         </form>
     </div>
