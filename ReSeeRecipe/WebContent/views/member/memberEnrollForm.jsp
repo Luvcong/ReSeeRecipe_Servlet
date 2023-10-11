@@ -135,12 +135,12 @@
           <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
           
           <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" maxlength="8" required>
-          <button type="button" onclick="nicknameCheck();">닉네임 중복확인</button>
+          <!-- <button type="button" onclick="nicknameCheck();">닉네임 중복확인</button> -->
           <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
           
 
           <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" maxlength="20" required>
-          <button type="button" onclick="idCheck();">아이디 중복확인</button>
+          <!-- <button type="button" onclick="idCheck();">아이디 중복확인</button> -->
           <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
           
           
@@ -151,8 +151,8 @@
           <label for="memberPwdCheck"></label>
           
           <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
-          <button type="button" onclick="emailCheck();">이메일 중복확인</button>
-          <label for="memberEmail">* 유효한 이메일이 아닙니다.</label>
+          <!-- <button type="button" onclick="emailCheck();">이메일 중복확인</button> -->
+          <label for="memberEmail">* 인증받으실 이메일을 입력해 주세요.</label>
           
 
           
@@ -238,8 +238,7 @@
         var memberPwdCheck = document.getElementById('memberPwdCheck');
         var memberEmail = document.getElementById('memberEmail');
 
-
-        
+        /*
         // 각 input요소에 대응하는 label요소들
         var labels = document.getElementsByTagName('label');
         
@@ -304,6 +303,7 @@
         };
 
         return true;
+        */
       }
     </script>
 
@@ -325,23 +325,35 @@
             var $regExp = /^[a-z0-9가-힣]{3,8}$/;
             // 중복체크 호출
             nicknameCheck();
-          }
+            // console.log(nicknameCheck());
+            // if(nicknameCheck()) {
+            //   console.log('들어옴');
+            //   $errorCheck.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
+						//   $('#memberNickname').val('').focus();
+            // }
+            $errorCheck.text("* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. ").css('color', 'black');
+          };
+
           // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
           if($(this)[0] == $('#memberId')[0]) {
             var $regExp = /^[a-zA-Z0-9]{5,20}$/;
             // 중복체크 호출
             idCheck();
-          }
+            // if(idCheck()) {
+            //   $errorCheck.text("* 이미 존재하는 아이디입니다!").css('color', 'red');
+            //   $('#memberId').val('').focus();
+            // }
+            $errorCheck.text("* 영문, 숫자 5 ~ 20자로 입력 가능합니다.").css('color', 'black');
+          };
+
           // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
           if($(this)[0] == $('#memberPwd')[0]) var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
 
           // 5) 비밀번호 확인
-          if($(this).val() != $('#memberPwd').val()) {
-            $('label[for="memberPwdCheck"]').css('color', 'red');
-            $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다. ');
+          if($(this)[0] == $('#memberPwdCheck')[0] && $(this).val() != $('#memberPwd').val()) {
+            $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다. ').css('color', 'red');
           } else{
-            $('label[for="memberPwdCheck"]').css('color', 'black');
-            $('label[for="memberPwdCheck"]').text('');
+            $('label[for="memberPwdCheck"]').text('').css('color', 'black');
           };
 
           // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 3자가 들어간 형식)
@@ -349,8 +361,13 @@
             var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{6,24}$/;
             // 중복체크 호출
             emailCheck();
-          }
-
+            // if(emailCheck()) {
+            //   $errorCheck.text("* 이미 사용 중인 이메일입니다!").css('color', 'red');
+            //   $('#memberEmail').val('').focus();
+            // }
+            $errorCheck.text("인증받으실 이메일을 입력해 주세요.").css('color', 'black');
+          };
+           
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
@@ -362,44 +379,43 @@
             $errorCheck.css('color', 'black');
           };
 
-
         });
       })
 
-
    		// ajax를 이용하여 닉네임 중복체크
     	function nicknameCheck(){
-        
-			$.ajax({
-				url : 'yrnicknameCheck.me',
-				data : {checkNickname : $('#memberNickname').val()},
-				// 중복체크 조회 성공 시
-				success : function(result) {
-					// 중복된 아이디
-          const $nicknameLabel = $('label[for="memberNickname"]');
-					if(result == 'NNNNN'){
-            /*
-						Swal.fire({
-							  icon: 'error',
-							  title: '닉네임 중복',
-							  text: '이미 존재하거나 탈퇴한 회원의 닉네임입니다!'
-						})
-            */
-            
-						$nicknameLabel.text("* 이미 존재하는 닉네임입니다!");
-            $nicknameLabel.css('color', 'red');
-						
-						$('#memberNickname').val('').focus();
-					// 사용가능한 아이디
-					} else{
-						$nicknameLabel.text("* 사용가능한 닉네임입니다.");
-            $nicknameLabel.css('color', 'black');
-					}
-				},
-				// 중복체크 조회 실패 시
-				error : function(){
-					console.log('닉네임 중복체크 AJAX통신 실패!');
-				}
+        console.log('왜안돼');
+        $.ajax({
+          url : 'yrnicknameCheck.me',
+          data : {checkNickname : $('#memberNickname').val()},
+          // 중복체크 조회 성공 시
+          success : function(result) {
+            // 중복된 아이디
+            const $nicknameLabel = $('label[for="memberNickname"]');
+            if(result == 'NNNNN'){
+              /*
+              Swal.fire({
+                  icon: 'error',
+                  title: '닉네임 중복',
+                  text: '이미 존재하거나 탈퇴한 회원의 닉네임입니다!'
+              })
+              */
+              $nicknameLabel.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
+              //$('#memberNickname').val('').focus();
+              
+              // return false;
+
+            // 사용가능한 아이디
+            } else{
+              // $nicknameLabel.text("* 사용가능한 닉네임입니다.");
+              // $nicknameLabel.css('color', 'black');
+              // return true;
+            }
+          },
+          // 중복체크 조회 실패 시
+          error : function(){
+            console.log('닉네임 중복체크 AJAX통신 실패!');
+          }
 			})
     	}
     
@@ -412,17 +428,21 @@
 				success : function(result) {
 					// 중복된 아이디
 					if(result == 'NNNNN'){
+            /*
 						Swal.fire({
 							  icon: 'error',
 							  title: '아이디 중복',
 							  text: '이미 존재하거나 탈퇴한 회원의 아이디입니다!'
 						})
-						$('label[for="memberId"]').text("* 이미 존재하거나 탈퇴한 회원의 아이디입니다!");
-						
-						$('#memberId').val('').focus();
+            */
+						$('label[for="memberId"]').text("* 이미 존재하거나 탈퇴한 회원의 아이디입니다!").css('color', 'red');
+						// $('#memberId').val('').focus();
+            
+            // return false;
+
 					// 사용가능한 아이디
 					} else{
-						$('label[for="memberId"]').text("* 사용가능한 아이디입니다.");
+						// $('label[for="memberId"]').text("* 사용가능한 아이디입니다.");
 					}
 				},
 				// 중복체크 조회 실패 시
@@ -441,17 +461,21 @@
 				success : function(result) {
 					// 중복된 아이디
 					if(result == 'NNNNN'){
+            /*
 						Swal.fire({
 							  icon: 'error',
 							  title: '이메일 중복',
 							  text: '이미 사용하고 있는 이메일입니다!'
 						})
-						$('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!");
-						
-						$('#memberEmail').val('').focus();
+            */
+						$('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!").css('color', 'red');
+						// $('#memberEmail').val('').focus();
+            
+           // return false;
 					// 사용가능한 아이디
 					} else{
-						$('label[for="memberEmail"]').text("* 사용가능한 이메일입니다.");
+						// $('label[for="memberEmail"]').text("* 사용가능한 이메일입니다.");
+            // return true;
 					}
 				},
 				// 중복체크 조회 실패 시
@@ -462,9 +486,6 @@
 		}
     </script>
     
-    
-
-
     <script>
       $(function(){
         // 전체 동의 시 하위항목 동의체크 / 미동의 시 체크해제
