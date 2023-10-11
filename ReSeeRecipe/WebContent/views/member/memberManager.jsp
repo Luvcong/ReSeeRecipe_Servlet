@@ -136,7 +136,7 @@
         	});
         	function HL_memSearch(){
         		let $option = $('option:selected');
-        		console.log($option.val());
+        		console.log($option.text());
         		let $searcon = $('#searchMember').val();
         		console.log($searcon);
         		$.ajax({

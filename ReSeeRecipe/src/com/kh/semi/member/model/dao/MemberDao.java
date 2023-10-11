@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
@@ -525,17 +526,20 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		/*
-		if(memSearchoption == "회원ID") {
-			memSearchoption = "MEM_ID";
-		} else if(memSearchoption == "이름") {
-			memSearchoption = "MEM_NAME";
-		} else if(memSearchoption == "닉네임") {
-			memSearchoption = "MEM_NICKNAME";
-		} else {
+		String memop = "";
+		System.out.println(memSearchoption);
+		if(memSearchoption.equals("회원ID")) {
+			memop += "MEM_ID";
+		} else if(memSearchoption.equals("이름")) {
+			memop += "MEM_NAME";
+		} else if(memSearchoption.equals("닉네임")) {
+			memop += "MEM_NICKNAME";
+		} 
+		
+		/*else {
 			totalsearchMember(conn, memSearchoption, memSearchcon);
-		}
-		*/
+		}*/
+		
 		
 		String sql = "SELECT"
 						   + "MEM_NO"
@@ -553,8 +557,7 @@ public class MemberDao {
 					  + "ON"
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
-						   + memSearchoption
-					  + " = ?"
+						   + memop + " = ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		
