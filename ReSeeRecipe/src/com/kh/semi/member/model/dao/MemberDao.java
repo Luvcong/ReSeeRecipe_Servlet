@@ -164,6 +164,11 @@ public class MemberDao {
 	}
 	
 	// 회원가입시 email 중복체크
+	/**
+	 * @param conn : Connection 객체
+	 * @param checkEmail : 회원가입에 쓸 사용자 email 입력값
+	 * @return : 이미 사용중인 이메일 1 또는 사용가능 0
+	 */
 	public int emailCheck(Connection conn, String checkEmail) {
 		
 		int count = 0;
@@ -190,6 +195,12 @@ public class MemberDao {
 	}
 	
 	// 아이디 찾기
+	/**
+	 * @param conn : Connection 객체
+	 * @param memberName : 아이디를 찾고자 하는 사용자 이름 입력값
+	 * @param memberEmail : 아이디를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 회원
+	 */
 	public Member searchMemberId(Connection conn, String memberName, String memberEmail) {
 
 		Member searchMember = null;
@@ -225,6 +236,39 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return searchMember;
+	}
+	
+	// 비밀번호 찾기
+	/**
+	 * @param conn : Connection 객체
+	 * @param memberId : 비밀번호를 찾고자 하는 사용자 아이디 입력값
+	 * @param memberEmail : 비밀번호를 찾고자 하는 사용자 이메일 입력값
+	 * @return : 조회된 결과가 있다면 1 반환
+	 */
+	public int searchMemberPwd(Connection conn, String memberId, String memberEmail) {
+		
+		int result = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMemberPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberEmail);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 
 	

@@ -78,18 +78,22 @@
 
           <input type="text" placeholder="아이디" name="memberId" required>
       
-          <input type="text" placeholder="이메일" name="memberPwd" required>
+          <input type="text" placeholder="이메일" name="memberEmail" required>
 
           <!-- 인증코드 입력창 -->
           <input type="text" placeholder="인증코드 입력" name="certificationCode" required>
           <!-- <button type="submit">확인</button> -->
           <button type="button" onclick="searchMemberPwd();">확인</button>
+          
+          <div id="searchMemberPwd"> </div>
 
           <!-- 비밀번호 재설정 -->
-          <input type="password" placeholder="비밀번호 재설정" required>
-          <input type="password" placeholder="비밀번호 재설정 확인" required>
-      
-          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
+          <div id="resetMemberPwd">
+	          <input type="password" placeholder="비밀번호 재설정" required>
+	          <input type="password" placeholder="비밀번호 재설정 확인" required>
+	      
+	          <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
+          </div>
         </div>
         
       <!-- </form> -->
@@ -98,9 +102,25 @@
 	<%@ include file="/views/common/footer.jspf" %>
 	
 	<script>
+		const $memberId = $('input[name=memberId]');
+		const $memberEmail = $('input[name=memberEmail]');
+	
 		function searchMemberPwd(){
 			$.ajax({
-				
+				url : 'yrsearchMemberPwd.me',
+				data : {memberId : $memberId.val(),
+						memberEmail : $memberEmail.val()},
+				success : function(result){
+					if(result == 'null'){
+						$('#searchMemberPwd').text('조회된 결과가 없습니다.');
+					} else{
+						$('#searchMemberPwd').text('비밀번호 재설정');
+						$('#resetMemberPwd').attr('display', 'block');
+					}
+				},
+				error : function(){
+					console.log('비밀번호 찾기 AJAX통신 실패!');
+				}
 			})
 			
 			

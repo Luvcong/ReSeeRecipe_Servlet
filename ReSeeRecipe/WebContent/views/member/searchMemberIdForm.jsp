@@ -86,10 +86,7 @@
 
           <button type="button" onclick="searchMemberId();">확인</button>
 
-          <div id="searchMemberId">
-           	 당신의 아이디는 <br>
-            	 입니다.
-          </div>
+          <div id="searchMemberId"> </div>
       
           <button type="button" onclick="location.href='<%= contextPath %>/yrloginForm.me'">로그인하러 가기</button>
 

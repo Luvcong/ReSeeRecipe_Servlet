@@ -106,6 +106,20 @@
 		 	   MEM_EMAIL = ?
 	</entry>
 	
+	<!-- 비밀번호 찾기 -->
+	<entry key="searchMemberPwd">
+		SELECT
+			   COUNT(*)
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_ID = ?
+		   AND 
+		       MEM_EMAIL = ?
+		   AND 
+		       MEM_STATUS = 'Y'
+	</entry>
+	
 	
 	<entry key="selectMemlistCount">
 		SELECT

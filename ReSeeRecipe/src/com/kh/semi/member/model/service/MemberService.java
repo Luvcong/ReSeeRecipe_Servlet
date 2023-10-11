@@ -100,6 +100,18 @@ public class MemberService {
 		return searchMember;
 	}
 	
+	// 비밀번호 찾기
+	public int searchMemberPwd(String memberId, String memberEmail) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().searchMemberPwd(conn, memberId, memberEmail);
+		
+		close(conn);
+		
+		return result;
+	}
+	
 	
 	public int selectMemlistCount() {
 		
