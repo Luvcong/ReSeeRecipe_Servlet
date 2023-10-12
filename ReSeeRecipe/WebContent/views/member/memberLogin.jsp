@@ -142,7 +142,7 @@
           <!-- <label for="psw"><b>비밀번호</b></label> -->
           <input type="password" placeholder="비밀번호" name="memberPwd" maxlength="20" required>
       
-          <button type="submit">로그인</button>
+          <button type="submit" id="login">로그인</button>
 
 	        <div class="login-searchmenu">
 	          <!-- <button type="button" class="cancel-btn">Cancel</button> -->
