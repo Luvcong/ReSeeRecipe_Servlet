@@ -69,11 +69,11 @@
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
 		width: 100%;
-		height: 33%;
+		height: 35%;
 	}
 
 	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
-	#cook-steps-instruction {
+	#cookingInstructionContainer {
 		width: 100%;
 		height: 60%;
 	}
@@ -201,7 +201,7 @@
 	/* 좌우 큰 div */
 	#cook-steps-basic-info .cook-steps-input-content {
 		width: 50%;
-		height: 98%;
+		height: 100%;
 		float: left;
 		text-align: center;
 	}
@@ -215,6 +215,13 @@
 	#content-thumbnail-image {
 		width: 100%;
 		height: 79%;
+		background-color: rgb(255, 222, 89);
+	}
+
+	/* 썸네일 이미지 */
+	#content-thumbnail-image img {
+		width: 93%;
+		height: 100%;
 	}
 
 	/* 셰프이름 + 해시태그 div */
@@ -302,7 +309,7 @@
 		width: 85%;
 	}
 	
-	write-ingredient-input {
+	#write-ingredient-input {
 		width: 62%;
 		height: 100%;
 	}
@@ -358,7 +365,7 @@
 
 	
 
-	/* 재료 콘텐트 (입력요소 띄우는 부분) */
+	/* 재료 콘텐트 (입력요소 생성해서 띄우는 부분) */
 	#cookStepsIngredientContent {
 		height: 70%;
 	}
@@ -368,9 +375,56 @@
 
 
 	/*2. 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
-	#cook-steps-instruction {
-
+	/* 넘버링 + 요리과정 제목 */
+	#cookingInstructionContainer > div {
+		width: 50%;
+		height: 33%;
+		margin: auto;
+		float: left;
 	}
+
+	#cookingInstructionContainer .cook-steps-inst-title {
+		width: 100%;
+		height: 20%;
+		padding: 20px 20px 0px 20px;
+	}
+
+	#cookingInstructionContainer .inst-title-lev {
+		width: 10%;
+		height: 100%;
+		display: inline-block;
+		box-sizing: border-box;
+		text-align: center;
+		margin: 0px;
+		padding-top: 15px;
+		padding-right: 20px;
+	}
+
+	#cookingInstructionContainer .inst-title-text {
+		width: 90%;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 0px;
+		float: right;
+	}
+
+	/* 요리과정 설명 */
+	#cookingInstructionContainer .cook-steps-inst-content {
+		width: 100%;
+		height: 80%;
+		padding: 20px;
+	}
+
+	#cookingInstructionContainer .cook-steps-inst-content textarea {
+		width: 100%;
+		height: 100%;
+	}
+
+	#cookingInstructionContainer .cook-steps-inst-content textarea::placeholder {
+		text-align: center;
+	}
+
+
 
 	/* 3. 입력폼 내부 하단 div (submit + reset 버튼) */
 	#cook-steps-buttons {
@@ -565,7 +619,7 @@
 							</div>
 						</div>
 						<div id="content-thumbnail-image">
-							<img src="d" alt="">dddddddddd
+							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif" alt="">dddddddddd
 						</div>
 					</div>
 					<div class="cook-steps-input-content">
@@ -781,77 +835,67 @@
 
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
-				<div id="cook-steps-instruction">
-					<div class="cook-steps-inst-outer-div">
-						<div>
-							<div class="cook-steps-inst-inner-div">
-								<div></div>
-								<div>
-									<div>1</div>
-									<div>내용제목1 재료를 손질해 요리한다</div>
+				<div id="cookingInstructionContainer">
+					<!--
+						<% for(int i = 1; i <= 6; i++) {%>
+							<div id="cookStepsInstInner<%=i%>">
+								<div class="cook-steps-inst-title">
+									<input type="hidden" name="cookStepsLev<%=i%>" value="<%=i%>"><p class="inst-title-lev"><%=i%></p>
+									<input type="text" name="cookStepsTitle<%=i%>" placeholder="요리과정 제목" class="inst-title-text">
 								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
-								</div>
-							</div>
-							<div class="cook-steps-inst-div">
-								<div></div>
-								<div>
-									<div>2</div>
-									<div>내용제목2 재료를 손질해 요리한다</div>
-								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
+								<div class="cook-steps-inst-content">
+									<textarea name="cookStepsContent<%=i%>" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>
 								</div>
 							</div>
+							<% } %>
+						-->
+						<div id="cookStepsInstInnerEnd">
+							<button id="instAddBtn" type="button">Add</button>
 						</div>
-						<divv class="cook-steps-inst-outer-div">
-							<div class="cook-steps-inst-div">
-								<div></div>
-								<div>
-									<div>3</div>
-									<div>내용제목3 재료를 손질해 요리한다</div>
-								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
-								</div>
-							</div>
-							<div class="cook-steps-inst-div">
-								<div></div>
-								<div>
-									<div>4</div>
-									<div>내용제목4 재료를 손질해 요리한다</div>
-								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
-								</div>
-							</div>
-						</divv>
-						<divv class="cook-steps-inst-outer-div">
-							<div class="cook-steps-inst-div">
-								<div></div>
-								<div>
-									<div>5</div>
-									<div>내용제목5 재료를 손질해 요리한다</div>
-								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
-								</div>
-							</div>
-							<div class="cook-steps-inst-div">
-								<div></div>
-								<div>
-									<div>6</div>
-									<div>내용제목6 재료를 손질해 요리한다</div>
-								</div>
-								<div><textarea name="cookStepsContent3" id="" cols="30"
-									rows="10" maxlength="500" style="resize: none;"></textarea>
-								</div>
-							</div>
-						</divv>
-					</div>
-
 				</div>
+
+				<script>
+					
+					$(function(){
+						var $instTitleLevArr = $('div[class=cook-steps-inst-title]').children('p');
+						$('input[name=cookStepsTitle1]').attr('required', true);
+						$('textarea[name=cookStepsContent1]').attr('required', true);
+						
+						
+						var $instAddBtnCount = 1;
+						$('#instAddBtn').click(function(){
+							console.log('d');
+							let $insAddStr = '<div id="cookStepsInstInner' + $instAddBtnCount + '">'
+								+ '<div class="cook-steps-inst-title">'
+								+ '<input type="hidden" name="cookStepsLev' + $instAddBtnCount + '" value="' + $instAddBtnCount + '"><p class="inst-title-lev">' + $instAddBtnCount + '</p>'
+								+ '<input type="text" name="cookStepsTitle' + $instAddBtnCount + '" placeholder="요리과정 제목" class="inst-title-text">'
+								+ '</div>'
+								+ '<div class="cook-steps-inst-content">'
+								+ '<textarea name="cookStepsContent' + $instAddBtnCount + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>'
+								+ '</div>'
+								+ '</div>';
+							let $instAddBtnDetach = $('#instAddBtn').detach();
+
+							$('#cookingInstructionContainer').append($insAddStr);
+							console.log('d');
+							$instAddBtnCount++;
+							
+						});
+						// instAddBtn에 클릭이벤트가 일어날 때 마다 앞쪽에 양식 추가 + 전역변수 클릭 카운팅
+						
+						$(document).on('click', '#instAddBtn', function(){
+						});
+						
+						$.each($instTitleLevArr, function(index, item){
+							console.log($(item).html());
+							if($(item).html() != instTitleNum) { // 1, 2, 3... 돌면서 이 아니면 디스플레이 none
+								$('#cookStepsInstInner' + $(item).html()).css('display', 'none');
+							}
+						});
+						
+					});
+				</script>
+
 
 				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
