@@ -65,7 +65,6 @@ public class MemberUpdateController extends HttpServlet {
 			
 			String memberPicture = null;
 			
-			
 			// String realProfileInput = multiRequest.getOriginalFileName("profileInput");
 			// 첨부파일이 있다면 
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
@@ -77,15 +76,14 @@ public class MemberUpdateController extends HttpServlet {
 			// Service로 수정할 회원 정보와 파일정보를 넘겨 요청
 			int result = new MemberService().memberUpdate(m, memberPicture);
 			
-			
-			
-			
-			
+			// update 성공 시
+			if(result > 0) {
+				// 나중에 마이페이지 메인으로 바꿀 것
+				request.getRequestDispatcher(request.getContextPath());
+			} else { // 실패 시
+				
+			}
 		}
-			
-		
-		
-		
 	}
 
 	/**

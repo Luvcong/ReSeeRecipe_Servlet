@@ -125,7 +125,8 @@
 		UPDATE 
 			   TB_MEMBER
 		   SET 
-		       MEM_PWD = ?
+		       MEM_PWD = ?,
+		       MODIFY_DATE = SYSDATE
 		 WHERE 
 		 	   MEM_ID = ?
 		   AND 
@@ -140,6 +141,21 @@
 		  	   TB_MEMBER
 		 WHERE 
 		 	   MEM_NO = ?
+		   AND 
+		   	   MEM_STATUS = 'Y'
+	</entry>
+	
+	<entry key="memberUpdate">
+		UPDATE 
+			   TB_MEMBER
+		   SET 
+		   	   MEM_NAME = ?,
+		       MEM_NICKNAME = ?,
+		       MEM_EMAIL = ?,
+		       MEM_PICTURE = ?,
+		       MODIFY_DATE = SYSDATE
+		 WHERE 
+		 	   MEM_ID = ?
 		   AND 
 		   	   MEM_STATUS = 'Y'
 	</entry>
