@@ -74,7 +74,7 @@
 	
 
     <div>
-        <form action="yrmemberUpdateConfirm.me" mothod="post">
+        <form action="<%= contextPath %>/yrmemberUpdateConfirm.me" method="post">
             <h1 id="title"><b>회원정보변경</b></h1>
             <div class="container">
                 <p>본인확인을 위한 비밀번호 입력창입니다.</p>
@@ -86,7 +86,7 @@
         </form>
     </div>
     
-    <% if(checkPwd != null && !loginMember.getMemPwd().equals(checkPwd)) { %>
+    <% if(checkPwd != null && !checkPwd.equals(loginMember.getMemPwd())) { %>
     	<script>
 		Swal.fire({
 			icon: 'error',

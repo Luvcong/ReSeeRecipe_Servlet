@@ -114,15 +114,17 @@
   	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %> 
 
-    <form action="yrenroll.me" method="post">
+    <form enctype="multipart/form-data" action="<%= contextPath %>/memberUpdate.me" method="post">
 
       <h1 id="title"><b>회원정보변경</b></h1>
+      
+      <!-- 사진을 바꿀 회원의 번호를 hidden으로 같이 넘겨주기  -->
+      <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
 
       <!-- 사진 -->
       <div class="container">
         <img src="https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png" alt="프로필사진" id="profileImg" width="150" height="150">
         <input type="file" name="profileInput" id="profileInput" onchange="loadImg(this);">
-        <button type="button" id="profileUpdateBtn">변경하기</button>
       </div>
 
       <!-- 정보 내용 변경 -->
@@ -189,7 +191,6 @@
     <!-- footer 푸터영역 -->
     <%@ include file="/views/common/footer.jspf" %>
 
-
     <script>
         // 사진을 클릭하면 프로필 사진 변경
         function loadImg(inputFile){
@@ -208,11 +209,15 @@
                 const noImg = 'https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png';
             }
 
+        };
+        // 파일첨부 input요소를 숨기고 사진을 클릭했을 때 input요소 클릭
+        $(function(){
+            $('#profileInput').hide();
 
-
-
-
-        }
+            $('#profileImg').click(function(){
+                $('#profileInput').click();
+            })
+        })
 
     </script>
 
