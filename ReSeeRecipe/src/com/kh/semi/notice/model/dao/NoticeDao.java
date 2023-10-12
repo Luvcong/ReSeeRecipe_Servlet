@@ -1,5 +1,7 @@
 package com.kh.semi.notice.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.notice.model.vo.Notice;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class NoticeDao {
 	
@@ -58,4 +60,64 @@ public class NoticeDao {
 		return list;
 	}
 	
+	public int selectNoticelistCount(Connection conn) {
+		
+		int noticelistCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticelistCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				noticelistCount = rset.getInt("COUNT(*)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticelistCount;
+	}
+	
+	public ArrayList<Notice> selectNoticeAll(Connection conn, PageInfo pg) {
+		
+		ArrayList<Notice> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNoticeAll");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pg.getStartRow());
+			pstmt.setInt(2, pg.getEndRow());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Notice n = new Notice();
+				n.setNoticeNo(rset.getInt("NOTICE_NO"));
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
+				n.setNoticeCount(rset.getInt("NOTICE_COUNT"));
+				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+				n.setNoticeHeart(rset.getInt("COUNT(NOTICE_NO)"));
+				
+				list.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

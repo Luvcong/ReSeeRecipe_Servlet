@@ -13,6 +13,11 @@ public class Notice {
 	private int noticeCount; //NOTICE_COUNT	VARCHAR2(255 BYTE)	--> Number
 	private String noticeWriter; //NOTICE_WRITER	NUMBER
 	
+	private String noticeWriterName;
+	private int noticeHeart;
+	
+	
+	
 	public Notice() {
 		super();
 	}
@@ -28,6 +33,22 @@ public class Notice {
 		this.noticeStatus = noticeStatus;
 		this.noticeCount = noticeCount;
 		this.noticeWriter = noticeWriter;
+	}
+	
+	
+	public Notice(int noticeNo, String noticeTitle, String noticeCon, Date noticeDate, Date noticeUpdate,
+			String noticeStatus, int noticeCount, String noticeWriter, String noticeWriterName, int noticeHeart) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeCon = noticeCon;
+		this.noticeDate = noticeDate;
+		this.noticeUpdate = noticeUpdate;
+		this.noticeStatus = noticeStatus;
+		this.noticeCount = noticeCount;
+		this.noticeWriter = noticeWriter;
+		this.noticeWriterName = noticeWriterName;
+		this.noticeHeart = noticeHeart;
 	}
 
 	public int getNoticeNo() {
@@ -92,6 +113,23 @@ public class Notice {
 
 	public void setNoticeWriter(String noticeWriter) {
 		this.noticeWriter = noticeWriter;
+	}
+	
+
+	public String getNoticeWriterName() {
+		return noticeWriterName;
+	}
+
+	public void setNoticeWriterName(String noticeWriterName) {
+		this.noticeWriterName = noticeWriterName;
+	}
+
+	public int getNoticeHeart() {
+		return noticeHeart;
+	}
+
+	public void setNoticeHeart(int noticeHeart) {
+		this.noticeHeart = noticeHeart;
 	}
 
 	@Override

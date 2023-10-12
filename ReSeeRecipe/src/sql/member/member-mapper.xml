@@ -144,6 +144,7 @@
 		   	   MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 조회할 회원의 총 수 -->
 	<entry key="selectMemlistCount">
 		SELECT
 				COUNT(*)
