@@ -233,7 +233,7 @@
                 <div class="form-check">
                     <label class="form-check-label">
                     <!-- <input type="checkbox" class="form-check-input" value="">-->
-                     <input type="checkbox"  name="example1">
+                     <input type="checkbox"  name="memAllCheck">
                     </label>
                 </div>
               </th>

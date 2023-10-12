@@ -50,7 +50,7 @@
 			</div>
 			<div class="category" id="HL_boardList">
 				<ul>
-					<li><a href="#" id="HL_NoticeManage">공지사항 게시판</a></li>
+					<li><a href="#" id="HL_NoticeManage" onclick="goMenu('/hlnoticemanage.no?cnpage=1');">공지사항 게시판</a></li>
 					<li><a href="#">레시피 게시판</a></li>
 					<li><a href="#">셰프 게시판</a></li>
 				</ul>
@@ -165,8 +165,10 @@
     function goMenu(e){
 		this.location.href = "<%=contextPath %>" + e;
 	}
-
-    
+	
+	
+	
+    /*
     $(function(){
     	
     	$('#HL_NoticeManage').on("click", gonotice);
@@ -185,6 +187,8 @@
 
         });
     }
+    */
+    
     /*
     $(function(){
     	$('#HL_memberSetting').on("click", goMember);

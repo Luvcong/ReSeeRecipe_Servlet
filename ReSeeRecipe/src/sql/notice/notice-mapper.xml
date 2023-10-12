@@ -164,4 +164,36 @@
  		   AND
  		   		NOTICE_PIC_STATUS = 'Y'
  	</entry>
+ 	
+ 	<entry key="selectNoticeAll">
+ 		SELECT * 
+		 FROM(SELECT ROWNUM RNUM, D.*
+ 				FROM (SELECT 
+ 							A.NOTICE_TITLE,
+ 							A.NOTICE_DATE, 
+ 							A.NOTICE_COUNT, 
+ 							B.*, 
+ 							C.MEM_NICKNAME
+ 					FROM 
+ 							TB_NOTICE A,
+        					(SELECT 
+        							NOTICE_NO, 
+        							COUNT(NOTICE_NO)
+          					   FROM 
+          					   		TB_HT_NOTICE
+          					   JOIN 
+          					   		TB_NOTICE USING(NOTICE_NO)
+         					  GROUP 
+         					     BY 
+         					     	NOTICE_NO) B,
+         					TB_MEMBER C
+			 WHERE 
+			 		A.NOTICE_NO = B.NOTICE_NO
+   			   AND 
+   			   		A.NOTICE_WRITER = C.MEM_NO
+ 			ORDER 
+ 			   BY 
+ 			   		A.NOTICE_DATE DESC) D)
+ 		WHERE RNUM BETWEEN ? AND ?
+ 	</entry>
 </properties>
