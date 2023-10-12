@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*" %>
+<%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*, com.kh.semi.common.model.vo.PageInfo" %>
 <%
 	//Notice n = (Notice)request.getParameter("n");d
 	//NoticePic np = (NoticePic)request.getParameter("np");
