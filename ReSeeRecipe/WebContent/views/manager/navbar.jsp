@@ -30,15 +30,14 @@
 <body>
 
 	<!-- 관리자메뉴 title 상단 -->
-	<div class="rs-title">관리자 메뉴
-	
-		
-	</div>
-	<div id="adminsetting">
-		<a href="#">
-			<i class="fa-duotone fa-gear"></i><br> 
-			<img src="" alt="">정보 설정
-		</a>
+	<div class="rs-title">
+		<span>관리자 메뉴</span>
+		<div id="adminsetting">
+			<a href="#">
+				<i class="fa-duotone fa-gear"></i> 
+				<img src="" alt="">정보 설정
+			</a>
+		</div>
 	</div>
 	
 	<!-- 카테고리 리스트 -->
