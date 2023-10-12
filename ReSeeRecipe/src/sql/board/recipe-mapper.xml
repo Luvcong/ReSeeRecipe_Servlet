@@ -96,21 +96,24 @@
 	
 	<!-- 관리자 카테고리 리스트 화면 SQL문 -->
 	<entry key="selectCategoryListManager">
-		SELECT 
-		       RC.RECIPE_CATEGORY_NO,
-		       RC.RECIPE_CATEGORY_NAME,
-		       NVL(CTGR_CNT.CNT, 0) AS RECIPE_CATEGORY_CNT
-		  FROM 
-		       TB_RECIPE_CATEGORY RC
-		  LEFT OUTER JOIN
-						(SELECT
-		                        RECIPE_CATEGORY_NO, COUNT(*) CNT
+		SELECT *
+          FROM (SELECT ROWNUM RNUM, A.*
+                  FROM (SELECT
+		                       RC.RECIPE_CATEGORY_NO,
+		                       RC.RECIPE_CATEGORY_NAME,
+		                       NVL(CTGR_CNT.CNT, 0) AS RECIPE_CATEGORY_CNT
 		                  FROM 
-		                        TB_RECIPE
-		              GROUP BY
-		              			RECIPE_CATEGORY_NO) CTGR_CNT
-					ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
-		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
+		                       TB_RECIPE_CATEGORY RC
+		                  LEFT OUTER JOIN
+		                                (SELECT
+		                                        RECIPE_CATEGORY_NO, COUNT(*) CNT
+		                                  FROM 
+		                                        TB_RECIPE
+		                              GROUP BY
+		                                        RECIPE_CATEGORY_NO) CTGR_CNT
+		                            ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
+		                 ORDER BY RC.RECIPE_CATEGORY_NO ASC) A)
+		                 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<!-- 카테고리 삭제시 레시피글 변경(STATUS = N && CATEGORY_NO = 0) SQL문 -->
@@ -148,6 +151,14 @@
 		        TB_RECIPE_CATEGORY
 		 WHERE
 		        RECIPE_CATEGORY_NAME = ?
+	</entry>
+	
+	
+	<entry key="selectCategoryListCount">
+		SELECT
+	        	COUNT(*)
+		  FROM
+		        TB_RECIPE_CATEGORY
 	</entry>
 	
 	

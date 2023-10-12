@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.RecipeCategory" %>    
+<%@ page import="java.util.ArrayList, com.kh.semi.board.recipe.model.vo.RecipeCategory, com.kh.semi.common.model.vo.PageInfo" %> 
 <%
 	ArrayList<RecipeCategory> list = (ArrayList<RecipeCategory>)request.getAttribute("list");
 	String successMsg = (String)session.getAttribute("successMsg");
 	String failMsg = (String)session.getAttribute("failMsg");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int categoryListCount = pi.getListCount();
+	int categoryListPage = pi.getCurrentPage();
+	int categoryStartPage = pi.getStartPage();
+	int categoryEndPage = pi.getEndPage();
+	int categoryMaxPage = pi.getMaxPage();
 %>            
 <!DOCTYPE html>
 <html>
@@ -65,6 +72,10 @@
     border: none;
 }
 
+.paging-area{
+	text-align: center;
+	padding: 65px;
+}
 
 .searchTable{
 	padding: 0 10px;
@@ -105,7 +116,7 @@
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
-                    조회수 <span class="waiting"><%= list.size() %></span><span>개</span>
+                    조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
                     <button onclick="showAddCategorydModal()" class="btn btn-sm btn-warning">카테고리 추가</button>
@@ -142,7 +153,26 @@
                 </tbody>
             </table>	<!-- tb-category -->
         </div>	<!-- tableBody  -->
+        
+	   	<!-- 페이징바 -->
+		<div class="paging-area">
+			<% if(categoryListPage != 1) { %>
+				<button onclick="page('<%= categoryListPage -1 %>');" class="btn btn-warning">&lt;</button>
+			<% } %>
+			<% for(int i = categoryStartPage; i <= categoryEndPage; i++) { %>
+				<% if(categoryListPage != i) { %>
+					<button onclick="page('<%= i %>');" class="btn btn-warning"><%= i %></button>
+				<% } else { %>
+					<button disabled class="btn btn-warning"><%= i %></button>
+				<% } %>
+			<% } %>
+			<% if(categoryListPage != categoryMaxPage) { %>
+				<button onclick="page('<%= categoryListPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
+			<% } %>
+		</div>	<!-- 페이징바 -->
+	
    	</div>  <!-- rs-content -->
+   	
    	
 	<!-- 카테고리 추가  modal창 -->
  	<div class="modal" id="addCategoryForm">
@@ -175,8 +205,7 @@
 	            </div>
 	        </div>
 	</form>
-  </div>	<!-- 카테고리 추가 modal -->
-  
+  	</div>	<!-- 카테고리 추가 modal -->
   
 	<!-- 카테고리 수정  modal창 -->
 	<div class="modal" id="updateCategoryForm">
@@ -216,7 +245,14 @@
 		    	</div>	<!-- modal-content -->
 		    </div>	<!-- modal-dialog  -->
 		</form>
-	</div>	<!-- 카테고리 추가 modal -->
+	</div>	<!-- 카테고리 수정 modal -->
+  
+  <!-- 페이징바 -->
+  <script>
+		function page(element){
+			this.location.href = "<%= contextPath %>/jhselect.ct?page=" + element;
+		}
+  </script>
   
   <!-- 카테고리 추가 modal -->
   <script>
