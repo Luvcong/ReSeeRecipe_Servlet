@@ -1,13 +1,12 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  * Servlet implementation class MemberUpdateController
@@ -29,10 +28,7 @@ public class MemberUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 사진이 포함되면 POST방식 인코딩
-		request.setCharacterEncoding("UTF-8");
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
@@ -44,7 +40,7 @@ public class MemberUpdateController extends HttpServlet {
 			
 			
 			
-		}
+		
 		
 		
 	}
