@@ -103,8 +103,8 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">리워드 지급/차감</a></li>
-					<li><a href="#">리워드 사용내역</a></li>
+					<li onclick="goMenu('/jhselect.rw?page=1');"><a href="#">리워드 지급/차감/조회</a></li>
+					<li><a href="#">리워드 설정</a></li>
 				</ul>
 			</div>
 			<!-- 쿠폰 관리 카테고리 -->

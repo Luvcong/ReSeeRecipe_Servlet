@@ -3,11 +3,6 @@
 <%@ page import="com.kh.semi.member.model.vo.Member,
 				 com.kh.semi.board.recipe.model.vo.RecipeCategory,
 				 java.util.ArrayList" %>
-<%
-	// 경로 + 로그인유저
-	String contextPathCategoryBar = request.getContextPath();
-	Member loginMemberCategoryBar = (Member)session.getAttribute("loginMember");
-%>
 <!DOCTYPE html>
 <html>
 <head>
