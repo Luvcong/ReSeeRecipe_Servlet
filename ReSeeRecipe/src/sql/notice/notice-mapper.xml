@@ -22,7 +22,7 @@
 		    	NOTICE_DATE DESC
  	</entry>
  	
- 	<entry key="selectNoticeListCount">
+ 	<entry key="selectNoticelistCount">
 		SELECT
 				COUNT(*)
 		  FROM		 	
