@@ -196,66 +196,37 @@
 		<!-- 페이지네이션 영역 -->
 		<div id="recipeMainPagationContainer">
 			<% if(currentPage != 1) { %>
-				<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
+				<button id="goPrevPage" class="btn btn-sm btn-info">&lt;</button>
 			<% } %>
 			
 			<% for(int i = startPage; i <= endPage; i++) { %>
 				<% if(currentPage != i) { %>
-					<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%=i%>'" class="btn btn-sm btn-info"><%=i%></button>
+					<button class="btn btn-sm btn-info certainPages"><%=i%></button>
 				<% } else { %>
 					<button disabled class="btn btn-sm btn-info"><%=i%></button>
 				<% } %>
 				
 			<% } %>
 			<% if(currentPage != maxPage) { %>
-				<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage + 1 %>'" class="btn btn-sm info">&gt;</button>				
+				<button id="goNextPage" class="btn btn-sm info">&gt;</button>				
 			<% } %>
 		</div>
 		
 		
 		
 		<script>
-		
-			$(function(){
-	
-				var $titleDiv = $('.thumbnail-bottom-inner1');
-				// 페이지네이션 요청
-							
-				
-				$('.certainPages').click(function(){
-					console.log($titleDiv.children());
-					
-					
-					$titleDiv.children().each(function(index, value){
-						console.log(index);
-						console.log($(value).html());
-					});
-					
-					$titleDiv.children().each(function(){
-						console.log($(this).html());
-					});
-					
-					
-					
-					/*
-					$.ajax({
-						type : 'get',
-						url : 'ajaxRecipePagination.re',
-						data : {currentPage : $(this).val()},
-						//async : false,						
-						success : function(result){
-							// 양식 div 내부 값만 변경해주기
-							//<p><--%= rList.get(i).getRecipeTitle() %--></p>
-						},
-						error : function(result){
-							alert('오류 발생!');
-						}
-					});
-					*/
-					
-					
-				});
+			$('#goPrevPage').click(function(){
+				 location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage - 1 %>';
 			});
+		
+			$('.certainPages').click(function(){
+				location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=' + $(this).html();
+			});
+		
+			$('#goNextPage').click(function(){
+				location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage + 1 %>';
+			});
+			
 		</script>
 		
 		
