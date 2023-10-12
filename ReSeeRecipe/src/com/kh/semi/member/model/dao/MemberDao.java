@@ -292,6 +292,12 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 정보 변경 시 비밀번호 확인
+	public String memberUpdateConfirm(Connection conn, String memberNo) {
+		
+		
+	}
 
 	
 	public int selectMemlistCount(Connection conn) {
