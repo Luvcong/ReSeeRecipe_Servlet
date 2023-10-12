@@ -559,7 +559,7 @@ public class MemberDao {
 					  + "ON"
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
-						   + memSearchoption + " = ?"
+						   + memSearchoption + "= ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		
