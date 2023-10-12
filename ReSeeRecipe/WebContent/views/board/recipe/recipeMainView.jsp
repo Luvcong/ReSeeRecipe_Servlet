@@ -196,15 +196,19 @@
 		<!-- 페이지네이션 영역 -->
 		<div id="recipeMainPagationContainer">
 			<% if(currentPage != 1) { %>
-				<button id="prevPage">&lt;</button>
+				<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage - 1 %>'" class="btn btn-sm btn-info">&lt;</button>
 			<% } %>
 			
 			<% for(int i = startPage; i <= endPage; i++) { %>
 				<% if(currentPage != i) { %>
-					<button class="certainPages" value="<%=i%>"><%=i%></button>
+					<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%=i%>'" class="btn btn-sm btn-info"><%=i%></button>
 				<% } else { %>
-					<button disabled><%=i%></button>
+					<button disabled class="btn btn-sm btn-info"><%=i%></button>
 				<% } %>
+				
+			<% } %>
+			<% if(currentPage != maxPage) { %>
+				<button onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage + 1 %>'" class="btn btn-sm info">&gt;</button>				
 			<% } %>
 		</div>
 		
@@ -216,12 +220,7 @@
 	
 				var $titleDiv = $('.thumbnail-bottom-inner1');
 				// 페이지네이션 요청
-				
-				$('#prevPage').click(function(){
-					console.log('aa');
-				});
-				
-			
+							
 				
 				$('.certainPages').click(function(){
 					console.log($titleDiv.children());
