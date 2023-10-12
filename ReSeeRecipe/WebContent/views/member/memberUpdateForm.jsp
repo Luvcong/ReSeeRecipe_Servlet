@@ -130,7 +130,9 @@
 
       <!-- 정보 내용 변경 -->
       <div class="container">
-
+		
+		<!-- placeholder에 넣어야 하는데 loginUser를 넣게되면 업데이트하고 나서 오면 업데이트한 내용이 안보이잖어???
+		그래서 updateConfirm에서 컨트롤러를 들려서 select해서 다시 와야할듯??? -->
         <input type="text" placeholder="이름" name="memberName" id="memberName" maxlength="5" required>
         <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
         
@@ -162,7 +164,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label for="close">
-
+						
                         <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20" required>
                         <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
                 
@@ -218,6 +220,7 @@
             } else {
                 // 새로 등록된 사진이 없으므로 기존의 사진 등록
                 const noImg = 'https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png';
+                // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU
                 profileImg.src = noImg;
             }
 
