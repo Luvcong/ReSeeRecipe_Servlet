@@ -64,13 +64,12 @@ public class MemberUpdateController extends HttpServlet {
 			m.setMemNickname(memberNickname);
 			m.setMemEmail(memberEmail);
 			
-			// 첨부된 파일이 없어도 같이 날려서 DB에 MEM_PICTURE컬럼에 none을 넣어줄 것
-			String memberPicture = "none";
-			
+			// 현재 파일수정을 눌렀다면 무조건 사진이 있음. 근데 기본값은 null임
+			String memberPicture = null;
 			// 첨부파일이 있다면 
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
 				// 파일경로 + 파일수정명을 넘겨줄거임(DB에 MEM_PICTURE컬럼에 저장)
-				memberPicture = savePath + multiRequest.getOriginalFileName("profileInput");
+				memberPicture = savePath + "/" + multiRequest.getOriginalFileName("profileInput");
 			}
 			
 			// Service로 수정할 회원 정보와 파일정보를 넘겨 요청
@@ -82,7 +81,8 @@ public class MemberUpdateController extends HttpServlet {
 				// update를 한 걸 업데이트가 돼야 하니까 sendRedirect로 가야하나?
 				request.getRequestDispatcher(request.getContextPath());
 			} else { // 실패 시
-				request.getRequestDispatcher("views/member/memberUpdateForm.jsp");
+				request.getSession().setAttribute("memberUpdateError", "변경에 실패하였습니다.");
+				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me");
 			}
 		}
 	}

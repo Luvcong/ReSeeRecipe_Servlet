@@ -193,25 +193,43 @@
     <%@ include file="/views/common/footer.jspf" %>
 
     <script>
+
+        // 필요한 변수 선언
+        const profileImg = document.getElementById('profileImg');
+        const profileInput = document.getElementById('profileInput');
+
         // 사진을 클릭하면 프로필 사진 변경
         function loadImg(inputFile){
 
-            // 파일 첨부되어 있다면
+            // 파일을 첨부했을 때
             if(inputFile.files.length == 1){
-
+                // 파일을 읽어올 객체 생성
                 let reader = new FileReader();
-
+                // 파일의 긴 url을 읽어옴
                 reader.readAsDataURL(inputFile.files[0]);
+                // 파일읽기가 완료되면 익명함수 호출
                 reader.onload = function(e){
-                    $('#profileImg').attr('src', str);
+                    // $('#profileImg').attr('src', e.target.result);
+                    // 이벤트가 발생한곳의 result에 담겨있는 url을 파일 src값으로 넣어줌
+                    console.log(profileImg);
+                    profileImg.src = e.target.result;
                 }
-            // 취소
+            // 취소(파일 없음)
             } else {
+                // 새로 등록된 사진이 없으므로 기존의 사진 등록
                 const noImg = 'https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png';
+                profileImg.src = noImg;
             }
 
         };
         // 파일첨부 input요소를 숨기고 사진을 클릭했을 때 input요소 클릭
+        profileInput.style.display = 'none';
+        profileImg.addEventListener('click', function(){
+          profileInput.click();
+        });
+        
+        // 최대한 javascript로도 해보자
+        /*
         $(function(){
             $('#profileInput').hide();
 
@@ -219,7 +237,8 @@
                 $('#profileInput').click();
             })
         })
-
+        */
+        
     </script>
 
 </body>
