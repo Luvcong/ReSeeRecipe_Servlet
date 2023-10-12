@@ -30,8 +30,17 @@
 <body>
 
 	<!-- 관리자메뉴 title 상단 -->
-	<div class="rs-title">관리자 메뉴</div>
-
+	<div class="rs-title">관리자 메뉴
+	
+		
+	</div>
+	<div id="adminsetting">
+		<a href="#">
+			<i class="fa-duotone fa-gear"></i><br> 
+			<img src="" alt="">정보 설정
+		</a>
+	</div>
+	
 	<!-- 카테고리 리스트 -->
 	<div class="rs-main">
 		<div class="rs-navbar">

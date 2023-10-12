@@ -214,7 +214,7 @@
 		                  <img src="" alt="">회원가입
 		              </a>
 		              <% } else { %>
-		                  <a href="#">
+		                  <a href="<%= contextPath %>/blog.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그 <br>
 		                  <!-- 회원정보변경 임시 -->
@@ -250,7 +250,7 @@
 		<div id="navigator">
 	 		<ul id="navi">
 		        <li>
-		            <a href="<%= contextPath %>/selectRecipeList.re?currentPage=2">레시피</a>
+		            <a href="<%= contextPath %>/selectRecipeList.re?currentPage=1">레시피</a>
 		        </li>
 		        <li>
 		            <a href="">셰프</a>
