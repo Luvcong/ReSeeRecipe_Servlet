@@ -10,6 +10,7 @@ import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.member.model.vo.Member;
 
 
 public class RecipeController {
@@ -77,27 +78,57 @@ public class RecipeController {
 	}
 	
 	
-	
 	/**
-	 * @param request
+	 * 레시피 글작성 요청을 받은 후 Session에 로그인한 멤버의레시피 작성 폼 페이지로 포워딩해주는 기능
+	 * @param request : 
 	 * @param response
 	 * @return
 	 */
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
+		
+		String viewPath = "";
+		if(request.getSession().getAttribute("loginMember") != null) {
+			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
+		} else {
+			request.setAttribute("recipeAlertMsg", "로그인이 필요한 서비스입니다");
+			viewPath = "/views/board/recipe/recipeMainView.jsp";
+		}
+		return viewPath;
+	}
+	
+	
+	
+	/**
+	 * 레시피 글을 작성하는 기능
+	 * @param request : memNo : 로그인 멤버의 정보
+	 * @param response
+	 * @return
+	 */
+	public String insertRecipe(HttpServletRequest request, HttpServletResponse response) {
 
 		String viewPath = "";
-		int memNo = Integer.parseInt(request.getParameter("memNo"));
-		HashMap<String, Object> mapEnrollForm = new RecipeService().recipeEnrollForm(memNo);
 		
-		if(!mapEnrollForm.isEmpty()) {
-			// map내용이  있을 때 viewPath
-			request.setAttribute("mapEnrollForm", mapEnrollForm);
-			viewPath = "/views/board/recipe/recipeEnrollForm.jsp";
-		} else {
-			// map내용이 없을 때 viewPath
-			request.setAttribute("errorMsg", "게시글 입력요청 실패");
-			viewPath = "/views/common/errorPage.jsp";
+		if((request.getSession().getAttribute("loginMember")) != null) {
+			
+			int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
+			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
+			
+			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때 */
+				// map내용이  있을 때 viewPath
+				request.setAttribute("mapEnrollForm", mapEnrollForm);
+				viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
+			} else {
+				// map내용이 없을 때 viewPath
+				request.setAttribute("errorMsg", "게시글 입력요청 실패");
+				viewPath = "/views/common/errorPage.jsp";
+			}
+		} else { // 로그인 유저 정보가 없을 때 @@@@@@@(테스트위해 코드 O 나중에 지우고 error페이지나 recipemain으로 포워딩)
+			
 		}
+		
+		
+		
+		
 		
 		return viewPath;
 	}

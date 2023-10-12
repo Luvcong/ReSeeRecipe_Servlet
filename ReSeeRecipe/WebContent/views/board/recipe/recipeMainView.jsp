@@ -21,10 +21,11 @@
 <title>레시피 메인</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
+<!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 
 <style>
 	div {
@@ -141,6 +142,20 @@
 	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jspf" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jspf" %>
 	
+	<script>
+		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
+		$(function(){
+			const categoryFoldingText = $('#category-toggle-msg > h3');
+			categoryFoldingText.text('카테고리 더보기');
+			$('#category-toggle-menu').css('display', 'none');
+		});
+	</script>
+
+	<% if(request.getAttribute("recipeAlertMsg") != null) { %>
+		<% String recipeAlertMsg = (String)request.getAttribute("recipeAlertMsg"); %>
+		alert(<%= recipeAlertMsg %>);
+	<% } %>
+
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">
 		<!-- 레시피 글 블록 wrap -->
@@ -151,13 +166,13 @@
 					<!-- 레시피 글 블록 (* 9개 필요) -->
 					<div class="thumbnail-contariner">
 						<!-- 상단 이미지부분 -->
-						<div class="thumbnail-top">
+						<div class="thumbnail-top send-detail-view">
 							<img src="https://dthezntil550i.cloudfront.net/by/latest/by2107310110043690021607870/742bb13f-97a0-4582-ad2f-b9c276ed1709.jpg">
 						</div>
 						
 						<!-- 하단 레시피정보부분 -->
 						<div class="thumbnail-bottom">
-							<div class="thumbnail-bottom-inner1">
+							<div class="thumbnail-bottom-inner1 send-detail-view">
 								<p><%= rList.get(i).getRecipeTitle() %></p>
 							</div>
 	
@@ -193,6 +208,14 @@
 			<% } %>
 		</div>
 		
+		<script>
+			$('.send-detail-view').on('click', function(){
+				location.hreg = "<%=contextPath%>/recipeDetail.re";
+			});
+		
+		</script>
+		
+		
 		<!-- 페이지네이션 영역 -->
 		<div id="recipeMainPagationContainer">
 			<% if(currentPage != 1) { %>
@@ -226,7 +249,6 @@
 			$('#goNextPage').click(function(){
 				location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage + 1 %>';
 			});
-			
 		</script>
 		
 		
