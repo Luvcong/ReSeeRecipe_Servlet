@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
@@ -63,6 +62,7 @@ public class MemberDao {
 							   rset.getString("MEM_PICTURE"),
 							   rset.getInt("MEM_GRADE"));
 			}	
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
