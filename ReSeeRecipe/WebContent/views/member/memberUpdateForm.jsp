@@ -126,6 +126,7 @@
         <img src="https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png" alt="프로필사진" id="profileImg" width="150" height="150">
         <input type="file" name="profileInput" id="profileInput" onchange="loadImg(this);">
       </div>
+      
 
       <!-- 정보 내용 변경 -->
       <div class="container">
