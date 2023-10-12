@@ -526,16 +526,18 @@ public class MemberDao {
 		ArrayList<Member> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String memop = "";
+		//String memop = "MEM_ID";
 		System.out.println(memSearchoption);
+		/*
 		if(memSearchoption.equals("회원ID")) {
 			memop += "MEM_ID";
-		} else if(memSearchoption.equals("이름")) {
+		} 
+		else if(memSearchoption.equals("이름")) {
 			memop += "MEM_NAME";
 		} else if(memSearchoption.equals("닉네임")) {
 			memop += "MEM_NICKNAME";
 		} 
-		
+		*/
 		/*else {
 			totalsearchMember(conn, memSearchoption, memSearchcon);
 		}*/
@@ -557,7 +559,7 @@ public class MemberDao {
 					  + "ON"
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
-						   + memop + " = ?"
+						   + memSearchoption + "= ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		

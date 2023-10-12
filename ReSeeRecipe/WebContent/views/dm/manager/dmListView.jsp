@@ -14,6 +14,7 @@
 <meta charset="UTF-8">
 <title>[문의관리] 쪽지함관리</title>
 
+<!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
