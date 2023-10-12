@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 /**
  * Servlet implementation class MemberUpdateController
  */
@@ -30,6 +32,19 @@ public class MemberUpdateController extends HttpServlet {
 		// 사진이 포함되면 POST방식 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
 		
 		
 	}

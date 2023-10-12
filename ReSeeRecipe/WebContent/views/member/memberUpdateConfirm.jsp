@@ -86,7 +86,7 @@
         </form>
     </div>
     
-    <% if(checkPwd != "" && loginMember != null && !checkPwd.equals(loginMember.getMemPwd())) { %>
+    <% if(checkPwd != null && loginMember != null && !checkPwd.equals(loginMember.getMemPwd())) { %>
     	<script>
 		Swal.fire({
 			icon: 'error',
