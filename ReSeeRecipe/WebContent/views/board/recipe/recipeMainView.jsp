@@ -141,6 +141,15 @@
 	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jspf" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jspf" %>
 	
+	<script>
+		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
+		$(function(){
+			const categoryFoldingText = $('#category-toggle-msg > h3');
+			categoryFoldingText.text('카테고리 더보기');
+			$('#category-toggle-menu').css('display', 'none');
+		});
+	</script>
+	
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">
 		<!-- 레시피 글 블록 wrap -->
