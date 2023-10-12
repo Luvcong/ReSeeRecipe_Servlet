@@ -836,29 +836,59 @@
 
 				<!-- 레시피 과정 입력테이블 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
-					<% for(int i = 1; i <= 6; i++) { %>
-						<div id="cookStepsInstInner<%=i%>">
-							<div class="cook-steps-inst-title">
-								<input type="hidden" name="cookStepsLev<%=i%>" value="<%=i%>"><p class="inst-title-lev"><%=i%></p>
-								<input type="text" name="cookStepsTitle<%=i%>" placeholder="요리과정 제목" class="inst-title-text">
+					<!--
+						<% for(int i = 1; i <= 6; i++) {%>
+							<div id="cookStepsInstInner<%=i%>">
+								<div class="cook-steps-inst-title">
+									<input type="hidden" name="cookStepsLev<%=i%>" value="<%=i%>"><p class="inst-title-lev"><%=i%></p>
+									<input type="text" name="cookStepsTitle<%=i%>" placeholder="요리과정 제목" class="inst-title-text">
+								</div>
+								<div class="cook-steps-inst-content">
+									<textarea name="cookStepsContent<%=i%>" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>
+								</div>
 							</div>
-							<div class="cook-steps-inst-content">
-								<textarea name="cookStepsContent<%=i%>" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>
-							</div>
+							<% } %>
+						-->
+						<div id="cookStepsInstInnerEnd">
+							<button id="instAddBtn" type="button">Add</button>
 						</div>
-					<% } %>
 				</div>
 
 				<script>
+					
 					$(function(){
+						var $instTitleLevArr = $('div[class=cook-steps-inst-title]').children('p');
 						$('input[name=cookStepsTitle1]').attr('required', true);
 						$('textarea[name=cookStepsContent1]').attr('required', true);
 						
-						var $instTitleLevArr = $('div[class=cook-steps-inst-title]').children('p');
-						var $instTitleNum = 1;
+						
+						var $instAddBtnCount = 1;
+						$('#instAddBtn').click(function(){
+							console.log('d');
+							let $insAddStr = '<div id="cookStepsInstInner' + $instAddBtnCount + '">'
+								+ '<div class="cook-steps-inst-title">'
+								+ '<input type="hidden" name="cookStepsLev' + $instAddBtnCount + '" value="' + $instAddBtnCount + '"><p class="inst-title-lev">' + $instAddBtnCount + '</p>'
+								+ '<input type="text" name="cookStepsTitle' + $instAddBtnCount + '" placeholder="요리과정 제목" class="inst-title-text">'
+								+ '</div>'
+								+ '<div class="cook-steps-inst-content">'
+								+ '<textarea name="cookStepsContent' + $instAddBtnCount + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>'
+								+ '</div>'
+								+ '</div>';
+							let $instAddBtnDetach = $('#instAddBtn').detach();
+
+							$('#cookingInstructionContainer').append($insAddStr);
+							console.log('d');
+							$instAddBtnCount++;
+							
+						});
+						// instAddBtn에 클릭이벤트가 일어날 때 마다 앞쪽에 양식 추가 + 전역변수 클릭 카운팅
+						
+						$(document).on('click', '#instAddBtn', function(){
+						});
+						
 						$.each($instTitleLevArr, function(index, item){
 							console.log($(item).html());
-							if($(item).html() != instTitleNum) { // 1이 아니면 디스플레이 none
+							if($(item).html() != instTitleNum) { // 1, 2, 3... 돌면서 이 아니면 디스플레이 none
 								$('#cookStepsInstInner' + $(item).html()).css('display', 'none');
 							}
 						});
