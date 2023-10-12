@@ -26,7 +26,7 @@
 		SELECT
 				COUNT(*)
 		  FROM		 	
- 				TB_NOTICE]
+ 				TB_NOTICE
  		 WHERE
  		 		NOTICE_STATUS = 'Y'
  	</entry>
