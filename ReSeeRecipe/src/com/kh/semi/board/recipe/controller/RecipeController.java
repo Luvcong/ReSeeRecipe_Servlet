@@ -87,11 +87,11 @@ public class RecipeController {
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
 		
 		String viewPath = "";
-		if(request.getSession().getAttribute("loginMember") != null) {
+		
+		//@@@@@@@@@@@@편의를 위해 잠시 null
+		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
+		if(null == request.getSession().getAttribute("loginMember")) {
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
-		} else {
-			request.setAttribute("recipeAlertMsg", "로그인이 필요한 서비스입니다");
-			viewPath = "/views/board/recipe/recipeMainView.jsp";
 		}
 		return viewPath;
 	}
