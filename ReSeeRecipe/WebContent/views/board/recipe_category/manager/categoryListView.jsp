@@ -19,9 +19,8 @@
 <meta charset="UTF-8">
 <title>[메뉴관리] 카테고리 관리</title>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<!-- sweetalert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
 .sort {
@@ -93,9 +92,6 @@
 
 
 </style>
-
-<!-- sweetalert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -186,14 +182,14 @@
 	                </div> 
 	                <!-- Modal body -->
 	                <div class="modal-body">
-							<input type="hidden" name="dmNo">
+							<input type="hidden" name="categoryListPage">
 							<table class="modal-table" border="1">
 								<tr>
 									<th>카테고리명</th>
 									<td>
 										<input type="text" name="recipeCategoryName">
 									</td>
-									<td><button onclick="" class="btn btn-sm btn-warning btn-serach">중복확인</button></td>
+									<td><button onclick="categoryCheck()" class="btn btn-sm btn-warning btn-serach">중복확인</button></td>
 								</tr>
 							</table>
 	                </div>
@@ -259,8 +255,8 @@
   		function showAddCategorydModal(){
   			$('#addCategoryForm').modal('show');
   		}	// showAddCategorydModal
-  </script> 	
-   	
+  </script>
+  
   	<!-- alertMsg script -->
   <script>
 		var successMsg = '<%= successMsg %>';
