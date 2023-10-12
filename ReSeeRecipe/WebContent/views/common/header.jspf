@@ -214,7 +214,7 @@
 		                  <img src="" alt="">회원가입
 		              </a>
 		              <% } else { %>
-		                  <a href="#">
+		                  <a href="<%= contextPath %>/blog.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그
 		              <%} %>
