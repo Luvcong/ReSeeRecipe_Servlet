@@ -31,7 +31,7 @@
 
 	/* 전체 div wrap */
 	#recipe-enroll-form-wrap {
-		width: 900px;
+		width: 1200px;
 		box-sizing: border-box;
 		margin: auto;
 	}
