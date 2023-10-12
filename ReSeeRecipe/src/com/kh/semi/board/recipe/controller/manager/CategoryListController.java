@@ -48,13 +48,13 @@ public class CategoryListController extends HttpServlet {
 		
 		categoryListCount = categoryService.selectCategoryListCount();
 		categoryListPage = Integer.parseInt(request.getParameter("page"));
-		System.out.println(categoryListCount);	//	저장 카테고리 수 데이터값 ok
-		System.out.println(categoryListPage);	// 	현재 페이지 ok (1)
+		// System.out.println(categoryListCount);	//	저장 카테고리 수 데이터값 ok
+		// System.out.println(categoryListPage);	// 	현재 페이지 ok (1)
 		
 		categoryPageLimit = 10;
 		categoryLimit = 10;
 		categoryMaxPage = (int)Math.ceil((double)categoryListCount / categoryLimit);
-		System.out.println(categoryMaxPage);	// 현재 저장된 카테고리 수 == 63개 == maxPage 7 ok
+		// System.out.println(categoryMaxPage);	// 현재 저장된 카테고리 수 == 63개 == maxPage 7 ok
 		categoryStartPage = (categoryListPage - 1) / categoryPageLimit * categoryLimit + 1;
 		categoryEndPage = categoryStartPage + categoryPageLimit -1;
 		

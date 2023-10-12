@@ -1,9 +1,6 @@
 package com.kh.semi.board.recipe.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.commit;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
-import static com.kh.semi.common.JDBCTemplate.rollback;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -134,6 +131,12 @@ public class CategoryService {
 	}	// updateCategory
 	
 	
+	/**
+	 * 카테고리 리스트 행 카운트
+	 * @return DB에 저장되어 있는 카테고리 수
+	 * @author JH
+	 * @Date : 2023. 10. 12.
+	 */
 	public int selectCategoryListCount() {
 		
 		Connection conn = getConnection();

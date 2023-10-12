@@ -46,7 +46,7 @@ public class CategoryInsertController extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("failMsg", "Error 다시 시도해주세요!");
 		}
-		response.sendRedirect(request.getContextPath() + "/jhselect.ct");
+		response.sendRedirect(request.getContextPath() + "/jhselect.ct?page=1");
 	}
 
 	/**
