@@ -151,10 +151,7 @@
 		});
 	</script>
 
-	<% if(request.getAttribute("recipeAlertMsg") != null) { %>
-		<% String recipeAlertMsg = (String)request.getAttribute("recipeAlertMsg"); %>
-		alert(<%= recipeAlertMsg %>);
-	<% } %>
+	
 
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">

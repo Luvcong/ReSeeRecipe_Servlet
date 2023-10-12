@@ -249,7 +249,13 @@ public class CategoryDao {
 	}	// categoryNameCheck
 	
 	
-	
+	/**
+	 * 카테고리 리스트 행 카운트
+	 * @param conn
+	 * @return DB에 저장되어 있는 카테고리 수
+	 * @author JH
+	 * @Date : 2023. 10. 13.
+	 */
 	public int selectCategoryListCount(Connection conn) {
 		
 		int categoryListCount = 0;
@@ -269,15 +275,55 @@ public class CategoryDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		
 		return categoryListCount;
 	}	// selectCategoryListCount
 	
 	
-	
+	/**
+	 * 카테고리명 검색시 키워드에 일치하는 리스트 요청 method
+	 * @param conn
+	 * @param checkCategoryName 사용자가 검색한 카테고리명 키워드
+	 * @return 키워드에 해당하는 카테고리명 리스트
+	 * @author JH
+	 * @Date : 2023. 10. 13.
+	 */
+	public ArrayList<RecipeCategory> checkCategory(Connection conn, String checkCategoryName){
+		
+		ArrayList<RecipeCategory> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "checkCategoryName");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				RecipeCategory recipeCategory = new RecipeCategory();
+				
+				recipeCategory.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
+				recipeCategory.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
+				recipeCategory.setRecipeCategoryCount(rset.getInt("RECIPE_CATEGORY_CNT"));
+				
+				list.add(recipeCategory);
+				System.out.println(list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}	// checkCategory
 	
 	
 	

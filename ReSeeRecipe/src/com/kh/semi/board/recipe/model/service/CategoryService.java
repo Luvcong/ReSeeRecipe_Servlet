@@ -150,7 +150,24 @@ public class CategoryService {
 	
 	
 	
-	
+	/**
+	 * 카테고리명 검색시 키워드에 일치하는 리스트 요청 method
+	 * @param checkCategoryName
+	 * @return 키워드에 해당하는 카테고리명 리스트
+	 * @author JH
+	 * @Date : 2023. 10. 13.
+	 */
+	public ArrayList<RecipeCategory> checkCategory(String checkCategoryName){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<RecipeCategory> list = categoryDao.checkCategory(conn, checkCategoryName);
+		System.out.println(list);
+		
+		close(conn);
+		
+		return list;
+	}	// checkCategory
 	
 	
 	

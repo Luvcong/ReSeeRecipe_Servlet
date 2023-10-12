@@ -126,7 +126,6 @@
  		   		NOTICE_STATUS = 'Y'		
  		   AND
  		   		NOTICE_PIC_STATUS = 'Y'
- 	
  	</entry>
  	
  	<entry key="updateNoticePic">

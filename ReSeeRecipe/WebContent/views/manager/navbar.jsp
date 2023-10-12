@@ -11,12 +11,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- font-awesome -->
+<script src="https://kit.fontawesome.com/f74c934ec8.js" crossorigin="anonymous"></script>
+
+<!-- sweetalert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 
 <link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
 <!-- css파일 따로 뺴서 link -->
@@ -24,25 +27,38 @@
 .category{
 	display: none;
 }
+#recipeHome{
+	margin-left: -33px;
+}
+#recipeHome span{
+	padding-left: 5px
+}
+.titleMenu a{
+	color: black;
+	text-decoration: none;
+}
 </style>
 </head>
 
 <body>
 
 	<!-- 관리자메뉴 title 상단 -->
-	<div class="rs-title">관리자 메뉴
-	
-		
-	</div>
-	<div id="adminsetting">
-		<a href="#">
-			<i class="fa-duotone fa-gear"></i><br> 
-			<img src="" alt="">정보 설정
-		</a>
+	<div class="rs-title">
+		<div class="titleMenu" id="recipeHome">
+			<a href="<%= contextPath %>"><i class="fa-solid fa-house"></i></a>
+			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
+		</div>
+		<div class="titleMenu" id="adminsetting" >
+			<a href="#">
+				<i class="fa-solid fa-gear"></i>
+				<img src="" alt="">정보 설정
+			</a>
+		</div>
 	</div>
 	
 	<!-- 카테고리 리스트 -->
 	<div class="rs-main">
+
 		<div class="rs-navbar">
 			<!-- 게시판 관리 카테고리 -->
 			<div class="nav-item">
