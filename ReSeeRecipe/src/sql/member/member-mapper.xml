@@ -132,6 +132,17 @@
 		   	   MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 회원 정보 변경 시 비밀번호 확인 -->
+	<entry key="memberUpdateConfirm">
+		SELECT
+			   MEM_PWD
+		  FROM 
+		  	   TB_MEMBER
+		 WHERE 
+		 	   MEM_NO = ?
+		   AND 
+		   	   MEM_STATUS = 'Y'
+	</entry>
 	
 	<entry key="selectMemlistCount">
 		SELECT

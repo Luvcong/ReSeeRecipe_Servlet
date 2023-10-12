@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String checkPwd = (String)request.getAttribute("checkPwd"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
 
 <style>
     /* Bordered form */
@@ -66,17 +70,35 @@
 <body>
     <!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
+	
+	
 
     <div>
         <form action="yrmemberUpdateConfirm.me" mothod="post">
             <h1 id="title"><b>회원정보변경</b></h1>
             <div class="container">
-	            <input type="password" name="memberPwd" placeholder="비밀번호를 입력해 주세요." required>
+                <p>본인확인을 위한 비밀번호 입력창입니다.</p>
+	            <input type="password" name="checkPwd" placeholder="비밀번호를 입력해 주세요." required>
 	            <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
-	            <button type="submit" location="<%= contextPath %>/memberUpdateConfirm.me">확인</button>
+	            <input type="hidden" name="memberPwd" value="<%= loginMember.getMemPwd() %>">
+	            <button type="submit" onclick="error();" location="<%= contextPath %>/yrmemberUpdateConfirm.me">확인</button>
             </div>
         </form>
     </div>
+    
+    <% if(checkPwd != null && !loginMember.getMemPwd().equals(checkPwd)) { %>
+    	<script>
+		Swal.fire({
+			icon: 'error',
+			title: '비밀번호 불일치',
+			text: '비밀번호가 일치하지 않습니다!'
+    	})
+         </script>
+         
+    <% //checkPwd = null; 
+    } %>
+    
+
 
     <!-- footer 푸터영역 -->
 	<%@ include file="/views/common/footer.jspf" %>

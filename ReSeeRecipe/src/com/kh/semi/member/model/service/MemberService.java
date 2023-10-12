@@ -142,7 +142,7 @@ public class MemberService {
 	}
 	
 	// 회원 정보 변경 시 비밀번호 확인
-	public String memberUpdateConfirm(String memberNo) {
+	public String memberUpdateConfirm(int memberNo) {
 		
 		Connection conn = getConnection();
 		

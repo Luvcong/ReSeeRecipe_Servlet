@@ -217,6 +217,10 @@
 		                  <a href="#">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그
+		                  <!-- 회원정보변경 임시 -->
+		                  <a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">
+		                  <i class="fa-regular fa-handshake"></i><br> 
+		                  <img src="" alt="">회원정보변경 임시
 		              <%} %>
 		          </div>
 		          <div id="header_3_1_4">
