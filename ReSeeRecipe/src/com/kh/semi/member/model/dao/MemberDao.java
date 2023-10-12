@@ -547,7 +547,6 @@ public class MemberDao {
 						   + "MEM_NO"
 						   + ",MEM_ID"
 						   + ",MEM_NAME"
-						   + ",MEM_NAME"
 						   + ",MEM_NICKNAME"
 						   + ",MEM_EMAIL"
 						   + ",ENROLL_DATE"
@@ -559,7 +558,7 @@ public class MemberDao {
 					  + "ON"
 						   + "(MEM_GRADE = MEM_GRADE_NO)"
 					  + "WHERE"
-						   + memSearchoption + "= ?"
+						   + " + memSearchoption + " +  "= ?"
 					  + "AND"
 					  	   + "MEM_STATUS = 'Y'";
 		
