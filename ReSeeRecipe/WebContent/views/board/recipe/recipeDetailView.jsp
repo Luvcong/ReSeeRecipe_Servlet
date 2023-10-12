@@ -14,12 +14,12 @@
 <title>레시피 글 작성 양식</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-<!-- 버튼 / 모달 -->
+<!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- 아이콘 부트스트랩 -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
 
 
 <style>
@@ -404,20 +404,6 @@
 		});
 	</script>
 	
-	<!-- 같이 넘어가야 할 것
-		TB_RECIPE
-		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
-		위 구문 수행 후 RECIPE NO 받아서
-		TB_COOK_STEPS
-		: 각 요리과정 제목, 각 요리과정 내용, 블록 순서(넘버링)
-		TB_INGREDIENT
-		: 요리에 들어가는 재료, 선택한 계량단위 번호
-		TB_RECIPE_TAG
-		선택한 해시태그 번호
-		TB_RECIPE_PIC
-		: 미리보기만 해주고 & 파일INPUT으로 알아서
-		-->
-	<!--<--%= contextPath %>/insertRecipe.re-->
 
 	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
 		

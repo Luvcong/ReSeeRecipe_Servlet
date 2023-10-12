@@ -176,12 +176,10 @@
 	
 	<!-- script 정렬기준에 맞게 레시피리스트 조회 요청 보냄 -->
 	<script>
-		$(function(){
-			$('.recipe-sort-by').click(function(){
-				const sortBy = $(this).siblings().val();
-				location.href = '<%= contextPathSortBar %>/' + sortBy + '.re';
-			})
-		})
+		$('.recipe-sort-by').click(function(){
+			const sortBy = $(this).siblings().val();
+			location.href = '<%= contextPathSortBar %>/' + sortBy + '.re';
+		});
 	</script>
 
 </body>
