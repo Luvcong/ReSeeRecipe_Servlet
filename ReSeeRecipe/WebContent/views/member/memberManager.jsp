@@ -135,6 +135,14 @@
         		$('#HL_memSearch').on('click', HL_memSearch);
         	});
         	function HL_memSearch(){
+        		
+        		
+        		
+        		
+        		
+        		
+        		
+        		
         		let $option = $('option:selected');
         		console.log($option.text());
         		let $searcon = $('#searchMember').val();
@@ -143,7 +151,7 @@
         			url : 'hlsearchmeminfo.ma',
         			type : 'post',
         			data : {
-        				option : $option.text(),
+        				option : $option.val(),
         				searhcon : $searcon
         			},
         			success : function(result){
@@ -201,6 +209,7 @@
         				
         			}
         		})
+        		
         	}
         
         
