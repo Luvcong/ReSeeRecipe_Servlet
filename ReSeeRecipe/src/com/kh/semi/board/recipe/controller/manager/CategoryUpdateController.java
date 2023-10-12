@@ -38,6 +38,8 @@ public class CategoryUpdateController extends HttpServlet {
 		// 2) 전달값 뽑기
 		String categoryName = request.getParameter("categoryName");
 		String categoryUpdateName = request.getParameter("categoryUpdateName");
+		// int categoryListPage = Integer.parseInt(request.getParameter("categoryListPage"));
+		
 		System.out.println("categoryName : " + categoryName);
 		System.out.println("categoryUpdateName : " + categoryUpdateName);
 		// 3) 데이터가공 xx
@@ -50,7 +52,8 @@ public class CategoryUpdateController extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("failMsg", "중복 카테고리가 존재합니다. 다시 시도해주세요!");
 		}
-		response.sendRedirect(request.getContextPath() + "/jhselect.ct");
+		response.sendRedirect(request.getContextPath() + "/jhselect.ct?page=1");
+		// request.getRequestDispatcher("views/board/recipe_category/manager/categoryListView.jsp").forward(request, response);
 		
 	}
 
