@@ -21,10 +21,11 @@
 <title>레시피 메인</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
+<!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
 
 <style>
 	div {
@@ -141,6 +142,20 @@
 	<%@ include file="/views/board/recipe_frag/recipeCategoryBar.jspf" %>
 	<%@ include file="/views/board/recipe_frag/recipeSortBar.jspf" %>
 	
+	<script>
+		// jsp파일 로딩 시 카테고리 접힘상태로 로딩시켜주는 함수
+		$(function(){
+			const categoryFoldingText = $('#category-toggle-msg > h3');
+			categoryFoldingText.text('카테고리 더보기');
+			$('#category-toggle-menu').css('display', 'none');
+		});
+	</script>
+
+	<% if(request.getAttribute("recipeAlertMsg") != null) { %>
+		<% String recipeAlertMsg = (String)request.getAttribute("recipeAlertMsg"); %>
+		alert(<%= recipeAlertMsg %>);
+	<% } %>
+
 	<!-- 전체를 감싸는 div -->
 	<div id="recipeMainViewWrap">
 		<!-- 레시피 글 블록 wrap -->
@@ -151,13 +166,13 @@
 					<!-- 레시피 글 블록 (* 9개 필요) -->
 					<div class="thumbnail-contariner">
 						<!-- 상단 이미지부분 -->
-						<div class="thumbnail-top">
+						<div class="thumbnail-top send-detail-view">
 							<img src="https://dthezntil550i.cloudfront.net/by/latest/by2107310110043690021607870/742bb13f-97a0-4582-ad2f-b9c276ed1709.jpg">
 						</div>
 						
 						<!-- 하단 레시피정보부분 -->
 						<div class="thumbnail-bottom">
-							<div class="thumbnail-bottom-inner1">
+							<div class="thumbnail-bottom-inner1 send-detail-view">
 								<p><%= rList.get(i).getRecipeTitle() %></p>
 							</div>
 	
@@ -193,69 +208,46 @@
 			<% } %>
 		</div>
 		
+		<script>
+			$('.send-detail-view').on('click', function(){
+				location.hreg = "<%=contextPath%>/recipeDetail.re";
+			});
+		
+		</script>
+		
+		
 		<!-- 페이지네이션 영역 -->
 		<div id="recipeMainPagationContainer">
 			<% if(currentPage != 1) { %>
-				<button id="prevPage">&lt;</button>
+				<button id="goPrevPage" class="btn btn-sm btn-info">&lt;</button>
 			<% } %>
 			
 			<% for(int i = startPage; i <= endPage; i++) { %>
 				<% if(currentPage != i) { %>
-					<button class="certainPages" value="<%=i%>"><%=i%></button>
+					<button class="btn btn-sm btn-info certainPages"><%=i%></button>
 				<% } else { %>
-					<button disabled><%=i%></button>
+					<button disabled class="btn btn-sm btn-info"><%=i%></button>
 				<% } %>
+				
+			<% } %>
+			<% if(currentPage != maxPage) { %>
+				<button id="goNextPage" class="btn btn-sm info">&gt;</button>				
 			<% } %>
 		</div>
 		
 		
 		
 		<script>
+			$('#goPrevPage').click(function(){
+				 location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage - 1 %>';
+			});
 		
-			$(function(){
-	
-				var $titleDiv = $('.thumbnail-bottom-inner1');
-				// 페이지네이션 요청
-				
-				$('#prevPage').click(function(){
-					console.log('aa');
-				});
-				
-			
-				
-				$('.certainPages').click(function(){
-					console.log($titleDiv.children());
-					
-					
-					$titleDiv.children().each(function(index, value){
-						console.log(index);
-						console.log($(value).html());
-					});
-					
-					$titleDiv.children().each(function(){
-						console.log($(this).html());
-					});
-					
-					
-					
-					/*
-					$.ajax({
-						type : 'get',
-						url : 'ajaxRecipePagination.re',
-						data : {currentPage : $(this).val()},
-						//async : false,						
-						success : function(result){
-							// 양식 div 내부 값만 변경해주기
-							//<p><--%= rList.get(i).getRecipeTitle() %--></p>
-						},
-						error : function(result){
-							alert('오류 발생!');
-						}
-					});
-					*/
-					
-					
-				});
+			$('.certainPages').click(function(){
+				location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=' + $(this).html();
+			});
+		
+			$('#goNextPage').click(function(){
+				location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage + 1 %>';
 			});
 		</script>
 		

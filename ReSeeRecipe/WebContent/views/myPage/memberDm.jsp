@@ -4,19 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 블로그 왼쪽 메뉴바</title>
+<title>Insert title here</title>
 </head>
 <body>
 
-
-
-<%@ include file="/views/common/header.jspf" %>
-
-
-
-
-
-<%@ include file="/views/common/footer.jspf" %>
+<%@ include file="/views/common/memberPage.jsp" %>
 
 </body>
 </html>

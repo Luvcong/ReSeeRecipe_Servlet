@@ -3,30 +3,12 @@
 <%@ page import="com.kh.semi.member.model.vo.Member,
 				 com.kh.semi.board.recipe.model.vo.RecipeCategory,
 				 java.util.ArrayList" %>
-<%
-	// 경로 + 로그인유저
-	String contextPathCategoryBar = request.getContextPath();
-	Member loginMemberCategoryBar = (Member)session.getAttribute("loginMember");
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>레시피카테고리바</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<!--
-<script>
-	$(function(){
-		// 카테고리 리스트 요청
-		location.href = '<%=contextPathCategoryBar%>/selectRecipeCategoryList.re';
-	});
-</script>
--->
-<%--
-	// 카테고리 리스트
-	ArrayList<RecipeCategory> cList = (ArrayList<RecipeCategory>)request.getAttribute("cList");
---%>
-
 
 <style>
     /*****************************************************/
@@ -119,25 +101,16 @@
     </div>
 
     <script>
-    	
-    
-    
-    
-    
-        	
-        	
-			// 카테고리메뉴 토글
-            $('#category-toggle-msg > h3').click(function(){
-                if($(this).text() == '카테고리 접기') {
-                    $(this).text('카테고리 더보기');
-                }
-                else {
-                    $(this).text('카테고리 접기');
-                }
-                $('#category-toggle-menu').slideToggle();
-            })
-
-        })
+		// 카테고리메뉴 토글
+		$('#category-toggle-msg > h3').click(function(){
+		    if($(this).text() == '카테고리 접기') {
+		        $(this).text('카테고리 더보기');
+		    }
+		    else {
+		        $(this).text('카테고리 접기');
+		    }
+		    $('#category-toggle-menu').slideToggle();
+		});
     </script>
 
 
