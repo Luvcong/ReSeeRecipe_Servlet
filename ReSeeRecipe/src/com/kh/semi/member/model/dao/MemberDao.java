@@ -292,6 +292,32 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 정보 변경 시 비밀번호 확인
+	public String memberUpdateConfirm(Connection conn, int memberNo) {
+		
+		String checkPwd = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("memberUpdateConfirm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				checkPwd = rset.getString("MEM_PWD");
+			}
+			System.out.println(checkPwd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return checkPwd;
+	}
 
 	
 	public int selectMemlistCount(Connection conn) {

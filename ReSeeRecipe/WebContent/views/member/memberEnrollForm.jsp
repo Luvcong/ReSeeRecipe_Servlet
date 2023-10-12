@@ -227,6 +227,7 @@
     <!-- footer 푸터영역 -->
     <%@ include file="/views/common/footer.jspf" %>
 
+    <!--
     <script>
         /*
         // 유효성 검사
@@ -309,7 +310,7 @@
       }
       */
     </script>
-    
+    -->
     
     <script>
 

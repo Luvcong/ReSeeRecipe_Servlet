@@ -141,6 +141,18 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원 정보 변경 시 비밀번호 확인
+	public String memberUpdateConfirm(int memberNo) {
+		
+		Connection conn = getConnection();
+		
+		String checkPwd = new MemberDao().memberUpdateConfirm(conn, memberNo);
+		
+		close(conn);
+		
+		return checkPwd;
+	}
+	
 	
 
 	public int selectMemlistCount() {
