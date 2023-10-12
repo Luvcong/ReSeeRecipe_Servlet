@@ -58,17 +58,21 @@
 	width:100%;
 	text-align: center;
 }
-.modal-table th {
+/* .modal-table th {
 	width: 130px;
-}
+} */
 .modal-table tr {
-	height: 40px;
+	height: 50px;
+}
+.modal-table tr td > label {
+	font-size: 12px;
 }
 .modal input {
     width: 100%;
     height: 50px;
     cursor: pointer;
     border: none;
+    text-align: center;
 }
 
 .paging-area{
@@ -84,7 +88,6 @@
 	width: 170px;
 	height: 80px;
 }
-
 #updateCategoryForm td input{
 	height: 80px;
 	
@@ -104,12 +107,14 @@
                 [메뉴 관리] 카테고리 관리
             </div>
             <div class="searchTable">
+            <form action="<%= contextPath %>/jhcheck.ct" method="post">
             	<table>
             		<tr>
-            			<td><input type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button type="submit">조회</button></td>
+            			<td><input name="checkCategoryName" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button type="submit">조회</button></td>
             		</tr>
             	</table>
-            </div>
+            </form>
+            </div>	<!-- searchTable -->
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
                     조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
@@ -186,10 +191,11 @@
 							<table class="modal-table" border="1">
 								<tr>
 									<th>카테고리명</th>
-									<td>
-										<input type="text" name="recipeCategoryName">
+								</tr>
+								<tr>
+									<td><input type="text" name="recipeCategoryName">
+									<label for="recipeCategoryName"></label>
 									</td>
-									<td><button onclick="categoryCheck()" class="btn btn-sm btn-warning btn-serach">중복확인</button></td>
 								</tr>
 							</table>
 	                </div>

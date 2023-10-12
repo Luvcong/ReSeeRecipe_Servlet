@@ -78,10 +78,6 @@
 		  	   TB_INGREDIENT_MEASURE
 	</entry>
 	
-	
-	
-	
-	
 	<!-- 레시피 카테고리 추가 SQL문 -->
 	<entry key="insertCategory">
 		INSERT
@@ -161,6 +157,24 @@
 		        TB_RECIPE_CATEGORY
 	</entry>
 	
+	<!-- 카테고리 키워드 검색시 리스트 조회 -->
+	<entry key="checkCategory">
+		SELECT
+		       RC.RECIPE_CATEGORY_NO,
+		       RC.RECIPE_CATEGORY_NAME,
+		       NVL(CTGR_CNT.CNT, 0) AS RECIPE_CATEGORY_CNT
+		  FROM 
+		       TB_RECIPE_CATEGORY RC
+		  LEFT OUTER JOIN
+		                (SELECT
+		                        RECIPE_CATEGORY_NO, COUNT(*) CNT
+		                   FROM 
+		                        TB_RECIPE
+		               GROUP BY RECIPE_CATEGORY_NO) CTGR_CNT
+		    ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
+		 WHERE RECIPE_CATEGORY_NAME LIKE '%'||?||'%'
+		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
+	</entry>
 	
 	
 	<entry key="selectUnRecipeForModal">

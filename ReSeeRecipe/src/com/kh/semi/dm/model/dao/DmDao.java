@@ -103,7 +103,7 @@ public class DmDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(conn);
+			close(pstmt);
 		}
 		
 		return result;
