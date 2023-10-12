@@ -153,6 +153,17 @@ public class MemberService {
 		return checkPwd;
 	}
 	
+	// 회원 정보 변경
+	public int memberUpdate(Member m, String memberPicture) {
+		
+		Connection conn = getConnection();
+		
+		
+		
+		
+		return result;
+	}
+	
 	
 
 	public int selectMemlistCount() {
