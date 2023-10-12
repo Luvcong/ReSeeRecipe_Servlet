@@ -857,19 +857,20 @@
 							
 							let $insAddStr = '<div id="cookStepsInstInner' + ($instAddBtnCount + 1) + '">'
 								+ '<div class="cook-steps-inst-title">'
-									+ '<input type="hidden" name="cookStepsLev' + ($instAddBtnCount + 1) + '" value="' + ($instAddBtnCount + 1) + '"><p class="inst-title-lev">' + ($instAddBtnCount + 1) + '</p>'
-									+ '<input type="text" name="cookStepsTitle' + ($instAddBtnCount + 1) + '" placeholder="요리과정 제목" class="inst-title-text">'
-									+ '</div>'
-									+ '<div class="cook-steps-inst-content">'
-										+ '<textarea name="cookStepsContent' + ($instAddBtnCount + 1) + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>'
-										+ '</div>'
-										+ '</div>';
-										
+								+ '<input type="hidden" name="cookStepsLev' + ($instAddBtnCount + 1) + '" value="' + ($instAddBtnCount + 1) + '"><p class="inst-title-lev">' + ($instAddBtnCount + 1) + '</p>'
+								+ '<input type="text" name="cookStepsTitle' + ($instAddBtnCount + 1) + '" placeholder="요리과정 제목" class="inst-title-text">'
+								+ '</div>'
+								+ '<div class="cook-steps-inst-content">'
+								+ '<textarea name="cookStepsContent' + ($instAddBtnCount + 1) + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>'
+								+ '</div>'
+								+ '</div>';
 							let $instAddBtnDetach = $('#cookStepsInstInnerEnd').detach();
-							$('#cookingInstructionContainer').append($insAddStr, $instAddBtnDetach);
+							
+							$('#cookingInstructionContainer').append($insAddStr, $instAddBtnDetach); // insAddStr과 잘라낸 버튼 Append 후 count++
 							$instAddBtnCount++;
 
-							if($instAddBtnCount == 6) {
+							if($instAddBtnCount == 6) { // 카운트 6이면 이벤트, 버튼 제거
+								$(this).off('click');
 								$('#cookStepsInstInnerEnd').remove();
 							}
 						});

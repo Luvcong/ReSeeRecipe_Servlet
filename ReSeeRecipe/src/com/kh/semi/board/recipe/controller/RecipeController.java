@@ -56,28 +56,6 @@ public class RecipeController {
 	}
 	
 	
-	
-	
-	/**
-	 * 카테고리 목록을 조회해 반환
-	 * @return : 레시피 카테고리 목록이 담긴 어레이리스트 ArrayList<RecipeCategory>
-	 */
-	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
-		
-		String viewPath = "";
-		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList();
-		
-		if(!cList.isEmpty()) {
-			request.setAttribute("cList", cList);
-		} else {
-			request.setAttribute("errorMsg", "에러가 발생했습니다");
-			return "/views/common/errorPage.jsp";
-		}
-		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
-		return viewPath;
-	}
-	
-	
 	/**
 	 * 레시피 글작성 요청을 받은 후 Session에 로그인한 멤버의레시피 작성 폼 페이지로 포워딩해주는 기능
 	 * @param request : 
@@ -97,7 +75,6 @@ public class RecipeController {
 	}
 	
 	
-	
 	/**
 	 * 레시피 글을 작성하는 기능
 	 * @param request : memNo : 로그인 멤버의 정보
@@ -111,6 +88,14 @@ public class RecipeController {
 		if((request.getSession().getAttribute("loginMember")) != null) {
 			
 			int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
+			int recipeWriterNo = memNo;
+			request.getParameter("recipeCategoryNo");
+			request.getParameter("recipeTitle");
+			
+			
+			
+			
+			
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
 			
 			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때 */
@@ -125,11 +110,27 @@ public class RecipeController {
 		} else { // 로그인 유저 정보가 없을 때 @@@@@@@(테스트위해 코드 O 나중에 지우고 error페이지나 recipemain으로 포워딩)
 			
 		}
+		return viewPath;
+	}
+	
+	
+	
+	/**
+	 * 카테고리 목록을 조회해 반환
+	 * @return : 레시피 카테고리 목록이 담긴 어레이리스트 ArrayList<RecipeCategory>
+	 */
+	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
 		
+		String viewPath = "";
+		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList();
 		
-		
-		
-		
+		if(!cList.isEmpty()) {
+			request.setAttribute("cList", cList);
+		} else {
+			request.setAttribute("errorMsg", "에러가 발생했습니다");
+			return "/views/common/errorPage.jsp";
+		}
+		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
 		return viewPath;
 	}
 	
