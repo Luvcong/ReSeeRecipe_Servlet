@@ -47,7 +47,8 @@ public class MemberUpdateController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/profile_upfiles");
 			
 			// HttpServletRequest request 객체를 MultipartRequest 변환
-			// MyFileRenamePolicy()는 
+			// MultipartRequest 객체 생성 시 파일 업로드
+			// MyFileRenamePolicy()는 파일 이름 수정
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			// 값 가져오기
@@ -63,13 +64,12 @@ public class MemberUpdateController extends HttpServlet {
 			m.setMemNickname(memberNickname);
 			m.setMemEmail(memberEmail);
 			
-			String memberPicture = null;
+			// 첨부된 파일이 없어도 같이 날려서 DB에 MEM_PICTURE컬럼에 none을 넣어줄 것
+			String memberPicture = "none";
 			
-			// String realProfileInput = multiRequest.getOriginalFileName("profileInput");
 			// 첨부파일이 있다면 
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
-				
-				// 파일경로 + 파일수정명을 넘겨줄거임
+				// 파일경로 + 파일수정명을 넘겨줄거임(DB에 MEM_PICTURE컬럼에 저장)
 				memberPicture = savePath + multiRequest.getOriginalFileName("profileInput");
 			}
 			
@@ -79,9 +79,10 @@ public class MemberUpdateController extends HttpServlet {
 			// update 성공 시
 			if(result > 0) {
 				// 나중에 마이페이지 메인으로 바꿀 것
+				// update를 한 걸 업데이트가 돼야 하니까 sendRedirect로 가야하나?
 				request.getRequestDispatcher(request.getContextPath());
 			} else { // 실패 시
-				
+				request.getRequestDispatcher("views/member/memberUpdateForm.jsp");
 			}
 		}
 	}

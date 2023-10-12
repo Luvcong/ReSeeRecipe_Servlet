@@ -43,17 +43,26 @@ public class MemberUpdateConfirmController extends HttpServlet {
 		// 비밀번호가 일치한다면
 		if(checkPwd.equals(memberPwd)) {
 			request.getRequestDispatcher("views/member/memberUpdateForm.jsp").forward(request, response);
-			// ★★★★★★★★★여기서 response로 보내도 로그인 유지가 되나?
+			// ★★★★★★★★★여기서 response로 보내도 되나?
 			// response.sendRedirect("views/member/memberUpdateForm");
 		// 비밀번호 불일치
 		} else { 
+			// DB에서 조회된 회원 비밀번호
+			// request.setAttribute("memberPwd", memberPwd);
+			// 사용자가 입력한 비밀번호
+			// request.setAttribute("checkPwd", checkPwd);
 			// 바로 jsp때리는거랑 컨트롤러 통해가는거랑 차이? => 컨트롤러를 통해서는 못가네?
 			// request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);
+			// request.getRequestDispatcher("views/member/memberUpdateConfirm.jsp").forward(request, response);
+			// sendRedirect로 보내면 request에 담은 값이 안넘어가기 때문에 session으로 보내줌
+			
+			// 엥 이것도 똑같네 뭐가문제야 새로고침하면 계속 alert창이 뜸
 			// DB에서 조회된 회원 비밀번호
-			request.setAttribute("memberPwd", memberPwd);
+			request.getSession().setAttribute("memberPwd", memberPwd);
 			// 사용자가 입력한 비밀번호
-			request.setAttribute("checkPwd", checkPwd);
-			request.getRequestDispatcher("views/member/memberUpdateConfirm.jsp").forward(request, response);
+			request.getSession().setAttribute("checkPwd", checkPwd);
+			response.sendRedirect("views/member/memberUpdateConfirm.jsp");
+			
 		}
 	}
 
