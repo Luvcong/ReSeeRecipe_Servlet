@@ -255,7 +255,7 @@
 		height: 21%;
 	}
 
-	#cook-steps-title > #title-text-area-div {
+	#title-text-area-div {
 		width: 100%;
 		height: 100%;
 	}
@@ -266,11 +266,11 @@
 		resize: none;
 		text-align: center;
 		border-radius: 10px;
-		padding : 10px 120px 10px 50px;
+		padding : 10px 100px 10px 50px;
 		margin: auto;
 		position: absolute;
-		top: 110px;
-		right: 15px;
+		top: 100px;
+		right: 90px;
 	}
 
 	#cook-steps-title > div > textarea::placeholder {
@@ -283,8 +283,8 @@
 		font-size: 2px;
 		z-index: 1;
 		position: absolute;
-		top: 182px;
-		right: 26px;
+		top: 172px;
+		right: 100px;
 	}
 
 
@@ -420,9 +420,8 @@
 
 	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
 		
-		<!---------------------- 글작성 전체 form / 요청 시점 memNo같이넘김 ----------------------->
+		<!---------------------- 글작성 전체 form / memNo은 session에서 빼서 사용 ----------------------->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memNo" value="2">
 
 			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipe-enroll-top-bar-wrap">
@@ -433,14 +432,14 @@
 				<div id="recipe-enroll-bar-menu">
 					<div id="recipe-enroll-bar-inner">
 						<select name="recipeCategoryNo">
-								<option	value="한식">한식</option>
-								<option value="양식">양식</option>
-								<option value="중식">중식</option>
-								<option value="일식">일식</option>
-								<option value="아시안">아시안</option>
-								<option value="야식">야식</option>
-								<option value="디저트">디저트</option>
-								<option value="음료">음료</option>
+								<option	value="1">한식</option>
+								<option value="2">양식</option>
+								<option value="3">중식</option>
+								<option value="4">일식</option>
+								<option value="5">아시안</option>
+								<option value="6">야식</option>
+								<option value="7">디저트</option>
+								<option value="8">음료</option>
 						</select>
 					</div>
 					<div id="enroll-bar-inner-blank1"></div>
@@ -521,6 +520,7 @@
 					//} else {
 						//e.dataset.target = '#unrecipe-unavailable-modal';
 					//}
+					alert("d");
 				};
 				
 				// 양식 초기화 요청 confirm
@@ -555,11 +555,10 @@
 				
 				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="cook-steps-basic-info">
-					<div id="enroll-form-blank1"></div>
 					<div class="cook-steps-input-content">
 						<div id="content-writer-hashtag">
 							<div id="cook-steps-chef" class="cook-steps-inner">
-								<p>김xx셰프</p>
+								<p><%= loginMember %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
 								<button type="button" class="btn btn-info">해시태그입력</button>
