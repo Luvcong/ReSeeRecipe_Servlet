@@ -103,7 +103,8 @@ public class NoticeManageController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pg", pg);
 		request.getRequestDispatcher("views/notice/noticeManager.jsp").forward(request, response);
-		
+		System.out.println("공지사항리스트" + list);
+		System.out.println("공지사항 페이징" + pg);
 	}
 
 	/**
