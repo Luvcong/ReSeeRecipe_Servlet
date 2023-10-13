@@ -44,4 +44,15 @@ public class NoticeService {
 		
 		return list;
 	}
+	
+	public Notice selectNoticeInfo(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNoticeInfo(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return n;
+	}
 }

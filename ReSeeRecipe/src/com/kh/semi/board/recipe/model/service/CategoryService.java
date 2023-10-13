@@ -160,9 +160,9 @@ public class CategoryService {
 	public ArrayList<RecipeCategory> checkCategory(String checkCategoryName){
 		
 		Connection conn = getConnection();
-		
+		System.out.println("sevice : " + checkCategoryName);
 		ArrayList<RecipeCategory> list = categoryDao.checkCategory(conn, checkCategoryName);
-		System.out.println(list);
+		System.out.println("service : " + list);
 		
 		close(conn);
 		

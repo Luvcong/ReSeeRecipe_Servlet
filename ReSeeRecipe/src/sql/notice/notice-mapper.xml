@@ -177,9 +177,10 @@
  							TB_NOTICE A,
         					(SELECT 
         							NOTICE_NO, 
-        							COUNT(NOTICE_NO)
+        							COUNT(HT_NOTICE_DATE)
           					   FROM 
           					   		TB_HT_NOTICE
+          					   RIGHT 
           					   JOIN 
           					   		TB_NOTICE USING(NOTICE_NO)
          					  GROUP 
