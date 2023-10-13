@@ -64,21 +64,17 @@
             <input type="hidden" name="adminNo" value=<%=loginMemberNo%>>
             <label for="HL_noticeTitle">공지사항 제목 : </label>
             <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeTitle" id="HL_noticeTitle" required>
-            
+    <!--    <label for="HL_noticeWriter">작성자 :</label>  -->   
+    <!--    <input type="password" class="form-control" placeholder="관리자 | 매니저" name="HL_noticeWriter" id="HL_noticeWriter" required> -->      
             <br>
-            <label for="HL_noticeWriter">작성자 :</label>
-            <input type="password" class="form-control" placeholder="관리자 | 매니저" name="HL_noticeWriter" id="HL_noticeWriter" required>
-            <br><br>
-
             <label for="HL_noticeFile">이미지</label> <br>
             <div class="custom-file">
-                <label class="custom-file-label" for="HL_noticeFile">파일선택</label>
-                <input type="file" class="custom-file w3-yellow" name="HL_noticeFile" id="HL_noticeFile">
+                <input type="file" name="HL_noticeFile" id="HL_noticeFile">
             </div>  
             <br><br>
             <label for="HL_noticeContent">공지사항 내용</label>
             <textarea class="form-control" rows="5" name="HL_noticeContent" id="HL_noticeContent"></textarea>
-            <br><br>
+            <br>
            
     <!--   <label for="HL_noticeHashtag">해시태그</label>
             <input type="text" class="form-control" placeholder="해시태그를 입력하세요(#제외)" name="HL_noticeHashtag" id="HL_noticeHashtag">
