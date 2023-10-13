@@ -48,9 +48,10 @@ public class rewardUpdateController extends HttpServlet {
 		int minus = 0;
 		if(selectReward.equals("minusReward")) {
 			minus = (rewardScore * -1);
-			System.out.println(minus);
+			System.out.println(minus);		// 값 음수 ok
+			rewardScore = minus;
 		}
-		
+		System.out.println(rewardScore);	// 값 음수 ok
 		
 		// 3) 
 		Reward reward = new Reward();
