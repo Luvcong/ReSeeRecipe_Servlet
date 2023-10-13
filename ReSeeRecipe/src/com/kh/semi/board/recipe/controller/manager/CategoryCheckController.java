@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.kh.semi.board.recipe.model.service.CategoryService;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 
@@ -38,14 +42,13 @@ public class CategoryCheckController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// 2) 값
 		String checkCategoryName = request.getParameter("checkCategoryName");
-		System.out.println(checkCategoryName);
+		System.out.println(checkCategoryName);	// 값 ok
 		// 3) 가공xx
 		// 4) 요청
 		ArrayList<RecipeCategory> list = categoryService.checkCategory(checkCategoryName);
-		// 5) 응답하면
-		System.out.println(list);
-		request.setAttribute("list", list);
-		response.sendRedirect(request.getContextPath() + "jhselect.ct?page=1");
+		// 5) 응답화면
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 

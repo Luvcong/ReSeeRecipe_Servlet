@@ -90,7 +90,10 @@
 }
 #updateCategoryForm td input{
 	height: 80px;
-	
+}
+.list-btn{
+	text-align: center;
+    padding-top: 30px;
 }
 
 
@@ -107,13 +110,13 @@
                 [메뉴 관리] 카테고리 관리
             </div>
             <div class="searchTable">
-            <form action="<%= contextPath %>/jhcheck.ct" method="post">
-            	<table>
+            <!-- <form action="<%= contextPath %>/jhcheck.ct" method="post"> -->
+            	<table id="check-table">
             		<tr>
-            			<td><input name="checkCategoryName" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button type="submit">조회</button></td>
+            			<td><input id="checkName" name="checkCategoryName" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button onclick="checkCategory()" >조회</button></td>
             		</tr>
             	</table>
-            </form>
+            <!-- </form> -->
             </div>	<!-- searchTable -->
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
@@ -171,6 +174,12 @@
 				<button onclick="page('<%= categoryListPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
 			<% } %>
 		</div>	<!-- 페이징바 -->
+		
+		<div style="display: none" class="list-btn">
+			<!-- 카테고리 삭제 후 눌렀을경우 history.back은 바로 반영이 되지 않음 -->
+			<!-- <button type="button" class="btn btn-sm btn-outline-info" onclick="history.back()">목록으로</button>  -->
+			<button type="button" class="btn btn-sm btn-outline-info" onclick="location.href = '<%=contextPath %>/jhselect.ct?page=1';">목록으로</button>
+		</div>
 	
    	</div>  <!-- rs-content -->
    	
@@ -460,6 +469,56 @@
   			
   		}	// showUpdateCategoryModal
   </script>
+  
+  <script>
+  		function checkCategory(){
+  			
+  			// let test = document.getElementById('check-table');
+  			// let input_test = test.querySelector('input');
+  			// console.log(test);
+  			// console.log(input_test.value);
+  			
+  			let input = document.getElementById('checkName');
+  			// console.log(input);
+  			// console.log(input.value);			// 값 ok
+  			let checkCategoryName = input.value;
+  			console.log(checkCategoryName);			// 값 ok
+  			
+   			$.ajax({
+  				url : 'jhcheck.ct',
+  				type : 'post',
+  				dataType : 'json',
+  				data : {'checkCategoryName' : checkCategoryName},
+   				success : function(result){
+   					console.log('성공');
+   					
+    				let resultStr = '';
+    				for(let i in result){
+    					resultStr += '<tr>'
+    								+ '<td><input type="checkbox"></td>'
+    							   + '<td>' + result[i].recipeCategoryNo + '</td>'
+    							   + '<td>' + result[i].recipeCategoryName + '</td>'
+    							   + '<td>' + result[i].recipeCategoryCount + '</td>'
+    							   + '</tr>'
+    				}
+    				
+    				$('#tb-category tbody').html(resultStr);
+    				
+    				$('.paging-area').hide();
+    				$('.list-btn').show();
+    				
+    				
+   				},	// success
+   				error : function(result){
+   					console.log('실패');
+   				}	// error
+   				
+  			}) 
+ 
+  			
+  		}
+  </script>
+
    	
    	
    	

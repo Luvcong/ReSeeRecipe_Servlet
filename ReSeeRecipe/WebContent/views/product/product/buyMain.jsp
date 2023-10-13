@@ -157,7 +157,7 @@
                     <b>베스트상품</b>
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best&select=2">더보기</a>
                 </div>
             </div>
                 
@@ -225,7 +225,7 @@
                     	추천상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good&select=2">더보기</a>
                 </div>
             </div>
 
@@ -293,7 +293,7 @@
                     	신상품
                 </div>
                 <div class="more">
-                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new">더보기</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new&select=2">더보기</a>
                 </div>
             </div>
 

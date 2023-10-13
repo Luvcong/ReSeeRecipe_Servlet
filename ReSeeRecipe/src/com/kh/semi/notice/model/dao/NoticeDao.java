@@ -108,7 +108,7 @@ public class NoticeDao {
 				n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
 				n.setNoticeCount(rset.getInt("NOTICE_COUNT"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeHeart(rset.getInt("COUNT(NOTICE_NO)"));
+				n.setNoticeHeart(rset.getInt("COUNT(HT_NOTICE_DATE)"));
 				
 				list.add(n);
 			}
@@ -120,4 +120,55 @@ public class NoticeDao {
 		}
 		return list;
 	}
+	
+	public int insertNotice(Connection conn, Notice n) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeCon());
+			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Notice selectNotice(Connection conn, int ManageNoticeNo) {
+		
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNotice");
+		
+		
+		
+	}
+	
+	
 }

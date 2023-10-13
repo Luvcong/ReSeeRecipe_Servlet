@@ -301,7 +301,8 @@ public class CategoryDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, "checkCategoryName");
+			pstmt.setString(1, checkCategoryName);
+			System.out.println("dao : " + checkCategoryName);
 			
 			rset = pstmt.executeQuery();
 			
@@ -313,7 +314,8 @@ public class CategoryDao {
 				recipeCategory.setRecipeCategoryCount(rset.getInt("RECIPE_CATEGORY_CNT"));
 				
 				list.add(recipeCategory);
-				System.out.println(list);
+				System.out.println("dao : " + list);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
