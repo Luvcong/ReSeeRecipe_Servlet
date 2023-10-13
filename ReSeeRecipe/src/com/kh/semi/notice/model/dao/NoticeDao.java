@@ -108,7 +108,7 @@ public class NoticeDao {
 				n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
 				n.setNoticeCount(rset.getInt("NOTICE_COUNT"));
 				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
-				n.setNoticeHeart(rset.getInt("COUNT(NOTICE_NO)"));
+				n.setNoticeHeart(rset.getInt("COUNT(HT_NOTICE_DATE)"));
 				
 				list.add(n);
 			}
