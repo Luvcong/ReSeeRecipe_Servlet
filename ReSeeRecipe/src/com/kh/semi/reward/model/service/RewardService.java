@@ -72,14 +72,7 @@ public class RewardService {
 		// selectReward value : plusReward  > 값을 더해주고,
 		// 					  : minusReward > 빼주어야 한다
 		
-		int minus = 0;
-		if(selectReward == "minusReward") {
-			minus = (reward.getRewardScore() * -1);
-			System.out.println(minus);
-		}
-		
 		int result = rewardDao.updateReward(conn, reward);
-		
 		
 		if(result > 0) commit(conn);
 			else rollback(conn);
