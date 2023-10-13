@@ -20,7 +20,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
+	<!-- 해시태그 Tagify 라이브러리 -->
+	<!-- 소스 다운 -->
+	<script src="https://unpkg.com/@yaireo/tagify"></script>
+	<!-- 폴리필 (구버젼 브라우저 지원) -->
+	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 
 <style>
 
