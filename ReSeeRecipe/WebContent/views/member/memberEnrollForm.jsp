@@ -367,6 +367,7 @@
           
           if(($(this)[0] == $('#memberPwdCheck')[0] || $(this)[0] == $('#memberPwd')[0] ) && $('#memberPwdCheck').val() != $('#memberPwd').val()) {
             $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
+            $('#submitBtn').attr('disabled', true);
           } else{
             $('label[for="memberPwdCheck"]').text("").css('color', 'black');
           };
@@ -392,6 +393,8 @@
           // eachResult['eachResult'+eventThis] = 1;
           eachResult['eachResult'+eventThis] = 0;
           // 각 정규표현식에 따른 결과
+          console.log($(this) != $('#memberPwdCheck'));
+          if($(this) != $('#memberPwdCheck')){
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
@@ -413,27 +416,34 @@
             // console.log(eachResult['eachResult'+eventThis]);
             // console.log(eventThis);
           };
+          };
           
-          // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
           
           // 모든 조건을 만족할 때 결과
           // console.log(eachResult['eachResult'+eventThis]);
           // console.log(eventThis);
           var submitResult = 1;
-  
+          
           // 배열로 for-each문 for of (객체로 쓸거면 키밸류로 for in사용)
           var list = ['memberName', 'memberNickname', 'memberId', 'memberPwd', 'memberEmail'];
-  
+          
+          // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
           for(var a of list){
             // console.log(eachResult['eachResult' + a]);
-            submitResult *= eachResult['eachResult' + a]; 
+            if(!isNaN(eachResult['eachResult' + a])){
+              submitResult *= eachResult['eachResult' + a]; 
+            }
             // console.log(eachResult['eachResult' + eventThis]);
             // console.log(a);
-            console.log(submitResult);
+            // console.log(submitResult);
           }
           console.log(submitResult);
-          if(submitResult > 0){
+          console.log($('#memberPwdCheck').val());
+          console.log($('#memberPwd').val());
+          if(submitResult > 0 && $('#memberPwdCheck').val() == $('#memberPwd').val()){
             $('#submitBtn').attr('disabled', false);
+          } else{
+            $('#submitBtn').attr('disabled', true);
           }
   
           // var $count = $cName * $cNickname;
