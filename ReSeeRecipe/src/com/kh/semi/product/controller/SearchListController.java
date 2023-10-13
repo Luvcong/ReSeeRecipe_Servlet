@@ -36,6 +36,7 @@ public class SearchListController extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String cate = request.getParameter("cate");
+		int select = Integer.parseInt(request.getParameter("select"));
 		String search = request.getParameter("search");
 		
 		int listCount; // 상품의 총 개수
@@ -55,9 +56,10 @@ public class SearchListController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("title", title);
+		request.setAttribute("select", select);
 		
 		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
-	
+		
 	}
 
 	/**
