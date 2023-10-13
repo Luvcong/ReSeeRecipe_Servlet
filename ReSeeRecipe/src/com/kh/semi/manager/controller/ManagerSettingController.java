@@ -1,4 +1,4 @@
-package com.kh.semi.manager.controller;
+  package com.kh.semi.manager.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -88,7 +88,11 @@
                   
 			<script>
 			var inputElm = document.querySelector('input[name=tags]'),
-		    whitelist = ["요린이", "요리대회"];
+		    //whitelist = ["요린이", "요리대회"];
+			
+			whitelist = [];
+			
+			
 			
 			
 			
