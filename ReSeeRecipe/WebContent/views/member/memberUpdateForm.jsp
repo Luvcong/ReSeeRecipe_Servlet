@@ -115,6 +115,8 @@
   <body>
   	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %> 
+	
+	
 
     <form enctype="multipart/form-data" action="<%= contextPath %>/yrmemberUpdate.me" method="post">
 
@@ -261,10 +263,6 @@
         const $memberId = $('#memberId');
         const $memberPwd = $('#memberPwd');
         const $memberPwdCheck = $('#memberPwdCheck');
-        
-        console.log($memberId.val());
-        console.log($memberPwd.val());
-        console.log($memberPwdCheck.val());
         
         $(function(){
         	$memberPwd.keyup(function(){
