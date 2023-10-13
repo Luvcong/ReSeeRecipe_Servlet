@@ -1,11 +1,19 @@
 package com.kh.semi.notice.controller;
 
 import java.io.IOException;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.notice.model.vo.Notice;
+
+import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeDetailManagerController
@@ -26,8 +34,26 @@ public class NoticeDetailManagerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// 인코딩 생략
+		
+		// 2) 값뽑기
+		int ManageNoticeNo = Integer.parseInt(request.getParameter("mnno"));
+		System.out.println(ManageNoticeNo);
+		
+		// 3) Service 호출 해당 공지사항 번호로 공지사항 정보SELECT
+		if(ManageNoticeNo > 0) {
+			Notice n = new NoticeService().selectNoticeInfo(ManageNoticeNo);
+			
+			request.setAttribute("n", n);
+			request.setAttribute("mnno", ManageNoticeNo);
+			
+			request.getRequestDispatcher("views/notice/noticeDetailManager.jsp").forward(request, response);
+		} else {
+			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+	
 	}
 
 	/**

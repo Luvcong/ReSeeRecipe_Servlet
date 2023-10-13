@@ -120,4 +120,16 @@ public class NoticeDao {
 		}
 		return list;
 	}
+	
+	public Notice selectNoticeInfo(Connection conn, int ManageNoticeNo) {
+		
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticeInfo");
+		
+		
+		
+	}
 }

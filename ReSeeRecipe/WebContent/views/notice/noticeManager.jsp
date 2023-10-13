@@ -146,8 +146,8 @@
         <script>
             $(function(){
                 $(document).on('dbclick', 'noticeAllList > tr', function(){
-                    const nno = $(this).children().eq(1).text();
-                    location.href = '<%=contextPath%>/hldetailnotice.ma?nno=' + nno;
+                    const mnno = $(this).children().eq(1).text();
+                    location.href = '<%=contextPath%>/hldetailnotice.ma?mnno=' + mnno;
                 })
             })
 
