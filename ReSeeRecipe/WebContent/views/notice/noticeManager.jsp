@@ -90,7 +90,8 @@
         </div>
 
         <div class="header2">
-            <button id="HL_insertNotice" class="w3-button w3-round w3-yellow" onclick="insertNotice();">공지사항 작성</button> 
+        	<a href="<%=contextPath %>/hlenrollnoticeForm.ma" class="w3-button w3-round w3-yellow">공지사항 작성</a>
+        <!--<button id="HL_enrollNotice" class="w3-button w3-round w3-yellow" onclick="enrollNotice(e);">공지사항 작성</button> -->
         <!--<button class="w3-button w3-round w3-yellow">회원 수정</button> -->
             <button id="HL_deleteNotice" class="w3-button w3-round w3-yellow" onclick="deleteNotice();">공지사항 삭제</button>
         </div>
@@ -151,14 +152,11 @@
                 })
             });
             
-            $(function(){
-            	$('#HL_insertNotice').on('click', enrollNotice);
-            });
             
-            function enrollNotice(){
-            	location.href = '<%=contextPath %>/hlenrollnoticeForm.ma';
-            }
-
+<%--             function enrollNotice(e){
+            	this.location.href = '<%=contextPath %>/hlenrollnoticeForm.ma';
+            }; --%>
+			
 
         </script>
 
