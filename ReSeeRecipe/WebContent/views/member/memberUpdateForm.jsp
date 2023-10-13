@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,7 +116,7 @@
   	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %> 
 
-    <form enctype="multipart/form-data" action="<%= contextPath %>/memberUpdate.me" method="post">
+    <form enctype="multipart/form-data" action="<%= contextPath %>/yrmemberUpdate.me" method="post">
 
       <h1 id="title"><b>회원정보변경</b></h1>
       
@@ -123,37 +125,44 @@
 
       <!-- 사진 -->
       <div class="container">
-        <img src="https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png" alt="프로필사진" id="profileImg" width="150" height="150">
+        <p><%=contextPath %>/<%= loginMember.getMemPicture() %></p>
+        <img src="<%= loginMember.getMemPicture() %>" alt="프로필사진" id="profileImg" width="150" height="150">
         <input type="file" name="profileInput" id="profileInput" onchange="loadImg(this);">
       </div>
       
-
       <!-- 정보 내용 변경 -->
       <div class="container">
 		
-		<!-- placeholder에 넣어야 하는데 loginUser를 넣게되면 업데이트하고 나서 오면 업데이트한 내용이 안보이잖어???
-		그래서 updateConfirm에서 컨트롤러를 들려서 select해서 다시 와야할듯??? -->
-        <input type="text" placeholder="이름" name="memberName" id="memberName" maxlength="5" required>
+		  <!-- placeholder에 넣어야 하는데 loginUser를 update된 넣음 -->
+
+        이름
+        <input type="text" value="<%=loginMember.getMemName() %>" name="memberName" id="memberName" maxlength="5" required>
         <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
         
-        <input type="text" placeholder="닉네임(활동명)" name="memberNickname" id="memberNickname" maxlength="8" required>
+        닉네임(활동명)
+        <input type="text" value="<%= loginMember.getMemNickname() %>" name="memberNickname" id="memberNickname" maxlength="8" required>
         <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
 
-        <input type="text" placeholder="아이디(중복불가)" name="memberId" id="memberId" maxlength="20" required>
+        아이디(중복불가)
+        <input type="text" value="<%= loginMember.getMemId() %>" readonly name="memberId" id="memberId" maxlength="20" required>
         <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
         
-        <input type="text" placeholder="이메일" name="memberEmail" id="memberEmail" maxlength="50" required>
+        이메일
+        <input type="text" value="<%= loginMember.getMemEmail() %>" name="memberEmail" id="memberEmail" maxlength="50" required>
         <label for="memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
-          
+
+        <!-- 제출버튼!!!!!!!!!!!!!!!!!! onclick = "return validate();"-->
+        <button type="submit" id="submitBtn" >변경하기</button>
+
         <div class="enroll-checkbox">
 
         <!-- 비밀번호 변경 모달창-->
         <div>
-            <a data-toggle="modal" href="#agreeSiteModal">**비밀번호 변경**</a>
+          <a data-toggle="modal" href="#agreeSiteModal">비밀번호 변경</a>
 
-            <div class="modal" id="agreeSiteModal">
+          <div class="modal" id="agreeSiteModal">
             <div class="modal-dialog">
-                <div class="modal-content">
+              <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -162,31 +171,36 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
-                    <label for="close">
-						
+                <!-- <form action=""> -->
+                  <!-- 전에 비밀번호 변경도 ajax로 했으니 이것도 ajax로 해주자 -->
+                  <div class="modal-body">
+                      <label for="close">
+                        <!-- 여기다 비밀번호 넣기 -->
+                        
                         <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20" required>
                         <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
-                
+                        
                         <input type="password" placeholder="비밀번호 확인" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
                         <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다.</label>
-
-                    </label>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-                </div>
+                        
+                      </label>
+                  </div>
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                      <!-- 아이디 같이 보내주기 -->
+                      <!-- <button type="submit" action="<%= contextPath %>/yrupdateMemberPwd.me?memberId=<%= loginMember.getMemId() %>" method="post"></button> -->
+                      <button type="button" class="btn btn-danger" id="updatePwdBtn" onclick="updateMemberPwd();" data-dismiss="modal" )>비밀번호 변경</button>
+                  </div>
+                  
+                <!-- </form> -->
+              </div>
             </div>
-            </div>
+          </div>
 
         </div>
-
             
         </div>
-        <!-- 제출버튼!!!!!!!!!!!!!!!!!! onclick = "return validate();"-->
-        <button type="submit" id="submitBtn" disabled>변경하기</button>
+        
       </div>
         
     </form>
@@ -219,7 +233,8 @@
             // 취소(파일 없음)
             } else {
                 // 새로 등록된 사진이 없으므로 기존의 사진 등록
-                const noImg = 'https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png';
+                const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU';
+                // https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png
                 // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU
                 profileImg.src = noImg;
             }
@@ -241,6 +256,79 @@
             })
         })
         */
+        
+        // 비밀번호 변경 모달창 ajax
+        const $memberId = $('#memberId');
+        const $memberPwd = $('#memberPwd');
+        const $memberPwdCheck = $('#memberPwdCheck');
+        
+        console.log($memberId.val());
+        console.log($memberPwd.val());
+        console.log($memberPwdCheck.val());
+        
+        $(function(){
+        	$memberPwd.keyup(function(){
+	             var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
+	             
+	             if(!$regExp.test($memberPwd.val())){
+	           	$('label[for="memberPwdCheck"]').css('color', 'red');
+	               $('#updatePwdBtn').attr('disabled', true);
+	             } else{
+	          	    $('label[for="memberPwdCheck"]').css('color', 'black');
+	               $('#updatePwdBtn').attr('disabled', false);
+	             }
+        	})
+        })
+        $(function(){
+        	$memberPwdCheck.keyup(function(){
+        		if($memberPwd.val() != $memberPwdCheck.val()){
+            		$('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
+        		} else {
+        			$('label[for="memberPwdCheck"]').text("").css('color', 'black');
+        		}
+        	})
+        })
+        
+        
+        function updateMemberPwd(){
+        	if($memberPwd.val() != $memberPwdCheck.val()){
+        		// $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
+        		Swal.fire({
+					  title: '비밀번호 재설정 실패',
+					  text: "비밀번호가 변경되지 않았습니다.",
+					  icon: 'error',
+				})
+        	} else {
+        		// $('label[for="memberPwdCheck"]').text("").css('color', 'black');
+	        	$.ajax({
+	        		url : 'yrupdateMemberPwd.me',
+	        		data : {memberId : $memberId.val(),
+	        				memberPwd : $memberPwd.val()        			
+	        		},
+	        		// ajax통신 성공
+	        		success : function(result){
+	        			if(result == 'S'){
+							Swal.fire({
+								  title: '비밀번호 재설정 성공',
+								  text: "비밀번호가 변경되었습니다.",
+								  icon: 'success',
+							})
+						} else {
+							Swal.fire({
+								  title: '비밀번호 재설정 실패',
+								  text: "비밀번호가 변경되지 않았습니다.",
+								  icon: 'error',
+							})
+						}
+	        		}
+	        		// ajax통신 실패
+	        	});
+        	}
+        }
+        
+        
+        
+        
         
     </script>
 

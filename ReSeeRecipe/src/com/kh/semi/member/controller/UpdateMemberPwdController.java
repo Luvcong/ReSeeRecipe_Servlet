@@ -41,10 +41,6 @@ public class UpdateMemberPwdController extends HttpServlet {
 		} else {
 			response.getWriter().print("N");
 		}
-		
-		
-		
-		
 	}
 
 	/**

@@ -99,7 +99,7 @@
             </div>
             <div id="sideMenu">
                 <ul>
-                    <li id="listMenu"><a href="">회원정보 변경</a></li>
+                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">회원정보 변경</a></li>
                     <li id="listMenu"><a href="">리워드</a></li>
                     <li id="listMenu"><a href="">쿠폰</a></li>
                     <li id="listMenu"><a href="">선물함</a></li>
