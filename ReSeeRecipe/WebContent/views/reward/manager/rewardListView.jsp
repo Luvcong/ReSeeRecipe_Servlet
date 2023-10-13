@@ -53,23 +53,23 @@
 							    <a class="dropdown-item" href="#">닉네임</a>
 						  </div>
             			</td>
-            			<td><input type="text" placeholder="검색명을 입력하세요" size="30"><button type="submit">조회</button></td>
+            			<td><input id="rewardSearch" type="text" placeholder="검색명을 입력하세요" size="30"><button type="submit">조회</button></td>
             		</tr>
             	</table>
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
-                <div class="mr-auto">
-                    조회수 <span class="waiting">10</span><span>개</span>
+                <div class="mr-auto">	
+                    조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
-                    <button onclick="showAddCategorydModal()" class="btn btn-sm btn-warning">리워드 지급</button>
-                    <button onclick="showUpdateCategoryModal()"class="btn btn-sm btn-warning">리워드 차감</button>
-                    <button onclick="showUpdateCategoryModal()"class="btn btn-sm btn-warning">리워드 상세조회</button>
+                    <button onclick="showAddRewardModal()" class="btn btn-sm btn-warning">리워드 지급</button>
+                    <button onclick="showUpdateRewardModal()"class="btn btn-sm btn-warning">리워드 차감</button>
+                    <button onclick="showUpdateRewardModal()"class="btn btn-sm btn-warning">리워드 상세조회</button>
                 </div>
             </div>
         </div>
         <div class="tableBody">
-            <table id='tb-category' class="table table-sm table-hover">
+            <table id='tb-reward' class="table table-sm table-hover">
                 <thead>
                     <tr>
                         <th data-idx=0><input type="checkbox"></th>
@@ -131,17 +131,28 @@
 		}
 	</script>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<Script>
+		function showAddRewardModal(){
+			let trs = document.querySelectorAll('table tbody tr');	// tbody의 tr요소 모두 저장
+			let checked_tr = null;
+			
+			for(let tr of trs){
+				let input = tr.querySelector('input');
+				if(input.checked){
+					checked_tr = tr;	// input.checked속성이 true이면 변수에 저장
+					break;
+				}
+			}
+			
+			// null 체크
+			if(checked_tr == null){
+				Swal.fire('실패', '')
+			}
+			
+			
+			
+		}	// showAddRewardModal
+	</Script>
 	
 	
 	
