@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*, com.kh.semi.common.model.vo.PageInfo" %>
 <%
-	//Notice n = (Notice)request.getParameter("n");d
+	
 	//NoticePic np = (NoticePic)request.getParameter("np");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 	PageInfo pg = (PageInfo)request.getAttribute("pg");
@@ -116,12 +116,12 @@
                 </tr>
 				<%} else { %>
                 <!-- 공지사항이 있을 때 -->
-              <% for(Notice n : list) { %>
+              	<% for(Notice n : list) { %>
                     <tr>
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                   			 <input type="checkbox" name="noticeCheckbox" id="noticeCheckbox" value="<%= n.getNoticeNo() %>">Option 1
+                   			 <input type="checkbox" name="noticeCheckbox" id="noticeCheckbox" value="<%= n.getNoticeNo() %>">
                    			</label>
                 			</div>
              			 </td>
