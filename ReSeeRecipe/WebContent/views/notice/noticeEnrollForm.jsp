@@ -87,8 +87,8 @@
             <input id="HL_noticeTag" name='tags'
   			class='some_class_name'            
  			placeholder='해시태그를 입력해주세요'      
-  			value='공지사항, ReSEeRecipe, recipe, 레시피' 
-  			data-blacklist='.NET,PHP'>  
+  			value='공지사항, ReSeeRecipe, recipe, 레시피' 
+  			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'>  
                   
 			<script>
 			var inputElm = document.querySelector('input[name=tags]'),
