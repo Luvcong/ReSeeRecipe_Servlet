@@ -70,8 +70,6 @@
 <body>
     <!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
-	
-	
 
     <div>
         <form action="<%= contextPath %>/yrmemberUpdateConfirm.me" method="post">

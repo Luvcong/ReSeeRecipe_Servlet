@@ -7,6 +7,7 @@
 
 	// 로그인한 회원
 	Member loginMember = (Member)session.getAttribute("loginMember");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,6 +169,7 @@
 
 <!-- header영역 -->
 <header>
+
 	<div id="wrap_header">
 		<div id="header">
 		    <div id="header_1"> <!-- 관리자 등급이면 관리자 페이지 버튼 활성화 - HL -->
@@ -216,10 +218,7 @@
 		                  <a href="<%= contextPath %>/blog.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그 <br>
-		                  <!-- 회원정보변경 임시 -->
-		                  <a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">
-		                  <i class="fa-regular fa-handshake"></i><br> 
-		                  <img src="" alt="">회원정보변경 임시
+
 		              <%} %>
 		          </div>
 		          <div id="header_3_1_4">

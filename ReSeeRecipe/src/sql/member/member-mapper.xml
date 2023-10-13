@@ -5,6 +5,7 @@
 	<comment>회원관련 SQL문</comment>
 	
 	<!-- 로그인 -->
+	<!-- 회원 정보 변경 후 조회될 회원 정보 조회 -->
 	<entry key="loginMember">
 		SELECT
 		        MEM_NO
@@ -21,6 +22,10 @@
 		       ,MEM_GRADE
 		  FROM
 		       TB_MEMBER
+		  JOIN 
+		       TB_MEMBER_GRADE
+		    ON 
+		       MEM_GRADE = MEM_GRADE_NO
 		 WHERE
 		       MEM_ID = ?
 		   AND
@@ -145,6 +150,7 @@
 		   	   MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 회원 정보 변경 -->
 	<entry key="memberUpdate">
 		UPDATE 
 			   TB_MEMBER
@@ -159,6 +165,9 @@
 		   AND 
 		   	   MEM_STATUS = 'Y'
 	</entry>
+	
+	
+
 	
 	<!-- 조회할 회원의 총 수 -->
 	<entry key="selectMemlistCount">
