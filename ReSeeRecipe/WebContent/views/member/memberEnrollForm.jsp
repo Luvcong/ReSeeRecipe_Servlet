@@ -321,6 +321,8 @@
           // console.log($(this));
           var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
 
+          // 정규표현식 초기화
+          var $regExp = /^$/;
           
           // 1) 이름 (2 ~ 6자 이내)
           if($(this)[0] == $('#memberName')[0]) {
@@ -363,8 +365,7 @@
           if($(this)[0] == $('#memberPwd')[0]) var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
           
           // 5) 비밀번호 확인
-          // 비밀번호 또는 비밀번호 확인 input에 입력시, 비밀번호와 비밀번호 확인 값의 일치여부
-          
+          // 비밀번호 또는 비밀번호 확인 input에 입력시, 비밀번호와 비밀번호 확인 값의 일치여부          
           if(($(this)[0] == $('#memberPwdCheck')[0] || $(this)[0] == $('#memberPwd')[0] ) && $('#memberPwdCheck').val() != $('#memberPwd').val()) {
             $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
             $('#submitBtn').attr('disabled', true);
@@ -394,7 +395,7 @@
           eachResult['eachResult'+eventThis] = 0;
           // 각 정규표현식에 따른 결과
           console.log($(this) != $('#memberPwdCheck'));
-          if($(this) != $('#memberPwdCheck')){
+          
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
@@ -415,7 +416,6 @@
             eachResult['eachResult'+eventThis] = 1;
             // console.log(eachResult['eachResult'+eventThis]);
             // console.log(eventThis);
-          };
           };
           
           
@@ -438,8 +438,8 @@
             // console.log(submitResult);
           }
           console.log(submitResult);
-          console.log($('#memberPwdCheck').val());
-          console.log($('#memberPwd').val());
+          // console.log($('#memberPwdCheck').val());
+          // console.log($('#memberPwd').val());
           if(submitResult > 0 && $('#memberPwdCheck').val() == $('#memberPwd').val()){
             $('#submitBtn').attr('disabled', false);
           } else{
