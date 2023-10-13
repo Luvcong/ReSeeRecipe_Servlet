@@ -56,7 +56,7 @@
         <form enctype="multipart/form-data" class="form" action="<%=contextPath%>/hlnoticeEnroll.ma" id="HL_noticeEnroll_Form" method="post">
             
             <!-- Session의 loginMember에서 관리자 정보 hidden으로 넘겨서 notice테이블에 insert -->
-            <input type="hidden" name="adminNo" value="<%=loginMember.getMemNo()%>">
+            <input type="hidden" name="adminNo" value=<%=loginMemberNo%>>
             <label for="HL_noticeTitle">공지사항 제목 : </label>
             <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeTitle" id="HL_noticeTitle" required>
             
