@@ -39,6 +39,8 @@ public class NoticeEnrollManagerController extends HttpServlet {
 		// 공지사항 관리자만 작성할 수 있으므로 혹시 모르니(일반회원작성X) 조건 걸기!!
 		if(loginMember != null && loginMember.getMemGrade() == 4) {
 			// 공지사항 작성 폼 포워딩
+			
+			request.setAttribute("loginMemberNo", loginMember.getMemNo());
 			request.getRequestDispatcher("views/notice/noticeEnrollForm.jsp").forward(request, response);
 		} else {
 			session.setAttribute("alertMsg", "※관리자만 공지사항 작성할 수 있습니다");
