@@ -615,7 +615,7 @@
 								<p><%= loginMember %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<button type="button" class="btn btn-info">해시태그입력</button>
+								<button type="button" name="tagNo" class="btn btn-info">해시태그입력</button>
 							</div>
 						</div>
 						<div id="content-thumbnail-image">
@@ -625,7 +625,7 @@
 					<div class="cook-steps-input-content">
 						<div id="cook-steps-title" class="cook-steps-inner">
 							<div id="title-text-area-div">
-								<textarea name="title" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
+								<textarea name="recipeTitle" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
 							</div>
 							<div id="title-bytes-span">
 								<span>0</span>
@@ -637,13 +637,13 @@
 							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
 								<div id="write-ingredient-input">
-									<input type="text" id="ingredientIn" class="form-control" placeholder="재료입력" maxlength="15">
+									<input type="text" id="ingredientIn" name="ingredient0" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" id="ingredientAmountIn" class="form-control" placeholder="재료량" maxlength="4">
+									<input type="text" id="ingredientAmountIn" name="ingredientAmount0" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" class="custom-select">
+									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo0" class="custom-select">
 										<option value="">g</option>
 										<option value="">kg</option>
 										<option value="">cups</option>
