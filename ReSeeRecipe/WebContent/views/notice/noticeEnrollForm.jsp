@@ -81,7 +81,23 @@
             <br><br>
             <label for="HL_noticeHashtag">해시태그</label>
             <input type="text" class="form-control" placeholder="해시태그를 입력하세요(#제외)" name="HL_noticeHashtag" id="HL_noticeHashtag">
-            <br><br><br>
+            <br>
+            <input name='tags-disabled-user-input' placeholder='Select tags from the list''>
+			<script>
+    		let inputElm = document.querySelector('input[name=input]');
+    
+    		// 화이트 리스트 : 해당 문자만 태그로 추가 가능
+    		let whitelist = ["puthon","java","pug","react","vue","c","sass"];
+
+    		// initialize Tagify
+    		var tagify = new Tagify(inputElm, {
+        		enforceWhitelist: true, // 화이트리스트에서 허용된 태그만 사용
+        		whitelist: whitelist // 화이트 리스트 배열. 화이트 리스트를 등록하면 자동으로 드롭다운 메뉴가 생긴다
+   			 })
+
+			</script>
+            
+            <br><br>
             <button type="submit" class="btn btn-warning">등록하기</button>
             <button type="submit" class="btn btn-warning">목록으로</button>
         </form>
