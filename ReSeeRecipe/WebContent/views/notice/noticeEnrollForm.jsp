@@ -90,8 +90,22 @@
 			var inputElm = document.querySelector('input[name=tags]'),
 		    //whitelist = ["요린이", "요리대회"];
 			
-			whitelist = [];
+			var whitelist = [];
 			
+			$.ajax({
+		        url: '/hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
+		        type: 'GET',
+		        success: function(response) {
+		          // 서버로부터의 응답을 처리하고 whitelist 배열에 추가합니다.
+		          console.log('Whitelist 배열:', response.whitelist);
+		          whitelist.push(...response.whitelist); // whitelist 배열에 데이터 추가
+		          console.log('Updated Whitelist 배열:', whitelist);
+		        },
+		        error: function(error) {
+		          console.error('에러 발생:', error);
+		        }
+		      });
+		    }
 			
 			
 			
