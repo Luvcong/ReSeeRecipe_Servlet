@@ -121,6 +121,28 @@ public class NoticeDao {
 		return list;
 	}
 	
+	public int insertNotice(Connection conn, Notice n) {
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public Notice selectNoticeInfo(Connection conn, int ManageNoticeNo) {
 		
 		Notice n = null;
@@ -132,4 +154,6 @@ public class NoticeDao {
 		
 		
 	}
+	
+	
 }
