@@ -98,7 +98,16 @@ public class ProductService {
 		return list2;
 	}
 	
-	
+	public ArrayList<Product> ajaxSelectProductList(PageInfo pi, int category, String sort){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().ajaxSelectProductList(conn, pi, category, sort);
+		
+		close(conn);
+		
+		return list;
+	}
 	
 	
 	

@@ -39,6 +39,7 @@ public class MemberUpdateConfirmController extends HttpServlet {
 		String memberPwd = request.getParameter("memberPwd");
 		
 		// String memberPwd = new MemberService().memberUpdateConfirm(memberNo);
+
 		
 		// 비밀번호가 일치한다면
 		if(checkPwd.equals(memberPwd)) {

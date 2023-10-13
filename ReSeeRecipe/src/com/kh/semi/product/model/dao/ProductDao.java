@@ -352,6 +352,50 @@ public class ProductDao {
 		return list2;
 	}
 	
+	public ArrayList<Product> ajaxSelectProductList(Connection conn, PageInfo pi, int category, String sort){
+		
+		ArrayList<Product> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = null;
+		switch(sort) {
+		case "good": sql = prop.getProperty("ajaxSelectProductList1"); break;
+		case "price": sql = prop.getProperty("ajaxSelectProductList2"); break;
+		case "star": sql = prop.getProperty("ajaxSelectProductList3"); break;
+		}
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				Product p = new Product();
+				p.setProductNo(rset.getInt("PRODUCT_NO"));
+				p.setProductName(rset.getString("PRODUCT_NAME"));
+				p.setPrice(rset.getInt("PRODUCT_PRICE"));
+				p.setProductScoreReviewAvg(rset.getDouble("PRODUCT_SCORE_AVG"));
+				p.setTitleImg(rset.getString("TITLEIMG"));
+				
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	
 	

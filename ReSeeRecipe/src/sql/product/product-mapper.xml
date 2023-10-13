@@ -225,7 +225,72 @@
 			PRODUCT_NO = ?
 	</entry>
 	
-	
+	<entry key="ajaxSelectProductList1">
+		SELECT *
+		    FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT
+		                        PRODUCT_NO,
+		                        PRODUCT_NAME,
+		                        PRODUCT_PRICE,
+		                        PRODUCT_PICTURE_PATH||'/'||PRODUCT_PICTURE_CNAME TITLEIMG,
+		                        PRODUCT_SCORE_AVG
+		                    FROM
+		                        TB_PRODUCT
+		                    JOIN
+		                        TB_PRODUCT_PICTURE USING(PRODUCT_NO)
+		                    WHERE
+		                        PRODUCT_STATUS = 'Y'
+		                    AND
+		                    	PRODUCT_PICTURE_LEVEL = 1
+		                    AND
+		                    	PRODUCT_CATEGORY_CODE = ?
+		                    ORDER BY PRODUCT_NO) A)
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="ajaxSelectProductList2">
+		SELECT *
+		    FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT
+		                        PRODUCT_NO,
+		                        PRODUCT_NAME,
+		                        PRODUCT_PRICE,
+		                        PRODUCT_PICTURE_PATH||'/'||PRODUCT_PICTURE_CNAME TITLEIMG,
+		                        PRODUCT_SCORE_AVG
+		                    FROM
+		                        TB_PRODUCT
+		                    JOIN
+		                        TB_PRODUCT_PICTURE USING(PRODUCT_NO)
+		                    WHERE
+		                        PRODUCT_STATUS = 'Y'
+		                    AND
+		                    	PRODUCT_PICTURE_LEVEL = 1
+		                    AND
+		                    	PRODUCT_CATEGORY_CODE = ?
+		                    ORDER BY PRODUCT_PRICE) A)
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="ajaxSelectProductList3">
+		SELECT *
+		    FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT
+		                        PRODUCT_NO,
+		                        PRODUCT_NAME,
+		                        PRODUCT_PRICE,
+		                        PRODUCT_PICTURE_PATH||'/'||PRODUCT_PICTURE_CNAME TITLEIMG,
+		                        PRODUCT_SCORE_AVG
+		                    FROM
+		                        TB_PRODUCT
+		                    JOIN
+		                        TB_PRODUCT_PICTURE USING(PRODUCT_NO)
+		                    WHERE
+		                        PRODUCT_STATUS = 'Y'
+		                    AND
+		                    	PRODUCT_PICTURE_LEVEL = 1
+		                    AND
+		                    	PRODUCT_CATEGORY_CODE = ?
+		                    ORDER BY PRODUCT_SCORE_AVG) A)
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
 	
 	

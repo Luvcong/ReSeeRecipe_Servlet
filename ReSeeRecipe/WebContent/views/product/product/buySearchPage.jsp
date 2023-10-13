@@ -5,6 +5,7 @@
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String title = (String)request.getAttribute("title");
+	String cate = (String)request.getAttribute("cate");
 	int select = (int)request.getAttribute("select");
 	
 	int currentPage = pi.getCurrentPage();
@@ -35,13 +36,10 @@
             color: grey;
         }
 
-        /*#s_list{
+        #s_list{
             display: block;
             float: right;
-            position: absolute;
-            width: 200px;
-            left: 80.5%;
-        }*/
+        }
 
         #pro_area{
             display: flex;
@@ -70,10 +68,6 @@
             text-align: left;
             font-size: 18px;
         }
-        
-        select{
-        	float: right;
-        }
     </style>
 </head>
 <body>
@@ -84,28 +78,44 @@
         <div style="margin-bottom: 50px;">
             <div style="font-size: 40px; text-align: left;"><b><%= title %></b></div>
             <% if(select == 1) { %>
-	            <select id="select">
-	            	<option value="op1">추천순</option>
-	            	<option value="op2">별점높은순</option>
-	            	<option value="op3">가격낮은순</option>
-	            </select>
+	            <div id="s_list">
+	                <p>
+						<a href="javascript:good();">추천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:price();">낮은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="javascript:star();">높은평점</a> 
+					</p>
+	            </div>
             <% } %>
-            <!-- <ul id="s_list">
-                <li class="btn btn-secondary"><a href="">추천순</a></li>
-                <li class="btn btn-light" style="display: none;"><a href="">별점높은순</a></li>
-                <li class="btn btn-light" style="display: none;"><a href="">가격낮은순</a></li>
-                <li class="btn btn-light" style="display: none;"><a href="">가격높은순</a></li>
-            </ul> -->
         </div>
         
         <script>
-        	$(function(){
-        		
-        		
-        		
-        		
-        		
-        	})
+	        function good(){
+	        	$.ajax({
+	        		url: 'psort.po',
+	        		data: {cate: '<%= cate %>', sort: 'good', cpage: 1, title: '<%= title %>', select: 1},
+	        		success: function(result){
+	        			console.log(result);
+	        		}
+	        	})
+	        }
+			function price(){
+				$.ajax({
+	        		url: 'psort.po',
+	        		data: {cate: '<%= cate %>', sort: 'price', cpage: 1, title: '<%= title %>', select: 1},
+	        		success: function(result){
+	        			console.log(result);
+	        		}
+	        	})  	
+			}
+			function star(){
+				$.ajax({
+	        		url: 'psort.po',
+	        		data: {cate: '<%= cate %>', sort: 'star', cpage: 1, title: '<%= title %>', select: 1},
+	        		success: function(result){
+	        			console.log(result);
+	        		}
+	        	})
+			}
         </script>
 
         
