@@ -5,6 +5,7 @@
 	ArrayList<Product> list = (ArrayList<Product>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String title = (String)request.getAttribute("title");
+	int select = (int)request.getAttribute("select");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -82,11 +83,13 @@
     <div id="searchpage-wrap">
         <div style="margin-bottom: 50px;">
             <div style="font-size: 40px; text-align: left;"><b><%= title %></b></div>
-            <select id="select">
-            	<option onclick="sortroll();">추천순</option>
-            	<option onclick="sortstar();">별점높은순</option>
-            	<option onclick="sortprice();">가격낮은순</option>
-            </select>
+            <% if(select == 1) { %>
+	            <select id="select">
+	            	<option value="op1">추천순</option>
+	            	<option value="op2">별점높은순</option>
+	            	<option value="op3">가격낮은순</option>
+	            </select>
+            <% } %>
             <!-- <ul id="s_list">
                 <li class="btn btn-secondary"><a href="">추천순</a></li>
                 <li class="btn btn-light" style="display: none;"><a href="">별점높은순</a></li>
@@ -96,17 +99,13 @@
         </div>
         
         <script>
-        	function sortroll(){
+        	$(function(){
         		
-        	}
-        	
-        	function sortstar(){
         		
-        	}
-        	
-        	function sortprice(){
         		
-        	}
+        		
+        		
+        	})
         </script>
 
         
