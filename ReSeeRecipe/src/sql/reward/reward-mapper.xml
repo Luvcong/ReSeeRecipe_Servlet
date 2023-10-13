@@ -15,7 +15,8 @@ SELECT *
                         REWARD_DATE,
                         NVL(REWARD_REASON, '-') AS REWARD_REASON,
                         REWARD_SCORE,
-                        SUM(REWARD_SCORE) OVER(PARTITION BY MEM_NO ORDER BY REWARD_NO ASC) AS REWARD_SUM
+                        SUM(REWARD_SCORE) OVER(PARTITION BY MEM_NO ORDER BY REWARD_NO ASC) AS REWARD_SUM,
+                        MEM_NO
                   FROM  TB_MEMBER M
                   JOIN  TB_REWARD R USING (MEM_NO)
                   JOIN  TB_MEMBER_GRADE MG ON (M.MEM_GRADE = MG.MEM_GRADE_NO)
@@ -32,6 +33,17 @@ SELECT *
 		  		TB_REWARD
 	</entry>
 	
-	
+	<!-- 리워드 지급/차감 업데이트 SQL문 -->
+	<entry key="updateReward">
+		INSERT
+		  INTO TB_REWARD
+	    VALUES (
+	    		SEQ_REWARD.NEXTVAL,
+	    		SYSDATE,
+	    		?,
+	    		?,
+	    		?
+	    		)
+	</entry>
 	
 </properties>
