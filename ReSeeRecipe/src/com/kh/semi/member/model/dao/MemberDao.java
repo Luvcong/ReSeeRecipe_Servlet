@@ -289,7 +289,6 @@ public class MemberDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-			System.out.println(result);
 		}
 		return result;
 	}

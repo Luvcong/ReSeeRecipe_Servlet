@@ -413,6 +413,7 @@
 								if(mnotr != -1){ //mno
 									tr.remove();
 									console.log(tr);
+									window.reload();
 								}
 								console.log('mnotr', mnotr);
 								console.dir(mnotr);
@@ -424,7 +425,7 @@
 							console.log('실패');
 						},
 						complete : function(result) {
-							
+							window.location.reload();
 						}
 					});
        			 });		
