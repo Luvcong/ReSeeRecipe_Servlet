@@ -79,21 +79,106 @@
             <label for="HL_noticeContent">공지사항 내용</label>
             <textarea class="form-control" rows="5" name="HL_noticeContent" id="HL_noticeContent"></textarea>
             <br><br>
-            <label for="HL_noticeHashtag">해시태그</label>
+           
+    <!--   <label for="HL_noticeHashtag">해시태그</label>
             <input type="text" class="form-control" placeholder="해시태그를 입력하세요(#제외)" name="HL_noticeHashtag" id="HL_noticeHashtag">
-            <br>
-            <input name='tags-disabled-user-input' placeholder='Select tags from the list''>
+            <br> --> 
+            <lable for="HL_noticeTag">해시태그</lable> <br>
+            <input id="HL_noticeTag" name='tags'
+  			class='some_class_name'            
+ 			placeholder='해시태그를 입력해주세요'      
+  			value='공지사항, ReSEeRecipe, recipe, 레시피' 
+  			data-blacklist='.NET,PHP'>  
+                  
 			<script>
-    		let inputElm = document.querySelector('input[name=input]');
-    
-    		// 화이트 리스트 : 해당 문자만 태그로 추가 가능
-    		let whitelist = ["puthon","java","pug","react","vue","c","sass"];
-
-    		// initialize Tagify
+			var inputElm = document.querySelector('input[name=tags]'),
+		    whitelist = ["요린이", "요리대회"];
+			
+			
+			
+			
+    		// initialize Tagify on the above input node reference
     		var tagify = new Tagify(inputElm, {
-        		enforceWhitelist: true, // 화이트리스트에서 허용된 태그만 사용
-        		whitelist: whitelist // 화이트 리스트 배열. 화이트 리스트를 등록하면 자동으로 드롭다운 메뉴가 생긴다
-   			 })
+    		    enforceWhitelist: true,
+    		  
+    		    // make an array from the initial input value
+    		    whitelist: inputElm.value.trim().split(/\s*,\s*/) 
+    		})
+
+    		// Chainable event listeners
+    		tagify.on('add', onAddTag)
+    		      .on('remove', onRemoveTag)
+    		      .on('input', onInput)
+    		      .on('edit', onTagEdit)
+    		      .on('invalid', onInvalidTag)
+    		      .on('click', onTagClick)
+    		      .on('focus', onTagifyFocusBlur)
+    		      .on('blur', onTagifyFocusBlur)
+    		      .on('dropdown:hide dropdown:show', e => console.log(e.type))
+    		      .on('dropdown:select', onDropdownSelect)
+
+    		var mockAjax = (function mockAjax(){
+    		    var timeout;
+    		    return function(duration){
+    		        clearTimeout(timeout); // abort last request
+    		        return new Promise(function(resolve, reject){
+    		            timeout = setTimeout(resolve, duration || 700, whitelist)
+    		        })
+    		    }
+    		})()
+
+    		// tag added callback
+    		function onAddTag(e){
+    		    console.log("onAddTag: ", e.detail);
+    		    console.log("original input value: ", inputElm.value)
+    		    tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
+    		}
+
+    		// tag remvoed callback
+    		function onRemoveTag(e){
+    		    console.log("onRemoveTag:", e.detail, "tagify instance value:", tagify.value)
+    		}
+
+    		// on character(s) added/removed (user is typing/deleting)
+    		function onInput(e){
+    		    console.log("onInput: ", e.detail);
+    		    tagify.settings.whitelist.length = 0; // reset current whitelist
+    		    tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
+
+    		    // get new whitelist from a delayed mocked request (Promise)
+    		    mockAjax()
+    		        .then(function(result){
+    		            // replace tagify "whitelist" array values with new values
+    		            // and add back the ones already choses as Tags
+    		            tagify.settings.whitelist.push(...result, ...tagify.value)
+
+    		            // render the suggestions dropdown.
+    		            tagify.loading(false).dropdown.show.call(tagify, e.detail.value);
+    		        })
+    		}
+
+    		function onTagEdit(e){
+    		    console.log("onTagEdit: ", e.detail);
+    		}
+
+    		// invalid tag added callback
+    		function onInvalidTag(e){
+    		    console.log("onInvalidTag: ", e.detail);
+    		}
+
+    		// invalid tag added callback
+    		function onTagClick(e){
+    		    console.log(e.detail);
+    		    console.log("onTagClick: ", e.detail);
+    		}
+
+    		function onTagifyFocusBlur(e){
+    		    console.log(e.type, "event fired")
+    		}
+
+    		function onDropdownSelect(e){
+    		    console.log("onDropdownSelect: ", e.detail)
+    		}
 
 			</script>
             
