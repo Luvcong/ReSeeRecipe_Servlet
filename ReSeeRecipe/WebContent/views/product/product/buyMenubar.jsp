@@ -189,23 +189,23 @@
                 <div id="m_title">
                    	<p>전체카테고리</p>
                     <ul>
-                        <li><a href="<%= contextPath %>/searchlist.po?title=육류&cpage=1&cate=meat">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cpage=1&cate=fish">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cpage=1&cate=vegi">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
-                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cpage=1&cate=sim">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=육류&cpage=1&cate=meat&select=1">육류</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=수산물&cpage=1&cate=fish&select=1">수산물</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=채소&cpage=1&cate=vegi&select=1">채소</a></li> <!-- 검색페이지 화면으로 포워딩 -->
+                        <li><a href="<%= contextPath %>/searchlist.po?title=간편식&cpage=1&cate=sim&select=1">간편식/가공</a></li> <!-- 검색페이지 화면으로 포워딩 -->
                     </ul>
                 </div>
                 <div>
                     <a href="<%= contextPath %>/main.po">스토어홈</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best">베스트</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=베스트&cpage=1&cate=best&select=2">베스트</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good">추천</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=추천&cpage=1&cate=good&select=2">추천</a>
                 </div>
                 <div>
-                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new">신상</a>
+                    <a href="<%= contextPath %>/searchlist.po?title=신상&cpage=1&cate=new&select=2">신상</a>
                 </div>
                 <div>
                     <a href="#">

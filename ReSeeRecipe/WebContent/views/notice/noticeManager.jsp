@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.kh.semi.notice.model.vo.*, com.kh.semi.common.model.vo.PageInfo" %>
 <%
-	//Notice n = (Notice)request.getParameter("n");d
+	
 	//NoticePic np = (NoticePic)request.getParameter("np");
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 	PageInfo pg = (PageInfo)request.getAttribute("pg");
@@ -84,9 +84,15 @@
                 </div> 
                 <input type="text" class="form-control" placeholder="검색할 내용을 입력하세요" id="searchNotice" name="searchNotice" required>
                 <div class="input-group-append">
-                    <button class="btn btn-warning" type="submit">검색</button>
+                    <button class="btn btn-warning" type="submit" name="HL_noticeSearch" id="HL_noticeSearch">검색</button>
                 </div>
             </div>
+        </div>
+
+        <div class="header2">
+            <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
+        <!--<button class="w3-button w3-round w3-yellow">회원 수정</button> -->
+            <button id="HL_deleteNotice" class="w3-button w3-round w3-yellow" onclick="deleteNotice();">공지사항 삭제</button>
         </div>
         <table class="table" id="noticeAll">
             <caption class="totalNotice">총 게시글 <%=pg.getListCount() %>개</caption> 
@@ -107,7 +113,7 @@
               <th>좋아요</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="noticeAllList">
            <!-- 공지사항이 있을 수도 있고 없을 수도 있음 -->
 				<% if(list.isEmpty()) { %>
                 <!-- 공지사항이 없을 때 -->
@@ -116,12 +122,12 @@
                 </tr>
 				<%} else { %>
                 <!-- 공지사항이 있을 때 -->
-              <% for(Notice n : list) { %>
+              	<% for(Notice n : list) { %>
                     <tr>
                     	<td>
                 			<div class="form-check">
                     		<label class="form-check-label">
-                   			 <input type="checkbox" name="noticeCheckbox" id="noticeCheckbox" value="<%= n.getNoticeNo() %>">Option 1
+                   			 <input type="checkbox" name="noticeCheckbox" id="noticeCheckbox" value="<%= n.getNoticeNo() %>">
                    			</label>
                 			</div>
              			 </td>
@@ -136,6 +142,18 @@
 			<% } %>
           </tbody>
         </table>
+
+        <script>
+            $(function(){
+                $(document).on('dbclick', 'noticeAllList > tr', function(){
+                    const mnno = $(this).children().eq(1).text();
+                    location.href = '<%=contextPath%>/hldetailnotice.ma?mnno=' + mnno;
+                })
+            })
+
+
+        </script>
+
     </div>
     
     
