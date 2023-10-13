@@ -61,7 +61,7 @@
 
         /* Add padding to containers */
         .container {
-        padding: 100px 300px;
+        padding: 50px 300px;
         }
 
         /* The "Forgot password" text */
@@ -82,7 +82,7 @@
         }
 
         #title{
-          padding-top: 100px;
+          padding-top: 50px;
           display : flex;
           align-items: center;
           justify-content: center;
@@ -313,10 +313,10 @@
     -->
     
     <script>
-
+      
       $(function() {
         // ★★★★★★★★★★★★★★★★★★클릭한거 뒤에 있는 label의 속성값 바꾸기~_231010
-
+        
         $('input').keyup(function(){
           // console.log($(this));
           var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
@@ -358,7 +358,7 @@
             */
             $errorCheck.text("* 영문, 숫자 5 ~ 20자로 입력 가능합니다.").css('color', 'black');
           };
-
+          
           // 4) 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
           if($(this)[0] == $('#memberPwd')[0]) var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
           
@@ -370,7 +370,7 @@
           } else{
             $('label[for="memberPwdCheck"]').text("").css('color', 'black');
           };
-
+          
           // 6) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 6자가 들어간 형식)
           if($(this)[0] == $('#memberEmail')[0]) {
             var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,6}$/;
@@ -384,25 +384,70 @@
             */
             $errorCheck.text("인증받으실 이메일을 입력해 주세요.").css('color', 'black');
           };
-
+          
+          // 정규표현식의 결과를 반환해줄 변수설정
+          var eachResult = {};
+          var eventThis = $(this).attr('id');
+          
+          // eachResult['eachResult'+eventThis] = 1;
+          eachResult['eachResult'+eventThis] = 0;
+          // 각 정규표현식에 따른 결과
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
             $errorCheck.css('color', 'red');
-            $('#submitBtn').attr('disabled', true);
+            // $('#submitBtn').attr('disabled', true);
+
+            // console.log(eventThis);
+            eachResult['eachResult'+eventThis] = 0;
+            // console.log(eachResult['eachResult'+'memberName']);
+            // console.log(eventThis);
+            
+            
+            
           } else{
             $errorCheck.css('color', 'black');
-            $('#submitBtn').attr('disabled', false);
+            // $('#submitBtn').attr('disabled', false);
+            
+            eachResult['eachResult'+eventThis] = 1;
+            // console.log(eachResult['eachResult'+eventThis]);
+            // console.log(eventThis);
           };
-
-
+          
+          // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
+          
+          // 모든 조건을 만족할 때 결과
+          // console.log(eachResult['eachResult'+eventThis]);
+          // console.log(eventThis);
+          var submitResult = 1;
+  
+          // 배열로 for-each문 for of (객체로 쓸거면 키밸류로 for in사용)
+          var list = ['memberName', 'memberNickname', 'memberId', 'memberPwd', 'memberEmail'];
+  
+          for(var a of list){
+            // console.log(eachResult['eachResult' + a]);
+            submitResult *= eachResult['eachResult' + a]; 
+            // console.log(eachResult['eachResult' + eventThis]);
+            // console.log(a);
+            console.log(submitResult);
+          }
+          console.log(submitResult);
+          if(submitResult > 0){
+            $('#submitBtn').attr('disabled', false);
+          }
+  
+          // var $count = $cName * $cNickname;
+          // if($count > 0){
+            //   $('#submitBtn').attr('disabled', false);
+          // } 
+          
         });
         
-        // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
-        // var $count = $cName * $cNickname;
-        // if($count > 0){
-        //   $('#submitBtn').attr('disabled', false);
-        // } 
+        
+
+
+
+        
 
         
 
@@ -524,6 +569,8 @@
           else{
             $('#agreeSite, #agreePerson').prop('checked', false);
           }
+
+
         });
 
         // 하위항목 동의 체크 시 전체동의 체크
