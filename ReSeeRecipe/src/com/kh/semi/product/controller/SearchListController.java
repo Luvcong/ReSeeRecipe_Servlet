@@ -57,6 +57,7 @@ public class SearchListController extends HttpServlet {
 		request.setAttribute("pi", pi);
 		request.setAttribute("title", title);
 		request.setAttribute("select", select);
+		request.setAttribute("cate", cate);
 		
 		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
 		
