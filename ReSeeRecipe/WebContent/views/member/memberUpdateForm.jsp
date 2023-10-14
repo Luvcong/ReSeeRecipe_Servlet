@@ -110,6 +110,10 @@
           margin : 10px 0px;
         }
 
+        .compare{
+          display : none;
+        }
+
 
 
 
@@ -140,22 +144,26 @@
       <div class="container">
 		
 		  <!-- value에 loginUser를 update된 걸 넣음 -->
-          <p class="tag">이름</p>
-          <input type="text" value="<%=loginMember.getMemName() %>" name="memberName" id="memberName" maxlength="5" required>
-          <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
-          
-          <p class="tag">닉네임(활동명)</p>
-          <input type="text" value="<%= loginMember.getMemNickname() %>" name="memberNickname" id="memberNickname" maxlength="8" required>
-          <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
-  
-          <p class="tag">아이디(중복불가)</p>
-          <input type="text" value="<%= loginMember.getMemId() %>" readonly name="memberId" id="memberId" maxlength="20" required>
-          <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
-          
-          <p class="tag">이메일</p>
-          <input type="text" value="<%= loginMember.getMemEmail() %>" name="memberEmail" id="memberEmail" maxlength="50" required>
-          <label for="memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
+        <p class="tag">이름</p>
+        <input type="text" value="<%=loginMember.getMemName() %>" name="memberName" id="memberName" maxlength="5" required>
+        <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
+        
+        <p class="tag">닉네임(활동명)</p>
+        <input type="text" value="<%= loginMember.getMemNickname() %>" name="memberNickname" id="memberNickname" maxlength="8" required>
+        <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
 
+        <p class="tag">아이디(변경불가)</p>
+        <input type="text" value="<%= loginMember.getMemId() %>" readonly name="memberId" id="memberId" maxlength="20" required>
+        <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
+        
+        <p class="tag">이메일</p>
+        <input type="text" value="<%= loginMember.getMemEmail() %>" name="memberEmail" id="memberEmail" maxlength="50" required>
+        <label for="memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
+
+        <!-- 현재 로그인된 값 비교할 수 있게 값 뽑기 -->
+        <p class="compare" id="loginMemNickname"><%= loginMember.getMemNickname() %></p>
+        <p class="compare" id="loginMemEmail"><%= loginMember.getMemEmail() %></p>
+        
         <!-- 제출버튼!!!!!!!!!!!!!!!!!! onclick = "return validate();"-->
         <button type="submit" id="submitBtn" >변경하기</button>
 
@@ -347,16 +355,17 @@
           // 2) 닉네임 (3 ~ 8자)
           if($(this)[0] == $('#memberNickname')[0]) {
             var $regExp = /^[a-z0-9가-힣]{3,8}$/;
-            // 중복체크 호출
+            // 중복체크 호출(현재 로그인된 값은 중복체크X)
+            if($('#loginMemNickname').text() != $('#memberNickname').val())
             nicknameCheck();
             $errorCheck.text("* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. ").css('color', 'black');
-            
           };
           
           // 3) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 6자가 들어간 형식)
           if($(this)[0] == $('#memberEmail')[0]) {
             var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,6}$/;
-            // 중복체크 호출
+            // 중복체크 호출(현재 로그인된 값은 중복체크X)
+            if($('#loginMemEmail').text() != $('#memberEmail').val())
             emailCheck();
             $errorCheck.text("인증받으실 이메일을 입력해 주세요.").css('color', 'black');
           };
@@ -388,7 +397,6 @@
             // 리스트에 속성값이 초기화되지 않은 경우 NaN이 발생 => 조건처리
             if(!isNaN(eachResult['eachResult' + a])){
               submitResult *= eachResult['eachResult' + a]; 
-              console.log(submitResult);
             }
           }
 
@@ -423,30 +431,6 @@
           }
       })
       };
-
-      // ajax를 이용하여 아이디 중복체크
-      function idCheck(){
-        $.ajax({
-          url : 'yridCheck.me',
-          data : {checkId : $('#memberId').val()},
-          // 중복체크 조회 성공 시
-          success : function(result) {
-            // 중복된 아이디
-            if(result == 'NNNNN'){
-              $('label[for="memberId"]').text("* 이미 존재하거나 탈퇴한 회원의 아이디입니다!").css('color', 'red');
-              return false;
-            // 사용가능한 아이디
-            } else{
-              $('#submitBtn').attr('disabled', false);
-              return true;
-            }
-          },
-          // 중복체크 조회 실패 시
-          error : function(){
-            console.log('아이디 중복체크 AJAX통신 실패!');
-          }
-        })
-      }
 
       // ajax를 이용하여 이메일 중복체크
       function emailCheck(){
