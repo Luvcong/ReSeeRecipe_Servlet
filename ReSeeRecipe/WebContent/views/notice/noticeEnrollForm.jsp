@@ -99,6 +99,7 @@
 			          return item.tagName;
 			        });
 			        initTagify(whitelist);
+			        
 			      },
 			      error: function (error) {
 			        console.error('에러 발생:', error);
@@ -150,6 +151,7 @@
 			      }
 			      
 			    }
+			    
 			  });
 			
 			</script>

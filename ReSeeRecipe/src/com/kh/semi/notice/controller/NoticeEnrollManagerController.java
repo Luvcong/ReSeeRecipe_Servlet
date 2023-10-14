@@ -1,6 +1,7 @@
 package com.kh.semi.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.vo.Tag;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -62,7 +66,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 공지사항 제목, 공지사항 내용
 			String noticeTitle = multiRequest.getParameter("HL_noticeTitle");
 			String noticeCon = multiRequest.getParameter("HL_noticeContent");
-		
+			System.out.print(noticeTitle);
 			// 3) VO객체로 가공 => 무조건 INSERTF
 			Notice n = new Notice();
 			n.setNoticeTitle(noticeTitle);
@@ -91,6 +95,10 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 해시태그 값 뽑기
 			String noticeTag = multiRequest.getParameter("tags");
 			System.out.println(noticeTag);
+			
+	
+			ArrayList<Tag> list = new ArrayList();
+			
 			
 			// 4) 서비스 요청
 		}
