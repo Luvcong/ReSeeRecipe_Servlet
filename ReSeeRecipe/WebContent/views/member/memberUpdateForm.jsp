@@ -179,13 +179,12 @@
                 <!-- <form action=""> -->
                   <!-- 전에 비밀번호 변경도 ajax로 했으니 이것도 ajax로 해주자 -->
                   <div class="modal-body">
-                      <label for="close">
-                        <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20" required>
+                      <label for="close"></label>
+                        <input type="password" placeholder="비밀번호" name="memberPwd" id="memberPwd" maxlength="20">
                         <label for="memberPwd">* 영문, 숫자, 특수문자(!@#$+^*) 포함 8 ~ 20자로 입력 가능합니다.</label>
                         
-                        <input type="password" placeholder="비밀번호 확인" name="memberPwdCheck" id="memberPwdCheck" maxlength="20" required>
+                        <input type="password" placeholder="비밀번호 확인" name="memberPwdCheck" id="memberPwdCheck" maxlength="20">
                         <label for="memberPwdCheck">* 비밀번호가 일치하지 않습니다.</label>
-                      </label>
                   </div>
                   <!-- Modal footer -->
                   <div class="modal-footer">
@@ -278,12 +277,14 @@
             
             // 비밀번호확인 불일치 시 (정규표현식을 일치)
             } else if($memberPwd.val() != $memberPwdCheck.val()){
+              console.log($memberPwd);
               $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다.').css('color', 'red');
               $('label[for="memberPwd"]').css('color', 'black');
               $('#updatePwdBtn').attr('disabled', true);
               
             // 둘다 일치
             } else {
+              console.log("여기아냐?");
               $('label[for="memberPwdCheck"]').text('').css('color', 'black');
               $('label[for="memberPwd"]').css('color', 'black');
               $('#updatePwdBtn').attr('disabled', false);
@@ -310,18 +311,18 @@
 	        		// ajax통신 성공
 	        		success : function(result){
 	        			if(result == 'S'){
-							Swal.fire({
-								  title: '비밀번호 재설정 성공',
-								  text: "비밀번호가 변경되었습니다.",
-								  icon: 'success',
-							})
-						} else {
-							Swal.fire({
-								  title: '비밀번호 재설정 실패',
-								  text: "비밀번호가 변경되지 않았습니다.",
-								  icon: 'error',
-							})
-						}
+                Swal.fire({
+                    title: '비밀번호 재설정 성공',
+                    text: "비밀번호가 변경되었습니다.",
+                    icon: 'success',
+                })
+                } else {
+                  Swal.fire({
+                      title: '비밀번호 재설정 실패',
+                      text: "비밀번호가 변경되지 않았습니다.",
+                      icon: 'error',
+                  })
+                }
 	        		}
 	        		// ajax통신 실패
 	        	});
@@ -351,16 +352,8 @@
             $errorCheck.text("* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. ").css('color', 'black');
             
           };
-
-          // 3) 아이디 (영문 대소문자포함 숫자 5 ~ 20자)
-          if($(this)[0] == $('#memberId')[0]) {
-            var $regExp = /^[a-zA-Z0-9]{5,20}$/;
-            // 중복체크 호출
-            idCheck();
-            $errorCheck.text("* 영문, 숫자 5 ~ 20자로 입력 가능합니다.").css('color', 'black');
-          };
           
-          // 4) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 6자가 들어간 형식)
+          // 3) 이메일 (이메일앞부분 6 ~ 24자 + @6 ~ 14자, . 2 ~ 6자가 들어간 형식)
           if($(this)[0] == $('#memberEmail')[0]) {
             var $regExp =  /^[a-z0-9]+@[a-z]+\.[a-z]{2,6}$/;
             // 중복체크 호출
@@ -375,28 +368,32 @@
           eachResult['eachResult'+eventThis] = 0;
 
           // 각 정규표현식에 따른 결과
-          if(!$regExp.test($(this).val())){
-            $errorCheck.css('color', 'red');
-            eachResult['eachResult'+eventThis] = 0;
-          } else{
-            $errorCheck.css('color', 'black');
-            eachResult['eachResult'+eventThis] = 1;
-          };
+          // 비밀번호는 모달창에서 따로 진행, 다시 초기화된 값으로 조건처리되므로 제외시킴
+          if($(this)[0] != $memberPwd[0]){
+            if(!$regExp.test($(this).val())){
+              $errorCheck.css('color', 'red');
+              eachResult['eachResult'+eventThis] = 0;
+            } else{
+              $errorCheck.css('color', 'black');
+              eachResult['eachResult'+eventThis] = 1;
+            };
+          }
           
           // 모든 조건을 만족할 때 결과
           var submitResult = 1;
           
           // 모든 유효성검사 통과 시 버튼 활성화!!!!!!!!!!!!!
-          var list = ['memberName', 'memberNickname', 'memberId', 'memberPwd', 'memberEmail'];
+          var list = ['memberName', 'memberNickname', 'memberEmail'];
           for(var a of list){
             // 리스트에 속성값이 초기화되지 않은 경우 NaN이 발생 => 조건처리
             if(!isNaN(eachResult['eachResult' + a])){
               submitResult *= eachResult['eachResult' + a]; 
+              console.log(submitResult);
             }
           }
 
-          // 중복체크는 안됨.. DB에서 유니크 제약조건시에 실패로만 뜸(가입하기 버튼은 눌림)
-          if(submitResult > 0 && $('#memberPwdCheck').val() == $('#memberPwd').val()){
+          // 조건 만족 시 버튼 활성화 여부
+          if(submitResult > 0){
             $('#submitBtn').attr('disabled', false);
           } else{
             $('#submitBtn').attr('disabled', true);
