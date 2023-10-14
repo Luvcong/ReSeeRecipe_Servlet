@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.tag.model.service.TagService;
 import com.kh.semi.tag.model.vo.Tag;
 
@@ -39,8 +40,10 @@ public class NoticeHashtagManagerController extends HttpServlet {
 		// 3) 서비스 호출 해시태그명 SELECT 해오기
 		ArrayList<Tag> list = new TagService().selectALlTagname();
 		
-	
-	
+		// 4) GSON이용 => ArrayList를 JSON타입의 데이터로 반환
+		response.setContentType("application/json; charset=UTF-8");
+				//response.getWriter().print(jObj);
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
