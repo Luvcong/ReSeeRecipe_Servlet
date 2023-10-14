@@ -30,7 +30,7 @@ public class MemberMainPageController extends HttpServlet {
 		//POST방식
 		request.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("views/myPage/memberMainPage.jsp").forward(request, response);
+		request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
 		
 		
 	
