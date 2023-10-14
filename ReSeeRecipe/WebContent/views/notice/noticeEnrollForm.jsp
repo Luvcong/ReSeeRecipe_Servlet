@@ -93,7 +93,7 @@
 			var whitelist = [];
 			
 			$.ajax({
-		        url: '/hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
+		        url: 'hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
 		        type: 'GET',
 		        success: function(response) {
 		          // 서버로부터의 응답을 처리하고 whitelist 배열에 추가합니다.
