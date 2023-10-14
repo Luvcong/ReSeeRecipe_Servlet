@@ -143,19 +143,32 @@
     // 비밀번호 재설정 유효성 검사
     // 비밀번호 (영문 숫자 특수문자 !@#$+^* 포함 8 ~ 20자)
     $(function(){
-      $('input[name=memberPwd]').keyup(function(){
+      $('input[name*=memberPwd]').keyup(function(){
 
         var $regExp = /^[a-zA-Z0-9!@#$+^*]{8,20}$/;
         
+        // 비밀번호 정규표현식 불일치 시
         if(!$regExp.test($('input[name=memberPwd]').val())){
           $('label[for="memberPwd"]').css('color', 'red');
           $('#updatePwdBtn').attr('disabled', true);
-        } else{
-          $('label[for="memberPwd"]').css('color', 'black');
-          $('#updatePwdBtn').attr('disabled', false);
+        
+        // 비밀번호확인 불일치 시 (정규표현식을 일치)
+        } else if($memberPwd.val() != $memberPwdCheck.val()){
+        	$('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다.').css('color', 'red');
+        	$('label[for="memberPwd"]').css('color', 'black');
+        	$('#updatePwdBtn').attr('disabled', true);
+        	
+        // 둘다 일치
+        } else {
+        	$('label[for="memberPwdCheck"]').text('').css('color', 'black');
+        	$('label[for="memberPwd"]').css('color', 'black');
+        	$('#updatePwdBtn').attr('disabled', false);
         }
+        
       })
     })
+    
+    
 		
 		function updateMemberPwd(){
 			

@@ -54,7 +54,7 @@ public class MemberEnrollController extends HttpServlet {
 			request.getRequestDispatcher("views/member/memberEnrollSuccess.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "회원가입에 실패하셨습니다.");
-			request.getRequestDispatcher("views/member/yrenrollForm.me").forward(request, response);
+			request.getRequestDispatcher(request.getContextPath() + "/yrenrollForm.me").forward(request, response);
 		}
 	}
 
