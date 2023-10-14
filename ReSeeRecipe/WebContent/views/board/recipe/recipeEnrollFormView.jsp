@@ -658,7 +658,7 @@
 									<input type="text" id="ingredientAmountIn" name="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4" required>
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" required>
+									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" >
 										<option value="g">g</option>
 										<option value="kg">kg</option>
 										<option value="lb">lb</option>
@@ -842,6 +842,39 @@
 								ingredientAmount.requred = true;
 								ingredientMeasure.required = true;
 							}
+
+							// 수정 / 삭제버튼 추가
+							var modifyBtn = document.createElement('button');
+							modifyBtn.innerText = '수정';
+							modifyBtn.onclick = function(){
+
+							}
+							ingredientContainer.appendChild(modifyButton);
+
+							var deleteBtn = document.createElement('button');
+							deleteBtn.innerText = 'Delete';
+							deleteBtn.onclick = function sortContainers() {
+								var ingredientContainer = document.getElementsByClassName('ingredientContainer');
+								for (var i = 0; i < ingredientContainer.length; i++) {
+									ingredientContainer[i].id = 'ingredientContainer' + i;
+								// Update input and select names accordingly
+								var ingredient = containers[i].querySelector('input[name^="ingredient"]');
+								ingredient.name = 'ingredient' + i;
+								var ingredientAmount = containers[i].querySelector('input[name^="ingredientAmount"]');
+								ingredientAmount.name = 'ingredientAmount' + i;
+								var ingredientMeasure = containers[i].querySelector('select[name^="ingredientMeasure"]');
+								ingredientMeasure.name = 'ingredientMeasure' + i;
+							}
+						}
+								
+
+
+
+								ingredientContainer.remove();
+								renumberContainers();
+							};
+							ingredientContainer.appendChild(deleteButton);
+
 
 						}
 						
