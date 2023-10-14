@@ -83,7 +83,6 @@
             <input id="HL_noticeTag" name='tags'
   			class='some_class_name'            
  			placeholder='해시태그를 입력해주세요'      
-  			value='공지사항, ReSeeRecipe, recipe, 레시피' 
   			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'
   			>  
                   
@@ -105,7 +104,7 @@
 				        console.error('에러 발생:', error);
 				      }
 				    });
-
+				    console.log(inputElm.value);
 				    function initTagify(whitelist) {
 				      var inputElm = document.querySelector('input[name=tags]');
 
@@ -120,7 +119,7 @@
 				      });
 
 				      tagify.on('input', onInput);
-
+				      
 				      function onInput(e) {
 				        var value = e.detail.value;
 				        var input = value.toLowerCase().trim();
@@ -140,9 +139,10 @@
 				      function onAddTag(e) {
 				        console.log('추가된 태그:', e.detail.data.value);
 				      }
+				      
 				    }
 				  });
-
+			
 			</script>
             
             <br><br>
