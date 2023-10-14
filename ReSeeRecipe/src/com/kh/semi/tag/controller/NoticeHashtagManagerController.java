@@ -1,23 +1,29 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.tag.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kh.semi.tag.model.service.TagService;
+import com.kh.semi.tag.model.vo.Tag;
+
 /**
- * Servlet implementation class MemberMainPageController
+ * Servlet implementation class NoticeHashtagManagerController
  */
-@WebServlet("/blog.me")
-public class MemberMainPageController extends HttpServlet {
+@WebServlet("/hlhashtag.tg")
+public class NoticeHashtagManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberMainPageController() {
+    public NoticeHashtagManagerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,17 +32,18 @@ public class MemberMainPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// 1) GET방식 -> 인코딩x
 		
-		//POST방식
-		request.setCharacterEncoding("UTF-8");
+		// 2) 값 뽑기
 		
-		request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
+		// 3) 서비스 호출 해시태그명 SELECT 해오기
+		ArrayList<Tag> list = new TagService().selectALlTagname();
 		
-		
-	
-	
-		
-	
+		// 4) GSON이용 => ArrayList를 JSON타입의 데이터로 반환
+		response.setContentType("application/json; charset=UTF-8");
+				//response.getWriter().print(jObj);
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.tag.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberMainPageController
+ * Servlet implementation class TagController
  */
-@WebServlet("/blog.me")
-public class MemberMainPageController extends HttpServlet {
+@WebServlet(name = "TagNoticeController", urlPatterns = { "/hlnoticetag.tg" })
+public class TagController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberMainPageController() {
+    public TagController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,17 +26,8 @@ public class MemberMainPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//POST방식
-		request.setCharacterEncoding("UTF-8");
-		
-		request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
-		
-		
-	
-	
-		
-	
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

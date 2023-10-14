@@ -83,117 +83,77 @@
             <input id="HL_noticeTag" name='tags'
   			class='some_class_name'            
  			placeholder='해시태그를 입력해주세요'      
-  			value='공지사항, ReSeeRecipe, recipe, 레시피' 
-  			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'>  
+  			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'
+  			>  
                   
 			<script>
-			var inputElm = document.querySelector('input[name=tags]'),
-		    //whitelist = ["요린이", "요리대회"];
+			$(document).ready(function () {
+			    // 서버에서 whitelist 데이터를 받아옵니다.
+			    $.ajax({
+			      url: 'hlhashtag.tg',
+			      type: 'GET',
+			      dataType: 'json',
+			      success: function (result) {
+			        // 결과가 객체 배열일 때 "tagName" 필드를 추출하여 whitelist로 설정
+			        var whitelist = result.map(function (item) {
+			          return item.tagName;
+			        });
+			        initTagify(whitelist);
+			        
+			      },
+			      error: function (error) {
+			        console.error('에러 발생:', error);
+			      }
+			    });
+
+			    function initTagify(whitelist) {
+			      var inputElm = document.querySelector('input[name=tags]');
+
+			      var tagify = new Tagify(inputElm, {
+			        enforceWhitelist: true,
+			        whitelist: whitelist,
+			        dropdown: {
+			          maxItems: 5,
+			          enabled: 0,
+			          closeOnSelect: true,
+			        }
+			      });
+
+			      tagify.on('input', onInput);
+
+			      function onInput(e) {
+			        var value = e.detail.value;
+			        var input = value.toLowerCase().trim();
+			        var dataBlacklist = inputElm.getAttribute('data-blacklist');
+			        var blacklist = dataBlacklist.split(',').map(function (item) {
+			          return item.trim().toLowerCase();
+			        });
+
+			        if (blacklist.includes(input)) {
+			          //tagify.removeTags();
+			          console.log('입력값이 블랙리스트에 포함되어 삭제됨.');
+			          tagify.replaceTag();
+			        }
+			      }
+
+			      tagify.on('add', onAddTag);
+			      
+			      function onAddTag(e) {
+					var dataInput = e.detail.data.value;
+			        var hashtagList = [];
+			        console.log(tagify.value);
+			        console.log(tagify.value.length);
+			        
+			        for(let i=0 ; i< tagify.value.length ; i++){
+			        	hashtagList.push(tagify.value[i].value);
+			        }
+			        console.log(hashtagList);
+			      }
+			      
+			    }
+			    
+			  });
 			
-			var whitelist = [];
-			
-			$.ajax({
-		        url: '/hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
-		        type: 'GET',
-		        success: function(response) {
-		          // 서버로부터의 응답을 처리하고 whitelist 배열에 추가합니다.
-		          console.log('Whitelist 배열:', response.whitelist);
-		          whitelist.push(...response.whitelist); // whitelist 배열에 데이터 추가
-		          console.log('Updated Whitelist 배열:', whitelist);
-		        },
-		        error: function(error) {
-		          console.error('에러 발생:', error);
-		        }
-		      });
-		    }
-			
-			
-			
-			
-			
-    		// initialize Tagify on the above input node reference
-    		var tagify = new Tagify(inputElm, {
-    		    enforceWhitelist: true,
-    		  
-    		    // make an array from the initial input value
-    		    whitelist: inputElm.value.trim().split(/\s*,\s*/) 
-    		})
-
-    		// Chainable event listeners
-    		tagify.on('add', onAddTag)
-    		      .on('remove', onRemoveTag)
-    		      .on('input', onInput)
-    		      .on('edit', onTagEdit)
-    		      .on('invalid', onInvalidTag)
-    		      .on('click', onTagClick)
-    		      .on('focus', onTagifyFocusBlur)
-    		      .on('blur', onTagifyFocusBlur)
-    		      .on('dropdown:hide dropdown:show', e => console.log(e.type))
-    		      .on('dropdown:select', onDropdownSelect)
-
-    		var mockAjax = (function mockAjax(){
-    		    var timeout;
-    		    return function(duration){
-    		        clearTimeout(timeout); // abort last request
-    		        return new Promise(function(resolve, reject){
-    		            timeout = setTimeout(resolve, duration || 700, whitelist)
-    		        })
-    		    }
-    		})()
-
-    		// tag added callback
-    		function onAddTag(e){
-    		    console.log("onAddTag: ", e.detail);
-    		    console.log("original input value: ", inputElm.value)
-    		    tagify.off('add', onAddTag) // exmaple of removing a custom Tagify event
-    		}
-
-    		// tag remvoed callback
-    		function onRemoveTag(e){
-    		    console.log("onRemoveTag:", e.detail, "tagify instance value:", tagify.value)
-    		}
-
-    		// on character(s) added/removed (user is typing/deleting)
-    		function onInput(e){
-    		    console.log("onInput: ", e.detail);
-    		    tagify.settings.whitelist.length = 0; // reset current whitelist
-    		    tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
-
-    		    // get new whitelist from a delayed mocked request (Promise)
-    		    mockAjax()
-    		        .then(function(result){
-    		            // replace tagify "whitelist" array values with new values
-    		            // and add back the ones already choses as Tags
-    		            tagify.settings.whitelist.push(...result, ...tagify.value)
-
-    		            // render the suggestions dropdown.
-    		            tagify.loading(false).dropdown.show.call(tagify, e.detail.value);
-    		        })
-    		}
-
-    		function onTagEdit(e){
-    		    console.log("onTagEdit: ", e.detail);
-    		}
-
-    		// invalid tag added callback
-    		function onInvalidTag(e){
-    		    console.log("onInvalidTag: ", e.detail);
-    		}
-
-    		// invalid tag added callback
-    		function onTagClick(e){
-    		    console.log(e.detail);
-    		    console.log("onTagClick: ", e.detail);
-    		}
-
-    		function onTagifyFocusBlur(e){
-    		    console.log(e.type, "event fired")
-    		}
-
-    		function onDropdownSelect(e){
-    		    console.log("onDropdownSelect: ", e.detail)
-    		}
-
 			</script>
             
             <br><br>
