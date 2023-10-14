@@ -96,16 +96,17 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 해시태그 값 뽑기
 			String noticeTag = multiRequest.getParameter("tags");
 			System.out.println(noticeTag);
+			//ArrayList<Tag> list = new ArrayList();
 			
 			// 문자열에서 "value" 필드의 값 추출하여 리스트에 담기
 	        List<String> extractedValues = extractValues(noticeTag);
-
+	        
 	        // 추출된 값을 출력
 	        for (String value : extractedValues) {
 	            System.out.println("추출된 값: " + value);
+	          
 	        }
-	        
-			//ArrayList<Tag> list = new ArrayList();
+	        System.out.println(extractedValues);
 			
 			
 			// 4) 서비스 요청
