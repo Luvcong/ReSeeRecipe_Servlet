@@ -2,6 +2,9 @@ package com.kh.semi.notice.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.notice.model.vo.Notice;
@@ -96,16 +97,40 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			String noticeTag = multiRequest.getParameter("tags");
 			System.out.println(noticeTag);
 			
-	
-			ArrayList<Tag> list = new ArrayList();
+			// 문자열에서 "value" 필드의 값 추출하여 리스트에 담기
+	        List<String> extractedValues = extractValues(noticeTag);
+
+	        // 추출된 값을 출력
+	        for (String value : extractedValues) {
+	            System.out.println("추출된 값: " + value);
+	        }
+	        
+			//ArrayList<Tag> list = new ArrayList();
 			
 			
 			// 4) 서비스 요청
 		}
 		
 	
-	
+		
 	}
+	
+	
+	private static List<String> extractValues(String noticeTag) {
+        List<String> values = new ArrayList<>();
+
+        // 정규식을 사용하여 "value" 필드의 값 추출
+        Pattern pattern = Pattern.compile("\"value\":\"(.*?)\"");
+        Matcher matcher = pattern.matcher(noticeTag);
+
+        while (matcher.find()) {
+            values.add(matcher.group(1));
+        }
+
+        return values;
+    }
+	
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
