@@ -84,7 +84,8 @@
   			class='some_class_name'            
  			placeholder='해시태그를 입력해주세요'      
   			value='공지사항, ReSeeRecipe, recipe, 레시피' 
-  			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'>  
+  			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'
+  			>  
                   
 			<script>
 			var inputElm = document.querySelector('input[name=tags]');		    //whitelist = ["요린이", "요리대회"];
@@ -92,20 +93,22 @@
 			var whitelist = [];
 			
 			$.ajax({
-		        url: 'hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
+		        url: 'hlhashtag.tg', 
 		        type: 'GET',
 		        dataType : "json",
 		        success: function(result) {
-		          // 서버로부터의 응답을 처리하고 whitelist 배열에 추가합니다.
-		          console.log('Whitelist 배열:', result.whitelist);
+		          // 응답된 데이터를  whitelist 배열에 추가
+		          console.log('Whitelist 배열:', result);
 		          whitelist.push(result); // whitelist 배열에 데이터 추가
-		          console.log('Updated Whitelist 배열:', whitelist);
+		          inputElm.setAttribute('whitelist', whitelist);
+		          //$('HL_noticeTag').whitelist() += whitelist[0];
+		          console.log('Updated Whitelist 배열:', whitelist[0].tagName);
 		        },
 		        error: function(error) {
 		          console.error('에러 발생:', error);
 		        }
 		      });
-		    }
+		    
 			
 			
 			
