@@ -41,7 +41,7 @@ public class Member {
 	}
 	
 	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
-			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade) {
+			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -55,6 +55,7 @@ public class Member {
 		this.deleteDate = deleteDate;
 		this.memPicture = memPicture;
 		this.memGrade = memGrade;
+		this.memGradeName = memGradeName;
 	}
 	
 	

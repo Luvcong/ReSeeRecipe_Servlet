@@ -323,7 +323,7 @@
 
           // 정규표현식 초기화
           var $regExp = /^$/;
-          
+
           // 1) 이름 (2 ~ 6자 이내)
           if($(this)[0] == $('#memberName')[0]) {
             var $regExp = /^[가-힣]{2,6}$/;
@@ -393,9 +393,8 @@
           
           // eachResult['eachResult'+eventThis] = 1;
           eachResult['eachResult'+eventThis] = 0;
+
           // 각 정규표현식에 따른 결과
-          console.log($(this) != $('#memberPwdCheck'));
-          
           if(!$regExp.test($(this).val())){
             // labels[0].style.color = 'red';
             // memberName.select();
@@ -440,6 +439,10 @@
           console.log(submitResult);
           // console.log($('#memberPwdCheck').val());
           // console.log($('#memberPwd').val());
+          // var nickreturn = nicknameCheck();
+          // console.log(nickreturn);
+
+          // 중복체크는 안됨.. DB에서 유니크 제약조건시에 실패로만 뜸(가입하기 버튼은 눌림)
           if(submitResult > 0 && $('#memberPwdCheck').val() == $('#memberPwd').val()){
             $('#submitBtn').attr('disabled', false);
           } else{
@@ -482,14 +485,13 @@
               */
               $nicknameLabel.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
               //$('#memberNickname').val('').focus();
-              
-              // return false;
+              $('#submitBtn').attr('disabled', true);
 
             // 사용가능한 아이디
             } else{
               // $nicknameLabel.text("* 사용가능한 닉네임입니다.");
               // $nicknameLabel.css('color', 'black');
-              // return true;
+              $('#submitBtn').attr('disabled', false);
             }
           },
           // 중복체크 조회 실패 시
@@ -517,12 +519,15 @@
             */
 						$('label[for="memberId"]').text("* 이미 존재하거나 탈퇴한 회원의 아이디입니다!").css('color', 'red');
 						// $('#memberId').val('').focus();
+
+            return false;
             
-            // return false;
 
 					// 사용가능한 아이디
 					} else{
 						// $('label[for="memberId"]').text("* 사용가능한 아이디입니다.");
+            $('#submitBtn').attr('disabled', false);
+            return true;
 					}
 				},
 				// 중복체크 조회 실패 시
@@ -550,12 +555,13 @@
             */
 						$('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!").css('color', 'red');
 						// $('#memberEmail').val('').focus();
-            
-           // return false;
+            $('#submitBtn').attr('disabled', true);
+           return false;
 					// 사용가능한 아이디
 					} else{
 						// $('label[for="memberEmail"]').text("* 사용가능한 이메일입니다.");
-            // return true;
+            $('#submitBtn').attr('disabled', false);
+            return true;
 					}
 				},
 				// 중복체크 조회 실패 시
