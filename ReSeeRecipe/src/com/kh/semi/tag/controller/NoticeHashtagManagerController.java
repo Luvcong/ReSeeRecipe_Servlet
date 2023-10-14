@@ -1,4 +1,4 @@
-package com.kh.semi.notice.controller;
+package com.kh.semi.tag.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
