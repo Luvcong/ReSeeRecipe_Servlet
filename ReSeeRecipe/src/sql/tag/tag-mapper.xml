@@ -5,7 +5,8 @@
 
 	<entry key="selectAllTagname">
 		SELECT 
-				TAG_NAME
+				 TAG_NO				
+				,TAG_NAME
 		  FROM 
 		  		TB_TAG
 	</entry>

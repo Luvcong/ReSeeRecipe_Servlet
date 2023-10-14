@@ -44,6 +44,7 @@ public class TagDao {
 			while(rset.next()) {
 				
 				Tag t = new Tag();
+				t.setTagNo(rset.getInt("TAG_NO"));
 				t.setTagName(rset.getString("TAG_NAME"));
 				
 				list.add(t);
