@@ -87,61 +87,61 @@
   			>  
                   
 			<script>
-			  $(document).ready(function () {
-				    // 서버에서 whitelist 데이터를 받아옵니다.
-				    $.ajax({
-				      url: 'hlhashtag.tg',
-				      type: 'GET',
-				      dataType: 'json',
-				      success: function (result) {
-				        // 결과가 객체 배열일 때 "tagName" 필드를 추출하여 whitelist로 설정
-				        var whitelist = result.map(function (item) {
-				          return item.tagName;
-				        });
-				        initTagify(whitelist);
-				      },
-				      error: function (error) {
-				        console.error('에러 발생:', error);
-				      }
-				    });
-				    console.log(inputElm.value);
-				    function initTagify(whitelist) {
-				      var inputElm = document.querySelector('input[name=tags]');
+			+			  $(document).ready(function () {
+			    // 서버에서 whitelist 데이터를 받아옵니다.
+			    $.ajax({
+			      url: 'hlhashtag.tg',
+			      type: 'GET',
+			      dataType: 'json',
+			      success: function (result) {
+			        // 결과가 객체 배열일 때 "tagName" 필드를 추출하여 whitelist로 설정
+			        var whitelist = result.map(function (item) {
+			          return item.tagName;
+			        });
+			        initTagify(whitelist);
+			      },
+			      error: function (error) {
+			        console.error('에러 발생:', error);
+			      }
+			    });
 
-				      var tagify = new Tagify(inputElm, {
-				        enforceWhitelist: true,
-				        whitelist: whitelist,
-				        dropdown: {
-				          maxItems: 5,
-				          enabled: 0,
-				          closeOnSelect: true,
-				        }
-				      });
+			    function initTagify(whitelist) {
+			      var inputElm = document.querySelector('input[name=tags]');
 
-				      tagify.on('input', onInput);
-				      
-				      function onInput(e) {
-				        var value = e.detail.value;
-				        var input = value.toLowerCase().trim();
-				        var dataBlacklist = inputElm.getAttribute('data-blacklist');
-				        var blacklist = dataBlacklist.split(',').map(function (item) {
-				          return item.trim().toLowerCase();
-				        });
+			      var tagify = new Tagify(inputElm, {
+			        enforceWhitelist: true,
+			        whitelist: whitelist,
+			        dropdown: {
+			          maxItems: 5,
+			          enabled: 0,
+			          closeOnSelect: true,
+			        }
+			      });
 
-				        if (blacklist.includes(input)) {
-				          tagify.removeTags();
-				          console.log('입력값이 블랙리스트에 포함되어 삭제됨.');
-				        }
-				      }
+			      tagify.on('input', onInput);
 
-				      tagify.on('add', onAddTag);
+			      function onInput(e) {
+			        var value = e.detail.value;
+			        var input = value.toLowerCase().trim();
+			        var dataBlacklist = inputElm.getAttribute('data-blacklist');
+			        var blacklist = dataBlacklist.split(',').map(function (item) {
+			          return item.trim().toLowerCase();
+			        });
 
-				      function onAddTag(e) {
-				        console.log('추가된 태그:', e.detail.data.value);
-				      }
-				      
-				    }
-				  });
+			        if (blacklist.includes(input)) {
+			          //tagify.removeTags();
+			          console.log('입력값이 블랙리스트에 포함되어 삭제됨.');
+			          tagify.replaceTag();
+			        }
+			      }
+
+			      tagify.on('add', onAddTag);
+
+			      function onAddTag(e) {
+			        console.log('추가된 태그:', e.detail.data.value);
+			      }
+			    }
+			  });
 			
 			</script>
             
