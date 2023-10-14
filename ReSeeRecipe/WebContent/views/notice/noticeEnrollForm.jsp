@@ -87,7 +87,7 @@
   			>  
                   
 			<script>
-			+			  $(document).ready(function () {
+			$(document).ready(function () {
 			    // 서버에서 whitelist 데이터를 받아옵니다.
 			    $.ajax({
 			      url: 'hlhashtag.tg',
@@ -136,10 +136,19 @@
 			      }
 
 			      tagify.on('add', onAddTag);
-
+			      
 			      function onAddTag(e) {
-			        console.log('추가된 태그:', e.detail.data.value);
+					var dataInput = e.detail.data.value;
+			        var hashtagList = [];
+			        console.log(tagify.value);
+			        console.log(tagify.value.length);
+			        
+			        for(let i=0 ; i< tagify.value.length ; i++){
+			        	hashtagList.push(tagify.value[i].value);
+			        }
+			        console.log(hashtagList);
 			      }
+			      
 			    }
 			  });
 			
