@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.un_recipe.model.vo.UnRecipe;
@@ -43,9 +42,9 @@ public class RecipeDao {
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rset = pstmt.executeQuery()) {
-			if(rset.next()) {
-				listCount = rset.getInt("COUNT(*)");
-			}
+				if(rset.next()) {
+					listCount = rset.getInt("COUNT(*)");
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

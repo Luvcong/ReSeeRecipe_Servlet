@@ -3,8 +3,7 @@
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
-			     com.kh.semi.board.un_recipe.model.vo.UnRecipe,
-			     com.kh.semi.board.board_common.model.vo.IngredientMeasure" %>
+			     com.kh.semi.board.un_recipe.model.vo.UnRecipe" %>
 
 
 <!DOCTYPE html>
@@ -643,7 +642,7 @@
 								자바 스크립트로 입력된 재료 요소 추가
 							-->
 						</div>
-
+						
 					</div>
 				</div>
 				<!------------------------------------------ Script (바이트 카운트 / 재료입력 디스플레이) ------------------------------------------>
@@ -696,8 +695,6 @@
 						});
 					});
 					
-					
-					
 					// 재료 입력 디스플레이 생성
 					function addIngredientDisplay(){
 						// 생성된 요소 띄워줄 영역
@@ -733,19 +730,60 @@
 						ingredient.classList = 'form-control';
 						ingredient.placeholder = '재료입력';
 						ingredient.maxLength = '15';
-						ingredient.required = true;
 						ingredientAreaDiv.appendChild(ingredient);
-
-						// 재료량 (숫자 + 계량단위)
-						var amountAreaDiv = document.createElement('div');
-						amountAreaDiv.id = 'amountAreaDiv' + count;
-						ingredientContainer.appendChild(amountAreaDiv);
 						
+						// 재료량 (숫자)
+						var ingredientAmountDiv = document.createElement('div');
+						ingredientAmountDiv.id = 'ingredientAmount' + count;
+						ingredientContainer.appendChild(ingredientAmountDiv);
+
+						var ingredientAmount = document.createElement('input');
+						ingredientAmount.id = ingredientAmount + count;
+						ingredientAmount.classList = 'form-control';
+						ingredientAmount.placeholder = '재료량';
+						ingredientAmount.maxLength = '15';
+						ingredientAmountDiv.appendChild(ingredientAmount);
+						
+						// + 계량단위
 						var measureAreaDiv = document.createElement('div');
 						measureAreaDiv.id = 'measureAreaDiv' + count;
 						ingredientContainer.appendChild(measureAreaDiv);
 						
-						var 
+						var ingredientMeasure = document.createElement('select');
+						ingredientMeasure.id = 'ingredientMeasure' + count;
+						ingredientMeasure.name = 'ingredientMeasure' + count;
+						ingredientMeasure.classList = 'custom-select';
+						measureAreaDiv.appendChild(ingredientMeasure);
+						
+						const optionArr = {
+							g : 'g',
+							kg : 'kg',
+							lb : 'lb',
+							pinch : '약간',
+							t : '작은술(t)',
+							T : '큰술(T)',
+							ml : 'ml',
+							L : 'L',
+							cup : '컵',
+							clove : '알',
+							ea : '개',
+							slice : '장'
+						};
+						for(optVal in optionArr) {
+							var option = document.createElement('option');
+							option.value = optionArr[optVal];
+							option.innerText = optionArr[optVal];
+							ingredientMeasure.appendChild(option);
+						};
+
+						if(count == 0) {
+							ingredient.required = true;
+							ingredientAmount.requred = true;
+							ingredientMeasure.required = true;
+						}
+						
+						
+						ingredientAmount.name = 'ingredientAmount' + 'ingredientMeasure' + count; // 네임
 						/*
 
 						// 요소생성 + 세부세팅 (ingredient인풋)
@@ -766,7 +804,7 @@
 						//const displayingContainer2 = document.getElementById('displaying-input-area2');
 						*/
 			
-						count++;
+						//count++;
 					};
 			
 					
@@ -794,8 +832,8 @@
 					*/
 				</script>
 				<!------------------------------------------ Script ------------------------------------------>
-
-
+				
+				
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
 					<!--
