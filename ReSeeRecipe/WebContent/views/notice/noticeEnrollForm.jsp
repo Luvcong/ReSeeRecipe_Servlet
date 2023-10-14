@@ -95,10 +95,10 @@
 		        url: 'hlhashtag.tg', // 백엔드 API 엔드포인트를 입력하세요
 		        type: 'GET',
 		        dataType : "json",
-		        success: function(response) {
+		        success: function(result) {
 		          // 서버로부터의 응답을 처리하고 whitelist 배열에 추가합니다.
-		          console.log('Whitelist 배열:', response.whitelist);
-		          whitelist.push(...response.whitelist); // whitelist 배열에 데이터 추가
+		          console.log('Whitelist 배열:', result.whitelist);
+		          whitelist.push(result); // whitelist 배열에 데이터 추가
 		          console.log('Updated Whitelist 배열:', whitelist);
 		        },
 		        error: function(error) {
