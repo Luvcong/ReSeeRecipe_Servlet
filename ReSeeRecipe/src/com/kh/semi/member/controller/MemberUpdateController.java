@@ -52,14 +52,19 @@ public class MemberUpdateController extends HttpServlet {
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
 			// 값 가져오기
-			int memberNo = Integer.parseInt(multiRequest.getParameter("memberNo"));
+			// int memberNo = Integer.parseInt(multiRequest.getParameter("memberNo"));
 			String memberName = multiRequest.getParameter("memberName");
 			String memberNickname = multiRequest.getParameter("memberNickname");
 			String memberEmail = multiRequest.getParameter("memberEmail");
 			
+			// 회원정보변경 후 다시 회원 조회를 위한 id, pwd값
+			String memberId = multiRequest.getParameter("memberId");
+			String memberPwd = multiRequest.getParameter("memberPwd");
+			
 			// 가져온 값들 객체로 Service 넘길 것
 			Member m = new Member();
-			m.setMemNo(memberNo);
+			// m.setMemNo(memberNo);
+			m.setMemId(memberId);
 			m.setMemName(memberName);
 			m.setMemNickname(memberNickname);
 			m.setMemEmail(memberEmail);
@@ -77,12 +82,21 @@ public class MemberUpdateController extends HttpServlet {
 			
 			// update 성공 시
 			if(result > 0) {
+				
+				// 회원의 정보를 다시 SELECT해와야함 
+				// => 왜냐면 loginMember에 들어있는 정보는 update후 갱신이 안되어 있음
+				
+				Member updatedMember = new MemberService().loginMember(memberId, memberPwd);
+				System.out.println(updatedMember); // null
+				
+				request.getSession().setAttribute("loginMember", updatedMember);
 				// 나중에 마이페이지 메인으로 바꿀 것
-				// update를 한 걸 업데이트가 돼야 하니까 sendRedirect로 가야하나?
-				request.getRequestDispatcher(request.getContextPath());
+				// update를 한 걸 업데이트가 돼야 하니까 sendRedirect로 가야하나? => 로그인이 풀려버림
+				// request.getRequestDispatcher(request.getContextPath()).forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/blog.me");
 			} else { // 실패 시
 				request.getSession().setAttribute("memberUpdateError", "변경에 실패하였습니다.");
-				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me");
+				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);;
 			}
 		}
 	}

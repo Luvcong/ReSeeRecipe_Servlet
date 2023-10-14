@@ -68,6 +68,7 @@ public class RewardDao {
 				reward.setRewardReason(rset.getString("REWARD_REASON"));
 				reward.setRewardScore(rset.getInt("REWARD_SCORE"));
 				reward.setSumRewardScore(rset.getInt("REWARD_SUM"));
+				reward.setMemNo(rset.getInt("MEM_NO"));
 				
 				list.add(reward);
 				// System.out.println(list);
@@ -117,9 +118,41 @@ public class RewardDao {
 		
 		return rewardListCount;
 		
-		
 	}	// selectRewardListCount
 	
+	
+	/**
+	 * 회원 리워드 포인트를 지급 및 차감하는 업데이트 method
+	 * @param conn
+	 * @param reward 회원아이디(memId), 리워드사유(rewardReason), 리워드금액(rewardScore)
+	 * @param searchReward 지급(plusReward) or 차감(minusReward)
+	 * @return 회원 리워드 지급 및 차감 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 13.
+	 */
+	public int updateReward(Connection conn, Reward reward) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReward");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, reward.getRewardReason());
+			pstmt.setInt(2, reward.getRewardScore());
+			pstmt.setInt(3, reward.getMemNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}	// updateReward
 	
 	
 	

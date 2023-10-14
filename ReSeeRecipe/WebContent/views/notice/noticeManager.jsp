@@ -90,7 +90,8 @@
         </div>
 
         <div class="header2">
-            <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
+        	<a href="<%=contextPath %>/hlenrollnoticeForm.ma" class="w3-button w3-round w3-yellow">공지사항 작성</a>
+        <!--<button id="HL_enrollNotice" class="w3-button w3-round w3-yellow" onclick="enrollNotice(e);">공지사항 작성</button> -->
         <!--<button class="w3-button w3-round w3-yellow">회원 수정</button> -->
             <button id="HL_deleteNotice" class="w3-button w3-round w3-yellow" onclick="deleteNotice();">공지사항 삭제</button>
         </div>
@@ -149,8 +150,13 @@
                     const mnno = $(this).children().eq(1).text();
                     location.href = '<%=contextPath%>/hldetailnotice.ma?mnno=' + mnno;
                 })
-            })
-
+            });
+            
+            
+<%--             function enrollNotice(e){
+            	this.location.href = '<%=contextPath %>/hlenrollnoticeForm.ma';
+            }; --%>
+			
 
         </script>
 

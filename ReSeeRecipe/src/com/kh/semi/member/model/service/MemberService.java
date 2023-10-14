@@ -20,7 +20,6 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().loginMember(conn, memberId, memberPwd);
-		
 		close(conn);
 		
 		return m;
@@ -167,8 +166,6 @@ public class MemberService {
 		
 		return result;
 	}
-	
-	
 
 	public int selectMemlistCount() {
 		

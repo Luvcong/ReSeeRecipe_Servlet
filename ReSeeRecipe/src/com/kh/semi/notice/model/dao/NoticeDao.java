@@ -158,13 +158,13 @@ public class NoticeDao {
 	
 	
 	
-	public Notice selectNoticeInfo(Connection conn, int ManageNoticeNo) {
+	public Notice selectNotice(Connection conn, int ManageNoticeNo) {
 		
 		Notice n = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectNoticeInfo");
+		String sql = prop.getProperty("selectNotice");
 		
 		
 		

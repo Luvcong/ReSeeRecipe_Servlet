@@ -48,7 +48,6 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				
 				m = new Member(rset.getInt("MEM_NO"),
 							   rset.getString("MEM_ID"),
 							   rset.getString("MEM_PWD"),
@@ -61,6 +60,7 @@ public class MemberDao {
 							   rset.getDate("DELETE_DATE"),
 							   rset.getString("MEM_PICTURE"),
 							   rset.getInt("MEM_GRADE"));
+
 			}	
 
 		} catch (SQLException e) {
@@ -333,6 +333,7 @@ public class MemberDao {
 			pstmt.setString(2, m.getMemNickname());
 			pstmt.setString(3, m.getMemEmail());
 			pstmt.setString(4, memberPicture);
+			pstmt.setString(5, m.getMemId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

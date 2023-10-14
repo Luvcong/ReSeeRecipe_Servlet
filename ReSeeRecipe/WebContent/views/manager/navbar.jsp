@@ -49,7 +49,7 @@
 			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
 		</div>
 		<div class="titleMenu" id="adminsetting" >
-			<a href="#">
+			<a href="<%=contextPath %>/hlsettingmanager.ma">
 				<i class="fa-solid fa-gear"></i>
 				<img src="" alt="">정보 설정
 			</a>
