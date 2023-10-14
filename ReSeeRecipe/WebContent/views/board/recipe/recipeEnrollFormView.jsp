@@ -62,7 +62,7 @@
 	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
 		width: 100%;
-		height: 2000px;
+		height: 2150px;
 	}
 
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
@@ -219,8 +219,9 @@
 
 	/* 썸네일 이미지 */
 	#content-thumbnail-image img {
-		width: 93%;
-		height: 100%;
+		width: 570px;
+		height: 570px;
+		padding-top: 20px;
 	}
 
 	/* 셰프이름 + 해시태그 div */
@@ -305,7 +306,7 @@
 	}
 
 	#ingredient-title-div1 {
-		width: 85%;
+		width: 90%;
 	}
 	
 	#write-ingredient-input {
@@ -330,10 +331,9 @@
 	}
 
 	#ingredient-title-div1 select {
-		
-		text-align: right;
+		text-align: center;
 		padding: 0px;
-		padding-right: 22px;
+		padding-left: 30px;
 	}
 	
 	#ingredient-title-div1 input, #ingredient-title-div1 select {
@@ -342,7 +342,7 @@
 	}
 
 	#ingredient-title-div2 {
-		width: 15%;
+		width: 10%;
 		padding-top: 7px;
 		padding-right: 10px;
 	}
@@ -367,10 +367,45 @@
 		height: 70%;
 	}
 
-	#cookStepsIngredientContent .ingredientContainer {
-
-	
+	#ingredientContentLeft, #ingredientContentRight {
+		width: 50%;
+		height: 100%;
+		float: left;
 	}
+
+
+	#cookStepsIngredientContent .ingredientContainer {
+		width: 100%;
+		height: 34px;
+	}
+
+	#cookStepsIngredientContent .ingredientContainer div {
+		height: 100%;
+		float: left;
+	}
+	
+	div[id ^= 'ingredientAreaDiv'] {
+		width: 60%;
+	}
+
+	div[id ^= 'ingredientAmountDiv'] {
+		width: 20%;
+	}
+
+	div[id ^= measureAreaDiv] {
+		width: 20%;
+	}
+
+	#cookStepsIngredientContent input, select {
+		width: 100%;
+		height: 100% !important;
+		padding: 0px !important;
+	}
+	
+	#cookStepsIngredientContent input::placeholder, select::placeholder {
+		text-align: center;
+	}
+
 	
 
 
@@ -599,7 +634,7 @@
 							</div>
 						</div>
 						<div id="content-thumbnail-image">
-							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif" alt="">dddddddddd
+							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
 					</div>
 					<div class="cook-steps-input-content">
@@ -624,11 +659,17 @@
 								</div>
 								<div id="measurement-ingredient-selection">
 									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select">
-										<option value="">g</option>
-										<option value="">kg</option>
-										<option value="">cups</option>
-										<option value="">ml</option>
-										<option value="">작은술(ts)</option>
+										<option value="g">g</option>
+										<option value="kg">kg</option>
+										<option value="lb">lb</option>
+										<option value="작은술(t)">작은술(t)</option>
+										<option value="큰술(T)">큰술(T)</option>
+										<option value="ml">ml</option>
+										<option value="L">L</option>
+										<option value="컵">컵</option>
+										<option value="알">알</option>
+										<option value="개">개</option>
+										<option value="장">장</option>
 									</select>
 								</div>
 							</div>
@@ -637,10 +678,17 @@
 							</div>
 						</div>
 						<div id="cookStepsIngredientContent" class="cook-steps-inner">
-							<!--
-								생성된 요소 띄워줄 영역
-								자바 스크립트로 입력된 재료 요소 추가
-							-->
+							<div id="ingredientContentLeft">
+								<!--
+								생성된 요소 띄워줄 영역 자바 스크립트로 입력된 재료 요소 추가
+								-->
+							</div>
+
+							<div id="ingredientContentRight">
+								<!--
+									생성된 요소 띄워줄 영역 자바 스크립트로 입력된 재료 요소 추가
+								-->
+							</div>
 						</div>
 						
 					</div>
@@ -698,25 +746,30 @@
 					// 재료 입력 디스플레이 생성
 					function addIngredientDisplay(){
 						// 생성된 요소 띄워줄 영역
-						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
-
+						var anIngredientContent;
+						var ingredientContentLeft = document.getElementById('ingredientContentLeft');
+						var ingredientContentRight = document.getElementById('ingredientContentRight');
+						
+						
 						// 현재 만들어진 ingredientContainer 개수 (없을때 0부터 시작)
 						var count = document.getElementsByClassName('ingredientContainer').length;
 						console.log(count);
-
+						
 						// 입력된 재료 값 받기
 						var ingredientIn = document.getElementById('ingredientIn').value;
 						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
 						
-
-						
 						// Container 생성 + 세팅 + append하기
+						if(count < 15) {
+							anIngredientContent = ingredientContentLeft;
+						} else {
+							anIngredientContent = ingredientContentRight;
+						}
 						var ingredientContainer = document.createElement('div');
 						ingredientContainer.id = 'ingredientContainer' + count;
 						ingredientContainer.classList.add('ingredientContainer');
-
-						cookStepsIngredientContent.appendChild(ingredientContainer);
+						anIngredientContent.appendChild(ingredientContainer);
 						
 						// Container 내부 3파트 전부 세팅
 						// 재료칸
@@ -734,11 +787,11 @@
 						
 						// 재료량 (숫자)
 						var ingredientAmountDiv = document.createElement('div');
-						ingredientAmountDiv.id = 'ingredientAmount' + count;
+						ingredientAmountDiv.id = 'ingredientAmountDiv' + count;
 						ingredientContainer.appendChild(ingredientAmountDiv);
-
+						
 						var ingredientAmount = document.createElement('input');
-						ingredientAmount.id = ingredientAmount + count;
+						ingredientAmount.id = 'ingredientAmount' + count;
 						ingredientAmount.classList = 'form-control';
 						ingredientAmount.placeholder = '재료량';
 						ingredientAmount.maxLength = '15';
@@ -752,7 +805,7 @@
 						var ingredientMeasure = document.createElement('select');
 						ingredientMeasure.id = 'ingredientMeasure' + count;
 						ingredientMeasure.name = 'ingredientMeasure' + count;
-						ingredientMeasure.classList = 'custom-select';
+						ingredientMeasure.classList = 'custom-select ingredientMeasure';
 						measureAreaDiv.appendChild(ingredientMeasure);
 						
 						const optionArr = {
@@ -769,6 +822,7 @@
 							ea : '개',
 							slice : '장'
 						};
+
 						for(optVal in optionArr) {
 							var option = document.createElement('option');
 							option.value = optionArr[optVal];
@@ -783,7 +837,6 @@
 						}
 						
 						
-						ingredientAmount.name = 'ingredientAmount' + 'ingredientMeasure' + count; // 네임
 						/*
 
 						// 요소생성 + 세부세팅 (ingredient인풋)
