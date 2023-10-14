@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Tag 관련 SQL문</comment>
+
+ 	<entry key="selectNoticeList">
+		SELECT
+				NOTICE_NO
+			   ,NOTICE_TITLE
+			   ,NOTICE_CON
+			   ,NOTICE_DATE
+			   ,NOTICE_COUNT
+			   ,NOTICE_WRITER
+		FROM
+				TB_NOTICE
+		JOIN 
+		 		TB_MEMBER ON(NOTICE_WRITER = MEM_NO)
+		 WHERE
+		 		NOTICE_STATUS = 'Y'
+		 ORDER
+		    BY
+		    	NOTICE_DATE DESC
+ 	</entry>
+ 	
+ 	<entry key="selectNoticelistCount">
+		SELECT
+				COUNT(*)
+		  FROM		 	
+ 				TB_NOTICE
+ 		 WHERE
+ 		 		NOTICE_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="increaseCount">
+ 		UPDATE
+ 				TB_NOTICE
+ 		   SET
+ 		   		NOTICE_COUNT = NOTICE_COUNT + 1
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 		   AND
+ 		   		NOTICE_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="insertNotice">
+ 		INSERT
+ 		  INTO
+ 		  		TB_NOTICE
+ 		  		(
+ 		  		 NOTICE_NO
+ 		  		,NOTICE_TITLE
+ 		  		,NOTICE_CON
+ 		  		,NOTICE_WRITER
+ 		  		)
+ 		VALUES
+ 				(
+ 				SEQ_NOTICE.NEXTVAL
+ 				,?
+ 				,?
+ 				,?
+ 				)
+ 	</entry>
+ 	
+ 	<entry key="selectNotice">
+ 		SELECT
+ 				 NOTICE_NO
+ 				,NOTICE_TITLE
+ 				,NOTICE_CON
+ 				,NOTICE_WRITER
+ 		 FROM
+ 		 		TB_NOTICE
+ 		 JOIN
+ 		 		TB_MEMBER ON(MEM_NO = NOTICE_WRITER)
+ 		WHERE
+ 				NOTICE_STATUS = 'Y'	
+ 		  AND		
+ 				NOTICE_NO = ?
+ 	</entry>
+ 	
+ 	<entry key="insertNoticePic">
+		INSERT
+		  INTO
+		  		TB_NOTICE_PIC
+		  		(
+		  		 NOTICE_PIC_NO
+		  		,NOTICE_PIC_NAME_ORIGIN
+		  		,NOTICE_PIC_NAME_CHANGE
+		  		,NOTICE_PIC_PATH
+		  		,NOTICE_NO
+		  		)
+		VALUES
+				(
+				 SEQ_NOTICE_PIC.NEXTVAL
+				,? 
+				,?
+				,?
+				,?
+				)		  		 	
+ 	</entry>
+ 	
+ 	<entry key="updateNotice">
+ 		UPDATE
+ 				TB_NOTICE
+ 		   SET
+ 		   		NOTICE_TITLE = ?,
+ 		   		NOTICE_CON = ?,
+ 		   		UPDATE_DATE = SYSDATE
+ 	     WHERE
+ 	     		NOTICE_NO = ?
+ 	       AND
+ 	       		NOTICE_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="selectNoticePic">
+ 		SELECT
+ 				 NOTICE_PIC_NO
+ 				,NOTICE_PIC_NAME_ORIGIN
+ 				,NOTICE_PIC_NAME_CHANGE
+ 				,NOTICE_PIC_PATH
+ 				,NOTICE_NO
+ 		  FROM		
+ 				TB_NOTICE_PIC
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 		   AND
+ 		   		NOTICE_STATUS = 'Y'		
+ 		   AND
+ 		   		NOTICE_PIC_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="updateNoticePic">
+ 		UPDATE
+ 				TB_NOTICE_PIC
+ 		   SET
+ 		   		 NOTICE_PIC_NAME_ORIGIN = ?
+ 		   		,NOTICE_PIC_NAME_CHANGE = ?
+ 		   		,NOTICE_PIC_PATH = ?
+				,NOTICE_PIC_DATE = SYSDATE
+		 WHERE
+		 		NOTICE_PIC_NO = ? 	
+ 	</entry>
+ 	
+ 	<entry key="deleteNotice">
+ 		UPDATE
+ 				TB_NOTICE
+ 		   SET
+ 		   		NOTICE_STATUS = 'N',
+ 		   		UPDATE_DATE = SYSDATE
+ 		 WHERE
+ 		 		NOTICE_NO = ?
+ 		   AND
+ 		   		NOTICE_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="deleteNoticePic">
+ 		UPDATE
+ 				TB_NOTICE_PIC
+ 		   SET
+ 		   		NOTICE_PIC_STATUS = 'N',
+ 				NOTICE_PIC_DATE = SYSDATE
+ 		 WHERE
+ 		 		NOTICE_PIC_NO = ?
+ 		   AND
+ 		   		NOTICE_PIC_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="selectNoticeAll">
+ 		SELECT * 
+		 FROM(SELECT ROWNUM RNUM, D.*
+ 				FROM (SELECT 
+ 							A.NOTICE_TITLE,
+ 							A.NOTICE_DATE, 
+ 							A.NOTICE_COUNT, 
+ 							B.*, 
+ 							C.MEM_NICKNAME
+ 					FROM 
+ 							TB_NOTICE A,
+        					(SELECT 
+        							NOTICE_NO, 
+        							COUNT(HT_NOTICE_DATE)
+          					   FROM 
+          					   		TB_HT_NOTICE
+          					   RIGHT 
+          					   JOIN 
+          					   		TB_NOTICE USING(NOTICE_NO)
+         					  GROUP 
+         					     BY 
+         					     	NOTICE_NO) B,
+         					TB_MEMBER C
+			 WHERE 
+			 		A.NOTICE_NO = B.NOTICE_NO
+   			   AND 
+   			   		A.NOTICE_WRITER = C.MEM_NO
+ 			ORDER 
+ 			   BY 
+ 			   		A.NOTICE_DATE DESC) D)
+ 		WHERE RNUM BETWEEN ? AND ?
+ 	</entry>
+</properties>
