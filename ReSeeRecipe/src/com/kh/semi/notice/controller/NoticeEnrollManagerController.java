@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
 import com.kh.semi.tag.model.vo.Tag;
@@ -67,11 +68,13 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 공지사항 제목, 공지사항 내용
 			String noticeTitle = multiRequest.getParameter("HL_noticeTitle");
 			String noticeCon = multiRequest.getParameter("HL_noticeContent");
+			String noticeWriter = multiRequest.getParameter("adminNo");
 			System.out.print(noticeTitle);
 			// 3) VO객체로 가공 => 무조건 INSERTF
 			Notice n = new Notice();
 			n.setNoticeTitle(noticeTitle);
 			n.setNoticeCon(noticeCon);
+			n.setNoticeWriter(noticeWriter);
 			
 			// 두번째 INSERT => 선택적(첨부파일이 존재할 때만 INSERT)
 			NoticePic np = null;
@@ -108,8 +111,10 @@ public class NoticeEnrollManagerController extends HttpServlet {
 	        }
 	        System.out.println(extractedValues);
 			
-			
 			// 4) 서비스 요청
+	        int result = new NoticeService().insertNotice(n, np, extractedValues);
+	        
+	        
 		}
 		
 	
