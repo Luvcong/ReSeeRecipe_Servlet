@@ -3,8 +3,7 @@
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
-			     com.kh.semi.board.un_recipe.model.vo.UnRecipe,
-			     com.kh.semi.board.board_common.model.vo.IngredientMeasure" %>
+			     com.kh.semi.board.un_recipe.model.vo.UnRecipe" %>
 
 
 <!DOCTYPE html>
