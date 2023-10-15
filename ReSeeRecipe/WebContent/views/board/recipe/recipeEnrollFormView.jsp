@@ -771,13 +771,13 @@
 								var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn');
 
 							
-								if(false/*ingredientIn.value == '' || ingredientAmountIn.value == ''*/) {
+								if(ingredientIn.value == '' || ingredientAmountIn.value == '') {
 									alert('재료 입력란을 모두 입력하세요');
 								} else {
 									// 현재 만들어진 ingredientContainer 개수 카운트 (없을때 0부터 시작)
 									var count = document.getElementsByClassName('ingredientContainer').length;
 									
-									if(count <= 30) {
+									if(count < 30) {
 			
 										// 생성된 요소 띄워줄 영역
 										var anIngredientContent;
@@ -885,17 +885,35 @@
 
 						<script>
 							$(function(){
+
 								// 요소 넘버링 다시 해주는 함수
 								function reorderingIngredients(){
 									$('.ingredientContainer').each(function(index){
-										var containers = $(this);
-										containers.attr('id', ingredientContainer + index);
-										containers.arrt('class', ingredientContainer + containers);
-										containers.find('div[id ^= ingredientAreaDiv]').attr('id', 'ingredientAreaDiv' + index);
-										containers.find('div[id ^= ingredientAmountDiv]').attr('id', 'ingredientAreaDiv' + index);
-										containers.find('div[id ^= measureAreaDiv]').attr('id', 'ingredientAreaDiv' + index);
+										var $containers = $(this);
+										
+										$containers.attr('id', 'ingredientContainer' + index);
+										
+										$containers.find('div[id^=ingredientAreaDiv]').attr('id', 'ingredientAreaDiv' + index);
+										$containers.find('input[id^=ingredient]').attr('id', 'ingredient' + index).attr('name', 'ingredient' + index);
+										
+										$containers.find('div[id^=ingredientAmountDiv]').attr('id', 'ingredientAmountDiv' + index);
+										$containers.find('input[id^=ingAmount]').attr('id', 'ingAmount' + index);
+										
+										$containers.find('div[id^=measureAreaDiv]').attr('id', 'measureAreaDiv' + index);
+										$containers.find('select[id^=ingMeasure]').attr('id', 'ingMeasure' + index);
+										$containers.find('input[name^=ingredientAmount]').attr('name', 'ingredientAmount' + index);
+										
+										$containers.find('div[id^=delIngBtnDiv]').attr('id', 'delIngBtnDiv' + index);
+										$containers.find('button[id^=delIngBtn]').attr('id', 'delIngBtn' + index);
+										
+										if(index < 15) {
+											$containers.appendTo($('#ingredientContentLeft'));
+										} else {
+											$containers.appendTo($('#ingredientContentRight'));
+										}
 									});
 								};
+
 								// 생성된 요소에 삭제이벤트 (& 콘테이너 id, 내부div id, input id, name)
 								$('#cookStepsIngredientContent').on('click', 'button[id ^= delIngBtn]', function(){
 									$(this).parents('div[id^=ingredientContainer]').remove();
@@ -906,7 +924,7 @@
 
 					</div>
 				</div>
-$
+
 
 				
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
