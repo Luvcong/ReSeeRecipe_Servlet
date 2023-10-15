@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kh.semi.board.board_common.model.vo.IngredientMeasure;
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
