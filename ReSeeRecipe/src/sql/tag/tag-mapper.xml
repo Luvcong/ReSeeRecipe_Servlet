@@ -3,11 +3,22 @@
 <properties>
 	<comment>Tag 관련 SQL문</comment>
 
+	<!-- 등록된 해시태그명과 해시태그 번호 조회 SQL문 -->
 	<entry key="selectAllTagname">
 		SELECT 
 				 TAG_NO				
 				,TAG_NAME
 		  FROM 
 		  		TB_TAG
+	</entry>
+	
+	<!-- 해시태그명에 해당하는 해시태그 번호 조회  -->
+	<entry key="selectTagNo">
+		SELECT 
+				TAG_NO 
+		  FROM 
+		  		TB_TAG
+		 WHERE 
+		 		TAG_NAME = ?
 	</entry>
 </properties>

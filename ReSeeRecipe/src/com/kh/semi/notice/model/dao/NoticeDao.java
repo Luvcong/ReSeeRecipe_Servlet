@@ -9,12 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.vo.Tag;
 
 public class NoticeDao {
 	
@@ -62,6 +62,10 @@ public class NoticeDao {
 		return list;
 	}
 	
+	/**
+	 * @param conn
+	 * @return 전체 공지사항 게시글 수
+	 */
 	public int selectNoticelistCount(Connection conn) {
 		
 		int noticelistCount = 0;
@@ -87,6 +91,11 @@ public class NoticeDao {
 		return noticelistCount;
 	}
 	
+	/**
+	 * @param conn DB와의 연결
+	 * @param pg 페이징처리에 필요한 변수들 [ StartRow(), EndRow() 포함 ]
+	 * @return 공지사항 전체 목록 + 페이징
+	 */
 	public ArrayList<Notice> selectNoticeAll(Connection conn, PageInfo pg) {
 		
 		ArrayList<Notice> list = new ArrayList();
@@ -123,6 +132,11 @@ public class NoticeDao {
 		return list;
 	}
 	
+	/**
+	 * @param conn
+	 * @param n 공지사항 제목, 공지사항 내용
+	 * @return 공지사항 게시글 등록 결과
+	 */
 	public int insertNotice(Connection conn, Notice n) {
 		
 		int result = 0;
@@ -145,6 +159,11 @@ public class NoticeDao {
 		return result;
 	}
 	
+	/**
+	 * @param conn
+	 * @param np 공지사항 사진파일원본명, 사진파일수정명, 사진파일저장경로
+	 * @return 공지사항 사진 등록 수행 결과
+	 */
 	public int insertNoticePic(Connection conn, NoticePic np) {
 		
 		int result = 0;
@@ -167,11 +186,31 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertNoticeTag(Connection conn, List<String> extractedValues) {
+	/**
+	 * @param conn
+	 * @param list 공지사항 해시태그 등록
+	 * @return 해시태그 등록 수행 결과
+	 */
+	public int insertNoticeTag(Connection conn, ArrayList<Tag> list) {
 			
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNoticeTag");
+		
+		try {
+			String sql = prop.getProperty("insertNoticeTag");
+			pstmt = conn.prepareStatement(sql);
+			
+			for(Tag tag : list) {
+				pstmt.setInt(1, tag.getTagNo());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

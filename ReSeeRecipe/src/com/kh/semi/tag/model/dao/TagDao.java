@@ -29,6 +29,10 @@ public class TagDao {
 	}
 	
 
+	/**
+	 * @param conn
+	 * @return 등록된 해시태그명 조회한 결과
+	 */
 	public ArrayList<Tag> selectAllTagname(Connection conn){
 		
 		ArrayList<Tag> list = new ArrayList();
@@ -59,14 +63,36 @@ public class TagDao {
 		return list;
 	}
 	
+	/**
+	 * @param conn
+	 * @param extractedValues 사용자가 입력한 해시태그명들
+	 * @return 사용자가 입력한 해시태그명에 해당하는 해시태그번호들
+	 */
 	public ArrayList<Tag> selectTagNo(Connection conn, List<String> extractedValues) {
-		
+
 		ArrayList<Tag> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-				
-				
-				
-	
+		try {
+			String sql = prop.getProperty("selectTagNo");
+			pstmt = conn.prepareStatement(sql);
+			for (String value : extractedValues) {
+				pstmt.setString(1, value);
+
+				rset = pstmt.executeQuery();
+
+				while (rset.next()) {
+					Tag t = new Tag();
+					t.setTagNo(rset.getInt("TAG_NO"));
+					list.add(t);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }
