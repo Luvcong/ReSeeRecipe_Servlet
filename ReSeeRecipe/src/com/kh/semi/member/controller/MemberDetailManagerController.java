@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
-/**
+/** 회원 상세보기 서블릿
  * Servlet implementation class MemberDetailManagerController
  */
 @WebServlet("/hldetailmember.ma")

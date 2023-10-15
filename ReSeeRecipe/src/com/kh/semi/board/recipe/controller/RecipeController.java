@@ -6,14 +6,37 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.tag.model.service.TagService;
+import com.kh.semi.tag.model.vo.Tag;
 
 
 public class RecipeController {
+	
+	
+	/**
+	 * 카테고리 목록을 조회해 반환
+	 * @return : 레시피 카테고리 목록이 담긴 어레이리스트 ArrayList<RecipeCategory>
+	 */
+	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
+		
+		String viewPath = "";
+		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList();
+		
+		if(!cList.isEmpty()) {
+			request.setAttribute("cList", cList);
+		} else {
+			request.setAttribute("errorMsg", "에러가 발생했습니다");
+			return "/views/common/errorPage.jsp";
+		}
+		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
+		return viewPath;
+	}
 	
 	
 	/**
@@ -33,7 +56,7 @@ public class RecipeController {
 		String viewPath = "";
 		RecipeService rs = new RecipeService();
 		
-		int listCount = rs.selectRecipeListCount();
+		int listCount = rs.selectRecipeListCount(); // 레시피 개수 조회
 		int currentPage = request.getParameter("currentPage") != null ?
 						  Integer.parseInt(request.getParameter("currentPage"))
 						  : 1;
@@ -57,10 +80,9 @@ public class RecipeController {
 	
 	
 	/**
-	 * 레시피 글작성 요청을 받은 후 Session에 로그인한 멤버의레시피 작성 폼 페이지로 포워딩해주는 기능
-	 * @param request : 
-	 * @param response
-	 * @return
+	 * 레시피 글작성 요청을 받은 후 Session에 로그인한 멤버가 존재한다면<br>
+	 * 레시피를 작성할 수 있는 폼 화면으로 포워딩해주는 기능<br>
+	 * (Service / Dao로 넘기지 않고 RecipeController에서 바로 String리턴)
 	 */
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -72,6 +94,23 @@ public class RecipeController {
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		}
 		return viewPath;
+	}
+	
+	
+	/**
+	 * ajax요청을 받아 해시태그의 정보(번호, 이름, 날짜)를 조회해 반환
+	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
+	 * > Tag의 필드 : tagNo, tagName, tagDate
+	 */
+	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 해시태그 정보 조회
+		ArrayList<Tag> tagList = new TagService().selectALlTagname();
+		
+		// Gson 응답
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(tagList, response.getWriter());
+		
 	}
 	
 	
@@ -93,9 +132,6 @@ public class RecipeController {
 			request.getParameter("recipeTitle");
 			
 			
-			
-			
-			
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
 			
 			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때 */
@@ -115,24 +151,6 @@ public class RecipeController {
 	
 	
 	
-	/**
-	 * 카테고리 목록을 조회해 반환
-	 * @return : 레시피 카테고리 목록이 담긴 어레이리스트 ArrayList<RecipeCategory>
-	 */
-	public String selectRecipeCategoryList(HttpServletRequest request, HttpServletResponse response) {
-		
-		String viewPath = "";
-		ArrayList<RecipeCategory> cList = new RecipeService().selectRecipeCategoryList();
-		
-		if(!cList.isEmpty()) {
-			request.setAttribute("cList", cList);
-		} else {
-			request.setAttribute("errorMsg", "에러가 발생했습니다");
-			return "/views/common/errorPage.jsp";
-		}
-		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
-		return viewPath;
-	}
 	
 	
 }//class.end

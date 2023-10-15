@@ -22,6 +22,7 @@
 		    	NOTICE_DATE DESC
  	</entry>
  	
+ 	<!-- 공지사항 게시글 수 -->
  	<entry key="selectNoticelistCount">
 		SELECT
 				COUNT(*)
@@ -42,6 +43,7 @@
  		   		NOTICE_STATUS = 'Y'
  	</entry>
  	
+ 	<!-- 공지사항 게시글 작성 (반드시 수행하는 SQL문) -->
  	<entry key="insertNotice">
  		INSERT
  		  INTO
@@ -77,6 +79,7 @@
  				NOTICE_NO = ?
  	</entry>
  	
+ 	<!--  공지사항 사진 등록  -->
  	<entry key="insertNoticePic">
 		INSERT
 		  INTO
@@ -94,8 +97,20 @@
 				,? 
 				,?
 				,?
-				,?
+				,SEQ_NOTICE.CURRVAL
 				)		  		 	
+ 	</entry>
+ 	
+ 	<!-- 공지사항 해시태그 등록 -->
+ 	<entry key="insertNoticeTag">
+ 		INSERT 
+ 		  INTO 
+ 		  		TB_NOTICE_TAG (NOTICE_NO, TAG_NO)
+		SELECT 
+				MAX(NOTICE_NO)
+			   ,? 
+		 FROM 
+		 		TB_NOTICE
  	</entry>
  	
  	<entry key="updateNotice">
@@ -164,6 +179,7 @@
  		   		NOTICE_PIC_STATUS = 'Y'
  	</entry>
  	
+ 	<!-- 공지사항 전체 목록 + 페이징  -->
  	<entry key="selectNoticeAll">
  		SELECT * 
 		 FROM(SELECT ROWNUM RNUM, D.*
@@ -196,4 +212,6 @@
  			   		A.NOTICE_DATE DESC) D)
  		WHERE RNUM BETWEEN ? AND ?
  	</entry>
+ 	
+ 	
 </properties>
