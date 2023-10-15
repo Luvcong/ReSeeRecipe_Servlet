@@ -1,4 +1,4 @@
-package com.kh.semi.board.recipe.controller;
+package com.kh.semi.board.recipe.controller.RecipeControllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

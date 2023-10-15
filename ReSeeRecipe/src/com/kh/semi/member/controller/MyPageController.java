@@ -19,6 +19,8 @@ public class MyPageController {
 		// 4. 응답화면 지정
 		String view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
 		
+		
+		
 		return view;
 	}
 

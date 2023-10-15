@@ -1,5 +1,6 @@
 package com.kh.semi.board.recipe.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
@@ -14,7 +16,6 @@ import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.tag.model.service.TagService;
 import com.kh.semi.tag.model.vo.Tag;
-
 
 public class RecipeController {
 	
@@ -101,16 +102,17 @@ public class RecipeController {
 	 * ajax요청을 받아 해시태그의 정보(번호, 이름, 날짜)를 조회해 반환
 	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
 	 * > Tag의 필드 : tagNo, tagName, tagDate
+	 * @throws IOException 
+	 * @throws JsonIOException 
 	 */
-	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) {
+	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		// 해시태그 정보 조회
 		ArrayList<Tag> tagList = new TagService().selectALlTagname();
 		
-		// Gson 응답
+		// 형식 + 인코딩 설정 / Gson 응답
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(tagList, response.getWriter());
-		
 	}
 	
 	
