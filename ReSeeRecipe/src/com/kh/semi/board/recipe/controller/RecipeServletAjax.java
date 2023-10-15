@@ -1,4 +1,4 @@
-package com.kh.semi.board.recipe.controller.manager;
+package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.recipe.controller.RecipeController;
+import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
 
 /**
  * Servlet implementation class RecipeServletAjax
@@ -39,7 +39,7 @@ public class RecipeServletAjax extends HttpServlet {
 		// 문자열 추출
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		System.out.println(mapping);
+		System.out.println(mapping + " ajax매핑");
 		
 		// Controller로 분배
 		switch(mapping) {

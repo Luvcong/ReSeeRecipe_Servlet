@@ -11,13 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 글 작성 양식</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+</head>
 
 
 <style>
@@ -667,6 +662,7 @@
 							function ajaxSelectTag(){
 								$.ajax({
 									url : 'ajaxSelectTag.ar',
+									data : {},
 									success : function(result) {
 										// TAG_NO, TAG_NAME, TAG_DATE
 										let resultStr = '';
@@ -674,10 +670,11 @@
 											resultStr += '<option value="' + result[i].tagNo + '">'
 													   + result[i].tagName
 													   + '</option>';
+											console.log(resultStr);
 										}
 									},
 									error : function(){
-										alert('올바르지 않은 요청입니다');										
+										alert('올바르지 않은 요청입니다')										
 									}
 								});
 							};
