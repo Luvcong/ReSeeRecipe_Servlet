@@ -6,21 +6,24 @@
 	
 	<!-- 쪽지함 리스트 조회 -->
 	<entry key="selectDmList">
-		SELECT
-				DM_NO,
-				MEM_ID,
-				MEM_NICKNAME,
-				DM_CONTENT,
-				SEND_DATE,
-				DM_STATUS,
-				DM_REPLY
-		 FROM
-		 		TB_DM
-		 JOIN
-		 		TB_MEMBER ON(SEND_MEM = MEM_NO)
-		 ORDER
-		    BY
-		    	SEND_DATE DESC
+	SELECT *
+	  FROM (SELECT ROWNUM RNUM, A.*
+	  		FROM ( SELECT
+							DM_NO,
+							MEM_ID,
+							MEM_NICKNAME,
+							DM_CONTENT,
+							SEND_DATE,
+							DM_STATUS,
+							DM_REPLY
+					 FROM
+					 		TB_DM
+					 JOIN
+					 		TB_MEMBER ON(SEND_MEM = MEM_NO)
+					 ORDER
+					    BY
+					    	DM_NO DESC) A)
+					 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<!-- 쪽지 문의답변 업데이트 SQL문 -->
@@ -46,9 +49,23 @@
 	
 	<!-- 쪽지 미답변 개수 카운트 SQL문  -->
 	<entry key="getWaitingCount">		
-		SELECT COUNT(*)
-		FROM TB_DM
-		WHERE DM_STATUS = 'N'
+		SELECT
+				COUNT(*)
+		  FROM
+		  		TB_DM
+		 WHERE
+				DM_STATUS = 'N'
 	</entry>
+	
+	<entry key="selectDmListCount">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		TB_DM
+	</entry>
+	
+	
+	
+	
 	
 </properties>
