@@ -88,13 +88,13 @@
                   
 			<script>
 			$(document).ready(function () {
-			    // 서버에서 whitelist 데이터를 받아옵니다.
+			    // 등록된 해시태그명 조회
 			    $.ajax({
 			      url: 'hlhashtag.tg',
 			      type: 'GET',
 			      dataType: 'json',
 			      success: function (result) {
-			        // 결과가 객체 배열일 때 "tagName" 필드를 추출하여 whitelist로 설정
+			        // 태그명 "tagName" 을 추출 -> whitelist로 설정
 			        var whitelist = result.map(function (item) {
 			          return item.tagName;
 			        });
@@ -108,7 +108,7 @@
 
 			    function initTagify(whitelist) {
 			      var inputElm = document.querySelector('input[name=tags]');
-
+				 // 사용자가 해시태그 입력하였을 때 보여줄 해시태그 개수 5개
 			      var tagify = new Tagify(inputElm, {
 			        enforceWhitelist: true,
 			        whitelist: whitelist,
@@ -143,7 +143,7 @@
 			        var hashtagList = [];
 			        console.log(tagify.value);
 			        console.log(tagify.value.length);
-			        
+			        // 사용자가 입력한 해시태그가 whitelist(등록된 해시태그)일 경우 해시태그리스트에 추가
 			        for(let i=0 ; i< tagify.value.length ; i++){
 			        	hashtagList.push(tagify.value[i].value);
 			        }

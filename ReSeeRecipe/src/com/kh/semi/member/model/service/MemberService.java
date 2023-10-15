@@ -167,6 +167,9 @@ public class MemberService {
 		return result;
 	}
 
+	/**
+	 * @return 전체 회원 수(Paging의 listCount)
+	 */
 	public int selectMemlistCount() {
 		
 		Connection conn = getConnection();
@@ -179,8 +182,10 @@ public class MemberService {
 	}
 	
 	
-	
-	
+	/**
+	 * @param pi 회원수에 따른 페이징 변수들
+	 * @return 회원 전체 목록 + 페이징처리 결과
+	 */
 	public ArrayList<Member> selectMemberAll(PageInfo pi){
 		
 		Connection conn = getConnection();
@@ -192,6 +197,10 @@ public class MemberService {
 		return list;
 	}
 	
+	/**
+	 * @param memNo 선택한 회원 번호
+	 * @return 선택한 회원의 정보
+	 */
 	public Member selectMemInfo(int memNo){
 		
 		Connection conn = getConnection();
@@ -203,6 +212,11 @@ public class MemberService {
 		return m;
 	}
 	
+	/**
+	 * @param m 회원 정보 수정 값
+	 * @param mu 회원 정보 수정 사유(처음 수정 시 INSERT / 두번째부터 UPDATE)
+	 * @return 회원 정보 수정 수행 결과(성공 1 실패 0)
+	 */
 	public int updateMemInfo(Member m, MemberUpdate mu) {
 		
 		Connection conn = getConnection();
@@ -229,6 +243,10 @@ public class MemberService {
 		return(result1 * result2);
 	}
 	
+	/**
+	 * @param mno 삭제할 회원 번호
+	 * @return 회원 상태(N) UPDATE 수행 결과(성공1 실패0)
+	 */
 	public int deleteMember(int mno) {
 		
 		Connection conn = getConnection();
@@ -246,6 +264,11 @@ public class MemberService {
 		return result;
 	}
 	
+	/**
+	 * @param memSearchoption 회원 검색 조건(회원ID, 회원이름, 회원닉네임)
+	 * @param memSearchcon 사용자가 입력한 값
+	 * @return 검색 수행 결과
+	 */
 	public ArrayList<Member> searchMember(String memSearchoption, String memSearchcon) {
 		
 		Connection conn = getConnection();

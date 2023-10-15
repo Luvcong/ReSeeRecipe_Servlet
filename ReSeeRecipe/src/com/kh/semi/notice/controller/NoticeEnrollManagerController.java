@@ -80,7 +80,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			NoticePic np = null;
 			
 			// 첨부파일 유무 파악! // multirequest.getOriginalFileName("키값");  input type의 name속성값
-			// 첨부파일이 존재한다면 "원본파일명ㄴ" / 첨부파일이 존재하지 않는다면 null값을 반환
+			// 첨부파일이 존재한다면 "원본파일명" / 첨부파일이 존재하지 않는다면 null값을 반환
 			if(multiRequest.getOriginalFileName("HL_noticeFile") != null) {
 				
 				// 첨부파일이 있디 -> VO 객체로 가공
