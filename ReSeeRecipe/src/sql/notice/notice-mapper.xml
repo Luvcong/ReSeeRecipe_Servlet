@@ -94,7 +94,7 @@
 				,? 
 				,?
 				,?
-				,?
+				,SEQ_NOTICE.CURRVAL
 				)		  		 	
  	</entry>
  	
@@ -196,4 +196,6 @@
  			   		A.NOTICE_DATE DESC) D)
  		WHERE RNUM BETWEEN ? AND ?
  	</entry>
+ 	
+ 	
 </properties>
