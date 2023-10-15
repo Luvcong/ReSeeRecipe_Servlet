@@ -248,14 +248,21 @@
 		height: 60%;
 	}
 
-	#cook-steps-hashtag > button {
+	#cook-steps-hashtag select {
 		width: 90%;
 		height: 70%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
 		margin-top : 12px;
-	
 	}
+	#cook-steps-hashtag option {
+		font-size: 25px;
+	}
+	
+	#cook-steps-hashtag option:disabled {
+		display: none;
+	}
+	
 	/* --- 우측 --- */
 	/* 제목 입력칸 (textarea) */
 	#cook-steps-title {
@@ -385,7 +392,7 @@
 	}
 	
 	div[id ^= 'ingredientAreaDiv'] {
-		width: 60%;
+		width: 55%;
 	}
 
 	div[id ^= 'ingredientAmountDiv'] {
@@ -393,20 +400,39 @@
 	}
 
 	div[id ^= measureAreaDiv] {
-		width: 20%;
+		width: 15%;
+	}
+
+	div[id ^= delIngBtnDiv] {
+		width: 10%;
 	}
 
 	#cookStepsIngredientContent input, select {
 		width: 100%;
-		height: 100% !important;
-		padding: 0px !important;
+		height: 100%;
+		padding: 0px;
+		font-size: 1px;
+		text-align: center;
+		appearance: none;
+	}
+
+	.ingMeasure {
+		font-size: 1px;
 	}
 	
 	#cookStepsIngredientContent input::placeholder, select::placeholder {
 		text-align: center;
 	}
 
-	
+	.modify-btn {
+		font-size: 20px;
+		padding: 5px 5px 0px 0px;
+		appearance: none;
+		border: none;
+		background-color: transparent;
+		color: rgb(227, 113, 113);
+		float: right;
+	}
 
 
 
@@ -630,9 +656,33 @@
 								<p><%= loginMember %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<button type="button" name="tagNo" class="btn btn-info">해시태그입력</button>
+								<select name="tagNo" onclick="ajaxSelectTag();" class="btn btn-info">
+									<option disabled selected value="">해시태그 선택</option>
+								</select>
 							</div>
 						</div>
+
+						<script>
+							// 태그 검색 ajax요청
+							function ajaxSelectTag(){
+								$.ajax({
+									url : 'ajaxSelectTag.ar',
+									success : function(result) {
+										// TAG_NO, TAG_NAME, TAG_DATE
+										let resultStr = '';
+										for(let i in result) {
+											resultStr += '<option value="' + result[i].tagNo + '">'
+													   + result[i].tagName
+													   + '</option>';
+										}
+									},
+									error : function(){
+										alert('올바르지 않은 요청입니다');										
+									}
+								});
+							};
+						</script>
+
 						<div id="content-thumbnail-image">
 							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
@@ -647,18 +697,69 @@
 								<span>/60 bytes</span>
 							</div>
 						</div>
+
+						<script>
+							// 타이틀 글자수 바이트 수 세기
+							$(function(){
+								$('#cook-steps-title textarea').keyup(function(e){
+									var textAreaBytes = 0;
+									var textArea = $(this).val();
+									var numberingSpan = $('#cook-steps-title').find('span').eq(0);
+					
+									var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
+									var patternBlank = /[\s]/m;
+									var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
+									
+									if(textArea.length != 0){
+										for(let i = 0; i < textArea.length; i++){
+											console.log('d');
+											if(textAreaBytes <= 60) {
+												textAreaBytesBefore = textAreaBytes;
+												if(patternKor.test(textArea.charAt(i))) {
+													textAreaBytes += 3;
+												}
+												else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+													if(e.key == 'Enter') {
+														textAreaBytes += 2;
+													}
+													else {
+														textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
+														textAreaBytes++;
+													}
+												}
+												else {
+													textAreaBytes += 3;
+												}
+												numberingSpan.text(textAreaBytes);
+											}
+											if(60 < textAreaBytes) { // if처리
+												$(this).val(textArea.substring(0, i));
+												numberingSpan.text(textAreaBytesBefore);
+												alert('더 이상 입력할 수 없습니다!');
+												return false;
+											}
+										}
+									}
+									else {
+										numberingSpan.text(0);
+									}
+								});
+							});
+						</script>
+						
+
 						<!-- 입력받는 영역 -->
 						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
 							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
 								<div id="write-ingredient-input">
-									<input type="text" id="ingredientIn" name="ingredient" class="form-control" placeholder="재료입력" maxlength="15 required">
+									<input type="text" id="ingredientIn" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" id="ingredientAmountIn" name="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4" required>
+									<input type="text" id="ingredientAmountIn" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" >
+									<select id="ingredientMeasureNoIn" class="custom-select">
 										<option value="g">g</option>
 										<option value="kg">kg</option>
 										<option value="lb">lb</option>
@@ -691,222 +792,170 @@
 							</div>
 						</div>
 						
-					</div>
-				</div>
-				<!------------------------------------------ Script (바이트 카운트 / 재료입력 디스플레이) ------------------------------------------>
-				<script>
+						<script>
+							// 재료 입력 디스플레이 생성
+							function addIngredientDisplay(){
+								
+								// 입력된 재료 값 받기
+								var ingredientIn = document.getElementById('ingredientIn');
+								var ingredientAmountIn = document.getElementById('ingredientAmountIn');
+								var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn');
 
-					// 타이틀 글자수 바이트 수 세기
-					$(function(){
-						$('#cook-steps-title textarea').keyup(function(e){
-							var textAreaBytes = 0;
-							var textArea = $(this).val();
-							var numberingSpan = $('#cook-steps-title').find('span').eq(0);
-			
-							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
-							var patternBlank = /[\s]/m;
-							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
 							
-							if(textArea.length != 0){
-								for(let i = 0; i < textArea.length; i++){
-									console.log('d');
-									if(textAreaBytes <= 60) {
-										textAreaBytesBefore = textAreaBytes;
-										if(patternKor.test(textArea.charAt(i))) {
-											textAreaBytes += 3;
+								if(ingredientIn.value == '' || ingredientAmountIn.value == '') {
+									alert('재료 입력란을 모두 입력하세요');
+								} else {
+									// 현재 만들어진 ingredientContainer 개수 카운트 (없을때 0부터 시작)
+									var count = document.getElementsByClassName('ingredientContainer').length;
+									
+									if(count < 30) {
+			
+										// 생성된 요소 띄워줄 영역
+										var anIngredientContent;
+										var ingredientContentLeft = document.getElementById('ingredientContentLeft');
+										var ingredientContentRight = document.getElementById('ingredientContentRight');
+										
+										// Container 생성 + 세팅 + append하기
+										if(count < 15) {
+											anIngredientContent = ingredientContentLeft;
+										} else {
+											anIngredientContent = ingredientContentRight;
 										}
-										else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-											if(e.key == 'Enter') {
-												textAreaBytes += 2;
-											}
-											else {
-												textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
-												textAreaBytes++;
-											}
-										}
-										else {
-											textAreaBytes += 3;
-										}
-										numberingSpan.text(textAreaBytes);
-									}
-									if(60 < textAreaBytes) { // if처리
-										$(this).val(textArea.substring(0, i));
-										numberingSpan.text(textAreaBytesBefore);
-										alert('더 이상 입력할 수 없습니다!');
-										return false;
+										var ingredientContainer = document.createElement('div');
+										ingredientContainer.id = 'ingredientContainer' + count;
+										ingredientContainer.classList.add('ingredientContainer');
+										anIngredientContent.appendChild(ingredientContainer);
+										
+										// Container 내부 3파트 전부 세팅
+										// 재료칸
+										var ingredientAreaDiv = document.createElement('div');
+										ingredientAreaDiv.id = 'ingredientAreaDiv' + count;
+										ingredientContainer.appendChild(ingredientAreaDiv);
+										
+										var ingredient = document.createElement('input');
+										ingredient.id = 'ingredient' + count;
+										ingredient.name = 'ingredient' + count; // 네임
+										ingredient.classList = 'form-control';
+										ingredient.placeholder = '재료입력';
+										ingredient.maxLength = '15';
+										ingredient.required = true;
+										ingredient.value = ingredientIn.value;
+										ingredientIn.value = null;
+										ingredientAreaDiv.appendChild(ingredient);
+										
+										// 재료량 (숫자)
+										var ingredientAmountDiv = document.createElement('div');
+										ingredientAmountDiv.id = 'ingredientAmountDiv' + count;
+										ingredientContainer.appendChild(ingredientAmountDiv);
+										
+										var ingAmount = document.createElement('input');
+										ingAmount.id = 'ingAmount' + count;
+										ingAmount.classList = 'form-control';
+										ingAmount.placeholder = '재료량';
+										ingAmount.maxLength = '15';
+										ingAmount.required = true;
+										ingAmount.value = ingredientAmountIn.value;
+										ingredientAmountIn.value = null;
+										ingredientAmountDiv.appendChild(ingAmount);
+										
+										// + 계량단위
+										var measureAreaDiv = document.createElement('div');
+										measureAreaDiv.id = 'measureAreaDiv' + count;
+										ingredientContainer.appendChild(measureAreaDiv);
+										
+										var ingMeasure = document.createElement('select');
+										ingMeasure.id = 'ingMeasure' + count;
+										ingMeasure.classList = 'ingMeasure';
+										ingMeasure.required = true;
+										measureAreaDiv.appendChild(ingMeasure);
+										
+										const optionArr = {
+											g : 'g',
+											kg : 'kg',
+											lb : 'lb',
+											pinch : '약간',
+											t : '작은술(t)',
+											T : '큰술(T)',
+											ml : 'ml',
+											L : 'L',
+											cup : '컵',
+											clove : '알',
+											ea : '개',
+											slice : '장'
+										};
+										
+										// 옵션 생성
+										for(optVal in optionArr) {
+											var option = document.createElement('option');
+											option.value = optionArr[optVal];
+											option.innerText = optionArr[optVal];
+											ingMeasure.appendChild(option);
+										};
+										
+										// select - option 재료량+계량단위 hidden인풋
+										var ingredientAmount = document.createElement('input');
+										ingredientAmount.type = 'hidden';
+										ingredientAmount.name = 'ingredientAmount' + count;
+										ingredientAmount.value = ingAmount.value + ingMeasure.value;
+										measureAreaDiv.appendChild(ingredientAmount);
+			
+										// 삭제버튼 추가
+										var delIngBtnDiv = document.createElement('div');
+										delIngBtnDiv.id = 'delIngBtnDiv' + count;
+										ingredientContainer.appendChild(delIngBtnDiv);
+										
+										var delIngBtn = document.createElement('button');
+										delIngBtn.id = 'delIngBtn' + count;
+										delIngBtn.type = 'button';
+										delIngBtn.classList = 'fas fa-minus-square modify-btn';
+										delIngBtnDiv.appendChild(delIngBtn);
 									}
 								}
-							}
-							else {
-								numberingSpan.text(0);
-							}
-						});
-					});
-					
-					// 재료 입력 디스플레이 생성
-					function addIngredientDisplay(){
-						
-						// 입력된 재료 값 받기
-						var ingredientIn = document.getElementById('ingredientIn');
-						var ingredientAmountIn = document.getElementById('ingredientAmountIn');
-						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn');
-						console.log(ingredientIn.size);
-						// 현재 만들어진 ingredientContainer 개수 (없을때 0부터 시작)
-						var count = document.getElementsByClassName('ingredientContainer').length;
-						
-						if(count <= 30) {
-
-							// 생성된 요소 띄워줄 영역
-							var anIngredientContent;
-							var ingredientContentLeft = document.getElementById('ingredientContentLeft');
-							var ingredientContentRight = document.getElementById('ingredientContentRight');
-							
-							// Container 생성 + 세팅 + append하기
-							if(count < 15) {
-								anIngredientContent = ingredientContentLeft;
-							} else {
-								anIngredientContent = ingredientContentRight;
-							}
-							var ingredientContainer = document.createElement('div');
-							ingredientContainer.id = 'ingredientContainer' + count;
-							ingredientContainer.classList.add('ingredientContainer');
-							anIngredientContent.appendChild(ingredientContainer);
-							
-							// Container 내부 3파트 전부 세팅
-							// 재료칸
-							var ingredientAreaDiv = document.createElement('div');
-							ingredientAreaDiv.id = 'ingredientAreaDiv' + count;
-							ingredientContainer.appendChild(ingredientAreaDiv);
-							
-							var ingredient = document.createElement('input');
-							ingredient.id = 'ingredient' + count;
-							ingredient.name = 'ingredient' + count; // 네임
-							ingredient.classList = 'form-control';
-							ingredient.placeholder = '재료입력';
-							ingredient.maxLength = '15';
-							ingredient.value = ingredientIn.value;
-							ingredientIn.value = null;
-							ingredientAreaDiv.appendChild(ingredient);
-							
-							// 재료량 (숫자)
-							var ingredientAmountDiv = document.createElement('div');
-							ingredientAmountDiv.id = 'ingredientAmountDiv' + count;
-							ingredientContainer.appendChild(ingredientAmountDiv);
-							
-							var ingredientAmount = document.createElement('input');
-							ingredientAmount.id = 'ingredientAmount' + count;
-							ingredientAmount.classList = 'form-control';
-							ingredientAmount.placeholder = '재료량';
-							ingredientAmount.maxLength = '15';
-							ingredientAmount.value = ingredientAmountIn.value;
-							ingredientAmountIn.value = null;
-							ingredientAmountDiv.appendChild(ingredientAmount);
-							
-							// + 계량단위
-							var measureAreaDiv = document.createElement('div');
-							measureAreaDiv.id = 'measureAreaDiv' + count;
-							ingredientContainer.appendChild(measureAreaDiv);
-							
-							var ingredientMeasure = document.createElement('select');
-							ingredientMeasure.id = 'ingredientMeasure' + count;
-							ingredientMeasure.name = 'ingredientMeasure' + count;
-							ingredientMeasure.classList = 'custom-select ingredientMeasure';
-							ingredientMeasureNoIn
-							measureAreaDiv.appendChild(ingredientMeasure);
-							
-							const optionArr = {
-								g : 'g',
-								kg : 'kg',
-								lb : 'lb',
-								pinch : '약간',
-								t : '작은술(t)',
-								T : '큰술(T)',
-								ml : 'ml',
-								L : 'L',
-								cup : '컵',
-								clove : '알',
-								ea : '개',
-								slice : '장'
 							};
-							
-							for(optVal in optionArr) {
-								var option = document.createElement('option');
-								option.value = optionArr[optVal];
-								option.innerText = optionArr[optVal];
-								ingredientMeasure.appendChild(option);
-							};
-							
-							// 첫요소 required
-							if(count == 0) {
-								ingredient.required = true;
-								ingredientAmount.requred = true;
-								ingredientMeasure.required = true;
-							}
+						</script>
 
-							// 수정 / 삭제버튼 추가
-							var modifyBtn = document.createElement('button');
-							modifyBtn.innerText = '수정';
-							modifyBtn.onclick = function(){
+						<script>
+							$(function(){
 
-							}
-							ingredientContainer.appendChild(modifyButton);
+								// 요소 넘버링 다시 해주는 함수
+								function reorderingIngredients(){
+									$('.ingredientContainer').each(function(index){
+										var $containers = $(this);
+										
+										$containers.attr('id', 'ingredientContainer' + index);
+										
+										$containers.find('div[id^=ingredientAreaDiv]').attr('id', 'ingredientAreaDiv' + index);
+										$containers.find('input[id^=ingredient]').attr('id', 'ingredient' + index).attr('name', 'ingredient' + index);
+										
+										$containers.find('div[id^=ingredientAmountDiv]').attr('id', 'ingredientAmountDiv' + index);
+										$containers.find('input[id^=ingAmount]').attr('id', 'ingAmount' + index);
+										
+										$containers.find('div[id^=measureAreaDiv]').attr('id', 'measureAreaDiv' + index);
+										$containers.find('select[id^=ingMeasure]').attr('id', 'ingMeasure' + index);
+										$containers.find('input[name^=ingredientAmount]').attr('name', 'ingredientAmount' + index);
+										
+										$containers.find('div[id^=delIngBtnDiv]').attr('id', 'delIngBtnDiv' + index);
+										$containers.find('button[id^=delIngBtn]').attr('id', 'delIngBtn' + index);
+										
+										if(index < 15) {
+											$containers.appendTo($('#ingredientContentLeft'));
+										} else {
+											$containers.appendTo($('#ingredientContentRight'));
+										}
+									});
+								};
 
-							var deleteBtn = document.createElement('button');
-							deleteBtn.innerText = 'Delete';
-							deleteBtn.onclick = function sortContainers() {
-								var ingredientContainer = document.getElementsByClassName('ingredientContainer');
-								for (var i = 0; i < ingredientContainer.length; i++) {
-									ingredientContainer[i].id = 'ingredientContainer' + i;
-								// Update input and select names accordingly
-								var ingredient = containers[i].querySelector('input[name^="ingredient"]');
-								ingredient.name = 'ingredient' + i;
-								var ingredientAmount = containers[i].querySelector('input[name^="ingredientAmount"]');
-								ingredientAmount.name = 'ingredientAmount' + i;
-								var ingredientMeasure = containers[i].querySelector('select[name^="ingredientMeasure"]');
-								ingredientMeasure.name = 'ingredientMeasure' + i;
-							}
-						}
-								
+								// 생성된 요소에 삭제이벤트 (& 콘테이너 id, 내부div id, input id, name)
+								$('#cookStepsIngredientContent').on('click', 'button[id ^= delIngBtn]', function(){
+									$(this).parents('div[id^=ingredientContainer]').remove();
+									reorderingIngredients();
+								});
+							});
+						</script>
 
+					</div>
+				</div>
 
-
-								ingredientContainer.remove();
-								renumberContainers();
-							};
-							ingredientContainer.appendChild(deleteButton);
-
-
-						}
-						
-					};
-			
-					
-					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
-						<div id="ingredientContainer0" class="ingredientContainer">
-							<div id="ingredientAreaDiv0">
-								<input type="text" id="ingredientIn0" name="ingredientIn0" class="form-control" placeholder="재료입력" maxlength="15" required>
-							</div>
-							<div id="amountAreaDiv0">
-								<input type="text" id="ingredientAmountIn0" name="ingredientAmountIn0" class="form-control" placeholder="재료량" maxlength="4" required>
-							</div>
-							<div id="measureAreaDiv0">
-								<select id="ingredientMeasureNoIn0" name="ingredientMeasureNoIn0" class="custom-select" required>
-									<option value="">g</option>
-									<option value="">kg</option>
-									<option value="">cups</option>
-									<option value="">ml</option>
-									<option value="">작은술(ts)</option>
-								</select>
-							</div>
-							<div>
-								<button type="button" id="ingredient-title-btn" onclick="deleteIngredientDisplay();" class="fas fa-minus-square"></button>
-							</div>
-						</div>
-					*/
-				</script>
-				<!------------------------------------------ Script ------------------------------------------>
-				
-				
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
 					<!--
@@ -955,27 +1004,26 @@
 				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
 					<div>
-						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+						<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
 					</div>
 					<div>
 						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
 					</div>
 				</div>
-				<script>
-					// 초기화, 작성 요청 종류 script
 
-					 // 초기화 요청 confirm
+				<script>
+					// 글작성 요청
+					function confirmSubmit() {
+						return confirm("글을 작성하시겠습니까?");
+					};
+
+					// 초기화 요청 confirm
 					function confirmReset() {
 						return confirm("입력한 정보를 초기화하시겠습니까?");
 					};
+
 					
 					$(function(){
-			
-						// 레시피 글 작성요청 form태그 속성 설정 및 submit
-						$('#recipe-enrolling-btn').click(function(){
-							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
-						});
-						
 						// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 						$('#unrecipe-enrolling-btn').click(function(){
 							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();

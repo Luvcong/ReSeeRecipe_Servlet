@@ -46,6 +46,9 @@ public class RecipeServlet extends HttpServlet {
 		
 		// Controller로 분배
 		switch(mapping) {
+			/* 4. 카테고리 리스트 조회 */
+			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
+			
 			/* 1. 레시피 메인 보기 (전체조회 / 최신순==레시피PK번호순) */
 			case "selectRecipeList" : viewPath = rc.selectRecipeList(request, response); break;
 			
@@ -70,8 +73,6 @@ public class RecipeServlet extends HttpServlet {
 			/* 1_4. 레시피보기 인기셰프순 selectRecipeListPo */
 			//case "selectRecipeListPo" : viewPath = rc.selectRecipeListPo(request, response); break;
 			
-			/* 4. 카테고리 리스트 조회 */
-			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
 			
 			
 			/* 4. 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자) */

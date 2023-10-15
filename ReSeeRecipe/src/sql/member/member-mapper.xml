@@ -282,6 +282,7 @@
 				MEM_N0 = ?
 	</entry>
 	
+	<!-- 회원 삭제 구문 -->
 	<entry key="deleteMember">
 		UPDATE
 				TB_MEMBER
@@ -291,6 +292,7 @@
 		 		MEM_NO = ?
 	</entry>
 	
+	<!-- 회원 조회 통합조회  -->
 	<entry key="totalsearchMember">
 		SELECT 
 		        MEM_NO
@@ -321,6 +323,7 @@
            		ENROLL_DATE DESC
 	</entry>
 	
+	<!-- 회원조회 회원ID로 조회  -->
 	<entry key="searchmemId">
 		SELECT 
 		        MEM_NO

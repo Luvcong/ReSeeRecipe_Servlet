@@ -11,8 +11,8 @@ import java.util.Properties;
 
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import com.kh.semi.board.un_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.tag.model.vo.Tag;
 
 public class RecipeDao {
 	
@@ -31,9 +31,34 @@ public class RecipeDao {
 	
 	
 	/**
-	 * 글과 작성자의 STATUS가 유효한 레시피 개수 조회
-	 * @param conn
-	 * @return
+	 * 레시피 카테고리 목록을 조회해 반환
+	 * @param conn : Connection객체
+	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 */
+	public ArrayList<RecipeCategory> selectRecipeCategoryList(Connection conn) {
+		
+		ArrayList<RecipeCategory> cList = new ArrayList();
+		String sql = prop.getProperty("selectRecipeCategoryList");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rset = pstmt.executeQuery()) {
+			while(rset.next()) {
+				RecipeCategory rc = new RecipeCategory();
+				rc.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
+				rc.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
+				cList.add(rc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cList;
+	}
+	
+	
+	/**
+	 * 레시피 개수 조회
+	 * @param conn : Connection객체
+	 * @return : 글과 작성자의 STATUS가 유효한 레시피글의 총 개수
 	 */
 	public int selectRecipeListCount(Connection conn) {
 		
@@ -52,12 +77,6 @@ public class RecipeDao {
 	}
 	
 	
-	/**
-	 * 페이지네이션 처리된 레시피 목록 조회 (최신순)
-	 * @param conn
-	 * @param pi
-	 * @return
-	 */
 	/**
 	 * 레시피 메인 보기 기능, 페이지네이션 처리 된 레시피목록을 최신순(레시피 PK번호순)으로 조회한 후<br>
 	 * 목록과 PageInfo객체를 RecipeMainView로 포워딩함
@@ -93,60 +112,12 @@ public class RecipeDao {
 		return list;
 	}
 
-	public ArrayList<RecipeCategory> selectRecipeCategoryList(Connection conn) {
-		
-		ArrayList<RecipeCategory> cList = new ArrayList();
-		String sql = prop.getProperty("selectRecipeCategoryList");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rset = pstmt.executeQuery()) {
-			while(rset.next()) {
-				RecipeCategory rc = new RecipeCategory();
-				rc.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
-				rc.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
-				cList.add(rc);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return cList;
-	}
 	
-	
-	public ArrayList<IngredientMeasure> selectIngredientMeasureList(Connection conn) {
-		
-		ArrayList<IngredientMeasure> iList = new ArrayList();
-		String sql = prop.getProperty("selectIngredientMeasureList");
-		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rset = pstmt.executeQuery()) {
-			while(rset.next()) {
-				IngredientMeasure im = new IngredientMeasure();
-				im.setIngredientMeasureNo(rset.getInt("INGREDIENT_MEASURE_NO"));
-				im.setIngredientMeasure(rset.getString("INGREDIENT_MEASURE"));
-				iList.add(im);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return iList;
-	}
+
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	/*
 	public ArrayList<UnRecipe> selectUnRecipeForModal(Connection conn, int memNo) {
 		
 		ArrayList<UnRecipe> uList = new ArrayList();
@@ -169,7 +140,7 @@ public class RecipeDao {
 		}
 		return uList;
 	}
-	
+	*/
 	
 	
 	

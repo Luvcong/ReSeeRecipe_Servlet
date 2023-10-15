@@ -1,7 +1,6 @@
-package com.kh.semi.tag.controller;
+package com.kh.semi.board.recipe.controller.manager;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,41 +8,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.semi.tag.model.service.TagService;
-import com.kh.semi.tag.model.vo.Tag;
+import com.kh.semi.board.recipe.controller.RecipeController;
 
 /**
- * Servlet implementation class NoticeHashtagManagerController
+ * Servlet implementation class RecipeServletAjax
  */
-@WebServlet("/hlhashtag.tg")
-public class NoticeHashtagManagerController extends HttpServlet {
+@WebServlet("*.ar")
+public class RecipeServletAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeHashtagManagerController() {
+    public RecipeServletAjax() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/** whitelist 배열에 추가할 등록된 해시태그명 조회
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 1) GET방식 -> 인코딩x
 		
-		// 2) 값 뽑기
+		// 기본 변수 세팅
+		RecipeController rc = new RecipeController();
 		
-		// 3) 서비스 호출 해시태그명 SELECT 해오기
-		ArrayList<Tag> list = new TagService().selectALlTagname();
+		// POST 인코딩
+		request.setCharacterEncoding("UTF-8");
 		
-		// 4) GSON이용 => ArrayList를 JSON타입의 데이터로 반환
-		response.setContentType("application/json; charset=UTF-8");
-				//response.getWriter().print(jObj);
-		new Gson().toJson(list, response.getWriter());
+		// 문자열 추출
+		String uri = request.getRequestURI();
+		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
+		System.out.println(mapping);
+		
+		// Controller로 분배
+		switch(mapping) {
+			
+			case "ajaxSelectTag" : rc.ajaxSelectTag(request, response); break;
+		
+		
+			default : break;
+		}
+	
+	
+	
+	
 	}
 
 	/**
