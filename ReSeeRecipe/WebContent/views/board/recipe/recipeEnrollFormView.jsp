@@ -404,6 +404,9 @@
 		width: 100%;
 		height: 100% !important;
 		padding: 0px !important;
+		font-size: 1px !important;
+		text-align: center;
+		appearance: none;
 	}
 	
 	#cookStepsIngredientContent input::placeholder, select::placeholder {
@@ -416,7 +419,7 @@
 		appearance: none;
 		border: none;
 		background-color: transparent;
-		color: rgb(89, 164, 255);
+		color: rgb(227, 113, 113);
 		float: right;
 	}
 
@@ -664,13 +667,13 @@
 							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
 								<div id="write-ingredient-input">
-									<input type="text" id="ingredientIn" name="ingredient" class="form-control" placeholder="재료입력" maxlength="15" required>
+									<input type="text" id="ingredientIn" class="form-control" placeholder="재료입력" maxlength="15">
 								</div>
 								<div id="amount-ingredient-input">
-									<input type="text" id="ingredientAmountIn" name="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4" required>
+									<input type="text" id="ingredientAmountIn" class="form-control" placeholder="재료량" maxlength="4">
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" required>
+									<select id="ingredientMeasureNoIn" class="custom-select">
 										<option value="g">g</option>
 										<option value="kg">kg</option>
 										<option value="lb">lb</option>
@@ -801,6 +804,7 @@
 								ingredient.classList = 'form-control';
 								ingredient.placeholder = '재료입력';
 								ingredient.maxLength = '15';
+								ingredient.required = true;
 								ingredient.value = ingredientIn.value;
 								ingredientIn.value = null;
 								ingredientAreaDiv.appendChild(ingredient);
@@ -810,26 +814,27 @@
 								ingredientAmountDiv.id = 'ingredientAmountDiv' + count;
 								ingredientContainer.appendChild(ingredientAmountDiv);
 								
-								var ingredientAmount = document.createElement('input');
-								ingredientAmount.id = 'ingredientAmount' + count;
-								ingredientAmount.classList = 'form-control';
-								ingredientAmount.placeholder = '재료량';
-								ingredientAmount.maxLength = '15';
-								ingredientAmount.value = ingredientAmountIn.value;
+								var ingAmount = document.createElement('input');
+								ingAmount.id = 'ingAmount' + count;
+								ingAmount.classList = 'form-control';
+								ingAmount.placeholder = '재료량';
+								ingAmount.maxLength = '15';
+								ingAmount.required = true;
+								ingAmount.value = ingredientAmountIn.value;
 								ingredientAmountIn.value = null;
-								ingredientAmountDiv.appendChild(ingredientAmount);
+								ingredientAmountDiv.appendChild(ingAmount);
 								
 								// + 계량단위
 								var measureAreaDiv = document.createElement('div');
 								measureAreaDiv.id = 'measureAreaDiv' + count;
 								ingredientContainer.appendChild(measureAreaDiv);
 								
-								var ingredientMeasure = document.createElement('select');
-								ingredientMeasure.id = 'ingredientMeasure' + count;
-								ingredientMeasure.name = 'ingredientMeasure' + count;
-								ingredientMeasure.classList = 'custom-select ingredientMeasure';
-								ingredientMeasureNoIn
-								measureAreaDiv.appendChild(ingredientMeasure);
+								var ingMeasure = document.createElement('select');
+								ingMeasure.id = 'ingMeasure' + count;
+								ingMeasure.classList = 'ingMeasure';
+								ingMeasure.required = true;
+								measureAreaDiv.appendChild(ingMeasure);
+								
 								
 								const optionArr = {
 									g : 'g',
@@ -851,15 +856,15 @@
 									var option = document.createElement('option');
 									option.value = optionArr[optVal];
 									option.innerText = optionArr[optVal];
-									ingredientMeasure.appendChild(option);
+									ingMeasure.appendChild(option);
 								};
 								
-								// 첫요소 required
-								if(count == 0) {
-									ingredient.required = true;
-									ingredientAmount.requred = true;
-									ingredientMeasure.required = true;
-								}
+								// select - option 재료량+계량단위 hidden인풋
+								var ingredientAmount = document.createElement('input');
+								ingredientAmount.type = 'hidden';
+								ingredientAmount.name = 'ingredientAmount' + count;
+								ingredientAmount.value = ingAmount.value + ingMeasure.value;
+								measureAreaDiv.appendChild(ingredientAmount);
 	
 								// 수정 / 삭제버튼 추가
 								var modifyBtnDiv = document.createElement('div');
@@ -869,13 +874,13 @@
 								var modifyBtn = document.createElement('button');
 								modifyBtn.id = 'modifyBtn' + count;
 								modifyBtn.type = 'button';
-								modifyBtn.classList = 'fas fa-dice-d6 modify-btn';
+								modifyBtn.classList = 'fas fa-minus-square modify-btn';
 								modifyBtnDiv.appendChild(modifyBtn);
 							}
 						}
 					};
 
-					// 생성된 요소들 required걸기
+					// 생성된 요소에 삭제이벤트 (& 콘테이너 id, 내부div id, input id, name)
 					$('#cookStepsIngredientContent').on('click', '')
 					
 				</script>
@@ -933,27 +938,26 @@
 				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
 					<div>
-						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+						<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
 					</div>
 					<div>
 						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
 					</div>
 				</div>
-				<script>
-					// 초기화, 작성 요청 종류 script
 
-					 // 초기화 요청 confirm
+				<script>
+					// 글작성 요청
+					function confirmSubmit() {
+						return confirm("글을 작성하시겠습니까?");
+					};
+
+					// 초기화 요청 confirm
 					function confirmReset() {
 						return confirm("입력한 정보를 초기화하시겠습니까?");
 					};
+
 					
 					$(function(){
-			
-						// 레시피 글 작성요청 form태그 속성 설정 및 submit
-						$('#recipe-enrolling-btn').click(function(){
-							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
-						});
-						
 						// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
 						$('#unrecipe-enrolling-btn').click(function(){
 							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();
