@@ -11,7 +11,21 @@
 <%@ include file="/views/common/header.jspf" %>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <%@ include file="/views/common/footer.jspf" %>
+
 
 </body>
 </html>
