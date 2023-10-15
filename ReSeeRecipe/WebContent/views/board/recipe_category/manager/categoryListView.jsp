@@ -113,7 +113,7 @@
             <!-- <form action="<%= contextPath %>/jhcheck.ct" method="post"> -->
             	<table id="check-table">
             		<tr>
-            			<td><input id="checkName" name="checkCategoryName" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button onclick="checkCategory()" >조회</button></td>
+            			<td><input id="checkName" name="checkCategoryName" onkeydown="checkSearchName()" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button onclick="checkCategory()" >조회</button></td>
             		</tr>
             	</table>
             <!-- </form> -->
@@ -310,8 +310,19 @@
 	}	// checkedByte
   </script>
   
+  <script>
+	function checkSearchName(){
+		console.log(event.code);
+		if(event.code == 'Enter'){
+			checkCategory();	
+		}
+	}
+
+  </script>
+
   <!-- 카테고리 삭제 -->
   <script>
+	
   		function deleteCategory(){
   			let trs = document.querySelectorAll('.table tbody tr');	// 데이터가 들어있는 행(tr) 모두 갖고와서 저장
   			let checked_tr = null									// tr체크여부 변수 생성
@@ -470,6 +481,7 @@
   		}	// showUpdateCategoryModal
   </script>
   
+  <!-- jsp로 수정예정 -->
   <script>
   		function checkCategory(){
   			
@@ -504,7 +516,7 @@
     				
     				$('#tb-category tbody').html(resultStr);
     				
-    				$('.paging-area').hide();
+    				// $('.paging-area').hide();
     				$('.list-btn').show();
     				
     				
