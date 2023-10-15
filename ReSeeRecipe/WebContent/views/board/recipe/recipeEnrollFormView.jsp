@@ -1023,7 +1023,7 @@
 					});
 				</script>
 
-
+				<!--
 				<script>
 					var $instAddBtnClone = $('#cookStepsInstInnerEnd').clone();
 					// 요소 넘버링 다시 해주는 함수
@@ -1054,8 +1054,7 @@
 					});
 
 				</script>
-
-
+				-->
 
 
 
