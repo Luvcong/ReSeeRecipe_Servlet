@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.controller.MyPageController;
 /**
  * Servlet implementation class MyPageServlet
  */
@@ -30,20 +31,21 @@ public class MyPageServlet extends HttpServlet {
 		
 		// 무조건 이 서블릿으로 들어옴
 		String uri = request.getRequestURI();
-		// System.out.println(uri);
-		String mapping = uri.substring(uri.lastIndexOf("/"), uri.lastIndexOf("."));
+		System.out.println(uri);
+		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		
-		MypageController mc = new MypageController();
+		MyPageController mc = new MyPageController();
 		
 		// 각 controller의 응답화면 url
 		String view = "";
 		// forward이면 flag = true;
 		// redirect이면 flag = false;
 		boolean flag = true;
+		System.out.println(mapping);
 		switch(mapping) {
 		// 쿠폰 조회 화면으로 이동
-		case "memberCouponListForm" : view = mc.MemberCouponListForm(request, response); break;
-		case "memberCouponList" : view = mc.MemberCouponListForm(request, response); flag = false; break;
+		case "yrmemberCouponListForm" : view = mc.MemberCouponListForm(request, response); break;
+		case "yrmemberCouponList" : view = mc.MemberCouponListForm(request, response); flag = false; break;
 		
 		}
 		// 응답화면으로 보내기

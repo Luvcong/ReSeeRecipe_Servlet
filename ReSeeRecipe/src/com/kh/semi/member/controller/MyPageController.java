@@ -3,7 +3,7 @@ package com.kh.semi.member.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class MypageController {
+public class MyPageController {
 	
 	// 회원 controller 너무 많아서 마이페이지는 controller 합쳤습니다. 쓰실분 쓰세요 - yr
 	
@@ -17,7 +17,7 @@ public class MypageController {
 		// 3. 서비스 호출
 		
 		// 4. 응답화면 지정
-		String view = "";
+		String view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
 		
 		return view;
 	}
