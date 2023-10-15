@@ -345,6 +345,10 @@ public class MemberDao {
 	}
 
 	
+	/**
+	 * @param conn
+	 * @return 회원 전체 수
+	 */
 	public int selectMemlistCount(Connection conn) {
 		
 		int memlistCount = 0;
@@ -371,6 +375,11 @@ public class MemberDao {
 	}
 	
 	
+	/**
+	 * @param conn
+	 * @param pi 페이징처리 변수들
+	 * @return 회원 전체 목록 + 페이징
+	 */
 	public ArrayList<Member> selectMemberAll(Connection conn, PageInfo pi){
 		
 		ArrayList<Member> list = new ArrayList();
@@ -413,6 +422,11 @@ public class MemberDao {
 	}
 	
 	
+	/**
+	 * @param conn
+	 * @param memNo 선택한 회원번호
+	 * @return 해당 회원의 정보
+	 */
 	public Member selectMemInfo(Connection conn, int memNo) {
 		
 		//ArrayList<Member> list = new ArrayList();
@@ -447,6 +461,11 @@ public class MemberDao {
 		return m;
 	}
 	
+	/**
+	 * @param conn
+	 * @param m 수정할 회원 정보
+	 * @return 회원정보 수정 수행 결과(성공 1 실패 0)
+	 */
 	public int updateMemInfo(Connection conn, Member m) {
 		
 		int result1 = 0;
@@ -471,6 +490,11 @@ public class MemberDao {
 		return result1;
 	}
 	
+	/**
+	 * @param conn 
+	 * @param mu 회원정보수정 사유
+	 * @return 처음 회원정보 수정 시 회원정보수정테이블에 INSERT 한 수행 결과
+	 */
 	public int insertMemUpdate(Connection conn, MemberUpdate mu) {
 		
 		int result = 0;
@@ -492,6 +516,11 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * @param conn
+	 * @param mu 회원정보 수정 사유
+	 * @return 회원정보 수정이 처음이 아닐 시 회원수정테이블에 UPDATE 수행 결과
+	 */
 	public int updateMemUpdate(Connection conn, MemberUpdate mu) {
 		
 		int result = 0;
@@ -513,6 +542,11 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * @param conn
+	 * @param mno 삭제할 회원번호
+	 * @return 회원 삭제 수행(UPDATE STATUS = 'N') 결과
+	 */
 	public int deleteMember(Connection conn, int mno) {
 		
 		int result = 0;
@@ -533,6 +567,12 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * @param conn
+	 * @param memSearchoption 회원통합조회 옵션
+	 * @param memSearchcon 조회할 값
+	 * @return 통합조회 결과
+	 */
 	public ArrayList<Member> totalsearchMember(Connection conn, String memSearchoption, String memSearchcon) {
 		
 		ArrayList<Member> list = new ArrayList();
@@ -572,6 +612,12 @@ public class MemberDao {
 	}
 	
 	
+	/**
+	 * @param conn
+	 * @param memSearchoption 회원검색옵션(회원ID, 회원이름, 회원닉네임)
+	 * @param memSearchcon 회원검색내용
+	 * @return 회원검색 결과
+	 */
 	public ArrayList<Member> searchMember(Connection conn, String memSearchoption, String memSearchcon){
 		
 		ArrayList<Member> list = new ArrayList();

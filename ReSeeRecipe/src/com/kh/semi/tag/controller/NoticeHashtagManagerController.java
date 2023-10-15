@@ -28,7 +28,7 @@ public class NoticeHashtagManagerController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/** whitelist 배열에 추가할 등록된 해시태그명 조회
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
