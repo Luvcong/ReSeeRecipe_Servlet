@@ -402,11 +402,15 @@
 
 	#cookStepsIngredientContent input, select {
 		width: 100%;
-		height: 100% !important;
-		padding: 0px !important;
-		font-size: 1px !important;
+		height: 100%;
+		padding: 0px;
+		font-size: 1px;
 		text-align: center;
 		appearance: none;
+	}
+
+	.ingMeasure {
+		font-size: 1px;
 	}
 	
 	#cookStepsIngredientContent input::placeholder, select::placeholder {
@@ -768,7 +772,7 @@
 						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn');
 
 					
-						if(ingredientIn.value == '' || ingredientAmountIn.value == '') {
+						if(false/*ingredientIn.value == '' || ingredientAmountIn.value == ''*/) {
 							alert('재료 입력란을 모두 입력하세요');
 						} else {
 							// 현재 만들어진 ingredientContainer 개수 카운트 (없을때 0부터 시작)
@@ -835,7 +839,6 @@
 								ingMeasure.required = true;
 								measureAreaDiv.appendChild(ingMeasure);
 								
-								
 								const optionArr = {
 									g : 'g',
 									kg : 'kg',
@@ -880,14 +883,28 @@
 						}
 					};
 
-					// 생성된 요소에 삭제이벤트 (& 콘테이너 id, 내부div id, input id, name)
-					$('#cookStepsIngredientContent').on('click', '')
+					$(function(){
+						// 요소 넘버링 다시 해주는 함수
+						function reorderingIngredients(){
+							$('.ingredientContainer').each(function(index){
+								var container = $(this);
+
+								container.attr
+							});
+						};
+						// 생성된 요소에 삭제이벤트 (& 콘테이너 id, 내부div id, input id, name)
+						$('#cookStepsIngredientContent').on('click', 'button[id ^= modifyBtn]', function(){
+							$(this).parents('div[id^=ingredientContainer]').remove();
+							reorderingIngredients();
+						});
+					});
+
 					
 				</script>
 				<!------------------------------------------ Script ------------------------------------------>
 				
 				
-
+$
 
 				
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
