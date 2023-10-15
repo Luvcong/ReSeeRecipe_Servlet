@@ -652,13 +652,13 @@
 							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
 								<div id="write-ingredient-input">
-									<input type="text" id="ingredientIn" name="ingredient" class="form-control" placeholder="재료입력" maxlength="15 required">
+									<input type="text" id="ingredientIn" name="ingredient" class="form-control" placeholder="재료입력" maxlength="15" required>
 								</div>
 								<div id="amount-ingredient-input">
 									<input type="text" id="ingredientAmountIn" name="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4" required>
 								</div>
 								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" >
+									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select" required>
 										<option value="g">g</option>
 										<option value="kg">kg</option>
 										<option value="lb">lb</option>
@@ -876,7 +876,7 @@
 							ingredientContainer.appendChild(deleteButton);
 
 
-						}
+						
 						
 					};
 			
