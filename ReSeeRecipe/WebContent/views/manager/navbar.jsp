@@ -99,7 +99,7 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li onclick="goMenu('/jhselect.dm')"><a href="#">쪽지함 관리</a></li>
+					<li onclick="goMenu('/jhselect.dm');"><a href="#">쪽지함 관리</a></li>
 					<li onclick="goMenu('/jhselect.rp?page=1');"><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>

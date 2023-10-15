@@ -1,6 +1,6 @@
 package com.kh.semi.dm.model.dao;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.dm.model.vo.Dm;
 
 public class DmDao {
@@ -38,7 +39,7 @@ public class DmDao {
 	 * @author JH
 	 * @Date : 2023. 09. 30.
 	 */
-	public ArrayList<Dm> selectDmList(Connection conn){
+	public ArrayList<Dm> selectDmList(Connection conn, PageInfo pi){
 		
 		ArrayList<Dm> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -48,6 +49,12 @@ public class DmDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+		
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -142,7 +149,39 @@ public class DmDao {
 	}	// deleteDm
 	
 	
-
+	/**
+	 * 쪽지함 리스트 카운트 행 수 조회 요청 처리
+	 * @param conn
+	 * @return DB에 저장되어 있는 쪽지함 리스트 수
+	 * @author JH
+	 * @Date : 2023. 10. 15.
+	 */
+	public int selectDmListCount(Connection conn) {
+		
+		int dmListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDmListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				dmListCount = rset.getInt("COUNT(*)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dmListCount;
+		
+	}	// selectDmListCount
 	
 	
 	

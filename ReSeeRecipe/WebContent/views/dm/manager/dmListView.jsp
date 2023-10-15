@@ -1,13 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.kh.semi.dm.model.vo.Dm" %>       
+<%@ page import="java.util.ArrayList, com.kh.semi.dm.model.vo.Dm, com.kh.semi.common.model.vo.PageInfo" %>       
 <%
 	ArrayList<Dm> list = (ArrayList<Dm>)request.getAttribute("list");
 	String successMsg = (String)session.getAttribute("successMsg");
 	String failMsg = (String)session.getAttribute("failMsg");
 	int waitingCount = (int)request.getAttribute("waitingCount");
 	int repliedCount = list.size() - waitingCount;
-%>    
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int dmListCount = pi.getListCount();
+	int dmListPage = pi.getCurrentPage();
+	int dmStartPage = pi.getStartPage();
+	int dmEndPage = pi.getEndPage();
+	int dmMaxPage = pi.getMaxPage();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,6 +73,10 @@
 	text-align: center;
 	border: none;
 }
+.paging-area{
+	padding-top: 65px;
+	text-align: center;
+}
 </style>
 
 </head>
@@ -92,7 +103,7 @@
             <table id='tb-dm' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox" onclick="checkAll(this)" class="dmCheck" id="all"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>등록일<div class="sort"></div></th>
                         <th data-idx=3>아이디<div class="sort"></div></th>
@@ -110,7 +121,7 @@
 	            <% } else { %>
 	            	<% for(Dm dm : list) { %>    
 	                    <tr>
-	                        <td><input type="checkbox" class="chk"></td>
+	                        <td><input type="checkbox" onclick="checkOnce()"></td>
 	                        <td><%= dm.getDmNo() %></td>
 	                        <td><%= dm.getSendDate() %></td>
 	                        <td><%= dm.getMemId() %></td>
@@ -126,7 +137,23 @@
                 </tbody>
             </table>
         </div>
-
+        
+   	   	<!-- 페이징바 -->
+		<div class="paging-area">
+			<% if(dmListPage != 1) { %>
+				<button onclick="page('<%= dmListPage -1 %>');" class="btn btn-warning">&lt;</button>
+			<% } %>
+			<% for(int i = dmStartPage; i <= dmEndPage; i++) { %>
+				<% if(dmListPage != i) { %>
+					<button onclick="page('<%= i %>');" class="btn btn-warning"><%= i %></button>
+				<% } else { %>
+					<button disabled class="btn btn-warning"><%= i %></button>
+				<% } %>
+			<% } %>
+			<% if(dmListPage != dmMaxPage) { %>
+				<button onclick="page('<%= dmListPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
+			<% } %>
+		</div>	<!-- 페이징바 -->
     	</div>  <!-- rs-content -->
 
 	<!-- 쪽지답변  modal창 -->
@@ -142,6 +169,7 @@
 	                <!-- Modal body -->
 	                <div class="modal-body">
 							<input type="hidden" name="dmNo">
+							<input type="hidden" name="page" value="<%= dmListPage %>">
 							<table class="modal-table" border="1">
 								<tr>
 									<th>회원 아이디</th>
@@ -174,7 +202,13 @@
 	        </div>
 	</form>
   </div>
-
+    	
+	<script>
+		function page(element){
+			this.location.href = "<%= contextPath %>/jhselect.dm?page=" + element;
+		}
+	</script>
+	
   <!-- 쪽지 글자 byte count -->
 	<script>
 		let limitByte = 500;
@@ -404,38 +438,33 @@
   
   <!-- 컬럼 sort -->
   <script>
-
-/* 	$(function checkAll(){
-		$('dmCheck').on('change', function(){
-			if($(this).prop('checked') == false){
-				$('#all').prop('checked', false);
-			}
-		});
-
-		$('#all').on('change', function(){
-			let $all = $('#all').prop('checked');
-			console.log($all);		// true
-			if($all){
-				$('.dmCheck .chk').prop('checked', true);
-			}
-			else {
-				$('.dmCheck .chk').prop('checked', false);
-			}
-		})
-	}); */
 	
-	$(function() {
-		$('.table th').on('click', sortTable);
+	$(function() {								
+		$('.table th').on('click', sortTable);	// table의 th요소 click시(테이블의 컬럼부분) > sortTable 함수 실행
+		
+		// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams
+		// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		
+		// console.log(window.location.href);		// 현재 위치의 url
+		// console.log(window.location.search);		// 값 ok (?page=1) > url Parameter
+		
+		// 쿼리스트링 파싱
+		let urlParams = new URLSearchParams(window.location.search);		
+		let page = urlParams.get('page');
+		// console.log(page);
+ 		if(page != null){		// 메인화면 쿼리스트링 x == null상태
+			sortTable();
+		}
 	})
 	
-	function checkAll(element){
-		// console.log(element);	// input요소 (table의 헤더부분)
-		
+	
+	// tb-dm의 헤더 체크박스 클릭시 실행 (전체 체크/해제)
+	function checkAll(){
 		let table = document.getElementById('tb-dm');
 		let inputs = document.querySelectorAll('tr input');
 		
 		// console.log(table);		// 테이블 값 확인 ok
-		// console.log(inputs);	// 헤더 체크박스 값 ok
+		// console.log(inputs);		// 모든 체크박스 값 ok
 		
 		// 헤더 체크박스 클릭시 == checked속성 true > 전체 체크되도록
 		// 헤더 체크박스 해제시 == checked속성 false > 전체 해제되도록 
@@ -444,37 +473,73 @@
 		// element의 checked속성이 false인 경우 똑같이 flase로 해주어야 함
 		// 즉, element.checked == table tr input.checked가 서로 일치하다는 의미
 		for(let input of inputs){
-			input.checked = element.checked;	// element.checked가 해제/선택일때의 경우 모두 input에 넣음
+			input.checked = event.target.checked;	// element.checked가 해제/선택일때의 경우 모두 input에 넣음
 		}
-		
-			// 기능 추가 예정
-		// table tr input.checked가 하나라도 false가 된다면
-		// element의 checekd속성도 false가 되어야 한다
-		
-		// 체크되어 있는 개수 확인
-		// 체크박스 전체 개수
-		// 서로 일치하면 true / 일치하지 않으면 false
-		
-		
 	}	// checkAll
+	
+	
+	// 테이블 행 하나가 체크해제 되어있으면 전체 체크박스 해제
+	function checkOnce(){
 		
+		// let checked = event.target.checked;
+		// console.log(checked);
+		
+		let table = document.getElementById('tb-dm');
+		let hd_input = table.querySelector('th').querySelector('input');
+		let inputs = table.querySelector('tbody').querySelectorAll('tr input');
+		
+		let is_all_checked = true;			// 전체 체크 확인용 변수 선언 - true~~
+		for(let input of inputs){			// 각 tr의 input 반복문 돌리기
+			if(input.checked == false){		// input의 checked 속성이 false면 전체 체크 확인용 변수를 똑같이 false로 바꾸고
+				is_all_checked = false;
+				break;						// break
+			}
+		}
+
+		hd_input.checked = is_all_checked;	// 위 결과값 헤더 input > checked속성에 대입 (true or false) == 하나라도 false이면 false
+	}	// checkOnce
+	
+	
+	// 컬럼정렬
 	function sortTable(){
 		
-		// this -> th 선택한 나 자신이양~~
-		let idx = parseInt(this.getAttribute('data-idx'));
-		if(idx == 0){								// data-idx == 0이면
-			// checkAll(this.children[0]);				// input요소를 주고 종료 체크는 정렬아뉘니까
-			// console.log(this.children[0]);
-			return;
+		// console.log(event);
+		// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+		
+		let target;
+		let idx, type;
+		// 페이지 넘긴 경우
+		if(event == null){
+			idx  = parseInt(localStorage.getItem('data-idx'));			// string으로 들어와서 parseInt - 테이블 컬럼부분
+			type = localStorage.getItem('data-type');					
+			
+			target = document.querySelector("th[data-idx='" + idx + "']");
+			target.querySelector('.sort').classList.add(localStorage.getItem('data-sort'));
+			// document.querySelector("th[data-idx='1']");
+		}
+		// 컬럼 헤더를 클릭한 경우
+		else {
+			target = this;			// this == 클릭한 th
+			// console.log(target);
+			idx = parseInt(target.getAttribute('data-idx'));	// data-idx 속성값을 idx 변수에 저장
+			// console.log(idx);	// 값 ok
+			type = this.getAttribute('data-type');				// num
+			// console.log(type);
+			localStorage.setItem('data-idx', idx);
+			localStorage.setItem('data-type', type);			// 번호컬럼 아닌 경우 value값 null
+		}
+
+		if(idx == 0){		// data-idx == 0이면 (메인페이지)
+			return;			// 리턴 > 컬럼 정렬 들고가지않도록
 		}
 		
-		let type = this.getAttribute('data-type');	// num
-		
 		let tbody = document.querySelector('.table tbody');
-		let rows = Array.from(tbody.children); // HTMLCollection 객체이기 때문에 Array로 변환 == 유사배열이기 때문	
-											   // https://ko.javascript.info/searching-elements-dom
+		console.log(tbody);
+		let rows = Array.from(tbody.children); // tr태그 HTMLCollection 객체이기 때문에 Array로 변환 == 유사배열이기 때문	
+		// console.log(rows);				   // https://ko.javascript.info/searching-elements-dom
 											   // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 		
+											   
 		// 현재 sort 상태가 뭔지 저장하기위한 변수
 		let is_desc = false;
 		
@@ -484,7 +549,7 @@
 			let sort = th.children[0];	// input
 
 			// th요소가 현재 선택된 th인 경우
-			if(th == this){
+			if(target == th){
 				// 내림차순인지 확인
 				is_desc = sort.classList.contains('desc');	// 화살표
 				
@@ -492,12 +557,15 @@
 				if(is_desc){
 					sort.classList.remove('desc');
 					sort.classList.add('asc');
+					localStorage.setItem('data-sort', 'asc');
 				}
 				// 내림차순이 아니면 내림차순으로 변경
 				else{
 					sort.classList.remove('asc');
 					sort.classList.add('desc');
+					localStorage.setItem('data-sort', 'desc');
 				}
+				
 			}	// if
 			
 			// 선택된 th 요소가 아닌경우 asc/desc 클래스를 모두 삭제 (화살표)
