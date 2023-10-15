@@ -3,8 +3,36 @@
 <properties>
 	<comment>신고함 관련 SQL문</comment>
 	
+	<!-- 신고함 리스트 조회 SQL문 -->
 	<entry key="selectReportList">
+	SELECT *
+	  FROM (SELECT ROWNUM RNUM, A.*
+	          FROM (SELECT
+							REPORT_NO,
+							RPT_DATE,
+							RPT_CATEGORY_NAME,
+							RPT_CONTENT,
+							MEM_ID AS RECIVE_REPORT,
+							MEM_ID AS SEND_REPORT,
+							RPT_STATUS
+					  FROM
+					  	    TB_REPORT
+					  JOIN 
+					  	    TB_REPORT_CATEGORY USING(RPT_CATEGORY_NO)
+					  JOIN
+					  		TB_MEMBER USING(MEM_NO)
+					  JOIN 
+					  		TB_RECIPE ON(RPT_TARGET = RECIPE_NO)
+			  		 ORDER BY REPORT_NO DESC) A)
+			  		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
+	<!-- 리워드 리스트 행 조회 SQL문-->
+	<entry key="selectReportListCount">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		TB_REPORT
 	</entry>
 	
 </properties>
