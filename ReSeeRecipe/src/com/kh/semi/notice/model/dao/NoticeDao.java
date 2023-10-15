@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
@@ -149,9 +150,29 @@ public class NoticeDao {
 		int result = 0;
 		PreparedStatement pstmt = null;	
 		String sql = prop.getProperty("insertNoticePic");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, np.getNoticePicNamgeOrigin());
+			pstmt.setString(2, np.getNoticePicNagmeChange());
+			pstmt.setString(3, np.getNoticePicPath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
-	
+	public int insertNoticeTag(Connection conn, List<String> extractedValues) {
+			
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNoticeTag");
+	}
 	
 	
 	

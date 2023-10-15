@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.tag.model.vo.Tag;
@@ -56,5 +57,16 @@ public class TagDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public ArrayList<Tag> selectTagNo(Connection conn, List<String> extractedValues) {
+		
+		ArrayList<Tag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+				
+				
+				
+	
 	}
 }
