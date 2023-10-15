@@ -9,12 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.vo.Tag;
 
 public class NoticeDao {
 	
@@ -167,11 +167,26 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertNoticeTag(Connection conn, List<String> extractedValues) {
+	public int insertNoticeTag(Connection conn, ArrayList<Tag> list) {
 			
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertNoticeTag");
+		
+		try {
+			String sql = prop.getProperty("insertNoticeTag");
+			pstmt = conn.prepareStatement(sql);
+			
+			for(Tag tag : list) {
+				pstmt.setInt(1, tag.getTagNo());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

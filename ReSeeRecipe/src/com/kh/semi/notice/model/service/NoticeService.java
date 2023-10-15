@@ -74,7 +74,10 @@ public class NoticeService {
 			result2 = new NoticeDao().insertNoticePic(conn, np);
 			
 			ArrayList<Tag> list = new TagDao().selectTagNo(conn, extractedValues);
-			//result3 = new NoticeDao().insertNoticeTag(conn, extractedValues);
+			
+			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없을거 같기도.... 
+			
+			result3 = new NoticeDao().insertNoticeTag(conn, list);
 		}
 	}
 }

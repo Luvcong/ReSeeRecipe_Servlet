@@ -64,9 +64,29 @@ public class TagDao {
 		ArrayList<Tag> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		
+		for(String value : extractedValues) {
+			String sql = prop.getProperty("selectTagNo");
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
 				
+				pstmt.setString(1, value);
 				
+				rset = pstmt.executeQuery();
 				
-	
+				while(rset.next()) {
+					Tag t = new Tag();
+					t.setTagNo(rset.getInt("TAG_NO"));
+					list.add(t);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		return list;		
 	}
 }

@@ -98,6 +98,17 @@
 				)		  		 	
  	</entry>
  	
+ 	<entry key="insertNoticeTag">
+ 		INSERT 
+ 		  INTO 
+ 		  		TB_NOTICE_TAG (NOTICE_NO, TAG_NO)
+		SELECT 
+				MAX(NOTICE_NO)
+			   ,? 
+		 FROM 
+		 		TB_NOTICE
+ 	</entry>
+ 	
  	<entry key="updateNotice">
  		UPDATE
  				TB_NOTICE
