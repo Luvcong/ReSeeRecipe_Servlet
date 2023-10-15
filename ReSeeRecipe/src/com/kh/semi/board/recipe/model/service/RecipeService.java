@@ -5,20 +5,31 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
-import com.kh.semi.board.un_recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.tag.model.vo.Tag;
 
 public class RecipeService {
 	
 	
 	/**
-	 * 글과 작성자의 STATUS가 유효한 레시피 개수 조회
-	 * @return
+	 * 레시피 카테고리 목록을 조회해 반환
+	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
+	 */
+	public ArrayList<RecipeCategory> selectRecipeCategoryList() {
+		Connection conn = getConnection();
+		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
+		close(conn);
+		return cList;
+	}
+	
+	
+	/**
+	 * 레시피 개수 조회
+	 * @return : 글과 작성자의 STATUS가 유효한 레시피글의 총 개수
 	 */
 	public int selectRecipeListCount() {
 		Connection conn = getConnection();
@@ -38,26 +49,15 @@ public class RecipeService {
 	 * > ArrayList<Recipe> rList : 페이지네이션 처리되어 조회된 레시피 글 정보를 Recipe객체로 만든 후 ArrayList에 담음<br>
 	 * 	 Recipe필드 :  recipeNo, recipeTitle, recipeCount, titleImg, memNickName, htCount<br>
 	 */
-	public ArrayList<Recipe> selectRecipeList(PageInfo pi){
+	public ArrayList<Recipe> selectRecipeList(PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi);
 		close(conn);
 		return list;
 	}
 	
-	
-	/**
-	 * 레시피 카테고리 목록을 조회해 반환
-	 * @return : 레시피 카테고리 목록이 담긴 ArrayList배열
-	 */
-	public ArrayList<RecipeCategory> selectRecipeCategoryList() {
-		Connection conn = getConnection();
-		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
-		close(conn);
-		return cList;
-	}
 
-	
+	/*
 	public HashMap<String, Object> recipeEnrollForm(int memNo) {
 		Connection conn = getConnection();
 		HashMap<String, Object> enMap = new HashMap();
@@ -80,6 +80,7 @@ public class RecipeService {
 		}
 		return enMap;
 	}
+	*/
 	
 	
 	

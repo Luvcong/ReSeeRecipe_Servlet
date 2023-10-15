@@ -248,14 +248,21 @@
 		height: 60%;
 	}
 
-	#cook-steps-hashtag > button {
+	#cook-steps-hashtag select {
 		width: 90%;
 		height: 70%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
 		margin-top : 12px;
-	
 	}
+	#cook-steps-hashtag option {
+		font-size: 25px;
+	}
+	
+	#cook-steps-hashtag option:disabled {
+		display: none;
+	}
+	
 	/* --- 우측 --- */
 	/* 제목 입력칸 (textarea) */
 	#cook-steps-title {
@@ -649,9 +656,33 @@
 								<p><%= loginMember %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<button type="button" name="tagNo" class="btn btn-info">해시태그입력</button>
+								<select name="tagNo" onclick="ajaxSelectTag();" class="btn btn-info">
+									<option disabled selected value="">해시태그 선택</option>
+								</select>
 							</div>
 						</div>
+
+						<script>
+							// 태그 검색 ajax요청
+							function ajaxSelectTag(){
+								$.ajax({
+									url : 'ajaxSelectTag.ar',
+									success : function(result) {
+										// TAG_NO, TAG_NAME, TAG_DATE
+										let resultStr = '';
+										for(let i in result) {
+											resultStr += '<option value="' + result[i].tagNo + '">'
+													   + result[i].tagName
+													   + '</option>';
+										}
+									},
+									error : function(){
+										alert('올바르지 않은 요청입니다');										
+									}
+								});
+							};
+						</script>
+
 						<div id="content-thumbnail-image">
 							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
@@ -925,8 +956,6 @@
 					</div>
 				</div>
 
-
-				
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
 					<!--
