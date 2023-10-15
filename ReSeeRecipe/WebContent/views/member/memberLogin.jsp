@@ -61,7 +61,7 @@
 
         /* Add padding to containers */
         .container {
-        padding: 100px 350px;
+        padding: 50px 350px;
         }
 
         /* The "Forgot password" text */
@@ -82,7 +82,7 @@
         }
 
         #title{
-          padding-top: 100px;
+          padding-top: 50px;
           display : flex;
           align-items: center;
           justify-content: center;

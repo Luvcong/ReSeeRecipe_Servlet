@@ -59,6 +59,25 @@ public class Member {
 	
 	
 	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
+			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.memNickname = memNickname;
+		this.memEmail = memEmail;
+		this.memStatus = memStatus;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.deleteDate = deleteDate;
+		this.memPicture = memPicture;
+		this.memGrade = memGrade;
+		this.memGradeName = memGradeName;
+	}
+	
+	
+	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
 			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade,
 			int memReward) {
 		super();

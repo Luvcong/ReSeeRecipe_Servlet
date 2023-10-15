@@ -20,6 +20,7 @@
 		       ,DELETE_DATE
 		       ,MEM_PICTURE
 		       ,MEM_GRADE
+		       ,MEM_GRADE_NAME
 		  FROM
 		       TB_MEMBER
 		  JOIN 
