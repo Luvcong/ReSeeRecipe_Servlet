@@ -72,6 +72,8 @@ public class MemberUpdateController extends HttpServlet {
 			// 현재 파일수정을 눌렀다면 무조건 사진이 있음. 근데 기본값은 null임
 			String memberPicture = null;
 			// 첨부파일이 있다면 
+			System.out.println("확인");
+			System.out.println(multiRequest.getOriginalFileName("profileInput"));
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
 				// 파일경로 + 파일수정명을 넘겨줄거임(DB에 MEM_PICTURE컬럼에 저장)
 				memberPicture = savePath + "/" + multiRequest.getOriginalFileName("profileInput");
@@ -87,16 +89,22 @@ public class MemberUpdateController extends HttpServlet {
 				// => 왜냐면 loginMember에 들어있는 정보는 update후 갱신이 안되어 있음
 				
 				Member updatedMember = new MemberService().loginMember(memberId, memberPwd);
+				System.out.println("여기야???");
 				System.out.println(updatedMember); // null
 				
 				request.getSession().setAttribute("loginMember", updatedMember);
 				// 나중에 마이페이지 메인으로 바꿀 것
 				// update를 한 걸 업데이트가 돼야 하니까 sendRedirect로 가야하나? => 로그인이 풀려버림
 				// request.getRequestDispatcher(request.getContextPath()).forward(request, response);
-				response.sendRedirect(request.getContextPath() + "/blog.me");
+				
+				// 현재 blog.me를 찾을 수 없음  임시로 변경
+				// response.sendRedirect(request.getContextPath() + "/blog.me");
+				response.sendRedirect("views/myPage/memberPage.jsp");
+				// request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
+				
 			} else { // 실패 시
 				request.getSession().setAttribute("memberUpdateError", "변경에 실패하였습니다.");
-				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);;
+				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);
 			}
 		}
 	}
