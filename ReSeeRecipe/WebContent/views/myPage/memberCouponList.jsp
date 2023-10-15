@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>회원 쿠폰조회</title>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <style>
     /* Add padding to containers */
     .container {
@@ -13,7 +15,7 @@
     }
     
     .container > div{
-        margin : 10px 0px;
+        margin : 30px 0px;
     }
 
     .container > div > div{
@@ -23,27 +25,50 @@
     }
 
     #title{
-        padding-top: 50px;
+        padding: 50px 0px 30px 0px;
         display : flex;
         align-items: center;
         justify-content: center;
     }
 
     #grade-div{
-        height : 130px;
+        height : 150px;
     }
 
-    #sort-div{
+    
+    #grade1 {
+        width : 20%;
+        text-align : center;
+        background-color : lightgray;
+        border-radius : 100px;
+    }
+    
+    #grade2 {
+        width : 80%;
+        padding : 10px;
+    }
+    
+    #sort-div {
         height : 50px;
     }
 
+    #sort1 {
+        padding : 10px;
+    }
+
+    #sort2 {
+        padding : 10px;
+        text-align : right;
+    }
+
     #coupon-div{
-        background-color : lightgray;
         height : 150px;
+        background-color : lightgray;
     }
 
     #coupon1 {
         width : 70%;
+        padding : 10px;
     }
 
     #coupon2 {
@@ -65,7 +90,11 @@
     }
 
     #couponExpire {
-        color : gray;
+        color : rgb(107, 105, 105);
+    }
+
+    #couponSort {
+        height : 30px;
     }
 
     button {
@@ -76,6 +105,18 @@
         border: none;
         cursor: pointer;
         width: 80%;
+
+        
+    }
+
+    .material-symbols-outlined {
+        font-size : 100px;
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 240
+        
     }
 
 </style>
@@ -90,25 +131,29 @@
     <div class="container">
         <h1 id="title"><b>쿠폰 조회</b></h1>
         <div class="devide" id="grade-div">
-            <div class="grade">
-                내등급
+            <div class="grade" id="grade1">
+                <span class="material-symbols-outlined">
+                    person
+                </span>
+                <p>내등급</p>
             </div>
-            <div class="grade">
+            <div class="grade" id="grade2">
                 <p>LV. = loginMember.getMemGradeName() </p> <br>
                 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다. <br>
             </div>
         </div>
         <div class="devide" id="sort-div">
-            <div class="sort">
+            <div class="sort" id="sort1">
                 쿠폰 count(coupon_no) 개
             </div>
-            <div class="sort">
+            <div class="sort" id="sort2">
                 <select name="couponSort" id="couponSort">
                     <option value="saleSort">할인순</option>
                     <option value="recentSort">최근순</option>
                     <option value="limitSort">만료기한순</option>
                 </select>
             </div>
+            <hr>
         </div>
         <div class="devide" id="coupon-div">
             <div class="coupon" id="coupon1">
