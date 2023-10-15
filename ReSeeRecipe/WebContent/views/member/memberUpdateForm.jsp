@@ -285,14 +285,12 @@
             
             // 비밀번호확인 불일치 시 (정규표현식을 일치)
             } else if($memberPwd.val() != $memberPwdCheck.val()){
-              console.log($memberPwd);
               $('label[for="memberPwdCheck"]').text('* 비밀번호가 일치하지 않습니다.').css('color', 'red');
               $('label[for="memberPwd"]').css('color', 'black');
               $('#updatePwdBtn').attr('disabled', true);
               
             // 둘다 일치
             } else {
-              console.log("여기아냐?");
               $('label[for="memberPwdCheck"]').text('').css('color', 'black');
               $('label[for="memberPwd"]').css('color', 'black');
               $('#updatePwdBtn').attr('disabled', false);

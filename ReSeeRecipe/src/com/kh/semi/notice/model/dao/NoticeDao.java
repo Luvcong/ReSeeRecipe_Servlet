@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.notice.model.vo.Notice;
+import com.kh.semi.notice.model.vo.NoticePic;
 
 public class NoticeDao {
 	
@@ -143,7 +144,12 @@ public class NoticeDao {
 		return result;
 	}
 	
-	
+	public int insertNoticePic(Connection conn, NoticePic np) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;	
+		String sql = prop.getProperty("insertNoticePic");
+	}
 	
 	
 	
