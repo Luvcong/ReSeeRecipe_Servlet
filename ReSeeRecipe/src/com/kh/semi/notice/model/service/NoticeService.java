@@ -11,6 +11,8 @@ import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.notice.model.dao.NoticeDao;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.dao.TagDao;
+import com.kh.semi.tag.model.vo.Tag;
 
 public class NoticeService {
 	
@@ -71,7 +73,8 @@ public class NoticeService {
 		if(np != null || extractedValues != null) {
 			result2 = new NoticeDao().insertNoticePic(conn, np);
 			
-			result3 = new NoticeDao().insertNoticeTag(conn, extractedValues);
+			ArrayList<Tag> list = new TagDao().selectTagNo(conn, extractedValues);
+			//result3 = new NoticeDao().insertNoticeTag(conn, extractedValues);
 		}
 	}
 }
