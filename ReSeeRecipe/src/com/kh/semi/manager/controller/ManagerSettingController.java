@@ -22,12 +22,13 @@ public class ManagerSettingController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/** 관리자 정보 설정 서블릿
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+	
+	
 	}
 
 	/**
