@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.semi.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
+
 /**
  * Servlet implementation class ReviewInsertController
  */
@@ -33,13 +36,21 @@ public class ReviewInsertController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024 * 1024 * 10;
 			
-			String savePath = request.getServletContext().getRealPath("/resources/product_upfiles/");
-			
-			
-			
+		int fileSize = 1024 * 1024 * 10;
+		
+		String savePath = request.getServletContext().getRealPath("/resources/product_upfiles/");
+		
+		MultipartRequest multi = new MultipartRequest(request, savePath, fileSize, "UTF-8", new MyFileRenamePolicy());
+		
+		System.out.println(multi);
+		
+		} else {
+			System.out.println("nn");
 		}
+		
+			
+		
 		
 		
 		
