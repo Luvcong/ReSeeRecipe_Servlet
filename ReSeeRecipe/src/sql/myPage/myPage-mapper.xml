@@ -3,7 +3,19 @@
 <properties>
 	<comment>myPage 관련 SQL문</comment>
 	
-	
+	<!-- 회원 쿠폰 조회 -->
+	<entry key="selectMemberCouponList">
+		SELECT COUPON_NAME, COUPON_ENDDATE, COUPON_RATIO, (SELECT COUNT(COUPON_NO)
+                                                             FROM TB_MEMBER_COUPON
+                                                            GROUP BY MEM_NO) "MEMBER_COUPON_COUNT"
+		  FROM TB_COUPON C
+		  JOIN TB_MEMBER_COUPON MC USING (COUPON_NO)
+		  JOIN TB_MEMBER M USING(MEM_NO)
+		 WHERE MEM_NO = ?
+		   AND COUPON_AVAIL = 'Y'
+		   AND MEMBER_COUPON_STATUS = 'N'
+		 ORDER BY MEMBER_COUPON_DATE DESC
+	</entry>
 
 
 </properties>

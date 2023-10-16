@@ -44,8 +44,8 @@ public class MyPageServlet extends HttpServlet {
 		System.out.println(mapping);
 		switch(mapping) {
 		// 쿠폰 조회 화면으로 이동
-		case "yrmemberCouponListForm" : view = mc.MemberCouponListForm(request, response); break;
-		case "yrmemberCouponList" : view = mc.MemberCouponListForm(request, response); flag = false; break;
+		// case "yrmemberCouponListForm" : view = mc.MemberCouponListForm(request, response); flag = false; break;
+		case "yrmemberCouponList" : view = mc.MemberCouponList(request, response);  break;
 		
 		}
 		// 응답화면으로 보내기
