@@ -86,6 +86,16 @@ public class NoticeService {
 		
 		int result2 = 1;
 		int result3 = 1;
+		
+		/*
+		if(result1 > 0) {
+			
+			if(result2 > 0) {
+				
+			}
+		}
+		*/
+		
 		if(np != null || tagList != null) {
 			// 공지사항 사진 업로드
 			result2 = new NoticeDao().insertNoticePic(conn, np);
@@ -100,12 +110,31 @@ public class NoticeService {
 		// 3) 트랜잭션 처리
 		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
 		// 셋 중 하나라도 실패하면 무조건 rollback
+		
 		if((result1 * result2 * result3) > 0) {
+			commit(conn);
+		} else if ((result1 * result2) > 0) {
+			commit(conn);
+		} else if ((result1 * result3) > 0) {
+			commit(conn);
+		} else if (result1 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		
+		/*
+		if(result1 > 0) {
+			commit(conn);
+			if(result2 > 0) {
+				commit(conn);
+			} else if(result3 > 0) {
+				commit(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+		*/
 		close(conn);
 		
 		return (result1 * result2 * result3);
