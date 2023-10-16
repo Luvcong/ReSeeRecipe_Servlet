@@ -27,7 +27,7 @@
 		   	   MEMBER_COUPON_STATUS = 'N'
 		 ORDER 
 		 	BY 
-		 	   MEMBER_COUPON_DATE DESC
+		 	   
 	</entry>
 
 

@@ -155,8 +155,8 @@
                 쿠폰 <%= loginMember.getMemCouponCount() %> 개
             </div>
             <div class="sort" id="sort2">
-                <select name="couponSort" id="couponSort">
-                    <option value="recentSort">최근순</option>
+                <select name="couponSort" id="couponSort" onchange="selected();">
+                    <option value="recentSort" selected>최근순</option>
                     <option value="saleSort">할인순</option>
                     <option value="limitSort">만료기한순</option>
                 </select>
@@ -182,7 +182,32 @@
     <!-- footer 푸터영역 -->
     <%@ include file="/views/common/footer.jspf" %>
     
-    
+    <script>
+        
+        // 선택된 옵션값 초기화
+        var $selected = 'recentSort';
+
+        // 정렬 선택 시, 선택된 옵션값 대입
+        function selected(){
+            console.log($('#couponSort').val());
+            var $selected = $('#couponSort').val();
+        }
+        
+        function selectMemberCouponList(){
+            $.ajax({
+                url : "yrmemberCouponList.mp",
+                data : {selected : $selected},
+                success : {
+                    
+                },
+                error : {
+
+                }
+            })
+        }
+
+
+    </script>
     
 
 </body>

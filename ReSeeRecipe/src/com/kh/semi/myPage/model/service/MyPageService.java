@@ -11,11 +11,11 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 public class MyPageService {
 	
-	public ArrayList<MemberCoupon> selectMemberCouponList(int memberNo){
+	public ArrayList<MemberCoupon> selectMemberCouponList(int memberNo, String selected){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<MemberCoupon> list = new MyPageDao().selectMemberCouponList(conn, memberNo);
+		ArrayList<MemberCoupon> list = new MyPageDao().selectMemberCouponList(conn, memberNo, selected);
 		
 		close(conn);
 		

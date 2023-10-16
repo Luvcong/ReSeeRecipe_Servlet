@@ -28,12 +28,20 @@ public class MyPageDao {
 	
 	}
 	
-	public ArrayList<MemberCoupon> selectMemberCouponList(Connection conn, int memberNo){
+	public ArrayList<MemberCoupon> selectMemberCouponList(Connection conn, int memberNo, String selected){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MemberCoupon> list = new ArrayList();
 		String sql = prop.getProperty("selectMemberCouponList");
+		
+		if(selected.equals("resentSort")) {
+			sql += "MEMBER_COUPON_DATE DESC";
+		} else if(selected.equals("saleSort")) {
+			sql += "COUPON_RATIO DESC";
+		} else if(selected.equals("limitSort")) {
+			sql += "COUPON_ENDDATE ASC";
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -43,7 +51,6 @@ public class MyPageDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				System.out.println("응?");
 				list.add(new MemberCoupon(rset.getInt("COUPON_EXPIRE"),
 										  rset.getInt("COUPON_RATIO"),
 										  rset.getString("COUPON_NAME")));

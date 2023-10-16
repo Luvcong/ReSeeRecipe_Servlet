@@ -16,12 +16,13 @@ public class MyPageController {
 	public String MemberCouponList(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 1. 값 뽑기
+		int memberNo = Integer.parseInt(request.getParameter("memNo"));
+		String selected = request.getParameter("selected");
 		
 		// 2. 데이터가공
-		int memberNo = Integer.parseInt(request.getParameter("memNo"));
 
 		// 3. 서비스 호출
-		ArrayList<MemberCoupon> list = new MyPageService().selectMemberCouponList(memberNo);
+		ArrayList<MemberCoupon> list = new MyPageService().selectMemberCouponList(memberNo, selected);
 		
 		if(list != null) {
 			request.setAttribute("memberCouponList", list);
