@@ -130,11 +130,13 @@ public class RecipeDao {
 	public int insertRecipe(Connection conn, Recipe recipe) {
 		int result = 0;
 		String sql = prop.getProperty("insertRecipe");
-		
+		System.out.println("sql문 출력 : " + sql);
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			System.out.println("RecipeDao recipe객체 : " + recipe);
 			pstmt.setString(1, recipe.getRecipeTitle());
 			pstmt.setInt(2, recipe.getRecipeWriterNo());
 			pstmt.setInt(3, recipe.getRecipeCategoryNo());
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -165,6 +167,7 @@ public class RecipeDao {
 				pstmt.setString(2, recipePic.getRecipePicNameUpload());
 				pstmt.setString(3, recipePic.getRecipePicPath());
 				pstmt.setInt(4, recipePic.getRecipePicLev());
+				
 				result *= pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -192,7 +195,8 @@ public class RecipeDao {
 		for(Ingredient ingredient : ingredientList) {
 			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 				pstmt.setString(1, ingredient.getIngredient());
-				pstmt.setString(1, ingredient.getIngredientAmount());
+				pstmt.setString(2, ingredient.getIngredientAmount());
+				
 				result *= pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -223,6 +227,7 @@ public class RecipeDao {
 				pstmt.setString(1, cookSteps.getCookStepsTitle());
 				pstmt.setString(2, cookSteps.getCookStepsContent());
 				pstmt.setInt(3, cookSteps.getCookStepsLev());
+				
 				result *= pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -249,7 +254,9 @@ public class RecipeDao {
 		
 		for(int tagNo : tagNoList) {
 			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setInt(1, tagNo);
 				
+				result *= pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
