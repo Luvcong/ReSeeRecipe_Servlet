@@ -34,7 +34,9 @@ public class Member {
 	private String memGradeName;
 	private int memReward;
 	private String memUpdateWhyCon;
+	private int memCouponCount;
 	
+
 
 	public Member() {
 		super();
@@ -58,8 +60,8 @@ public class Member {
 	}
 	
 	
-	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,
-			String memStatus, Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName) {
+	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,String memStatus, 
+			Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName, int memCouponCount) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -74,6 +76,7 @@ public class Member {
 		this.memPicture = memPicture;
 		this.memGrade = memGrade;
 		this.memGradeName = memGradeName;
+		this.memCouponCount = memCouponCount;
 	}
 	
 	
@@ -208,6 +211,14 @@ public class Member {
 		this.memUpdateWhyCon = memUpdateWhyCon;
 	}
 
+	public int getMemCouponCount() {
+		return memCouponCount;
+	}
+	
+	public void setMemCouponCount(int memCouponCount) {
+		this.memCouponCount = memCouponCount;
+	}
+	
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName

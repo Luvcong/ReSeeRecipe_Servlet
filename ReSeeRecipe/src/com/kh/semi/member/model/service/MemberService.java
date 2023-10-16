@@ -20,6 +20,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().loginMember(conn, memberId, memberPwd);
+		
 		close(conn);
 		
 		return m;

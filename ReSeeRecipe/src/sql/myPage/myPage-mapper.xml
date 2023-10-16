@@ -3,7 +3,32 @@
 <properties>
 	<comment>myPage 관련 SQL문</comment>
 	
-	
+	<!-- 회원 쿠폰 조회 -->
+	<entry key="selectMemberCouponList">
+		SELECT 
+			    COUPON_NAME
+			   ,CEIL(COUPON_ENDDATE - SYSDATE) COUPON_EXPIRE
+			   ,COUPON_RATIO
+		  FROM 
+		  	   TB_COUPON C
+		  JOIN 
+		  	   TB_MEMBER_COUPON MC 
+		 USING 
+		 	   (COUPON_NO)
+		  JOIN 
+		  	   TB_MEMBER M 
+		 USING 
+		 	   (MEM_NO)
+		 WHERE 
+		 	   MEM_NO = ?
+		   AND 
+		   	   COUPON_AVAIL = 'Y'
+		   AND 
+		   	   MEMBER_COUPON_STATUS = 'N'
+		 ORDER 
+		 	BY 
+		 	   
+	</entry>
 
 
 </properties>
