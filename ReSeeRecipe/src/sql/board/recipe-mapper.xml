@@ -91,7 +91,22 @@
 			   )
 	</entry>
 	
-	<entry key="insert">
+	<entry key="insertRecipeTag">
+		INSERT
+		  INTO
+		  	   TB_RECIPE_TAG
+		  	   (
+		  	   TAG_NO,
+		  	   TAG_RECIPE_NO
+		  	   )
+		VALUES
+			   (
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	<entry key="">
 	</entry>
 	
 	
