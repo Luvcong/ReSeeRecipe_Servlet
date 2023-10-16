@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +35,14 @@ public class ManagerSettingController extends HttpServlet {
 		// 1) 인코딩 생략
 		
 		// 2) 값뽑기 - 관리자 식별 번호 input 태그 hidden의 value
-		String adminNo = request.getParameter("HL_managerNo");
+		int adminNo = Integer.parseInt(request.getParameter("adno"));
 		
 		Member m = new ManagerService().managerSetting(adminNo);
 		
+		request.setAttribute("m", m);
+		
+		// 응답화면 띄우기
+		request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
 	}
 
 	/**
