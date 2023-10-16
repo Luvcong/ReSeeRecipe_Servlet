@@ -930,8 +930,8 @@
 						</script>
 
 						<script>
+							
 							$(function(){
-
 								// 요소 넘버링 다시 해주는 함수
 								function reorderingIngredients(){
 									$('.ingredientContainer').each(function(index){
@@ -966,6 +966,7 @@
 									reorderingIngredients();
 								});
 							});
+							
 						</script>
 
 					</div>
@@ -975,21 +976,14 @@
 				<div id="cookingInstructionContainer">
 					<!--
 						아래의 제이쿼리 이벤트로 입력 틀 생성
-						<div id="cookStepsInstInnerEnd">
-							<button id="instAddBtn" type="button" class="fas fa-plus-circle"></button>
-						</div>
 					-->
+					<div id="cookStepsInstInnerEnd">
+						<button id="instAddBtn" type="button" class="fas fa-plus-circle"></button>
+					</div>
 				</div>
 
 				<script>
 					$(function(){
-						
-						// 버튼 클릭 시 요리과정 받는 창 생성해줌
-						// instAddBtn에 클릭이벤트가 일어날 때 마다 앞쪽에 양식 추가 + 전역변수 클릭 카운팅 6개까지 생성
-						
-
-						
-
 						/*
 						var $insAddStr = '<div id="cookStepsInstInner' + $instAddBtnCount + '">'
 										+ '<div class="cook-steps-inst-title">'
@@ -1011,36 +1005,50 @@
 											+ '</div>';
 						*/
 						
+
+						// 버튼 클릭 시 요리과정 받는 창 생성해줌
+						// instAddBtn에 클릭이벤트가 일어날 때 마다 앞쪽에 양식 추가 + 전역변수 클릭 카운팅 6개까지 생성
+
 						// 기본 변수 세팅
-						var $instAddBtnCount = 0;
+						var $instBtnCount = $('div[id^=cookStepsInstInner]').length - 1;
 						var $cookingInstructionContainer = $('#cookingInstructionContainer');
 						var $instAddBtnStr = '<div id="cookStepsInstInnerEnd">'
 										   + '<button id="instAddBtn" type="button" class="fas fa-plus-circle">'
 										   + '</button>'
 										   + '</div>';
 				
-						// 로딩 시 기본 버튼
-						$cookingInstructionContainer.append($instAddBtnStr);
-						
-						// 플러스버튼 클릭 시 요소생성
+						// Add버튼 클릭 시 수행
 						$cookingInstructionContainer.on('click', '#instAddBtn', function(){
-							var $insAddStr = '<div id="cookStepsInstInner' + $instAddBtnCount + '">'
+
+							let $insAddStr = '<div id="cookStepsInstInner' + $instBtnCount + '">'
 										+ '<div class="cook-steps-inst-title">'
-										+ '<input type="hidden" name="cookStepsLev' + $instAddBtnCount + '" value="' + ($instAddBtnCount + 1) + '">'
-										+ '<p class="inst-title-lev">' + ($instAddBtnCount + 1) + '</p>'
-										+ '<input type="text" name="cookStepsTitle' + $instAddBtnCount + '" placeholder="요리과정 제목" class="inst-title-text">'
-										+ '<button type="button" id="delCookSteps ' + $instAddBtnCount + '" class="fas fa-minus-square modify-btn">'
+										+ '<input type="hidden" name="cookStepsLev' + $instBtnCount + '" value="' + ($instBtnCount + 1) + '">'
+										+ '<p class="inst-title-lev">' + ($instBtnCount + 1) + '</p>'
+										+ '<input type="text" name="cookStepsTitle' + $instBtnCount + '" placeholder="요리과정 제목" class="inst-title-text">'
+										+ '<button type="button" id="delCookSteps' + $instBtnCount + '" class="fas fa-minus-square modify-btn">'
 										+ '</button>'
 										+ '</div>'
 										+ '<div class="cook-steps-inst-content">'
-										+ '<textarea name="cookStepsContent' + $instAddBtnCount + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;">'
+										+ '<textarea name="cookStepsContent' + $instBtnCount + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;">'
 										+ '</textarea>'
 										+ '</div>'
 										+ '</div>';
 
-							$('#cookStepsInstInnerEnd').detach();
-							$cookingInstructionContainer.append($insAddStr, $instAddBtnStr);
-							$instAddBtnCount++;
+							if($instBtnCount < 6) { // 생성된 요소가 6개 이하일 시
+								$('#cookStepsInstInnerEnd').remove();
+								$cookingInstructionContainer.append($insAddStr, $instAddBtnStr);
+								$instBtnCount++;
+								console.log($instBtnCount);
+							}
+							if($instBtnCount == 6) { // 생성된 요소가 6개일 시
+								$(this).off('click');
+								$('#cookStepsInstInnerEnd').remove();
+							}
+
+
+
+
+
 						});
 
 
