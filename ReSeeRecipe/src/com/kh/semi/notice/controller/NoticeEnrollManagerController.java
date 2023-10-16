@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,6 +19,7 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.vo.Tag;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -102,17 +101,24 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			//ArrayList<Tag> list = new ArrayList();
 			
 			// 문자열에서 "value" 필드의 값 추출하여 리스트에 담기
-	        List<String> extractedValues = extractValues(noticeTag);
-	        
+	        //List<String> extractedValues = extractValues(noticeTag);
+	        /*
 	        // 추출된 값을 출력
 	        for (String value : extractedValues) {
 	            System.out.println("추출된 값: " + value);
 	          
 	        }
 	        System.out.println(extractedValues);
+			*/
+			List<Tag> tagList = extractTags(noticeTag);
+
+	        for (Tag tag : tagList) {
+	            System.out.println(tag);
+	        }
+			
 			
 			// 4) 서비스 요청
-	        int result = new NoticeService().insertNotice(n, np, extractedValues);
+	        int result = new NoticeService().insertNotice(n, np, tagList);
 	        
 	        // 5) 응답 페이지 지정
 	        if(result > 0) {
@@ -138,7 +144,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 		
 	}
 	
-	
+	/*
 	public static List<String> extractValues(String noticeTag) {
         List<String> values = new ArrayList<>();
 
@@ -152,6 +158,24 @@ public class NoticeEnrollManagerController extends HttpServlet {
 
         return values;
     }
+	*/
+	
+	 public static List<Tag> extractTags(String noticeTag) {
+	        List<Tag> tagList = new ArrayList<>();
+
+	        int startIndex = noticeTag.indexOf("{\"value\":\"");
+	        while (startIndex != -1) {
+	            int endIndex = noticeTag.indexOf("\"}", startIndex);
+	            if (endIndex != -1) {
+	                String value = noticeTag.substring(startIndex + "{\"value\":\"".length(), endIndex);
+	                tagList.add(new Tag(value));
+	            }
+
+	            startIndex = noticeTag.indexOf("{\"value\":\"", endIndex);
+	        }
+
+	        return tagList;
+	    }
 	
 	
 
