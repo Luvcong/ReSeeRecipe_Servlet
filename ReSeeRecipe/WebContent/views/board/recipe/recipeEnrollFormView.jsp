@@ -979,8 +979,25 @@
 					<!--
 						아래의 제이쿼리 이벤트로 입력 틀 생성
 					-->
+					<div id="cookStepsInstInner1">
+						<div class="cook-steps-inst-pic">
+							<input type="file">
+						</div>
+					
+						<div class="cook-steps-inst-title">
+							<input type="hidden" name="cookStepsLev1" value="1"><p class="inst-title-lev">1</p><!--
+							--><input type="text" name="cookStepsTitle1" placeholder="요리과정 제목" class="inst-title-text"><button type="button" id="delCookSteps1" class="fas fa-minus-square modify-btn" aria-hidden="true">
+							</button>
+						</div>
+						<div class="cook-steps-inst-content">
+							<textarea name="cookStepsContent1" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;">
+							</textarea>
+						</div>
+					</div>
+
 					<div id="cookStepsInstInnerEnd">
-						<button id="instAddBtn" type="button" class="fas fa-plus-circle"></button>
+						<button id="instAddBtn" type="button" class="fas fa-plus-circle">
+						</button>
 					</div>
 				</div>
 
