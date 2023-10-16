@@ -37,10 +37,10 @@ public class MemberInfoSearchController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		// 값 뽑기
-		String memSearchoption = request.getParameter("option");
+		//String memSearchoption = request.getParameter("option");
 		String memSearchcon = request.getParameter("searhcon");
-		
-		ArrayList<Member> list = new MemberService().searchMember(memSearchoption, memSearchcon);
+		System.out.println("searchcon>>" + memSearchcon);
+		ArrayList<Member> list = new MemberService().searchMember(memSearchcon); //memSearchoption,
 		System.out.println("회원정보조회리스트>>"+  list);
 		response.setContentType("application/json; charset=UTF-8");
 		

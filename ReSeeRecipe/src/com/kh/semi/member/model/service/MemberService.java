@@ -269,11 +269,11 @@ public class MemberService {
 	 * @param memSearchcon 사용자가 입력한 값
 	 * @return 검색 수행 결과
 	 */
-	public ArrayList<Member> searchMember(String memSearchoption, String memSearchcon) {
+	public ArrayList<Member> searchMember(String memSearchcon) {
 		
 		Connection conn = getConnection();
 		
-		//String memoption = memSearchoption;
+		//String memoption = memSearchoption; String memSearchoption, 
 //		swtich(memSearchoption){
 //		case "회원ID" : ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchoption, memSearchcon);
 //		break;
@@ -306,10 +306,14 @@ public class MemberService {
 			list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
 		}
 		*/
-		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		//ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		
+		ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchcon);
 		
 		close(conn);
 		
 		return list;
 	}
+	
+	
 }
