@@ -306,10 +306,14 @@ public class MemberService {
 			list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
 		}
 		*/
-		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		//ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		
+		ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchcon);
 		
 		close(conn);
 		
 		return list;
 	}
+	
+	
 }
