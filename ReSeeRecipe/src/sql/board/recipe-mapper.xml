@@ -72,6 +72,28 @@
 	</entry>
 	
 	
+	<entry key="insertRecipe">
+		INSERT
+		  INTO
+		  	   TB_RECIPE
+		  	   (
+		  	   RECIPE_NO,
+		  	   RECIPE_TITLE,
+		  	   RECIPE_WRITER_NO,
+		  	   RECIPE_CATEGORY_NO
+		  	   )
+		VALUES
+			   (
+			   SEQ_RECIPE.NEXTVAL,
+			   ?,
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	<entry key="insert">
+	</entry>
+	
 	
 
 
