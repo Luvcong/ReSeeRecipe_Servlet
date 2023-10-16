@@ -20,13 +20,13 @@ import com.kh.semi.reward.model.vo.Reward;
 @WebServlet("/jhselect.rw")
 public class rewardListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private RewardService rewardServie;
+    private RewardService rewardService;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public rewardListController() {
         super();
-        rewardServie = new RewardService();
+        rewardService = new RewardService();
         // TODO Auto-generated constructor stub
     }
 
@@ -44,7 +44,7 @@ public class rewardListController extends HttpServlet {
 		int rewardStartPage;		// 페이징바 시작 수
 		int rewardEndPage;			// 페이징바 끝 수
 		
-		rewardListCount = rewardServie.selectRewardListCount();
+		rewardListCount = rewardService.selectRewardListCount();
 		rewardListPage = Integer.parseInt(request.getParameter("page"));
 		// System.out.println(rewardListCount);	//	저장 리워드 내역 데이터값 ok
 		// System.out.println(rewardListPage);	// 	현재 페이지 ok (1)
@@ -70,13 +70,13 @@ public class rewardListController extends HttpServlet {
 		pi.setStartPage(rewardStartPage);
 		pi.setEndPage(rewardEndPage);
 		
-		ArrayList<Reward> list = rewardServie.selectRewardList(pi);
+		ArrayList<Reward> list = rewardService.selectRewardList(pi);
 		
 		// 5) 응답화면 지정
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("views/reward/manager/rewardListView.jsp").forward(request, response);
-		// response.sendRedirect(request.getContextPath() + "/jhselect.ct?page=1");
+		// response.sendRedirect(request.getContextPath() + "/jhselect.rw?page=1");
 	}
 
 	/**
