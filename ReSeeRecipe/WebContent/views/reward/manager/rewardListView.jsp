@@ -70,7 +70,14 @@
 .paging-area{
 	padding-top: 65px;
 	text-align: center;
-}	
+}
+
+.reward-plus {
+	color: dodgerblue;
+}
+.reward-minus {
+	color: red;
+}
 </style>
 
 </head>
@@ -87,14 +94,16 @@
             <div class="searchTable">
             	<table>
             		<tr>
-            			<td><button type="button" data-toggle="dropdown">선택</button>
-            			  <div class="dropdown-menu">
-            			  		<a class="dropdown-item" href="#">전체</a>
-							    <a class="dropdown-item" href="#">아이디</a>
-							    <a class="dropdown-item" href="#">닉네임</a>
-						  </div>
+            			<td>
+            			    <select name="searchDrop">
+								<option value="all">전체</option>
+								<option value="memId">아이디</option>
+								<option value="memNickname">닉네임</option>
+							</select>
             			</td>
-            			<td><input id="rewardSearch" type="text" placeholder="검색명을 입력하세요" size="30"><button type="submit">조회</button></td>
+            			<td><input id="rewardSearch" type="text" placeholder="검색명을 입력하세요" size="30">
+            				<button type="submit">조회</button>
+           				</td>
             		</tr>
             	</table>
             </div>
@@ -103,8 +112,7 @@
                     조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
-                    <button onclick="showAddRewardModal()" class="btn btn-sm btn-warning">리워드 지급</button>
-                    <button onclick="showUpdateRewardModal()"class="btn btn-sm btn-warning">리워드 차감</button>
+                    <button onclick="showAddRewardModal()" class="btn btn-sm btn-warning">리워드 지급 / 차감</button>
                     <button onclick="showUpdateRewardModal()"class="btn btn-sm btn-warning">리워드 상세조회</button>
                 </div>
             </div>
@@ -168,9 +176,10 @@
 								<tr>
 									<th>선택</th>
 									<td>
- 										<select name="selectReward">
-											<option value="plusReard">리워드 지급</option>
-											<option value="minusReward">리워드 차감</option>
+ 										<select name="selectReward" onchange="changeColor()">
+ 											<option value="">유형 선택</option>
+											<option class="reward-plus" value="plusReward">리워드 지급</option>
+											<option class="reward-minus" value="minusReward">리워드 차감</option>
 										</select>
 									</td>
 								</tr>
@@ -184,17 +193,17 @@
 								</tr>
 								<tr>
 									<th>리워드 포인트</th>
-									<td><input type="text" name="rewardScore"></td>
+									<td><input type="number" name="rewardScore" id="reward-score" min="0" placeholder="리워드 금액(숫자)을 입력하세요"></td>
 								</tr>
 								<tr>
-									<th class="text-danger">리워드 사유<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 500 byte</div></th>
+									<th>리워드 사유<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 500 byte</div></th>
 									<td><textarea id="reward-textarea" name="rewardReason" onkeyup="checkedByte(this)" placeholder="&#10;&#10;&#10;지급/사유 내용을 입력하세요&#10;(최대 500byte)"></textarea></td>
 								</tr>
 							</table>
 		               </div>
 		               <!-- Modal footer -->
 		                <div class="modal-footer">
-		             		<button type="submit" class="btn btn-sm btn-warning">완료</button>
+		             		<button type="submit" class="btn btn-sm btn-warning" id="nullCheck" disabled onclick="checkReward()">완료</button>
 		                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
 		                </div>
 		            </div>
@@ -226,7 +235,90 @@
 		}
 	</script>
 	
+	
+	<!-- alertMsg script -->
+	<script>
+		var successMsg = '<%= successMsg %>';
+		var failMsg = '<%= failMsg %>';
+		
+		if(successMsg != 'null'){
+			Swal.fire('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
+		}
+		
+		if(failMsg != 'null'){
+			Swal.fire('실패', failMsg, 'error');
+		}
+		
+		<% session.removeAttribute("successMsg"); %>
+		<% session.removeAttribute("failMsg"); %>
+	</script>
+	
+	<!-- 글자 Byte 수 체크 -->
+	<script>
+		let limitByte = 500;
+		let totalByte;
+	
+		function checkedByte(obj){		
+			totalByte = 0;
+			let message = $(obj).val();
+			console.log(message);
+			
+			for(let i = 0; i < message.length; i++){
+				var countByte = message.charCodeAt(i);
+				if(countByte > 128){
+					totalByte += 3;
+				} else {
+					totalByte++;
+				}
+			}
+			$('#count').text(totalByte);
+		}	// checkedByte
+	
+	</script>
+	
+	<!-- 리워드 지급/차감 modal창 -->
 	<Script>
+		
+		// 리워드 지급/차감에 따른 색상 변경
+		function changeColor(){
+			let input = document.getElementById('reward-score');
+			// console.log(input);
+			
+			// select 태그 색상 변경
+			// reward-score 색상 변경
+			// console.log(this);			// window 객체..
+			// console.log(event.target);	// select 값ok
+			if(event.target.value == 'plusReward'){
+				input.style.color = 'dodgerblue';
+			}
+			else {
+				input.style.color = 'red';
+			}
+			
+			// null처리
+			// 유형이 없을 경우 > confrim 버튼 disable로 변경
+			let confirm = document.querySelector('#nullCheck');
+			// console.log(confirm);
+			if(event.target.value == null || event.target.value == ""){
+				confirm.setAttribute('disabled', true);
+				return;
+			}
+			confirm.removeAttribute('disabled');
+		}	// changeColor()
+		
+		// reward-score가 null이거나 "" 이면 disable? alert..
+		function checkReward(){
+			let reward = document.querySelector('#reward-score');
+			console.log(reward);
+			// let reward = document.getElementById('reward-score');
+			if(reward.value == null || reward.value == ''){
+				event.preventDefault();		// submit event 막아주기
+				Swal.fire('실패', '리워드 금액을 입력하세요!', 'error');
+				return;
+			}
+		}
+		
+		// 리워드 지급
 		function showAddRewardModal(){
 			let trs = document.querySelectorAll('.tableBody tbody tr');	// .tbody의 tr요소 모두 저장
 			console.log(trs);		// 값 ok
@@ -252,6 +344,7 @@
 			let modal = document.querySelector('#updateRewardForm');
 			let modal_tds = modal.querySelectorAll('table tr td');
 			// console.log(modal_tds);	// 값 ok
+
 			// 회원아이디
 			let memId = checked_tr.children[2].textContent;
 			console.log('memId : ' + memId);	// 값 ok
@@ -267,8 +360,6 @@
 			// 회원닉네임
 			let memNickname = checked_tr.children[3].textContent;
 			console.log('memNickname : ' + memNickname);	// 값 ok
-			
-			
 			
 			modal_tds[1].textContent = memId;
 			modal_tds[2].textContent = memNickname;
