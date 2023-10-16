@@ -4,6 +4,7 @@
 	<comment>레시피 게시판 관련 SQL문</comment>
 	
 	
+	<!-- ******* 레시피 관련 SELECT구문 ******* -->
 	<!-- 카테고리 리스트 조회 SQL문 -->
 	<entry key="selectRecipeCategoryList">
 		SELECT
@@ -27,7 +28,6 @@
 		   AND
 		   	   MEM_STATUS = 'Y'
 	</entry>
-	
 	
 	<entry key="selectRecipeList">
 		SELECT
@@ -70,9 +70,115 @@
 		 WHERE
 		 	   RNUM BETWEEN ? AND ?
 	</entry>
+	<!-- ******* 레시피 관련 SELECT구문 ******* -->
 	
 	
 	
+	<!-- ******* 레시피 관련 INSERT구문 ******* -->
+	<entry key="insertRecipe">
+		INSERT
+		  INTO
+		  	   TB_RECIPE
+		  	   (
+		  	   RECIPE_NO,
+		  	   RECIPE_TITLE,
+		  	   RECIPE_WRITER_NO,
+		  	   RECIPE_CATEGORY_NO
+		  	   )
+		VALUES
+			   (
+			   SEQ_RECIPE.NEXTVAL,
+			   ?,
+			   ?,
+			   ?
+			   )
+	</entry>
+	
+	
+	<entry key="insertRecipePic">
+		INSERT
+		  INTO
+		  	   TB_RECIPE_PIC
+		  	   (
+		  	   RECIPE_PIC_NO,
+		  	   RECIPE_PIC_NAME_ORIGIN,
+		  	   RECIPE_PIC_NAME_UPLOAD,
+		  	   RECIPE_PIC_PATH,
+		  	   RECIPE_PIC_LEV,
+		  	   REF_RNO
+		  	   )
+		VALUES
+			   (
+			   SEQ_RECIPE_PIC.NEXTVAL,
+			   ?,
+			   ?,
+			   ?,
+			   ?,
+			   SEQ_RECIPE.CURRVAL
+			   )
+	</entry>
+	
+	<entry key="insertIngredient">
+		INSERT
+		  INTO
+		  	   TB_INGREDIENT
+		  	   (
+		  	   INGREDIENT_NO,
+		  	   INGREDIENT,
+		  	   INGREDIENT_AMOUNT,
+		  	   RECIPE_NO
+		  	   )
+		VALUES
+			  (
+			  SEQ_INGREDIENT.NEXTVAL,
+			  ?,
+			  ?,
+			  SEQ_RECIPE.CURRVAL
+			  )
+	</entry>
+	
+	
+	<entry key="insertCookSteps">
+		INSERT
+		  INTO
+		  	   TB_COOK_STEPS
+		  	   (
+		  	   COOK_STEPS_NO,
+		  	   COOK_STEPS_TITLE,
+		  	   COOK_STEPS_CONTENT,
+		  	   COOK_STEPS_LEV,
+		  	   RECIPE_NO
+		  	   )
+		VALUES
+			   (
+			   SEQ_COOK_STEPS.NEXTVAL,
+			   ?,
+			   ?,
+			   ?,
+			   SEQ_RECIPE.CURRVAL
+			   )
+	</entry>
+	
+	
+	<entry key="insertRecipeTag">
+		INSERT
+		  INTO
+		  	   TB_RECIPE_TAG
+		  	   (
+		  	   TAG_NO,
+		  	   TAG_RECIPE_NO
+		  	   )
+		VALUES
+			   (
+			   ?,
+			   SEQ_RECIPE.CURRVAL
+			   )
+	</entry>
+	<!-- ******* 레시피 관련 INSERT구문 끝 ******* -->
+
+
+
+
 
 
 

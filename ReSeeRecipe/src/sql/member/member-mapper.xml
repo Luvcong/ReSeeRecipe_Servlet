@@ -21,6 +21,9 @@
 		       ,MEM_PICTURE
 		       ,MEM_GRADE
 		       ,MEM_GRADE_NAME
+		       ,(SELECT COUNT(COUPON_NO)
+		           FROM TB_MEMBER_COUPON
+		          GROUP BY MEM_NO) "MEM_COUPON_COUNT"
 		  FROM
 		       TB_MEMBER
 		  JOIN 

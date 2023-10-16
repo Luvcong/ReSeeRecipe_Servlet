@@ -6,18 +6,27 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.service.UnRecipeService;
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
+import com.kh.semi.board.recipe.model.vo.RecipeAllList;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.common.SendError;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.tag.model.service.TagService;
 import com.kh.semi.tag.model.vo.Tag;
+import com.oreilly.servlet.MultipartRequest;
 
 public class RecipeController {
 	
@@ -102,16 +111,15 @@ public class RecipeController {
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
 		
 		String viewPath = "";
-		
 		//@@@@@@@@@@@@편의를 위해 잠시 null
-		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
-		if(null == loginMember) {
-			// 임시저장글 받아오기
-			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList();
-			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
-		} else {
-			return new SendError().sendError(request, "임시저장글 조회에 실패했습니다");
-		}
+		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 번호 3해둠");
+		// 임시저장글 받아오기 (여기까지 온 loginmember는 != null임)
+		ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList(3/*loginMember.getMemNo()*/);
+		
+		request.setAttribute("unReList", unReList);
+		
+		System.out.println(unReList);
+		viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		return viewPath;
 	}
 	
@@ -139,22 +147,119 @@ public class RecipeController {
 	 * @param request : memNo : 로그인 멤버의 정보
 	 * @param response
 	 * @return
+	 * @throws IOException, FileUploadException 
 	 */
-	/*
-	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
-
-		String viewPath = "";
+	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) throws IOException, FileUploadException {
 		
-		if((request.getSession().getAttribute("loginMember")) != null) {
+		// 인코딩은 Servlet에서 완료
+		
+		// multipartContent가 있는지 체크 => 체크 후 서버올리기
+		if(ServletFileUpload.isMultipartContent(request)) {
+			// 1) Multipart객체 생성 시 => 서버에 파일 올라감
+			// 1_1. 전송용량 제한 (10Mbytes)
+			int maxSize = 1024 * 1024 * 10;
 			
+			// 1_2. 파일 저장할 경로 getServletContext.getRealPath() => 경로 매핑해줌
+			String fileSavePath = request.getServletContext().getRealPath("/resources/recipe_upfiles/recipe_pics/");
+			
+			// 1_3. MultipartRequest객체 생성 하면서 파일 이름 새로 생성
+			MultipartRequest multiRequest = new MultipartRequest(request,
+											fileSavePath,
+											maxSize,
+											"UTF-8",
+											new MyFileRenamePolicy());
+			
+			
+			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
+			/* 한개밖에 없는 값들 */
 			int memNo = loginMember.getMemNo();
-			int recipeWriterNo = memNo;
-			request.getParameter("recipeCategoryNo");
-			request.getParameter("recipeTitle");
+			String recipeTitle = multiRequest.getParameter("recipeTitle");
+			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
 			
 			
+			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+			int tagNo;
+			for(int i = 0; i < 5; i++) {
+				String tagNoKey = "tagNo" + i;
+				if(multiRequest.getParameter(tagNoKey) != null) {
+					tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
+				}
+			}
+		
+			
+			/* ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
+			ArrayList<RecipePic> rPicList = new ArrayList();
+			for(int i = 0; i < 7; i++) {
+				String recipeNameOriginKey = "recipeNameOrigin" + i;
+				String recipePicNameUploadKey = "recipePicNameUploadKey" + i;
+				String recipePicPathKey = "recipePicPathKey" + i;
+				String recipePicLevKey = "recipePicLev" + i;
+				
+				if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
+				   || multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
+				   || multiRequest.getOriginalFileName(recipePicPathKey) == null
+				   || multiRequest.getParameter(recipePicLevKey) == null)) {
+					// recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
+					RecipePic rPic = new RecipePic();
+					rPic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
+					rPic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
+					rPic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
+					rPic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
+					rPicList.add(rPic);
+				}
+			}
+
+			
+			/* CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
+			ArrayList<CookSteps> csArr = new ArrayList();
+			for(int i = 0; i < 6; i++) {
+				String csTitleKey = "cookStepsTitle" + i;
+				String csContentKey = "cookStepsContent" + i;
+				String csLev = "cookStepsLev" + i;
+				
+				if( !(multiRequest.getParameter(csTitleKey) == null
+				   || multiRequest.getParameter(csContentKey) == null
+				   || multiRequest.getParameter(csLev) == null)) {
+					CookSteps csObj = new CookSteps();
+					csObj.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
+					csObj.setCookStepsContent(multiRequest.getParameter(csContentKey));
+					csObj.setCookStepsLev(Integer.parseInt(multiRequest.getParameter(csLev)));
+					csArr.add(csObj);
+				}
+			}
+			
+			
+			/* ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
+			ArrayList<Ingredient> ingArr = new ArrayList();
+			for(int i = 0; i < 30; i++) {
+				String ingredientKey = "ingredient" + i;
+				String ingredientAmount = "ingredientAmount" + i;
+				
+				if((multiRequest.getParameter("ingredient") == null
+				 || multiRequest.getParameter("ingredientAmount") == null)) {
+					Ingredient ingObj = new Ingredient();
+					ingObj.setIngredient(multiRequest.getParameter("ingredient"));
+					ingObj.setIngredientAmount(multiRequest.getParameter("ingredientAmount"));
+					ingArr.add(ingObj);
+				}
+			}
+			
+
+			
+			
+			// 3) VO가공
+			// IngredientList
+			RecipeAllList recipeAllList = new RecipeAllList();
+			recipeAllList.setIngList(ingArr);
+			
+			// 재료 재료량 재료 재료량 재료 재료량
+		}
+		
+		
+		
+		/*
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
-			
+			/*
 			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때
 				// map내용이  있을 때 viewPath
 				request.setAttribute("mapEnrollForm", mapEnrollForm);
@@ -167,9 +272,10 @@ public class RecipeController {
 		} else { // 로그인 유저 정보가 없을 때 @@@@@@@(테스트위해 코드 O 나중에 지우고 error페이지나 recipemain으로 포워딩)
 			
 		}
-		return viewPath;
+		*/
+		return "";
 	}
-	*/
+	
 	
 	
 	

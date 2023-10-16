@@ -1,48 +1,62 @@
-  package com.kh.semi.manager.controller;
+package com.kh.semi.product.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.manager.model.service.ManagerService;
-import com.kh.semi.member.model.vo.Member;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.kh.semi.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class ManagerSettingController
+ * Servlet implementation class ReviewInsertController
  */
-@WebServlet("/hlsettingmanager.ma")
-public class ManagerSettingController extends HttpServlet {
+@WebServlet("/rinsert.po")
+public class ReviewInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerSettingController() {
+    public ReviewInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/** 관리자 정보 설정 서블릿
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 1) 인코딩 생략
 		
-		// 2) 값뽑기 - 관리자 식별 번호 input 태그 hidden의 value
-		int adminNo = Integer.parseInt(request.getParameter("adno"));
+		request.setCharacterEncoding("UTF-8");
 		
-		Member m = new ManagerService().managerSetting(adminNo);
+		System.out.println("gg");
 		
-		request.setAttribute("m", m);
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			System.out.println("dafda");
 		
-		// 응답화면 띄우기
-		request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
+		} else {
+			System.out.println("nn");
+		}
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**

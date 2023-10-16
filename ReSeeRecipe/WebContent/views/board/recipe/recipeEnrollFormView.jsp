@@ -3,8 +3,10 @@
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
-			     com.kh.semi.board.un_recipe.model.vo.UnRecipe" %>
-
+			     com.kh.semi.board.recipe.model.vo.UnRecipe" %>
+<%
+	//ArrayList<UnRecipe> unReList = (ArrayList)(request.getAttribute("unReList"));
+%>
 
 <!DOCTYPE html>
 <html>
@@ -554,7 +556,7 @@
 		
 		<!---------------------- 글작성 전체 form / memNo은 session에서 빼서 사용 ----------------------->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-
+		<!-- <form action="insertRecipe.re" id="recipe-enrolling-form" method="post" enctype="multipart/form-data"> -->
 			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
