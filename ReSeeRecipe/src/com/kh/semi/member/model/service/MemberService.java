@@ -20,6 +20,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		Member m = new MemberDao().loginMember(conn, memberId, memberPwd);
+		
 		close(conn);
 		
 		return m;
@@ -269,23 +270,12 @@ public class MemberService {
 	 * @param memSearchcon 사용자가 입력한 값
 	 * @return 검색 수행 결과
 	 */
-	public ArrayList<Member> searchMember(String memSearchoption, String memSearchcon) {
+	public ArrayList<Member> searchMember(String memSearchcon) {
 		
 		Connection conn = getConnection();
 		
-		//String memoption = memSearchoption;
-//		swtich(memSearchoption){
-//		case "회원ID" : ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchoption, memSearchcon);
-//		break;
-//		case "닉네임" :
-//		break;
-//		case :"이름" :
-//		break;
-//		case : "회원조회" :
-//		break;		
-//		default : System.out.println("없는 옵션으로 검색하셨습니다");
-//		return;
-//		}
+		//String memoption = memSearchoption; String memSearchoption, 
+
 		/*
 		ArrayList<Member> list = new ArrayList();
 		if(memSearchoption == "회원ID") {
@@ -306,7 +296,20 @@ public class MemberService {
 			list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
 		}
 		*/
-		ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		//ArrayList<Member> list = new MemberDao().searchMember(conn, memSearchoption, memSearchcon);
+		
+		ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchcon);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Member> searchMemId(String memSearchcon) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().searchmemId(conn, memSearchcon);
 		
 		close(conn);
 		

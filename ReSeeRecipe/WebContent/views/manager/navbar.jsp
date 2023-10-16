@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.member.model.vo.Member" %>
 <%
+	// session에서 관리자 정보 가져오기	
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	// 성공 / 메시지
+	String alertMsg =(String)session.getAttribute("alertMsg");
+
 	String contextPath = request.getContextPath();
 %>        
 <!DOCTYPE html>
@@ -49,8 +55,9 @@
 			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
 		</div>
 		<div class="titleMenu" id="adminsetting" >
-			<a href="<%=contextPath %>/hlsettingmanager.ma">
+			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
+				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
 		</div>
@@ -99,8 +106,8 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li onclick="goMenu('/jhselect.dm')"><a href="#">쪽지함 관리</a></li>
-					<li><a href="#">신고함 관리</a></li>
+					<li onclick="goMenu('/jhselect.dm');"><a href="#">쪽지함 관리</a></li>
+					<li onclick="goMenu('/jhselect.rp?page=1');"><a href="#">신고함 관리</a></li>
 				</ul>
 			</div>
 			<!-- 메뉴 관리 카테고리 -->
@@ -110,7 +117,7 @@
 			<div class="category">
 				<ul>
 					<li onclick="goMenu('/jhselect.ct?page=1');"><a href="#">카테고리 관리</a></li>
-					<li><a href="#">해시태그 관리</a></li>
+					<li onclick="goMenu('/hsselect.hs?page=1');"><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
 			<!-- 리워드 관리 카테고리 -->

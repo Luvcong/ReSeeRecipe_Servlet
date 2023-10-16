@@ -3,5 +3,20 @@
 <properties>
 	<comment>임시저장글 관련 SQL문</comment>
 	
+	<entry key="selectUnRecipeList">
+		SELECT
+			   UN_RECIPE_NO,
+			   UN_RECIPE_TITLE,
+			   UN_RECIPE_DATE,
+			   UN_RECIPE_MODIFIED,
+			   UN_CATEGORY_NO,
+			   UN_RECIPE_WRITER_NO
+		  FROM
+		       TB_UN_RECIPE
+		 WHERE
+		       UN_RECIPE_WRITER_NO = ?
+	</entry>
+	
+	
 	
 </properties>

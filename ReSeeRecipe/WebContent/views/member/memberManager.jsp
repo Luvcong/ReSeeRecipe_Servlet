@@ -116,9 +116,9 @@
                     <a type="dropdown" class="dropdown-item" href="#">닉네임</a>
                     <a type="dropdown" class="dropdown-item" href="#">이름</a>
                   </div> -->
-                  <select id="memSearch"  value="회윈조회"class="btn btn-warning">
+                  <select id="HL_memSearch" name="ManagermemSearch" class="btn btn-warning" onchange="searchoption();">
                   	<!--  <option selected>회원조회</option>-->
-                  	<option value="MEM_ID">회원ID</option> 
+                  	<option value="MEM_ID" selected>회원ID</option> 
                   	<option value="MEM_NICKNAME">닉네임</option> 
                   	<option value="MEM_NAME">이름</option> 
                   </select>
@@ -134,7 +134,14 @@
         	$(function(){
         		$('#HL_memSearch').on('click', HL_memSearch);
         	});
+        	
+        	// 선택한 검색 옵션값 초기화
+        	var $seleoption = 'MEM_ID';
+        	
         	function HL_memSearch(){
+        		
+        		var $selectoption = $('#HL_memSearch').val();
+        		console.log($selectoption);
         		
         		
         		
@@ -151,8 +158,8 @@
         			url : 'hlsearchmeminfo.ma',
         			type : 'post',
         			data : {
-        				option : $option.val(),
-        				searhcon : $searcon
+        			/*	option : $option.val(),*/
+        				searhcon : $('#searchMember').val()
         			},
         			success : function(result){
         				console.log(result);

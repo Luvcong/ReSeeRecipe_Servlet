@@ -41,6 +41,11 @@ public class DmUpdateReplyController extends HttpServlet {
 		String dmReply = request.getParameter("dmReply");
 		int dmNo = Integer.parseInt(request.getParameter("dmNo"));
 		
+		// 현재 페이지값 구하기 위한 변수 추가 선언
+		String pageStr = request.getParameter("page");
+		if(pageStr == null)		// null처리
+			pageStr = "1"; 
+
 		// 3) 데이터 가공
 		Dm dm = new Dm();
 		dm.setDmReply(dmReply);
@@ -55,7 +60,7 @@ public class DmUpdateReplyController extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("failMsg", "Error 다시 시도해주세요!");
 		}
-		response.sendRedirect(request.getContextPath() + "/jhselect.dm");
+		response.sendRedirect(request.getContextPath() + "/jhselect.dm?page=" + pageStr);
 		
 	}
 

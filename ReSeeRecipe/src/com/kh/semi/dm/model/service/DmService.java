@@ -1,10 +1,14 @@
 package com.kh.semi.dm.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.dm.model.dao.DmDao;
 import com.kh.semi.dm.model.vo.Dm;
 
@@ -23,11 +27,11 @@ public class DmService {
 	 * @author JH
 	 * @Date : 2023. 09. 30.
 	 */
-	public ArrayList<Dm> selectDmList() {
+	public ArrayList<Dm> selectDmList(PageInfo pi) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Dm> list = dmDao.selectDmList(conn);
+		ArrayList<Dm> list = dmDao.selectDmList(conn, pi);
 		
 		close(conn);
 		
@@ -107,16 +111,42 @@ public class DmService {
 	}
 	
 	
-//	public Dm selectDm(int dmNo) {
-//		
-//		Connection conn = getConnection();
-//		
-//		Dm dm = dmDao.selectDm(conn, dmNo);
-//		
-//		close(conn);
-//		
-//		return dm;
-//	}
-//	
+	/**
+	 * 쪽지함 리스트 카운트 행 수 조회 요청
+	 * @return DM에 저장되어 있는 쪽지함 리스트 수
+	 * @author JH
+	 * @Date : 2023. 10. 15.
+	 */
+	public int selectDmListCount() {
+		
+		Connection conn = getConnection();
+		
+		int dmListCount = dmDao.selectDmListCount(conn);
+		
+		close(conn);
+		
+		return dmListCount;
+	}
+	
+	
+	/**
+	 * 쪽지 답변완료 수 확인 요청 처리 method
+	 * @return 쪽지 답변완료 개수 - DM_STATUS == 'Y'
+	 * @author JH
+	 * @Date : 2023. 10. 16.
+	 */
+	public int repliedCount() {
+	
+		Connection conn = getConnection();
+	
+		int dmRepliedCount = dmDao.repliedCount(conn);
+		
+		close(conn);
+		
+		return dmRepliedCount;
+	}	// repliedCount
+	
+	
+	
 	
 }	// end class

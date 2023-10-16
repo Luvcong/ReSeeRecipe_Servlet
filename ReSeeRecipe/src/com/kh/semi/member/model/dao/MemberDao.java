@@ -60,7 +60,8 @@ public class MemberDao {
 							   rset.getDate("DELETE_DATE"),
 							   rset.getString("MEM_PICTURE"),
 							   rset.getInt("MEM_GRADE"),
-							   rset.getString("MEM_GRADE_NAME"));
+							   rset.getString("MEM_GRADE_NAME"),
+							   rset.getInt("MEM_COUPON_COUNT"));
 			}	
 
 		} catch (SQLException e) {
@@ -505,7 +506,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mu.getMemNo());
 			pstmt.setString(2,mu.getMemUpdateCon());
-			pstmt.setInt(3, mu.getMemNo());
+			//pstmt.setInt(3, mu.getMemNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -676,6 +677,7 @@ public class MemberDao {
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
 				
+				
 				list.add(m);
 				System.out.println("회원정보조회리스트add>>"+  list);
 			}
@@ -691,8 +693,8 @@ public class MemberDao {
 		System.out.println("회원정보조회리스트리턴>"+  list);
 		return list;
 	}
+
 	
-	/*
 	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
 		
 		ArrayList<Member> list = new ArrayList();
@@ -711,18 +713,24 @@ public class MemberDao {
 				Member m = new Member();
 				m.setMemNo(rset.getInt("MEM_NO"));
 				m.setMemId(rset.getString("MEM_ID"));
-				m.setMemId(r)
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
-		
-		
-		
+		return list;
 	}
-	*/
+	
 	
 	
 	

@@ -1,11 +1,16 @@
 package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
+import com.kh.semi.common.SendError;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class RecipeServletController
@@ -34,7 +39,6 @@ public class RecipeServlet extends HttpServlet {
 		String viewPath = "";
 		
 		RecipeController rc = new RecipeController();
-		RecipeErrorController rec = new RecipeErrorController();
 		
 		// 인코딩 세팅
 		request.setCharacterEncoding("UTF-8");	
@@ -59,7 +63,7 @@ public class RecipeServlet extends HttpServlet {
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
 			
 			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax */
-			//case "insertRecipe" : viewPath = rc.insertRecipe(request, response); break;
+			case "insertRecipe" : viewPath = rc.insertRecipe(request, response); flag = false; break;
 			
 			
 			/* 위의 것 완료 후 */
@@ -78,13 +82,8 @@ public class RecipeServlet extends HttpServlet {
 			/* 4. 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자) */
 			//case "searchKeyWord" : viewPath = rc.searchKeyWord(request, response); break;
 			
-			
-			/* 에러메세지 종류 */
-			/* 레시피 전체조회 결과 없을 시 에러페이지로 포워딩 */
-			case "errorNoRecipeList" : viewPath = rec.errorNoRecipeList(request, response); break;
-			
-			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 포워딩 */
-			default : viewPath = rec.errorDefault(request, response); break;
+			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 리디렉팅 */
+			default : viewPath = rc.errorDefault(request, response); flag=false; break;
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)

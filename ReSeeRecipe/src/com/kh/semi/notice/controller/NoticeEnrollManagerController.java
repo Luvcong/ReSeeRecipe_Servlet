@@ -1,10 +1,9 @@
 package com.kh.semi.notice.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -102,18 +101,42 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			//ArrayList<Tag> list = new ArrayList();
 			
 			// 문자열에서 "value" 필드의 값 추출하여 리스트에 담기
-	        List<String> extractedValues = extractValues(noticeTag);
-	        
+	        //List<String> extractedValues = extractValues(noticeTag);
+	        /*
 	        // 추출된 값을 출력
 	        for (String value : extractedValues) {
 	            System.out.println("추출된 값: " + value);
 	          
 	        }
 	        System.out.println(extractedValues);
+			*/
+			List<Tag> tagList = extractTags(noticeTag);
+
+	        for (Tag tag : tagList) {
+	            System.out.println(tag);
+	        }
+			
 			
 			// 4) 서비스 요청
-	        int result = new NoticeService().insertNotice(n, np, extractedValues);
+	        int result = new NoticeService().insertNotice(n, np, tagList);
 	        
+	        // 5) 응답 페이지 지정
+	        if(result > 0) {
+	        	request.getSession().setAttribute("alertMsg", "게시글 등록 성공"); // 포워딩으로 위임 시 NullPointException 발생
+	        	response.sendRedirect(request.getContextPath() + "/hlnoticemanage.no?cnpage=1");
+	        } else {
+	        	
+	        	// 공지사항 사진 첨부시 TB_NOTICE_PIC에 INSERT 실패시 이미 가지고 있는 파일을 삭제해야함
+	        	// 공지사항 해시태그 작성시 TB_NOTICE_TAG에 INSERT 실패 시 
+	        	if(np != null) {
+	        		// delete() 호출
+	        		new File(savePath + np.getNoticePicNagmeChange()).delete();
+	        	}
+	        	
+	        	request.setAttribute("errorMsg", "공지사항 게시글 작성 실패");
+	        	request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	        	
+	        } 
 	        
 		}
 		
@@ -121,8 +144,8 @@ public class NoticeEnrollManagerController extends HttpServlet {
 		
 	}
 	
-	
-	private static List<String> extractValues(String noticeTag) {
+	/*
+	public static List<String> extractValues(String noticeTag) {
         List<String> values = new ArrayList<>();
 
         // 정규식을 사용하여 "value" 필드의 값 추출
@@ -135,6 +158,24 @@ public class NoticeEnrollManagerController extends HttpServlet {
 
         return values;
     }
+	*/
+	
+	 public static List<Tag> extractTags(String noticeTag) {
+	        List<Tag> tagList = new ArrayList<>();
+
+	        int startIndex = noticeTag.indexOf("{\"value\":\"");
+	        while (startIndex != -1) {
+	            int endIndex = noticeTag.indexOf("\"}", startIndex);
+	            if (endIndex != -1) {
+	                String value = noticeTag.substring(startIndex + "{\"value\":\"".length(), endIndex);
+	                tagList.add(new Tag(value));
+	            }
+
+	            startIndex = noticeTag.indexOf("{\"value\":\"", endIndex);
+	        }
+
+	        return tagList;
+	    }
 	
 	
 

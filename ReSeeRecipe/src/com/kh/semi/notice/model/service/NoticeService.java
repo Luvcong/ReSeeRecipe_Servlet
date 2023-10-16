@@ -1,7 +1,6 @@
 package com.kh.semi.notice.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ public class NoticeService {
 	 * @param extractedValues 입력한 해시태그명
 	 * @return 트랜잭션 처리 결과
 	 */
-	public int insertNotice(Notice n, NoticePic np, List<String> extractedValues) {
+	public int insertNotice(Notice n, NoticePic np, List<Tag> tagList) {
 		
 		Connection conn = getConnection();
 		
@@ -87,16 +86,57 @@ public class NoticeService {
 		
 		int result2 = 1;
 		int result3 = 1;
-		if(np != null || extractedValues != null) {
+		
+		/*
+		if(result1 > 0) {
+			
+			if(result2 > 0) {
+				
+			}
+		}
+		*/
+		
+		if(np != null || tagList != null) {
 			// 공지사항 사진 업로드
 			result2 = new NoticeDao().insertNoticePic(conn, np);
 			
 			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
-			ArrayList<Tag> list = new TagDao().selectTagNo(conn, extractedValues);
+			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
 			
 			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
 			result3 = new NoticeDao().insertNoticeTag(conn, list);
 			
+		} 
+		// 3) 트랜잭션 처리
+		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
+		// 셋 중 하나라도 실패하면 무조건 rollback
+		
+		if((result1 * result2 * result3) > 0) {
+			commit(conn);
+		} else if ((result1 * result2) > 0) {
+			commit(conn);
+		} else if ((result1 * result3) > 0) {
+			commit(conn);
+		} else if (result1 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
+		
+		/*
+		if(result1 > 0) {
+			commit(conn);
+			if(result2 > 0) {
+				commit(conn);
+			} else if(result3 > 0) {
+				commit(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+		*/
+		close(conn);
+		
+		return (result1 * result2 * result3);
 	}
 }

@@ -44,7 +44,7 @@ public class MemberUpdateController extends HttpServlet {
 			int maxSize = 1024 * 1024 * 10;
 			
 			// 저장경로
-			String savePath = request.getSession().getServletContext().getRealPath("resources/profile_upfiles");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/profile_upfiles");
 			
 			// HttpServletRequest request 객체를 MultipartRequest 변환
 			// MultipartRequest 객체 생성 시 파일 업로드
@@ -69,6 +69,7 @@ public class MemberUpdateController extends HttpServlet {
 			m.setMemNickname(memberNickname);
 			m.setMemEmail(memberEmail);
 			
+			
 			// 현재 파일수정을 눌렀다면 무조건 사진이 있음. 근데 기본값은 null임
 			String memberPicture = null;
 			// 첨부파일이 있다면 
@@ -76,7 +77,7 @@ public class MemberUpdateController extends HttpServlet {
 			System.out.println(multiRequest.getOriginalFileName("profileInput"));
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
 				// 파일경로 + 파일수정명을 넘겨줄거임(DB에 MEM_PICTURE컬럼에 저장)
-				memberPicture = savePath + "/" + multiRequest.getOriginalFileName("profileInput");
+				memberPicture = "/resources/profile_upfiles/" + multiRequest.getFilesystemName("profileInput");
 			}
 			
 			// Service로 수정할 회원 정보와 파일정보를 넘겨 요청

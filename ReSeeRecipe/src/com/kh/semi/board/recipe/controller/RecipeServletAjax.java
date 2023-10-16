@@ -29,10 +29,9 @@ public class RecipeServletAjax extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// 기본 변수 세팅
 		RecipeController rc = new RecipeController();
-		
+		System.out.println("여기까진오나");
 		// POST 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
@@ -49,6 +48,7 @@ public class RecipeServletAjax extends HttpServlet {
 		
 			default : break;
 		}
+
 	
 	
 	

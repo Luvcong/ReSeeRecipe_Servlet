@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.service.ProductService;
 import com.kh.semi.product.model.vo.Product;
@@ -66,7 +67,9 @@ public class AjaxSearchListSortController extends HttpServlet {
 		request.setAttribute("select", select);
 		request.setAttribute("cate", cate);
 		
-		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

@@ -1,11 +1,16 @@
   package com.kh.semi.manager.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.manager.model.service.ManagerService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class ManagerSettingController
@@ -22,12 +27,22 @@ public class ManagerSettingController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/** 관리자 정보 설정 서블릿
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// 1) 인코딩 생략
+		
+		// 2) 값뽑기 - 관리자 식별 번호 input 태그 hidden의 value
+		int adminNo = Integer.parseInt(request.getParameter("adno"));
+		
+		Member m = new ManagerService().managerSetting(adminNo);
+		
+		request.setAttribute("m", m);
+		
+		// 응답화면 띄우기
+		request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
 	}
 
 	/**

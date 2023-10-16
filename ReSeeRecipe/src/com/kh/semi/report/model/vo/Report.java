@@ -8,7 +8,8 @@ public class Report {
 //	RPT_CONTENT	VARCHAR2(500 BYTE)
 //	RPT_DATE	DATE
 //	RPT_TARGET	NUMBER
-//	MEM_NO	NUMBER
+//	RECIVE_REPORT	NUMBER
+//	SEND_REPORT	NUMBER
 //	RPT_CATEGORY_NO	NUMBER
 //	RPT_STATUS	VARCHAR2(1 BYTE)
 	
@@ -16,24 +17,28 @@ public class Report {
 	private String rptContent;
 	private Date rptDate;
 	private int rptTarget;
-	private int memNo;
+	private String reciveReport;
+	private String sendReport;
 	private int rptCategoryNo;
 	private String rptStatus;
+	private String rptCategoryName;		// 관리자 신고함 리스트 조회시 필요
 	
 	public Report() {
 		super();
 	}
 
-	public Report(int reportNo, String rptContent, Date rptDate, int rptTarget, int memNo, int rptCategoryNo,
-			String rptStatus) {
+	public Report(int reportNo, String rptContent, Date rptDate, int rptTarget, String reciveReport, String sendReport,
+			int rptCategoryNo, String rptStatus, String rptCategoryName) {
 		super();
 		this.reportNo = reportNo;
 		this.rptContent = rptContent;
 		this.rptDate = rptDate;
 		this.rptTarget = rptTarget;
-		this.memNo = memNo;
+		this.reciveReport = reciveReport;
+		this.sendReport = sendReport;
 		this.rptCategoryNo = rptCategoryNo;
 		this.rptStatus = rptStatus;
+		this.rptCategoryName = rptCategoryName;
 	}
 
 	public int getReportNo() {
@@ -68,12 +73,20 @@ public class Report {
 		this.rptTarget = rptTarget;
 	}
 
-	public int getMemNo() {
-		return memNo;
+	public String getReciveReport() {
+		return reciveReport;
 	}
 
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
+	public void setReciveReport(String reciveReport) {
+		this.reciveReport = reciveReport;
+	}
+
+	public String getSendReport() {
+		return sendReport;
+	}
+
+	public void setSendReport(String sendReport) {
+		this.sendReport = sendReport;
 	}
 
 	public int getRptCategoryNo() {
@@ -92,11 +105,19 @@ public class Report {
 		this.rptStatus = rptStatus;
 	}
 
+	public String getRptCategoryName() {
+		return rptCategoryName;
+	}
+
+	public void setRptCategoryName(String rptCategoryName) {
+		this.rptCategoryName = rptCategoryName;
+	}
+
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", rptContent=" + rptContent + ", rptDate=" + rptDate + ", rptTarget="
-				+ rptTarget + ", memNo=" + memNo + ", rptCategoryNo=" + rptCategoryNo + ", rptStatus=" + rptStatus
-				+ "]";
+				+ rptTarget + ", reciveReport=" + reciveReport + ", sendReport=" + sendReport + ", rptCategoryNo="
+				+ rptCategoryNo + ", rptStatus=" + rptStatus + ", rptCategoryName=" + rptCategoryName + "]";
 	}
-	
+
 }	// end class
