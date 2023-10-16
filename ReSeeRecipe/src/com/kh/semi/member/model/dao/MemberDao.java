@@ -691,7 +691,7 @@ public class MemberDao {
 		System.out.println("회원정보조회리스트리턴>"+  list);
 		return list;
 	}
-	
+
 	
 	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
 		
