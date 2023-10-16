@@ -49,6 +49,7 @@ public class ManagerDao {
 				m.setMemNickname(rset.getString("MEM_NICKNAME"));
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setModifyDate(rset.getDate("MODIFY_DATE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

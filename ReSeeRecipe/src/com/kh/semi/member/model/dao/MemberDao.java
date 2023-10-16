@@ -505,7 +505,7 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mu.getMemNo());
 			pstmt.setString(2,mu.getMemUpdateCon());
-			pstmt.setInt(3, mu.getMemNo());
+			//pstmt.setInt(3, mu.getMemNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
