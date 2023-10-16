@@ -169,15 +169,15 @@ public class RecipeController {
 											"UTF-8",
 											new MyFileRenamePolicy());
 			
-			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
-			int memNo = loginMember.getMemNo();
 			
+			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
+			/* 한개밖에 없는 값들 */
+			int memNo = loginMember.getMemNo();
 			String recipeTitle = multiRequest.getParameter("recipeTitle");
 			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
 			
 			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 			int tagNo;
-			
 			for(int i = 0; i < 5; i++) {
 				String tagNoKey = "tagNo" + i;
 				if(multiRequest.getParameter(tagNoKey) != null) {
@@ -185,26 +185,30 @@ public class RecipeController {
 				}
 			}
 		
-			/* 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
-			ArrayList<RecipePic> rPic = new ArrayList();
+			/* ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
+			ArrayList<RecipePic> rPicList = new ArrayList();
 			for(int i = 0; i < 7; i++) {
 				String recipeNameOriginKey = "recipeNameOrigin" + i;
 				String recipePicNameUploadKey = "recipePicNameUploadKey" + i;
 				String recipePicPathKey = "recipePicPathKey" + i;
 				String recipePicLevKey = "recipePicLev" + i;
 				
-				if( !(multiRequest.getParameter(recipeNameOriginKey) == null
-				   || multiRequest.getParameter(recipePicNameUploadKey) == null
-				   || multiRequest.getParameter(recipePicPathKey) == null
-				   || multiRequest.getParameter(recipePicLevKey) == null)) {
-					RecipePic rpic = new RecipePic();
+				if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
+				   || multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
+				   || multiRequest.getOriginalFileName(recipePicPathKey) == null
+				   || multiRequest.getOriginalFileName(recipePicLevKey) == null)) {
+					RecipePic rPic = new RecipePic();
+					rPic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
+					rPic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
+					rPic.setRecipePicPath();
+					
 					String recipePicNameOrigin = multiRequest.getParameter(recipeNameOriginKey);
 					String recipePicNameUpload = multiRequest.getParameter(recipePicNameUploadKey);
 					String recipePicPath = multiRequest.getParameter(recipePicPathKey);
 					if(i == 0) {
+						int recipePicLev = Integer.parseInt(multiRequest.getParameter(recipePicLevKey));
 						
 					}
-					int recipePicLev = Integer.parseInt(multiRequest.getParameter(recipePicLevKey));
 				}
 			}
 			
