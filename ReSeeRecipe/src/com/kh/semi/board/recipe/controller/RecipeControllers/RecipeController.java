@@ -182,7 +182,7 @@ public class RecipeController {
 			// 이 항목들이 모두 데이터가 있다면
 			if( !(multiRequest.getParameter("recipeTitle") != null
 			   || multiRequest.getParameter("recipeCategoryNo") != null)) {
-				// Recipe객체 생성 + 필드 초기화 후 ArrayList에 추가
+				// Recipe객체 필드 초기화 후 ArrayList에 추가
 				recipe.setRecipeTitle(multiRequest.getParameter("recipeTitle"));
 				recipe.setRecipeWriterNo(loginMember.getMemNo());
 				recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
@@ -203,12 +203,12 @@ public class RecipeController {
 						|| multiRequest.getOriginalFileName(recipePicPathKey) == null
 						|| multiRequest.getParameter(recipePicLevKey) == null)) {
 					// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
-					RecipePic rPicObj = new RecipePic();
-					rPicObj.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
-					rPicObj.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
-					rPicObj.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
-					rPicObj.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
-					recipePicList.add(rPicObj);
+					RecipePic recipePic = new RecipePic();
+					recipePic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
+					recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
+					recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
+					recipePic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
+					recipePicList.add(recipePic);
 				}
 			}
 			
@@ -222,10 +222,10 @@ public class RecipeController {
 				if( !(multiRequest.getParameter(ingredientKey) == null
 						|| multiRequest.getParameter(ingredientAmount) == null)) {
 					// Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
-					Ingredient ingObj = new Ingredient();
-					ingObj.setIngredient(multiRequest.getParameter(ingredientKey));
-					ingObj.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
-					ingredientList.add(ingObj);
+					Ingredient ingredient = new Ingredient();
+					ingredient.setIngredient(multiRequest.getParameter(ingredientKey));
+					ingredient.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
+					ingredientList.add(ingredient);
 				}
 			}
 
@@ -241,11 +241,11 @@ public class RecipeController {
 				   || multiRequest.getParameter(csContentKey) == null
 				   || multiRequest.getParameter(csLev) == null)) {
 					// CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
-					CookSteps csObj = new CookSteps();
-					csObj.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
-					csObj.setCookStepsContent(multiRequest.getParameter(csContentKey));
-					csObj.setCookStepsLev(Integer.parseInt(multiRequest.getParameter(csLev)));
-					cookStepsList.add(csObj);
+					CookSteps cookSteps = new CookSteps();
+					cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
+					cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
+					cookSteps.setCookStepsLev(Integer.parseInt(multiRequest.getParameter(csLev)));
+					cookStepsList.add(cookSteps);
 				}
 			}
 			

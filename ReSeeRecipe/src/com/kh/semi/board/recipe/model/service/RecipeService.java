@@ -76,7 +76,7 @@ public class RecipeService {
 		try(Connection conn = getConnection()) {
 			// TB_RECIPE insert
 			Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
-			recipeResult = rd.insertRecipe(recipe);
+			recipeResult = rd.insertRecipe(conn, recipe);
 			
 			if(recipeResult > 0) {
 				// TB_RECIPE_PIC insert
