@@ -166,7 +166,10 @@ public class RecipeController {
 			
 			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
 			int memNo = loginMember.getMemNo();
-			multiRequest.getParameter("recipeCategoryNo");
+			
+			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
+			int tagNo = Integer.parseInt(multiRequest.getParameter(""));
+			
 			
 			// 3) VO가공
 		}
