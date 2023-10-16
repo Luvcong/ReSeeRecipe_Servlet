@@ -346,7 +346,7 @@
           var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
 
           // 정규표현식 초기화
-          var $regExp = /^$/;
+          var $regExp = /^/;
 
           // 1) 이름 (2 ~ 6자 이내)
           if($(this)[0] == $('#memberName')[0]) {
