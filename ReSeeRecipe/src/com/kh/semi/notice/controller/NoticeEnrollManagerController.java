@@ -116,13 +116,13 @@ public class NoticeEnrollManagerController extends HttpServlet {
 	        
 	        // 5) 응답 페이지 지정
 	        if(result > 0) {
-	        	//request.getSession().setAttribute("alertMsg", "게시글 등록 성공"); // 포워딩으로 위임 시 NullPointException 발생
+	        	request.getSession().setAttribute("alertMsg", "게시글 등록 성공"); // 포워딩으로 위임 시 NullPointException 발생
 	        	response.sendRedirect(request.getContextPath() + "/hlnoticemanage.no?cnpage=1");
 	        } else {
 	        	
 	        	// 공지사항 사진 첨부시 TB_NOTICE_PIC에 INSERT 실패시 이미 가지고 있는 파일을 삭제해야함
 	        	// 공지사항 해시태그 작성시 TB_NOTICE_TAG에 INSERT 실패 시 
-	        	if(np != null ) {
+	        	if(np != null) {
 	        		// delete() 호출
 	        		new File(savePath + np.getNoticePicNagmeChange()).delete();
 	        	}
@@ -139,7 +139,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 	}
 	
 	
-	private static List<String> extractValues(String noticeTag) {
+	public static List<String> extractValues(String noticeTag) {
         List<String> values = new ArrayList<>();
 
         // 정규식을 사용하여 "value" 필드의 값 추출
