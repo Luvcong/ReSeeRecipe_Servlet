@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레시피 글 작성 양식</title>
+<title>레시피 디테일뷰</title>
 
 </head>
 
@@ -136,54 +136,6 @@
         background-color: transparent;
 	
 	}
-	/******************여기부터아직스타일정리X***********************/
-	/* 4. 임시저장 입력폼 모달창 세팅 */
-	/*
-	#unrecipe-modal, #unrecipe-unavailable-modal{
-		position: fixed;
-		top: 3%;
-		left: 30%;
-	}
-	
-	#unrecipe-unavailable-modal .modal-header,
-	#unrecipe-modal .modal-header {
-		height: 100px;
-	}
-	#unrecipe-unavailable-modal .modal-header t4,
-	#unrecipe-modal .modal-header t4 {
-		font-size: 28px;
-	}
-	
-	#unrecipe-unavailable-modal .modal-body,
-	#unrecipe-modal .modal-body {
-		height: 130px;
-		padding: 10px;
-	}
-	
-	#unrecipe-unavailable-modal .modal-body h5,
-	#unrecipe-modal .modal-body h5 {
-		margin: 10px;
-		font-size: 20px;
-	}
-		
-	#unrecipe-unavailable-modal .modal-body p,
-	#unrecipe-modal .modal-body p {
-		margin: 0px;
-		margin-left: 20px;
-		margin-bottom: 10px;
-		font-size: 15px;
-	}
-	
-	
-	#unrecipe-unavailable-modal .modal-content {
-		height: 600px;
-	}
-	#unrecipe-unavailable-modal .modal-footer,
-	#unrecipe-modal .modal-footer {
-		height: 100px;
-		padding: 10px;
-	}
-	*/
 
 
 	/**********************************************************
@@ -231,7 +183,7 @@
 
 	/* 셰프이름 */
 	#cook-steps-chef {
-		height: 40%;
+		height: 60%;
 	}
 
 	#cook-steps-chef > p {
@@ -243,17 +195,26 @@
 	}
 
 	/* 해시태그 */
-	#cook-steps-hashtag {
-		height: 60%;
+	#detailTagDiv1 {
+		width: 100%;
+		height: 40%;
 	}
-
-	#cook-steps-hashtag select {
+	
+	#detailTagDiv2 {
 		width: 90%;
-		height: 70%;
+		height: 100%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
-		margin-top : 12px;
+		background-color: #17a2b8;
 	}
+	
+	.detailTagList {
+		display: inline-block;
+		margin: auto;
+		font-size: 17px;
+		margin-top: 15px;
+	}
+	
 	#cook-steps-hashtag option {
 		font-size: 25px;
 	}
@@ -563,100 +524,21 @@
 					<i class='fas fa-align-left'></i>
 				</div>
 				<div id="recipe-enroll-bar-menu">
-					<div id="recipe-enroll-bar-inner">
-						<select name="recipeCategoryNo">
-								<option	value="1">한식</option>
-								<option value="2">양식</option>
-								<option value="3">중식</option>
-								<option value="4">일식</option>
-								<option value="5">아시안</option>
-								<option value="6">야식</option>
-								<option value="7">디저트</option>
-								<option value="8">음료</option>
-						</select>
-					</div>
-					<div id="enroll-bar-inner-blank1"></div>
+					한식
 				</div>
-
-				<!-- 임시저장 아이콘 (클릭 시 모달 호출) -->
-				<div id="unrecipe-modal-request-div">
-					<button type="button" onclick="unrecipeModalRequest(this);"
-						class='fas fa-folder' data-toggle="modal" data-target="#">
-						<!--임시저장글개수-->
-					</button>
+				<div>
+					조회수
 				</div>
-
-				<!-- 1. 임시작성 기본 모달 (if else는 script에서 처리) -->
-				<!--  글 3개 미만 0, 1, 2개 상태 : 해시태그, 이미지유실 경고 후 임시저장글 작성 -->
-				<div class="modal" id="unrecipe-modal">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-
-							<div class="modal-header">
-								<h4 class="modal-title">임시저장글로 저장합니다.</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-
-							<div class="modal-body">
-								<h5>주의! 해시태그와 사진은 저장되지 않습니다.</h5>
-								<p>그래도 임시저장글로 저장을 원하시면 저장하기 버튼을 누르세요.</p>
-							</div>
-
-							<div class="modal-footer">
-								<button type="button" id="unrecipe-enrolling-btn"
-									class="btn btn-primary">저장하기</button>
-								<button type="button" class="btn btn-danger"
-									data-dismiss="modal">취소</button>
-							</div>
-						</div>
-					</div>
+				<div>
+					하트
 				</div>
-				<!-- 2. 임시작성 글 3개 이상 시 모달 -->
-				<!-- 글 3개 이상 3, 4 . . . 상태 : 모달로 제목 목록띄우면서 '이 글을 지우고 작성' 여부 선택하도록
-				 							 -> 선택한 글 지우고 이거 쓰려는게 맞는지, 해시태그와 사진은 저장안된다는 것 더블체크
-				  					 		 -> 선택한 임시저장글번호 지우고 + 현재 임시저장글 작성 -->
-				<div class="modal" id="unrecipe-unavailable-modal">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-
-							<div class="modal-header">
-								<h4 class="modal-title">임시저장은 3개까지만 가능합니다!</h4>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-							</div>
-
-							<div class="modal-body">
-								<h5>기존 임시저장글을 지운 후 이 글을 저장합니다.</h5>
-								<p>아래 목록에서 지울 대상을 선택하세요.</p>
-								<p>주의! 해시태그와 사진은 저장되지 않습니다.</p>
-									<input type="radio" class="testList" name="unRecipeDelNo1" id="unRecipeDelNo1" value="1" checked><label for="unRecipeDelNo1">레시피제목1</label>
-									<input type="radio" class="testList" name="unRecipeDelNo2" id="unRecipeDelNo2" value="2"><label for="unRecipeDelNo2">레시피제목2</label>
-									<input type="radio" class="testList" name="unRecipeDelNo3" id="unRecipeDelNo3" value="3"><label for="unRecipeDelNo3">레시피제목3</label>
-							</div>
-	
-							<div class="modal-content"></div>
-							<div class="modal-footer">
-								<button type="button" id="unrecipe-del-enrolling-btn" class="btn btn-primary">글작성</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
+				<div>
+					북마크
+				</div>
+				<div>
+					신고
 				</div>
 			</div><!-- 입력양식 상단 바 영역 끝 -->
-			<!------------------------------------------ Script (모달) ------------------------------------------>
-			<script>
-				// 임시저장 아이콘 클릭 시 모달창 설정
-				function unrecipeModalRequest(e) {
-					console.log(document.getElementsByClassName('.testList'));
-					//if(document.getElementsByClassName('.testList').length < 3 ) {
-		
-						//e.dataset.target = '#unrecipe-modal';
-					//} else {
-						//e.dataset.target = '#unrecipe-unavailable-modal';
-					//}
-					alert("d");
-				};
-			</script>
-			<!------------------------------------------ Script ------------------------------------------>
 
 			
 		
@@ -670,35 +552,14 @@
 							<div id="cook-steps-chef" class="cook-steps-inner">
 								<p><%= loginMember %></p>
 							</div>
-							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<select name="tagNo" onclick="ajaxSelectTag();" class="btn btn-info">
-									<option disabled selected value="">해시태그 선택</option>
-								</select>
+							<div id="detailTagDiv1">
+								<div id="detailTagDiv2" class="cook-steps-inner">
+									<% for(int i = 0; i < 5; i++) { %>
+										<div class="detailTagList">#해시태그<%= i %></div>
+									<% } %>
+								</div>
 							</div>
 						</div>
-
-						<script>
-							// 태그 검색 ajax요청
-							function ajaxSelectTag(){
-								$.ajax({
-									url : 'ajaxSelectTag.ar',
-									data : {},
-									success : function(result) {
-										// TAG_NO, TAG_NAME, TAG_DATE
-										let resultStr = '';
-										for(let i in result) {
-											resultStr += '<option value="' + result[i].tagNo + '">'
-													   + result[i].tagName
-													   + '</option>';
-											console.log(resultStr);
-										}
-									},
-									error : function(){
-										alert('올바르지 않은 요청입니다')										
-									}
-								});
-							};
-						</script>
 
 						<div id="content-thumbnail-image">
 							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
@@ -707,11 +568,7 @@
 					<div class="cook-steps-input-content">
 						<div id="cook-steps-title" class="cook-steps-inner">
 							<div id="title-text-area-div">
-								<textarea name="recipeTitle" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
-							</div>
-							<div id="title-bytes-span">
-								<span>0</span>
-								<span>/60 bytes</span>
+								레시피 제목
 							</div>
 						</div>
 
