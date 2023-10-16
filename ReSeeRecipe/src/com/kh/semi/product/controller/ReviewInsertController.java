@@ -35,15 +35,11 @@ public class ReviewInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		System.out.println("gg");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
-		int fileSize = 1024 * 1024 * 10;
-		
-		String savePath = request.getServletContext().getRealPath("/resources/product_upfiles/");
-		
-		MultipartRequest multi = new MultipartRequest(request, savePath, fileSize, "UTF-8", new MyFileRenamePolicy());
-		
-		System.out.println(multi);
+			System.out.println("dafda");
 		
 		} else {
 			System.out.println("nn");

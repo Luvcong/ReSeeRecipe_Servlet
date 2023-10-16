@@ -154,7 +154,7 @@
 			        <h4 class="modal-title">후기 작성</h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
-			     <form enctype="multipart/form-data" id="enrolll-form">
+			     <form enctype="multipart/form-data" id="review-form">
 			      <!-- Modal body -->
 				      <div class="modal-body">
 				       <table>
@@ -175,7 +175,7 @@
 				      </div>
 				      <!-- Modal footer -->
 				      <div class="modal-footer">
-				      	<button onclick="insertReview();" data-dismiss="modal">확인</button>
+				      	<button onclick="insertReview();" id="rsubmit" data-dismiss="modal">확인</button>
 				        <button type="button" data-dismiss="modal">닫기</button>
 				      </div>
 				</form>
@@ -235,13 +235,13 @@
 	           console.log(value);
 	         }
 	        
-			$.ajax({
+			$('#review-form').ajaxSubmit({
+				type: 'post',
 				url: 'rinsert.po',
-				type: "POST",
+				date: form,
+				dataType: "json",
 				processData : false,
 		        contentType : false,
-		        enctype: "multipart/form-data",
-				date: form,
 				success: function(result){
 					console.log(result);
 				},
