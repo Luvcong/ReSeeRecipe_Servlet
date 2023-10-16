@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.manager.model.service.ManagerService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
