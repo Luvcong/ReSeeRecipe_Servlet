@@ -131,42 +131,6 @@
 	                <a href="<%=contextPath%>/prodetail.po?pno=<%= p.getProductNo() %>">★<%= p.getProductScoreReviewAvg() %></a>
 	            </div>
         	<% } %>
-        
-        
-        
-        
-            <!--<div class="pro_list">
-                <a href="#">
-                    <img src="/view/image/hello.png">
-                </a>
-                <a href="#">상품이름상품이름상품이름상품이름상품이름</a>
-                <a href="#">가격1231412</a>
-                <a href="#">별점 ★4.6</a>
-            </div>
-            <div class="pro_list">
-                <a href="#">
-                    <img src="/view/image/hello.png">
-                </a>
-                <a href="#">상품이름</a>
-                <a href="#">가격</a>
-                <a href="#">별점</a>
-            </div>
-            <div class="pro_list">
-                <a href="#">
-                    <img src="/view/image/hello.png">
-                </a>
-                <a href="#">상품이름</a>
-                <a href="#">가격</a>
-                <a href="#">별점</a>
-            </div>
-            <div class="pro_list">
-                <a href="#">
-                    <img src="/view/image/hello.png">
-                </a>
-                <a href="#">상품이름</a>
-                <a href="#">가격</a>
-                <a href="#">별점</a>
-            </div>  -->
         </div>
         
         <!--  <script>
@@ -180,17 +144,17 @@
         
         <div class="paging-area" align="center">
         	<% if(currentPage != 1) { %>
-        		<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + - 1 %>'">&lt;</button>
+        		<button id="btn1" onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + - 1 %>'">&lt;</button>
         	<% } %>	
         	<% for(int i = startPage; i <= endPage; i++) { %>
         		<% if(currentPage != i) { %>
-        			<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= i %>'"><%= i %></button>
+        			<button id="btn2" onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= i %>'"><%= i %></button>
         		<% } else { %>
-        			<button disabled><%= i %></button>
+        			<button id="btn3" disabled><%= i %></button>
         		<% } %>	
         	<% } %>
         	<% if(currentPage != maxPage) { %>
-        		<button onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + 1 %>'">&gt;</button>
+        		<button id="btn4" onclick="location.href='<%= contextPath %>/searchlist.po?cpage=<%= currentPage + 1 %>'">&gt;</button>
        		<% } %>	
         </div>
     </div>

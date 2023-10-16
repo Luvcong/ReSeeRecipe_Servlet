@@ -189,13 +189,8 @@
 						</div>
 					</div>
 				<% } %>
-			<% } else { %>
-				<script>
-					$(function(){
-						location.href = "<%=contextPath%>/errorNoRecipeList.re";
-					});
-				</script>
 			<% } %>
+				
 		</div>
 		
 		<script>
