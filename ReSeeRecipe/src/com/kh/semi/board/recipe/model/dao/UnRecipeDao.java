@@ -1,4 +1,4 @@
-package com.kh.semi.board.un_recipe.model.dao;
+package com.kh.semi.board.recipe.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;

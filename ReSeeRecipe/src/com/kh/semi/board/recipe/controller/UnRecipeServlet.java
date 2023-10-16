@@ -1,4 +1,4 @@
-package com.kh.semi.board.un_recipe.controller;
+package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
 
