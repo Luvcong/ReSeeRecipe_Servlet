@@ -49,7 +49,8 @@
             <input type="file" name="adminpic" id="adminpic">
         </div>
         <label for="HL_memberNo">회원번호</label>
-        <input type="text" class="form-control" id="HL_memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
+        <input type="text" class="form-control" id="HL_memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly> <br>
+        
         <br>
         <label for="HL_memberName">회원이름</label>
         <input type="text" class="form-control" id="HL_memberName" name="memName" value="<%=m.getMemName() %>" required>

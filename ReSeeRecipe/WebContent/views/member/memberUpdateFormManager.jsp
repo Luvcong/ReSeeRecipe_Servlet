@@ -44,17 +44,21 @@
             <label for="memberNo">회원번호</label>
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
             <br>
-            <label for="memberName">회원이름</label>
+            <p class="tag">회원이름</p>
             <input type="text" class="form-control"  id="memberName" name="memName" value="<%=m.getMemName() %>" required>
+            <label for="memberName">* 한글 2 ~ 5자로 입력 가능합니다.</label>
             <br>
-            <label for="memberId">회원아이디</label>
+            <p class="tag">회원아이디(변경불가)</p>
             <input type="text" class="form-control"  id="memberId"  name="memId" value="<%=m.getMemId()%>" readonly>
+            <label for="memberId">* 영문, 숫자 5 ~ 20자로 입력 가능합니다.</label>
             <br>
-            <label for="memberNickname">회원닉네임</label>
+            <p class="tag">회원닉네임</p>
             <input type="text" class="form-control"  id="memberNickname" name="memNickname" value="<%=m.getMemNickname()%>" required>
+            <label for="memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
             <br>
-            <label for="memberEmail">이메일</label>
+            <p class="tag">이메일</p>
             <input type="email" class="form-control"  id="memberEmail" name="memEmail" value="<%=m.getMemEmail()%>" required>
+            <label for="memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
             <br>
             <label for="memberEnrolldate">가입일자</label>
             <input type="text" class="form-control"  id="memberEnrolldate" name="memEnrolldate" value="<%=m.getEnrollDate()%>" readonly>
@@ -65,8 +69,9 @@
             <label for="membergradeNo">회원등급번호</label>
             <input type="text" class="form-control" id="membergradeNo" name="memgradeNo" value="<%= m.getMemGrade()%>" readonly>
             <br>
-            <label for="membergradeName">회원등급명</label>
+            <p class="tag">회원등급명</p>
             <input type="text" class="form-control"  id="membergradeName" name="memGradename" value="<%=m.getMemGradeName()%>" required>
+            <label for="membergradeName">회원등급명</label>
             <br>
             <div id="memUpdateWhy">
             	<label for="memUpdateWhyCon">수정사유</label>
@@ -88,6 +93,20 @@
 			$('#memberModifydate').val() = '';
 		}
 	});
+
+
+   // -- 회원 이름 변경 --
+    $(function(){
+        // 수정하는 input 태그에 해당하는 label의 속성갑 바꿈
+        $('input').keyup(function(){
+            
+        })
+    })
+
+
+
+
+
 
 </script>
 </html>
