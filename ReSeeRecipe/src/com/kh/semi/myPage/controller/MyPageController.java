@@ -1,4 +1,6 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.myPage.controller;
+
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,13 @@ public class MyPageController {
 		
 		
 		return view;
+	}
+	
+	public ArrayList MemberCouponList(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+		
 	}
 
 }
