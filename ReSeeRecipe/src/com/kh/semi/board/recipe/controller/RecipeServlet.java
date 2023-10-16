@@ -70,7 +70,7 @@ public class RecipeServlet extends HttpServlet {
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response, loginMember); break;
 			
 			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax */
-			case "insertRecipe" : viewPath = rc.insertRecipe(request, response, loginMember); break;
+			case "insertRecipe" : viewPath = rc.insertRecipe(request, response, loginMember); flag=false; break;
 			
 			
 			/* 위의 것 완료 후 */
@@ -90,8 +90,8 @@ public class RecipeServlet extends HttpServlet {
 			//case "searchKeyWord" : viewPath = rc.searchKeyWord(request, response); break;
 			
 			
-			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 포워딩 */
-			default : viewPath = rc.errorDefault(request, response); break;
+			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 리디렉팅 */
+			default : viewPath = rc.errorDefault(request, response); flag=false; break;
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)

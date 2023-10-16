@@ -74,7 +74,7 @@ public class RecipeController {
 	public String selectRecipeList(HttpServletRequest request, HttpServletResponse response) {
 		
 		// 변수세팅
-		String viewPath = "";
+		String viewPath = "/selectRecipeList.re";
 		RecipeService rs = new RecipeService();
 		
 		int listCount = rs.selectRecipeListCount(); // 레시피 개수 조회
@@ -174,36 +174,48 @@ public class RecipeController {
 			
 			
 			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
-			/* 한개밖에 없는 값들 */
+			/* 여기 넘어온 memNo는 null아님 */
 			int memNo = loginMember.getMemNo();
-			String recipeTitle = multiRequest.getParameter("recipeTitle");
-			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
+			
+			/* Recipe세팅, 값 한개씩만 있음 */
+			Recipe recipe = new Recipe();
+			// 이 항목들이 모두 데이터가 있다면
+			if( !(multiRequest.getParameter("recipeTitle") != null
+			   || multiRequest.getParameter("recipeCategoryNo") != null)) {
+				// Recipe객체 생성 + 필드 초기화 후 ArrayList에 추가
+				recipe.setRecipeTitle(multiRequest.getParameter("recipeTitle"));
+				recipe.setRecipeWriterNo(loginMember.getMemNo());
+				recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
+			}
 			
 			
 			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 			ArrayList<Integer> tagNoList = new ArrayList();
 			for(int i = 0; i < 5; i++) {
 				String tagNoKey = "tagNo" + i;
+				// 이 항목들이 모두 데이터가 있다면
 				if(multiRequest.getParameter(tagNoKey) != null) {
+					// Integer값 뽑아 ArrayList<Integer>에 추가
 					Integer tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
 					tagNoList.add(tagNo);
 				}
 			}
 		
 			
-			/* ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
+			// (recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
+			// ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정
 			ArrayList<RecipePic> recipePicList = new ArrayList();
 			for(int i = 0; i < 7; i++) {
 				String recipeNameOriginKey = "recipeNameOrigin" + i;
 				String recipePicNameUploadKey = "recipePicNameUploadKey" + i;
 				String recipePicPathKey = "recipePicPathKey" + i;
 				String recipePicLevKey = "recipePicLev" + i;
-				
+				// 이 항목들이 모두 데이터가 있다면
 				if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
 				   || multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
 				   || multiRequest.getOriginalFileName(recipePicPathKey) == null
 				   || multiRequest.getParameter(recipePicLevKey) == null)) {
-					// recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
+					// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 					RecipePic rPicObj = new RecipePic();
 					rPicObj.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
 					rPicObj.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
@@ -214,16 +226,17 @@ public class RecipeController {
 			}
 
 			
-			/* CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
+			// CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
 			ArrayList<CookSteps> cookStepsList = new ArrayList();
 			for(int i = 0; i < 6; i++) {
 				String csTitleKey = "cookStepsTitle" + i;
 				String csContentKey = "cookStepsContent" + i;
 				String csLev = "cookStepsLev" + i;
-				
+				// 이 항목들이 모두 데이터가 있다면
 				if( !(multiRequest.getParameter(csTitleKey) == null
 				   || multiRequest.getParameter(csContentKey) == null
 				   || multiRequest.getParameter(csLev) == null)) {
+					// CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
 					CookSteps csObj = new CookSteps();
 					csObj.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 					csObj.setCookStepsContent(multiRequest.getParameter(csContentKey));
@@ -238,9 +251,10 @@ public class RecipeController {
 			for(int i = 0; i < 30; i++) {
 				String ingredientKey = "ingredient" + i;
 				String ingredientAmount = "ingredientAmount" + i;
-				
+				// 이 항목들이 모두 데이터가 있다면
 				if( !(multiRequest.getParameter(ingredientKey) == null
 				   || multiRequest.getParameter(ingredientAmount) == null)) {
+					// Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
 					Ingredient ingObj = new Ingredient();
 					ingObj.setIngredient(multiRequest.getParameter(ingredientKey));
 					ingObj.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
@@ -250,18 +264,21 @@ public class RecipeController {
 			
 			// 3) VO가공 => map에 담기
 			HashMap<String, Object> insertRecipeMap = new HashMap();
-			insertRecipeMap.put("memNo", memNo);
-			insertRecipeMap.put("recipeTitle", recipeTitle);
-			insertRecipeMap.put("recipeCategoryNo", recipeCategoryNo);
+			insertRecipeMap.put("recipe", recipe);
 			insertRecipeMap.put("tagNoList", tagNoList);
 			insertRecipeMap.put("recipePicList", recipePicList);
 			insertRecipeMap.put("cookStepsList", cookStepsList);
 			insertRecipeMap.put("ingredientList", ingredientList);
 			
-			//
-			
+			// Recipecontroller호출
+			int result = new RecipeService().insertRecipe(insertRecipeMap);
+			if(result > 0) {
+				viewPath = "/selectRecipeList.re";
+			} else {
+				viewPath = "/.re";
+			}
 		}
-		return "";
+		return viewPath;
 	}
 	
 	
