@@ -12,7 +12,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.service.UnRecipeService;
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
+import com.kh.semi.board.recipe.model.vo.RecipeAllList;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
 import com.kh.semi.common.MyFileRenamePolicy;
@@ -107,18 +111,14 @@ public class RecipeController {
 		
 		String viewPath = "";
 		//@@@@@@@@@@@@편의를 위해 잠시 null
-		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null 번호 3해둠");
-		if(null == loginMember) {
-			// 임시저장글 받아오기
-			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList(3/*loginMember.getMemNo()*/);
-			
-			request.setAttribute("unReList", unReList);
-			
-			System.out.println(unReList);
-			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
-		} else {
-			return new SendError().sendError(request, "임시저장글 조회에 실패했습니다");
-		}
+		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 번호 3해둠");
+		// 임시저장글 받아오기 (여기까지 온 loginmember는 != null임)
+		ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList(3/*loginMember.getMemNo()*/);
+		
+		request.setAttribute("unReList", unReList);
+		
+		System.out.println(unReList);
+		viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		return viewPath;
 	}
 	
@@ -167,26 +167,58 @@ public class RecipeController {
 			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
 			int memNo = loginMember.getMemNo();
 			
+			String recipeTitle = multiRequest.getParameter("recipeTitle");
 			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
-			int tagNo = Integer.parseInt(multiRequest.getParameter(""));
 			
+			/* tagNO 있을 수도 있고 없을 수도 있음 */
+			int tagNo = Integer.parseInt(multiRequest.getParameter("tagNo"));
+			
+			String recipePicNameOrigin = multiRequest.getParameter("recipeNameOrigin");
+			String recipePicNameUpload = multiRequest.getParameter("recipePicNameUplaod");
+			String recipePicPath = multiRequest.getParameter("recipePicPath");
+			
+			int recipePicLev = Integer.parseInt(multiRequest.getParameter("recipePicLev"));
+			
+			/* cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면 */
+			/* CookSteps 객체에 담아 ArrayList화 							  */
+			ArrayList<CookSteps> csArr = new ArrayList();
+			while( !(multiRequest.getParameter("cookStepsTitle") == null
+				  || multiRequest.getParameter("cookStepsContent") == null
+				  || multiRequest.getParameter("cookStepsLev") == null)) {
+				CookSteps csObj = new CookSteps();
+				csObj.setCookStepsTitle(multiRequest.getParameter("cookStepsTitle"));
+				csObj.setCookStepsContent(multiRequest.getParameter("cookStepsContent"));
+				csObj.setCookStepsLev(Integer.parseInt(multiRequest.getParameter("cookStepsLev")));
+				csArr.add(csObj);
+			}
+			
+			String cookStepsTitle = multiRequest.getParameter("");
+			String cookStepsContent = multiRequest.getParameter("");
+			int cookStepsLev = Integer.parseInt(multiRequest.getParameter("cookStepsLev"));
+			
+			
+			// ingredient와 ingredientAmount에 값이 존재한다면
+			ArrayList<Ingredient> ingArr = new ArrayList();
+			while(multiRequest.getParameter("ingredient") != null
+			   && multiRequest.getParameter("ingredientAmount") != null) {
+				Ingredient ingObj = new Ingredient();
+				ingObj.setIngredient(multiRequest.getParameter("ingredient"));
+				ingObj.setIngredientAmount(multiRequest.getParameter("ingredientAmount"));
+				ingArr.add(ingObj);
+			}
 			
 			// 3) VO가공
+			// IngredientList
+			RecipeAllList rAllList = new RecipeAllList();
+			rAllList.setIngList(ingArr);
+			// 재료 재료량 재료 재료량 재료 재료량
+			
+			
 		}
 		
 		
 		
 		/*
-		String viewPath = "";
-		if(loginMember != null) {
-			
-			int memNo = loginMember.getMemNo();
-			request.getParameter("recipeCategoryNo");
-			request.getParameter("tagNo");
-			request.getParameter("recipeTitle");
-			// 썸네일 이미지 받아야함
-			
-			//
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
 			/*
 			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
+import com.kh.semi.common.SendError;
 import com.kh.semi.member.model.vo.Member;
 
 /**
@@ -36,10 +37,14 @@ public class RecipeServlet extends HttpServlet {
 		// 기본변수 세팅
 		boolean flag = true;
 		String viewPath = "";
+		
 		Member loginMember = null;
 		if(null != request.getSession().getAttribute("loginMember")) {
 			loginMember = (Member)(request.getSession().getAttribute("loginMember"));
+		} else {
+			viewPath = new SendError().sendError(request, "로그인이 필요한 서비스입니다");
 		}
+		
 		RecipeController rc = new RecipeController();
 		
 		// 인코딩 세팅
