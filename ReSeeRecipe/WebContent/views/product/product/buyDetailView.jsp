@@ -28,6 +28,28 @@
     #detailview-wrap>div:nth-child(3), div:nth-child(4), div:nth-child(5){
         grid-column: 1 / 3;
     }
+    
+    .h_popup_overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease;
+     }
+     .popup-content {
+	     width: 750px;
+	     padding: 20px;
+	     background-color: #fff;
+	     border-radius: 5px;
+	     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+     }
 </style>
 <body>
     
@@ -66,8 +88,11 @@
 		                </select>
 		                <span><%= list2.get(0).getOptionPrice() %></span>
 		                <input type="hidden" value="<%= list2.get(0).getOptionNo() %>" name="ono">
+		                <h2>총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(0).getOptionNo() %>원</h2>
+	                <% } else { %>
+	                	<h2>총 가격 <%= p.getPrice() + p.getDilivery() %>원</h2>
 	                <% } %>
-	            <h2>총 가격 0원</h2>
+	            
 	            <!-- <% if(loginMember != null) { %>
 		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
 		            <button type="submit" formaction="">장바구니</button>
@@ -89,6 +114,7 @@
 	        			if($(this).val() == '<%= list2.get(i).getOptionName() %>') {
 							$('#select').next().text('<%= list2.get(i).getOptionPrice() %>');
 							$('#select').next().next().val('<%= list2.get(i).getOptionNo() %>');
+							$('#select').next().next().next().text('총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(i).getOptionPrice() %>원');
 						}
         			<% } %>
         		})
@@ -118,15 +144,114 @@
         <div class="d_reply">
             <h2>후기</h2>
             <input type="checkbox">포토후기
-            <button style="float: right;">후기작성</button>
+            <button style="float: right;" data-toggle="modal" data-target="#myModal">후기작성</button>
+            <!-- The Modal -->
+			<div class="modal" id="myModal">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">후기 작성</h4>
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			      </div>
+			     <form enctype="multipart/form-data" id="enrolll-form">
+			      <!-- Modal body -->
+				      <div class="modal-body">
+				       <table>
+				        	<tr>
+				        		<td rowspan="2"><img src="" id="img" width="250" height="180"></td>
+				        		<td><%= p.getProductName() %></td>
+				        	</tr>
+				        	<tr>
+				        		<td>★<input type="number" id="reviewstar" value="1" name="star" min="1" max="5" step="1"></td>
+				        	</tr>
+				        	<tr>
+				        		<td colspan="2"><textarea id="reviewcontent" name="content" cols="55" rows="10" style="resize: none;" required></textarea></td>
+				        	</tr>
+				        	<tr>
+				        		<td colspan="2"><input type="file" multiple name="file" id="pfile" onchange="loadImg(this, 1);"></td>
+				        	</tr>
+				        </table>
+				      </div>
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				      	<button onclick="insertReview();" data-dismiss="modal">확인</button>
+				        <button type="button" data-dismiss="modal">닫기</button>
+				      </div>
+				</form>
+			    </div>
+			  </div>
+			</div>
             <br><br><br>
-            <p style="margin-bottom: 0px;">주문자명</p>
-            <p style="display: inline-block;">★★★</p>
-            <p style="display: inline-block;">작성일</p>
-            <img src="/view/image/hello.png" width="100" height="100" style="display: block;">
-            <p>리뷰내용</p>
+            <div id="r_riplyarea">
+	            <p style="margin-bottom: 0px;">주문자명</p>
+	            <p style="display: inline-block;">★ 5.0</p>
+	            <p style="display: inline-block;">작성일</p>
+	            <img src="/view/image/hello.png" width="100" height="100" style="display: block;">
+	            <p>리뷰내용</p>
+            </div>
         </div>
     </div>
+    
+    <script>
+		function loadImg(inputFile, num){
+			if(inputFile.files.length == 1){ 
+				let reader = new FileReader();
+				
+				reader.readAsDataURL(inputFile.files[0]);
+				
+				reader.onload = function(e){
+					if(num == 1){
+						$('#img').attr('src', e.target.result);	
+					}
+				}
+			} else{
+				if(num == 1){
+					$('#img').removeAttr('src');
+				}
+			}
+		}
+		
+		function selectReviewList(){
+			$.ajax({
+				url: 'rlist.po',
+				data: {},
+				success: function(result){
+					console.log(result);
+				}
+			})
+		}
+		
+		function insertReview(){
+			var form = new FormData();
+	        form.append( "file", $("#pfile")[0].files[0] );
+	        form.append("content", $("#reviewcontent").val());
+	        form.append("star", $("#reviewstar").val());
+	        
+	        for (var key of form.keys()) {
+	            console.log(key);
+	         }
+	         for (var value of form.values()) {
+	           console.log(value);
+	         }
+	        
+			$.ajax({
+				url: 'rinsert.po',
+				type: "POST",
+				processData : false,
+		        contentType : false,
+		        enctype: "multipart/form-data",
+				date: form,
+				success: function(result){
+					console.log(result);
+				},
+				error: function(){
+					console.log("gd");
+				}
+				
+			})
+		}
+    </script>
     
     <%@ include file="buyFooter.jsp" %>
 </body>

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
@@ -13,11 +15,13 @@ import com.kh.semi.board.recipe.model.service.UnRecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.common.SendError;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.tag.model.service.TagService;
 import com.kh.semi.tag.model.vo.Tag;
+import com.oreilly.servlet.MultipartRequest;
 
 public class RecipeController {
 	
@@ -102,12 +106,15 @@ public class RecipeController {
 	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
 		
 		String viewPath = "";
-		
 		//@@@@@@@@@@@@편의를 위해 잠시 null
-		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
+		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null 번호 3해둠");
 		if(null == loginMember) {
 			// 임시저장글 받아오기
-			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList();
+			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList(3/*loginMember.getMemNo()*/);
+			
+			request.setAttribute("unReList", unReList);
+			
+			System.out.println(unReList);
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		} else {
 			return new SendError().sendError(request, "임시저장글 조회에 실패했습니다");
@@ -140,21 +147,48 @@ public class RecipeController {
 	 * @param response
 	 * @return
 	 */
-	/*
 	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
-
-		String viewPath = "";
 		
-		if((request.getSession().getAttribute("loginMember")) != null) {
+		// 인코딩은 Servlet에서 완료
+		
+		// multipartContent가 있는지 체크 => 체크 후 서버올리기
+		if(ServletFileUpload.isMultipartContent(request)) {
+			// 1) Multipart객체 생성 시 => 서버에 파일 올라감
+			// 1_1. 전송용량 제한 (10Mbytes)
+			int maxSize = 1024 * 1024 * 10;
+			
+			// 1_2. 파일 저장할 경로 getServletContext.getRealPath() => 경로 매핑해줌
+			String fileSavePath = request.getServletContext().getRealPath("/resources/recipe_upfiles/recipe_pics/");
+			
+			// 1_3. MultipartRequest객체 생성 하면서 파일 이름 새로 생성
+			MultipartRequest multiRequest =
+			new MultipartRequest(request, fileSavePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
+			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
+			int memNo = loginMember.getMemNo();
+			
+			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
+			int tagNo = Integer.parseInt(multiRequest.getParameter(""));
+			
+			
+			// 3) VO가공
+		}
+		
+		
+		
+		/*
+		String viewPath = "";
+		if(loginMember != null) {
 			
 			int memNo = loginMember.getMemNo();
-			int recipeWriterNo = memNo;
 			request.getParameter("recipeCategoryNo");
+			request.getParameter("tagNo");
 			request.getParameter("recipeTitle");
+			// 썸네일 이미지 받아야함
 			
-			
+			//
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
-			
+			/*
 			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때
 				// map내용이  있을 때 viewPath
 				request.setAttribute("mapEnrollForm", mapEnrollForm);
@@ -167,9 +201,10 @@ public class RecipeController {
 		} else { // 로그인 유저 정보가 없을 때 @@@@@@@(테스트위해 코드 O 나중에 지우고 error페이지나 recipemain으로 포워딩)
 			
 		}
+		*/
 		return viewPath;
 	}
-	*/
+	
 	
 	
 	
