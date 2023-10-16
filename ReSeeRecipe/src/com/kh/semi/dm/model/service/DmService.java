@@ -129,16 +129,24 @@ public class DmService {
 	}
 	
 	
-//	public Dm selectDm(int dmNo) {
-//		
-//		Connection conn = getConnection();
-//		
-//		Dm dm = dmDao.selectDm(conn, dmNo);
-//		
-//		close(conn);
-//		
-//		return dm;
-//	}
-//	
+	/**
+	 * 쪽지 답변완료 수 확인 요청 처리 method
+	 * @return 쪽지 답변완료 개수 - DM_STATUS == 'Y'
+	 * @author JH
+	 * @Date : 2023. 10. 16.
+	 */
+	public int repliedCount() {
+	
+		Connection conn = getConnection();
+	
+		int dmRepliedCount = dmDao.repliedCount(conn);
+		
+		close(conn);
+		
+		return dmRepliedCount;
+	}	// repliedCount
+	
+	
+	
 	
 }	// end class

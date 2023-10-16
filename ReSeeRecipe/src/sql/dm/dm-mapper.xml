@@ -47,14 +47,14 @@
         		DM_NO = ?
 	</entry>
 	
-	<!-- 쪽지 미답변 개수 카운트 SQL문  -->
-	<entry key="getWaitingCount">		
+	<!-- 쪽지 답변 개수 카운트 SQL문  -->
+	<entry key="repliedCount">		
 		SELECT
 				COUNT(*)
 		  FROM
 		  		TB_DM
 		 WHERE
-				DM_STATUS = 'N'
+				DM_STATUS = 'Y'
 	</entry>
 	
 	<entry key="selectDmListCount">

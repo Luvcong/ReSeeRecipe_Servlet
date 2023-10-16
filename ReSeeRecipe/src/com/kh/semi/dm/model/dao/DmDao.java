@@ -184,8 +184,38 @@ public class DmDao {
 	}	// selectDmListCount
 	
 	
-	
-	
+	/**
+	 * 쪽지 답변완료 수 확인 요청 처리 method
+	 * @param conn
+	 * @return 쪽지 답변완료 개수 - DM_STATUS == 'Y'
+	 * @author JH
+	 * @Date : 2023. 10. 16.
+	 */
+	public int repliedCount(Connection conn) {
+		
+		int dmRepliedCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("repliedCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				dmRepliedCount = rset.getInt("COUNT(*)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return dmRepliedCount;
+	}	// repliedCount
 
 	
 	

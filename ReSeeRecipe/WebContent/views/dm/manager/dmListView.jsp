@@ -6,7 +6,7 @@
 	String successMsg = (String)session.getAttribute("successMsg");
 	String failMsg = (String)session.getAttribute("failMsg");
 	int waitingCount = (int)request.getAttribute("waitingCount");
-	int repliedCount = list.size() - waitingCount;
+	int repliedCount = (int)request.getAttribute("repliedCount");
 	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int dmListCount = pi.getListCount();
@@ -91,7 +91,7 @@
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
-                    미답변 <span class="waiting"><%= waitingCount %></span> 개 / 답변완료 <span class="replied"><%= repliedCount %></span>개
+                    미답변 <span class="waiting"><%= pi.getListCount() - repliedCount %></span> 개 / 답변완료 <span class="replied"><%= repliedCount %></span>개
                 </div>
                 <div >
                     <button class="btn btn-sm btn-warning" onclick="showDmRepliedModal()">쪽지 답변</button>
@@ -378,7 +378,7 @@
 							let waiting = header.querySelector('.waiting');
 							let replied = header.querySelector('.replied');
 							
-							let waiting_cnt = <%= waitingCount%>;
+							let waiting_cnt = <%= pi.getListCount() - repliedCount %>;
 							let replied_cnt = <%= repliedCount %>;
 							
 							for(let key in dm_list) {

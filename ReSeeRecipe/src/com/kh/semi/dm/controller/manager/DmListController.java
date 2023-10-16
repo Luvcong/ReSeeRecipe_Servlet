@@ -79,8 +79,11 @@ public class DmListController extends HttpServlet {
 		
 		// 4) Service요청
 		ArrayList<Dm> list = dmService.selectDmList(pi);
+		int repliedCount = dmService.repliedCount();
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
+		request.setAttribute("repliedCount", repliedCount);
 		request.setAttribute("waitingCount", dmService.getWaitingCount(list));
 		
 		// 5) 응답화면 지정
