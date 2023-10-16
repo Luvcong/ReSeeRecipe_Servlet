@@ -1,4 +1,4 @@
-package com.kh.semi.board.recipe.controller;
+package com.kh.semi.board.recipe.controller.RecipeControllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
+import com.kh.semi.board.recipe.model.service.UnRecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.UnRecipe;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.tag.model.service.TagService;
@@ -82,16 +84,17 @@ public class RecipeController {
 	
 	/**
 	 * 레시피 글작성 요청을 받은 후 Session에 로그인한 멤버가 존재한다면<br>
+	 * 해당 유저의 임시저장 글 조회 후 정보와 함께<br>
 	 * 레시피를 작성할 수 있는 폼 화면으로 포워딩해주는 기능<br>
-	 * (Service / Dao로 넘기지 않고 RecipeController에서 바로 String리턴)
 	 */
-	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response) {
+	public String recipeEnrollForm(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
 		
 		String viewPath = "";
 		
 		//@@@@@@@@@@@@편의를 위해 잠시 null
 		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
-		if(null == request.getSession().getAttribute("loginMember")) {
+		if(null == loginMember) {
+			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList();
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		}
 		return viewPath;
@@ -122,13 +125,14 @@ public class RecipeController {
 	 * @param response
 	 * @return
 	 */
-	public String insertRecipe(HttpServletRequest request, HttpServletResponse response) {
+	/*
+	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
 
 		String viewPath = "";
 		
 		if((request.getSession().getAttribute("loginMember")) != null) {
 			
-			int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
+			int memNo = loginMember.getMemNo();
 			int recipeWriterNo = memNo;
 			request.getParameter("recipeCategoryNo");
 			request.getParameter("recipeTitle");
@@ -136,7 +140,7 @@ public class RecipeController {
 			
 			HashMap<String, Object> mapEnrollForm = new RecipeService().insertRecipe(memNo);
 			
-			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때 */
+			if(!mapEnrollForm.isEmpty()) { /* enrollForm데이터가 있을 때
 				// map내용이  있을 때 viewPath
 				request.setAttribute("mapEnrollForm", mapEnrollForm);
 				viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
@@ -150,7 +154,7 @@ public class RecipeController {
 		}
 		return viewPath;
 	}
-	
+	*/
 	
 	
 	

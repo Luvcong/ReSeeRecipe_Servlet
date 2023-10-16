@@ -45,6 +45,7 @@ public class rewardUpdateController extends HttpServlet {
 //		<option value="minusReard">리워드 차감</option>
 		String selectReward = request.getParameter("selectReward");
 		System.out.println(selectReward);
+		
 		int minus = 0;
 		if(selectReward.equals("minusReward")) {
 			minus = (rewardScore * -1);
@@ -66,6 +67,7 @@ public class rewardUpdateController extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("failMsg", "Error 다시 시도해주세요!");
 		}
+		
 		response.sendRedirect(request.getContextPath() + "/jhselect.rw?page=1");
 		
 		

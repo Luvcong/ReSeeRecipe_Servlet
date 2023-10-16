@@ -691,8 +691,8 @@ public class MemberDao {
 		System.out.println("회원정보조회리스트리턴>"+  list);
 		return list;
 	}
+
 	
-	/*
 	public ArrayList<Member> searchmemId(Connection conn, String memSearchcon){
 		
 		ArrayList<Member> list = new ArrayList();
@@ -711,18 +711,24 @@ public class MemberDao {
 				Member m = new Member();
 				m.setMemNo(rset.getInt("MEM_NO"));
 				m.setMemId(rset.getString("MEM_ID"));
-				m.setMemId(r)
+				m.setMemName(rset.getString("MEM_NAME"));
+				m.setMemNickname(rset.getString("MEM_NICKNAME"));
+				m.setMemEmail(rset.getString("MEM_EMAIL"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
+				list.add(m);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
-		
-		
-		
+		return list;
 	}
-	*/
+	
 	
 	
 	
