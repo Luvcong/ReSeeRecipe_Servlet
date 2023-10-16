@@ -176,6 +176,7 @@ public class RecipeController {
 			String recipeTitle = multiRequest.getParameter("recipeTitle");
 			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
 			
+			
 			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 			int tagNo;
 			for(int i = 0; i < 5; i++) {
@@ -185,6 +186,7 @@ public class RecipeController {
 				}
 			}
 		
+			
 			/* ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
 			ArrayList<RecipePic> rPicList = new ArrayList();
 			for(int i = 0; i < 7; i++) {
@@ -196,23 +198,17 @@ public class RecipeController {
 				if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
 				   || multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
 				   || multiRequest.getOriginalFileName(recipePicPathKey) == null
-				   || multiRequest.getOriginalFileName(recipePicLevKey) == null)) {
+				   || multiRequest.getParameter(recipePicLevKey) == null)) {
+					// recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
 					RecipePic rPic = new RecipePic();
 					rPic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
 					rPic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
-					rPic.setRecipePicPath();
-					
-					String recipePicNameOrigin = multiRequest.getParameter(recipeNameOriginKey);
-					String recipePicNameUpload = multiRequest.getParameter(recipePicNameUploadKey);
-					String recipePicPath = multiRequest.getParameter(recipePicPathKey);
-					if(i == 0) {
-						int recipePicLev = Integer.parseInt(multiRequest.getParameter(recipePicLevKey));
-						
-					}
+					rPic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
+					rPic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
+					rPicList.add(rPic);
 				}
 			}
-			
-			
+
 			
 			/* CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
 			ArrayList<CookSteps> csArr = new ArrayList();
@@ -222,8 +218,8 @@ public class RecipeController {
 				String csLev = "cookStepsLev" + i;
 				
 				if( !(multiRequest.getParameter(csTitleKey) == null
-						|| multiRequest.getParameter(csContentKey) == null
-						|| multiRequest.getParameter(csLev) == null)) {
+				   || multiRequest.getParameter(csContentKey) == null
+				   || multiRequest.getParameter(csLev) == null)) {
 					CookSteps csObj = new CookSteps();
 					csObj.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 					csObj.setCookStepsContent(multiRequest.getParameter(csContentKey));
@@ -235,13 +231,21 @@ public class RecipeController {
 			
 			/* ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
 			ArrayList<Ingredient> ingArr = new ArrayList();
-			while(multiRequest.getParameter("ingredient") != null
-					&& multiRequest.getParameter("ingredientAmount") != null) {
-				Ingredient ingObj = new Ingredient();
-				ingObj.setIngredient(multiRequest.getParameter("ingredient"));
-				ingObj.setIngredientAmount(multiRequest.getParameter("ingredientAmount"));
-				ingArr.add(ingObj);
+			for(int i = 0; i < 30; i++) {
+				String ingredientKey = "ingredient" + i;
+				String ingredientAmount = "ingredientAmount" + i;
+				
+				if((multiRequest.getParameter("ingredient") == null
+				 || multiRequest.getParameter("ingredientAmount") == null)) {
+					Ingredient ingObj = new Ingredient();
+					ingObj.setIngredient(multiRequest.getParameter("ingredient"));
+					ingObj.setIngredientAmount(multiRequest.getParameter("ingredientAmount"));
+					ingArr.add(ingObj);
+				}
 			}
+			
+
+			
 			
 			// 3) VO가공
 			// IngredientList

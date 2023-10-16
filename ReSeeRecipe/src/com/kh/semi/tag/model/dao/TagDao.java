@@ -68,7 +68,7 @@ public class TagDao {
 	 * @param extractedValues 사용자가 입력한 해시태그명들
 	 * @return 사용자가 입력한 해시태그명에 해당하는 해시태그번호들
 	 */
-	public ArrayList<Tag> selectTagNo(Connection conn, List<String> extractedValues) {
+	public ArrayList<Tag> selectTagNo(Connection conn, List<Tag> tagList) {
 
 		ArrayList<Tag> list = new ArrayList();
 		PreparedStatement pstmt = null;
@@ -76,8 +76,8 @@ public class TagDao {
 		try {
 			String sql = prop.getProperty("selectTagNo");
 			pstmt = conn.prepareStatement(sql);
-			for (String value : extractedValues) {
-				pstmt.setString(1, value);
+			for (Tag tag : tagList) {
+				pstmt.setString(1, tag.getValue());
 
 				rset = pstmt.executeQuery();
 
