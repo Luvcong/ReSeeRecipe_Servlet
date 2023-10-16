@@ -41,8 +41,8 @@
     <div class="container">
         <form class="form" action="<%=contextPath %>/hlupdatemember.ma" method="post" id="member-updateForm">
             
-            <input type="hidden" id="invalidmemnickname" value="<%= loginMEmber.getMemNickname%>">
-            <input type="hidden" id="invalidmemEmail" value="<%= loginMember.getMemEmail %>">
+            <input type="hidden" id="invalidmemnickname" value="<%= loginMember.getMemNickname() %>">
+            <input type="hidden" id="invalidmemEmail" value="<%= loginMember.getMemEmail() %>">
             <label for="memberNo">회원번호</label>
             <input type="text" class="form-control" id="memberNo" name="memNo" value="<%=m.getMemNo() %>" readonly>
             <br>
@@ -98,7 +98,7 @@
 
         $.ajax({
             url : 'hlinvalidnickname.ma',
-            data : {checknickname : $hlmemnickname.val()},
+            data : {checkNickname : $hlmemnickname.val()},
             success : function(result){
 
                 console.log(result);
