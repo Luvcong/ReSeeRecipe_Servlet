@@ -56,9 +56,6 @@ public class RecipeService {
 		return list;
 	}
 	
-	
-	public ArrayList<>
-	
 
 	/*
 	public HashMap<String, Object> recipeEnrollForm(int memNo) {

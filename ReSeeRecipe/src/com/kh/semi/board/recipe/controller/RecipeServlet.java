@@ -65,7 +65,7 @@ public class RecipeServlet extends HttpServlet {
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response, loginMember); break;
 			
 			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax */
-			//case "insertRecipe" : viewPath = rc.insertRecipe(request, response); break;
+			case "insertRecipe" : viewPath = rc.insertRecipe(request, response); break;
 			
 			
 			/* 위의 것 완료 후 */

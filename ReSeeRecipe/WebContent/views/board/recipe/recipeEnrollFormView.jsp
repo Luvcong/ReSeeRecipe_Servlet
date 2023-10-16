@@ -3,8 +3,10 @@
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
-			     com.kh.semi.board.un_recipe.model.vo.UnRecipe" %>
-
+			     com.kh.semi.board.recipe.model.vo.UnRecipe" %>
+<%
+	//ArrayList<UnRecipe> unReList = (ArrayList)(request.getAttribute("unReList"));
+%>
 
 <!DOCTYPE html>
 <html>
