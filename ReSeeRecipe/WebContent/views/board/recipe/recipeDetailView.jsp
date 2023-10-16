@@ -3,14 +3,20 @@
 <%@ page import="java.util.ArrayList,
 			     java.util.HashMap,
 			     com.kh.semi.board.recipe.model.vo.RecipeCategory,
-			     com.kh.semi.board.un_recipe.model.vo.UnRecipe" %>
+			     com.kh.semi.board.recipe.model.vo.UnRecipe" %>
+<%
+	
 
+	//ArrayList<UnRecipe> unReList = (ArrayList)(request.getAttribute("unReList"));
+%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>레시피 글 작성 양식</title>
+
+</head>
 
 
 <style>
@@ -55,7 +61,7 @@
 	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
 		width: 100%;
-		height: 2000px;
+		height: 2150px;
 	}
 
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
@@ -212,8 +218,9 @@
 
 	/* 썸네일 이미지 */
 	#content-thumbnail-image img {
-		width: 93%;
-		height: 100%;
+		width: 570px;
+		height: 570px;
+		padding-top: 20px;
 	}
 
 	/* 셰프이름 + 해시태그 div */
@@ -240,14 +247,21 @@
 		height: 60%;
 	}
 
-	#cook-steps-hashtag > button {
+	#cook-steps-hashtag select {
 		width: 90%;
 		height: 70%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
 		margin-top : 12px;
-	
 	}
+	#cook-steps-hashtag option {
+		font-size: 25px;
+	}
+	
+	#cook-steps-hashtag option:disabled {
+		display: none;
+	}
+	
 	/* --- 우측 --- */
 	/* 제목 입력칸 (textarea) */
 	#cook-steps-title {
@@ -298,7 +312,7 @@
 	}
 
 	#ingredient-title-div1 {
-		width: 85%;
+		width: 90%;
 	}
 	
 	#write-ingredient-input {
@@ -323,10 +337,9 @@
 	}
 
 	#ingredient-title-div1 select {
-		
-		text-align: right;
+		text-align: center;
 		padding: 0px;
-		padding-right: 22px;
+		padding-left: 30px;
 	}
 	
 	#ingredient-title-div1 input, #ingredient-title-div1 select {
@@ -335,7 +348,7 @@
 	}
 
 	#ingredient-title-div2 {
-		width: 15%;
+		width: 10%;
 		padding-top: 7px;
 		padding-right: 10px;
 	}
@@ -355,13 +368,68 @@
 		color: rgb(59, 134, 225);
 	}
 
-	
-
 	/* 재료 콘텐트 (입력요소 생성해서 띄우는 부분) */
 	#cookStepsIngredientContent {
 		height: 70%;
 	}
+
+	#ingredientContentLeft, #ingredientContentRight {
+		width: 50%;
+		height: 100%;
+		float: left;
+	}
+
+
+	#cookStepsIngredientContent .ingredientContainer {
+		width: 100%;
+		height: 34px;
+	}
+
+	#cookStepsIngredientContent .ingredientContainer div {
+		height: 100%;
+		float: left;
+	}
 	
+	div[id ^= 'ingredientAreaDiv'] {
+		width: 60%;
+	}
+
+	div[id ^= 'ingredientAmountDiv'] {
+		width: 20%;
+	}
+
+	div[id ^= measureAreaDiv] {
+		width: 20%;
+	}
+
+
+	#cookStepsIngredientContent input, select {
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+		font-size: 1px;
+		text-align: center;
+		appearance: none;
+	}
+
+	.ingMeasure {
+		font-size: 1px;
+	}
+	
+	#cookStepsIngredientContent input::placeholder, select::placeholder {
+		text-align: center;
+	}
+
+	.modify-btn {
+		font-size: 20px;
+		padding: 5px 5px 0px 0px;
+		appearance: none;
+		border: none;
+		background-color: transparent;
+		color: rgb(227, 113, 113);
+		float: right;
+	}
+
 
 
 
@@ -378,7 +446,7 @@
 	#cookingInstructionContainer .cook-steps-inst-title {
 		width: 100%;
 		height: 20%;
-		padding: 20px 20px 0px 20px;
+		padding: 20px 10px 0px 15px;
 	}
 
 	#cookingInstructionContainer .inst-title-lev {
@@ -389,14 +457,23 @@
 		text-align: center;
 		margin: 0px;
 		padding-top: 15px;
-		padding-right: 20px;
+		padding-right: 10px;
 	}
 
 	#cookingInstructionContainer .inst-title-text {
-		width: 90%;
+		width: 75%;
 		height: 100%;
 		box-sizing: border-box;
 		padding: 0px;
+		text-align: center;
+	}
+
+	#cookingInstructionContainer button[id^='delCookSteps'] {
+		font-size: 50px;
+		width: 15%;
+		height: 100%;
+		padding: 0px;
+		box-sizing: border-box;
 		float: right;
 	}
 
@@ -404,7 +481,7 @@
 	#cookingInstructionContainer .cook-steps-inst-content {
 		width: 100%;
 		height: 80%;
-		padding: 20px;
+		padding: 30px;
 	}
 
 	#cookingInstructionContainer .cook-steps-inst-content textarea {
@@ -416,6 +493,16 @@
 		text-align: center;
 	}
 
+	#instAddBtn {
+		font-size: 120px;
+		padding: 0px;
+		margin-top: 147px;
+		margin-left: 237px;
+		appearance: none;
+		border: none;
+		background-color: transparent;
+		color: rgb(89, 164, 255);
+	}
 
 
 	/* 3. 입력폼 내부 하단 div (submit + reset 버튼) */
@@ -468,7 +555,7 @@
 		
 		<!---------------------- 글작성 전체 form / memNo은 session에서 빼서 사용 ----------------------->
 		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-
+		<!-- <form action="insertRecipe.re" id="recipe-enrolling-form" method="post" enctype="multipart/form-data"> -->
 			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipe-enroll-top-bar-wrap">
 				<!-- 카테고리 선택 영역 -->
@@ -584,11 +671,37 @@
 								<p><%= loginMember %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<button type="button" name="tagNo" class="btn btn-info">해시태그입력</button>
+								<select name="tagNo" onclick="ajaxSelectTag();" class="btn btn-info">
+									<option disabled selected value="">해시태그 선택</option>
+								</select>
 							</div>
 						</div>
+
+						<script>
+							// 태그 검색 ajax요청
+							function ajaxSelectTag(){
+								$.ajax({
+									url : 'ajaxSelectTag.ar',
+									data : {},
+									success : function(result) {
+										// TAG_NO, TAG_NAME, TAG_DATE
+										let resultStr = '';
+										for(let i in result) {
+											resultStr += '<option value="' + result[i].tagNo + '">'
+													   + result[i].tagName
+													   + '</option>';
+											console.log(resultStr);
+										}
+									},
+									error : function(){
+										alert('올바르지 않은 요청입니다')										
+									}
+								});
+							};
+						</script>
+
 						<div id="content-thumbnail-image">
-							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif" alt="">dddddddddd
+							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
 					</div>
 					<div class="cook-steps-input-content">
@@ -601,270 +714,78 @@
 								<span>/60 bytes</span>
 							</div>
 						</div>
+
 						<!-- 입력받는 영역 -->
 						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
 							<!-- 기본 재료 입력받는 양식 -->
 							<div id="ingredient-title-div1" class="inputs-in-order">
-								<div id="write-ingredient-input">
-									<input type="text" id="ingredientIn" name="ingredient" class="form-control" placeholder="재료입력" maxlength="15">
-								</div>
-								<div id="amount-ingredient-input">
-									<input type="text" id="ingredientAmountIn" name="ingredientAmount" class="form-control" placeholder="재료량" maxlength="4">
-								</div>
-								<div id="measurement-ingredient-selection">
-									<select id="ingredientMeasureNoIn" name="ingredientMeasureNo" class="custom-select">
-										<option value="">g</option>
-										<option value="">kg</option>
-										<option value="">cups</option>
-										<option value="">ml</option>
-										<option value="">작은술(ts)</option>
-									</select>
-								</div>
+								<h3>재료</h3>
 							</div>
-							<div id="ingredient-title-div2">
-								<button type="button" id="ingredient-title-btn" onclick="addIngredientDisplay();" class="fa fa-plus-square"></button>
+							<div id="cookStepsIngredientContent" class="cook-steps-inner">
+							    <div id="ingredientContentLeft">
+							        <% for (int i = 0; i < 15; i++) { %>
+							            <div id="ingredientContainer<%= i %>" class="ingredientContainer">
+							                <div id="ingredientAreaDiv<%= i %>">
+							                    재료<%= i %>
+							                </div>
+							                <div id="ingredientAmountDiv<%= i %>">
+							                    000
+							                </div>
+							                <div id="measureAreaDiv<%= i %>">
+							                    g
+							                </div>
+							            </div>
+							        <% } %>
+							    </div>
+							
+							    <div id="ingredientContentRight">
+							        <% for (int i = 15; i < 30; i++) { %>
+							            <div id="ingredientContainer<%= i %>" class="ingredientContainer">
+							                <div id="ingredientAreaDiv<%= i %>">
+							                    재료<%= i %>
+							                </div>
+							                <div id="ingredientAmountDiv<%= i %>">
+							                    000
+							                </div>
+							                <div id="measureAreaDiv<%= i %>">
+							                    g
+							                </div>
+							            </div>
+							        <% } %>
+							    </div>
 							</div>
 						</div>
-						<div id="cookStepsIngredientContent" class="cook-steps-inner">
-							<!--
-								생성된 요소 띄워줄 영역
-								자바 스크립트로 입력된 재료 요소 추가
-							-->
-						</div>
-
 					</div>
 				</div>
-				<!------------------------------------------ Script (바이트 카운트 / 재료입력 디스플레이) ------------------------------------------>
-				<script>
-
-					// 타이틀 글자수 바이트 수 세기
-					$(function(){
-						$('#cook-steps-title textarea').keyup(function(e){
-							var textAreaBytes = 0;
-							var textArea = $(this).val();
-							var numberingSpan = $('#cook-steps-title').find('span').eq(0);
-			
-							var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
-							var patternBlank = /[\s]/m;
-							var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
-							
-							if(textArea.length != 0){
-								for(let i = 0; i < textArea.length; i++){
-									console.log('d');
-									if(textAreaBytes <= 60) {
-										textAreaBytesBefore = textAreaBytes;
-										if(patternKor.test(textArea.charAt(i))) {
-											textAreaBytes += 3;
-										}
-										else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-											if(e.key == 'Enter') {
-												textAreaBytes += 2;
-											}
-											else {
-												textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
-												textAreaBytes++;
-											}
-										}
-										else {
-											textAreaBytes += 3;
-										}
-										numberingSpan.text(textAreaBytes);
-									}
-									if(60 < textAreaBytes) { // if처리
-										$(this).val(textArea.substring(0, i));
-										numberingSpan.text(textAreaBytesBefore);
-										alert('더 이상 입력할 수 없습니다!');
-										return false;
-									}
-								}
-							}
-							else {
-								numberingSpan.text(0);
-							}
-						});
-					});
-					
-					
-					
-					// 재료 입력 디스플레이 생성
-					function addIngredientDisplay(){
-						// 생성된 요소 띄워줄 영역
-						var cookStepsIngredientContent = document.getElementById('cookStepsIngredientContent');
-
-						// 현재 만들어진 ingredientContainer 개수 (없을때 0부터 시작)
-						var count = document.getElementsByClassName('ingredientContainer').length;
-						console.log(count);
-
-						// 입력된 재료 값 받기
-						var ingredientIn = document.getElementById('ingredientIn').value;
-						var ingredientAmountIn = document.getElementById('ingredientAmountIn').value;
-						var ingredientMeasureNoIn = document.getElementById('ingredientMeasureNoIn').value;
-						
-
-						
-						// Container 생성 + 세팅 + append하기
-						var ingredientContainer = document.createElement('div');
-						ingredientContainer.id = 'ingredientContainer' + count;
-						ingredientContainer.classList.add('ingredientContainer');
-						ingredientContainer.appendChild(ingredientAreaDiv);
-						
-						
-						
-						
-						// Container 내부 div들 3파트 세팅
-						var ingredientAreaDiv = document.createElement('div');
-						ingredientAreaDiv.id = 'ingredientAreaDiv' + count;
-
-						var amountAreaDiv = document.createElement('div');
-						amountAreaDiv.id = 'amountAreaDiv' + count;
-						
-						var measureAreaDiv = document.createElement('div');
-						measureAreaDiv.id = 'measureAreaDiv' + count;
-
-						
-						// appendChild
-						cookStepsIngredientContent.appendChild(ingredientContainer);
-
-						ingredientContainer.appendChild(amountAreaDiv);
-						ingredientContainer.appendChild(measureAreaDiv);
-						
-
-
-						
-						/*
-
-						measureAreaDiv.appendChild('s');
-						console.log('dd');
-						// 요소생성 + 세부세팅 (ingredient인풋)
-
-						// 요소생성 + 세부세팅 (인풋)
-						
-
-						// 요소생성 + 세부세팅 (ingredientMeasureNo인풋)
-					
-			
-						//console.log(ingredientMeasureNo);
-			
-						//const ingredientIndex = document.getElementsByClassName('inputs-in-order');
-						//console.log(ingredientIndex);
-			
-			
-						//const displayingContainer1 = document.getElementById('displaying-input-area1');
-						//const displayingContainer2 = document.getElementById('displaying-input-area2');
-						*/
-			
-						count++;
-					};
-			
-					
-					/* 나중에 생성되어야하는 재료입력칸 (삭제버튼 추가됨 / 네임+버튼아이디 넘버링은 0, 1, 2, 3. . . 되도록)
-						<div id="ingredientContainer0" class="ingredientContainer">
-							<div id="ingredientAreaDiv0">
-								<input type="text" id="ingredientIn0" name="ingredientIn0" class="form-control" placeholder="재료입력" maxlength="15" required>
-							</div>
-							<div id="amountAreaDiv0">
-								<input type="text" id="ingredientAmountIn0" name="ingredientAmountIn0" class="form-control" placeholder="재료량" maxlength="4" required>
-							</div>
-							<div id="measureAreaDiv0">
-								<select id="ingredientMeasureNoIn0" name="ingredientMeasureNoIn0" class="custom-select" required>
-									<option value="">g</option>
-									<option value="">kg</option>
-									<option value="">cups</option>
-									<option value="">ml</option>
-									<option value="">작은술(ts)</option>
-								</select>
-							</div>
-							<div>
-								<button type="button" id="ingredient-title-btn" onclick="deleteIngredientDisplay();" class="fas fa-minus-square"></button>
-							</div>
-						</div>
-					*/
-				</script>
-				<!------------------------------------------ Script ------------------------------------------>
-
 
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
 					<!--
 						아래의 제이쿼리 이벤트로 입력 틀 생성
 					-->
-						<div id="cookStepsInstInnerEnd">
-							<button id="instAddBtn" type="button">Add</button>
-						</div>
 				</div>
-
-				<script>
-					$(function(){
-						// 첫 재료입력 인풋 / 텍스트아리아 required추가
-						$('input[name=cookStepsTitle1]').attr('required', true);
-						$('textarea[name=cookStepsContent1]').attr('required', true);
-						
-						// 버튼 클릭 시 요리과정 받는 창 생성해줌
-						// instAddBtn에 클릭이벤트가 일어날 때 마다 앞쪽에 양식 추가 + 전역변수 클릭 카운팅 6개까지 생성
-						var $instAddBtnCount = 0;
-						$('#instAddBtn').click(function(){
-							
-							let $insAddStr = '<div id="cookStepsInstInner' + ($instAddBtnCount + 1) + '">'
-								+ '<div class="cook-steps-inst-title">'
-								+ '<input type="hidden" name="cookStepsLev' + ($instAddBtnCount + 1) + '" value="' + ($instAddBtnCount + 1) + '"><p class="inst-title-lev">' + ($instAddBtnCount + 1) + '</p>'
-								+ '<input type="text" name="cookStepsTitle' + ($instAddBtnCount + 1) + '" placeholder="요리과정 제목" class="inst-title-text">'
-								+ '</div>'
-								+ '<div class="cook-steps-inst-content">'
-								+ '<textarea name="cookStepsContent' + ($instAddBtnCount + 1) + '" placeholder="요리과정 설명" cols="30" rows="10" maxlength="500" style="resize: none;"></textarea>'
-								+ '</div>'
-								+ '</div>';
-							let $instAddBtnDetach = $('#cookStepsInstInnerEnd').detach();
-							
-							$('#cookingInstructionContainer').append($insAddStr, $instAddBtnDetach); // insAddStr과 잘라낸 버튼 Append 후 count++
-							$instAddBtnCount++;
-
-							if($instAddBtnCount == 6) { // 카운트 6이면 이벤트, 버튼 제거
-								$(this).off('click');
-								$('#cookStepsInstInnerEnd').remove();
-							}
-						});
-						
-					});
-				</script>
-
 
 				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
 					<div>
-						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary">글작성</button>
+						<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
 					</div>
 					<div>
 						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
 					</div>
 				</div>
-				<script>
-					// 초기화, 작성 요청 종류 script
 
-					 // 초기화 요청 confirm
+				<script>
+					// 글작성 요청
+					function confirmSubmit() {
+						return confirm("글을 작성하시겠습니까?");
+					};
+
+					// 초기화 요청 confirm
 					function confirmReset() {
 						return confirm("입력한 정보를 초기화하시겠습니까?");
 					};
-					
-					$(function(){
-			
-						// 레시피 글 작성요청 form태그 속성 설정 및 submit
-						$('#recipe-enrolling-btn').click(function(){
-							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/insertRecipe.re').submit();
-						});
-						
-						// 임시저장글 3개미만 모달창 작성요청 form태그 속성 설정 및 submit
-						$('#unrecipe-enrolling-btn').click(function(){
-							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsert.un').submit();
-						});
-						
-						// 임시저장글 3개이상 모달창 글삭제/작성요청 form태그 속성 설정 및 submit
-						$('#unrecipe-del-enrolling-btn').click(function(){
-							$('#recipe-enrolling-form').attr('action', '<%= contextPath %>/unRecipeInsertInstead.un').submit();
-						})
-					});
 				</script>
-
-
 
 			</div>
 			<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
@@ -873,10 +794,5 @@
 		<!---------------------- 글 작성 전체 form 끝 ---------------------->
 	</div>
 	<!---------------------- 전체 wrap 끝 ---------------------->
-
-
-
-
-	
 </body>
 </html>
