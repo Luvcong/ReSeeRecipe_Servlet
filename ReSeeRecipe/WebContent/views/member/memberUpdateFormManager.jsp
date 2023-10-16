@@ -63,7 +63,7 @@
             <p class="tag">이메일</p>
             <input type="email" class="form-control"  id="HL_memberEmail" name="memEmail" value="<%=m.getMemEmail()%>" required>
             <label for="HL_memberEmail">* 인증받을 이메일을 입력해 주세요.</label>
-            <button type="button" class="btn btn-sm btn-primary" id="invalidEmail" onclick="invalidEmail();">중복확인</button>
+            <button type="button" class="btn btn-sm btn-primary" id="invalidEmail">중복확인</button>
             <br>
             <label for="memberEnrolldate">가입일자</label>
             <input type="text" class="form-control"  id="memberEnrolldate" name="memEnrolldate" value="<%=m.getEnrollDate()%>" readonly>
@@ -94,7 +94,13 @@
 <script>
 
     $(function(){
-        $('#HL_invalidNick').on('click', invalidNick);
+        $('#HL_invalidNick').on('click', function() {
+            invalidNick();
+        });
+
+         $('#invalidEmail').on('click', function() {
+            invalidEmail();
+        });
     });
     // 닉네임 중복확인 함수
 	function invalidNick(){
@@ -111,13 +117,7 @@
 
                 // 동등비교연산으로 문자열 따지기
                 if(result == 'NNNNN') {
-                    /*
-                    Swal.fire({
-                      '회원 닉네임 중복',         // Alert 제목
-                      '이미 존재하거나 탈퇴한 회원의 닉네임입니다.',  // Alert 내용
-                      'success'                         // Alert 타입
-                    });
-                    */
+            
                     alert('회원 닉네임 중복');
                     $hlmemnickname.val('').focus();
                 }
@@ -179,11 +179,7 @@
 
                 // 동등비교연산으로 문자열 따지기
                 if(result == 'NNNNN') {
-                    Swal.fire({
-                      '회원 닉네임 중복',         // Alert 제목
-                      '이미 존재하거나 탈퇴한 회원의 닉네임입니다.',  // Alert 내용
-                      'success',                         // Alert 타입
-                    });
+                   alert('이미 존재하거나 탈퇴한 회원의 이메일입니다.');
 
                     $hlmemEmail.val('').focus();
                 }
