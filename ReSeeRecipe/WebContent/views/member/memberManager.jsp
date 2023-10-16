@@ -151,8 +151,8 @@
         			url : 'hlsearchmeminfo.ma',
         			type : 'post',
         			data : {
-        				option : $option.val(),
-        				searhcon : $searcon
+        			/*	option : $option.val(),*/
+        				searhcon : $('#searchMember').val()
         			},
         			success : function(result){
         				console.log(result);
