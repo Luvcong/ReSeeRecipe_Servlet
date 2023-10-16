@@ -104,10 +104,13 @@ public class RecipeController {
 		String viewPath = "";
 		
 		//@@@@@@@@@@@@편의를 위해 잠시 null
-		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
+		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null 번호 3해둠");
 		if(null == loginMember) {
 			// 임시저장글 받아오기
-			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList();
+			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList(3/*loginMember.getMemNo()*/);
+			request.setAttribute("unReList", unReList);
+			
+			System.out.println(unReList);
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		} else {
 			return new SendError().sendError(request, "임시저장글 조회에 실패했습니다");
@@ -148,7 +151,6 @@ public class RecipeController {
 		if((request.getSession().getAttribute("loginMember")) != null) {
 			
 			int memNo = loginMember.getMemNo();
-			int recipeWriterNo = memNo;
 			request.getParameter("recipeCategoryNo");
 			request.getParameter("recipeTitle");
 			

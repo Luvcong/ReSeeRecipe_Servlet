@@ -5,26 +5,26 @@
 	
 	<!-- 신고함 리스트 조회 SQL문 -->
 	<entry key="selectReportList">
-	SELECT *
-	  FROM (SELECT ROWNUM RNUM, A.*
-	          FROM (SELECT
-							REPORT_NO,
-							RPT_DATE,
-							RPT_CATEGORY_NAME,
-							RPT_CONTENT,
-							MEM_ID AS RECIVE_REPORT,
-							MEM_ID AS SEND_REPORT,
-							RPT_STATUS
-					  FROM
-					  	    TB_REPORT
-					  JOIN 
-					  	    TB_REPORT_CATEGORY USING(RPT_CATEGORY_NO)
-					  JOIN
-					  		TB_MEMBER USING(MEM_NO)
-					  JOIN 
-					  		TB_RECIPE ON(RPT_TARGET = RECIPE_NO)
-			  		 ORDER BY REPORT_NO DESC) A)
-			  		 WHERE RNUM BETWEEN ? AND ?
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (SELECT
+		                        REPORT_NO,
+		                        RPT_DATE,
+		                        RPT_CATEGORY_NAME,
+		                        RPT_CONTENT,
+		                        M.MEM_ID AS RECIVE_REPORT,
+		                        R.MEM_ID AS SEND_REPORT,
+		                        RPT_STATUS
+		                  FROM
+		                  		TB_REPORT TR
+		                  JOIN
+		                  		TB_REPORT_CATEGORY TRC ON (TR.RPT_CATEGORY_NO = TRC.RPT_CATEGORY_NO)
+		                  JOIN
+		                  		TB_MEMBER M ON (M.MEM_NO = RECIVE_REPORT)
+		                  JOIN
+		                  		TB_MEMBER R ON (R.MEM_NO = SEND_REPORT)
+		                 ORDER BY REPORT_NO DESC) A)
+		        		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<!-- 리워드 리스트 행 조회 SQL문-->
