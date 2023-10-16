@@ -55,8 +55,9 @@
 			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
 		</div>
 		<div class="titleMenu" id="adminsetting" >
-			<a href="<%=contextPath %>/hlsettingmanager.ma">
+			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
+				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
 		</div>

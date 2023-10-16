@@ -66,8 +66,11 @@
 		                </select>
 		                <span><%= list2.get(0).getOptionPrice() %></span>
 		                <input type="hidden" value="<%= list2.get(0).getOptionNo() %>" name="ono">
+		                <h2>총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(0).getOptionNo() %>원</h2>
+	                <% } else { %>
+	                	<h2>총 가격 <%= p.getPrice() + p.getDilivery() %>원</h2>
 	                <% } %>
-	            <h2>총 가격 0원</h2>
+	            
 	            <!-- <% if(loginMember != null) { %>
 		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
 		            <button type="submit" formaction="">장바구니</button>
@@ -89,6 +92,7 @@
 	        			if($(this).val() == '<%= list2.get(i).getOptionName() %>') {
 							$('#select').next().text('<%= list2.get(i).getOptionPrice() %>');
 							$('#select').next().next().val('<%= list2.get(i).getOptionNo() %>');
+							$('#select').next().next().next().text('총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(i).getOptionPrice() %>원');
 						}
         			<% } %>
         		})
