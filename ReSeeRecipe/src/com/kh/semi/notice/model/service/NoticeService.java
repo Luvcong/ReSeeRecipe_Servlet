@@ -1,7 +1,6 @@
 package com.kh.semi.notice.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -97,6 +96,18 @@ public class NoticeService {
 			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
 			result3 = new NoticeDao().insertNoticeTag(conn, list);
 			
+		} 
+		// 3) 트랜잭션 처리
+		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
+		// 셋 중 하나라도 실패하면 무조건 rollback
+		if((result1 * result2 * result3) > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
 		}
+		
+		close(conn);
+		
+		return (result1 * result2 * result3);
 	}
 }

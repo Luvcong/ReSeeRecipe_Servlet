@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.member.model.vo.Member" %>
 <%
+	// session에서 관리자 정보 가져오기	
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	// 성공 / 메시지
+	String alertMsg =(String)session.getAttribute("alertMsg");
+
 	String contextPath = request.getContextPath();
 %>        
 <!DOCTYPE html>
@@ -51,6 +57,7 @@
 		<div class="titleMenu" id="adminsetting" >
 			<a href="<%=contextPath %>/hlsettingmanager.ma">
 				<i class="fa-solid fa-gear"></i>
+				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
 		</div>

@@ -984,6 +984,7 @@
 
 				<script>
 					$(function(){
+						// ★★★★★★★하나를 띄워두고 clone으로 생성, remove로 지우기 + reordering함수만 만들기
 						/*
 						var $insAddStr = '<div id="cookStepsInstInner' + $instAddBtnCount + '">'
 										+ '<div class="cook-steps-inst-title">'

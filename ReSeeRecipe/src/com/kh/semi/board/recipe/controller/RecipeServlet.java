@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
-import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeErrorController;
 import com.kh.semi.member.model.vo.Member;
 
 /**
@@ -42,7 +41,6 @@ public class RecipeServlet extends HttpServlet {
 			loginMember = (Member)(request.getSession().getAttribute("loginMember"));
 		}
 		RecipeController rc = new RecipeController();
-		RecipeErrorController rec = new RecipeErrorController();
 		
 		// 인코딩 세팅
 		request.setCharacterEncoding("UTF-8");	
@@ -87,12 +85,8 @@ public class RecipeServlet extends HttpServlet {
 			//case "searchKeyWord" : viewPath = rc.searchKeyWord(request, response); break;
 			
 			
-			/* 에러메세지 종류 */
-			/* 레시피 전체조회 결과 없을 시 에러페이지로 포워딩 */
-			case "errorNoRecipeList" : viewPath = rec.errorNoRecipeList(request, response); break;
-			
 			/* 예상하지 못한 매핑값으로 요청이 들어왔을 때 에러페이지로 포워딩 */
-			default : viewPath = rec.errorDefault(request, response); break;
+			default : viewPath = rc.errorDefault(request, response); break;
 		}
 		
 		// forward or sendRedirect ( flag = false로 만들면 redrect)
