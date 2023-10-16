@@ -151,7 +151,7 @@
         			url : 'hlsearchmeminfo.ma',
         			type : 'post',
         			data : {
-        				option : $option.val(),
+        			/*	option : $option.val(),*/
         				searhcon : $searcon
         			},
         			success : function(result){
