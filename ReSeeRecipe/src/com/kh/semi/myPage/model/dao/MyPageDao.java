@@ -35,12 +35,12 @@ public class MyPageDao {
 		ArrayList<MemberCoupon> list = new ArrayList();
 		String sql = prop.getProperty("selectMemberCouponList");
 		
-		if(selected.equals("resentSort")) {
-			sql += "MEMBER_COUPON_DATE DESC";
-		} else if(selected.equals("saleSort")) {
+		if(selected.equals("saleSort")) {
 			sql += "COUPON_RATIO DESC";
 		} else if(selected.equals("limitSort")) {
 			sql += "COUPON_ENDDATE ASC";
+		} else {
+			sql += "MEMBER_COUPON_DATE DESC";
 		}
 		
 		try {
