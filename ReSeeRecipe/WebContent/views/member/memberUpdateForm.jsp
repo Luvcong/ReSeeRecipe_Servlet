@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보변경</title>
-</head>
-<body>
+
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
@@ -201,7 +201,7 @@
                   <div class="modal-footer">
                       <!-- 아이디 같이 보내주기 -->
                       <!-- <button type="submit" action="<%= contextPath %>/yrupdateMemberPwd.me?memberId=<%= loginMember.getMemId() %>" method="post"></button> -->
-                      <button type="button" class="btn btn-danger" id="updatePwdBtn" onclick="updateMemberPwd();" data-dismiss="modal" )>비밀번호 변경</button>
+                      <button type="button" class="btn btn-danger" id="updatePwdBtn" onclick="updateMemberPwd();" data-dismiss="modal" >비밀번호 변경</button>
                   </div>
                   
                 <!-- </form> -->
