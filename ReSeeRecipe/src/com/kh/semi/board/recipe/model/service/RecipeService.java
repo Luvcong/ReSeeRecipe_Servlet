@@ -1,7 +1,9 @@
 package com.kh.semi.board.recipe.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,8 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
@@ -60,28 +65,49 @@ public class RecipeService {
 	
 	
 	public int insertRecipe(HashMap<String, Object> insertRecipeMap) {
+		int returningResult = 0;
 		int recipeResult = 0;
 		int tagResult = 0;
 		int picResult = 0;
 		int cookStepsResult = 0;
 		int ingredientResult = 0;
-		int memNo = insertRecipeMap.get("memNo");
+		RecipeDao rd = new RecipeDao();
+		
 		try(Connection conn = getConnection()) {
 			// TB_RECIPE insert
-			recipeResult = new RecipeDao(insertRecipeMap.get());
-			// TB_RECIPE_TAG insert
-			tagResult =
-			// TB_RECIPE_PIC insert
-			picResult =
-			// TB_COOK_STEPS insert
-			cookStepsResult =
-			// TB_INGREDIENT insert
-			ingredientResult =
+			Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
+			recipeResult = rd.insertRecipe(recipe);
 			
+			if(recipeResult > 0) {
+				// TB_RECIPE_PIC insert
+				ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList");
+				picResult = rd.insertRecipePic(conn, recipePicList);
+				
+				// TB_INGREDIENT insert
+				ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList");
+				ingredientResult = rd.insertIngredient(conn, ingredientList);
+				
+				// TB_COOK_STEPS insert
+				ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList");
+				cookStepsResult = rd.insertCookSteps(conn, cookStepsList);
+				
+				// TB_RECIPE_TAG insert
+				ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList");
+				tagResult = rd.insertRecipeTag(conn, tagNoList);
+				
+				// 커넥션 닫기 전 transaction처리
+				if( !(recipeResult == 0
+				   || picResult * ingredientResult * cookStepsResult * tagResult == 0)) {
+					returningResult = 1;
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return returningResult;
 	}
 	
 	

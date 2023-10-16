@@ -177,7 +177,7 @@ public class RecipeController {
 			/* 여기 넘어온 memNo는 null아님 */
 			int memNo = loginMember.getMemNo();
 			
-			/* Recipe세팅, 값 한개씩만 있음 */
+			// Recipe세팅, 값 한개씩만 있음 
 			Recipe recipe = new Recipe();
 			// 이 항목들이 모두 데이터가 있다면
 			if( !(multiRequest.getParameter("recipeTitle") != null
@@ -189,19 +189,6 @@ public class RecipeController {
 			}
 			
 			
-			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
-			ArrayList<Integer> tagNoList = new ArrayList();
-			for(int i = 0; i < 5; i++) {
-				String tagNoKey = "tagNo" + i;
-				// 이 항목들이 모두 데이터가 있다면
-				if(multiRequest.getParameter(tagNoKey) != null) {
-					// Integer값 뽑아 ArrayList<Integer>에 추가
-					Integer tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
-					tagNoList.add(tagNo);
-				}
-			}
-		
-			
 			// (recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
 			// ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정
 			ArrayList<RecipePic> recipePicList = new ArrayList();
@@ -212,9 +199,9 @@ public class RecipeController {
 				String recipePicLevKey = "recipePicLev" + i;
 				// 이 항목들이 모두 데이터가 있다면
 				if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
-				   || multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
-				   || multiRequest.getOriginalFileName(recipePicPathKey) == null
-				   || multiRequest.getParameter(recipePicLevKey) == null)) {
+						|| multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
+						|| multiRequest.getOriginalFileName(recipePicPathKey) == null
+						|| multiRequest.getParameter(recipePicLevKey) == null)) {
 					// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 					RecipePic rPicObj = new RecipePic();
 					rPicObj.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
@@ -222,6 +209,23 @@ public class RecipeController {
 					rPicObj.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
 					rPicObj.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
 					recipePicList.add(rPicObj);
+				}
+			}
+			
+			
+			// ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
+			ArrayList<Ingredient> ingredientList = new ArrayList();
+			for(int i = 0; i < 30; i++) {
+				String ingredientKey = "ingredient" + i;
+				String ingredientAmount = "ingredientAmount" + i;
+				// 이 항목들이 모두 데이터가 있다면
+				if( !(multiRequest.getParameter(ingredientKey) == null
+						|| multiRequest.getParameter(ingredientAmount) == null)) {
+					// Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
+					Ingredient ingObj = new Ingredient();
+					ingObj.setIngredient(multiRequest.getParameter(ingredientKey));
+					ingObj.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
+					ingredientList.add(ingObj);
 				}
 			}
 
@@ -246,33 +250,31 @@ public class RecipeController {
 			}
 			
 			
-			/* ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
-			ArrayList<Ingredient> ingredientList = new ArrayList();
-			for(int i = 0; i < 30; i++) {
-				String ingredientKey = "ingredient" + i;
-				String ingredientAmount = "ingredientAmount" + i;
+			// tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+			ArrayList<Integer> tagNoList = new ArrayList();
+			for(int i = 0; i < 5; i++) {
+				String tagNoKey = "tagNo" + i;
 				// 이 항목들이 모두 데이터가 있다면
-				if( !(multiRequest.getParameter(ingredientKey) == null
-				   || multiRequest.getParameter(ingredientAmount) == null)) {
-					// Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
-					Ingredient ingObj = new Ingredient();
-					ingObj.setIngredient(multiRequest.getParameter(ingredientKey));
-					ingObj.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
-					ingredientList.add(ingObj);
+				if(multiRequest.getParameter(tagNoKey) != null) {
+					// Integer값 뽑아 ArrayList<Integer>에 추가
+					Integer tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
+					tagNoList.add(tagNo);
 				}
 			}
+			
 			
 			// 3) VO가공 => map에 담기
 			HashMap<String, Object> insertRecipeMap = new HashMap();
 			insertRecipeMap.put("recipe", recipe);
-			insertRecipeMap.put("tagNoList", tagNoList);
 			insertRecipeMap.put("recipePicList", recipePicList);
-			insertRecipeMap.put("cookStepsList", cookStepsList);
 			insertRecipeMap.put("ingredientList", ingredientList);
+			insertRecipeMap.put("cookStepsList", cookStepsList);
+			insertRecipeMap.put("tagNoList", tagNoList);
 			
 			// Recipecontroller호출
 			int result = new RecipeService().insertRecipe(insertRecipeMap);
 			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 				viewPath = "/selectRecipeList.re";
 			} else {
 				viewPath = "/.re";

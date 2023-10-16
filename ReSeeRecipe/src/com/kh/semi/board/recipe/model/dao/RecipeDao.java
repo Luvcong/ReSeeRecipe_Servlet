@@ -111,8 +111,32 @@ public class RecipeDao {
 		}
 		return list;
 	}
-
 	
+	
+	
+	/* ************************** INSERT종류 ************************** */
+	/**
+	 * 레시피 제목, 작성자 이름, 레시피 카테고리 정보를 받아 레시피를 INSERT하는 기능
+	 * @param conn : Connection객체
+	 * @param recipe : Recipe객체<br>
+	 * recipeTitle, recipeWriterNo, recipeCategoryNo필드들 초기화 된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertRecipe(Connection conn, Recipe recipe) {
+		int result = 0;
+		String sql = prop.getProperty("insertRecipe");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, recipe.getRecipeTitle());
+			pstmt.setInt(2, recipe.getRecipeWriterNo());
+			pstmt.setInt(3, recipe.getRecipeCategoryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	
 	
