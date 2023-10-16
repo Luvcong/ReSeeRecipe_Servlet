@@ -2,16 +2,16 @@ package com.kh.semi.board.recipe.model.vo;
 
 import java.util.List;
 
-public class IngredientList {
+public class RecipeAllList {
 	
+	private List<CookSteps> csList;
 	private List<Ingredient> ingList;
-
 	
-	public IngredientList() {
+	public RecipeAllList() {
 		super();
 	}
 
-	public IngredientList(List<Ingredient> ingList) {
+	public RecipeAllList(List<Ingredient> ingList) {
 		super();
 		this.ingList = ingList;
 	}

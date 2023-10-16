@@ -171,7 +171,7 @@
 		VALUES
 			   (
 			   ?,
-			   ?
+			   SEQ_RECIPE.CURRVAL
 			   )
 	</entry>
 	<!-- ******* 레시피 관련 INSERT구문 끝 ******* -->
