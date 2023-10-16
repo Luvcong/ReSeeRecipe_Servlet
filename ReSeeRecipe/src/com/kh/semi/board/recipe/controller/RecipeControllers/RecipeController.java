@@ -2,7 +2,6 @@ package com.kh.semi.board.recipe.controller.RecipeControllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +13,23 @@ import com.kh.semi.board.recipe.model.service.UnRecipeService;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
+import com.kh.semi.common.SendError;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.tag.model.service.TagService;
 import com.kh.semi.tag.model.vo.Tag;
 
 public class RecipeController {
+	
+	
+
+	/**
+	 * 레시피 서블릿(RecipeServlet)에 예상하지 못한 매핑값으로 요청이 들어왔을 때 디폴트 에러메세지와 함께 에러페이지로 포워딩
+	 * @return 디폴트 에러메세지
+	 */
+	public String errorDefault(HttpServletRequest request, HttpServletResponse response) {
+		return new SendError().sendError(request, "??? 알 수 없는 요청입니다 ???");
+	}
 	
 	
 	/**
@@ -34,8 +44,7 @@ public class RecipeController {
 		if(!cList.isEmpty()) {
 			request.setAttribute("cList", cList);
 		} else {
-			request.setAttribute("errorMsg", "에러가 발생했습니다");
-			return "/views/common/errorPage.jsp";
+			return new SendError().sendError(request, "카테고리 조회에 실패했습니다");
 		}
 		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
 		return viewPath;
@@ -67,19 +76,22 @@ public class RecipeController {
 		int boardLimit = 9; // 한 페이지에 보일 게시글 수
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
+
 		// 페이지네이션을 위한 정보를 넘기며 서비스호출
 		ArrayList<Recipe> rList = rs.selectRecipeList(pi);
 		
-		// 넘길 값 지정
-		request.setAttribute("rList", rList);
-		request.setAttribute("pi", pi);
-		
-		// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
-		viewPath = "/views/board/recipe/recipeMainView.jsp";
-		
+		if(!rList.isEmpty()) {
+			// 넘길 값 지정
+			request.setAttribute("rList", rList);
+			request.setAttribute("pi", pi);
+			// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
+			viewPath = "/views/board/recipe/recipeMainView.jsp";
+		} else {
+			return new SendError().sendError(request, "조회된 게시글이 없습니다");
+		}
 		return viewPath;
 	}
+	
 	
 	
 	/**
@@ -94,8 +106,11 @@ public class RecipeController {
 		//@@@@@@@@@@@@편의를 위해 잠시 null
 		System.out.println("레시피 컨트롤러 recipeEnrollForm 편의상 null해둠");
 		if(null == loginMember) {
+			// 임시저장글 받아오기
 			ArrayList<UnRecipe> unReList = new UnRecipeService().selectUnRecipeList();
 			viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
+		} else {
+			return new SendError().sendError(request, "임시저장글 조회에 실패했습니다");
 		}
 		return viewPath;
 	}
