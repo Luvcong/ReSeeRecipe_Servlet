@@ -78,7 +78,6 @@
                         <th data-idx=5>신고대상자<div class="sort"></div></th>
                         <th data-idx=6>신고자<div class="sort"></div></th>
                         <th data-idx=7>차단여부<div class="sort"></div></th>
-                        <th data-idx=8 style="display: none">회원번호<div class="sort"></div></th>
                         <th>
 	                    </tr>
                 </thead>
@@ -98,7 +97,6 @@
 	                        <td><%= report.getReciveReport() %></td>
 	                        <td><%= report.getSendReport()	 %></td>
 	                        <td><%= report.getRptStatus()%></td>
-	                        <td style="display: none"><%= report.getMemNo() %></td>
 	                    </tr>
 	                    <% } %>
 	                <% } %>

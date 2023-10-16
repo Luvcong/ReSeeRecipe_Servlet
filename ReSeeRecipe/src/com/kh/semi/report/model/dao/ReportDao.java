@@ -63,8 +63,9 @@ public class ReportDao {
 				report.setReciveReport(rset.getString("RECIVE_REPORT"));
 				report.setSendReport(rset.getString("SEND_REPORT"));
 				report.setRptStatus(rset.getString("RPT_STATUS"));
-
+				
 				list.add(report);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
