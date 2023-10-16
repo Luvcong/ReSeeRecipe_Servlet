@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.google.gson.Gson;
@@ -13,11 +14,11 @@ import com.google.gson.JsonIOException;
 import com.kh.semi.board.recipe.model.service.RecipeService;
 import com.kh.semi.board.recipe.model.service.UnRecipeService;
 import com.kh.semi.board.recipe.model.vo.CookSteps;
-import com.kh.semi.board.recipe.model.vo.CookSteps;
 import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeAllList;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.common.SendError;
@@ -146,8 +147,9 @@ public class RecipeController {
 	 * @param request : memNo : 로그인 멤버의 정보
 	 * @param response
 	 * @return
+	 * @throws IOException, FileUploadException 
 	 */
-	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) {
+	public String insertRecipe(HttpServletRequest request, HttpServletResponse response, Member loginMember) throws IOException, FileUploadException {
 		
 		// 인코딩은 Servlet에서 완료
 		
@@ -161,8 +163,11 @@ public class RecipeController {
 			String fileSavePath = request.getServletContext().getRealPath("/resources/recipe_upfiles/recipe_pics/");
 			
 			// 1_3. MultipartRequest객체 생성 하면서 파일 이름 새로 생성
-			MultipartRequest multiRequest =
-			new MultipartRequest(request, fileSavePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			MultipartRequest multiRequest = new MultipartRequest(request,
+											fileSavePath,
+											maxSize,
+											"UTF-8",
+											new MyFileRenamePolicy());
 			
 			// 2) multiRequest로부터 값 뽑기 => getParameter()이용
 			int memNo = loginMember.getMemNo();
@@ -170,37 +175,64 @@ public class RecipeController {
 			String recipeTitle = multiRequest.getParameter("recipeTitle");
 			int recipeCategoryNo = Integer.parseInt(multiRequest.getParameter("recipeCategoryNo"));
 			
-			/* tagNO 있을 수도 있고 없을 수도 있음 */
-			int tagNo = Integer.parseInt(multiRequest.getParameter("tagNo"));
+			/* tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+			int tagNo;
 			
-			String recipePicNameOrigin = multiRequest.getParameter("recipeNameOrigin");
-			String recipePicNameUpload = multiRequest.getParameter("recipePicNameUplaod");
-			String recipePicPath = multiRequest.getParameter("recipePicPath");
-			
-			int recipePicLev = Integer.parseInt(multiRequest.getParameter("recipePicLev"));
-			
-			/* cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면 */
-			/* CookSteps 객체에 담아 ArrayList화 							  */
-			ArrayList<CookSteps> csArr = new ArrayList();
-			while( !(multiRequest.getParameter("cookStepsTitle") == null
-				  || multiRequest.getParameter("cookStepsContent") == null
-				  || multiRequest.getParameter("cookStepsLev") == null)) {
-				CookSteps csObj = new CookSteps();
-				csObj.setCookStepsTitle(multiRequest.getParameter("cookStepsTitle"));
-				csObj.setCookStepsContent(multiRequest.getParameter("cookStepsContent"));
-				csObj.setCookStepsLev(Integer.parseInt(multiRequest.getParameter("cookStepsLev")));
-				csArr.add(csObj);
+			for(int i = 0; i < 5; i++) {
+				String tagNoKey = "tagNo" + i;
+				if(multiRequest.getParameter(tagNoKey) != null) {
+					tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
+				}
+			}
+		
+			/* 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정 */
+			ArrayList<RecipePic> rPic = new ArrayList();
+			for(int i = 0; i < 7; i++) {
+				String recipeNameOriginKey = "recipeNameOrigin" + i;
+				String recipePicNameUploadKey = "recipePicNameUploadKey" + i;
+				String recipePicPathKey = "recipePicPathKey" + i;
+				String recipePicLevKey = "recipePicLev" + i;
+				
+				if( !(multiRequest.getParameter(recipeNameOriginKey) == null
+				   || multiRequest.getParameter(recipePicNameUploadKey) == null
+				   || multiRequest.getParameter(recipePicPathKey) == null
+				   || multiRequest.getParameter(recipePicLevKey) == null)) {
+					RecipePic rpic = new RecipePic();
+					String recipePicNameOrigin = multiRequest.getParameter(recipeNameOriginKey);
+					String recipePicNameUpload = multiRequest.getParameter(recipePicNameUploadKey);
+					String recipePicPath = multiRequest.getParameter(recipePicPathKey);
+					if(i == 0) {
+						
+					}
+					int recipePicLev = Integer.parseInt(multiRequest.getParameter(recipePicLevKey));
+				}
 			}
 			
-			String cookStepsTitle = multiRequest.getParameter("");
-			String cookStepsContent = multiRequest.getParameter("");
-			int cookStepsLev = Integer.parseInt(multiRequest.getParameter("cookStepsLev"));
 			
 			
-			// ingredient와 ingredientAmount에 값이 존재한다면
+			/* CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
+			ArrayList<CookSteps> csArr = new ArrayList();
+			for(int i = 0; i < 6; i++) {
+				String csTitleKey = "cookStepsTitle" + i;
+				String csContentKey = "cookStepsContent" + i;
+				String csLev = "cookStepsLev" + i;
+				
+				if( !(multiRequest.getParameter(csTitleKey) == null
+						|| multiRequest.getParameter(csContentKey) == null
+						|| multiRequest.getParameter(csLev) == null)) {
+					CookSteps csObj = new CookSteps();
+					csObj.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
+					csObj.setCookStepsContent(multiRequest.getParameter(csContentKey));
+					csObj.setCookStepsLev(Integer.parseInt(multiRequest.getParameter(csLev)));
+					csArr.add(csObj);
+				}
+			}
+			
+			
+			/* ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
 			ArrayList<Ingredient> ingArr = new ArrayList();
 			while(multiRequest.getParameter("ingredient") != null
-			   && multiRequest.getParameter("ingredientAmount") != null) {
+					&& multiRequest.getParameter("ingredientAmount") != null) {
 				Ingredient ingObj = new Ingredient();
 				ingObj.setIngredient(multiRequest.getParameter("ingredient"));
 				ingObj.setIngredientAmount(multiRequest.getParameter("ingredientAmount"));
@@ -209,11 +241,10 @@ public class RecipeController {
 			
 			// 3) VO가공
 			// IngredientList
-			RecipeAllList rAllList = new RecipeAllList();
-			rAllList.setIngList(ingArr);
+			RecipeAllList recipeAllList = new RecipeAllList();
+			recipeAllList.setIngList(ingArr);
+			
 			// 재료 재료량 재료 재료량 재료 재료량
-			
-			
 		}
 		
 		
@@ -234,7 +265,7 @@ public class RecipeController {
 			
 		}
 		*/
-		return viewPath;
+		return "";
 	}
 	
 	
