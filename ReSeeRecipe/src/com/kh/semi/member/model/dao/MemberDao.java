@@ -60,7 +60,8 @@ public class MemberDao {
 							   rset.getDate("DELETE_DATE"),
 							   rset.getString("MEM_PICTURE"),
 							   rset.getInt("MEM_GRADE"),
-							   rset.getString("MEM_GRADE_NAME"));
+							   rset.getString("MEM_GRADE_NAME"),
+							   rset.getInt("MEM_COUPON_COUNT"));
 			}	
 
 		} catch (SQLException e) {
@@ -675,6 +676,7 @@ public class MemberDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				m.setMemGradeName(rset.getString("MEM_GRADE_NAME"));
+				
 				
 				list.add(m);
 				System.out.println("회원정보조회리스트add>>"+  list);

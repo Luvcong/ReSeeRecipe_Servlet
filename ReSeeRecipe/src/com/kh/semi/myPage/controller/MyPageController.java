@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.myPage.model.service.MyPageService;
+import com.kh.semi.myPage.model.vo.MemberCoupon;
 
 public class MyPageController {
 	
@@ -17,16 +18,17 @@ public class MyPageController {
 		// 1. 값 뽑기
 		
 		// 2. 데이터가공
-		request.getParameter("memNo");
-		
-		
+		int memberNo = Integer.parseInt(request.getParameter("memNo"));
+
 		// 3. 서비스 호출
-		new MyPageService().selectMemberCouponList();
+		ArrayList<MemberCoupon> list = new MyPageService().selectMemberCouponList(memberNo);
+		
+		if(list != null) {
+			request.setAttribute("memberCouponList", list);
+		}
 		
 		// 4. 응답화면 지정
 		String view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
-		
-		
 		
 		return view;
 	}
