@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.myPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.controller.MyPageController;
+import com.kh.semi.myPage.controller.MyPageController;
 /**
  * Servlet implementation class MyPageServlet
  */
