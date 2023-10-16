@@ -97,7 +97,7 @@
         const $hlmemnickname = $('#HL_memberNickname');
 
         $.ajax({
-            url : 'hlinvalidnickname.ma',
+            url : 'yrnicknameCheck.me', //hlinvalidnickname.ma
             data : {checkNickname : $hlmemnickname.val()},
             success : function(result){
 
@@ -162,7 +162,7 @@
 
         // Ajax 통신 후 이메일 중복체크
         $.ajax({
-            url : 'hlinvalidEmail.ma',
+            url : 'yremailCheck.me',//hlinvalidEmail.ma
             data : {checkEmail : $hlmemEmail.val()},
             success : function(result){
 
