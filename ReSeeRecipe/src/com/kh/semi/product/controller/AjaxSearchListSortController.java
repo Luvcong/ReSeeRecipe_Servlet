@@ -66,7 +66,7 @@ public class AjaxSearchListSortController extends HttpServlet {
 		request.setAttribute("select", select);
 		request.setAttribute("cate", cate);
 		
-		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/searchlist.po");
 	}
 
 	/**
