@@ -154,7 +154,7 @@
 			        <h4 class="modal-title">후기 작성</h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
-			     <form  enctype="multipart/form-data" action="<%= contextPath %>/rinsert.po" id="enrolll-form" method="post">
+			     <form enctype="multipart/form-data" id="enrolll-form">
 			      <!-- Modal body -->
 				      <div class="modal-body">
 				       <table>
@@ -163,19 +163,19 @@
 				        		<td><%= p.getProductName() %></td>
 				        	</tr>
 				        	<tr>
-				        		<td>★<input type="number" value="1" name="star" min="1" max="5" step="1"></td>
+				        		<td>★<input type="number" id="reviewstar" value="1" name="star" min="1" max="5" step="1"></td>
 				        	</tr>
 				        	<tr>
-				        		<td colspan="2"><textarea name="content" cols="55" rows="10" style="resize: none;" required></textarea></td>
+				        		<td colspan="2"><textarea id="reviewcontent" name="content" cols="55" rows="10" style="resize: none;" required></textarea></td>
 				        	</tr>
 				        	<tr>
-				        		<td colspan="2"><input type="file" name="file" id="pfile" onchange="loadImg(this, 1);"></td>
+				        		<td colspan="2"><input type="file" multiple name="file" id="pfile" onchange="loadImg(this, 1);"></td>
 				        	</tr>
 				        </table>
 				      </div>
 				      <!-- Modal footer -->
 				      <div class="modal-footer">
-				      	<button type="submit">확인</button>
+				      	<button onclick="insertReview();" data-dismiss="modal">확인</button>
 				        <button type="button" data-dismiss="modal">닫기</button>
 				      </div>
 				</form>
@@ -183,11 +183,13 @@
 			  </div>
 			</div>
             <br><br><br>
-            <p style="margin-bottom: 0px;">주문자명</p>
-            <p style="display: inline-block;">★ 5.0</p>
-            <p style="display: inline-block;">작성일</p>
-            <img src="/view/image/hello.png" width="100" height="100" style="display: block;">
-            <p>리뷰내용</p>
+            <div id="r_riplyarea">
+	            <p style="margin-bottom: 0px;">주문자명</p>
+	            <p style="display: inline-block;">★ 5.0</p>
+	            <p style="display: inline-block;">작성일</p>
+	            <img src="/view/image/hello.png" width="100" height="100" style="display: block;">
+	            <p>리뷰내용</p>
+            </div>
         </div>
     </div>
     
@@ -199,18 +201,57 @@
 				reader.readAsDataURL(inputFile.files[0]);
 				
 				reader.onload = function(e){
-					switch(num){
-						case 1 : $('#img').attr('src', e.target.result); break;		
+					if(num == 1){
+						$('#img').attr('src', e.target.result);	
 					}
 				}
 			} else{
-				switch(num){
-				case 1 : $('#img').removeAttr('src'); break;
+				if(num == 1){
+					$('#img').removeAttr('src');
 				}
 			}
 		}
+		
+		function selectReviewList(){
+			$.ajax({
+				url: 'rlist.po',
+				data: {},
+				success: function(result){
+					console.log(result);
+				}
+			})
+		}
+		
+		function insertReview(){
+			var form = new FormData();
+	        form.append( "file", $("#pfile")[0].files[0] );
+	        form.append("content", $("#reviewcontent").val());
+	        form.append("star", $("#reviewstar").val());
+	        
+	        for (var key of form.keys()) {
+	            console.log(key);
+	         }
+	         for (var value of form.values()) {
+	           console.log(value);
+	         }
+	        
+			$.ajax({
+				url: 'rinsert.po',
+				type: "POST",
+				processData : false,
+		        contentType : false,
+		        enctype: "multipart/form-data",
+				date: form,
+				success: function(result){
+					console.log(result);
+				},
+				error: function(){
+					console.log("gd");
+				}
+				
+			})
+		}
     </script>
-    
     
     <%@ include file="buyFooter.jsp" %>
 </body>
