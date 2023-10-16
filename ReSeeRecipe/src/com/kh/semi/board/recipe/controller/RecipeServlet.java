@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
 import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeErrorController;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class RecipeServletController
@@ -36,7 +37,10 @@ public class RecipeServlet extends HttpServlet {
 		// 기본변수 세팅
 		boolean flag = true;
 		String viewPath = "";
-		
+		Member loginMember = null;
+		if(null != request.getSession().getAttribute("loginMember")) {
+			loginMember = (Member)(request.getSession().getAttribute("loginMember"));
+		}
 		RecipeController rc = new RecipeController();
 		RecipeErrorController rec = new RecipeErrorController();
 		
@@ -60,7 +64,7 @@ public class RecipeServlet extends HttpServlet {
 			//case "recipeDetail" : viewPath = rc.selectRecipeList(request, response); break;
 			
 			/* 3_1. 글작성하기 양식 요청 recipeEnrollForm */
-			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
+			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response, loginMember); break;
 			
 			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax */
 			//case "insertRecipe" : viewPath = rc.insertRecipe(request, response); break;

@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.blog.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

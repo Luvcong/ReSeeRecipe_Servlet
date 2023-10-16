@@ -1,5 +1,6 @@
 package com.kh.semi.notice.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
-import com.kh.semi.tag.model.vo.Tag;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -114,6 +114,23 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 4) 서비스 요청
 	        int result = new NoticeService().insertNotice(n, np, extractedValues);
 	        
+	        // 5) 응답 페이지 지정
+	        if(result > 0) {
+	        	//request.getSession().setAttribute("alertMsg", "게시글 등록 성공"); // 포워딩으로 위임 시 NullPointException 발생
+	        	response.sendRedirect(request.getContextPath() + "/hlnoticemanage.no?cnpage=1");
+	        } else {
+	        	
+	        	// 공지사항 사진 첨부시 TB_NOTICE_PIC에 INSERT 실패시 이미 가지고 있는 파일을 삭제해야함
+	        	// 공지사항 해시태그 작성시 TB_NOTICE_TAG에 INSERT 실패 시 
+	        	if(np != null ) {
+	        		// delete() 호출
+	        		new File(savePath + np.getNoticePicNagmeChange()).delete();
+	        	}
+	        	
+	        	request.setAttribute("errorMsg", "공지사항 게시글 작성 실패");
+	        	request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	        	
+	        } 
 	        
 		}
 		

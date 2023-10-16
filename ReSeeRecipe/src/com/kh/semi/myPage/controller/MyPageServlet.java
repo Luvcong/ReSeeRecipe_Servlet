@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.myPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.member.controller.MyPageController;
+import com.kh.semi.myPage.controller.MyPageController;
 /**
  * Servlet implementation class MyPageServlet
  */
-//회원 controller 너무 많아서 마이페이지는 controller 합쳤습니다. 쓰실분 쓰세요 - yr
+// 회원 controller 너무 많아서 마이페이지는 controller 합쳤습니다. 쓰실분 쓰세요 - yr
 @WebServlet("*.mp")
 public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

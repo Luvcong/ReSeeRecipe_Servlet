@@ -152,7 +152,7 @@
         			type : 'post',
         			data : {
         			/*	option : $option.val(),*/
-        				searhcon : $searcon
+        				searhcon : $('#searchMember').val()
         			},
         			success : function(result){
         				console.log(result);

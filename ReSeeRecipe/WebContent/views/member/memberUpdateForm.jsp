@@ -136,7 +136,7 @@
       <!-- 사진 -->
       <div class="container">
         <% if(loginMember.getMemPicture() != null) { %> 
-        	<img src="<%= loginMember.getMemPicture() %>" alt="프로필사진" id="profileImg" width="150" height="150">
+        	<img src="<%= contextPath %>/<%= loginMember.getMemPicture() %>" alt="프로필사진" id="profileImg" width="150" height="150">
         <% } else { %>
         	<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="profileImg" width="150" height="150">
        	<% } %>
