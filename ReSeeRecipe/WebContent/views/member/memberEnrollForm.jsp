@@ -476,12 +476,14 @@
               $nicknameLabel.text("* 이미 존재하는 닉네임입니다!").css('color', 'red');
               //$('#memberNickname').val('').focus();
               $('#submitBtn').attr('disabled', true);
+              return false;
 
             // 사용가능한 아이디
             } else{
               // $nicknameLabel.text("* 사용가능한 닉네임입니다.");
               // $nicknameLabel.css('color', 'black');
               $('#submitBtn').attr('disabled', false);
+              return true;
             }
           },
           // 중복체크 조회 실패 시
