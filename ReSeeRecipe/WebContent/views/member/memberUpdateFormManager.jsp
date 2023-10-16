@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     h2{
         text-align: center;
@@ -30,7 +31,7 @@
 
 </style>  
 </head>
-<body>
+
 <body>
 	<%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
@@ -57,7 +58,7 @@
             <p class="tag">회원닉네임</p>
             <input type="text" class="form-control"  id="HL_memberNickname" name="memNickname" value="<%=m.getMemNickname()%>" required>
             <label for="HL_memberNickname">* 영문, 한글, 숫자 3 ~ 8자로 입력 가능합니다. </label>
-            <button type="button" class="btn btn-sm btn-primary" id="HL_invalidNick" onclick="invalidNick();">중복확인</button>
+            <button type="button" class="btn btn-sm btn-primary" id="HL_invalidNick">중복확인</button>
             <br>
             <p class="tag">이메일</p>
             <input type="email" class="form-control"  id="HL_memberEmail" name="memEmail" value="<%=m.getMemEmail()%>" required>
@@ -91,9 +92,13 @@
 </body>
 
 <script>
+
+    $(function(){
+        $('#HL_invalidNick').on('click', invalidNick);
+    });
     // 닉네임 중복확인 함수
 	function invalidNick(){
-
+        console.log('모범시민');
         const $hlmemnickname = $('#HL_memberNickname');
 
         $.ajax({
@@ -106,12 +111,14 @@
 
                 // 동등비교연산으로 문자열 따지기
                 if(result == 'NNNNN') {
+                    /*
                     Swal.fire({
                       '회원 닉네임 중복',         // Alert 제목
                       '이미 존재하거나 탈퇴한 회원의 닉네임입니다.',  // Alert 내용
-                      'success',                         // Alert 타입
+                      'success'                         // Alert 타입
                     });
-
+                    */
+                    alert('회원 닉네임 중복');
                     $hlmemnickname.val('').focus();
                 }
                 else { // 중복X == 사용가능
