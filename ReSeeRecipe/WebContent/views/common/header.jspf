@@ -180,8 +180,8 @@
 		       <% } %>
 		    </div>
 		    <div id="header_2">
-		        <a href="#">
-		            <img src="resources/img/Re see recipe 로고.png" alt="Reseerecipe메인">
+		        <a href="<%= contextPath %>">
+		            <img src="resources/css/common/Re see recipe 로고.png" alt="Reseerecipe메인">
 		        </a>
 		    </div>
 		    <div id="header_3">
