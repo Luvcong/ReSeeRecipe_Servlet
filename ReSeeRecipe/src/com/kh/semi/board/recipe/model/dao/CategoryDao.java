@@ -228,7 +228,7 @@ public class CategoryDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, categoryUpdateName);
 			
 			rset = pstmt.executeQuery();
@@ -302,7 +302,8 @@ public class CategoryDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, checkCategoryName);
-			System.out.println("dao : " + checkCategoryName);
+			
+			// System.out.println("dao : " + checkCategoryName);
 			
 			rset = pstmt.executeQuery();
 			
@@ -328,9 +329,43 @@ public class CategoryDao {
 	}	// checkCategory
 	
 	
-	
-	
-	
+	/**
+	 * 카테고리 추가시 중복체크 확인해주는 method
+	 * @param conn
+	 * @param addCategoryName 카테고리 추가시 중복체크명
+	 * @return 중복체크 여부
+	 * @author JH
+	 * @Date : 2023. 10. 17.
+	 */
+	public int duplicateCheckCategory(Connection conn, String addCategoryName) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("categoryNameCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, addCategoryName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt("COUNT(*)");
+			}
+			
+			System.out.println("dao : " + count);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return count;
+	}	// duplicateCheckCategory
 	
 
 }	// end class
