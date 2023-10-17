@@ -57,7 +57,7 @@ public class RecipeServlet extends HttpServlet {
 			case "selectRecipeList" : viewPath = rc.selectRecipeList(request, response); break;
 			
 			/* 2. 레시피 상세글 보기 (디테일 조회) */
-			//case "recipeDetail" : viewPath = rc.selectRecipeList(request, response); break;
+			case "recipeDetail" : viewPath = rc.selectRecipeList(request, response); break;
 			
 			/* 3_1. 글작성하기 양식 요청 recipeEnrollForm */
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;

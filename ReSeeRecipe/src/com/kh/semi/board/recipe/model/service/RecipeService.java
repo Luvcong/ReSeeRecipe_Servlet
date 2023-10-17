@@ -6,7 +6,6 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,9 +15,76 @@ import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
+import com.kh.semi.board.recipe.model.vo.RecipeTag;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
+	
+	/* ************************** 단일 SELECT 종류 ************************** */
+	/**
+	 * 레시피 번호로 해당 레시피의 레시피테이블(TB_RECIPE) 모든 정보와 작성자 닉네임, 카테고리 번호와 이름을 조회하는 기능
+	 * @param recipeNo
+	 * @return
+	 */
+	public Recipe selectRecipeSingle(int recipeNo) {
+		// tb_recipe정보와 유저닉네임, 카테고리 번호+이름 같이
+		Connection conn = getConnection();
+		Recipe recipe = new RecipeDao().selectRecipeSingle(conn, recipeNo);
+		close(conn);
+		return recipe;
+	}
+	
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 사진테이블(TB_RECIPE_PIC) 모든 정보를 조회하는 기능
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<RecipePic> selectRecipePicSingle(int recipeNo) {
+		Connection conn = getConnection();
+		ArrayList<RecipePic> reciepPicList = new RecipeDao().selectRecipePicSingle(conn, recipeNo);
+		close(conn);
+		return reciepPicList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 재료테이블(TB_INGREDIENT) 모든 정보를 조회하는 기능
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<Ingredient> selectIngredientSingle(int recipeNo) {
+	Connection conn = getConnection();
+		ArrayList<Ingredient> ingredientList = new RecipeDao().selectIngredientSingle(conn, recipeNo);
+		close(conn);
+		return ingredientList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 요리 과정 테이블(TB_COOK_STEPS) 모든 정보를 조회하는 기능
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<CookSteps> selectCookStepsSingle(int recipeNo) {
+	Connection conn = getConnection();
+		ArrayList<CookSteps> cookStepsList = new RecipeDao().selectCookStepsSingle(conn, recipeNo);
+		close(conn);
+		return cookStepsList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 해시태그 테이블(TB_RECIPE_TAG) 모든 정보와 해시태그 이름, 날짜를 조회하는 기능
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<RecipeTag> selectRecipeTagSingle(int recipeNo) {
+	Connection conn = getConnection();
+		ArrayList<RecipeTag> recipeTagList = new RecipeDao().selectRecipeTagSingle(conn, recipeNo);
+		close(conn);
+		return recipeTagList;
+	}
+
+	
+	
 	
 	
 	/**
@@ -31,6 +97,10 @@ public class RecipeService {
 		close(conn);
 		return cList;
 	}
+	
+	
+	
+	
 	
 	
 	/**
@@ -64,6 +134,11 @@ public class RecipeService {
 	
 	
 	
+	/**
+	 * 레시피 작성 기능
+	 * @param insertRecipeMap
+	 * @return
+	 */
 	public int insertRecipe(HashMap<String, Object> insertRecipeMap) {
 		int returningResult = 0;
 		int recipeResult = 0;

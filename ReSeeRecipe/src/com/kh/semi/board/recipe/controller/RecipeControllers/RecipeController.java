@@ -125,6 +125,41 @@ public class RecipeController {
 	
 	
 	/**
+	 * 레시피 글 상세조회를 하는 기능
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public String recipeDetail(HttpServletRequest request, HttpServletResponse response) {
+		String viewPath = "";
+		
+		
+		return viewPath;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
 	 * ajax요청을 받아 해시태그의 정보(번호, 이름, 날짜)를 조회해 반환
 	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
 	 * > Tag의 필드 : tagNo, tagName, tagDate

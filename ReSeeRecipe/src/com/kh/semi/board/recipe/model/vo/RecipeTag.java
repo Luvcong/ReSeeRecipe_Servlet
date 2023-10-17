@@ -2,22 +2,22 @@ package com.kh.semi.board.recipe.model.vo;
 
 public class RecipeTag {
 	
-	/*
-	TAG_NO	NUMBER
-	TAG_RECIPE_NO	NUMBER
-	*/
-	
+
 	private int tagNo;
-	private int recipeNo;
+	private int tagRecipeNo;
+	private String tagName;
+	private String tagDate;
 	
 	
 	public RecipeTag() {
 		super();
 	}
-	public RecipeTag(int tagNo, int recipeNo) {
+	public RecipeTag(int tagNo, int tagRecipeNo, String tagName, String tagDate) {
 		super();
 		this.tagNo = tagNo;
-		this.recipeNo = recipeNo;
+		this.tagRecipeNo = tagRecipeNo;
+		this.tagName = tagName;
+		this.tagDate = tagDate;
 	}
 	
 	
@@ -27,17 +27,30 @@ public class RecipeTag {
 	public void setTagNo(int tagNo) {
 		this.tagNo = tagNo;
 	}
-	public int getRecipeNo() {
-		return recipeNo;
+	public int getTagRecipeNo() {
+		return tagRecipeNo;
 	}
-	public void setRecipeNo(int recipeNo) {
-		this.recipeNo = recipeNo;
+	public void setTagRecipeNo(int tagRecipeNo) {
+		this.tagRecipeNo = tagRecipeNo;
+	}
+	public String getTagName() {
+		return tagName;
+	}
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
+	}
+	public String getTagDate() {
+		return tagDate;
+	}
+	public void setTagDate(String tagDate) {
+		this.tagDate = tagDate;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "RecipeTag [tagNo=" + tagNo + ", recipeNo=" + recipeNo + "]";
+		return "RecipeTag [tagNo=" + tagNo + ", tagRecipeNo=" + tagRecipeNo + ", tagName=" + tagName + ", tagDate="
+				+ tagDate + "]";
 	}
 	
 	

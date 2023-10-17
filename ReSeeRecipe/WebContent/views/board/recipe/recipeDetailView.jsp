@@ -150,15 +150,28 @@
 	}
 
 	/* 셰프이름 */
-	#detailViewChefName {
+	#detailViewChefNameDate {
 		height: 60%;
 	}
-
-	#detailViewChefName > p {
-		margin: 0px;
-		margin-top: 12px;
-		font-size: 20px;
+	
+	#detailViewChefName, #detailViewChefDate {
+		padding-top: 30px;
+	}
+	
+	#detailViewChefName {
+		width: 80%;
+		height: 100%;
+		float: left;
+		font-size: 25px;
 		font-weight: 1000;
+		color: rgb(132, 137, 143);
+	}
+	
+	#detailViewChefDate {
+		width: 20%;
+		height: 100%;
+		float: left;
+		font-size: 10px;
 		color: rgb(132, 137, 143);
 	}
 
@@ -171,6 +184,7 @@
 	#detailViewTagDiv2 {
 		width: 90%;
 		height: 100%;
+		margin: auto;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
 		background-color: #17a2b8;
@@ -614,11 +628,15 @@
 			<div id="DetailCookStepsBasicInfo">
 				<div class="detail-view-cook-steps-input-content">
 					<div id="detailViewChefHashtag">
-						<div id="detailViewChefName">
-							<p><%= loginMember %></p>
+						<div id="detailViewChefNameDate">
+							<div id = "detailViewChefName">작성자이름</div>
+							<div id = "detailViewChefDate">
+								작성일
+							</div>
 						</div>
 						<div id="detailViewTagDiv1">
 							<div id="detailViewTagDiv2">
+								<!-- 해시태그가 있다면! IF문 필요! 기본은 그냥 ReSeeRecipe띄워주기 -->
 								<% for(int i = 0; i < 5; i++) { %>
 									<div class="detailTagList">#해시태그<%= i %></div>
 								<% } %>
@@ -694,33 +712,14 @@
 						</div>
 					</div>
 				<% } %>
-				<!--
-					아래의 제이쿼리 이벤트로 입력 틀 생성
-				-->
 			</div>
 
 			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 			<div id="cook-steps-buttons" align="center">
 				<div>
-					<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
-				</div>
-				<div>
-					<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
+					<button type="button" id="recipe-enrolling-btn" class="btn btn-primary" onclick="history.back()">뒤로가기</button>
 				</div>
 			</div>
-
-			<script>
-				// 글작성 요청
-				function confirmSubmit() {
-					return confirm("글을 작성하시겠습니까?");
-				};
-
-				// 초기화 요청 confirm
-				function confirmReset() {
-					return confirm("입력한 정보를 초기화하시겠습니까?");
-				};
-			</script>
-
 		</div>
 		<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
 	</div>

@@ -2,16 +2,6 @@ package com.kh.semi.board.recipe.model.vo;
 
 public class Recipe {
 	
-	/*
-	RECIPE_NO	NUMBER
-	RECIPE_TITLE	VARCHAR2(60 BYTE)
-	RECIPE_DATE	DATE
-	RECIPE_MODIFIED	DATE
-	RECIPE_STATUS	VARCHAR2(1 BYTE)
-	RECIPE_COUNT	NUMBER
-	RECIPE_WRITER_NO	NUMBER
-	RECIPE_CATEGORY_NO	NUMBER
-	*/
 	
 	private int recipeNo;
 	private String recipeTitle;
@@ -21,6 +11,7 @@ public class Recipe {
 	private int recipeCount;
 	private int recipeWriterNo;
 	private int recipeCategoryNo;
+	private String recipeCategoryName;
 	private String titleImg;
 	private String memNickName;
 	private int htCount;
@@ -30,8 +21,8 @@ public class Recipe {
 		super();
 	}
 	public Recipe(int recipeNo, String recipeTitle, String recipeDate, String recipeModified, String recipeStatus,
-			int recipeCount, int recipeWriterNo, int recipeCategoryNo, String titleImg, String memNickName,
-			int htCount) {
+			int recipeCount, int recipeWriterNo, int recipeCategoryNo, String recipeCategoryName, String titleImg,
+			String memNickName, int htCount) {
 		super();
 		this.recipeNo = recipeNo;
 		this.recipeTitle = recipeTitle;
@@ -41,6 +32,7 @@ public class Recipe {
 		this.recipeCount = recipeCount;
 		this.recipeWriterNo = recipeWriterNo;
 		this.recipeCategoryNo = recipeCategoryNo;
+		this.recipeCategoryName = recipeCategoryName;
 		this.titleImg = titleImg;
 		this.memNickName = memNickName;
 		this.htCount = htCount;
@@ -95,6 +87,12 @@ public class Recipe {
 	public void setRecipeCategoryNo(int recipeCategoryNo) {
 		this.recipeCategoryNo = recipeCategoryNo;
 	}
+	public String getRecipeCategoryName() {
+		return recipeCategoryName;
+	}
+	public void setRecipeCategoryName(String recipeCategoryName) {
+		this.recipeCategoryName = recipeCategoryName;
+	}
 	public String getTitleImg() {
 		return titleImg;
 	}
@@ -120,8 +118,9 @@ public class Recipe {
 		return "Recipe [recipeNo=" + recipeNo + ", recipeTitle=" + recipeTitle + ", recipeDate=" + recipeDate
 				+ ", recipeModified=" + recipeModified + ", recipeStatus=" + recipeStatus + ", recipeCount="
 				+ recipeCount + ", recipeWriterNo=" + recipeWriterNo + ", recipeCategoryNo=" + recipeCategoryNo
-				+ ", titleImg=" + titleImg + ", memNickName=" + memNickName + ", htCount=" + htCount + "]";
+				+ ", recipeCategoryName=" + recipeCategoryName + ", titleImg=" + titleImg + ", memNickName="
+				+ memNickName + ", htCount=" + htCount + "]";
 	}
-
+	
 	
 }//class.end

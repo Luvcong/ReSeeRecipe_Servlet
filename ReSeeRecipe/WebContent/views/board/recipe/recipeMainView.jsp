@@ -199,7 +199,7 @@
 		
 		<script>
 			$('.send-detail-view').on('click', function(){
-				location.href = "<%=contextPath%>/recipeDetail.re";
+								
 			});
 		
 		</script>
