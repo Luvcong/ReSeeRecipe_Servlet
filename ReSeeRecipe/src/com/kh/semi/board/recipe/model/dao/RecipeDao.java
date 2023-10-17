@@ -211,14 +211,16 @@ public class RecipeDao {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				Reply reply = new Reply();
-				reply.setReplyNo(rset.getInt("REPLY_NO"));
-				reply.setReplyContent(rset.getString("REPLY_CONTENT"));
-				reply.setReplyDate(rset.getString("REPLY_DATE"));
-				reply.setReplyModified(rset.getString("REPLY_MODIFIED"));
-				reply.setReplyWriterNo(rset.getInt("REPLY_WRITER_NO"));
-				reply.setRecipeNo(rset.getInt("RECIPE_NO"));
-				replyList.add(reply);
+				while(rset.next()) {
+					Reply reply = new Reply();
+					reply.setReplyNo(rset.getInt("REPLY_NO"));
+					reply.setReplyContent(rset.getString("REPLY_CONTENT"));
+					reply.setReplyDate(rset.getString("REPLY_DATE"));
+					reply.setReplyModified(rset.getString("REPLY_MODIFIED"));
+					reply.setReplyWriterNo(rset.getInt("REPLY_WRITER_NO"));
+					reply.setRecipeNo(rset.getInt("RECIPE_NO"));
+					replyList.add(reply);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
