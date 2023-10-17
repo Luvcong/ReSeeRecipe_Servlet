@@ -21,29 +21,22 @@
 
 <style>
 	/**********************************************************
-		wrap div + wrap내부 div 세팅
+	wrap div + wrap내부 div 세팅
 	**********************************************************/
 	div {
 		box-sizing: border-box;
 	}
 
 	/* 전체 div wrap */
-	#recipe-enroll-form-wrap {
+	#recipeDetailWrap {
 		width: 1200px;
 		box-sizing: border-box;
 		margin: auto;
 	}
-	/*******************************************/
-	/* > 글쓰기 양식 form태그wrap */
-	#recipe-enrolling-form { 
-		width: 100%;
-		box-sizing: border-box;
-		position: relative;
-	}
 
 	/*******************************************/
 	/* > > 상단바wrap div 세팅 */
-	#recipe-enroll-top-bar-wrap {
+	#recipeDetailBarWrap {
 		width: 100%;
 		height: 80px;
 		margin: auto;
@@ -53,10 +46,93 @@
 	}
 
 	/* > >... 상단바 내부 div요소 default 세팅 */
-	#recipe-enroll-top-bar-wrap div {
+	#recipeDetailBarWrap div {
 		height: 100%;
 		float: left;
 	}
+
+	/**********************************************************
+		상단바 영역 (#recipeDetailWrap)
+	**********************************************************/
+	/* 기본아이콘, 카테고리 글씨, 조회수, 좋아요, 북마크, 신고 아이콘 기본 세팅 */
+	#recipeDetailBarImg  {
+		width: 10%;
+		padding: 18px 0px 0px 30px;
+	}
+	#recipeDetailBarCategory {
+		width: 62%;
+	}
+	#recipeDetailBarView, #recipeDetailBarHeart, #recipeDetailBookmark, #recipeDetailReport {
+		width: 7%;
+		padding: 18px 0px 0px 17px;
+	}
+	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i
+	{
+		font-size: 45px;
+	}
+
+	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i:hover {
+		cursor: pointer;
+	}
+
+	/* 1. 카테고리바 기본 아이콘 컬러링 */
+	#recipeDetailBarImg i {
+		font-size: 45px;
+		color: rgb(255, 145, 77);
+	}
+
+	/* 2. 카테고리 부분 글씨 세팅 */
+	#recipeDetailBarCategory p {
+		font-size: 30px;
+		font-weight: 1000;
+		margin: 0px;
+		margin-top: 12px;
+		margin-left: 30px;
+		display: inline-block;
+	}
+
+
+	/* 3. 조회수 컬러링 세팅 */
+	#recipeDetailBarView i {
+	}
+	
+	/* 4. 좋아요 컬러링 세팅 */
+	#recipeDetailBarHeart i {
+	}
+
+	/* 5. 북마크 컬러링 세팅 */
+	#recipeDetailBookmark i {
+
+	}
+
+	/* 6. 신고 컬러링 세팅 */
+	#recipeDetailReport i {
+
+	}
+
+	/*********************************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*******************************************/
+
 
 	/* > > 입력폼wrap div 세팅 */
 	#recipe-enroll-context-wrap {
@@ -83,24 +159,9 @@
 	}
 
 
-	/**********************************************************
-		상단바 영역 (#recipe-enroll-top-bar-wrap 내부)
-	**********************************************************/
-	/* 1. 아이콘 이미지 세팅 */
-	#recipe-enroll-bar-img {
-		width: 10%;
-		padding: 18px 0px 0px 30px;
-	}
+	
 
-	#recipe-enroll-bar-img > i {
-		font-size: 45px;
-		color: rgb(255, 145, 77);
-	}
-
-	/* 2. 카테고리 메뉴 세팅 */
-	#recipe-enroll-bar-menu {
-		width: 75%;
-	}
+	
 
 	/* select요소 */
 	#recipe-enroll-bar-inner {
@@ -108,13 +169,7 @@
 		position: relative;
 	}
 	
-	#recipe-enroll-bar-menu select {
-		width: 90%;
-		height: 60%;
-		text-align: center;
-		position: absolute;
-		top: 16px;
-	}
+
 
 	#enroll-bar-inner-blank1 {
 		width: 55%;
@@ -441,8 +496,8 @@
 	/* 요리과정 설명 */
 	#cookingInstructionContainer .cook-steps-inst-content {
 		width: 100%;
-		height: 80%;
-		padding: 30px;
+		height: 50%;
+		padding: 10px;
 	}
 
 	#cookingInstructionContainer .cook-steps-inst-content textarea {
@@ -496,159 +551,160 @@
 			$('#category-toggle-menu').css('display', 'none');
 		});
 	</script>
-	
-	<!-- 같이 넘어가야 할 것
-		TB_RECIPE
-		: 레시피 제목, 작성자 번호(MEM_NO), 선택한 레시피 카테고리 번호
-		위 구문 수행 후 RECIPE NO 받아서
-		TB_COOK_STEPS
-		: 각 요리과정 제목, 각 요리과정 내용, 블록 순서(넘버링)
-		TB_INGREDIENT
-		: 요리에 들어가는 재료, 선택한 계량단위 번호
-		TB_RECIPE_TAG
-		선택한 해시태그 번호
-		TB_RECIPE_PIC
-		: 미리보기만 해주고 & 파일INPUT으로 알아서
-		-->
-	<!--<--%= contextPath %>/insertRecipe.re-->
 
-	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
+	<div id="recipeDetailWrap"><!-- 전체 wrap 시작 -->
 		
-		<!---------------------- 글작성 전체 form / memNo은 session에서 빼서 사용 ----------------------->
-		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
-		<!-- <form action="insertRecipe.re" id="recipe-enrolling-form" method="post" enctype="multipart/form-data"> -->
-			<!---------------------- 입력양식 상단 바 영역 ---------------------->
-			<div id="recipe-enroll-top-bar-wrap">
-				<!-- 카테고리 선택 영역 -->
-				<div id="recipe-enroll-bar-img">
-					<i class='fas fa-align-left'></i>
-				</div>
-				<div id="recipe-enroll-bar-menu">
-					한식
-				</div>
-				<div>
-					조회수
-				</div>
-				<div>
-					하트
-				</div>
-				<div>
-					북마크
-				</div>
-				<div>
-					신고
-				</div>
-			</div><!-- 입력양식 상단 바 영역 끝 -->
-
-			
 		
-			<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
-			<div id="recipe-enroll-context-wrap">
-				
-				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-				<div id="cook-steps-basic-info">
-					<div class="cook-steps-input-content">
-						<div id="content-writer-hashtag">
-							<div id="cook-steps-chef" class="cook-steps-inner">
-								<p><%= loginMember %></p>
-							</div>
-							<div id="detailTagDiv1">
-								<div id="detailTagDiv2" class="cook-steps-inner">
-									<% for(int i = 0; i < 5; i++) { %>
-										<div class="detailTagList">#해시태그<%= i %></div>
-									<% } %>
-								</div>
-							</div>
-						</div>
-
-						<div id="content-thumbnail-image">
-							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
-						</div>
-					</div>
-					<div class="cook-steps-input-content">
-						<div id="cook-steps-title" class="cook-steps-inner">
-							<div id="title-text-area-div">
-								레시피 제목
-							</div>
-						</div>
-
-						<!-- 입력받는 영역 -->
-						<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-							<!-- 기본 재료 입력받는 양식 -->
-							<div id="ingredient-title-div1" class="inputs-in-order">
-								<h3>재료</h3>
-							</div>
-							<div id="cookStepsIngredientContent" class="cook-steps-inner">
-							    <div id="ingredientContentLeft">
-							        <% for (int i = 0; i < 15; i++) { %>
-							            <div id="ingredientContainer<%= i %>" class="ingredientContainer">
-							                <div id="ingredientAreaDiv<%= i %>">
-							                    재료<%= i %>
-							                </div>
-							                <div id="ingredientAmountDiv<%= i %>">
-							                    000
-							                </div>
-							                <div id="measureAreaDiv<%= i %>">
-							                    g
-							                </div>
-							            </div>
-							        <% } %>
-							    </div>
-							
-							    <div id="ingredientContentRight">
-							        <% for (int i = 15; i < 30; i++) { %>
-							            <div id="ingredientContainer<%= i %>" class="ingredientContainer">
-							                <div id="ingredientAreaDiv<%= i %>">
-							                    재료<%= i %>
-							                </div>
-							                <div id="ingredientAmountDiv<%= i %>">
-							                    000
-							                </div>
-							                <div id="measureAreaDiv<%= i %>">
-							                    g
-							                </div>
-							            </div>
-							        <% } %>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
-				<div id="cookingInstructionContainer">
-					<!--
-						아래의 제이쿼리 이벤트로 입력 틀 생성
-					-->
-				</div>
-
-				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
-				<div id="cook-steps-buttons" align="center">
-					<div>
-						<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
-					</div>
-					<div>
-						<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
-					</div>
-				</div>
-
-				<script>
-					// 글작성 요청
-					function confirmSubmit() {
-						return confirm("글을 작성하시겠습니까?");
-					};
-
-					// 초기화 요청 confirm
-					function confirmReset() {
-						return confirm("입력한 정보를 초기화하시겠습니까?");
-					};
-				</script>
-
+		<!---------------------- 입력양식 상단 바 영역 ---------------------->
+		<div id="recipeDetailBarWrap">
+			<!-- 카테고리 선택 영역 -->
+			<div id="recipeDetailBarImg">
+				<i class='fas fa-align-left'></i>
 			</div>
-			<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
+
+			<div id="recipeDetailBarCategory">
+				<p>한식</p>
+			</div>
+
+			<div id="recipeDetailBarView">
+				<i class='fas fa-eye'></i>
+			</div>
+
+			<div id="recipeDetailBarHeart">
+				<i class="fa fa-heart"></i>
+			</div>
+
+			<div id="recipeDetailBookmark">
+				<i class="	far fa-bookmark"></i>
+			</div>
+
+			<div id="recipeDetailReport">
+				<i class="	fas fa-exclamation-circle"></i>
+			</div>
+		</div><!-- 입력양식 상단 바 영역 끝 -->
+
+		
 	
-		</form>
-		<!---------------------- 글 작성 전체 form 끝 ---------------------->
+		<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
+		<div id="recipe-enroll-context-wrap">
+			
+			<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
+			<div id="cook-steps-basic-info">
+				<div class="cook-steps-input-content">
+					<div id="content-writer-hashtag">
+						<div id="cook-steps-chef" class="cook-steps-inner">
+							<p><%= loginMember %></p>
+						</div>
+						<div id="detailTagDiv1">
+							<div id="detailTagDiv2" class="cook-steps-inner">
+								<% for(int i = 0; i < 5; i++) { %>
+									<div class="detailTagList">#해시태그<%= i %></div>
+								<% } %>
+							</div>
+						</div>
+					</div>
+
+					<div id="content-thumbnail-image">
+						<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
+					</div>
+				</div>
+				<div class="cook-steps-input-content">
+					<div id="cook-steps-title" class="cook-steps-inner">
+						<div id="title-text-area-div">
+							레시피 제목
+						</div>
+					</div>
+
+					<!-- 입력받는 영역 -->
+					<div id="cook-steps-ingredient-title" class="cook-steps-inner">
+						<!-- 기본 재료 입력받는 양식 -->
+						<div id="ingredient-title-div1" class="inputs-in-order">
+							<h3>재료</h3>
+						</div>
+						<div id="cookStepsIngredientContent" class="cook-steps-inner">
+							<div id="ingredientContentLeft">
+								<% for (int i = 0; i < 15; i++) { %>
+									<div id="ingredientContainer<%= i %>" class="ingredientContainer">
+										<div id="ingredientAreaDiv<%= i %>">
+											재료<%= i %>
+										</div>
+										<div id="ingredientAmountDiv<%= i %>">
+											000
+										</div>
+										<div id="measureAreaDiv<%= i %>">
+											g
+										</div>
+									</div>
+								<% } %>
+							</div>
+						
+							<div id="ingredientContentRight">
+								<% for (int i = 15; i < 30; i++) { %>
+									<div id="ingredientContainer<%= i %>" class="ingredientContainer">
+										<div id="ingredientAreaDiv<%= i %>">
+											재료<%= i %>
+										</div>
+										<div id="ingredientAmountDiv<%= i %>">
+											000
+										</div>
+										<div id="measureAreaDiv<%= i %>">
+											g
+										</div>
+									</div>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
+			<div id="cookingInstructionContainer">
+				<% for(int i = 0; i < 6; i++) { %>
+					<div id="cookStepsInstInner1">
+						<div class="cook-steps-inst-pic">
+							<img src="" d>
+						</div>
+					
+						<div class="cook-steps-inst-title">
+							<p class="inst-title-lev">1</p><!--
+							--><p>요리과정제목</p>
+							</button>
+						</div>
+						<div class="cook-steps-inst-content">
+							<p>요리과정 내용</p>
+						</div>
+					</div>
+				<% } %>
+				<!--
+					아래의 제이쿼리 이벤트로 입력 틀 생성
+				-->
+			</div>
+
+			<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
+			<div id="cook-steps-buttons" align="center">
+				<div>
+					<button type="submit" id="recipe-enrolling-btn" class="btn btn-primary" onclick="return confirmSubmit();">글작성</button>
+				</div>
+				<div>
+					<button type="reset" id="recipe-resetting-btn" onclick="return confirmReset();" class="btn btn-warning">초기화</button>
+				</div>
+			</div>
+
+			<script>
+				// 글작성 요청
+				function confirmSubmit() {
+					return confirm("글을 작성하시겠습니까?");
+				};
+
+				// 초기화 요청 confirm
+				function confirmReset() {
+					return confirm("입력한 정보를 초기화하시겠습니까?");
+				};
+			</script>
+
+		</div>
+		<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
 	</div>
 	<!---------------------- 전체 wrap 끝 ---------------------->
 </body>

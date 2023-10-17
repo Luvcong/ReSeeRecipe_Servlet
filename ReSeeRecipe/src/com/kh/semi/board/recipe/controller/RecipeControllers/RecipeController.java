@@ -119,7 +119,6 @@ public class RecipeController {
 		
 		request.setAttribute("unReList", unReList);
 		
-		System.out.println(unReList);
 		viewPath = "/views/board/recipe/recipeEnrollFormView.jsp";
 		return viewPath;
 	}
@@ -182,12 +181,10 @@ public class RecipeController {
 				int memNo = loginMember.getMemNo();
 				// Recipe세팅, 값 한개씩만 있음 
 				Recipe recipe = new Recipe();
-				System.out.println("if문 밖에서 multiRequest.getParameter레시피타이틀 : " + multiRequest.getParameter("recipeTitle"));
 				// 이 항목들이 모두 데이터가 있다면
 				if( !(multiRequest.getParameter("recipeTitle") == null
 				   || multiRequest.getParameter("recipeCategoryNo") == null)) {
 					// Recipe객체 필드 초기화 후 ArrayList에 추가
-					System.out.println("if문 내부 multiRequest.getParameter(\"recipeTitle\")값 : " + multiRequest.getParameter("recipeTitle"));
 					recipe.setRecipeTitle(multiRequest.getParameter("recipeTitle"));
 					recipe.setRecipeWriterNo(loginMember.getMemNo());
 					recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
@@ -208,15 +205,13 @@ public class RecipeController {
 						RecipePic recipePic = new RecipePic();
 						recipePic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
 						recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipeNameOriginKey));
-						recipePic.setRecipePicPath(fileSavePath);
+						recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics/");
 						recipePic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
 						recipePicList.add(recipePic);
-						System.out.println("레시피 객체 : " + recipePic);
 					}
 				}
 				
 				
-				System.out.println("레시피 pic리스트" + recipePicList);
 				
 				
 				// ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
