@@ -117,7 +117,7 @@
 			<div class="category">
 				<ul>
 					<li onclick="goMenu('/jhselect.ct?page=1');"><a href="#">카테고리 관리</a></li>
-					<li onclick="goMenu('/hsselect.hs?page=1');"><a href="#">해시태그 관리</a></li>
+					<li onclick="goMenu('/hsselect.hs?cpage=1');"><a href="#">해시태그 관리</a></li>
 				</ul>
 			</div>
 			<!-- 리워드 관리 카테고리 -->

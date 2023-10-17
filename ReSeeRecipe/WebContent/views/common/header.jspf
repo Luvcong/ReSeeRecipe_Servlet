@@ -180,8 +180,8 @@
 		       <% } %>
 		    </div>
 		    <div id="header_2">
-		        <a href="#">
-		            <img src="resources/img/Re see recipe 로고.png" alt="Reseerecipe메인">
+		        <a href="<%= contextPath %>">
+		            <img src="resources/css/common/Re see recipe 로고.png" alt="Reseerecipe메인">
 		        </a>
 		    </div>
 		    <div id="header_3">
@@ -218,7 +218,7 @@
 		                  <a href="<%= contextPath %>/blog.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그 <br>
-
+							</a>
 		              <%} %>
 		          </div>
 		          <div id="header_3_1_4">

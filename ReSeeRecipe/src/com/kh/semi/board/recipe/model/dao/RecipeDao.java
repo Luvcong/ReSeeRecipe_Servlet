@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.tag.model.vo.Tag;
 
 public class RecipeDao {
 	
@@ -111,10 +113,156 @@ public class RecipeDao {
 		}
 		return list;
 	}
+	
+	
+	
+	/* ************************** INSERT종류 ************************** */
+	/**
+	 * 레시피 제목, 작성자 이름, 레시피 카테고리 정보를 받아 레시피를 INSERT하는 기능<br>
+	 * PK종류는 모두 시퀀스로 생성/참조되며 나머지 정보들에는 아래와 같이 테이블의 Default값이 들어감<br>
+	 * RECIPE_DATE(SYSDATE), REICPE_MODIFIED(SYSDATE), RECIPE_STATUS('Y'), RECIPE_COUNT(0)
+	 * @param conn : Connection객체
+	 * @param recipe : Recipe객체<br>
+	 * recipeTitle, recipeWriterNo, recipeCategoryNo필드들이 초기화 된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertRecipe(Connection conn, Recipe recipe) {
+		int result = 0;
+		String sql = prop.getProperty("insertRecipe");
+		System.out.println("sql문 출력 : " + sql);
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			System.out.println("RecipeDao recipe객체 : " + recipe);
+			pstmt.setString(1, recipe.getRecipeTitle());
+			pstmt.setInt(2, recipe.getRecipeWriterNo());
+			pstmt.setInt(3, recipe.getRecipeCategoryNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 레시피 사진 원본명, 수정본명, 경로, 레벨(순서넘버링) 정보가 담긴 ArrayList를 받아<br>
+	 * ArrayList에 값이 존재하는 동안 반복하며 레시피 사진을 INSERT하는 기능<br>
+	 * PK종류는 모두 시퀀스로 생성/참조되며 나머지 정보들에는 아래와 같이 테이블의 Default값이 들어감<br>
+	 * RECIPE_PIC_DATE(SYSDATE), RECIPE_PIC_STATUS('Y')
+	 * @param conn : Connection객체
+	 * @param recipePicList : RecipePic리터럴의 ArrayList<br>
+	 * 내부 각 객체의 recipePicNameOrigin, recipePicNameUpload, recipePicPath, recipePicLev필드들이 초기화된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertRecipePic(Connection conn, ArrayList<RecipePic> recipePicList) {
+		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환
+		int result = 1;
+		String sql = prop.getProperty("insertRecipePic");
+		
+		for(RecipePic recipePic : recipePicList) {
+			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1, recipePic.getRecipePicNameOrigin());
+				pstmt.setString(2, recipePic.getRecipePicNameUpload());
+				pstmt.setString(3, recipePic.getRecipePicPath());
+				pstmt.setInt(4, recipePic.getRecipePicLev());
+				
+				result *= pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 	
-
+	/**
+	 * 레시피 재료, 재료량 정보가 담긴 ArrayList를 받아<br>
+	 * ArrayList에 값이 존재하는 동안 반복하며 레시피 사진을 INSERT하는 기능<br>
+	 * PK종류는 모두 시퀀스로 생성/참조됨<br>
+	 * @param conn : Connection객체
+	 * @param ingredientList : Ingredient리터럴의 ArrayList<br>
+	 * 내부 각 객체의 ingredient, ingredientAmount 필드들이 초기화된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertIngredient(Connection conn, ArrayList<Ingredient> ingredientList) {
+		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환
+		int result = 1;
+		String sql = prop.getProperty("insertIngredient");
+		
+		for(Ingredient ingredient : ingredientList) {
+			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1, ingredient.getIngredient());
+				pstmt.setString(2, ingredient.getIngredientAmount());
+				
+				result *= pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	 
+	 
+	/**
+	 * 요리 과정 타이틀, 과정 내용, 레벨(순서 넘버링) 정보가 담긴 ArrayList를 받아<br>
+	 * ArrayList에 값이 존재하는 동안 반복하며 레시피 사진을 INSERT하는 기능<br>
+	 * PK종류는 모두 시퀀스로 생성/참조되며 나머지 정보들에는 아래와 같이 테이블의 Default값이 들어감<br>
+	 * COOK_STEPS_LEV(1)
+	 * @param conn : Connection객체
+	 * @param cookStepsList : CookSteps리터럴의 ArrayList<br>
+	 * 내부 각 객체의 필드들이 초기화된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertCookSteps(Connection conn, ArrayList<CookSteps> cookStepsList) {
+		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환
+		int result = 1;
+		String sql = prop.getProperty("insertCookSteps");
+		
+		for(CookSteps cookSteps : cookStepsList) {
+			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1, cookSteps.getCookStepsTitle());
+				pstmt.setString(2, cookSteps.getCookStepsContent());
+				pstmt.setInt(3, cookSteps.getCookStepsLev());
+				
+				result *= pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
+	
+	/**
+	 * 레시피 태그 번호 정보가 담긴 ArrayList를 받아<br>
+	 * ArrayList에 값이 존재하는 동안 반복하며 레시피 사진을 INSERT하는 기능<br>
+	 * PK종류는 모두 시퀀스로 생성/참조됨<br>
+	 * @param conn : Connection객체
+	 * @param tagNoList : Integer리터럴의 ArrayList<br>
+	 * 내부 각 객체의 필드들이 초기화된 상태
+	 * @return :
+	 * INSERT구문 수행이 성공한 행의 개수
+	 */
+	public int insertRecipeTag(Connection conn, ArrayList<Integer> tagNoList) {
+		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환
+		int result = 1;
+		String sql = prop.getProperty("insertRecipeTag");
+		
+		for(int tagNo : tagNoList) {
+			try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setInt(1, tagNo);
+				
+				result *= pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 	
 	
 	/*

@@ -1,5 +1,7 @@
 package com.kh.semi.tag.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.tag.model.vo.Tag;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class TagDao {
 	
@@ -93,6 +95,41 @@ public class TagDao {
 			close(rset);
 			close(pstmt);
 		}
+		return list;
+	}
+	
+	public ArrayList<Tag> selectPHashTag(Connection conn, PageInfo pi){
+		
+		ArrayList<Tag> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPHashTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pi.getStartRow());
+			pstmt.setInt(2, pi.getEndRow());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Tag t = new Tag();
+				
+				t.setTagNo(rset.getInt("TAG_NO"));
+				t.setTagName(rset.getString("TAG_NAME"));
+				t.setTagCount(rset.getInt("COUNT"));
+				
+				list.add(t);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 		return list;
 	}
 }

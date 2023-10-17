@@ -248,6 +248,7 @@
                 const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU';
                 // https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png
                 // https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU
+                // https://s3.orbi.kr/data/file/united2/9f61edb66efb4ff982a2675ec5e9e806.png
                 profileImg.src = noImg;
             }
 

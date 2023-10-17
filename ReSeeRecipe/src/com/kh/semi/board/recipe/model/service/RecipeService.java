@@ -1,16 +1,22 @@
 package com.kh.semi.board.recipe.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
+import com.kh.semi.board.recipe.model.vo.CookSteps;
+import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
+import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.tag.model.vo.Tag;
 
 public class RecipeService {
 	
@@ -56,31 +62,55 @@ public class RecipeService {
 		return list;
 	}
 	
-
-	/*
-	public HashMap<String, Object> recipeEnrollForm(int memNo) {
-		Connection conn = getConnection();
-		HashMap<String, Object> enMap = new HashMap();
+	
+	
+	public int insertRecipe(HashMap<String, Object> insertRecipeMap) {
+		int returningResult = 0;
+		int recipeResult = 0;
+		int tagResult = 0;
+		int picResult = 0;
+		int cookStepsResult = 0;
+		int ingredientResult = 0;
+		RecipeDao rd = new RecipeDao();
 		
-		// 카테고리, 계량단위, 임시저장글(번호, 제목) 조회
-		ArrayList<RecipeCategory> cList = new RecipeDao().selectRecipeCategoryList(conn);
-		ArrayList<IngredientMeasure> iList = new RecipeDao().selectIngredientMeasureList(conn);
-		ArrayList<UnRecipe> uList = new RecipeDao().selectUnRecipeForModal(conn, memNo);
-		
-		// 자원반납
-		close(conn);
-		
-		// map에 담기
-		if(!cList.isEmpty() && !iList.isEmpty()) {
-			enMap.put("cList", cList);
-			enMap.put("iList", iList);
-			if(!uList.isEmpty()) {
-				enMap.put("uList", uList);
+		try(Connection conn = getConnection()) {
+			// TB_RECIPE insert
+			Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
+			recipeResult = rd.insertRecipe(conn, recipe);
+			
+			if(recipeResult > 0) {
+				// TB_RECIPE_PIC insert
+				ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList");
+				picResult = rd.insertRecipePic(conn, recipePicList);
+				
+				// TB_INGREDIENT insert
+				ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList");
+				ingredientResult = rd.insertIngredient(conn, ingredientList);
+				
+				// TB_COOK_STEPS insert
+				ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList");
+				cookStepsResult = rd.insertCookSteps(conn, cookStepsList);
+				
+				// TB_RECIPE_TAG insert
+				ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList");
+				tagResult = rd.insertRecipeTag(conn, tagNoList);
+				
+				// 커넥션 닫기 전 transaction처리
+				if( !(recipeResult == 0
+				   || picResult * ingredientResult * cookStepsResult * tagResult == 0)) {
+					returningResult = 1;
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return enMap;
+		return returningResult;
 	}
-	*/
+	
+	
 	
 	
 	
