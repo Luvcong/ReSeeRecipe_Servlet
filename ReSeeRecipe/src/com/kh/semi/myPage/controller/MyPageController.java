@@ -1,15 +1,13 @@
 package com.kh.semi.myPage.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.kh.semi.myPage.model.service.MyPageService;
 import com.kh.semi.myPage.model.vo.MemberCoupon;
+import com.kh.semi.reward.model.vo.Reward;
 
 public class MyPageController {
 	
@@ -17,8 +15,6 @@ public class MyPageController {
 	
 	// 회원 쿠폰 조회로 이동
 	public String MemberCouponList(HttpServletRequest request, HttpServletResponse response) {
-		
-		
 		
 		// 1. 값 뽑기
 		int memberNo = Integer.parseInt(request.getParameter("memNo"));
@@ -45,10 +41,13 @@ public class MyPageController {
 		
 		int memberNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		new MyPageService().selectMemberRewardList(memberNo);
+		ArrayList<Reward> list = new MyPageService().selectMemberRewardList(memberNo);
 		
+		request.setAttribute("memberRewardList", list);
 		
+		String view = "views/myPage/memberRewardList.jsp";
 		
+		return view;
 	}
 	
 	

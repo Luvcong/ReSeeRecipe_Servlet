@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.kh.semi.reward.model.vo.Reward" %>
+<%
+	ArrayList<Reward> memberRewardList = (ArrayList<Reward>)request.getAttribute("memberRewardList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +74,7 @@
     <div class="container">
         <div>
             <div>
-                ※
+                ※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
             </div>
 
         </div>
@@ -89,13 +93,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% if(memberRewardList != null) { 
+                    	for(int i = 0; i < memberRewardList.size(); i++) {%>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><%= memberRewardList.get(i).getRownum() %></td>
+                        <td><%= memberRewardList.get(i).getRewardDate() %></td>
+                        <td><%= memberRewardList.get(i).getRewardReason() %></td>
+                        <td><%= memberRewardList.get(i).getRewardScore() %></td>
+                        <td><%= memberRewardList.get(i).getRemainRewardScore() %></td>
                     </tr>
+                    	<% } %>
+                   	<% } %>
                 </tbody>
             </table>	<!-- tb-category -->
         </div>	<!-- tableBody  -->

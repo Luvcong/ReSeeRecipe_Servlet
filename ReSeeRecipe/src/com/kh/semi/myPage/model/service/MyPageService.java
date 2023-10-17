@@ -1,5 +1,6 @@
 package com.kh.semi.myPage.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.myPage.model.dao.MyPageDao;
 import com.kh.semi.myPage.model.vo.MemberCoupon;
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.reward.model.vo.Reward;
 
 public class MyPageService {
 	
@@ -22,6 +23,15 @@ public class MyPageService {
 		return list;
 	}
 	
-	public ArrayList
+	public ArrayList<Reward> selectMemberRewardList(int memberNo){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Reward> list = new MyPageDao().selectMemberRewardList(conn, memberNo);
+		
+		close(conn);
+		
+		return list;
+	}
 
 }

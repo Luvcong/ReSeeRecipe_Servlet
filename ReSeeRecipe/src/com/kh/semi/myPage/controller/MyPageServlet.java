@@ -51,6 +51,7 @@ public class MyPageServlet extends HttpServlet {
 		// case "yrmemberCouponListForm" : view = mc.MemberCouponListForm(request, response); flag = false; break;
 		case "yrmemberCouponList" : view = mc.MemberCouponList(request, response);  break;
 		// case "yrmemberCouponListSort" : System.out.println("으악"); flag=false; break;
+		// 회원 리워드 내역 조회 화면으로 이동
 		case "yrmemberRewardList" : view = mc.MemberRewardList(request, response); break;
 		
 		}

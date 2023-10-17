@@ -1,5 +1,7 @@
 package com.kh.semi.myPage.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.myPage.model.vo.MemberCoupon;
-import static com.kh.semi.common.JDBCTemplate.*;
+import com.kh.semi.reward.model.vo.Reward;
 
 public class MyPageDao {
 	
@@ -28,6 +30,7 @@ public class MyPageDao {
 	
 	}
 	
+	// 회원 쿠폰 조회
 	public ArrayList<MemberCoupon> selectMemberCouponList(Connection conn, int memberNo, String selected){
 		
 		PreparedStatement pstmt = null;
@@ -35,6 +38,7 @@ public class MyPageDao {
 		ArrayList<MemberCoupon> list = new ArrayList();
 		String sql = prop.getProperty("selectMemberCouponList");
 		
+		// 각 정렬에 따라 sql을 구분함
 		if(selected.equals("saleSort")) {
 			sql += "COUPON_RATIO DESC";
 		} else if(selected.equals("limitSort")) {
@@ -64,6 +68,48 @@ public class MyPageDao {
 		return list;
 	}
 	
+	// 회원 리워드 내역 조회
+	public ArrayList<Reward> selectMemberRewardList(Connection conn, int memberNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Reward> list = new ArrayList();
+		String sql = prop.getProperty("selectMemberRewardList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				// 생성자 또 만들기 싫음
+				Reward reward = new Reward();
+				reward.setRownum(rset.getInt("RNUM"));
+				reward.setRewardDate(rset.getDate("REWARD_DATE"));
+				reward.setRewardReason(rset.getString("REWARD_REASON"));
+				reward.setRewardScore(rset.getInt(rset.getInt("REWARD_SCORE")));
+				reward.setRemainRewardScore(rset.getInt("REMAIN_REWARD_SCORE"));
+				
+				list.add(reward);
+				
+				/*
+				list.add(new Reward(rset.getInt("RNUM"),
+									rset.getDate("REWARD_DATE"),
+									rset.getString("REWARD_REASON"),
+									rset.getInt("REWARD_SCORE"),
+									rset.getInt("REMAIN_REWARD_SCORE")));
+				*/
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 
 }
