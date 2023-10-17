@@ -1,6 +1,6 @@
 	
 	function page(element){
-		this.location.href = "/ReSeeRecipe/ReS/jhselect.rw?page=" + element;
+		this.location.href = "/ReSeeRecipe/jhselect.rw?page=" + element;
 	}
 
 // <!-- 글자 Byte 수 체크 -->
