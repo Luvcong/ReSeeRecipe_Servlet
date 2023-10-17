@@ -40,7 +40,14 @@
 	height: 2150px;
 	}
 
-	/*******************************************/
+	
+	
+
+
+	/**********************************************************
+		상단바 영역 (#recipeDetailWrap)
+	**********************************************************/
+	/* 기본 크기 세팅 */
 	/* > > 상단바wrap div 세팅 */
 	#recipeDetailBarWrap {
 		width: 100%;
@@ -57,9 +64,6 @@
 		float: left;
 	}
 
-	/**********************************************************
-		상단바 영역 (#recipeDetailWrap)
-	**********************************************************/
 	/* 기본아이콘, 카테고리 글씨, 조회수, 좋아요, 북마크, 신고 아이콘 기본 세팅 */
 	#recipeDetailBarImg  {
 		width: 10%;
@@ -96,7 +100,6 @@
 		display: inline-block;
 	}
 
-
 	/* 3. 조회수 컬러링 세팅 */
 	#recipeDetailBarView i {
 		color: rgb(255, 145, 77);
@@ -120,7 +123,31 @@
 	}
 	
 	/*******************************************/
+	/**********************************************************
+		입력양식 내용 영역 (#recipeDetailViewWrap내부)
+	**********************************************************/
+	/* 기본 크기 세팅 */
+	/* > >... 디테일뷰 내용 wrap div 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	#DetailCookStepsBasicInfo {
+	width: 100%;
+	height: 35%;
+	}
 
+	/* > >... 디테일뷰 내용 wrap 내부 중단 div (과정사진 + 제목 + 내용) */
+	#detailViewCookingInstructionContainer {
+	width: 100%;
+	height: 60%;
+	}
+
+
+	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	/* 좌우 큰 div */
+	#cook-steps-basic-info .detail-view-cook-steps-input-content {
+		width: 50%;
+		height: 100%;
+		float: left;
+		text-align: center;
+	}
 
 
 
@@ -135,17 +162,9 @@
 
 
 
-	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	#cook-steps-basic-info {
-		width: 100%;
-		height: 35%;
-	}
 
-	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
-	#cookingInstructionContainer {
-		width: 100%;
-		height: 60%;
-	}
+
+
 
 	/* > >... 입력폼 내부 하단 div (submit + reset 버튼) */
 	#cook-steps-buttons {
@@ -188,23 +207,7 @@
 	}
 
 
-	/**********************************************************
-		입력양식 내용 영역 (#recipeDetailViewWrap내부)
-	**********************************************************/
-	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	/* 여백 영역 */
-	#enroll-form-blank1 {
-		width: 100%;
-		height: 2%;
-	}
 
-	/* 좌우 큰 div */
-	#cook-steps-basic-info .cook-steps-input-content {
-		width: 50%;
-		height: 100%;
-		float: left;
-		text-align: center;
-	}
 	
 	#cook-steps-basic-info .cook-steps-inner {
 		width: 100%;
@@ -586,8 +589,8 @@
 		<div id="recipeDetailViewWrap">
 			
 			<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-			<div id="cook-steps-basic-info">
-				<div class="cook-steps-input-content">
+			<div id="DetailCookStepsBasicInfo">
+				<div class="detail-view-cook-steps-input-content">
 					<div id="content-writer-hashtag">
 						<div id="cook-steps-chef" class="cook-steps-inner">
 							<p><%= loginMember %></p>
@@ -605,7 +608,7 @@
 						<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 					</div>
 				</div>
-				<div class="cook-steps-input-content">
+				<div class="detail-view-cook-steps-input-content">
 					<div id="cook-steps-title" class="cook-steps-inner">
 						<div id="title-text-area-div">
 							레시피 제목
@@ -656,7 +659,7 @@
 			</div>
 
 			<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
-			<div id="cookingInstructionContainer">
+			<div id="detailViewCookingInstructionContainer">
 				<% for(int i = 0; i < 6; i++) { %>
 					<div id="cookStepsInstInner1">
 						<div class="cook-steps-inst-pic">
