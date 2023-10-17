@@ -82,19 +82,30 @@ public class RecipeDao {
 	 * @return
 	 */
 	public ArrayList<RecipePic> selectRecipePicSingle(Connection conn, int recipeNo) {
-		ArrayList<RecipePic> reciepPicList = new ArrayList();
+		ArrayList<RecipePic> recipePicList = new ArrayList();
 		String sql = prop.getProperty("selectRecipePicSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				
+				while(rset.next()) {
+					RecipePic recipePic = new RecipePic();
+					recipePic.setRecipePicNo(rset.getInt("RECIPE_PIC_NO"));
+					recipePic.setRecipePicNameOrigin(rset.getString("RECIPE_PIC_NAME_ORIGIN"));
+					recipePic.setRecipePicNameUpload(rset.getString("RECIPE_PIC_NAME_UPLOAD"));
+					recipePic.setRecipePicPath(rset.getString("RECIPE_PIC_PATH"));
+					recipePic.setRecipePicDate(rset.getString("RECIPE_PIC_DATE"));
+					recipePic.setRecipePicLev(rset.getInt("RECIPE_PIC_LEV"));
+					recipePic.setRecipePicStatus(rset.getString("RECIPE_PIC_STATUS"));
+					recipePic.setRefRno(rset.getInt("REF_RNO"));
+					recipePicList.add(recipePic);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return reciepPicList;
+		return recipePicList;
 	}
 	
 	
@@ -112,7 +123,14 @@ public class RecipeDao {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				
+				while(rset.next()) {
+					Ingredient ingredient = new Ingredient();
+					ingredient.setIngredientNo(rset.getInt("INGREDIENT_NO"));
+					ingredient.setIngredient(rset.getString("INGREDIENT"));
+					ingredient.setIngredientAmount(rset.getString("INGREDIENT_AMOUNT"));
+					ingredient.setRecipeNo(rset.getInt("RECIPE_NO"));
+					ingredientList.add(ingredient);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,12 +148,20 @@ public class RecipeDao {
 	public ArrayList<CookSteps> selectCookStepsSingle(Connection conn, int recipeNo) {
 		ArrayList<CookSteps> cookStepsList = new ArrayList();
 		String sql = prop.getProperty("selectCookStepsSingle");
-		
+
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			try(ResultSet rset = pstmt.executeQuery()) {
-				
+			try (ResultSet rset = pstmt.executeQuery()) {
+				while (rset.next()) {
+					CookSteps cooksteps = new CookSteps();
+					cooksteps.setCookStepsNo(rset.getInt("COOK_STEPS_NO"));
+					cooksteps.setCookStepsTitle(rset.getString("COOK_STEPS_TITLE"));
+					cooksteps.setCookStepsContent(rset.getString("COOK_STEPS_CONTENT"));
+					cooksteps.setCookStepsLev(rset.getInt("COOK_STEPS_LEV"));
+					cooksteps.setRecipeNo(rset.getInt("RECIPE_NO"));
+					cookStepsList.add(cooksteps);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -158,16 +184,18 @@ public class RecipeDao {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				
+				RecipeTag recipeTag = new RecipeTag();
+				recipeTag.setTagNo(rset.getInt("TAG_NO"));
+				recipeTag.setTagRecipeNo(rset.getInt("TAG_RECIPE_NO"));
+				recipeTag.setTagName(rset.getString("TAG_NAME"));
+				recipeTag.setTagDate(rset.getString("TAG_DATE"));
+				recipeTagList.add(recipeTag);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return recipeTagList;
 	}
-	
-	
-	
 	
 	
 	/**
