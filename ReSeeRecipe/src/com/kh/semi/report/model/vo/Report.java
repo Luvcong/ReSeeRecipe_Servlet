@@ -22,13 +22,15 @@ public class Report {
 	private int rptCategoryNo;
 	private String rptStatus;
 	private String rptCategoryName;		// 관리자 신고함 리스트 조회시 필요
+	private String recipeTitle;			// 관리자 신고함 리스트 조회시 필요
+	private String replyContent;		// 관리자 신고함 리스트 조회시 필요
 	
 	public Report() {
 		super();
 	}
-
+	
 	public Report(int reportNo, String rptContent, Date rptDate, int rptTarget, String reciveReport, String sendReport,
-			int rptCategoryNo, String rptStatus, String rptCategoryName) {
+			int rptCategoryNo, String rptStatus, String rptCategoryName, String recipeTitle, String replyContent) {
 		super();
 		this.reportNo = reportNo;
 		this.rptContent = rptContent;
@@ -39,6 +41,8 @@ public class Report {
 		this.rptCategoryNo = rptCategoryNo;
 		this.rptStatus = rptStatus;
 		this.rptCategoryName = rptCategoryName;
+		this.recipeTitle = recipeTitle;
+		this.replyContent = replyContent;
 	}
 
 	public int getReportNo() {
@@ -113,11 +117,28 @@ public class Report {
 		this.rptCategoryName = rptCategoryName;
 	}
 
+	public String getRecipeTitle() {
+		return recipeTitle;
+	}
+
+	public void setRecipeTitle(String recipeTitle) {
+		this.recipeTitle = recipeTitle;
+	}
+
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
 	@Override
 	public String toString() {
 		return "Report [reportNo=" + reportNo + ", rptContent=" + rptContent + ", rptDate=" + rptDate + ", rptTarget="
 				+ rptTarget + ", reciveReport=" + reciveReport + ", sendReport=" + sendReport + ", rptCategoryNo="
-				+ rptCategoryNo + ", rptStatus=" + rptStatus + ", rptCategoryName=" + rptCategoryName + "]";
+				+ rptCategoryNo + ", rptStatus=" + rptStatus + ", rptCategoryName=" + rptCategoryName + ", recipeTitle="
+				+ recipeTitle + ", replyContent=" + replyContent + "]";
 	}
 
 }	// end class

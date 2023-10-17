@@ -63,6 +63,8 @@ public class ReportDao {
 				report.setReciveReport(rset.getString("RECIVE_REPORT"));
 				report.setSendReport(rset.getString("SEND_REPORT"));
 				report.setRptStatus(rset.getString("RPT_STATUS"));
+				report.setRecipeTitle(rset.getString("RECIPE_TITLE"));
+				report.setReplyContent(rset.getString("REPLY_CONTENT"));
 				
 				list.add(report);
 
@@ -110,5 +112,47 @@ public class ReportDao {
 		
 		return reportListCount;
 	}	// selectReportListCount
+	
+	
+	
+	/**
+	 * 신고함 상세리스트 조회 요청 처리
+	 * @param conn
+	 * @return REPORT_NO && REPORT_CATEGORY_NO과 일치하는 값
+	 * @author JH
+	 * @Date : 2023. 10. 16.
+	 */
+	public ArrayList<Report> datailReportList(Connection conn, int reportNo, String categoryName){
+		
+		ArrayList<Report> list = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("detailReportList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, reportNo);
+			pstmt.setString(2, categoryName);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Report report = new Report();
+				report.setRptCategoryName(rset.getString("RPT_CATEGORY_NAME,"));
+				report.setSendReport(rset.getString("SEND_REPORT"));
+				report.setReciveReport(rset.getString("RECIVE_REPORT"));
+				report.setRptContent(rset.getString("RPT_CONTENT"));
+				
+				list.add(report);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 }	// end class
