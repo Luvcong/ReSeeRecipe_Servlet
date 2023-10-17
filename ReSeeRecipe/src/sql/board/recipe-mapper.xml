@@ -93,6 +93,31 @@
 		   TAG_RECIPE_NO = ?
 	</entry>
 	
+	<entry key="selectReplyListSingle">
+		SELECT
+			   REPLY_NO,
+			   REPLY_CONTENT,
+			   TO_CHAR(REPLY_DATE, 'YYYY"년" MM"월" DD"일"'),
+			   REPLY_MODIFIED,
+			   REPLY_WRITER_NO,
+			   RECIPE_NO
+		  FROM
+			   TB_REPLY
+		 WHERE
+			   RECIPE_NO = ?
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<!-- 카테고리 리스트 조회 SQL문 -->
 	<entry key="selectRecipeCategoryList">

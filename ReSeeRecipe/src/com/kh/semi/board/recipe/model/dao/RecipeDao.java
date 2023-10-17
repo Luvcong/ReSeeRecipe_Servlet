@@ -19,6 +19,7 @@ import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.RecipeTag;
+import com.kh.semi.board.recipe.model.vo.Reply;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeDao {
@@ -197,6 +198,55 @@ public class RecipeDao {
 		}
 		return recipeTagList;
 	}
+	
+	
+	/**
+	 * 특정 번호 레시피(PK)에 달린 댓글 리스트를 조회하는 기능<br>
+	 */
+	public ArrayList<Reply> selectReplyListSingle(Connection conn, int recipeNo) {
+		ArrayList<Reply> replyList = new ArrayList();
+		String sql = prop.getProperty("selectReplyListSingle");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				Reply reply = new Reply();
+				reply.setReplyNo(rset.getInt(""));
+				reply.setReplyContent(rset.getString(""));
+				reply.setReplyDate(rset.getString(""));
+				reply.setReplyModified(rset.getString(""));
+				reply.setReplyWriterNo(rset.getInt(""));
+				reply.setRecipeNo(rset.getInt(""));
+				replyList.add(reply);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return replyList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**

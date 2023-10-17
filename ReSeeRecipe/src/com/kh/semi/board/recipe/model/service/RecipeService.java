@@ -96,11 +96,11 @@ public class RecipeService {
 	/**
 	 * 특정 번호 레시피(PK)에 달린 댓글 리스트를 조회하는 기능<br>
 	 */
-	public ArrayList<Reply> selectRecipeReplySingle(int recipeNo) {
+	public ArrayList<Reply> selectReplyListSingle(int recipeNo) {
 		Connection conn = getConnection();
-		ArrayList<Reply> recipeReplyList = new RecipeDao().selectRecipeReplySingle(conn, recipeNo);
+		ArrayList<Reply> replyList = new RecipeDao().selectReplyListSingle(conn, recipeNo);
 		close(conn);
-		return recipeReplyList;
+		return replyList;
 	}
 	
 	

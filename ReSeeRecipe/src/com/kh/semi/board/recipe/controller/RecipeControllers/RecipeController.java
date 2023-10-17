@@ -353,11 +353,11 @@ public class RecipeController {
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
 		
 		// Service요청
-		ArrayList<Reply> recipeReplyList = new RecipeService().selectRecipeReplySingle(recipeNo);
+		ArrayList<Reply> replyList = new RecipeService().selectReplyListSingle(recipeNo);
 		
 		// 형식+인코딩 지정 & 응답 Gson
 		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(recipeReplyList, response.getWriter());
+		new Gson().toJson(replyList, response.getWriter());
 	}
 	
 	/**
