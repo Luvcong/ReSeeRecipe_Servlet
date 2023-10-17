@@ -156,24 +156,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>1</td>
-                            <td>#ㅁㄴㅇㄹ</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>2</td>
-                            <td>2023-09-23</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>3</td>
-                            <td>2023-09-22</td>
-                            <td>6</td>
-                        </tr>
+                    	<% if(list == null || list.isEmpty()) { %>
+   	                <tr>
+	                    <td colspan="4">등록한 해시태그가 없습니다</td>
+	                </tr>
+                    <% } else { %>
+                    	<% for(Tag tag : list) { %>
+	                    <tr>
+	                        <td><input type="checkbox"></td>
+	                        <td><%= tag.getTagNo() %></td>
+	                        <td><%= tag.getTagName() %></td>
+	                        <td><%= tag.getTagCount() %></td>
+	                    </tr>	
+	                    <% } %>
+					<% } %>    
+                    
                     </tbody>
                 </table>
             </div>
@@ -201,7 +198,7 @@
 
 	<!-- 해시태그 추가  modal창 -->
  	<div class="modal" id="addHashTagForm">
-		<form method="get" action="">
+		<form method="get" action="hsinsert.hs">
 	        <div class="modal-dialog">
 	            <div class="modal-content">
 	                <!-- Modal Header -->

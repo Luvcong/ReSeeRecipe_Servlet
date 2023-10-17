@@ -118,6 +118,7 @@ public class TagDao {
 				
 				t.setTagNo(rset.getInt("TAG_NO"));
 				t.setTagName(rset.getString("TAG_NAME"));
+				t.setTagCount(rset.getInt("COUNT"));
 				
 				list.add(t);
 			}

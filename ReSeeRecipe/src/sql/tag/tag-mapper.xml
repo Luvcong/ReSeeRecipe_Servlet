@@ -26,12 +26,17 @@
 	<entry key="selectPHashTag">
 		SELECT *
 		    FROM (SELECT ROWNUM RNUM, A.*
-		            FROM (SELECT
-		                        TAG_NO,
-		                        TAG_NAME
-		                    FROM
-		                        TB_TAG
-		                    ORDER BY TAG_NO) A)
+		            FROM (SELECT DISTINCT
+								    TAG_NO, 
+								    TAG_NAME, 
+								    COUNT(*)OVER(PARTITION BY TAG_NO) COUNT 
+								FROM 
+									TB_TAG
+								LEFT JOIN 
+								    TB_RECIPE_TAG USING(TAG_NO)
+								LEFT JOIN
+								    TB_NOTICE_TAG USING(TAG_NO)
+								ORDER BY TAG_NO) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>
