@@ -93,8 +93,8 @@ public class RecipeController {
 		if(!recipeMainViewMap.isEmpty()) {
 			// 넘길 값 지정
 			request.setAttribute("pi", pi);
-			request.setAttribute("rList", recipeMainViewMap.get("reList"));
-			request.setAttribute("", recipeMainViewMap.get("rePicList"));
+			request.setAttribute("recipeList", recipeMainViewMap.get("reList"));
+			request.setAttribute("recipePicList", recipeMainViewMap.get("recipePicList"));
 			// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 			viewPath = "/views/board/recipe/recipeMainView.jsp";
 		} else {
