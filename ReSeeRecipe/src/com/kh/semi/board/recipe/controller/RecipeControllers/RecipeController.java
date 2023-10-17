@@ -344,6 +344,7 @@ public class RecipeController {
 	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) {
 		
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		int result = new RecipeService(recipeNo);
 	
 	
 	}
@@ -390,9 +391,6 @@ public class RecipeController {
 		response.setContentType("text/html; charset=UTF-8");
 		response.getWriter().print(result);
 	}
-	
-
-	
 	
 	
 	

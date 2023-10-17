@@ -749,7 +749,7 @@
 			<div>조회 결과가 없습니다</div>
 		<% } %>
 		
-		<div id="reply-area">
+		<div id="recipeReplyArea">
 		   	<table border="1" align="center">
 		   		<thead> <!-- 댓글 작성 영역 -->
 		   			<tr>
@@ -824,8 +824,17 @@
 					url : 'ajaxSelectRecipeReplyList.ar',
 					data : { recipeNo : recipeNo },
 					success : function(result){
-						alert('조회 성공!');
 						console.log(result);
+						let resultStr = '';
+						for(let i in result) {
+							resultStr += '<tr>'
+									    + '<input type="hidden" value="' + result[i].replyNo + '" name="' + result[i].replyNo + '">'
+									    + '<td>' + result[i].memNickName + '</td>'
+									    + '<td>' + result[i].replyContent + '</td>'
+									    + '<td>' + result[i].replyDate + '</td>'
+									    + '</tr>';
+						}
+						$('#recipeReplyArea tbody').html(resultStr);
 					},
 					error : function() {
 						alert('조회에 실패했습니다');

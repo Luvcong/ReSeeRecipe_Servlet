@@ -17,13 +17,14 @@ public class Reply {
 	private String replyModified;
 	private int replyWriterNo;
 	private int recipeNo;
+	private String memNickname; // 리플 작성자 닉네임
 	
 	
 	public Reply() {
 		super();
 	}
 	public Reply(int replyNo, String replyContent, String replyDate, String replyModified, int replyWriterNo,
-			int recipeNo) {
+			int recipeNo, String memNickname) {
 		super();
 		this.replyNo = replyNo;
 		this.replyContent = replyContent;
@@ -31,6 +32,7 @@ public class Reply {
 		this.replyModified = replyModified;
 		this.replyWriterNo = replyWriterNo;
 		this.recipeNo = recipeNo;
+		this.memNickname = memNickname;
 	}
 	
 	
@@ -70,13 +72,19 @@ public class Reply {
 	public void setRecipeNo(int recipeNo) {
 		this.recipeNo = recipeNo;
 	}
+	public String getMemNickname() {
+		return memNickname;
+	}
+	public void setMemNickname(String memNickname) {
+		this.memNickname = memNickname;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyDate=" + replyDate
 				+ ", replyModified=" + replyModified + ", replyWriterNo=" + replyWriterNo + ", recipeNo=" + recipeNo
-				+ "]";
+				+ ", memNickname=" + memNickname + "]";
 	}
 	
 	
