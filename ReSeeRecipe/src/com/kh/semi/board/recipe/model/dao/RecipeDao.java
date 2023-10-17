@@ -212,12 +212,12 @@ public class RecipeDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				Reply reply = new Reply();
-				reply.setReplyNo(rset.getInt(""));
-				reply.setReplyContent(rset.getString(""));
-				reply.setReplyDate(rset.getString(""));
-				reply.setReplyModified(rset.getString(""));
-				reply.setReplyWriterNo(rset.getInt(""));
-				reply.setRecipeNo(rset.getInt(""));
+				reply.setReplyNo(rset.getInt("REPLY_NO"));
+				reply.setReplyContent(rset.getString("REPLY_CONTENT"));
+				reply.setReplyDate(rset.getString("REPLY_DATE"));
+				reply.setReplyModified(rset.getString("REPLY_MODIFIED"));
+				reply.setReplyWriterNo(rset.getInt("REPLY_WRITER_NO"));
+				reply.setRecipeNo(rset.getInt("RECIPE_NO"));
 				replyList.add(reply);
 			}
 		} catch (SQLException e) {
@@ -478,6 +478,50 @@ public class RecipeDao {
 		}
 		return result;
 	}
+	
+	
+	/**
+	 * 특정 번호 레시피(PK)에 댓글을 입력하는 기능
+	 * @param reply : replyContent, memNo, recipeNo필드가 초기화된 Reply객체
+	 */
+	public int insertReply(Connection conn, Reply reply) {
+		int result = 0;
+		String sql = prop.getProperty("insertReply");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, reply.getReplyContent());
+			pstmt.setInt(2, reply.getReplyWriterNo());
+			pstmt.setInt(3, reply.getRecipeNo());
+			
+			result = pstmt.executeUpdate();		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*

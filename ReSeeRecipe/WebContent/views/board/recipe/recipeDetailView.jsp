@@ -844,7 +844,10 @@
 				$.ajax({
 					type : 'POST',
 					url : 'ajaxInsertRecipeReply.ar',
-					data : { recipeNo : recipeNo },
+					data : {
+						recipeNo : recipeNo,
+						replyContent : $('#replyContent').val()
+						},
 					success : function(result){
 						console.log('댓글 작성 성공!');
 						console.log(result);

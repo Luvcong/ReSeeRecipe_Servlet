@@ -330,7 +330,11 @@ public class RecipeController {
 	 */
 	public void ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
 		
+		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		
+		
 	}
+	
 	
 	/**
 	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
@@ -339,7 +343,11 @@ public class RecipeController {
 	 */
 	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) {
 		
+		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+	
+	
 	}
+	
 	
 	/**
 	 * 특정 번호 레시피(PK)에 달린 댓글 리스트를 조회하는 기능<br>
@@ -360,13 +368,27 @@ public class RecipeController {
 		new Gson().toJson(replyList, response.getWriter());
 	}
 	
+	
 	/**
-	 * 현재 로그인한 상태라면 특정 번호 레시피(PK)에 댓글을 입력하는 기능
+	 * 특정 번호 레시피(PK)에 댓글을 입력하는 기능<br>
 	 * @param request
 	 * @param response
 	 */
-	public void ajaxInsertRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+	public void ajaxInsertRecipeReply(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		String replyContent = (String)request.getParameter("replyContent");
+		int memNo = ((Member)request.getSession().getAttribute("loginMember")).getMemNo();
+		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		
+		Reply reply = new Reply();
+		reply.setReplyContent(replyContent);
+		reply.setReplyWriterNo(memNo);
+		reply.setRecipeNo(recipeNo);
+		
+		int result = new RecipeService().insertReply(reply);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
 	}
 	
 

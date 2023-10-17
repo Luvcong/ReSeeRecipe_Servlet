@@ -2,15 +2,13 @@ package com.kh.semi.board.recipe.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.doTransAction;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.CookSteps;
@@ -20,7 +18,6 @@ import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.RecipeTag;
 import com.kh.semi.board.recipe.model.vo.Reply;
-import com.kh.semi.common.SendError;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
@@ -59,7 +56,7 @@ public class RecipeService {
 	 * @return
 	 */
 	public ArrayList<Ingredient> selectIngredientSingle(int recipeNo) {
-	Connection conn = getConnection();
+		Connection conn = getConnection();
 		ArrayList<Ingredient> ingredientList = new RecipeDao().selectIngredientSingle(conn, recipeNo);
 		close(conn);
 		return ingredientList;
@@ -72,7 +69,7 @@ public class RecipeService {
 	 * @return
 	 */
 	public ArrayList<CookSteps> selectCookStepsSingle(int recipeNo) {
-	Connection conn = getConnection();
+		Connection conn = getConnection();
 		ArrayList<CookSteps> cookStepsList = new RecipeDao().selectCookStepsSingle(conn, recipeNo);
 		
 		close(conn);
@@ -208,6 +205,31 @@ public class RecipeService {
 	}
 	
 	
+	/**
+	 * 특정 번호 레시피(PK)에 댓글을 입력하는 기능
+	 * @param reply : replyContent, memNo, recipeNo필드가 초기화된 Reply객체
+	 */
+	public int insertReply(Reply reply) {
+		Connection conn = getConnection();
+		int result = doTransAction(conn, new RecipeDao().insertReply(conn, reply));
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -215,27 +237,22 @@ public class RecipeService {
 	
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능 
+	 * 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능 
 	 */
-	public void ajaxModifyRecipeReply(Connection conn, int recipeNo) {
+	public void ajaxModifyRecipeReply(int recipeNo) {
 		
 	}
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
+	 * 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
 	 */
-	public void ajaxDeleteRecipeReply(Connection conn, int recipeNo) {
+	public void ajaxDeleteRecipeReply(int recipeNo) {
 		
 	}
 	
 
 	
-	/**
-	 * 현재 로그인한 상태라면 특정 번호 레시피(PK)에 댓글을 입력하는 기능
-	 */
-	public void ajaxInsertRecipeReply(Connection conn, int recipeNo) {
-		
-	}
+
 	
 	
 	
