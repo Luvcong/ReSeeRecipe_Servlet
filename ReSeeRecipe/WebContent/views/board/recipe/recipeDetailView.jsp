@@ -441,8 +441,8 @@
 	/* 요리과정 설명 */
 	#cookingInstructionContainer .cook-steps-inst-content {
 		width: 100%;
-		height: 80%;
-		padding: 30px;
+		height: 50%;
+		padding: 10px;
 	}
 
 	#cookingInstructionContainer .cook-steps-inst-content textarea {
@@ -617,6 +617,22 @@
 
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
+					<% for(int i = 0; i < 6; i++) { %>
+						<div id="cookStepsInstInner1">
+							<div class="cook-steps-inst-pic">
+								<img src="" d>
+							</div>
+						
+							<div class="cook-steps-inst-title">
+								<p class="inst-title-lev">1</p><!--
+								--><p>요리과정제목</p>
+								</button>
+							</div>
+							<div class="cook-steps-inst-content">
+								<p>요리과정 내용</p>
+							</div>
+						</div>
+					<% } %>
 					<!--
 						아래의 제이쿼리 이벤트로 입력 틀 생성
 					-->

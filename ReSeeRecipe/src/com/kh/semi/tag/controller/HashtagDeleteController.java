@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.tag.model.service.TagService;
 
 /**
- * Servlet implementation class HashtagUpdateController
+ * Servlet implementation class HashtagDeleteController
  */
-@WebServlet("/hsupdate.hs")
-public class HashtagUpdateController extends HttpServlet {
+@WebServlet("/hashdelete.hs")
+public class HashtagDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HashtagUpdateController() {
+    public HashtagDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +32,22 @@ public class HashtagUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		int hashNo = Integer.parseInt(request.getParameter("tagNo"));
-		String ChashName = request.getParameter("ChashtagName");
+		String[] arr = request.getParameterValues("tagNo");
+		int[] tagNo = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+        	tagNo[i] = Integer.parseInt(arr[i]);
+        }
 		
-		int result = new TagService().hashtagUpdate(hashNo, ChashName);
+		int result = new TagService().hashtagDelete(tagNo);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("successMsg", "해시태그 수정이 완료되었습니다!");
+			request.getSession().setAttribute("successMsg", "해시태그 삭제가 완료되었습니다!");
 		} else {
-			request.getSession().setAttribute("failMsg", "해시태그 수정이 실패하셨습니다. 다시 시도해주세요!");
+			request.getSession().setAttribute("failMsg", "해시태그 삭제가 실패하셨습니다. 다시 시도해주세요!");
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/hsselect.hs?cpage=1");
+		
 	}
 
 	/**

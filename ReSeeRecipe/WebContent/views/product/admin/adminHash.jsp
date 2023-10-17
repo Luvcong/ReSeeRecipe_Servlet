@@ -163,7 +163,7 @@
                     <% } else { %>
                     	<% for(Tag tag : list) { %>
 	                    <tr>
-	                        <td><input type="checkbox"></td>
+	                        <td><input class="hcheck" type="checkbox"></td>
 	                        <td><%= tag.getTagNo() %></td>
 	                        <td><%= tag.getTagName() %></td>
 	                        <td><%= tag.getTagCount() %></td>
@@ -177,22 +177,7 @@
         	</div>  <!-- rs-content -->
     	</div>  <!-- rs-main -->
     	
-    	<!-- 페이징바 -->
-		<div class="paging-area">
-			<% if(currentPage != 1) { %>
-				<button onclick="page('<%= currentPage -1 %>');" class="btn btn-warning">&lt;</button>
-			<% } %>
-			<% for(int i = startPage; i <= endPage; i++) { %>
-				<% if(currentPage != i) { %>
-					<button onclick="page('<%= i %>');" class="btn btn-warning"><%= i %></button>
-				<% } else { %>
-					<button disabled class="btn btn-warning"><%= i %></button>
-				<% } %>
-			<% } %>
-			<% if(currentPage != maxPage) { %>
-				<button onclick="page('<%= currentPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
-			<% } %>
-		</div>	<!-- 페이징바 -->
+    	
 
 	<!-- 해시태그 추가  modal창 -->
  	<div class="modal" id="addHashTagForm">
@@ -234,20 +219,20 @@
 			    <div class="modal-content">
 			        <!-- Modal Header -->
 				     <div class="modal-header">
-				         <h4 class="modal-title">카테고리 수정</h4>
+				         <h4 class="modal-title">해시태그 수정</h4>
 				         <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
 				     </div> 
 				     <!-- Modal body -->
 			         <div class="modal-body">
-					<input type="hidden" name="tagNo" value="">
+					<input type="hidden" id="uhashNo" name="tagNo" value="">
 					<table class="modal-table" border="1">
 						<tr>
 							<th>기존 해시태그명</th>
-							<td><input type="text" name="hashtagName" readonly></td>
+							<td><input type="text" id="hashtagId" name="hashtagName" readonly></td>
 						</tr>
 						<tr>
 							<th>현재 사용횟수</th>
-							<td><input type="text" name="hashtagCount" readonly></td>
+							<td><input type="text" id="hashtagCount" name="hashtagCount" readonly></td>
 						</tr>
 						<tr>
 							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count"></span> / 30 byte</div></th>
@@ -267,13 +252,35 @@
 		</form>
 	</div>	<!-- 해시태그 수정 modal -->
 	
-	 <!-- 페이징바 -->
-	  <script>
-			function page(element){
-				this.location.href = "<%= contextPath %>/hsselect.hs?cpage=" + element;
-			}
-	  </script>
-	  
+	<!-- 해시태그 삭제  modal창 -->
+	<div class="modal" id="deleteHashTagForm">
+		<form method="post" action="hashdelete.hs">
+			<div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			        <!-- Modal Header -->
+				     <div class="modal-header">
+				         <h4 class="modal-title">해시태그 삭제</h4>
+				         <button type="button" class="close" data-dismiss="modal">&times;</button>	<!-- x 닫기버튼 -->
+				     </div> 
+				     <!-- Modal body -->
+			         <div class="modal-body">
+			         <div id="dhashbody"></div>
+						<table class="modal-table" border="1">
+						<tr>
+							<th>정말 삭제하시겠습니까?</th>
+						</tr>
+					</table>
+		          	</div>
+		          	<!-- Modal footer -->
+		            <div class="modal-footer">
+		         		<button type="submit" class="btn btn-sm btn-warning">삭제</button>
+		                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
+		            </div>
+		    	</div>	<!-- modal-content -->
+		    </div>	<!-- modal-dialog  -->
+		</form>
+	</div>	<!-- 해시태그 수정 modal -->
+
 	  	<!-- alertMsg script -->
 	  <script>
 			var successMsg = '<%= successMsg %>';
@@ -299,34 +306,32 @@
 		
 		function showUpdateHashTagModal(){
 			
-			let trs = document.querySelectorAll('.table tbody tr');	// 데이터가 들어있는 행(tr) 모두 갖고와서 저장
- 			let checked_tr = null									// tr체크여부 변수 생성
- 			
- 			for(let tr of trs){
- 				let input = tr.querySelector('input');			// tr의 input 요소 저장
- 					if(input.checked){							// input의 checked 속성이 true인 경우
- 						checked_tr = tr;						// tr체크여부 변수에 checked == true인 행(tr)을 저장한다
- 						break;									// input요소가 여러개인 경우 첫번째에 해당하는 요소만 선택하기 위해 break
- 					}
- 			}
- 			
- 			if(checked_tr == null){
- 				Swal.fire('실패', '카테고리를 선택해주세요!', 'error');
+			var checkbox = $("input[class=hcheck]:checked");
+			
+			if(!$('.hcheck').is(":checked")){
+ 				Swal.fire('실패', '해시태그를 선택해주세요!', 'error');
  				return;
- 			}	
- 			
- 			let modal = document.getElementById('updateHashTagForm');
- 			let modal_trs = modal.querySelectorAll('table tr');
- 			
- 			let hashtag_name = checked_tr.children[2].textContent;
- 			let modal_input = modal.querySelector("input[name='hashtagName']");
- 			modal_input.value = hashtag_name;
- 			
- 			let hashtag_count = checked_tr.children[3].textContent;
- 			modal_input = modal.querySelector("input[name='hashtagCount']");
- 			modal_input.value = hashtag_count + '개';
- 			
-			let origin_name = checked_tr.children[2].textContent;
+ 			} else if(checkbox.length > 1){
+ 				Swal.fire('실패', '해시태그를 하나만 선택해주세요!', 'error');
+ 				return;
+ 			}
+			
+			var col1 = "";
+			var col2 = "";
+			var col3 = "";
+			
+			checkbox.each(function(i){
+				var tr = checkbox.parent().parent().eq(i);
+				var td = tr.children();
+				
+				col1 = td.eq(1).text();
+				col2 = td.eq(2).text();
+				col3 = td.eq(3).text();
+			})
+			
+			$("#uhashNo").attr('value', col1);
+			$("#hashtagId").val(col2);
+			$("#hashtagCount").val(col3);
 			
 			$('#updateHashTagForm').modal('show');
 		}
@@ -334,7 +339,28 @@
 		
 		function deleteHashTag(){
 			
+			var tdArr = new Array();
+			var checkbox = $("input[class=hcheck]:checked");
 			
+			if(!$('.hcheck').is(":checked")){
+ 				Swal.fire('실패', '해시태그를 선택해주세요!', 'error');
+ 				return;
+ 			}
+			
+			checkbox.each(function(i){
+				var tr = checkbox.parent().parent().eq(i);
+				var td = tr.children();
+				
+				var no = td.eq(1).text();
+				
+				tdArr.push(no);
+			})
+			
+			for(var i = 0; i < tdArr.length; i++){
+				$('#dhashbody').append('<input type="hidden" class="dhashNo" name="tagNo" value="'+ tdArr[i] +'">');
+			}
+			
+			$('#deleteHashTagForm').modal('show');
 		}
 	</script>
     

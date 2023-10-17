@@ -4,11 +4,8 @@
 				 com.kh.semi.common.model.vo.PageInfo,
 				 java.util.ArrayList" %>
 <%	
-	// RecipePic주소 (RECIPE_PIC_PATH, RECIPE_PIC_UPLOAD)
-	RecipePic recipePic = (RecipePic)request.getAttribute("reciepPic");
-
-	// ArrayList로 받아온 recipes
-	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");
+	// ArrayList로 받아온 recipeList (사진 경로 titleImg있음)
+	ArrayList<Recipe> recipeList = (ArrayList<Recipe>)request.getAttribute("recipeList");
 	
 	// 페이지네이션 변수
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -51,6 +48,10 @@
 		display: inline-block;
 		margin: 20px 15px 30px 15px;
 		border: 1px solid black !important;
+	}
+	
+	.send-detail-view:hover {
+		cursor: pointer;
 	}
 	
 	/* 상단 (썸네일 이미지) */
@@ -153,39 +154,38 @@
 	<div id="recipeMainViewWrap">
 		<!-- 레시피 글 블록 wrap -->
 		<div id="recipeThumnailWrap">
-			<% if(!rList.isEmpty()) { %>
+			<% if(!recipeList.isEmpty()) { %>
 				<!-- ***********[[ 여기가 조회된 레시피 글 만들어줘야할 부분 ]] ***************** -->
-				<% for(int i = 0; i < rList.size(); i++) { %>
+				<% for(int i = 0; i < recipeList.size(); i++) { %>
 					<!-- 레시피 글 블록 (* 9개 필요) -->
 					<div class="thumbnail-contariner">
 						<!-- 상단 이미지부분 -->
 						<div class="thumbnail-top send-detail-view">
-							<img src="https://dthezntil550i.cloudfront.net/by/latest/by2107310110043690021607870/742bb13f-97a0-4582-ad2f-b9c276ed1709.jpg">
-							<img src="<%=contextPath%>/<%=reicpePic.getRecipePicPath%>/<%=recipePic.getRecipePicNameUplaod%>">
+							<img src="<%=contextPath%><%=recipeList.get(i).getTitleImg()%>">
 						</div>
 						
 						<!-- 하단 레시피정보부분 -->
 						<div class="thumbnail-bottom">
 							<div class="thumbnail-bottom-inner1 send-detail-view">
-								<p><%= rList.get(i).getRecipeTitle() %></p>
+								<p><%= recipeList.get(i).getRecipeTitle() %></p>
 							</div>
 	
 							<div class="thumbnail-bottom-inner2">
 								<div class="thumbnail-left-bottom">
 									<div class="thumbnail-left-bottom-chef">
-										<p><%= rList.get(i).getMemNickName() %></p>
+										<p><%= recipeList.get(i).getMemNickName() %></p>
 									</div>
 								</div>
 	
 								<div class="thumbnail-right-bottom">
 									<div class="thumbnail-right-bottom-inner1">
 										<!-- 조회수 -->
-										<p><%= rList.get(i).getRecipeCount() %></p>
+										<p><%= recipeList.get(i).getRecipeCount() %></p>
 										<i class='fas fa-eye'></i>
 									</div>
 									<div class="thumbnail-right-bottom-inner2">
 										<!-- 좋아요수 -->
-										<p><%= rList.get(i).getHtCount() %></p>
+										<p><%= recipeList.get(i).getHtCount() %></p>
 										<i class="fa fa-heart"></i>
 									</div>
 								</div>
@@ -199,7 +199,7 @@
 		
 		<script>
 			$('.send-detail-view').on('click', function(){
-				location.hreg = "<%=contextPath%>/recipeDetail.re";
+				location.href = "<%=contextPath%>/recipeDetail.re";
 			});
 		
 		</script>

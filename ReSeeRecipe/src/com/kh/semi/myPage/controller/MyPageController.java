@@ -39,6 +39,7 @@ public class MyPageController {
 	// 회원 리워드 내역 조회
 	public String MemberRewardList(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 여기서 부터 Controller 역할
 		int memberNo = Integer.parseInt(request.getParameter("memNo"));
 		
 		ArrayList<Reward> list = new MyPageService().selectMemberRewardList(memberNo);

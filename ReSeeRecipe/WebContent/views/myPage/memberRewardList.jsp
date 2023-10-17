@@ -113,6 +113,20 @@
                 </thead>
                 <tbody>
                     <% if(memberRewardList != null) { 
+                        
+                        <!--
+                            int num = 50
+                            if(memberRewardList.size() < num) => size
+                            else => num
+
+                            click
+                            if(size < num + 50) => size
+                            else => num + 50
+
+
+                         -->
+                        
+
                     	for(int i = 0; i < memberRewardList.size(); i++) {%>
                     <tr>
                         <td><%= memberRewardList.get(i).getRownum() %></td>
