@@ -79,7 +79,7 @@ public class CategoryListController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("views/board/recipe_category/manager/categoryListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/category/manager/categoryListView.jsp").forward(request, response);
 	}
 
 	/**

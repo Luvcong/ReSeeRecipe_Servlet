@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>쿠폰함 관련 SQL문</comment>
+
+	<!-- 쿠폰함 리스트 조회 SQL문 -->
+	<entry key="selectCouponList">
+		
+	</entry>
+	
+	
+	<!-- 쿠폰함 리스트 행 조회 SQL문 -->
+	<entry key="selectCouponListCount">
+		SELECT
+				COUNT(*)
+		  FROM
+	  			TB_COUPON
+	</entry>
+
+
+
+
+
+</properties>
