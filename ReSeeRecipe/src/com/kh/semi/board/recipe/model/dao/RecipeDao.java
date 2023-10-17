@@ -148,14 +148,11 @@ public class RecipeDao {
 	public ArrayList<CookSteps> selectCookStepsSingle(Connection conn, int recipeNo) {
 		ArrayList<CookSteps> cookStepsList = new ArrayList();
 		String sql = prop.getProperty("selectCookStepsSingle");
-		System.out.println(sql);
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				while(rset.next()) {
-					System.out.println("날리나");
-					System.out.println("rsetwhile내부");
 					CookSteps cooksteps = new CookSteps();
 					cooksteps.setCookStepsNo(rset.getInt("COOK_STEPS_NO"));
 					cooksteps.setCookStepsTitle(rset.getString("COOK_STEPS_TITLE"));
@@ -300,9 +297,7 @@ public class RecipeDao {
 	public int insertRecipe(Connection conn, Recipe recipe) {
 		int result = 0;
 		String sql = prop.getProperty("insertRecipe");
-		System.out.println("sql문 출력 : " + sql);
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			System.out.println("RecipeDao recipe객체 : " + recipe);
 			pstmt.setString(1, recipe.getRecipeTitle());
 			pstmt.setInt(2, recipe.getRecipeWriterNo());
 			pstmt.setInt(3, recipe.getRecipeCategoryNo());

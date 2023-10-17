@@ -143,22 +143,17 @@ public class RecipeController {
 		ArrayList<CookSteps> cookStepsList = rs.selectCookStepsSingle(recipeNo);
 		ArrayList<RecipeTag> recipeTagList = rs.selectRecipeTagSingle(recipeNo);
 		
-		//System.out.println("레시피 : " + recipe);
-		//System.out.println("레시피 픽 리스트 : " + reciepPicList);
-		//System.out.println("인그레디언트 리스트 : " + ingredientList);
-		
-		//System.out.println("레시피 태그 리스트 : " + recipeTagList);
-		
 		if( !(reciepPicList.isEmpty()
 			||ingredientList.isEmpty()
-			|| cookStepsList.isEmpty()
-			|| recipeTagList.isEmpty())) {
+			||cookStepsList.isEmpty())) {
 			HashMap<String, Object> recipeDetailMap = new HashMap();
 			recipeDetailMap.put("recipe", recipe);
 			recipeDetailMap.put("reciepPicList", reciepPicList);
 			recipeDetailMap.put("ingredientList", ingredientList);
 			recipeDetailMap.put("cookStepsList", cookStepsList);
-			recipeDetailMap.put("recipeTagList", recipeTagList);
+			if(!recipeTagList.isEmpty()) {
+				recipeDetailMap.put("recipeTagList", recipeTagList);
+			}
 			viewPath = "/views/board/recipe/recipeDetailView.jsp";
 		} else {
 			viewPath =  new SendError().sendError(request, "게시글 상세 조회에 실패했습니다");
