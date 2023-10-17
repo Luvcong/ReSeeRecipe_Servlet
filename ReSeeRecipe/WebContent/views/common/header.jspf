@@ -218,7 +218,7 @@
 		                  <a href="<%= contextPath %>/blog.me">
 		                  <i class="fa-regular fa-handshake"></i><br> 
 		                  <img src="" alt="">블로그 <br>
-
+							</a>
 		              <%} %>
 		          </div>
 		          <div id="header_3_1_4">
