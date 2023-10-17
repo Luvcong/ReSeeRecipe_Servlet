@@ -193,8 +193,6 @@
 				<button onclick="page('<%= currentPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
 			<% } %>
 		</div>	<!-- 페이징바 -->
-    	
-    	
 
 	<!-- 해시태그 추가  modal창 -->
  	<div class="modal" id="addHashTagForm">
@@ -208,14 +206,13 @@
 	                </div> 
 	                <!-- Modal body -->
 	                <div class="modal-body">
-							<input type="hidden" name="">
 							<table class="modal-table" border="1">
 								<tr>
 									<th>해시태그명</th>
 								</tr>
 								<tr>
-									<td><input type="text" name="r">
-									<label for=""></label>
+									<td><input type="text" name="hstagName">
+									<label for="hstagName"></label>
 									</td>
 								</tr>
 							</table>
@@ -253,7 +250,7 @@
 							<td><input type="text" name="" readonly></td>
 						</tr>
 						<tr>
-							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 20 byte</div></th>
+							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 30 byte</div></th>
 							<td>
 								<input type="text" name="" placeholder="변경 해시태그명을 입력하세요" onkeyup="checkedByte(this)">
 							</td>
@@ -296,7 +293,6 @@
 	
 	<script>
 		function showAddHashTagModal(){
-			
 			$('#addHashTagForm').modal('show');
 		}
 		

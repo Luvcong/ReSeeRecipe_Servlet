@@ -132,4 +132,23 @@ public class TagDao {
 		
 		return list;
 	}
+	
+	public int hashTagInsert(Connection conn, String hashtagName) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("hashTagInsert");
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hashtagName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
