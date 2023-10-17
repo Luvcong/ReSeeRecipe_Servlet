@@ -215,7 +215,7 @@
 		                              GROUP BY
 		                                        RECIPE_CATEGORY_NO) CTGR_CNT
 		                            ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
-		                 ORDER BY RC.RECIPE_CATEGORY_NO ASC) A)
+		                 ORDER BY RECIPE_CATEGORY_CNT DESC) A)
 		                 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	

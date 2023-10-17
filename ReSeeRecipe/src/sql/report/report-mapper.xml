@@ -13,8 +13,10 @@
 		                        RPT_CATEGORY_NAME,
 		                        RPT_CONTENT,
 		                        M.MEM_ID AS RECIVE_REPORT,
-		                        R.MEM_ID AS SEND_REPORT,
-		                        RPT_STATUS
+		                        MM.MEM_ID AS SEND_REPORT,
+		                        RPT_STATUS,
+                                R.RECIPE_TITLE,
+                                RP.REPLY_CONTENT
 		                  FROM
 		                  		TB_REPORT TR
 		                  JOIN
@@ -22,7 +24,11 @@
 		                  JOIN
 		                  		TB_MEMBER M ON (M.MEM_NO = RECIVE_REPORT)
 		                  JOIN
-		                  		TB_MEMBER R ON (R.MEM_NO = SEND_REPORT)
+		                  		TB_MEMBER MM ON (MM.MEM_NO = SEND_REPORT)
+                          JOIN 
+                                TB_RECIPE R ON (R.RECIPE_NO = TR.RPT_TARGET)
+                          JOIN
+                                TB_REPLY RP ON (RP.REPLY_NO = TR.RPT_TARGET)
 		                 ORDER BY REPORT_NO DESC) A)
 		        		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
@@ -34,5 +40,31 @@
 		  FROM
 		  		TB_REPORT
 	</entry>
+	
+	
+	<!-- 신고함 게시글 상세보기 조회 SQL문 -->
+	<entry key="datailReportList">
+		SELECT
+				RPT_CATEGORY_NAME,
+				MM.MEM_ID AS SEND_REPORT,
+				M.MEM_ID AS RECIVE_REPORT,
+				RECIPE_NO, RECIPE_TITLE,
+				RPT_CONTENT
+		  FROM
+		  		TB_REPORT R               
+		  JOIN
+		  		TB_REPORT_CATEGORY USING(RPT_CATEGORY_NO)
+		  JOIN
+		  		TB_MEMBER M ON (M.MEM_NO = RECIVE_REPORT)
+		  JOIN
+		  		TB_MEMBER MM ON (MM.MEM_NO = SEND_REPORT)
+		  JOIN
+		  		TB_RECIPE ON (RPT_TARGET = RECIPE_NO)
+		  WHERE
+		  		REPORT_NO = ?
+		    AND
+		    	RPT_CATEGORY_NO = ?
+	</entry>
+	
 	
 </properties>
