@@ -67,6 +67,7 @@ public class RecipeService {
 	public ArrayList<CookSteps> selectCookStepsSingle(int recipeNo) {
 	Connection conn = getConnection();
 		ArrayList<CookSteps> cookStepsList = new RecipeDao().selectCookStepsSingle(conn, recipeNo);
+		
 		close(conn);
 		return cookStepsList;
 	}

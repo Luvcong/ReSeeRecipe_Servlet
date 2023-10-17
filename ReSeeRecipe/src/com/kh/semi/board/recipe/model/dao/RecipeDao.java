@@ -148,12 +148,11 @@ public class RecipeDao {
 	public ArrayList<CookSteps> selectCookStepsSingle(Connection conn, int recipeNo) {
 		ArrayList<CookSteps> cookStepsList = new ArrayList();
 		String sql = prop.getProperty("selectCookStepsSingle");
-
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			try (ResultSet rset = pstmt.executeQuery()) {
-				while (rset.next()) {
+			try(ResultSet rset = pstmt.executeQuery()) {
+				while(rset.next()) {
 					CookSteps cooksteps = new CookSteps();
 					cooksteps.setCookStepsNo(rset.getInt("COOK_STEPS_NO"));
 					cooksteps.setCookStepsTitle(rset.getString("COOK_STEPS_TITLE"));
@@ -184,12 +183,14 @@ public class RecipeDao {
 			pstmt.setInt(1, recipeNo);
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
-				RecipeTag recipeTag = new RecipeTag();
-				recipeTag.setTagNo(rset.getInt("TAG_NO"));
-				recipeTag.setTagRecipeNo(rset.getInt("TAG_RECIPE_NO"));
-				recipeTag.setTagName(rset.getString("TAG_NAME"));
-				recipeTag.setTagDate(rset.getString("TAG_DATE"));
-				recipeTagList.add(recipeTag);
+				while(rset.next()) {
+					RecipeTag recipeTag = new RecipeTag();
+					recipeTag.setTagNo(rset.getInt("TAG_NO"));
+					recipeTag.setTagRecipeNo(rset.getInt("TAG_RECIPE_NO"));
+					recipeTag.setTagName(rset.getString("TAG_NAME"));
+					recipeTag.setTagDate(rset.getString("TAG_DATE"));
+					recipeTagList.add(recipeTag);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -296,9 +297,7 @@ public class RecipeDao {
 	public int insertRecipe(Connection conn, Recipe recipe) {
 		int result = 0;
 		String sql = prop.getProperty("insertRecipe");
-		System.out.println("sql문 출력 : " + sql);
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			System.out.println("RecipeDao recipe객체 : " + recipe);
 			pstmt.setString(1, recipe.getRecipeTitle());
 			pstmt.setInt(2, recipe.getRecipeWriterNo());
 			pstmt.setInt(3, recipe.getRecipeCategoryNo());
