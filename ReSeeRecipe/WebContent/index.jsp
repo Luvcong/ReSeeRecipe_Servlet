@@ -141,7 +141,7 @@
                 <!-- 최신 레시피 더보기 -->
                 <div id="content_2_1" class="more_content_area1">
                     <div id="content_2_1a" class="more_content_title_a"><p>최신레시피</p></div>
-                    <div id="content_2_1b" class="more_content_title_b" onclick="location.href='#';"><p>더보기</p></div>
+                    <div id="content_2_1b" class="more_content_title_b" onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=1'"><p>더보기</p></div>
                 </div>
                 <!-- 사진 썸네일 영역 -->
                 <div id="content_2_2" class="more_content_area2">
@@ -155,7 +155,7 @@
                 <!-- 지금HOT한 레시피 더보기 -->
                 <div id="content_3_1" class="more_content_area1">
                     <div id="content_3_1a" class="more_content_title_a"><p>지금 HOT한 레시피</p></div>
-                    <div id="content_3_1b" class="more_content_title_b" onclick="location.href='#';"><p>더보기</p></div>
+                    <div id="content_3_1b" class="more_content_title_b" onclick="location.href='<%=contextPath%>/selectRecipeList.re?currentPage=1'"><p>더보기</p></div>
                 </div>
                 <!-- 사진 썸네일 영역 -->
                 <div id="content_3_2" class="more_content_area2">
@@ -166,7 +166,7 @@
             </div>
 
             <div id="content_4">
-                <p>인기 Re See 템</p><a href="">더보기</a>
+                <p>인기 Re See 템</p><a href="<%=contextPath %>/main.po">더보기</a>
             </div>
         </div>
 	</div>

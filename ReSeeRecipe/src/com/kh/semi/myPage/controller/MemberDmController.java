@@ -1,4 +1,4 @@
-package com.kh.semi.blog.controller;
+package com.kh.semi.myPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -27,8 +27,9 @@ public class MemberDmController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	//POST방식 인코딩
+		//POST방식 인코딩
 		request.setCharacterEncoding("UTF-8");
+		
 		request.getRequestDispatcher("views/myPage/memberDmList.jsp").forward(request, response);
 	
 	
