@@ -5,65 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>[쿠폰관리] 쿠폰함 관리</title>
-<Style>
-.modal .modal-title{
-	text-align: center;
-	font-weight: bold;
-}
-.modal .modal-content{
-	background-color: rgb(255, 217, 64);
-    padding: 5px 20px 30px 20px;
-}
-.modal .modal-body, .modal .modal-footer{
-	background-color: white;
-	padding:0;
-}
-.modal .modal-footer{
-	height: 50px;
-	border: 1px solid gray;
-	justify-content: center;
-}
-.modal-table {
-	width:100%;
-	text-align: center;
-}
-.modal-table th {
-	width: 170px;
-}
-.modal-table tr {
-	height: 40px;
-}
-.modal textarea {
-	width:100%;
-	height: 200px;
-	resize: none;
-	text-align: center;
-	border: none;
-}
-.modal input {
-    width: 100%;
-    height: 40px;
-    cursor: pointer;
-    border: none;
-    text-align: center;
-}
-.searchTable{
-	padding: 0 10px;
-}
-.paging-area{
-	padding-top: 65px;
-	text-align: center;
-}
-.asc::before {
-	content: "\25B2";
-}
-.desc::before {
-	content: "\25BC";
-}
-</Style>
 </head>
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- categoryListView / script & css -->
+<link rel="stylesheet" href="resources/css/coupon/coupon_manager.css">
 
 </head>
 <body>
@@ -109,7 +56,7 @@
                         <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>쿠폰이름<div class="sort"></div></th>
-                        <th data-idx=3>쿠폰할인율<div class="sort"></div></th>	<!-- 댓글 or 게시글 -->
+                        <th data-idx=3>쿠폰할인율<div class="sort"></div></th>
                         <th data-idx=4>쿠폰등록일<div class="sort"></div></th>
                         <th data-idx=5>쿠폰종료일<div class="sort"></div></th>
                         <th data-idx=6>발급 수<div class="sort"></div></th>
