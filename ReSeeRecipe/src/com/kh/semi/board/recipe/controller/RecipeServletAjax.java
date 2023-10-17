@@ -31,27 +31,24 @@ public class RecipeServletAjax extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 기본 변수 세팅
 		RecipeController rc = new RecipeController();
-		System.out.println("여기까진오나");
+		System.out.println("Ajax서블릿 도착 RecipeServletAjax");
+		
 		// POST 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
 		// 문자열 추출
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		System.out.println(mapping + " ajax매핑");
+		System.out.println("ajax매핑 : " + mapping);
 		
 		// Controller로 분배
 		switch(mapping) {
-			
+			case "ajaxModifyRecipe" : rc.ajaxModifyRecipe(request, response); break;
+			case "ajaxDeleteRecipe" : rc.ajaxDeleteRecipe(request, response); break;
+			ajaxRecipeInsertReply
 			case "ajaxSelectTag" : rc.ajaxSelectTag(request, response); break;
-		
-		
-			default : break;
+			default : response.sendRedirect(rc.errorDefault(request, response)); break;
 		}
-
-	
-	
-	
 	
 	}
 

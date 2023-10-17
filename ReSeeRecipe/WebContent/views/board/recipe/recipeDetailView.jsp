@@ -625,11 +625,18 @@
 				</div>
 	
 				<div id="recipeDetailBarHeart">
+					<div>
+						<button onclick="ajaxModifyRecipe();">수정하기</button>
+					</div>
+					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-heart change-heart-bookmark-icons"></i>
 					<!--<i class="fa fa-heart change-heart-bookmark-icons"></i>하트눌렀을때-->
 				</div>
-	
 				<div id="recipeDetailBookmark">
+					<div>
+						<button onclick="ajaxDeleteRecipe();">삭제하기</button>
+					</div>
+					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-bookmark change-heart-bookmark-icons"></i>
 					<!--<i class="fas fa-bookmark change-heart-bookmark-icons"></i>북마크했을때-->
 				</div>
@@ -638,8 +645,7 @@
 					<i class="	fas fa-exclamation-circle"></i>
 				</div>
 			</div>
-			
-		
+					
 			<div id="recipeDetailViewWrap">
 				
 				<div id="DetailCookStepsBasicInfo">
@@ -680,6 +686,7 @@
 							</div>
 							<div id="detailIngredientInner2">
 								<div id="detailIngredientLeft">
+								<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@여기부터 id/class/스타일 정리 -->
 									<% for (int i = 0; i < 15; i++) { %>
 										<div id="ingredientContainer<%= i %>" class="ingredientContainer">
 											<div id="ingredientAreaDiv<%= i %>">
@@ -741,6 +748,111 @@
 		<% } else { %>
 			<div>조회 결과가 없습니다</div>
 		<% } %>
+		
+		<div id="reply-area">
+		   	<table border="1" align="center">
+		   		<thead> <!-- 댓글 작성 영역 -->
+		   			<tr>
+		   				<th>댓글작성</th> <!-- 우리는 replyWriter에 NN걸렸고하니까 로그인 사용자만 댓글작성 가능하게 할 것 -->
+		   				<!-- if문 필요 로그인 사용자만if(loginUser != null) 영역 띄워주기 -->
+		   					<td>
+		   						<textarea id="replyContent" cols="50" rows="3" style="resize:none"></textarea>
+		   					</td>
+		   					<td><button onclick="ajaxRecipeInsertReply();">댓글등록</button></td>
+		   				<!-- 여기까지 로그인 사용자만 -->
+		   					<td>
+		   						<textarea readonly cols="50" rows="3" style="resize:none">로그인 후 이용 가능한 서비스입니다</textarea>
+		   					</td>
+		   					<td>
+		   						<button onclick="recipeDetailReplylogIn();">로그인 하러 가기</button><!-- 버튼 보여만 줌 기능 x -->
+		   					</td>
+		   				<!-- 그 외의 경우 -->
+		   			</tr>
+		   		</thead>
+		   		<tbody> <!-- 댓글이 뿌려질 영역 -->
+		   		
+		   		</tbody>
+		   	</table>
+		   	<br><br><br><br><br>
+    	</div>
+    	
+    	
+    	
+    	<script>
+				$(function(){
+					
+					
+					
+					
+					
+				});
+			</script>
+    	<script>
+	    	var recipeNo = <%= recipe.getRecipeNo() %>;
+			
+			// 글 수정
+			function ajaxModifyRecipe(){
+				$.ajax({
+					type : 'POST',
+					url : 'ajaxModifyRecipe.ar',
+					data : {
+						recipeNo : recipeNo
+					},
+					success : function(result) {
+						console.log('성공');
+						console.log(result);
+					},
+					error : function() {
+						alert('수정에 실패했습니다!');
+					}
+				});
+			};
+			
+			// 글 삭제
+			function ajaxDeleteRecipe(){
+				$.ajax({
+					type : 'POST',
+					url : 'ajaxDeleteRecipe.ar',
+					data : {
+						recipeNo : recipeNo
+					},
+					success : function(){
+						console.log('삭제 성공!');
+					},
+					error : function() {
+						alert('삭제에 실패했습니다');
+					}
+				});
+			};
+			
+			
+			// 댓글 리스트 조회
+			
+			
+			// onload 시 댓글리스트 갱신 기능 호출
+			$(function(){
+				ajaxRecipeDetailReply();
+				setInterval(ajaxRecipeDetailReply, 1500);
+			});
+			
+			
+			// 댓글 작성
+    		function ajaxRecipeInsertReply(){
+				$.ajax(function(){
+					type : 'POST',
+					data : 
+				});
+			};
+			
+			
+    		function recipeDetailReplylogIn(){
+    			location.href = '<%=contextPath%>/yrloginForm.me';
+    		};
+    	
+    	</script>
+		
+		
+		
 	</div>
 	
 </body>
