@@ -84,21 +84,23 @@
                     <select id="recipeCategoryNo" name="recipeCategoryNo">
                         <option value="1">Category 1</option>
                         <option value="2">Category 2</option>
+                        <option value="3">Category 3</option>
+                        <option value="4">Category 4</option>
+                        <option value="5">Category 5</option>
                         <!-- Add more categories as needed -->
                     </select>
                 </div>
             </div>
 
             <div class="section">
-                <h2>Recipe Pics (Up to 1)</h2>
+                <h2>Recipe Pics (Up to 2)</h2>
                 <%
-                    for (int i = 0; i < 1; i++) {
+                    for (int i = 0; i < 2; i++) {
                 %>
                     <div class="field">
-                        <label for="recipePicNameUpload<%=i%>">Recipe Pic Name Upload:</label>
-                        <input type="file" id="recipePicNameUpload<%=i%>" name="recipePicNameUpload<%=i%>">
+                        <label for="recipeNameOrigin<%=i%>">Recipe Pic Name Upload:</label>
+                        <input type="file" id="recipeNameOrigin<%=i%>" name="recipeNameOrigin<%=i%>">
                     </div>
-                    <input type="hidden" id="recipePicPathKey<%=i%>" name="recipePicPathKey<%=i%>" value="/resources/recipe_upfiles/recipe_pics">
                     <input type="hidden" id="recipePicLev<%=i%>" name="recipePicLev<%=i%>" value="<%=i%>">
                 <%
                     }

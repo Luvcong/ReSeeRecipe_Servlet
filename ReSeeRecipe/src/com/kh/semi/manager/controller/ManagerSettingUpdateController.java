@@ -92,7 +92,7 @@ public class ManagerSettingUpdateController extends HttpServlet {
 				// 응답화면 띄우기
 				//response.sendRedirect(request.getContextPath() + "hlsettingmanager.ma?adno=" + adminNo);
 				//request.getRequestDispatcher("/views/manager/navbar.jsp").forward(request, response);
-				//response.sendRedirect("views/manager/navbar.jsp");
+				response.sendRedirect(request.getContextPath() + "/hlsettingmanager.ma?adno=" + adminNo);
 			} else {
 				request.setAttribute("errorMsg", "관리자 정보 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

@@ -9,20 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 리워드 내역</title>
-    <!-- sweetalert -->
+<!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
-
-        /* Full-width inputs */
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0px 0px 0px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
 
         /* Set a style for all buttons */
         button {
@@ -42,7 +32,27 @@
 
         /* Add padding to containers */
         .container {
-            padding: 50px 300px;
+            padding : 50px 350px;
+        }
+
+        .info-div {
+            margin : 50px 0px;
+        }
+
+        .info-div > div {
+            float : left;
+        }
+
+        #infoText {
+            width : 80%;
+        }
+
+        #infoTotal {
+            width : 20%;
+            border-radius : 20px;
+            background-color : rgb(21, 21, 71);
+            color : white;
+            text-align : center;
         }
 
         #title{
@@ -50,17 +60,26 @@
             display : flex;
             align-items: center;
             justify-content: center;
+            font-weight : bold;
         }
 
         #tb-reward {
             width:100%;
             text-align: center;
         }
-        th {
-            width: 20%;
+
+        #tb-reward > thead {
+            background-color : lightgray;
         }
+        
         tr {
             height: 40px;
+            
+        }
+
+        th, td {
+            width: 20%;
+            border : 1px solid black;
         }
 
 </style>
@@ -69,17 +88,17 @@
 <body>
     <!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
-    <h1 id="title"><b>리워드</b></h1>
+    <h1 id="title"><b>리워드 내역</b></h1>
     
     <div class="container">
-        <div>
-            <div>
-                ※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
+        <div class="info-div">
+            <div class="info" id="infoText">
+             	※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
             </div>
-
+            <div class="info" id="infoTotal">
+            	내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %>p
+            </div>
         </div>
-
-
 
         <div class="tableBody">
             <table id='tb-reward' class="table table-sm table-hover">

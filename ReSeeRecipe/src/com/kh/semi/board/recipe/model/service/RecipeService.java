@@ -55,11 +55,11 @@ public class RecipeService {
 	 * > ArrayList<Recipe> rList : 페이지네이션 처리되어 조회된 레시피 글 정보를 Recipe객체로 만든 후 ArrayList에 담음<br>
 	 * 	 Recipe필드 :  recipeNo, recipeTitle, recipeCount, titleImg, memNickName, htCount<br>
 	 */
-	public ArrayList<Recipe> selectRecipeList(PageInfo pi) {
+	public HashMap<String, Object> selectRecipeList(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Recipe> list = new RecipeDao().selectRecipeList(conn, pi);
+		HashMap<String, Object> recipeMainViewMap = new RecipeDao().selectRecipeList(conn, pi);
 		close(conn);
-		return list;
+		return recipeMainViewMap;
 	}
 	
 	
@@ -72,41 +72,36 @@ public class RecipeService {
 		int cookStepsResult = 0;
 		int ingredientResult = 0;
 		RecipeDao rd = new RecipeDao();
+		Connection conn = getConnection();
+		// TB_RECIPE insert
+		Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
+		recipeResult = rd.insertRecipe(conn, recipe);
 		
-		try(Connection conn = getConnection()) {
-			// TB_RECIPE insert
-			Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
-			recipeResult = rd.insertRecipe(conn, recipe);
+		if(recipeResult > 0) {
+			// TB_RECIPE_PIC insert
+			ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList");
+			picResult = rd.insertRecipePic(conn, recipePicList);
 			
-			if(recipeResult > 0) {
-				// TB_RECIPE_PIC insert
-				ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList");
-				picResult = rd.insertRecipePic(conn, recipePicList);
-				
-				// TB_INGREDIENT insert
-				ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList");
-				ingredientResult = rd.insertIngredient(conn, ingredientList);
-				
-				// TB_COOK_STEPS insert
-				ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList");
-				cookStepsResult = rd.insertCookSteps(conn, cookStepsList);
-				
-				// TB_RECIPE_TAG insert
-				ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList");
-				tagResult = rd.insertRecipeTag(conn, tagNoList);
-				
-				// 커넥션 닫기 전 transaction처리
-				if( !(recipeResult == 0
-				   || picResult * ingredientResult * cookStepsResult * tagResult == 0)) {
-					returningResult = 1;
-					commit(conn);
-				} else {
-					rollback(conn);
-				}
+			// TB_INGREDIENT insert
+			ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList");
+			ingredientResult = rd.insertIngredient(conn, ingredientList);
+			
+			// TB_COOK_STEPS insert
+			ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList");
+			cookStepsResult = rd.insertCookSteps(conn, cookStepsList);
+			
+			// TB_RECIPE_TAG insert
+			ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList");
+			tagResult = rd.insertRecipeTag(conn, tagNoList);
+			
+			// 커넥션 닫기 전 transaction처리
+			if( !(recipeResult == 0
+			   || picResult * ingredientResult * cookStepsResult * tagResult == 0)) {
+				returningResult = 1;
+				commit(conn);
+			} else {
+				rollback(conn);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return returningResult;
 	}
 	
