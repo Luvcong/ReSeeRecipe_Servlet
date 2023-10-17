@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- categoryListView / script & css -->
-<link rel="stylesheet" href="resources/css/category/cateogry_manager.css">
+<link rel="stylesheet" href="resources/css/category/category_manager.css">
 
 
 </head>

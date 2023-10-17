@@ -1,4 +1,4 @@
-package com.kh.semi.board.recipe.controller.manager;
+package com.kh.semi.category.manager;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

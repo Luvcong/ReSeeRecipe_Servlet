@@ -3,7 +3,7 @@
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
 <%
 	// session에서 관리자 정보 가져오기	
-	Member loginMember = (Member)session.getAttribute("loginMember");
+	// Member loginMember = (Member)session.getAttribute("loginMember");
 	// 성공 / 메시지
 	String alertMsg =(String)session.getAttribute("alertMsg");
 
@@ -54,13 +54,13 @@
 			<a href="<%= contextPath %>"><i class="fa-solid fa-house"></i></a>
 			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
 		</div>
- 		<div class="titleMenu" id="adminsetting" >
+<%--  		<div class="titleMenu" id="adminsetting" >
 			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
 				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
-		</div> 
+		</div> --%>
 	</div>
 	
 	<!-- 카테고리 리스트 -->
