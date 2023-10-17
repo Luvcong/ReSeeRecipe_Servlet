@@ -617,6 +617,20 @@
 
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
+					<% for(int i = 0; i < 6; i++) { %>
+						<div id="cookStepsInstInner1">
+							<div class="cook-steps-inst-pic">
+								<img src="" d>
+							</div>
+						
+							<div class="cook-steps-inst-title">
+								요리과정 제목
+							</div>
+							<div class="cook-steps-inst-content">
+								요리과정 내용
+							</div>
+						</div>
+					<% } %>
 					<!--
 						아래의 제이쿼리 이벤트로 입력 틀 생성
 					-->
