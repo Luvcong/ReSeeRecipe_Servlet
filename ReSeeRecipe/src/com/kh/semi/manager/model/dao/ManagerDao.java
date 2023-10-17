@@ -81,7 +81,6 @@ public class ManagerDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-			close(conn);
 		}
 		return result;
 	}

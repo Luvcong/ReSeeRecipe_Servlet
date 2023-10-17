@@ -173,7 +173,7 @@
             </div>
             <div class="coupon" name="coupon2">
                 <p name="percent"><%= memberCouponList.get(i).getCouponRatio() %>%</p>
-                <button>적용상품 보러가기</button>
+                <button type="button" onclick="window.open('<%=contextPath%>/main.po')">적용상품 보러가기</button>
             </div>
         </div>    
         <% } %>

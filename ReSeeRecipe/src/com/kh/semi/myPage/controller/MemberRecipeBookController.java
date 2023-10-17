@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberRecipeBookController
  */
-@WebServlet("/RecipeBook.me")
+@WebServlet("/recipeBook.me")
 public class MemberRecipeBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,9 +28,11 @@ public class MemberRecipeBookController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		//POST방식
-				//request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("views/myPage/memberRecipeBook.jsp").forward(request, response);
-	
+		
+		
+		
 	
 	}
 

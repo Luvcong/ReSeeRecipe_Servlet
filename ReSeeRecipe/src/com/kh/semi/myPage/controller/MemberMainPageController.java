@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberMainPageController
+ * Servlet implementation class MemberMainPagecontroller
  */
 @WebServlet("/blog.me")
 public class MemberMainPageController extends HttpServlet {
@@ -27,16 +27,11 @@ public class MemberMainPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//POST방식
-		//request.setCharacterEncoding("UTF-8");
-		
+		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
 		
 		
 		
-	
-		
-	
 	}
 
 	/**
