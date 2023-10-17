@@ -41,9 +41,12 @@ public class ManagerSettingController extends HttpServlet {
 		// 2) 값뽑기 - 관리자 식별 번호 input 태그 hidden의 value
 		int adminNo = Integer.parseInt(request.getParameter("adno"));
 		
-		Member m = new ManagerService().managerSetting(adminNo);
 		
-		request.setAttribute("m", m);
+		
+		Member m = new ManagerService().managerSetting(adminNo);
+		System.out.println("m>>" + m);
+		System.out.println();
+		request.getSession().setAttribute("m", m);
 		request.setAttribute("mp", m.getMemPicture());
 		
 		// 응답화면 띄우기

@@ -41,26 +41,27 @@
     <h2>관리자 정보 수정</h2>
     <form enctype="multipart/form-data" action="<%= contextPath %>/hladminupdate.ma" method="post">
 		 
-        <label for="adminpic">프로필 사진</label>
         <div class="container">
             <% if(m.getMemPicture() != null) { %> 
+	        	<label for="adminprofileImg">프로필 사진</label>
                <img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
+           		<input type="hidden" name="adpic" value="<%= m.getMemPicture() %>" >
             <% } else { %>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="admindefpic" width="150" height="150">
             <% } %>
-            <input type="file" name="adminpic" id="adminpic">
+            <input type="file" name="adminpic" id="adminpicFile" onchange="previewImg(inputImgFile);">
         </div>  
-        <label for="HL_adminNo">회원번호</label>
+        <label for="HL_adminNo">관리자번호</label>
         <input type="text" class="form-control" id="HL_adminNo" name="adminNo" value="<%=m.getMemNo() %>" readonly> <br>
         
         <br>
-        <label for="HL_adminName">회원이름</label>
+        <label for="HL_adminName">관리자이름</label>
         <input type="text" class="form-control" id="HL_adminName" name="adminName" value="<%=m.getMemName() %>" required>
         <br>
-        <label for="HL_adminId">회원아이디</label>
+        <label for="HL_adminId">관리자아이디</label>
         <input type="text" class="form-control" id="HL_adminId" name="adminId" value="<%=m.getMemId() %>" readonly>
         <br>
-        <label for="HL_adminNickname">회원닉네임</label>
+        <label for="HL_adminNickname">관리자닉네임</label>
         <input type="text" class="form-control" id="HL_adminNickname" name="adminNickname" value="<%=m.getMemNickname() %>" required>
         <br>
         <label for="HL_adminEmail">이메일</label>
@@ -82,5 +83,56 @@
     </form>
     </div>
 </div>
+
+	<script>
+	
+		// 파일 버튼 숨기기
+		const adprofileImg = document.getElementById('adminprofileImg');
+		const adprofileFile = document.getElementById('adminpicFile');
+		
+		// 사진을 클릭하면 프로필 사진 변경
+		function previewImg(inputImgFile){
+			
+			// 파일 첨부 시
+			if(inputImgFile.files.length == 1) {
+				// 파일을 읽어올 객체 생성
+				let filereader = new FileReader();
+				
+				// 파일의 긴 url을 읽어오기
+				filereader.readAsDataURL(inputImgFile.target.files[0]);
+				// 파일 읽기가 완료되면 익명함수를 호출
+				filereader.onload = function(e){
+					console.log(e.target);
+					//e.target.result에 선택한 사진의 url이 담김
+					adprofileImg.src = e.target.result
+				}
+			} 
+			else {
+				
+				const noProfile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU';
+				adprofileImg.src = noProfile;
+				
+			}
+		};
+		
+	<!--	
+		adprofileFile.style.display = 'none';
+		adprofileImg.addEventListener('click', function(){
+			adprofileFile.click();
+		}); -->
+		
+		$(function(){
+			$('#adminpicFile').css('display', 'none');
+			
+			$('#adprofileImg').click(function(){
+				$('#adminpicFile').click();
+			});
+		});
+		
+	
+	
+	</script>
+
+
 </body>
 </html>
