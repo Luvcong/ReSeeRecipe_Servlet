@@ -4,6 +4,9 @@
 				 com.kh.semi.common.model.vo.PageInfo,
 				 java.util.ArrayList" %>
 <%	
+	// RecipePic주소 (RECIPE_PIC_PATH, RECIPE_PIC_UPLOAD)
+	//RecipePic recipePic = (RecipePic)request.getAttribute("reciepPic");
+
 	// ArrayList로 받아온 recipes
 	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");
 	
@@ -158,6 +161,7 @@
 						<!-- 상단 이미지부분 -->
 						<div class="thumbnail-top send-detail-view">
 							<img src="https://dthezntil550i.cloudfront.net/by/latest/by2107310110043690021607870/742bb13f-97a0-4582-ad2f-b9c276ed1709.jpg">
+							<img src="<%=contextPath%>/<%=reicpePic.getRecipePicPath%>/<%=recipePic.getRecipePicNameUplaod%>">
 						</div>
 						
 						<!-- 하단 레시피정보부분 -->

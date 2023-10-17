@@ -87,6 +87,7 @@ public class RecipeController {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
 
 		// 페이지네이션을 위한 정보를 넘기며 서비스호출
+		// Recipe정보들 + 썸네일 사진 필요
 		ArrayList<Recipe> rList = rs.selectRecipeList(pi);
 		
 		if(!rList.isEmpty()) {
