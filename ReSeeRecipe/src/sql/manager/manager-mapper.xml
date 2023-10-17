@@ -3,6 +3,19 @@
 <properties>
 	<comment>관리자 관련 SQL문</comment>
 	
+	<entry key="adminUpdate">
+		UPDATE
+				TB_MEMBER
+		   SET
+		   		
+	
+	
+	
+	
+	
+	
+	
+	</entry>
 	
 
 </properties>

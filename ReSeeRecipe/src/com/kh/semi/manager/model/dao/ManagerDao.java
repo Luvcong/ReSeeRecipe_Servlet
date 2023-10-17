@@ -59,5 +59,31 @@ public class ManagerDao {
 		}
 		return m;
 	}
+	
+	public int adminUpdate(Connection conn, Member m, String adminPicture) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminUpdate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// 수정할 관리자 이름, 닉네임, 이메일, 사진(경로 + 수정명)
+			pstmt.setString(1, m.getMemName());
+			pstmt.setString(2, m.getMemNickname());
+			pstmt.setString(3, m.getMemEmail());
+			pstmt.setString(4, adminPicture);
+			pstmt.setInt(5, m.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+	
 
 }
