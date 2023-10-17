@@ -45,6 +45,7 @@
             <% if(m.getMemPicture() != null) { %> 
 	        	<label for="adminprofileImg">프로필 사진</label>
                <img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
+           		<input type="hidden" name="adpic" value="<%= m.getMemPicture() %>" >
             <% } else { %>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="admindefpic" width="150" height="150">
             <% } %>

@@ -46,12 +46,11 @@
                             <% if(m.getMemPicture() != null) { %>
                             <!-- 프로필 사진이 있을 경우 -->
                             	<img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
+                             <!--  <a href="<%=contextPath%>/<%=m.getMemPicture() %>"></a>  -->  
                             <% } else { %>
                             <!-- 프로필 사진이 없을 경우 -->
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="profileImg" width="150" height="150">
-                                <a href="<%=contextPath%>/<%=m.getMemPicture() %>"></a>
                                 프로필 사진이 없어요 ~
-                            
                             <% } %>
                         </td>
                     </tr>

@@ -58,7 +58,7 @@ public class ManagerSettingUpdateController extends HttpServlet {
 			String adminNickname = multiRequest.getParameter("adminNickname");
 			// String adminId = multiRequest.getParameter("adminId");
 			String adminEmail = multiRequest.getParameter("adminEmail");
-
+			String adminPicture = multiRequest.getParameter("adpic");
 			// VO로 가공 -> Service 호출
 			Member m = new Member();
 			m.setMemNo(adminNo);
@@ -66,10 +66,11 @@ public class ManagerSettingUpdateController extends HttpServlet {
 			m.setMemNickname(adminNickname);
 			m.setMemEmail(adminEmail);
 			
+			
+			
 			// 프로필 사진 수정을 누르면 무조건 사진 있음. 그러나 기본값 = null
 
-			String adminPicture = "";
-
+			
 			if (multiRequest.getOriginalFileName("adminpic") != null) {
 
 				// 회원 프로필 사진은 회원 테이블에 존재
