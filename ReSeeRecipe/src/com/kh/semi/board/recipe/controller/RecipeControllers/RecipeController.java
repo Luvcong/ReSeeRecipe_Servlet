@@ -133,12 +133,11 @@ public class RecipeController {
 	public String recipeDetail(HttpServletRequest request, HttpServletResponse response) {
 		String viewPath = "";
 		
-		
+		RecipeService rs = new RecipeService();
+		Recipe r = rs.selectRecipeSingle(3);
+		System.out.println(r);
 		return viewPath;
 	}
-	
-	
-	
 	
 	
 	

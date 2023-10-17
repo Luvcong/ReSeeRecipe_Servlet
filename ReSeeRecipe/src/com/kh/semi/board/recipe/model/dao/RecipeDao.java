@@ -34,7 +34,9 @@ public class RecipeDao {
 		}
 	}
 
-	/****************************************************************************/
+	/* ************************************************************************** */
+	
+	
 	
 	/* ************************** SELECT 종류 ************************** */	
 	
@@ -46,16 +48,28 @@ public class RecipeDao {
 	 */
 	public Recipe selectRecipeSingle(Connection conn, int recipeNo) {
 		Recipe recipe = null;
-		String sql = prop.getProperty("");
+		String sql = prop.getProperty("selectRecipeSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
-			
-			
+
+			try(ResultSet rset = pstmt.executeQuery()) {
+				if(rset.next()) {
+					recipe.setRecipeNo(rset.getInt("RECIPE_NO"));
+					recipe.setRecipeTitle(rset.getString("RECIPE_TITLE"));
+					recipe.setRecipeDate(rset.getString("RECIPE_DATE"));
+					recipe.setRecipeModified(rset.getString("RECIPE_MODIFIED"));
+					recipe.setRecipeStatus(rset.getString("RECIPE_STATUS"));
+					recipe.setRecipeCount(rset.getInt("RECIPE_COUNT"));
+					recipe.setRecipeWriterNo(rset.getInt("RECIPE_WRITER_NO"));
+					recipe.setRecipeCategoryNo(rset.getInt("RECIPE_CATEGORY_NO"));
+					recipe.setRecipeCategoryName(rset.getString("RECIPE_CATEGORY_NAME"));
+					recipe.setMemNickName(rset.getString("MEM_NICKNAME"));
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return recipe;
 	}
 	
@@ -68,18 +82,20 @@ public class RecipeDao {
 	 */
 	public ArrayList<RecipePic> selectRecipePicSingle(Connection conn, int recipeNo) {
 		ArrayList<RecipePic> reciepPicList = new ArrayList();
-		String sql = prop.getProperty("");
+		String sql = prop.getProperty("selectRecipePicSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return reciepPicList;
 	}
+	
 	
 	/**
 	 * 레시피 번호로 해당 레시피의 재료테이블(TB_INGREDIENT) 모든 정보를 조회하는 기능
@@ -89,18 +105,20 @@ public class RecipeDao {
 	 */
 	public ArrayList<Ingredient> selectIngredientSingle(Connection conn, int recipeNo) {
 		ArrayList<Ingredient> ingredientList = new ArrayList();
-		String sql = prop.getProperty("");
+		String sql = prop.getProperty("selectIngredientSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return ingredientList;
 	}
+	
 	
 	/**
 	 * 레시피 번호로 해당 레시피의 요리 과정 테이블(TB_COOK_STEPS) 모든 정보를 조회하는 기능
@@ -110,18 +128,20 @@ public class RecipeDao {
 	 */
 	public ArrayList<CookSteps> selectCookStepsSingle(Connection conn, int recipeNo) {
 		ArrayList<CookSteps> cookStepsList = new ArrayList();
-		String sql = prop.getProperty("");
+		String sql = prop.getProperty("selectCookStepsSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return cookStepsList;
 	}
+	
 	
 	/**
 	 * 레시피 번호로 해당 레시피의 해시태그 테이블(TB_RECIPE_TAG) 모든 정보와 해시태그 이름, 날짜를 조회하는 기능
@@ -131,16 +151,17 @@ public class RecipeDao {
 	 */
 	public ArrayList<RecipeTag> selectRecipeTagSingle(Connection conn, int recipeNo) {
 		ArrayList<RecipeTag> recipeTagList = new ArrayList();
-		String sql = prop.getProperty("");
+		String sql = prop.getProperty("selectRecipeTagSingle");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, recipeNo);
 			
-			
+			try(ResultSet rset = pstmt.executeQuery()) {
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return recipeTagList;
 	}
 	

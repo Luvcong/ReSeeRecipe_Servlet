@@ -5,6 +5,64 @@
 	
 	
 	<!-- ******* 레시피 관련 SELECT구문 ******* -->
+	
+	<entry key="selectRecipeSingle">
+		SELECT
+			   RECIPE_NO,
+			   RECIPE_TITLE,
+			   RECIPE_DATE,
+			   RECIPE_MODIFIED,
+			   RECIPE_STATUS,
+			   RECIPE_COUNT,
+			   RECIPE_WRITER_NO,
+			   RECIPE_CATEGORY_NO,
+			   RECIPE_CATEGORY_NAME,
+			   MEM_NICKNAME
+		  FROM
+			   TB_RECIPE
+		  JOIN
+			   TB_RECIPE_CATEGORY
+		 USING
+			   (RECIPE_CATEGORY_NO)
+		  JOIN
+			   TB_MEMBER
+			ON
+			   (RECIPE_WRITER_NO = MEM_NO)
+		 WHERE
+			   RECIPE_NO = ?
+	</entry>
+	
+	
+	<entry key="selectRecipePicSingle">
+	
+	</entry>
+	
+	
+	<entry key="selectIngredientSingle">
+	
+	</entry>
+	
+	
+	<entry key="selectCookStepsSingle">
+	
+	</entry>
+	
+	
+	<entry key="selectRecipeTagSingle">
+	
+	</entry>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 카테고리 리스트 조회 SQL문 -->
 	<entry key="selectRecipeCategoryList">
 		SELECT
