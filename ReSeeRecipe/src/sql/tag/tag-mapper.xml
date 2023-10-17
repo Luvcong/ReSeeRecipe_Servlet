@@ -39,4 +39,10 @@
 								ORDER BY TAG_NO) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<!-- 해시태그 추가 -->
+	<entry key="hashTagInsert">
+		INSERT INTO TB_TAG
+		VALUES (SEQ_TAG.NEXTVAL, ?, SYSDATE)
+	</entry>
 </properties>
