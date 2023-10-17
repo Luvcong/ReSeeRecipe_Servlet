@@ -26,12 +26,12 @@ public class MyPageController {
 		// 3. 서비스 호출
 		ArrayList<MemberCoupon> list = new MyPageService().selectMemberCouponList(memberNo, selected);
 		
+		String view = request.getContextPath();
 		if(list != null) {
 			request.setAttribute("memberCouponList", list);
+			// 4. 응답화면 지정
+			view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
 		}
-		
-		// 4. 응답화면 지정
-		String view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
 		
 		return view;
 	}
@@ -43,10 +43,11 @@ public class MyPageController {
 		
 		ArrayList<Reward> list = new MyPageService().selectMemberRewardList(memberNo);
 		
-		request.setAttribute("memberRewardList", list);
-		
-		String view = "views/myPage/memberRewardList.jsp";
-		
+		String view = request.getContextPath();
+		if(list != null) {
+			request.setAttribute("memberRewardList", list);
+			view = "views/myPage/memberRewardList.jsp";
+		} 
 		return view;
 	}
 	

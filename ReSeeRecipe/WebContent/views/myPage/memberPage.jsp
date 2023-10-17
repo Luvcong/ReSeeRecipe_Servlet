@@ -239,6 +239,7 @@
                     <li id="listMenu"><a href="<%= contextPath %>/recipe.me">게시물관리</a></li>
                     <li id="listMenu"><a href="">쇼핑정보</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/dm.me">쪽지</a></li>
+                    
                 </ul>
                 
             </div>

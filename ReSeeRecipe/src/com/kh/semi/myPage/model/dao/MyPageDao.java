@@ -89,7 +89,7 @@ public class MyPageDao {
 				reward.setRownum(rset.getInt("RNUM"));
 				reward.setRewardDate(rset.getDate("REWARD_DATE"));
 				reward.setRewardReason(rset.getString("REWARD_REASON"));
-				reward.setRewardScore(rset.getInt(rset.getInt("REWARD_SCORE")));
+				reward.setRewardScore(rset.getInt("REWARD_SCORE"));
 				reward.setRemainRewardScore(rset.getInt("REMAIN_REWARD_SCORE"));
 				
 				list.add(reward);
