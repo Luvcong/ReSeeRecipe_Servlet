@@ -34,17 +34,46 @@
 	
 	
 	<entry key="selectRecipePicSingle">
-	
+		SELECT
+			   RECIPE_PIC_NO,
+			   RECIPE_PIC_NAME_ORIGIN,
+			   RECIPE_PIC_NAME_UPLOAD,
+			   RECIPE_PIC_PATH,
+			   RECIPE_PIC_DATE,
+			   RECIPE_PIC_LEV,
+			   RECIPE_PIC_STATUS,
+			   REF_RNO
+		  FROM
+			   TB_RECIPE_PIC
+		  WHERE
+			   REF_RNO = ?
 	</entry>
 	
 	
 	<entry key="selectIngredientSingle">
-	
+	SELECT
+		   INGREDIENT_NO,
+		   INGREDIENT,
+		   INGREDIENT_AMOUNT,
+		   RECIPE_NO
+	  FROM
+		   TB_INGREDIENT
+	 WHERE
+		   RECIPE_NO = ?
 	</entry>
 	
 	
 	<entry key="selectCookStepsSingle">
-	
+	SELECT
+		   COOK_STEPS_NO,
+		   COOK_STEPS_TITLE,
+		   COOK_STEPS_CONTENT,
+		   COOK_STEPS_LEV,
+		   RECIPE_NO
+	  FROM
+		   TB_COOK_STEPS
+	 WHERE
+		   RECIPE_NO = ?
 	</entry>
 	
 	
