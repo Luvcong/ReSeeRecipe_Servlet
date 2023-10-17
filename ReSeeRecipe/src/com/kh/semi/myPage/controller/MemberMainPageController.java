@@ -37,7 +37,6 @@ public class MemberMainPageController extends HttpServlet {
 		
 		
 		
-		
 	}
 
 	/**

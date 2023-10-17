@@ -132,6 +132,8 @@
       
       <!-- 사진을 바꿀 회원의 번호를 hidden으로 같이 넘겨주기  -->
       <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
+      <!-- 회원이 이미 등록된 사진이 있다면 hidden으로 같이 넘겨주기 -->
+      <input type="hidden" name="memberPicture" value="<%= loginMember.getMemPicture() %>">
 
       <!-- 사진 -->
       <div class="container">
@@ -228,9 +230,11 @@
 
         // 사진을 클릭하면 프로필 사진 변경
         function loadImg(inputFile){
-
+            console.log("클릭하면");
             // 파일을 첨부했을 때
             if(inputFile.files.length == 1){
+              console.log("성공");
+              console.log(inputFile.files.length);
                 // 파일을 읽어올 객체 생성
                 let reader = new FileReader();
                 // 파일의 긴 url을 읽어옴
@@ -244,6 +248,8 @@
                 }
             // 취소(파일 없음)
             } else {
+              console.log("실패");
+              console.log(inputFile.files.length);
                 // 새로 등록된 사진이 없으므로 기존의 사진 등록
                 const noImg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU';
                 // https://usagi-post.com/wp-content/uploads/2020/05/no-image-found-360x250-1.png
