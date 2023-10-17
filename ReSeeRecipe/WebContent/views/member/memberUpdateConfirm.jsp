@@ -79,7 +79,7 @@
 	            <input type="password" name="checkPwd" placeholder="비밀번호를 입력해 주세요." required>
 	            <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
 	            <input type="hidden" name="memberPwd" value="<%= loginMember.getMemPwd() %>">
-	            <button type="submit" onclick="error();" location="<%= contextPath %>/yrmemberUpdateConfirm.me">확인</button>
+	            <button type="submit" onclick="error();">확인</button>
             </div>
         </form>
     </div>

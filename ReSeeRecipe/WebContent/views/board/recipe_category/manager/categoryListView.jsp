@@ -95,7 +95,9 @@
 	text-align: center;
     padding-top: 30px;
 }
-
+.selectCount{
+	color: red;
+}
 
 </style>
 
@@ -123,7 +125,7 @@
             </div>	<!-- searchTable -->
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">
-                    조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
+                    등록 카테고리 <span class="selectCount"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
                     <button onclick="showAddCategorydModal()" class="btn btn-sm btn-warning">카테고리 추가</button>
@@ -444,13 +446,21 @@
 							Swal.fire('성공', '카테고리 삭제가 완료되었습니다!', 'success');
 							
 							let removeCategoryCount = 0;
+							let total = <%= pi.getListCount() %>;
+							console.log(total);
 							
 							for(let tr of trs){
 								let categoryNo = parseInt(tr.children[1].textContent);	
 								if(result.includes(categoryNo)){		// categoryNo를 포함하는 문자열이 있으면 == true
 									tr.remove();						// 해당 tr remove
-									removeCategoryCount += category_list[categoryNo];
-									console.log(category_list[categoryNo]);	
+									total--;
+									// console.log(total);				// 전체 조회수에서 -- count되는지 확인ok
+									
+									let selectCount = document.querySelector('.selectCount')
+									selectCount.textContent = total;	// remove total 값 넣어주기
+									
+									removeCategoryCount += category_list[categoryNo];	// 해당 카테고리에 들어있는 게시글 수
+									// console.log(category_list[categoryNo]);	
 									// console.log(removeCategoryCount);
 								}
 							}
@@ -460,7 +470,6 @@
 							// console.log(origin_count);
 							// 기존 게시글 수에 지워진 게시글 수만큼 ++
 							trs[0].children[3].textContent = origin_count + removeCategoryCount;
-								
 						},	// success
 						error : function(result){
 							Swal.fire('실패', '카테고리 삭제가 실패되었습니다!', 'error');

@@ -1,4 +1,4 @@
-package com.kh.semi.myPage.controller;
+package com.kh.semi.tag.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberDmController
+ * Servlet implementation class HashtagUpdateController
  */
-@WebServlet("/dm.me")
-public class MemberDmController extends HttpServlet {
+@WebServlet("/hsupdate.hs")
+public class HashtagUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDmController() {
+    public HashtagUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,14 +26,21 @@ public class MemberDmController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//POST방식 인코딩
+		
 		request.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("views/myPage/memberDmList.jsp").forward(request, response);
 		
-	
-	
+		request.getParameter("hashtagName");
+		request.getParameter("ChashtagName");
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	/**
