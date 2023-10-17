@@ -34,7 +34,6 @@
 		margin: auto;
 	}
 
-	/*******************************************/
 	/* > > 상단바wrap div 세팅 */
 	#recipeDetailBarWrap {
 		width: 100%;
@@ -44,6 +43,15 @@
 		/*지울부분*/
 		background-color: aqua;
 	}
+
+	/* > > 디테일뷰 내용 wrap div 세팅 */
+	#recipeDetailViewWrap {
+	width: 100%;
+	height: 2150px;
+	}
+
+	/*******************************************/
+
 
 	/* > >... 상단바 내부 div요소 default 세팅 */
 	#recipeDetailBarWrap div {
@@ -66,8 +74,7 @@
 		width: 7%;
 		padding: 18px 0px 0px 17px;
 	}
-	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i
-	{
+	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i	{
 		font-size: 45px;
 	}
 
@@ -94,57 +101,147 @@
 
 	/* 3. 조회수 컬러링 세팅 */
 	#recipeDetailBarView i {
+		color: rgb(255, 145, 77);
 	}
 	
 	/* 4. 좋아요 컬러링 세팅 */
 	#recipeDetailBarHeart i {
+		color: rgb(168, 19, 19);
 	}
 
 	/* 5. 북마크 컬러링 세팅 */
 	#recipeDetailBookmark i {
-
+		color: rgb(7, 81, 13);
+		
 	}
-
+	
 	/* 6. 신고 컬러링 세팅 */
 	#recipeDetailReport i {
+		color: rgb(48, 36, 36);
+		
+	}
+	/*******************************************/
 
+
+
+	/**********************************************************
+		입력양식 내용 영역 (#recipeDetailViewWrap내부)
+	**********************************************************/
+	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
+	#DetailCookStepsBasicInfo {
+		width: 100%;
+		height: 35%;
 	}
 
+	/* 좌우 큰 div */
+	#DetailCookStepsBasicInfo .detail-view-cook-steps-input-content {
+		width: 50%;
+		height: 100%;
+		float: left;
+		text-align: center;
+	}
+
+
+	/* 2. 좌측 div 내부 */
+	/* 셰프이름 + 해시태그 div */
+	#detailViewChefHashtag {
+		width: 100%;
+		height: 21%;
+	}
+
+	/* 셰프이름 */
+	#detailViewChefName {
+		height: 60%;
+	}
+
+	#detailViewChefName > p {
+		margin: 0px;
+		margin-top: 12px;
+		font-size: 20px;
+		font-weight: 1000;
+		color: rgb(132, 137, 143);
+	}
+
+	/* 해시태그 */
+	#detailViewTagDiv1 {
+		width: 100%;
+		height: 40%;
+	}
+
+	#detailViewTagDiv2 {
+		width: 90%;
+		height: 100%;
+		border-radius: 50px;
+		border-color: rgb(255, 145, 77);
+		background-color: #17a2b8;
+	}
+
+	.detailTagList {
+		display: inline-block;
+		margin: auto;
+		font-size: 17px;
+		margin-top: 15px;
+	}
+
+	/* 썸네일 div */
+	#detailViewThumbnailImg {
+		width: 100%;
+		height: 79%;
+		background-color: rgb(255, 222, 89);
+	}
+
+	/* 썸네일 이미지 */
+	#detailViewThumbnailImg img {
+		width: 570px;
+		height: 570px;
+		padding-top: 20px;
+	}
+
+	/* 3. 우측 div 내부 */
+	/* 레시피 제목 */
+	#detailViewRecipeTitle1 {
+		height: 21%;
+		padding-top: 50px;
+	}
+
+	#detailViewRecipeTitle1 p {
+		font-size: 30px;
+		font-weight: 1000;
+	}
+
+	/* 재료 타이틀 */
+	#detailViewIngredientTitle {
+		height: 79%;
+	}
+
+	#detailIngredientInner1 {
+		width: 100%;
+		height: 10%;
+		padding-top: 12px;
+	}
+
+	#detailIngredientInner1 h3 {
+		font-weight: 800;
+	}
+
+	/* 재료 콘텐트 (필요한 재료 목록들 띄우는 부분) */
+	#detailIngredientInner2 {
+		height: 90%;
+	}
+	/*********************************************************************************************************************************/
+	/*********************************************************************************************************************************/
+	/*********************************************************************************************************************************/
+	/*********************************************************************************************************************************/
 	/*********************************************************************************************************************************/
 
 
 
 
+	
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	/*******************************************/
-
-
-	/* > > 입력폼wrap div 세팅 */
-	#recipe-enroll-context-wrap {
-		width: 100%;
-		height: 2150px;
-	}
-
-	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	#cook-steps-basic-info {
-		width: 100%;
-		height: 35%;
-	}
 
 	/* > >... 입력폼 내부 중단 div (과정사진 + 제목 + 내용) */
 	#cookingInstructionContainer {
@@ -193,82 +290,21 @@
 	}
 
 
-	/**********************************************************
-		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
-	**********************************************************/
-	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
-	/* 여백 영역 */
-	#enroll-form-blank1 {
-		width: 100%;
-		height: 2%;
-	}
-
-	/* 좌우 큰 div */
-	#cook-steps-basic-info .cook-steps-input-content {
-		width: 50%;
-		height: 100%;
-		float: left;
-		text-align: center;
-	}
-	
-	#cook-steps-basic-info .cook-steps-inner {
-		width: 100%;
-	}
 
 	/* --- 좌측 --- */
-	/* 썸네일 div */
-	#content-thumbnail-image {
-		width: 100%;
-		height: 79%;
-		background-color: rgb(255, 222, 89);
-	}
 
-	/* 썸네일 이미지 */
-	#content-thumbnail-image img {
-		width: 570px;
-		height: 570px;
-		padding-top: 20px;
-	}
 
-	/* 셰프이름 + 해시태그 div */
-	#content-writer-hashtag {
-		width: 100%;
-		height: 21%;
-	}
 
-	/* 셰프이름 */
-	#cook-steps-chef {
-		height: 60%;
-	}
 
-	#cook-steps-chef > p {
-		margin: 0px;
-		margin-top: 12px;
-		font-size: 20px;
-		font-weight: 1000;
-		color: rgb(132, 137, 143);
-	}
 
-	/* 해시태그 */
-	#detailTagDiv1 {
-		width: 100%;
-		height: 40%;
-	}
+
 	
-	#detailTagDiv2 {
-		width: 90%;
-		height: 100%;
-		border-radius: 50px;
-		border-color: rgb(255, 145, 77);
-		background-color: #17a2b8;
-	}
+
+
 	
-	.detailTagList {
-		display: inline-block;
-		margin: auto;
-		font-size: 17px;
-		margin-top: 15px;
-	}
+
+	
+
 	
 	#cook-steps-hashtag option {
 		font-size: 25px;
@@ -278,16 +314,8 @@
 		display: none;
 	}
 	
-	/* --- 우측 --- */
-	/* 제목 입력칸 (textarea) */
-	#cook-steps-title {
-		height: 21%;
-	}
+	
 
-	#title-text-area-div {
-		width: 100%;
-		height: 100%;
-	}
 
 	#cook-steps-title > div > textarea {
 		width: 420px;
@@ -317,19 +345,14 @@
 	}
 
 
-	/* 재료 타이틀 (재료 입력 및 추가하는 부분) */
-	#cook-steps-ingredient-title {
-		height: 9%;
-	}
+
 
 	#cook-steps-ingredient-title div {
 		height: 100%;
 		float: left;
 	}
 
-	#ingredient-title-div1 {
-		width: 90%;
-	}
+
 	
 	#write-ingredient-input {
 		width: 62%;
@@ -384,24 +407,21 @@
 		color: rgb(59, 134, 225);
 	}
 
-	/* 재료 콘텐트 (입력요소 생성해서 띄우는 부분) */
-	#cookStepsIngredientContent {
-		height: 70%;
-	}
 
-	#ingredientContentLeft, #ingredientContentRight {
+
+	#detailIngredientLeft, #detailIngredientRight {
 		width: 50%;
 		height: 100%;
 		float: left;
 	}
 
 
-	#cookStepsIngredientContent .ingredientContainer {
+	#detailIngredientInner2 .ingredientContainer {
 		width: 100%;
 		height: 34px;
 	}
 
-	#cookStepsIngredientContent .ingredientContainer div {
+	#detailIngredientInner2 .ingredientContainer div {
 		height: 100%;
 		float: left;
 	}
@@ -419,7 +439,7 @@
 	}
 
 
-	#cookStepsIngredientContent input, select {
+	#detailIngredientInner2 input, select {
 		width: 100%;
 		height: 100%;
 		padding: 0px;
@@ -432,7 +452,7 @@
 		font-size: 1px;
 	}
 	
-	#cookStepsIngredientContent input::placeholder, select::placeholder {
+	#detailIngredientInner2 input::placeholder, select::placeholder {
 		text-align: center;
 	}
 
@@ -571,32 +591,34 @@
 			</div>
 
 			<div id="recipeDetailBarHeart">
-				<i class="fa fa-heart"></i>
+				<i class="far fa-heart change-heart-bookmark-icons"></i>
+				<!--<i class="fa fa-heart change-heart-bookmark-icons"></i>하트눌렀을때-->
 			</div>
 
 			<div id="recipeDetailBookmark">
-				<i class="	far fa-bookmark"></i>
+				<i class="far fa-bookmark change-heart-bookmark-icons"></i>
+				<!--<i class="fas fa-bookmark change-heart-bookmark-icons"></i>북마크했을때-->
 			</div>
 
 			<div id="recipeDetailReport">
 				<i class="	fas fa-exclamation-circle"></i>
 			</div>
 		</div><!-- 입력양식 상단 바 영역 끝 -->
-
+		
 		
 	
 		<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
-		<div id="recipe-enroll-context-wrap">
+		<div id="recipeDetailViewWrap">
 			
 			<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-			<div id="cook-steps-basic-info">
-				<div class="cook-steps-input-content">
-					<div id="content-writer-hashtag">
-						<div id="cook-steps-chef" class="cook-steps-inner">
+			<div id="DetailCookStepsBasicInfo">
+				<div class="detail-view-cook-steps-input-content">
+					<div id="detailViewChefHashtag">
+						<div id="detailViewChefName">
 							<p><%= loginMember %></p>
 						</div>
-						<div id="detailTagDiv1">
-							<div id="detailTagDiv2" class="cook-steps-inner">
+						<div id="detailViewTagDiv1">
+							<div id="detailViewTagDiv2">
 								<% for(int i = 0; i < 5; i++) { %>
 									<div class="detailTagList">#해시태그<%= i %></div>
 								<% } %>
@@ -604,25 +626,21 @@
 						</div>
 					</div>
 
-					<div id="content-thumbnail-image">
+					<div id="detailViewThumbnailImg">
 						<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 					</div>
 				</div>
-				<div class="cook-steps-input-content">
-					<div id="cook-steps-title" class="cook-steps-inner">
-						<div id="title-text-area-div">
-							레시피 제목
-						</div>
+				<div class="detail-view-cook-steps-input-content">
+					<div id="detailViewRecipeTitle1">
+						<p>레시피 제목</p>
 					</div>
 
-					<!-- 입력받는 영역 -->
-					<div id="cook-steps-ingredient-title" class="cook-steps-inner">
-						<!-- 기본 재료 입력받는 양식 -->
-						<div id="ingredient-title-div1" class="inputs-in-order">
+					<div id="detailViewIngredientTitle">
+						<div id="detailIngredientInner1">
 							<h3>재료</h3>
 						</div>
-						<div id="cookStepsIngredientContent" class="cook-steps-inner">
-							<div id="ingredientContentLeft">
+						<div id="detailIngredientInner2">
+							<div id="detailIngredientLeft">
 								<% for (int i = 0; i < 15; i++) { %>
 									<div id="ingredientContainer<%= i %>" class="ingredientContainer">
 										<div id="ingredientAreaDiv<%= i %>">
@@ -638,7 +656,7 @@
 								<% } %>
 							</div>
 						
-							<div id="ingredientContentRight">
+							<div id="detailIngredientRight">
 								<% for (int i = 15; i < 30; i++) { %>
 									<div id="ingredientContainer<%= i %>" class="ingredientContainer">
 										<div id="ingredientAreaDiv<%= i %>">
