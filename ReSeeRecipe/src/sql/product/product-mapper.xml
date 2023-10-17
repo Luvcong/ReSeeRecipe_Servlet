@@ -225,7 +225,7 @@
 			PRODUCT_NO = ?
 	</entry>
 	
-	<entry key="ajaxSelectProductList1">
+	<entry key="sortSelectProductList1">
 		SELECT *
 		    FROM (SELECT ROWNUM RNUM, A.*
 		            FROM (SELECT
@@ -247,7 +247,7 @@
 		                    ORDER BY PRODUCT_NO) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	<entry key="ajaxSelectProductList2">
+	<entry key="sortSelectProductList2">
 		SELECT *
 		    FROM (SELECT ROWNUM RNUM, A.*
 		            FROM (SELECT
@@ -269,7 +269,7 @@
 		                    ORDER BY PRODUCT_PRICE) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	<entry key="ajaxSelectProductList3">
+	<entry key="sortSelectProductList3">
 		SELECT *
 		    FROM (SELECT ROWNUM RNUM, A.*
 		            FROM (SELECT
@@ -288,7 +288,7 @@
 		                    	PRODUCT_PICTURE_LEVEL = 1
 		                    AND
 		                    	PRODUCT_CATEGORY_CODE = ?
-		                    ORDER BY PRODUCT_SCORE_AVG) A)
+		                    ORDER BY PRODUCT_SCORE_AVG DESC) A)
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	

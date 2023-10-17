@@ -151,4 +151,43 @@ public class TagDao {
 		}
 		return result;
 	}
+	
+	public int hashtagUpdate(Connection conn, int hashNo, String ChashName) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("hashtagUpdate");
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ChashName);
+			pstmt.setInt(2, hashNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int hashtagDelete(Connection conn, int tagNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("hashtagDelete");
+		
+		try{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tagNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
