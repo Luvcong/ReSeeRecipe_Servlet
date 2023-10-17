@@ -3,7 +3,7 @@
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
 <%
 	// session에서 관리자 정보 가져오기	
-	// Member loginMember = (Member)session.getAttribute("loginMember");
+	Member loginMember = (Member)session.getAttribute("loginMember");
 	// 성공 / 메시지
 	String alertMsg =(String)session.getAttribute("alertMsg");
 
@@ -28,21 +28,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>	
 
 <link rel="stylesheet" href="<%= contextPath %>/resources/css/manager.css">
+<script src="resources/js/manager/navbar_manager.js"></script>
 <!-- css파일 따로 뺴서 link -->
 <style>
-.category{
-	display: none;
-}
-#recipeHome{
-	margin-left: -33px;
-}
-#recipeHome span{
-	padding-left: 5px
-}
-.titleMenu a{
-	color: black;
-	text-decoration: none;
-}
+
 </style>
 </head>
 
@@ -52,15 +41,15 @@
 	<div class="rs-title">
 		<div class="titleMenu" id="recipeHome">
 			<a href="<%= contextPath %>"><i class="fa-solid fa-house"></i></a>
-			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
+			<span>관리자 메뉴</span>
 		</div>
-<%--  		<div class="titleMenu" id="adminsetting" >
+		<div class="titleMenu" id="adminsetting" >
 			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
 				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
-		</div> --%>
+		</div>
 	</div>
 	
 	<!-- 카테고리 리스트 -->
@@ -147,172 +136,5 @@
     </div>  <!-- rs-main -->
 </body>
 
-<script>
-	<!-- rs-content(자식요소)를 rs-main안으로 이동시킨다 -->
-	$(function(){
-	    let main = document.querySelector('.rs-main');
-	    let content = document.querySelector('.rs-content');
-	    main.appendChild(content);
-	});
-
-    $(function(){
-    	let $selectMenu = $('.nav-item').children();// a태그
-    	$($selectMenu).click(function(){
-    		//let $thisele = $(this);// 다음 div
-    		let $prevShowList = $(this).parent();// 다음 div
-    		let $showList =  $prevShowList.next();// 다음 div
-    		/*
-			console.log('prev >> ', $prevShowList);    		
-			console.log('list >> ', $showList);    		
-			console.log('this >> ', $thisele);  
-			*/
-    		if($showList.css('display') == 'none'){
-    			$showList.css('display', 'block');
-    		} else {
-    			$showList.css('display', 'none');
-    		}
-    	});
-    	//console.log($selectMenu);
-/*
-		$('#HL_boardMange').click(function(){
-    	let $Div = $(this).find('ul');
-        if($Div.css('display') == 'none'){
-    		$('#HL_boardList').css('display', 'block');
-        }else{
-    		$('#HL_boardList').css('display', 'none');
-        } */
-    	
-    })
-    
-    function goMenu(e){
-		this.location.href = "<%=contextPath %>" + e;
-	}
-	
-	
-	
-    /*
-    $(function(){
-    	
-    	$('#HL_NoticeManage').on("click", gonotice);
-    });
-    function gonotice() {
-        $.ajax({
-            type: "GET",
-            url: "noticeManager.jsp",
-            dataType: "text",
-            error: function () {
-                alert('통신실패!!');
-            },
-            success: function (data) {
-                $('.rs-content').jsp(data); // GSON 사용해야해서 내일 할게요 - 혜림 -- 넹♥
-            }
-
-        });
-    }
-    */
-    
-    /*
-    $(function(){
-    	$('#HL_memberSetting').on("click", goMember);
-    });
-    function goMember(){
-    	$.ajax({
-    		type : "GET",
-    		url : 'hlmembermanage.ma', //?cmpage=1
-    		data : {cmpage : 1},
-    		dataType : "html",
-    		success : function(result){
-    			//$('.rs-content').html(result);
-    			console.log('회원 정보 조회 성공');
-    			console.log(result);
-    			//JSON.parse(result);
-    			//console.log(result);
-    			//selectMemberAll();
-    			//$('.rs-content').text('회원번호' + result[0].memNo);
-    			/* $('.rs-content').html(
-    					'<'
-    					'회원번호' + result[0].memNo); */
-  /*  			//createMemTable(result);
-    			$('.rs-content').html(result);
-    			//$('.rs-content').load("${contextPath}/views/member/memberManager.jsp .rs-content");
-    			//$('.rs-content').jsp(result);
-    		},
-    		error : function(result){
-    			console.log(JSON.parse(result));
-    			console.log('회원 정보 조회 실패');
-    			$('.rs-content').text('조회된 회원이 없습니다');
-    		}
-    	
-    	});
-    }
-    */
-    
-	/* 나중에 사용할 수 도 있을거 같아유 */
-    function createMemTable(result){
-    	 $newTable = $("<br><br><table class='table' id='memAll'><tbody id='memAllList'></tbody></table>");
-    	 $('.rs-content').append($newTable);
-    	 for(let i in result){
-    		 let $newTbody = $("<tr>" + 
-    			"<td>" + result[i].memNo + "</td>" +
-    			"<td>" + result[i].memName + "</td>" +
-    			"<td>" + result[i].memId + "</td>" +
-    			"<td>" + result[i].memNickname + "</td>" +
-    			"<td>" + result[i].memEmail + "</td>" +
-    			"<td>" + result[i].enrollDate + "</td>" +
-    			"<td>" + result[i].memReward + "</td>"
-    			+ "</tr>");
-    		$newTable.append($newTbody);
-    	 }
-    }
-
-</script>
-
-<!-- 문의관리 ajax -->
-<!-- <script>
-	$(function(){
-		$('#dmManager').on('click', dmListView);	// 해당 id를 갖고 있는 요소에 onclick event 속성을 준다 (호출 함수명 : dmListView)
-		});
-	
-	function dmListView(){
-		$.ajax({
-			url : 'jhselect.dm',
-			type : 'get',
-			dataType : 'html',
-			success : function(result){
-				$('.rs-content').html(result);		// 성공시 - 해당 ulr에 있는 .rs-content를 html로 뿌리기
-			},
-			error : function(result){
-				$('.rs-content').text('Error 다시 시도해주세요');
-			}
-		});
-	
-	}	// 쪽지함리스트(dmListView)
-
-</script> -->
-
-<!-- 카테고리관리 ajax -->
-<!-- <script>
-
-	$(function(){
-		$('#categoryManager').on('click', categoryListView);
-	});
-	
-	function categoryListView(){
-		$.ajax({
-			url : 'jhselect.ct',
-			type : 'get',
-    		dataType : 'html',
-			success : function(result){
-				$('.rs-content').html(result);
-				console.log("성공");
-			},
-			error : function(result){
-				$('.rs-content').text('Error! 다시 시도해주세요');
-				console.log("실패");
-			}
-		});
-	}	// 카테고리리스트(categoryListView)
-
-</script> -->
 
 </html>

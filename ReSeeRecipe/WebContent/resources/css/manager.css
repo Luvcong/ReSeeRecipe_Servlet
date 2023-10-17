@@ -74,3 +74,16 @@ li > a {
 ul li{
     list-style: none;
 }
+.category{
+	display: none;
+}
+#recipeHome{
+	margin-left: -33px;
+}
+#recipeHome span{
+	padding-left: 5px
+}
+.titleMenu a{
+	color: black;
+	text-decoration: none;
+}
