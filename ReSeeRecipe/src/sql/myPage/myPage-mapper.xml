@@ -30,29 +30,91 @@
 		 	   
 	</entry>
 	
-	<!-- 회원 리워드 내역 조회 -->
-	<entry key="selectMemberRewardList">
-		SELECT * 
-		  FROM  (SELECT ROWNUM RNUM, A.* 
-	  			   FROM(SELECT 
-							   REWARD_DATE
-							   ,REWARD_REASON
-							   ,REWARD_SCORE
-							   ,(SUM(REWARD_SCORE) 
-				                 OVER(PARTITION BY MEM_NO
-				                 ORDER BY REWARD_NO 
-				                 ROWS BETWEEN UNBOUNDED PRECEDING 
-				                 AND CURRENT ROW)) "REMAIN_REWARD_SCORE"
-						  FROM 
-						  	   TB_REWARD 
-						 WHERE 
-						 	   MEM_NO = ?
-						   AND 
-						   	   REWARD_SCORE != 0
-						 ORDER 
-						 	BY 
-						 	   REWARD_DATE DESC) A)
+
+	<entry key="selectDmList">
+			SELECT
+				DM_NO,	
+				RECEIVE_MEM,
+				SEND_MEM,
+				DM_CONTENT,
+				SEND_DATE,
+				DM_STATUS,
+				DM_REPLY,
+			JOIN
+				TB_MEMBER
+			USING
+				(MEM_NICKNAME)
+			WHERE
+				MEM_NICKNAME = ?
+			ORDER 
+				BY
+				  DM_NO DESC		
+					
+	
+	
 	</entry>
+	
+	<entry key="selectMyRecipe">
+			
+			SELECT
+				RECIPE_NO,	
+				RECIPE_TITLE,
+				RECIPE_DATE,
+				RECIPE_MODIFIED	DATE,
+				RECIPE_STATUS,
+				RECIPE_COUNT,
+				RECIPE_WRITER_NO,
+				RECIPE_CATEGORY_NO,
+				
+			JOIN
+				TB_MEMBER
+			USING
+				(MEM_NO)
+			WHERE 
+				RECIPE_WRITER_NO = MEM_NO			
+	
+	
+	</entry>
+	
+		<entry key="selectMemberPic">
+		
+			SELECT 
+				MEMBER_PiCTURE
+				FROM
+				TB_MEMBER
+	</entry>
+	<entry key="selectMemberGrade">
+		SELECT 
+			MEMBER_GRADE
+			FROM
+			TB_MEMBER
+	</entry>
+
+
+	<entry key="selectDmList">
+			SELECT
+				DM_NO,	
+				RECEIVE_MEM,
+				SEND_MEM,
+				DM_CONTENT,
+				SEND_DATE,
+				DM_STATUS,
+				DM_REPLY,
+			JOIN
+				TB_MEMBER
+			USING
+				(MEM_NICKNAME)
+			WHERE
+				MEM_NICKNAME = ?
+			ORDER 
+				BY
+				  DM_NO DESC		
+	</entry>
+
+	
+
+
+
 
 
 </properties>

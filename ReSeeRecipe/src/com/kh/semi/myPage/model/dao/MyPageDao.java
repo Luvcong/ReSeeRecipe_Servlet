@@ -82,9 +82,9 @@ public class MyPageDao {
 		}
 		return list;
 	}
-	
+
 	// 회원 리워드 내역 조회
-	public ArrayList<Reward> selectMemberRewardList(Connection conn, int memberNo) {
+	public ArrayList<Reward> selectMemberRewardList(Connection conn, int memberNo){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -126,5 +126,6 @@ public class MyPageDao {
 		return list;
 	}
 	
+
 
 }

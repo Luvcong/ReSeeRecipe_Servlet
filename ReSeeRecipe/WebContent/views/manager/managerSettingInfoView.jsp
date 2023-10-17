@@ -4,7 +4,7 @@
 <%
     //Member loginMember = (Member)session.getAttribute("loginMember");
     Member m = (Member)request.getAttribute("m");
-    Member mp = (Member)request.getAttribute("mp");
+    String mp = (String)request.getAttribute("mp");
 %>
 <!DOCTYPE html>
 <html>
@@ -79,8 +79,8 @@
                     </tr>               
                 </table>
                 <br><br>
-                <div id="admindetailbtn">
-                    <a href="<%=contextPath %>/hladminupdateForm.ma?adNo=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="adminupdatebtn">수정하기</a>
+                <div id="admindetailbtn"> 
+                    <a href="<%=contextPath %>/hladminupdateForm.ma?adno=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="adminupdatebtn">수정하기</a>
                  <!-- <button type="submit" id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>-->
                     <button type="button" class="w3-button w3-round w3-yellow" onclick="history.back();">목록으로</button>
                 </div>

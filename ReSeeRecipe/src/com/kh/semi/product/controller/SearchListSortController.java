@@ -18,13 +18,13 @@ import com.kh.semi.product.model.vo.Product;
  * Servlet implementation class AjaxSearchListSortController
  */
 @WebServlet("/psort.po")
-public class AjaxSearchListSortController extends HttpServlet {
+public class SearchListSortController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxSearchListSortController() {
+    public SearchListSortController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,7 +59,7 @@ public class AjaxSearchListSortController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, productLimit);
 		
-		ArrayList<Product> list = new ProductService().ajaxSelectProductList(pi, category, sort);
+		ArrayList<Product> list = new ProductService().sortSelectProductList(pi, category, sort);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
@@ -67,9 +67,7 @@ public class AjaxSearchListSortController extends HttpServlet {
 		request.setAttribute("select", select);
 		request.setAttribute("cate", cate);
 		
-		response.setContentType("application/json; charset=UTF-8");
-		
-		new Gson().toJson(list, response.getWriter());
+		request.getRequestDispatcher("views/product/product/buySearchPage.jsp").forward(request, response);
 	}
 
 	/**

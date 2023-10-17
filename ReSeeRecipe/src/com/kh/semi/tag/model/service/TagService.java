@@ -52,6 +52,41 @@ public class TagService {
 		
 		return result;
 	}
+	
+	public int hashtagUpdate(int hashNo, String ChashName) {
+		
+		Connection conn = getConnection();
+		
+		int result = new TagDao().hashtagUpdate(conn, hashNo, ChashName);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int hashtagDelete(int[] tagNo) {
+		
+		Connection conn = getConnection();
+		int result = 0;
+		
+		for(int i = 0; i < tagNo.length; i++) {
+			result = new TagDao().hashtagDelete(conn, tagNo[i]);
+		}
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
 	
 	

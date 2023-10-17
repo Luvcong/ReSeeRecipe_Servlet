@@ -219,7 +219,7 @@
 <%@ include file="/views/common/header.jspf" %>
         <div id="pageCenter">
         <div id="sideTop">
-            <p>방문자 수: </p><p>내 리워드: </p>
+            <p>내 리워드: </p>
             <div id="memberPic">
                 <div id="nickName">
                     <p>닉네임</p>

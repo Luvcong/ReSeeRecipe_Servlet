@@ -5,7 +5,7 @@
 				 java.util.ArrayList" %>
 <%	
 	// RecipePic주소 (RECIPE_PIC_PATH, RECIPE_PIC_UPLOAD)
-	//RecipePic recipePic = (RecipePic)request.getAttribute("reciepPic");
+	RecipePic recipePic = (RecipePic)request.getAttribute("reciepPic");
 
 	// ArrayList로 받아온 recipes
 	ArrayList<Recipe> rList = (ArrayList<Recipe>)request.getAttribute("rList");

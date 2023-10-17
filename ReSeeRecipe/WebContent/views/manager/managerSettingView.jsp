@@ -4,7 +4,7 @@
 <%
     //Member loginMember = (Member)session.getAttribute("loginMember");
     Member m = (Member)request.getAttribute("m");
-	Member mp = (Member)request.getAttribute("mp");   
+	String mp = (String)request.getAttribute("mp");   
 %>
 <!DOCTYPE html>
 <html>
@@ -39,11 +39,11 @@
     <div class="container">
     <br><br>
     <h2>관리자 정보 수정</h2>
-    <form enctype="multipart/form-data" action="<%= contextPath %>/hladminupdate.ma" methods="post">
+    <form enctype="multipart/form-data" action="<%= contextPath %>/hladminupdate.ma" method="post">
 		 
         <label for="adminpic">프로필 사진</label>
         <div class="container">
-            <% if(mp != null) { %> 
+            <% if(m.getMemPicture() != null) { %> 
                <img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
             <% } else { %>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="admindefpic" width="150" height="150">

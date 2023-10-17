@@ -29,7 +29,7 @@
 		            FROM (SELECT DISTINCT
 								    TAG_NO, 
 								    TAG_NAME, 
-								    COUNT(*)OVER(PARTITION BY TAG_NO) COUNT 
+								    COUNT(*)OVER(PARTITION BY TAG_NO)-1 COUNT 
 								FROM 
 									TB_TAG
 								LEFT JOIN 
@@ -44,5 +44,18 @@
 	<entry key="hashTagInsert">
 		INSERT INTO TB_TAG
 		VALUES (SEQ_TAG.NEXTVAL, ?, SYSDATE)
+	</entry>
+	
+	<!-- 해시태그 수정 -->
+	<entry key="hashtagUpdate">
+		UPDATE TB_TAG SET
+		TAG_NAME = ?
+		WHERE TAG_NO = ?
+	</entry>
+	
+	<!-- 해시태그 삭제 -->
+	<entry key="hashtagDelete">
+		DELETE FROM TB_TAG
+			WHERE TAG_NO = ?
 	</entry>
 </properties>
