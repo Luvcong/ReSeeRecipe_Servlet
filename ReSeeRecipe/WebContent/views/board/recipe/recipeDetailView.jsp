@@ -441,8 +441,8 @@
 	/* 요리과정 설명 */
 	#cookingInstructionContainer .cook-steps-inst-content {
 		width: 100%;
-		height: 80%;
-		padding: 30px;
+		height: 50%;
+		padding: 10px;
 	}
 
 	#cookingInstructionContainer .cook-steps-inst-content textarea {
@@ -624,10 +624,12 @@
 							</div>
 						
 							<div class="cook-steps-inst-title">
-								요리과정 제목
+								<p class="inst-title-lev">1</p><!--
+								--><p>요리과정제목</p>
+								</button>
 							</div>
 							<div class="cook-steps-inst-content">
-								요리과정 내용
+								<p>요리과정 내용</p>
 							</div>
 						</div>
 					<% } %>
