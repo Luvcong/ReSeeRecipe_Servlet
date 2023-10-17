@@ -88,13 +88,14 @@ public class ManagerSettingController extends HttpServlet {
 				// 관리자 정보 DB에서 다시 SELECT
 				// => loginMember에 들어있는 정보는 update 후 갱신 필요
 				Member manager = new ManagerService().managerSetting(adminNo);
-			
 				
-			
+				request.getSession().setAttribute("loginMember", manager);
+				
+				response.sendRedirect("views/manager/navbar.jsp");
+			} else {
+				request.setAttribute("errorMsg", "관리자 정보 수정 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
-		
-		
-		
 		
 		}
 		
@@ -108,11 +109,6 @@ public class ManagerSettingController extends HttpServlet {
 		
 		// 응답화면 띄우기
 		//request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
-	
-	
-	
-	
-	
 	}
 
 	/**

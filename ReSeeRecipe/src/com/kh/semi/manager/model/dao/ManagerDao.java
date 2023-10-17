@@ -50,6 +50,7 @@ public class ManagerDao {
 				m.setMemEmail(rset.getString("MEM_EMAIL"));
 				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				m.setModifyDate(rset.getDate("MODIFY_DATE"));
+				m.setMemPicture(rset.getString("MEM_PICTURE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
