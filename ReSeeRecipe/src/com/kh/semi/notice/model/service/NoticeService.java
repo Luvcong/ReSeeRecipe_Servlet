@@ -137,6 +137,6 @@ public class NoticeService {
 		*/
 		close(conn);
 		
-		return (result1 * result2 * result3);
+		return result1 / (result2 * result3); //(result1 * result2 * result3)
 	}
 }
