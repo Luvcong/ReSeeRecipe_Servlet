@@ -34,6 +34,12 @@
 		margin: auto;
 	}
 
+	/* > > 디테일뷰 내용 wrap div 세팅 */
+	#recipeDetailViewWrap {
+	width: 100%;
+	height: 2150px;
+	}
+
 	/*******************************************/
 	/* > > 상단바wrap div 세팅 */
 	#recipeDetailBarWrap {
@@ -66,8 +72,7 @@
 		width: 7%;
 		padding: 18px 0px 0px 17px;
 	}
-	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i
-	{
+	#recipeDetailBarView i, #recipeDetailBarHeart i, #recipeDetailBookmark i, #recipeDetailReport i	{
 		font-size: 45px;
 	}
 
@@ -94,51 +99,41 @@
 
 	/* 3. 조회수 컬러링 세팅 */
 	#recipeDetailBarView i {
+		color: rgb(255, 145, 77);
 	}
 	
 	/* 4. 좋아요 컬러링 세팅 */
 	#recipeDetailBarHeart i {
+		color: rgb(168, 19, 19);
 	}
 
 	/* 5. 북마크 컬러링 세팅 */
 	#recipeDetailBookmark i {
-
+		color: rgb(7, 81, 13);
+		
 	}
-
+	
 	/* 6. 신고 컬러링 세팅 */
 	#recipeDetailReport i {
-
+		color: rgb(48, 36, 36);
+		
 	}
+	
+	/*******************************************/
+
+
+
+
+
 
 	/*********************************************************************************************************************************/
 
 
 
 
+	
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*******************************************/
-
-
-	/* > > 입력폼wrap div 세팅 */
-	#recipe-enroll-context-wrap {
-		width: 100%;
-		height: 2150px;
-	}
 
 	/* > >... 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	#cook-steps-basic-info {
@@ -194,7 +189,7 @@
 
 
 	/**********************************************************
-		입력양식 내용 영역 (#recipe-enroll-context-wrap내부)
+		입력양식 내용 영역 (#recipeDetailViewWrap내부)
 	**********************************************************/
 	/* 1. 입력폼 내부 상단 div (썸네일 + 제목 + 재료입력) */
 	/* 여백 영역 */
@@ -571,22 +566,24 @@
 			</div>
 
 			<div id="recipeDetailBarHeart">
-				<i class="fa fa-heart"></i>
+				<i class="far fa-heart change-heart-bookmark-icons"></i>
+				<!--<i class="fa fa-heart change-heart-bookmark-icons"></i>하트눌렀을때-->
 			</div>
 
 			<div id="recipeDetailBookmark">
-				<i class="	far fa-bookmark"></i>
+				<i class="far fa-bookmark change-heart-bookmark-icons"></i>
+				<!--<i class="fas fa-bookmark change-heart-bookmark-icons"></i>북마크했을때-->
 			</div>
 
 			<div id="recipeDetailReport">
 				<i class="	fas fa-exclamation-circle"></i>
 			</div>
 		</div><!-- 입력양식 상단 바 영역 끝 -->
-
+		
 		
 	
 		<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
-		<div id="recipe-enroll-context-wrap">
+		<div id="recipeDetailViewWrap">
 			
 			<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 			<div id="cook-steps-basic-info">
