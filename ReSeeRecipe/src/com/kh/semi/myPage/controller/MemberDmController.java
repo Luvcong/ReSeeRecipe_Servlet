@@ -31,7 +31,7 @@ public class MemberDmController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		request.getRequestDispatcher("views/myPage/memberDmList.jsp").forward(request, response);
-	
+		
 	
 	
 	}
