@@ -55,11 +55,11 @@ public class RecipeService {
 	 * > ArrayList<Recipe> rList : 페이지네이션 처리되어 조회된 레시피 글 정보를 Recipe객체로 만든 후 ArrayList에 담음<br>
 	 * 	 Recipe필드 :  recipeNo, recipeTitle, recipeCount, titleImg, memNickName, htCount<br>
 	 */
-	public HashMap<String, Object> selectRecipeList(PageInfo pi) {
+	public ArrayList<Recipe> selectRecipeList(PageInfo pi) {
 		Connection conn = getConnection();
-		HashMap<String, Object> recipeMainViewMap = new RecipeDao().selectRecipeList(conn, pi);
+		ArrayList<Recipe> recipeList = new RecipeDao().selectRecipeList(conn, pi);
 		close(conn);
-		return recipeMainViewMap;
+		return recipeList;
 	}
 	
 	
@@ -102,6 +102,7 @@ public class RecipeService {
 			} else {
 				rollback(conn);
 			}
+		}
 		return returningResult;
 	}
 	

@@ -89,12 +89,11 @@ public class RecipeController {
 		// 페이지네이션을 위한 정보를 넘기며 서비스호출
 		// Recipe정보들 + 썸네일 사진 필요
 		//ArrayList<Recipe> rList = rs.selectRecipeList(pi);
-		HashMap<String, Object> recipeMainViewMap = rs.selectRecipeList(pi);
-		if(!recipeMainViewMap.isEmpty()) {
+		ArrayList<Recipe> recipeList = rs.selectRecipeList(pi);
+		if(!recipeList.isEmpty()) {
 			// 넘길 값 지정
 			request.setAttribute("pi", pi);
-			request.setAttribute("recipeList", recipeMainViewMap.get("reList"));
-			request.setAttribute("recipePicList", recipeMainViewMap.get("recipePicList"));
+			request.setAttribute("recipeList", recipeList);
 			// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 			viewPath = "/views/board/recipe/recipeMainView.jsp";
 		} else {
