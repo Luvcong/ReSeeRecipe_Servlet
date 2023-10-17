@@ -54,13 +54,13 @@
 			<a href="<%= contextPath %>"><i class="fa-solid fa-house"></i></a>
 			<a href="<%= contextPath %>/views/manager/managerMainView.jsp"><span>관리자 메뉴</span></a>
 		</div>
-		<div class="titleMenu" id="adminsetting" >
+ 		<div class="titleMenu" id="adminsetting" >
 			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
 				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
 				<img src="" alt="">정보 설정
 			</a>
-		</div>
+		</div> 
 	</div>
 	
 	<!-- 카테고리 리스트 -->
@@ -136,9 +136,8 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li><a href="#">쿠폰 등록/삭제</a></li>
-					<li><a href="#">쿠폰 발급</a></li>
-					<li><a href="#">쿠폰 사용내역</a></li>
+					<li onclick="goMenu('/jhselect.cp');"><a href="#">쿠폰 등록/삭제</a></li>
+					<li><a href="#">쿠폰 발급/내역</a></li>
 				</ul>
 			</div>
 		</div>	<!-- rs-navbar -->
