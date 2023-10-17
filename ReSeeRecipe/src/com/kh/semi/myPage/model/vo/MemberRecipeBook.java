@@ -2,9 +2,9 @@ package com.kh.semi.myPage.model.vo;
 
 public class MemberRecipeBook {
 	
-	private String mainPic;
-	private String title;
-	private String chefID;
+
+	private int recipeBookNum;
+	private String recipeBookTitle;
 	
 	
 	public MemberRecipeBook() {
@@ -12,50 +12,40 @@ public class MemberRecipeBook {
 	}
 
 
-	public MemberRecipeBook(String mainPic, String title, String chefID) {
+	public MemberRecipeBook(int recipeBookNum, String recipeBookTitle) {
 		super();
-		this.mainPic = mainPic;
-		this.title = title;
-		this.chefID = chefID;
+		this.recipeBookNum = recipeBookNum;
+		this.recipeBookTitle = recipeBookTitle;
 	}
 
 
-	public String getMainPic() {
-		return mainPic;
+	public int getRecipeBookNum() {
+		return recipeBookNum;
 	}
 
 
-	public void setMainPic(String mainPic) {
-		this.mainPic = mainPic;
+	public void setRecipeBookNum(int recipeBookNum) {
+		this.recipeBookNum = recipeBookNum;
 	}
 
 
-	public String getTitle() {
-		return title;
+	public String getRecipeBookTitle() {
+		return recipeBookTitle;
 	}
 
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public String getChefID() {
-		return chefID;
-	}
-
-
-	public void setChefID(String chefID) {
-		this.chefID = chefID;
+	public void setRecipeBookTitle(String recipeBookTitle) {
+		this.recipeBookTitle = recipeBookTitle;
 	}
 
 
 	@Override
 	public String toString() {
-		return "RecipeBook [mainPic=" + mainPic + ", title=" + title + ", chefID=" + chefID + "]";
+		return "MemberRecipeBook [recipeBookNum=" + recipeBookNum + ", recipeBookTitle=" + recipeBookTitle + "]";
 	}
 	
-
+	
+	
 	
 	
 }
