@@ -121,7 +121,7 @@
             <table id='tb-reward' class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th data-idx=0><input type="checkbox"></th>
+                        <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=2>아이디<div class="sort"></div></th>
                         <th data-idx=3>닉네임<div class="sort"></div></th>
@@ -142,7 +142,7 @@
 	                <% } else { %>
 	                	<% for(Reward reward : list) { %>
 	                    <tr>
-	                        <td><input type="checkbox"></td>
+	                        <td><input type="checkbox" onclick="checkOnce()"></td>
 	                        <td><%= reward.getRewardNo() %></td>
 	                        <td><%= reward.getMemId() %></td>
 	                        <td><%= reward.getMemNickname() %></td>
@@ -297,7 +297,7 @@
 			
 			// null처리
 			// 유형이 없을 경우 > confrim 버튼 disable로 변경
-			let confirm = document.querySelector('#nullCheck');
+			let confirm = document.getElementById('nullCheck');
 			// console.log(confirm);
 			if(event.target.value == null || event.target.value == ""){
 				confirm.setAttribute('disabled', true);
@@ -308,7 +308,7 @@
 		
 		// reward-score가 null이거나 "" 이면 disable? alert..
 		function checkReward(){
-			let reward = document.querySelector('#reward-score');
+			let reward = document.getElementById('reward-score');
 			console.log(reward);
 			// let reward = document.getElementById('reward-score');
 			if(reward.value == null || reward.value == ''){
@@ -341,7 +341,7 @@
 				return;
 			}
 			
-			let modal = document.querySelector('#updateRewardForm');
+			let modal = document.getElementById('updateRewardForm');
 			let modal_tds = modal.querySelectorAll('table tr td');
 			// console.log(modal_tds);	// 값 ok
 
@@ -368,6 +368,53 @@
 		}	// showAddRewardModal
 	</Script>
 	
+	<!-- 체크박스  -->
+	<script>
+		// 1) 전체 체크박스 선택 및 해제
+		function checkAll(){
+			
+			let table = document.getElementById('tb-reward');
+			let inputs = table.querySelectorAll('tr input');
+			
+			for(let input of inputs){
+				input.checked = event.target.checked;
+			}
+			
+			console.log(event.target);
+		}	// checkAll
+		
+		// 2) tr 체크박스 하나라도 해제 > 헤더 체크박스 해제
+		function checkOnce(){
+			let table = document.getElementById('tb-reward');
+			
+			let hd_input = table.querySelector('th input');
+			let inputs = table.querySelectorAll('tbody tr input');
+			// console.log(inputs);
+			
+			let checked_all = true;
+			
+			for(let input of inputs){
+				if(input.checked == false){
+					checked_all = false;
+					break;
+				}
+			}
+			hd_input.checked = checked_all;
+		}	// checkOnce
+	</script>
+	
+	<!-- 컬럼 sort  -->
+	<script>
+		$function(){
+			$('.table th').on('click', sortTable);
+			
+		}
+		
+		function sortTable(){
+			
+		}	// sortTable
+	
+	</script>
 	
 	
 	
