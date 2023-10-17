@@ -167,6 +167,20 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	// 회원 삭제(탈퇴)
+	public int memberDelete(int memberNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().memberDelete(conn, memberNo);
+		
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		return result;
+	}
 
 	/**
 	 * @return 전체 회원 수(Paging의 listCount)

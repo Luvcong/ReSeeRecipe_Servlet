@@ -154,6 +154,7 @@ public class RecipeController {
 			if(!recipeTagList.isEmpty()) {
 				recipeDetailMap.put("recipeTagList", recipeTagList);
 			}
+			request.setAttribute("recipeDetailMap", recipeDetailMap);
 			viewPath = "/views/board/recipe/recipeDetailView.jsp";
 		} else {
 			viewPath =  new SendError().sendError(request, "게시글 상세 조회에 실패했습니다");

@@ -14,6 +14,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Alert창 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	
     <style>
         /* Bordered form */
@@ -131,7 +134,7 @@
       <h1 id="title"><b>회원정보변경</b></h1>
       
       <!-- 사진을 바꿀 회원의 번호를 hidden으로 같이 넘겨주기  -->
-      <input type="hidden" name="memberNo" value="<%= loginMember.getMemNo() %>">
+      <input type="hidden" name="memberNo" id="memberNo" value="<%= loginMember.getMemNo() %>">
       <!-- 회원이 이미 등록된 사진이 있다면 hidden으로 같이 넘겨주기 -->
       <input type="hidden" name="memberPicture" value="<%= loginMember.getMemPicture() %>">
 
@@ -213,7 +216,11 @@
           </div>
 
         </div>
-            
+        <!-- 비밀번호 변경 모달창 끝 -->
+
+        <!-- 회원삭제버튼 -->
+        <button type="button" onclick="logcation.href='<%= contextPath %>/yrmemberDelete.me'">탈퇴하기</button>            
+
         </div>
         
       </div>
@@ -224,6 +231,69 @@
     <%@ include file="/views/common/footer.jspf" %>
 
     <script>
+
+      function deleteAlert(){
+
+        Swal.fire({
+          title: '정말로 탈퇴하시겠습니까?',
+          // showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: '탈퇴하기',
+          // denyButtonText: `안함`,
+          denyButtonText: `취소`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            // 탈퇴하기 버튼 클릭 시 함수 호출
+            memberDelete();
+          } 
+        })
+
+        // 탈퇴하기 DB ajax
+        function memberDelete(){
+        $.ajax({
+          url : 'yrmemberDelete.me',
+          data : {memberNo : $('#memberNo').val()},
+          // 회원 탈퇴 성공 시
+          success : function(result) {
+            if(result == 'NNNNY'){
+              Swal.fire({
+                title: '탈퇴 완료',
+                text: "탈퇴되었습니다.",
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: '확인'
+                }).then((result) => {
+                  // 확인버튼 클릭 시 메인회면으로 이동
+              if (result.isConfirmed) {
+                $(location).attr("href", "<%= contextPath %>");
+                }
+              })
+            // 회원 탈퇴 실패 시
+            } else{
+              Swal.fire({
+              icon: 'error',
+              title: '탈퇴 실패',
+              text: '오류가 반복되는 경우 관리자에게 문의하세요.',
+              })
+            }
+          },
+          // 중복체크 조회 실패 시
+          error : function(){
+            console.log('회원 탈퇴 AJAX통신 실패!');
+          }
+      })
+      };
+
+
+
+
+
+
+
+
+
+      }
 
         // 필요한 변수 선언
         const profileImg = document.getElementById('profileImg');
