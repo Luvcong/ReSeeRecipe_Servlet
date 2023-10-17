@@ -42,6 +42,8 @@ public class ManagerService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 }
