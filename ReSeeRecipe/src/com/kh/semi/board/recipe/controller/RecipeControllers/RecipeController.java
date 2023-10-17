@@ -132,7 +132,7 @@ public class RecipeController {
 	 */
 	public String recipeDetail(HttpServletRequest request, HttpServletResponse response) {
 		String viewPath = "";
-		
+		System.out.println("ddd");
 		RecipeService rs = new RecipeService();
 		Recipe r = rs.selectRecipeSingle(3);
 		System.out.println(r);

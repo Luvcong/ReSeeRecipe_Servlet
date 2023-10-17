@@ -70,6 +70,11 @@
 		width: 100%;
 		height: 151px;
 	}
+	
+	/* 쿼리스트링 넘길 RecipeNo 숨김처리 */
+	#SendDetailViewSelectedRecipeNo {
+		display: none;
+	}
 
 	/* 하단 top */
 	#recipeMainViewWrap .thumbnail-bottom-inner1 {
@@ -167,6 +172,7 @@
 						<!-- 하단 레시피정보부분 -->
 						<div class="thumbnail-bottom">
 							<div class="thumbnail-bottom-inner1 send-detail-view">
+								<span id="SendDetailViewSelectedRecipeNo"><%=recipeList.get(i).getRecipeNo()%></span>
 								<p><%= recipeList.get(i).getRecipeTitle() %></p>
 							</div>
 	
@@ -199,7 +205,7 @@
 		
 		<script>
 			$('.send-detail-view').on('click', function(){
-								
+				location.href = '<%=contextPath%>/recipeDetail.re?recipeNo=' + $('#SendDetailViewSelectedRecipeNo').text();					
 			});
 		
 		</script>
@@ -228,6 +234,7 @@
 		
 		<script>
 			$('#goPrevPage').click(function(){
+				
 				 location.href = '<%=contextPath%>/selectRecipeList.re?currentPage=<%= currentPage - 1 %>';
 			});
 		

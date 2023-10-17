@@ -55,6 +55,7 @@ public class RecipeDao {
 
 			try(ResultSet rset = pstmt.executeQuery()) {
 				if(rset.next()) {
+					recipe = new Recipe();
 					recipe.setRecipeNo(rset.getInt("RECIPE_NO"));
 					recipe.setRecipeTitle(rset.getString("RECIPE_TITLE"));
 					recipe.setRecipeDate(rset.getString("RECIPE_DATE"));
