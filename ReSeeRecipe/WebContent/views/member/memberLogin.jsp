@@ -114,16 +114,20 @@
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
 	
-	<% if(errorMsg != null){ %>
-		<script>
-		Swal.fire({
-			  icon: 'error',
-			  title: '로그인 실패',
-			  text: '아이디와 비밀번호를 다시 확인해 주세요.'
-			})
-		<% request.removeAttribute("errorMsg"); %>
-		</script>
-  	<% } %>
+
+  <script>
+
+    var msg = '<%= errorMsg %>';
+    if(msg != 'null'){
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 실패',
+        text: '아이디와 비밀번호를 다시 확인해 주세요.'
+      })
+      <% request.removeAttribute("errorMsg"); %>
+    }
+    </script>
+
 
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">

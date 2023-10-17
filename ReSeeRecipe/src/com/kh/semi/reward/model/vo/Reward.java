@@ -19,10 +19,13 @@ public class Reward {
 	private String memNickname;		//  MEM_NICKNAME	(관리자 리워드 리스트에 필요)
 	private String memGradeName;	//  MEM_GRADE_NAME	(관리자 리워드 리스트에 필요)
 	private int sumRewardScore;		//  누적리워드 필드 (관리자 리워드 리스트에 필요)
+	private int remainRewardScore;	//  남은리워드 (회원 리워드 조회)
+	private int rownum;				//  ROWNUM RNUM(조회 순서 번호)
 	
 	public Reward() {
 		super();
 	}
+
 
 	public Reward(int rewardNo, Date rewardDate, String rewardReason, int rewardScore, int memNo) {
 		super();
@@ -120,6 +123,22 @@ public class Reward {
 		this.sumRewardScore = sumRewardScore;
 	}
 
+	public int getRemainRewardScore() {
+		return remainRewardScore;
+	}
+	
+	public void setRemainRewardScore(int remainRewardScore) {
+		this.remainRewardScore = remainRewardScore;
+	}
+	
+	public int getRownum() {
+		return rownum;
+	}
+	
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	
 	@Override
 	public String toString() {
 		return "Reward [rewardNo=" + rewardNo + ", rewardDate=" + rewardDate + ", rewardReason=" + rewardReason
