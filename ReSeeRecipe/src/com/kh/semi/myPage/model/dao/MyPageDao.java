@@ -39,16 +39,31 @@ public class MyPageDao {
 		String sql = prop.getProperty("selectMemberCouponList");
 		
 		// 각 정렬에 따라 sql을 구분함
-		if(selected.equals("saleSort")) {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(sql);
+		
+		if("saleSort".equals(selected)) {
+			sb.append("COUPON_RATIO DESC");
+		} else if("limitSort".equals(selected)) {
+			sb.append("COUPON_ENDDATE ASC");
+		} else {
+			sb.append("MEMBER_COUPON_DATE DESC");
+		}
+		
+		/*
+		if("saleSort".equals(selected)) {
 			sql += "COUPON_RATIO DESC";
-		} else if(selected.equals("limitSort")) {
+		} else if("limitSort".equals(selected)) {
 			sql += "COUPON_ENDDATE ASC";
 		} else {
 			sql += "MEMBER_COUPON_DATE DESC";
 		}
+		*/
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sb.toString());
 			
 			pstmt.setInt(1, memberNo);
 			
