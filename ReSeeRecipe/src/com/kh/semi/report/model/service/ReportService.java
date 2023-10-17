@@ -58,6 +58,24 @@ public class ReportService {
 	
 	
 	
+	/**
+	 * 신고함 상세리스트 조회 요청 method
+	 * @return REPORT_NO && REPORT_CATEGORY_NO과 일치하는 값
+	 * @author JH
+	 * @Date : 2023. 10. 16.
+	 */
+	public ArrayList<Report> detailReportList(int reportNo, String categoryName){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Report> list = reportDao.datailReportList(conn, reportNo, categoryName);
+		
+		close(conn);
+		
+		return list;
+	}	// detailReportList
+	
+	
 	
 	
 }	// end class
