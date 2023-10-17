@@ -95,7 +95,7 @@
         height:400px;
         }
         .myRecipeList{
-        bolder:1px solid black;
+        border:1px solid black;
         width:250px;
         height:250px;
         float: left;
@@ -231,8 +231,8 @@
             <div id="sideMenu">
                 <ul>
                     <li id="listMenu"><a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">회원정보 변경</a></li>
-                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberRewardList.mp">리워드</a></li>
-                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberCouponList.mp">쿠폰</a></li>
+                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberRewardList.mp?memNo=<%= loginMember.getMemNo() %>">리워드</a></li>
+                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberCouponList.mp?memNo=<%= loginMember.getMemNo() %>&selected=recentSort">쿠폰</a></li>
                     <li id="listMenu"><a href="">선물함</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/recipeBook.me">레시피북</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/subscribeChef.me">구독셰프</a></li>

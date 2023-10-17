@@ -144,6 +144,7 @@
        	<% } %>
         <input type="file" name="profileInput" id="profileInput" onchange="loadImg(this);">
       </div>
+
       
       <!-- 정보 내용 변경 -->
       <div class="container">
