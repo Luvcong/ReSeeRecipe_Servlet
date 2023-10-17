@@ -87,11 +87,9 @@ public class RecipeDao {
 	 * @param pi : 페이지네이션 처리를 위한 정보가 담긴 PageInfo객체<br>
 	 * @return
 	 */
-	public HashMap<String, Object> selectRecipeList(Connection conn, PageInfo pi) {
+	public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi) {
 		
-		HashMap<String, Object> recipeMainViewMap = new HashMap();
 		ArrayList<Recipe> recipeList = new ArrayList();
-		ArrayList<RecipePic> recipePicList = new ArrayList();
 		String sql = prop.getProperty("selectRecipeList");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -108,19 +106,13 @@ public class RecipeDao {
 					recipe.setTitleImg(rset.getString("TITLEIMG"));
 					recipe.setMemNickName(rset.getString("MEM_NICKNAME"));
 					recipe.setHtCount(rset.getInt("HT_COUNT"));
-					
-					RecipePic recipePic = new RecipePic();
-					recipePic.setString
-					
-					
+					recipeList.add(recipe);
 				}
-				recipeMainViewMap.put("recipe", recipe);
-				recipeMainViewMap.put("recipe", recipe);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return recipeList;
 	}
 	
 	
