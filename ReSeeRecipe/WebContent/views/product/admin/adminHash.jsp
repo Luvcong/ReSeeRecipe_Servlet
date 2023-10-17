@@ -156,24 +156,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>1</td>
-                            <td>#ㅁㄴㅇㄹ</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>2</td>
-                            <td>2023-09-23</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>3</td>
-                            <td>2023-09-22</td>
-                            <td>6</td>
-                        </tr>
+                    	<% if(list == null || list.isEmpty()) { %>
+   	                <tr>
+	                    <td colspan="4">등록한 해시태그가 없습니다</td>
+	                </tr>
+                    <% } else { %>
+                    	<% for(Tag tag : list) { %>
+	                    <tr>
+	                        <td><input type="checkbox"></td>
+	                        <td><%= tag.getTagNo() %></td>
+	                        <td><%= tag.getTagName() %></td>
+	                        <td><%= tag.getTagCount() %></td>
+	                    </tr>	
+	                    <% } %>
+					<% } %>    
+                    
                     </tbody>
                 </table>
             </div>
@@ -196,12 +193,10 @@
 				<button onclick="page('<%= currentPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
 			<% } %>
 		</div>	<!-- 페이징바 -->
-    	
-    	
 
 	<!-- 해시태그 추가  modal창 -->
  	<div class="modal" id="addHashTagForm">
-		<form method="get" action="">
+		<form method="get" action="hsinsert.hs">
 	        <div class="modal-dialog">
 	            <div class="modal-content">
 	                <!-- Modal Header -->
@@ -211,14 +206,13 @@
 	                </div> 
 	                <!-- Modal body -->
 	                <div class="modal-body">
-							<input type="hidden" name="">
 							<table class="modal-table" border="1">
 								<tr>
 									<th>해시태그명</th>
 								</tr>
 								<tr>
-									<td><input type="text" name="r">
-									<label for=""></label>
+									<td><input type="text" name="hstagName">
+									<label for="hstagName"></label>
 									</td>
 								</tr>
 							</table>
@@ -256,7 +250,7 @@
 							<td><input type="text" name="" readonly></td>
 						</tr>
 						<tr>
-							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 20 byte</div></th>
+							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 30 byte</div></th>
 							<td>
 								<input type="text" name="" placeholder="변경 해시태그명을 입력하세요" onkeyup="checkedByte(this)">
 							</td>
@@ -299,7 +293,6 @@
 	
 	<script>
 		function showAddHashTagModal(){
-			
 			$('#addHashTagForm').modal('show');
 		}
 		

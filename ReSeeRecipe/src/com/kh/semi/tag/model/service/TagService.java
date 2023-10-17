@@ -1,7 +1,6 @@
 package com.kh.semi.tag.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -38,6 +37,22 @@ public class TagService {
 		return list;
 	}
 	
+	public int hashTagInsert(String hstagName) {
+		
+		Connection conn = getConnection();
+		
+		int result = new TagDao().hashTagInsert(conn, hstagName);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 	
 	
 	
