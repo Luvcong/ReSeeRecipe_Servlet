@@ -344,6 +344,25 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// 회원 삭제(탈퇴)
+	public int memberDelete(Connection conn, int memberNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("memberDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 	/**
