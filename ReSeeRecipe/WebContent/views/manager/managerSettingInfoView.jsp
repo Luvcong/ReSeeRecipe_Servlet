@@ -3,8 +3,9 @@
 <%@ page import="com.kh.semi.member.model.vo.Member" %>
 <%
     //Member loginMember = (Member)session.getAttribute("loginMember");
-    Member m = (Member)request.getAttribute("m");
+   // Member m = (Member)request.getAttribute("m");
     String mp = (String)request.getAttribute("mp");
+    Member m = (Member) session.getAttribute("m");
 %>
 <!DOCTYPE html>
 <html>
@@ -42,14 +43,15 @@
                     <tr>
                         <th>관리자 프로필</th>
                         <td colspan="3">
-                            <% if(m.getMemPicture() == null) { %>
-                            <!-- 프로필 사진이 없을 경우 -->
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="profileImg" width="150" height="150">
-                                프로필 사진이 없어요 ~
-                            <% } else { %>
+                            <% if(m.getMemPicture() != null) { %>
                             <!-- 프로필 사진이 있을 경우 -->
                             	<img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
+                            <% } else { %>
+                            <!-- 프로필 사진이 없을 경우 -->
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="profileImg" width="150" height="150">
                                 <a href="<%=contextPath%>/<%=m.getMemPicture() %>"></a>
+                                프로필 사진이 없어요 ~
+                            
                             <% } %>
                         </td>
                     </tr>

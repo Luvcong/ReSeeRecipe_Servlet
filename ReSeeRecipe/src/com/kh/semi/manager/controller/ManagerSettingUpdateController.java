@@ -65,15 +65,16 @@ public class ManagerSettingUpdateController extends HttpServlet {
 			m.setMemName(adminName);
 			m.setMemNickname(adminNickname);
 			m.setMemEmail(adminEmail);
-
+			
 			// 프로필 사진 수정을 누르면 무조건 사진 있음. 그러나 기본값 = null
 
-			String adminPicture = null;
+			String adminPicture = "";
 
 			if (multiRequest.getOriginalFileName("adminpic") != null) {
 
 				// 회원 프로필 사진은 회원 테이블에 존재
-				adminPicture = "/resources/profile_upfiles/" + multiRequest.getFilesystemName("adminpic");
+				//adminPicture = "/resources/profile_upfiles/" + multiRequest.getFilesystemName("adminpic");
+				 adminPicture = "/resources/profile_upfiles/" + multiRequest.getFilesystemName("adminpic");
 			}
 
 			// 4) 서비스 호출 관리자 번호와 프로필파일 경로 + 수정명 DB MEM_PICTURE에 저장
@@ -85,9 +86,9 @@ public class ManagerSettingUpdateController extends HttpServlet {
 
 				// 관리자 정보 DB에서 다시 SELECT
 				// => loginMember에 들어있는 정보는 update 후 갱신 필요
-				//Member manager = new ManagerService().managerSetting(adminNo);
+				Member manager = new ManagerService().managerSetting(adminNo);
 
-				//request.setAttribute("m", manager);
+				request.getSession().setAttribute("m", manager);
 
 				// 응답화면 띄우기
 				//response.sendRedirect(request.getContextPath() + "hlsettingmanager.ma?adno=" + adminNo);
