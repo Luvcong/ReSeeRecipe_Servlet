@@ -776,7 +776,7 @@
 		   	<br><br><br><br><br>
     	</div>
     	
-   
+
     	<script>
 	    	var recipeNo = <%= recipe.getRecipeNo() %>;
 			
@@ -806,8 +806,9 @@
 					data : {
 						recipeNo : recipeNo
 					},
-					success : function(){
+					success : function(result){
 						console.log('삭제 성공!');
+						console.log(result);
 					},
 					error : function() {
 						alert('삭제에 실패했습니다');
@@ -819,27 +820,34 @@
 			// 댓글 리스트 조회
 			function ajaxSelectRecipeReplyList(){
 				$.ajax({
+					type : "POST",
 					url : 'ajaxSelectRecipeReplyList.ar',
 					data : { recipeNo : recipeNo },
-					
+					success : function(result){
+						alert('조회 성공!');
+						console.log(result);
+					},
+					error : function() {
+						alert('조회에 실패했습니다');
+					}
 				});
 			};
 			
 			// onload 시 댓글리스트 갱신 기능 호출
 			$(function(){
 				ajaxSelectRecipeReplyList();
-				setInterval(ajaxSelectRecipeReplyList, 1500);
+				//setInterval(ajaxSelectRecipeReplyList, 1500); // 인터벌 잠시 off
 			});
-			
 			
 			// 댓글 작성
     		function ajaxInsertRecipeReply(){
-				$.ajax(function(){
+				$.ajax({
 					type : 'POST',
 					url : 'ajaxInsertRecipeReply.ar',
 					data : { recipeNo : recipeNo },
-					success : function(){
+					success : function(result){
 						console.log('댓글 작성 성공!');
+						console.log(result);
 					},
 					error : function() {
 						alert('댓글 작성에 실패했습니다');
@@ -851,9 +859,12 @@
     		function recipeDetailReplylogIn(){
     			location.href = '<%=contextPath%>/yrloginForm.me';
     		};
-    	
-    	</script>
+    		
+    		
+    		
 		
+    	</script>
+
 		
 		
 	</div>
