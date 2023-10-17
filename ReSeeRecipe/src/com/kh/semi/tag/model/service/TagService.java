@@ -1,10 +1,12 @@
 package com.kh.semi.tag.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.tag.model.dao.TagDao;
 import com.kh.semi.tag.model.vo.Tag;
 
@@ -24,5 +26,20 @@ public class TagService {
 		
 		return list;
 	}
+	
+	public ArrayList<Tag> selectPHashTag(PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Tag> list = new TagDao().selectPHashTag(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
 
 }

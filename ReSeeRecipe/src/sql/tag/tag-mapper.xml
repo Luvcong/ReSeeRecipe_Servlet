@@ -21,4 +21,17 @@
 		 WHERE 
 		 		TAG_NAME = ?
 	</entry>
+	
+	<!-- 해시태그 조회 페이징처리까지 -->
+	<entry key="selectPHashTag">
+		SELECT *
+		    FROM (SELECT ROWNUM RNUM, A.*
+		            FROM (SELECT
+		                        TAG_NO,
+		                        TAG_NAME
+		                    FROM
+		                        TB_TAG
+		                    ORDER BY TAG_NO) A)
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
