@@ -248,28 +248,23 @@ public class RecipeController {
 				}
 				
 				
-				// (recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번 (나중에 화면단 재료입력란 사진추가 설정하기)
-				// ArrayList<RecipePic> 세팅, 사진 테이블 올린 것 있을 수도 있고 없을 수도 있음, 0은 썸네일 나머지는 요리과정
+				// ArrayList<RecipePic> 세팅, (recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번)
 				ArrayList<RecipePic> recipePicList = new ArrayList();
 				for(int i = 0; i < 7; i++) {
 					String recipeNameOriginKey = "recipeNameOrigin" + i;
-					String recipePicLevKey = "recipePicLev" + i;
 					// 이 항목들이 모두 데이터가 있다면
 					if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
-						|| multiRequest.getFilesystemName(recipeNameOriginKey) == null
-						|| multiRequest.getParameter(recipePicLevKey) == null)) {
+						|| multiRequest.getFilesystemName(recipeNameOriginKey) == null)) {
 						// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 						RecipePic recipePic = new RecipePic();
 						recipePic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
 						recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipeNameOriginKey));
 						recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics/");
-						recipePic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
+						recipePic.setRecipePicLev(i); /* 0번은 썸네일, 1 ~ 6은 요리 과정 사진 */
 						recipePicList.add(recipePic);
 					}
 				}
-				
-				
-				
+
 				
 				// ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
 				ArrayList<Ingredient> ingredientList = new ArrayList();
@@ -288,21 +283,19 @@ public class RecipeController {
 				}
 				
 				
-				// CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent, cookStepsLev에 값이 존재한다면  ArrayList<CookSteps>화  */
+				// CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면  ArrayList<CookSteps>화  */
 				ArrayList<CookSteps> cookStepsList = new ArrayList();
 				for(int i = 0; i < 6; i++) {
 					String csTitleKey = "cookStepsTitle" + i;
 					String csContentKey = "cookStepsContent" + i;
-					String csLev = "cookStepsLev" + i;
 					// 이 항목들이 모두 데이터가 있다면
 					if( !(multiRequest.getParameter(csTitleKey) == null
-						|| multiRequest.getParameter(csContentKey) == null
-						|| multiRequest.getParameter(csLev) == null)) {
+						|| multiRequest.getParameter(csContentKey) == null)) {
 						// CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
 						CookSteps cookSteps = new CookSteps();
 						cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 						cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
-						cookSteps.setCookStepsLev(Integer.parseInt(multiRequest.getParameter(csLev)));
+						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 1 ~ 6까지 */
 						cookStepsList.add(cookSteps);
 					}
 				}
@@ -339,7 +332,7 @@ public class RecipeController {
 				}
 			}
 		} else {
-			return new SendError().sendError(request, "로그인이 필요한 서비스입니다");
+			viewPath = new SendError().sendError(request, "로그인이 필요한 서비스입니다");
 		}
 		return viewPath;
 	}

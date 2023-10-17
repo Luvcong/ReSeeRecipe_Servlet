@@ -607,12 +607,11 @@
 		});
 	</script>
 
-	<div id="recipeDetailWrap"><!-- 전체 wrap 시작 -->
+	<div id="recipeDetailWrap">
+	
 		<% if(recipeDetailMap != null) { %>
-		
-			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipeDetailBarWrap">
-				<!-- 카테고리 선택 영역 -->
+			
 				<div id="recipeDetailBarImg">
 					<i class='fas fa-align-left'></i>
 				</div>
@@ -638,14 +637,11 @@
 				<div id="recipeDetailReport">
 					<i class="	fas fa-exclamation-circle"></i>
 				</div>
-			</div><!-- 입력양식 상단 바 영역 끝 -->
-			
+			</div>
 			
 		
-			<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
 			<div id="recipeDetailViewWrap">
 				
-				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
 				<div id="DetailCookStepsBasicInfo">
 					<div class="detail-view-cook-steps-input-content">
 						<div id="detailViewChefHashtag">
@@ -655,9 +651,9 @@
 									<%= recipe.getRecipeDate() %>
 								</div>
 							</div>
+							
 							<div id="detailViewTagDiv1">
 								<div id="detailViewTagDiv2">
-									<!-- 해시태그가 있다면! IF문 필요! 기본은 그냥 ReSeeRecipe띄워주기 -->
 									<% if(recipeTagList != null) { %>
 										<% for(int i = 0; i < recipeTagList.size(); i++) { %>
 											<div class="detailTagList">#<%= recipeTagList.get(i).getTagName() %></div>
@@ -665,20 +661,19 @@
 									<% } else { %>
 										<div class="detailTagList">#ReSeeRecipe</div>
 									<% } %>
-
 								</div>
 							</div>
 						</div>
-	
 						<div id="detailViewThumbnailImg">
 							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
 					</div>
+					
+					
 					<div class="detail-view-cook-steps-input-content">
 						<div id="detailViewRecipeTitle1">
 							<p>레시피 제목</p>
 						</div>
-	
 						<div id="detailViewIngredientTitle">
 							<div id="detailIngredientInner1">
 								<h3>재료</h3>
@@ -699,7 +694,6 @@
 										</div>
 									<% } %>
 								</div>
-							
 								<div id="detailIngredientRight">
 									<% for (int i = 15; i < 30; i++) { %>
 										<div id="ingredientContainer<%= i %>" class="ingredientContainer">
@@ -720,38 +714,34 @@
 					</div>
 				</div>
 	
+	
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
-					<% for(int i = 0; i < 6; i++) { %>
+					<% for(int i = 0; i < cookStepsList.size(); i++) { %>
 						<div id="cookStepsInstInner1">
 							<div class="cook-steps-inst-pic">
 								<img src="" d>
 							</div>
-						
 							<div class="cook-steps-inst-title">
-								<p class="inst-title-lev">1</p><!--
-								--><p>요리과정제목</p>
-								</button>
+								<p class="inst-title-lev"><%= cookStepsList.get(i).getCookStepsLev() %></p><!--
+								--><p><%= cookStepsList.get(i).getCookStepsTitle() %></p>
 							</div>
 							<div class="cook-steps-inst-content">
-								<p>요리과정 내용</p>
+								<p><%= cookStepsList.get(i).getCookStepsContent() %>요리과정 내용</p>
 							</div>
 						</div>
 					<% } %>
 				</div>
-	
-				<!-- 레시피 작성 요청 / 초기화 버튼 (script로 요청) -->
 				<div id="cook-steps-buttons" align="center">
 					<div>
-						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary" onclick="history.back()">뒤로가기</button>
+						<button type="button" id="recipe-enrolling-btn" class="btn btn-primary" onclick="history.back();">뒤로가기</button>
 					</div>
 				</div>
 			</div>
 		<% } else { %>
 			<div>조회 결과가 없습니다</div>
 		<% } %>
-			<!---------------------- 레시피 글 작성 내용 영역 끝 ---------------------->
 	</div>
-	<!---------------------- 전체 wrap 끝 ---------------------->
+	
 </body>
 </html>
