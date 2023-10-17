@@ -170,6 +170,17 @@
 		   	   MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 회원 삭제(탈퇴) -->
+	<entry key="memberDelete">
+		UPDATE
+			   TB_MEMBER
+		   SET
+			   MEM_STATUS = 'N'
+		 WHERE 
+		 	   MEM_NO = ?,
+		   AND
+			   MEM_STATUS = 'Y'
+	</entry>
 	
 
 	
