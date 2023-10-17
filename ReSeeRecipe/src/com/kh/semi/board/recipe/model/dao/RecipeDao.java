@@ -1,5 +1,8 @@
 package com.kh.semi.board.recipe.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,6 +18,7 @@ import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
+import com.kh.semi.board.recipe.model.vo.RecipeTag;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeDao {
@@ -32,7 +36,115 @@ public class RecipeDao {
 
 	/****************************************************************************/
 	
-	/* ************************** 단일 SELECT 종류 ************************** */
+	/* ************************** SELECT 종류 ************************** */	
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 레시피테이블(TB_RECIPE) 모든 정보와 작성자 닉네임, 카테고리 번호와 이름을 조회하는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public Recipe selectRecipeSingle(Connection conn, int recipeNo) {
+		Recipe recipe = null;
+		String sql = prop.getProperty("");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return recipe;
+	}
+	
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 사진테이블(TB_RECIPE_PIC) 모든 정보를 조회하는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<RecipePic> selectRecipePicSingle(Connection conn, int recipeNo) {
+		ArrayList<RecipePic> reciepPicList = new ArrayList();
+		String sql = prop.getProperty("");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return reciepPicList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 재료테이블(TB_INGREDIENT) 모든 정보를 조회하는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<Ingredient> selectIngredientSingle(Connection conn, int recipeNo) {
+		ArrayList<Ingredient> ingredientList = new ArrayList();
+		String sql = prop.getProperty("");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ingredientList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 요리 과정 테이블(TB_COOK_STEPS) 모든 정보를 조회하는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<CookSteps> selectCookStepsSingle(Connection conn, int recipeNo) {
+		ArrayList<CookSteps> cookStepsList = new ArrayList();
+		String sql = prop.getProperty("");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cookStepsList;
+	}
+	
+	/**
+	 * 레시피 번호로 해당 레시피의 해시태그 테이블(TB_RECIPE_TAG) 모든 정보와 해시태그 이름, 날짜를 조회하는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public ArrayList<RecipeTag> selectRecipeTagSingle(Connection conn, int recipeNo) {
+		ArrayList<RecipeTag> recipeTagList = new ArrayList();
+		String sql = prop.getProperty("");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, recipeNo);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return recipeTagList;
+	}
+	
+	
 	
 	
 	

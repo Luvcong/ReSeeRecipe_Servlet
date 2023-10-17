@@ -20,7 +20,7 @@ import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
 	
-	/* ************************** 단일 SELECT 종류 ************************** */
+	/* ************************** SELECT 종류 ************************** */
 	/**
 	 * 레시피 번호로 해당 레시피의 레시피테이블(TB_RECIPE) 모든 정보와 작성자 닉네임, 카테고리 번호와 이름을 조회하는 기능
 	 * @param recipeNo
