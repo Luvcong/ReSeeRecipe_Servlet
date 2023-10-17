@@ -24,7 +24,6 @@
     #adminupdatebtn{
         text-align : center;
     }
-
 </style>
 
 
@@ -45,9 +44,11 @@
                         <td colspan="3">
                             <% if(mp == null) { %>
                             <!-- 프로필 사진이 없을 경우 -->
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="profileImg" width="150" height="150">
                                 프로필 사진이 없어요 ~
                             <% } else { %>
                             <!-- 프로필 사진이 있을 경우 -->
+                            	<img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
                                 <a href="<%=contextPath%>/<%=m.getMemPicture() %>"></a>
                             <% } %>
                         </td>
@@ -78,8 +79,8 @@
                     </tr>               
                 </table>
                 <br><br>
-                <div id="memberdetailbtn">
-                    <a href="<%=contextPath %>/hhlsettingmanager.ma?adNo=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="adminupdatebtn">수정하기</a>
+                <div id="admindetailbtn">
+                    <a href="<%=contextPath %>/hladminupdateForm.ma?adNo=<%=m.getMemNo() %>" class="w3-button w3-round w3-yellow" id="adminupdatebtn">수정하기</a>
                  <!-- <button type="submit" id="memberupdatebtn" class="w3-button w3-round w3-yellow">수정하기</button>-->
                     <button type="button" class="w3-button w3-round w3-yellow" onclick="history.back();">목록으로</button>
                 </div>
