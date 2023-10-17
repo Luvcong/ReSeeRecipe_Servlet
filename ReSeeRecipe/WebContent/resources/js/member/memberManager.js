@@ -1,3 +1,5 @@
+// memberManager.jsp
+
 /** header 아래에 위치
  * 회원 검색
  */

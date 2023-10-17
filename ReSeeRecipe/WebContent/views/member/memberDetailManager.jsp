@@ -17,16 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<style>
-    h2{
-        text-align: center;
-    }
-
-    #memberdetailbtn{
-        text-align : center;
-    }
-
-</style>    
+	
+	<link rel="stylesheet" href="resources/css/member/memberDetailManager.css">  
 </head>
 <body>
 	<%@ include file="../manager/navbar.jsp" %>
@@ -77,35 +69,5 @@
 </div>
 </body>
 
-<script>
-
-	// 회원 정보 수정 폼으로 Ajax 처리
-	/*
-	$(function(){
-		$('#memberupdatebtn').on("click", updateMemberForm);
-		
-	});
-	*/
-	
-	
-	function updateMemberForm(){
-		$.ajax({
-			url : 'hlupdatemeberForm.ma',
-			data : {mno : <%=m.getMemNo() %>},
-			success : function(result){
-				console.log(result);
-				console.log('회원 정보 수정 성공');
-				$('.rs-content').html(result);
-			},
-			error : function(result){
-				console.log('회원 정보 수정 실패');
-				$('.rs-content').text('회원 정보 수정이 되지 않습니다');
-			}
-		})
-
-	}
-	
-	
-
-</script>
+<!-- <script src="resources/js/member/memberDetailManager.js"></script> -->
 </html>
