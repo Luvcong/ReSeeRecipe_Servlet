@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.kh.semi.board.recipe.model.dao.RecipeDao;
 import com.kh.semi.board.recipe.model.vo.CookSteps;
 import com.kh.semi.board.recipe.model.vo.Ingredient;
@@ -16,6 +19,8 @@ import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.RecipeTag;
+import com.kh.semi.board.recipe.model.vo.Reply;
+import com.kh.semi.common.SendError;
 import com.kh.semi.common.model.vo.PageInfo;
 
 public class RecipeService {
@@ -47,6 +52,7 @@ public class RecipeService {
 		return reciepPicList;
 	}
 	
+	
 	/**
 	 * 레시피 번호로 해당 레시피의 재료테이블(TB_INGREDIENT) 모든 정보를 조회하는 기능
 	 * @param recipeNo
@@ -58,6 +64,7 @@ public class RecipeService {
 		close(conn);
 		return ingredientList;
 	}
+	
 	
 	/**
 	 * 레시피 번호로 해당 레시피의 요리 과정 테이블(TB_COOK_STEPS) 모든 정보를 조회하는 기능
@@ -72,18 +79,35 @@ public class RecipeService {
 		return cookStepsList;
 	}
 	
+	
 	/**
 	 * 레시피 번호로 해당 레시피의 해시태그 테이블(TB_RECIPE_TAG) 모든 정보와 해시태그 이름, 날짜를 조회하는 기능
 	 * @param recipeNo
 	 * @return
 	 */
 	public ArrayList<RecipeTag> selectRecipeTagSingle(int recipeNo) {
-	Connection conn = getConnection();
+		Connection conn = getConnection();
 		ArrayList<RecipeTag> recipeTagList = new RecipeDao().selectRecipeTagSingle(conn, recipeNo);
 		close(conn);
 		return recipeTagList;
 	}
-
+	
+	
+	/**
+	 * 특정 번호 레시피(PK)에 달린 댓글 리스트를 조회하는 기능<br>
+	 */
+	public ArrayList<Reply> selectRecipeReplySingle(int recipeNo) {
+		Connection conn = getConnection();
+		ArrayList<Reply> recipeReplyList = new RecipeDao().selectRecipeReplySingle(conn, recipeNo);
+		close(conn);
+		return recipeReplyList;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -98,11 +122,7 @@ public class RecipeService {
 		close(conn);
 		return cList;
 	}
-	
-	
-	
-	
-	
+
 	
 	/**
 	 * 레시피 개수 조회
@@ -133,6 +153,11 @@ public class RecipeService {
 		return recipeList;
 	}
 	
+	
+	
+	
+	
+	/* ************************** INSERT 종류 ************************** */
 	
 	
 	/**
@@ -186,10 +211,31 @@ public class RecipeService {
 	
 	
 	
+	/* ***************************** AJAX 요청 처리 ***************************** */
 	
 	
+	/**
+	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능 
+	 */
+	public void ajaxModifyRecipeReply(Connection conn, int recipeNo) {
+		
+	}
 	
+	/**
+	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
+	 */
+	public void ajaxDeleteRecipeReply(Connection conn, int recipeNo) {
+		
+	}
 	
+
+	
+	/**
+	 * 현재 로그인한 상태라면 특정 번호 레시피(PK)에 댓글을 입력하는 기능
+	 */
+	public void ajaxInsertRecipeReply(Connection conn, int recipeNo) {
+		
+	}
 	
 	
 	

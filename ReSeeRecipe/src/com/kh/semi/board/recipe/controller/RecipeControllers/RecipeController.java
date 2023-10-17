@@ -20,6 +20,7 @@ import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
 import com.kh.semi.board.recipe.model.vo.RecipeTag;
+import com.kh.semi.board.recipe.model.vo.Reply;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.common.SendError;
@@ -163,42 +164,6 @@ public class RecipeController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * ajax요청을 받아 해시태그의 정보(번호, 이름, 날짜)를 조회해 반환
-	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
-	 * > Tag의 필드 : tagNo, tagName, tagDate
-	 * @throws IOException 
-	 * @throws JsonIOException 
-	 */
-	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
-		
-		// 해시태그 정보 조회
-		ArrayList<Tag> tagList = new TagService().selectALlTagname();
-		
-		// 형식 + 인코딩 설정 / Gson 응답
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(tagList, response.getWriter());
-	}
-	
-	
 	/**
 	 * 레시피 글을 작성하는 기능
 	 * @param request : memNo : 로그인 멤버의 정보
@@ -336,6 +301,76 @@ public class RecipeController {
 		}
 		return viewPath;
 	}
+	
+	
+	
+	/* ***************************** AJAX 요청 처리 ***************************** */
+	
+	/**
+	 * ajax요청을 받아 해시태그의 정보(번호, 이름, 날짜)를 조회해 반환
+	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
+	 * > Tag의 필드 : tagNo, tagName, tagDate
+	 */
+	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		// 해시태그 정보 조회
+		ArrayList<Tag> tagList = new TagService().selectALlTagname();
+		
+		// 형식 + 인코딩 설정 / Gson 응답
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(tagList, response.getWriter());
+	}
+	
+	
+	/**
+	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능<br>
+	 * 수정에 성공할 시 int형 숫자 1, 실패 시 0 반환
+	 * @param request
+	 * @param response
+	 */
+	public void ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+	
+	/**
+	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
+	 * @param request
+	 * @param response
+	 */
+	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+	
+	/**
+	 * 특정 번호 레시피(PK)에 달린 댓글 리스트를 조회하는 기능<br>
+	 * (페이징처리 나중에)
+	 * @param request : 레시피 PK
+	 * @param response : 리플목록이 담긴 ArrayList
+	 */
+	public void ajaxSelectRecipeReplyList(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		// 변수세팅 + 값뽑기
+		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		
+		// Service요청
+		ArrayList<Reply> recipeReplyList = new RecipeService().selectRecipeReplySingle(recipeNo);
+		
+		// 형식+인코딩 지정 & 응답 Gson
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(recipeReplyList, response.getWriter());
+	}
+	
+	/**
+	 * 현재 로그인한 상태라면 특정 번호 레시피(PK)에 댓글을 입력하는 기능
+	 * @param request
+	 * @param response
+	 */
+	public void ajaxInsertRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+		
+	}
+	
+
+	
 	
 	
 	

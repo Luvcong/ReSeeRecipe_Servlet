@@ -626,7 +626,7 @@
 	
 				<div id="recipeDetailBarHeart">
 					<div>
-						<button onclick="ajaxModifyRecipe();">수정하기</button>
+						<button onclick="ajaxModifyRecipeReply();">수정하기</button>
 					</div>
 					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-heart change-heart-bookmark-icons"></i>
@@ -634,7 +634,7 @@
 				</div>
 				<div id="recipeDetailBookmark">
 					<div>
-						<button onclick="ajaxDeleteRecipe();">삭제하기</button>
+						<button onclick="ajaxDeleteRecipeReply();">삭제하기</button>
 					</div>
 					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-bookmark change-heart-bookmark-icons"></i>
@@ -758,7 +758,7 @@
 		   					<td>
 		   						<textarea id="replyContent" cols="50" rows="3" style="resize:none"></textarea>
 		   					</td>
-		   					<td><button onclick="ajaxRecipeInsertReply();">댓글등록</button></td>
+		   					<td><button onclick="ajaxInsertRecipeReply();">댓글등록</button></td>
 		   				<!-- 여기까지 로그인 사용자만 -->
 		   					<td>
 		   						<textarea readonly cols="50" rows="3" style="resize:none">로그인 후 이용 가능한 서비스입니다</textarea>
@@ -769,32 +769,22 @@
 		   				<!-- 그 외의 경우 -->
 		   			</tr>
 		   		</thead>
-		   		<tbody> <!-- 댓글이 뿌려질 영역 -->
-		   		
+		   		<tbody>
+		   			<!-- 댓글이 뿌려질 영역 -->
 		   		</tbody>
 		   	</table>
 		   	<br><br><br><br><br>
     	</div>
     	
-    	
-    	
-    	<script>
-				$(function(){
-					
-					
-					
-					
-					
-				});
-			</script>
+   
     	<script>
 	    	var recipeNo = <%= recipe.getRecipeNo() %>;
 			
 			// 글 수정
-			function ajaxModifyRecipe(){
+			function ajaxModifyRecipeReply(){
 				$.ajax({
 					type : 'POST',
-					url : 'ajaxModifyRecipe.ar',
+					url : 'ajaxModifyRecipeReply.ar',
 					data : {
 						recipeNo : recipeNo
 					},
@@ -809,10 +799,10 @@
 			};
 			
 			// 글 삭제
-			function ajaxDeleteRecipe(){
+			function ajaxDeleteRecipeReply(){
 				$.ajax({
 					type : 'POST',
-					url : 'ajaxDeleteRecipe.ar',
+					url : 'ajaxDeleteRecipeReply.ar',
 					data : {
 						recipeNo : recipeNo
 					},
@@ -827,20 +817,33 @@
 			
 			
 			// 댓글 리스트 조회
-			
+			function ajaxSelectRecipeReplyList(){
+				$.ajax({
+					url : 'ajaxSelectRecipeReplyList.ar',
+					data : { recipeNo : recipeNo },
+					
+				});
+			};
 			
 			// onload 시 댓글리스트 갱신 기능 호출
 			$(function(){
-				ajaxRecipeDetailReply();
-				setInterval(ajaxRecipeDetailReply, 1500);
+				ajaxSelectRecipeReplyList();
+				setInterval(ajaxSelectRecipeReplyList, 1500);
 			});
 			
 			
 			// 댓글 작성
-    		function ajaxRecipeInsertReply(){
+    		function ajaxInsertRecipeReply(){
 				$.ajax(function(){
 					type : 'POST',
-					data : 
+					url : 'ajaxInsertRecipeReply.ar',
+					data : { recipeNo : recipeNo },
+					success : function(){
+						console.log('댓글 작성 성공!');
+					},
+					error : function() {
+						alert('댓글 작성에 실패했습니다');
+					}
 				});
 			};
 			
