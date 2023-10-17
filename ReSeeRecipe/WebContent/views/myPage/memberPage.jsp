@@ -231,7 +231,7 @@
             <div id="sideMenu">
                 <ul>
                     <li id="listMenu"><a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">회원정보 변경</a></li>
-                    <li id="listMenu"><a href="">리워드</a></li>
+                    <li id="listMenu"><a href="<%= contextPath %>/yrmemberRewardList.mp?memNo=<%= loginMember.getMemNo() %>">리워드</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/yrmemberCouponList.mp?memNo=<%= loginMember.getMemNo() %>&selected=recentSort">쿠폰</a></li>
                     <li id="listMenu"><a href="">선물함</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/recipeBook.me">레시피북</a></li>
@@ -239,6 +239,7 @@
                     <li id="listMenu"><a href="<%= contextPath %>/recipe.me">게시물관리</a></li>
                     <li id="listMenu"><a href="">쇼핑정보</a></li>
                     <li id="listMenu"><a href="<%= contextPath %>/dm.me">쪽지</a></li>
+                    
                 </ul>
                 
             </div>

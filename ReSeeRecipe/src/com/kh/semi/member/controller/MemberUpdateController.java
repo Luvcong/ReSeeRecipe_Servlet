@@ -99,8 +99,8 @@ public class MemberUpdateController extends HttpServlet {
 				// request.getRequestDispatcher(request.getContextPath()).forward(request, response);
 				
 				// 현재 blog.me를 찾을 수 없음  임시로 변경
-				// response.sendRedirect(request.getContextPath() + "/blog.me");
-				response.sendRedirect("views/myPage/memberPage.jsp");
+				response.sendRedirect(request.getContextPath() + "/blog.me");
+				// response.sendRedirect("views/myPage/memberPage.jsp");
 				// request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
 				
 			} else { // 실패 시

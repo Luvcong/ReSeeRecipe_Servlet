@@ -212,45 +212,18 @@
 			}
 		}
 		
-		function selectReviewList(){
+		$(function(){
 			$.ajax({
 				url: 'rlist.po',
-				data: {},
-				success: function(result){
-					console.log(result);
-				}
-			})
-		}
-		
-		function insertReview(){
-			var form = new FormData();
-	        form.append( "file", $("#pfile")[0].files[0] );
-	        form.append("content", $("#reviewcontent").val());
-	        form.append("star", $("#reviewstar").val());
-	        
-	        for (var key of form.keys()) {
-	            console.log(key);
-	         }
-	         for (var value of form.values()) {
-	           console.log(value);
-	         }
-	        
-			$('#review-form').ajaxSubmit({
-				type: 'post',
-				url: 'rinsert.po',
-				date: form,
-				dataType: "json",
-				processData : false,
-		        contentType : false,
+				data: {pNo:<%= p.getProductNo() %>},
 				success: function(result){
 					console.log(result);
 				},
 				error: function(){
-					console.log("gd");
+					
 				}
-				
 			})
-		}
+		})
     </script>
     
     <%@ include file="buyFooter.jsp" %>

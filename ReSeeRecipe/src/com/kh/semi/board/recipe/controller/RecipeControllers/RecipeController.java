@@ -87,12 +87,14 @@ public class RecipeController {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit);
 
 		// 페이지네이션을 위한 정보를 넘기며 서비스호출
-		ArrayList<Recipe> rList = rs.selectRecipeList(pi);
-		
-		if(!rList.isEmpty()) {
+		// Recipe정보들 + 썸네일 사진 필요
+		//ArrayList<Recipe> rList = rs.selectRecipeList(pi);
+		HashMap<String, Object> recipeMainViewMap = rs.selectRecipeList(pi);
+		if(!recipeMainViewMap.isEmpty()) {
 			// 넘길 값 지정
-			request.setAttribute("rList", rList);
 			request.setAttribute("pi", pi);
+			request.setAttribute("recipeList", recipeMainViewMap.get("reList"));
+			request.setAttribute("recipePicList", recipeMainViewMap.get("recipePicList"));
 			// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 			viewPath = "/views/board/recipe/recipeMainView.jsp";
 		} else {
@@ -170,10 +172,10 @@ public class RecipeController {
 				
 				// 1_3. MultipartRequest객체 생성 하면서 파일 이름 새로 생성
 				MultipartRequest multiRequest = new MultipartRequest(request,
-						fileSavePath,
-						maxSize,
-						"UTF-8",
-						new MyFileRenamePolicy());
+												fileSavePath,
+												maxSize,
+												"UTF-8",
+												new MyFileRenamePolicy());
 				
 				
 				// 2) multiRequest로부터 값 뽑기 => getParameter()이용
@@ -198,23 +200,24 @@ public class RecipeController {
 				ArrayList<RecipePic> recipePicList = new ArrayList();
 				for(int i = 0; i < 7; i++) {
 					String recipeNameOriginKey = "recipeNameOrigin" + i;
-					String recipePicNameUploadKey = "recipePicNameUploadKey" + i;
-					String recipePicPathKey = "recipePicPathKey" + i;
 					String recipePicLevKey = "recipePicLev" + i;
 					// 이 항목들이 모두 데이터가 있다면
 					if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
-						|| multiRequest.getOriginalFileName(recipePicNameUploadKey) == null
-						|| multiRequest.getOriginalFileName(recipePicPathKey) == null
+						|| multiRequest.getFilesystemName(recipeNameOriginKey) == null
 						|| multiRequest.getParameter(recipePicLevKey) == null)) {
 						// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 						RecipePic recipePic = new RecipePic();
 						recipePic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
-						recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipePicNameUploadKey));
-						recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics");
+						recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipeNameOriginKey));
+						recipePic.setRecipePicPath(fileSavePath);
 						recipePic.setRecipePicLev(Integer.parseInt(multiRequest.getParameter(recipePicLevKey)));
 						recipePicList.add(recipePic);
+						System.out.println("레시피 객체 : " + recipePic);
 					}
 				}
+				
+				
+				System.out.println("레시피 pic리스트" + recipePicList);
 				
 				
 				// ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */

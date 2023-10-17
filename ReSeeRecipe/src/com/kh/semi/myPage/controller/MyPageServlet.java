@@ -35,7 +35,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		// 무조건 이 서블릿으로 들어옴
 		String uri = request.getRequestURI();
-		System.out.println(uri);
+		// System.out.println(uri);
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		
 		MyPageController mc = new MyPageController();
@@ -51,6 +51,8 @@ public class MyPageServlet extends HttpServlet {
 		// case "yrmemberCouponListForm" : view = mc.MemberCouponListForm(request, response); flag = false; break;
 		case "yrmemberCouponList" : view = mc.MemberCouponList(request, response);  break;
 		// case "yrmemberCouponListSort" : System.out.println("으악"); flag=false; break;
+		// 회원 리워드 내역 조회 화면으로 이동
+		case "yrmemberRewardList" : view = mc.MemberRewardList(request, response); break;
 		
 		}
 		// 응답화면으로 보내기
@@ -60,7 +62,6 @@ public class MyPageServlet extends HttpServlet {
 		} else {
 			// controller가 redirecting할거면
 			response.sendRedirect(view);
-			
 		}
 		
 	}
