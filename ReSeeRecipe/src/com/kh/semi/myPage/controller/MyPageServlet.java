@@ -35,7 +35,7 @@ public class MyPageServlet extends HttpServlet {
 		
 		// 무조건 이 서블릿으로 들어옴
 		String uri = request.getRequestURI();
-		System.out.println(uri);
+		// System.out.println(uri);
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		
 		MyPageController mc = new MyPageController();

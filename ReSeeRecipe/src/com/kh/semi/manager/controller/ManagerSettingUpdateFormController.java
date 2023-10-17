@@ -38,7 +38,7 @@ public class ManagerSettingUpdateFormController extends HttpServlet {
 		request.setAttribute("mp", m.getMemPicture());
 		
 		// 응답화면 띄우기
-		request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/manager/managerSettingView.jsp").forward(request, response);
 	}
 
 	/**
