@@ -28,7 +28,7 @@ public class SubscribeChefController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		//POST방식
-				//request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("views/myPage/subscribeChef.jsp").forward(request, response);
 
 	}

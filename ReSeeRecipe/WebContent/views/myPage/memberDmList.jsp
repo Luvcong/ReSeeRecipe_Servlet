@@ -14,17 +14,47 @@
        text-decoration:none;
        color:black;
        }
+       #post{
+       	border:1px solid black;
+       	width:900px;
+       	height:900px;
+       }
+       #postHeader{
+       border:1px solid black;
+       }
+       #postMain{
+       	border:1px solid black;
+       }
     </style>
 
 </head>
 <body>
 
 <%@ include file="/views/common/header.jspf" %>
-
-<table>
-
-</table>
-
+	
+	<div id="post">
+	<table id="postMain">
+	<thead id="postHeader">
+	<tr>
+	<th>번호</th>
+	<th>제목</th>
+	<th>보낸 사람</th>
+	<th>보낸 날짜</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+	</tbody>
+	
+	
+	</table>
+	</div>
 
 
 

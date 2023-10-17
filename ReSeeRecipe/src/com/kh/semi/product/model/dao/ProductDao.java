@@ -352,16 +352,16 @@ public class ProductDao {
 		return list2;
 	}
 	
-	public ArrayList<Product> ajaxSelectProductList(Connection conn, PageInfo pi, int category, String sort){
+	public ArrayList<Product> sortSelectProductList(Connection conn, PageInfo pi, int category, String sort){
 		
 		ArrayList<Product> list = new ArrayList();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = null;
 		switch(sort) {
-		case "good": sql = prop.getProperty("ajaxSelectProductList1"); break;
-		case "price": sql = prop.getProperty("ajaxSelectProductList2"); break;
-		case "star": sql = prop.getProperty("ajaxSelectProductList3"); break;
+		case "good": sql = prop.getProperty("sortSelectProductList1"); break;
+		case "price": sql = prop.getProperty("sortSelectProductList2"); break;
+		case "star": sql = prop.getProperty("sortSelectProductList3"); break;
 		}
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;

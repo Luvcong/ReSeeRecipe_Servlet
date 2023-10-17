@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.board.recipe.model.vo.CookSteps;
@@ -88,7 +89,7 @@ public class RecipeDao {
 	 */
 	public ArrayList<Recipe> selectRecipeList(Connection conn, PageInfo pi) {
 		
-		ArrayList<Recipe> list = new ArrayList();
+		ArrayList<Recipe> recipeList = new ArrayList();
 		String sql = prop.getProperty("selectRecipeList");
 		
 		try(PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -98,20 +99,20 @@ public class RecipeDao {
 			
 			try(ResultSet rset = pstmt.executeQuery()) {
 				while(rset.next()) {
-					Recipe r = new Recipe();
-					r.setRecipeNo(rset.getInt("RECIPE_NO"));
-					r.setRecipeTitle(rset.getString("RECIPE_TITLE"));
-					r.setRecipeCount(rset.getInt("RECIPE_COUNT"));
-					r.setTitleImg(rset.getString("TITLEIMG"));
-					r.setMemNickName(rset.getString("MEM_NICKNAME"));
-					r.setHtCount(rset.getInt("HT_COUNT"));
-					list.add(r);
+					Recipe recipe = new Recipe();
+					recipe.setRecipeNo(rset.getInt("RECIPE_NO"));
+					recipe.setRecipeTitle(rset.getString("RECIPE_TITLE"));
+					recipe.setRecipeCount(rset.getInt("RECIPE_COUNT"));
+					recipe.setTitleImg(rset.getString("TITLEIMG"));
+					recipe.setMemNickName(rset.getString("MEM_NICKNAME"));
+					recipe.setHtCount(rset.getInt("HT_COUNT"));
+					recipeList.add(recipe);
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return recipeList;
 	}
 	
 	

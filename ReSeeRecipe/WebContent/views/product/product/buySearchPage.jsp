@@ -80,44 +80,13 @@
             <% if(select == 1) { %>
 	            <div id="s_list">
 	                <p>
-						<a href="javascript:good();">추천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-						<a href="javascript:price();">낮은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-						<a href="javascript:star();">높은평점</a> 
+						<a href="<%= contextPath %>/psort.po?title=<%= title %>&cpage=1&cate=<%= cate %>&select=1&sort=good">추천</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="<%= contextPath %>/psort.po?title=<%= title %>&cpage=1&cate=<%= cate %>&select=1&sort=price">낮은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+						<a href="<%= contextPath %>/psort.po?title=<%= title %>&cpage=1&cate=<%= cate %>&select=1&sort=star">높은평점</a> 
 					</p>
 	            </div>
             <% } %>
         </div>
-        
-        <script>
-	        function good(){
-	        	$.ajax({
-	        		url: 'psort.po',
-	        		data: {cate: '<%= cate %>', sort: 'good', cpage: 1, title: '<%= title %>', select: 1},
-	        		success: function(result){
-	        			console.log(result);
-	        		}
-	        	})
-	        }
-			function price(){
-				$.ajax({
-	        		url: 'psort.po',
-	        		data: {cate: '<%= cate %>', sort: 'price', cpage: 1, title: '<%= title %>', select: 1},
-	        		success: function(result){
-	        			console.log(result);
-	        		}
-	        	})  	
-			}
-			function star(){
-				$.ajax({
-	        		url: 'psort.po',
-	        		data: {cate: '<%= cate %>', sort: 'star', cpage: 1, title: '<%= title %>', select: 1},
-	        		success: function(result){
-	        			console.log(result);
-	        		}
-	        	})
-			}
-        </script>
-
         
         <div id="pro_area">
         	<% for(Product p : list) { %>
