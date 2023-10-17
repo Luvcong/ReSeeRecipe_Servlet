@@ -21,5 +21,7 @@ public class MyPageService {
 		
 		return list;
 	}
+	
+	public ArrayList
 
 }

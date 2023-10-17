@@ -40,6 +40,17 @@ public class MyPageController {
 		return view;
 	}
 	
+	// 회원 리워드 내역 조회
+	public String MemberRewardList(HttpServletRequest request, HttpServletResponse response) {
+		
+		int memberNo = Integer.parseInt(request.getParameter("memNo"));
+		
+		new MyPageService().selectMemberRewardList(memberNo);
+		
+		
+		
+	}
+	
 	
 
 

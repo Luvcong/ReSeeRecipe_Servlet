@@ -19,6 +19,7 @@ public class Reward {
 	private String memNickname;		//  MEM_NICKNAME	(관리자 리워드 리스트에 필요)
 	private String memGradeName;	//  MEM_GRADE_NAME	(관리자 리워드 리스트에 필요)
 	private int sumRewardScore;		//  누적리워드 필드 (관리자 리워드 리스트에 필요)
+	private int remainRewardScore;	//  남은리워드 (회원 리워드 조회)
 	
 	public Reward() {
 		super();
