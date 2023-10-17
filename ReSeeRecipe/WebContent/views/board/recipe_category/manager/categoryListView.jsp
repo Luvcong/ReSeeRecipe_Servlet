@@ -113,7 +113,10 @@
             <!-- <form action="<%= contextPath %>/jhcheck.ct" method="post"> -->
             	<table id="check-table">
             		<tr>
-            			<td><input id="checkName" name="checkCategoryName" onkeydown="checkSearchName()" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30"><button onclick="checkCategory()" >조회</button></td>
+            			<td>
+            				<input class="form-control form-control-sm" id="checkName" name="checkCategoryName" onkeydown="checkSearchName()" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30">
+            				<button onclick="checkCategory()" class="btn btn-sm btn-warning">조회</button>
+           				</td>
             		</tr>
             	</table>
             <!-- </form> -->
@@ -178,7 +181,7 @@
 		<div style="display: none" class="list-btn">
 			<!-- 카테고리 삭제 후 눌렀을경우 history.back은 바로 반영이 되지 않음 -->
 			<!-- <button type="button" class="btn btn-sm btn-outline-info" onclick="history.back()">목록으로</button>  -->
-			<button type="button" class="btn btn-sm btn-outline-info" onclick="location.href = '<%=contextPath %>/jhselect.ct?page=1';">목록으로</button>
+			<button type="button" class="btn btn-sm btn-outline-warning" onclick="location.href = '<%=contextPath %>/jhselect.ct?page=1';">목록으로</button>
 		</div>
 	
    	</div>  <!-- rs-content -->
@@ -202,8 +205,11 @@
 									<th>카테고리명</th>
 								</tr>
 								<tr>
-									<td><input type="text" name="recipeCategoryName">
-									<label for="recipeCategoryName"></label>
+									<td>
+										<input type="text" name="recipeCategoryName" id="addCategoryName" placeholder="추가할 카테고리명을 입력하세요">
+									</td>
+									<td>
+										<button type="button" onclick="duplicateCheck()" id="nullCheck">중복확인</button>
 									</td>
 								</tr>
 							</table>
@@ -264,14 +270,7 @@
 			this.location.href = "<%= contextPath %>/jhselect.ct?page=" + element;
 		}
   </script>
-  
-  <!-- 카테고리 추가 modal -->
-  <script>
-  		function showAddCategorydModal(){
-  			$('#addCategoryForm').modal('show');
-  		}	// showAddCategorydModal
-  </script>
-  
+
   	<!-- alertMsg script -->
   <script>
 		var successMsg = '<%= successMsg %>';
@@ -310,6 +309,7 @@
 	}	// checkedByte
   </script>
   
+  <!-- 카테고리 키워드 입력 후 Enter누르면 카테고리 조회 -->
   <script>
 	function checkSearchName(){
 		console.log(event.code);
@@ -319,6 +319,50 @@
 	}
 
   </script>
+  
+  <!-- 카테고리 추가 modal -->
+  <script>
+  		function showAddCategorydModal(){
+  			
+  			$('#addCategoryForm').modal('show');
+  		}	// showAddCategorydModal
+  		
+  		
+   		function duplicateCheck(){
+   			
+   			let input = document.getElementById('addCategoryName');
+   			addCategoryName = input.value;
+   			// console.log(input);				// 값 ok
+   			// console.log(input.value);		// input.value값 ok
+   			// console.log(addCategoryName);	// ok
+  			
+  			$.ajax({
+  				url : 'jhduplicate.ct',
+  				type : 'post',
+  				data : {'addCategoryName' : addCategoryName},	// 추가하려는 카테고리명 값 보내기
+  				success : function(result){
+   					console.log('성공');
+   					if(result == 'Y'){
+   						Swal.fire('성공', '<b>[' + addCategoryName + ']</b><br><br>추가 가능한 카테고리명입니다', 'success');
+   					}
+   					else {
+   						Swal.fire('실패', '중복된 카테고명이 존재합니다!', 'error');
+   						input.value = '';
+   						input.focus();
+   						input.setAttribute('placeholder', '카테고리명을 다시 입력하세요');		// 중복값 있는 경우 placeholder 속성값 변경
+   						console.log(addCategoryName);
+   						
+  					}
+  				},	// success
+  				error : function(result){
+  					console.log('실패');
+  				}	// error
+  				
+  			}); 	// ajax
+  			
+  		} // duplicateCheck
+  </script> 
+  
 
   <!-- 카테고리 삭제 -->
   <script>
@@ -497,7 +541,7 @@
   			console.log(checkCategoryName);			// 값 ok
   			
    			$.ajax({
-  				url : 'jhcheck.ct',
+  				url : 'jhinsert.ct',
   				type : 'post',
   				dataType : 'json',
   				data : {'checkCategoryName' : checkCategoryName},
@@ -516,7 +560,7 @@
     				
     				$('#tb-category tbody').html(resultStr);
     				
-    				// $('.paging-area').hide();
+    				$('.paging-area').hide();
     				$('.list-btn').show();
     				
     				
