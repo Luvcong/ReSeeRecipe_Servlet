@@ -31,40 +31,7 @@
     
     <!-- Swal Alert CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>     
-    <script type="text/javascript">
     
-/*     $.getJSON("/views/member/memberManager.jsp", function(data){
-		var htmlContent = "";
-		data.forEach((m) => {
-			htmlContent += "<tr>";
-			htmlContent += "<td>"+ m.getMemNo +"<td>";
-			htmlContent += "<td>"+ m.getMemName +"<td>";
-			htmlContent += "<td>"+ m.getMemId +"<td>";
-			htmlContent += "<td>"+ m.getMemNickName +"<td>";
-			htmlContent += "<td>"+ m.getMemEmail +"<td>";
-			htmlContent += "<td>"+ m.getEnrollDate +"<td>";
-			htmlContent += "<td>"+ m.getMemReward +"<td>";
-			htmlContent += "</tr>";
-		})
-		document.querySelector("#memAll tbody").innerHTML = htmlContent;
-	}) */
-    
-	//<!-- Ajax 써보자 -->
-    
- /*    function selectMembers(){
-    	$.ajax({
-    		url : 'hlmembermanage.ma',
-    		success : function(result){
-    			console.log('내가 들어왔다');
-    		},
-    		error : function(){
-    			console.log('이래도 못들어오네');
-    		}
-    	})
-    	
-    }
-     */
-    </script>
     
 
 
@@ -169,6 +136,18 @@
 			 
           </tbody>
         </table>
+        
+        <script>
+	        $(function(){
+	        	$(document).on('dblclick','#memAllList > tr', function(){
+	        		const mno =  $(this).children().eq(1).text();
+					location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+	        	});
+	        });         
+        
+        
+        </script>
+       
     </div>
    
    

@@ -91,12 +91,12 @@
 /** table 태그 다음에 위치
  *  // 더블클릭 시 회원 상세보기 기능
  */     
-        	$(function(){
+     /*   	$(function(){
             	$(document).on('dblclick','#memAllList > tr', function(){
             		const mno =  $(this).children().eq(1).text();
     				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
             	});
-            }); 
+            }); */
 
 /** 페이징바 위에 스크립트 위치
  * //회원 삭제 기능 3차 시도  
@@ -183,12 +183,12 @@
 /**
  * // 더블클릭 시 회원 상세보기 기능
  */        	
-        	$(function(){
+       /* 	$(function(){
             	$(document).on('dblclick','#memAllList > tr', function(){
             		const mno =  $(this).children().eq(1).text();
     				location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
             	});
-            }); 	
+            }); 	*/
         	
 /**
  * // 체크박스 체크하면 체크되게 체크박스 체크해제하면 체크해제되는 기능 
