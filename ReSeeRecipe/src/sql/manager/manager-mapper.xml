@@ -3,6 +3,41 @@
 <properties>
 	<comment>관리자 관련 SQL문</comment>
 	
+	<entry key="adminUpdate">
+		UPDATE
+				TB_MEMBER
+		   SET
+		   		MEM_NAME = ?,
+		       	MEM_NICKNAME = ?,
+		       	MEM_EMAIL = ?,
+		       	MEM_PICTURE = ?,
+		       	MODIFY_DATE = SYSDATE
+		 WHERE 
+		 	   	MEM_NO = ?
+		   AND 
+		   	   	MEM_STATUS = 'Y'
+		   AND
+		   		MEM_GRADE = 4
+	</entry>
 	
+	<entry key="managerSetting">
+		SELECT
+				MEM_NO
+			   ,MEM_ID
+			   ,MEM_NAME
+			   ,MEM_NICKNAME
+			   ,MEM_EMAIL
+			   ,ENROLL_DATE
+			   ,MODIFY_DATE
+			   ,MEM_PICTURE
+	   FROM
+	   			TB_MEMBER
+	   WHERE
+	   			MEM_NO = ?
+	   	AND
+	   			MEM_STATUS = 'Y'
+	   	AND
+	   			MEM_GRADE = 4
+	</entry>
 
 </properties>

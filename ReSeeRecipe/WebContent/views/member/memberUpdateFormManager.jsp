@@ -118,7 +118,7 @@
                 // 동등비교연산으로 문자열 따지기
                 if(result == 'NNNNN') {
             
-                    alert('회원 닉네임 중복');
+                    Swal.fire('실패', '회원 닉네임 중복', 'error');
                     $hlmemnickname.val('').focus();
                 }
                 else { // 중복X == 사용가능

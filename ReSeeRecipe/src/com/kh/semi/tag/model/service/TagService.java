@@ -5,6 +5,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.tag.model.dao.TagDao;
 import com.kh.semi.tag.model.vo.Tag;
 
@@ -24,5 +25,36 @@ public class TagService {
 		
 		return list;
 	}
+	
+	public ArrayList<Tag> selectPHashTag(PageInfo pi){
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Tag> list = new TagDao().selectPHashTag(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public int hashTagInsert(String hstagName) {
+		
+		Connection conn = getConnection();
+		
+		int result = new TagDao().hashTagInsert(conn, hstagName);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	
+	
+	
 
 }

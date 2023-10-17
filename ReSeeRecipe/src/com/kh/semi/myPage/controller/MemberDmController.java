@@ -1,4 +1,4 @@
-package com.kh.semi.blog.controller;
+package com.kh.semi.myPage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberMainPageController
+ * Servlet implementation class MemberDmController
  */
-@WebServlet("/blog.me")
-public class MemberMainPageController extends HttpServlet {
+@WebServlet("/dm.me")
+public class MemberDmController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberMainPageController() {
+    public MemberDmController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,16 +26,13 @@ public class MemberMainPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//POST방식
+
+		//POST방식 인코딩
 		request.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/myPage/memberDmList.jsp").forward(request, response);
 		
 	
-	
-		
 	
 	}
 

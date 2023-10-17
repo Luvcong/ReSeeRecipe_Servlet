@@ -2,15 +2,19 @@
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.manager.model.service.ManagerService;
+import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class ManagerSettingController
@@ -32,17 +36,18 @@ public class ManagerSettingController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// 1) 인코딩 생략
-		
+	
+		// -- session에서 뽑기! ㄱ 는 컨트롤러를 한번더 만들어야함
 		// 2) 값뽑기 - 관리자 식별 번호 input 태그 hidden의 value
 		int adminNo = Integer.parseInt(request.getParameter("adno"));
 		
 		Member m = new ManagerService().managerSetting(adminNo);
 		
 		request.setAttribute("m", m);
+		request.setAttribute("mp", m.getMemPicture());
 		
 		// 응답화면 띄우기
-		request.getRequestDispatcher("/views/manager/managerSettingView.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/manager/managerSettingInfoView.jsp").forward(request, response);
 	}
 
 	/**
