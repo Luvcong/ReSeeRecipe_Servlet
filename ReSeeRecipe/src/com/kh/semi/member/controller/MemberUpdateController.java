@@ -57,6 +57,9 @@ public class MemberUpdateController extends HttpServlet {
 			String memberNickname = multiRequest.getParameter("memberNickname");
 			String memberEmail = multiRequest.getParameter("memberEmail");
 			
+			// 회원이 가진 이미지 파일
+			String memberPicture = multiRequest.getParameter("memberPicture");
+			
 			// 회원정보변경 후 다시 회원 조회를 위한 id, pwd값
 			String memberId = multiRequest.getParameter("memberId");
 			String memberPwd = multiRequest.getParameter("memberPwd");
@@ -71,14 +74,17 @@ public class MemberUpdateController extends HttpServlet {
 			
 			
 			// 현재 파일수정을 눌렀다면 무조건 사진이 있음. 근데 기본값은 null임
-			String memberPicture = null;
+			
+			
 			// 첨부파일이 있다면 
 			System.out.println("확인");
 			System.out.println(multiRequest.getOriginalFileName("profileInput"));
+			
+			// 파일을 첨부했다면
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
 				// 파일경로 + 파일수정명을 넘겨줄거임(DB에 MEM_PICTURE컬럼에 저장)
 				memberPicture = "/resources/profile_upfiles/" + multiRequest.getFilesystemName("profileInput");
-			}
+			} 
 			
 			// Service로 수정할 회원 정보와 파일정보를 넘겨 요청
 			int result = new MemberService().memberUpdate(m, memberPicture);
@@ -104,6 +110,7 @@ public class MemberUpdateController extends HttpServlet {
 				// request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
 				
 			} else { // 실패 시
+				System.out.println("실패시는 아니겠지");
 				request.getSession().setAttribute("memberUpdateError", "변경에 실패하였습니다.");
 				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);
 			}

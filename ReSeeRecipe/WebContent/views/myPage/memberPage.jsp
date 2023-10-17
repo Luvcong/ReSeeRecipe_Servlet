@@ -95,7 +95,7 @@
         height:400px;
         }
         .myRecipeList{
-        bolder:1px solid black;
+        border:1px solid black;
         width:250px;
         height:250px;
         float: left;
