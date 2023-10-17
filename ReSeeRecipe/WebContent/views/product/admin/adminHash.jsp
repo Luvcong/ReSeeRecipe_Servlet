@@ -229,7 +229,7 @@
   
 	<!-- 해시태그 수정  modal창 -->
 	<div class="modal" id="updateHashTagForm">
-		<form method="post" action="">
+		<form method="post" action="hsupdate.hs">
 			<div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			        <!-- Modal Header -->
@@ -239,20 +239,20 @@
 				     </div> 
 				     <!-- Modal body -->
 			         <div class="modal-body">
-					<input type="hidden" name="">
+					<input type="hidden" name="tagNo" value="">
 					<table class="modal-table" border="1">
 						<tr>
 							<th>기존 해시태그명</th>
-							<td><input type="text" name="" readonly></td>
+							<td><input type="text" name="hashtagName" readonly></td>
 						</tr>
 						<tr>
 							<th>현재 사용횟수</th>
-							<td><input type="text" name="" readonly></td>
+							<td><input type="text" name="hashtagCount" readonly></td>
 						</tr>
 						<tr>
-							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count">0</span> / 30 byte</div></th>
+							<th>변경 해시태그명<div style="color: rgb(78, 78, 78)"><span class="replied" id="count"></span> / 30 byte</div></th>
 							<td>
-								<input type="text" name="" placeholder="변경 해시태그명을 입력하세요" onkeyup="checkedByte(this)">
+								<input type="text" name="ChashtagName" placeholder="변경 해시태그명을 입력하세요">
 							</td>
 						</tr>
 					</table>
@@ -298,6 +298,35 @@
 		
 		
 		function showUpdateHashTagModal(){
+			
+			let trs = document.querySelectorAll('.table tbody tr');	// 데이터가 들어있는 행(tr) 모두 갖고와서 저장
+ 			let checked_tr = null									// tr체크여부 변수 생성
+ 			
+ 			for(let tr of trs){
+ 				let input = tr.querySelector('input');			// tr의 input 요소 저장
+ 					if(input.checked){							// input의 checked 속성이 true인 경우
+ 						checked_tr = tr;						// tr체크여부 변수에 checked == true인 행(tr)을 저장한다
+ 						break;									// input요소가 여러개인 경우 첫번째에 해당하는 요소만 선택하기 위해 break
+ 					}
+ 			}
+ 			
+ 			if(checked_tr == null){
+ 				Swal.fire('실패', '카테고리를 선택해주세요!', 'error');
+ 				return;
+ 			}	
+ 			
+ 			let modal = document.getElementById('updateHashTagForm');
+ 			let modal_trs = modal.querySelectorAll('table tr');
+ 			
+ 			let hashtag_name = checked_tr.children[2].textContent;
+ 			let modal_input = modal.querySelector("input[name='hashtagName']");
+ 			modal_input.value = hashtag_name;
+ 			
+ 			let hashtag_count = checked_tr.children[3].textContent;
+ 			modal_input = modal.querySelector("input[name='hashtagCount']");
+ 			modal_input.value = hashtag_count + '개';
+ 			
+			let origin_name = checked_tr.children[2].textContent;
 			
 			$('#updateHashTagForm').modal('show');
 		}

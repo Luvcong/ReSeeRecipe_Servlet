@@ -4,6 +4,7 @@
 <%
     //Member loginMember = (Member)session.getAttribute("loginMember");
     Member m = (Member)request.getAttribute("m");
+	Member mp = (Member)request.getAttribute("mp");   
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +25,7 @@
         width : 300px;
     }
     
-    #HL_memUpdateWhyCon{
+    #HL_adminUpdateWhyCon{
     	resize : none;
     	rows : 10;
     }
@@ -42,33 +43,33 @@
 		 
         <label for="adminpic">프로필 사진</label>
         <div class="container">
-            <% if(<%=m.getMemPicture()%> != null) { %> 
-                <img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="profileImg" width="150" height="150">
+            <% if(mp != null) { %> 
+               <img src="<%= contextPath %>/<%= m.getMemPicture() %>" alt="프로필사진" id="adminprofileImg" width="150" height="150">
             <% } else { %>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiJ77jbjsG1bGoS5Kn6gm83uk-iiWcuMLRzw&usqp=CAU" alt="프로필사진" id="admindefpic" width="150" height="150">
             <% } %>
             <input type="file" name="adminpic" id="adminpic">
         </div>  
-        <label for="HL_memberNo">회원번호</label>
+        <label for="HL_adminNo">회원번호</label>
         <input type="text" class="form-control" id="HL_adminNo" name="adminNo" value="<%=m.getMemNo() %>" readonly> <br>
         
         <br>
-        <label for="HL_memberName">회원이름</label>
+        <label for="HL_adminName">회원이름</label>
         <input type="text" class="form-control" id="HL_adminName" name="adminName" value="<%=m.getMemName() %>" required>
         <br>
-        <label for="HL_memberId">회원아이디</label>
-        <input type="text" class="form-control" id="HL_adminrId" name="adminId" value="<%=m.getMemId() %>" readonly>
+        <label for="HL_adminId">회원아이디</label>
+        <input type="text" class="form-control" id="HL_adminId" name="adminId" value="<%=m.getMemId() %>" readonly>
         <br>
-        <label for="HL_memberNickname">회원닉네임</label>
+        <label for="HL_adminNickname">회원닉네임</label>
         <input type="text" class="form-control" id="HL_adminNickname" name="adminNickname" value="<%=m.getMemNickname() %>" required>
         <br>
-        <label for="HL_memberEmail">이메일</label>
+        <label for="HL_adminEmail">이메일</label>
         <input type="email" class="form-control" id="HL_adminEmail" name="adminEmail" value="<%= m.getMemEmail() %>" required>
         <br>
-        <label for="HL_memberEnrolldate">가입일자</label>
+        <label for="HL_adminEnrolldate">가입일자</label>
         <input type="text" class="form-control" id="HL_adminEnrolldate" name="adminEnrolldate" value="<%= m.getEnrollDate()%>" readonly>
         <br>
-        <label for="HL_memberModifydate">수정일자</lable>
+        <label for="HL_adminModifydate">수정일자</lable>
         <input type="text" class="form-control" id="HL_adminModifydate" name="adminModifydate" value="<%= m.getModifyDate() %>" readonly>
         <br>
         <div id="HL_adminUpdateWhy">
