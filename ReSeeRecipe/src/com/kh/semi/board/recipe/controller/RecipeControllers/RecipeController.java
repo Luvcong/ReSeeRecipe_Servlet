@@ -19,6 +19,7 @@ import com.kh.semi.board.recipe.model.vo.Ingredient;
 import com.kh.semi.board.recipe.model.vo.Recipe;
 import com.kh.semi.board.recipe.model.vo.RecipeCategory;
 import com.kh.semi.board.recipe.model.vo.RecipePic;
+import com.kh.semi.board.recipe.model.vo.RecipeTag;
 import com.kh.semi.board.recipe.model.vo.UnRecipe;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.common.SendError;
@@ -52,10 +53,10 @@ public class RecipeController {
 		
 		if(!cList.isEmpty()) {
 			request.setAttribute("cList", cList);
+			viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
 		} else {
-			return new SendError().sendError(request, "카테고리 조회에 실패했습니다");
+			viewPath =  new SendError().sendError(request, "카테고리 조회에 실패했습니다");
 		}
-		viewPath = "/views/board/recipe_frag/recipeCategoryBar.jsp";
 		return viewPath;
 	}
 	
@@ -97,7 +98,7 @@ public class RecipeController {
 			// 응답화면지정 (페이징적용 / 최신순 레시피 조회)
 			viewPath = "/views/board/recipe/recipeMainView.jsp";
 		} else {
-			return new SendError().sendError(request, "조회된 게시글이 없습니다");
+			viewPath = new SendError().sendError(request, "조회된 게시글이 없습니다");
 		}
 		return viewPath;
 	}
@@ -132,10 +133,36 @@ public class RecipeController {
 	 */
 	public String recipeDetail(HttpServletRequest request, HttpServletResponse response) {
 		String viewPath = "";
-		System.out.println("ddd");
 		RecipeService rs = new RecipeService();
-		Recipe r = rs.selectRecipeSingle(3);
-		System.out.println(r);
+		
+		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		
+		Recipe recipe = rs.selectRecipeSingle(recipeNo);
+		ArrayList<RecipePic> reciepPicList = rs.selectRecipePicSingle(recipeNo);
+		ArrayList<Ingredient> ingredientList = rs.selectIngredientSingle(recipeNo);
+		ArrayList<CookSteps> cookStepsList = rs.selectCookStepsSingle(recipeNo);
+		ArrayList<RecipeTag> recipeTagList = rs.selectRecipeTagSingle(recipeNo);
+		
+		//System.out.println("레시피 : " + recipe);
+		//System.out.println("레시피 픽 리스트 : " + reciepPicList);
+		//System.out.println("인그레디언트 리스트 : " + ingredientList);
+		
+		//System.out.println("레시피 태그 리스트 : " + recipeTagList);
+		
+		if( !(reciepPicList.isEmpty()
+			||ingredientList.isEmpty()
+			|| cookStepsList.isEmpty()
+			|| recipeTagList.isEmpty())) {
+			HashMap<String, Object> recipeDetailMap = new HashMap();
+			recipeDetailMap.put("recipe", recipe);
+			recipeDetailMap.put("reciepPicList", reciepPicList);
+			recipeDetailMap.put("ingredientList", ingredientList);
+			recipeDetailMap.put("cookStepsList", cookStepsList);
+			recipeDetailMap.put("recipeTagList", recipeTagList);
+			viewPath = "/views/board/recipe/recipeDetailView.jsp";
+		} else {
+			viewPath =  new SendError().sendError(request, "게시글 상세 조회에 실패했습니다");
+		}
 		return viewPath;
 	}
 	
