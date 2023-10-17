@@ -19,7 +19,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class ManagerSettingController
  */
-@WebServlet("/hlsettingmanager.ma")
+@WebServlet("/hlsettingmanager.ma") 
 public class ManagerSettingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
