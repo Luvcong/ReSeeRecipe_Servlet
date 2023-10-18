@@ -21,6 +21,8 @@ public class Coupon {
 	private Date couponEndDate;
 	private int issueCouponCount;	// 관리자 쿠폰함 리스트 조회시 필요 (쿠폰 발급수)
 	private int usesCouponCount;	// 관리자 쿠폰함 리스트 조회시 필요 (쿠폰 사용수)
+	private String startCoupon;
+	private String endCoupon;
 	
 	public Coupon() {
 		super();
@@ -38,6 +40,24 @@ public class Coupon {
 		this.couponEndDate = couponEndDate;
 		this.issueCouponCount = issueCouponCount;
 		this.usesCouponCount = usesCouponCount;
+	}
+	
+
+	public Coupon(int couponNo, String couponName, int couponRatio, String couponAvail, String couponReason,
+			Date couponStartdate, Date couponEndDate, int issueCouponCount, int usesCouponCount, String startCoupon,
+			String endCoupon) {
+		super();
+		this.couponNo = couponNo;
+		this.couponName = couponName;
+		this.couponRatio = couponRatio;
+		this.couponAvail = couponAvail;
+		this.couponReason = couponReason;
+		this.couponStartdate = couponStartdate;
+		this.couponEndDate = couponEndDate;
+		this.issueCouponCount = issueCouponCount;
+		this.usesCouponCount = usesCouponCount;
+		this.startCoupon = startCoupon;
+		this.endCoupon = endCoupon;
 	}
 
 	public int getCouponNo() {
@@ -111,13 +131,32 @@ public class Coupon {
 	public void setUsesCouponCount(int usesCouponCount) {
 		this.usesCouponCount = usesCouponCount;
 	}
+	
+
+	public String getStartCoupon() {
+		return startCoupon;
+	}
+
+	public void setStartCoupon(String startCoupon) {
+		this.startCoupon = startCoupon;
+	}
+
+	public String getEndCoupon() {
+		return endCoupon;
+	}
+
+	public void setEndCoupon(String endCoupon) {
+		this.endCoupon = endCoupon;
+	}
 
 	@Override
 	public String toString() {
 		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", couponRatio=" + couponRatio
 				+ ", couponAvail=" + couponAvail + ", couponReason=" + couponReason + ", couponStartdate="
 				+ couponStartdate + ", couponEndDate=" + couponEndDate + ", issueCouponCount=" + issueCouponCount
-				+ ", usesCouponCount=" + usesCouponCount + "]";
+				+ ", usesCouponCount=" + usesCouponCount + ", startCoupon=" + startCoupon + ", endCoupon=" + endCoupon
+				+ "]";
 	}
 
+	
 }	// end class

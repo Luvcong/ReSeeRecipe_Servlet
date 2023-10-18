@@ -67,7 +67,7 @@ public class CouponDao {
 				coupon.setCouponReason(rset.getString("COUPON_REASON"));			// 쿠폰 등록 사유
 				
 				list.add(coupon);
-				System.out.println(list);
+				// System.out.println(list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,6 +113,52 @@ public class CouponDao {
 		return couponListCount;
 		
 	}	// selectCouponListCount
+	
+	
+	public int insertCoupon(Connection conn, Coupon coupon) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCoupon");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, coupon.getCouponName());
+			pstmt.setInt(2, coupon.getCouponRatio());
+			pstmt.setString(3, coupon.getCouponReason());
+			pstmt.setString(4, coupon.getStartCoupon());
+			pstmt.setString(5, coupon.getEndCoupon());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}	// insertCoupon
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }	// end class

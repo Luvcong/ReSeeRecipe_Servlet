@@ -33,8 +33,21 @@
 		  FROM
 	  			TB_COUPON
 	</entry>
-
-
+	
+	<!-- 쿠폰함 쿠폰 등록 SQL문 -->
+	<entry key="insertCoupon">
+		INSERT
+		  INTO
+		  		TB_COUPON
+  		VALUES	(SEQ_COUPON.NEXTVAL,
+  				?,
+  				?,
+  				'N',
+  				?,
+  				?,
+  				?
+  				)
+	</entry>
 
 
 

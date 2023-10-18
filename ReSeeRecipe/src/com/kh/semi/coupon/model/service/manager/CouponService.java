@@ -58,6 +58,31 @@ public class CouponService {
 	}	// selectCouponListCount
 	
 	
+	/**
+	 * 관리자 쿠폰함 리스트 - 쿠폰 등록 요청
+	 * @param memNo 회원번호
+	 * @param couponNo 쿠폰번호
+	 * @return 쿠폰 등록 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 18.
+	 */
+	public int insertCoupon(Coupon coupon) {
+		
+		Connection conn = getConnection();
+		
+		int result = couponDao.insertCoupon(conn, coupon);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		
+		close(conn);
+		
+		return result;
+		
+	}	// insertCoupon
+	
 	
 	
 }	// end class

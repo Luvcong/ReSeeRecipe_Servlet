@@ -57,9 +57,9 @@
                     조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
-                    <button type="button" onclick="showAddCouponModal()" class="btn btn-sm btn-warning">쿠폰등록</button>
-                    <button type="submit" onclick="updateReport()"class="btn btn-sm btn-warning">상세보기</button>
-                    <button type="submit" onclick="updateReport()"class="btn btn-sm btn-secondary">쿠폰삭제</button>
+                    <button type="submit" onclick="showAddCouponModal()" class="btn btn-sm btn-warning">쿠폰등록</button>
+                    <button type="button" onclick="updateReport()"class="btn btn-sm btn-warning">상세보기</button>
+                    <button type="button" onclick="updateReport()"class="btn btn-sm btn-secondary">쿠폰삭제</button>
                 </div>
             </div>
         </div>	<!-- header -->
@@ -119,7 +119,7 @@
 				<% } %>
 			<% } %>
 			<% if(couponListPage != couponMaxPage) { %>
-				<button onclick="page('<%= couponListPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
+				<button onclick="page('<%= couponListPage + 1 %>');" class="btn btn-warning">&gt;</button>
 			<% } %>
 		</div>	<!-- 페이징바 -->
    	</div>  <!-- rs-content -->
@@ -127,7 +127,7 @@
 	<!-- 쿠폰 등록 modal창 -->
 	<div class="modal" id="addCouponForm">
 		<form method="post" action="<%= contextPath %>/jhinsert.cp">
-		       <div class="modal-dialog modal-lg">
+		       <div class="modal-dialog">
 		           <div class="modal-content">
 		               <!-- Modal Header -->
 		               <div class="modal-header">
@@ -136,27 +136,39 @@
 		               </div> 
 		               <!-- Modal body -->
 		               <div class="modal-body">
-							<input type="hidden" name="memNo">
-							<input type="hidden" name="couponNo">
-							<table class="modal-table" border="1">
+							<table class="modal-table" border="1" id="addCouponTable">
 								<tr>
 									<th>쿠폰명</th>
-									<td></td>
+									<td colspan="3">
+										<input type="text" class="form-control form-control-sm" name="couponName">
+									</td>
 								</tr>
 								<tr>
-									<th>쿠폰 유효기간</th>
-									<td><input type="date"></td>
-									<td><input type="date"></td>
+									<th rowspan="2">쿠폰 유효기간</th>
+									<td class="btn-check-r"><button class="btn btn-warning">시작일</button></td>
+									<td class="btn-check-l"><input type="date" id="startDate" class="form-control form-control-sm form-date" name="startCoupon"></td>
 								</tr>
+								<tr>
+									<td class="btn-check-r"><button class="btn btn-warning">종료일</button></td>
+									<td class="btn-check-l"><input type="date" id="endDate" class="form-control form-control-sm form-date" name="endCoupon"></td>
+								</tr>	
 								<tr>
 									<th>쿠폰 할인율</th>
-									<td></td>
+									<td colspan="4">
+										<input type="number" class="form-control form-control-sm" id="couponPercent" min="0" max="100" step="10" placeholder="할인율 숫자를 입력하세요" name="couponRatio">
+									</td>
+								</tr>
+								<tr>
+									<th>쿠폰 등록사유</th>
+									<td colspan="2">
+										<textarea name="couponReason"></textarea>
+									</td>
 								</tr>
 							</table>
 		               </div>
 		               <!-- Modal footer -->
 		                <div class="modal-footer">
-		             		<button type="submit" class="btn btn-sm btn-warning">차단하기</button>
+		             		<button type="submit" class="btn btn-sm btn-warning">등록하기</button>
 		                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">취소</button>
 		                </div>
 		            </div>
@@ -164,7 +176,23 @@
 		</form>
 	 </div> <!-- 쿠폰 등록 modal창 -->
    	
-
+  	<!-- alertMsg script : DmListController에서 사용 -->
+	<script>
+		var successMsg = '<%= successMsg %>';
+		var failMsg = '<%= failMsg %>';
+		
+		if(successMsg != 'null'){
+			Swal.fire('성공', successMsg, 'success');	// alert대신 swal 라이브러리 사용
+		}
+		
+		if(failMsg != 'null'){
+			Swal.fire('실패', failMsg, 'error');
+		}
+		
+		<% session.removeAttribute("successMsg"); %>
+		<% session.removeAttribute("failMsg"); %>
+	</script>	
+  	
 
 </body>
 </html>
