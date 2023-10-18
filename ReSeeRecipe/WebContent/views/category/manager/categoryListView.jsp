@@ -30,6 +30,7 @@
 <body>
 
 	<%@ include file="../../manager/navbar.jsp" %>
+	<script src="resources/js/category/category_manager.js"></script>
 	
     <div class="rs-content">        
         <div class="header">
@@ -207,7 +208,7 @@
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
  	</script>
-   	<script src="resources/js/category/category_manager.js"></script>
+   	
 
 	
 </body>
