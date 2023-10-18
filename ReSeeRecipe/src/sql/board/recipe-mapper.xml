@@ -4,7 +4,7 @@
 	<comment>레시피 게시판 관련 SQL문</comment>
 	
 	
-	<!-- ******* 레시피 관련 SELECT구문 ******* -->
+	<!-- ******* 레시피 관련 SELECT구문 시작 ******* -->
 	
 	<entry key="selectRecipeSingle">
 		SELECT
@@ -104,6 +104,8 @@
 		  FROM
 			   TB_REPLY
 		 WHERE
+		 	   REPLY_STATUS = 'Y'
+		   AND
 			   RECIPE_NO = ?
 	</entry>
 	
@@ -184,11 +186,27 @@
 		 WHERE
 		 	   RNUM BETWEEN ? AND ?
 	</entry>
-	<!-- ******* 레시피 관련 SELECT구문 ******* -->
+	<!-- ******* 레시피 관련 SELECT구문 끝 ******* -->
+	
+	
+	<!-- ******* 레시피 관련 UPDATE구문 시작 ******* -->
+	<entry key="deleteReqReplySingle">
+		UPDATE
+			   TB_REPLY
+		   SET
+			   REPLY_STATUS = 'N'
+		 WHERE
+			   REPLY_NO = ?
+		   AND
+			   RECIPE_NO = ?
+	</entry>
 	
 	
 	
-	<!-- ******* 레시피 관련 INSERT구문 ******* -->
+	<!-- ******* 레시피 관련 UPDATE구문 끝 ******* -->
+	
+	
+	<!-- ******* 레시피 관련 INSERT구문 시작 ******* -->
 	<entry key="insertRecipe">
 		INSERT
 		  INTO

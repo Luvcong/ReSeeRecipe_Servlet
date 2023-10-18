@@ -263,7 +263,7 @@
         	<div id="recipeTitle3"><a href="#" id="title">제목</a></div>
         </div>
         
-       
+        
         </div>
         <div id="chef">
         <h3>구독셰프</h3>

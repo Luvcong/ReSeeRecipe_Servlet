@@ -123,7 +123,6 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			}
 			
 			
-			
 			// 4) 서비스 요청
 	        int result = new NoticeService().insertNotice(n, np, tagList);
 	        
