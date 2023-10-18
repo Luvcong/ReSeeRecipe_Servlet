@@ -173,6 +173,7 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			System.out.println("np.getNoticePicNamgeOrigin()>>" + np.getNoticePicNamgeOrigin());
 			pstmt.setString(1, np.getNoticePicNamgeOrigin());
 			pstmt.setString(2, np.getNoticePicNagmeChange());
 			pstmt.setString(3, np.getNoticePicPath());
