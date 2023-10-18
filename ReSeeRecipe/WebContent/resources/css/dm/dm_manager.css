@@ -46,6 +46,12 @@
 	text-align: center;
 	border: none;
 }
+table td:nth-child(6){
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	max-width:130px;
+}
 .paging-area{
 	padding-top: 65px;
 	text-align: center;

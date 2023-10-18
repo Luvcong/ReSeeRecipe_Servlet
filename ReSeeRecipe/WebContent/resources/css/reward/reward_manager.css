@@ -46,7 +46,12 @@
 	padding-top: 65px;
 	text-align: center;
 }
-
+table td:nth-child(7){
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	max-width:130px;
+}
 .reward-plus {
 	color: dodgerblue;
 }

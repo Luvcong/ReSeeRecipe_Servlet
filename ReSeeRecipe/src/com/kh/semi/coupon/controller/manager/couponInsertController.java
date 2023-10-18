@@ -42,8 +42,8 @@ public class couponInsertController extends HttpServlet {
 		String couponReason = request.getParameter("couponReason");
 		int couponRatio = Integer.parseInt(request.getParameter("couponRatio"));
 		
-		System.out.println(startCoupon);
-		System.out.println(endCoupon);
+		// System.out.println(startCoupon);
+		// System.out.println(endCoupon);
 		
 		Coupon coupon = new Coupon();
 		coupon.setCouponName(couponName);

@@ -139,7 +139,7 @@
 										<input type="text" name="recipeCategoryName" id="addCategoryName" placeholder="　　추가할 카테고리명을 입력하세요">
 									</td>
 									<td class="btn-check-l">
-										<button type="button" onclick="duplicateCheck()" id="nullCheck" class="btn btn-warning">중복확인</button>
+										<button type="button" onclick="duplicateCheck()" class="btn btn-warning">중복확인</button>
 									</td>
 								</tr>
 							</table>

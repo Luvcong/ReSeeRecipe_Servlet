@@ -19,14 +19,24 @@
 			} else {
 				totalByte++;
 			}
+			
+			if(totalByte >= limitByte){
+				Swal.fire('실패', '글자 수가 초과되었습니다', 'warning');
+				message.value = message.vaule.substr(0, 1500);
+			}
 		}
-		$('#count').text(totalByte);
+		
+		let count = document.getElementById('count');
+		count.innerHTML = totalByte;
+		// $('#count').text(totalByte);
+		
 	}	// checkedByte
 
 	
 // <!-- 더블클릭시 modal창 -->
 	function onDbClickRow(){
 		console.log(event.currentTarget);
+		console.log(event.target);
 		
 		let table = document.getElementById('tb-dm');
 		let inputs = table.querySelectorAll('tr input');
@@ -48,7 +58,6 @@
 	function showDmRepliedModal() {
 		// table에 있는 tr요소 모두 선택해서 trs변수에 저장
 		let trs = document.querySelectorAll('.table tbody tr');
-		
 		// tr요소 체크여부 변수 생성
 		let checked_tr = null;
 		
@@ -57,7 +66,7 @@
 			let input = tr.querySelector('input')
 			if(input.checked){				// 인풋체크가 true라면 조건문 안에
 				if(checked_tr != null){		// 체크용 변수가 위에서 null이였는데 여기서 null이 아니라면 복수 선택 의미
-					Swal.fire('실패', '하나의 쪽지만 선택해주세요!', 'error');	// alert창 띄워서 막아주고 리턴
+					Swal.fire('실패', '한 개의 쪽지만 선택해주세요!', 'warning');	// alert창 띄워서 막아주고 리턴
 					return;
 				}
 				checked_tr = tr;
@@ -71,24 +80,24 @@
 		}
 		
 		let modal = document.getElementById('dmRepliedForm');
-		let modal_trs = modal.querySelectorAll('table tr');
+		let modal_tds = modal.querySelectorAll('table td');
 		
+		// input_hidden용
 		let dmNo  = checked_tr.children[1].textContent;	// dmNo
 		let input = modal.querySelector("input[name='dmNo']");
 		input.value = dmNo;
 		// console.log(input);
 		
-		let textarea = document.getElementById('reply-textarea');
 		
 		let memId = checked_tr.children[3].textContent;
 		let memNickname = checked_tr.children[4].textContent;
 		let sendDate = checked_tr.children[2].textContent;
 		let dmContent = checked_tr.children[5].textContent;
 		
-		modal_trs[0].children[1].textContent = memId;
-		modal_trs[1].children[1].textContent = memNickname;
-		modal_trs[2].children[1].textContent = sendDate;
-		modal_trs[3].children[1].textContent = dmContent;
+		modal_tds[0].textContent = memId;
+		modal_tds[1].textContent = memNickname;
+		modal_tds[2].textContent = sendDate;
+		modal_tds[3].textContent = dmContent;
 		
 //		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정
 //		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
@@ -111,10 +120,11 @@
 			replied_txt = ''; 
 		}
 		
+		let textarea = document.getElementById('reply-textarea');
 		textarea.value    = replied_txt;
 		textarea.readOnly = (replied_txt != '');
 		
- 		checkedByte(document.getElementById('reply-textarea'));
+ 		checkedByte(textarea);
 		
 		$('#dmRepliedForm').modal('show');
 	}	// showDmRepliedModal

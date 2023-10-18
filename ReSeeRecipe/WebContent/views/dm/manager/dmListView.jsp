@@ -26,6 +26,7 @@
 
 <!-- categoryListView / script & css -->
 <link rel="stylesheet" href="resources/css/dm/dm_manager.css">
+<link rel="shortcut icon" href="#">
 
 </head>
 <body>
