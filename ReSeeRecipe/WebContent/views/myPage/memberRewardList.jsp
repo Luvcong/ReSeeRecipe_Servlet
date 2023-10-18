@@ -12,77 +12,9 @@
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<style>
+<link rel="stylesheet" href="resources/css/myPage/memberRewardList.css">
+<!-- <script src="resources/js/myPage/memberRewardList.js"></script> -->
 
-        /* Set a style for all buttons */
-        button {
-            background-color: rgb(88, 87, 87);
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* Add a hover effect for buttons */
-        button:hover {
-            opacity: 0.8;
-        }
-
-        /* Add padding to containers */
-        .container {
-            padding : 50px 350px;
-        }
-
-        .info-div {
-            margin : 50px 0px;
-        }
-
-        .info-div > div {
-            float : left;
-        }
-
-        #infoText {
-            width : 80%;
-        }
-
-        #infoTotal {
-            width : 20%;
-            border-radius : 20px;
-            background-color : rgb(21, 21, 71);
-            color : white;
-            text-align : center;
-        }
-
-        #title{
-            padding-top: 50px;
-            display : flex;
-            align-items: center;
-            justify-content: center;
-            font-weight : bold;
-        }
-
-        #tb-reward {
-            width:100%;
-            text-align: center;
-        }
-
-        #tb-reward > thead {
-            background-color : lightgray;
-        }
-        
-        tr {
-            height: 40px;
-            
-        }
-
-        th, td {
-            width: 20%;
-            border : 1px solid black;
-        }
-
-</style>
 </head>
 
 <body>
