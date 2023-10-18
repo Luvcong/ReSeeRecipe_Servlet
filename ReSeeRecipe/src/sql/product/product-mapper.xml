@@ -317,6 +317,26 @@
 			PRODUCT_PICTURE_STATUS = 'Y'
 	</entry>
 	
+	<entry key="orderInsert">
+		INSERT ALL
+		INTO TB_ORDER
+		VALUES (
+				SEQ_ORDER.NEXTVAL,
+				'N',
+				?,
+				SYSDATE,
+				?,
+				NULL,
+				NULL,
+				'Y'		
+				)
+		INTO TB_DELIVERY
+		VALUES (
+				SEQ_DELIVERY.NEXTVAL,
+				
+				)
+	</entry>
+	
 	
 	
 	

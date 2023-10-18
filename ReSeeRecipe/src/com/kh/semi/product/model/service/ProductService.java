@@ -1,10 +1,10 @@
 package com.kh.semi.product.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
-import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.product.model.dao.ProductDao;
@@ -130,6 +130,24 @@ public class ProductService {
 		
 		return pp;
 		
+	}
+	
+	public int orderInsert(int mno, int pno, int ono, HashMap order, int price) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new ProductDao().orderInsert(conn, pno, price);
+		if(result1 > 0) {
+			commit(conn);
+			
+		} else {
+			rollback(conn);
+		}
+		
+		
+		
+		close(conn);
+		return result;
 	}
 	
 	
