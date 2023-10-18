@@ -72,6 +72,7 @@
             </table>
         </div>
     </div>
+    <br><br>
     
     <%@ include file="buyFooter.jsp" %>
 </body>
