@@ -138,7 +138,7 @@ $(function() {
     });
   })
 
-       // ajax를 이용하여 닉네임 중복체크
+    // ajax를 이용하여 닉네임 중복체크
     function nicknameCheck(){
     $.ajax({
       url : 'yrnicknameCheck.me',
@@ -220,13 +220,13 @@ $(function() {
             success : function(result) {
                 // 중복된 아이디
                 if(result == 'NNNNN'){
-        /*
+                    /*
                     Swal.fire({
                           icon: 'error',
                           title: '이메일 중복',
                           text: '이미 사용하고 있는 이메일입니다!'
                     })
-        */
+                    */
                     $('label[for="memberEmail"]').text("* 이미 사용하고 있는 이메일입니다!").css('color', 'red');
                     // $('#memberEmail').val('').focus();
         $('#submitBtn').attr('disabled', true);
