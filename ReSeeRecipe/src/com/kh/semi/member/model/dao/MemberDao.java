@@ -73,6 +73,34 @@ public class MemberDao {
 		return m;
 	}
 	
+	// 리워드 조회
+	public int memReward(Connection conn, int memNo) {
+		
+		int mReward = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("memReward");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mReward = rset.getInt("REWARD");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mReward;
+	}
+	
 	// 회원가입
 	/**
 	 * @param conn : Connection 객체

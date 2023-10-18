@@ -33,6 +33,7 @@ public class ProductBuyController extends HttpServlet {
 		String p = request.getParameter("p"); // Product객체
 		String list = request.getParameter("list"); // 사진리스트
 		String ono = request.getParameter("ono");
+		String buy = request.getParameter("buy");
 		
 		
 		
