@@ -136,4 +136,15 @@ public class NoticeService {
 		
 		return np;
 	}
+	
+	public ArrayList<Tag> selectNoticeTag(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Tag> tag = new NoticeDao().selectNoticeTag(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return tag;
+	}
 }

@@ -1,6 +1,7 @@
 package com.kh.semi.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 import com.kh.semi.notice.model.vo.NoticePic;
+import com.kh.semi.tag.model.vo.Tag;
 
 /**
  * Servlet implementation class NoticeDetailManagerController
@@ -42,8 +44,10 @@ public class NoticeDetailManagerController extends HttpServlet {
 		if(ManageNoticeNo > 0) {
 			Notice n = new NoticeService().selectNoticeInfo(ManageNoticeNo);
 			NoticePic np = new NoticeService().selectNoticePic(ManageNoticeNo);
+			ArrayList<Tag> tag = new NoticeService().selectNoticeTag(ManageNoticeNo);
 			request.setAttribute("n", n);
 			request.setAttribute("np", np);
+			request.setAttribute("tag",tag);
 			request.setAttribute("mnno", ManageNoticeNo);
 			
 			request.getRequestDispatcher("views/notice/noticeDetailManager.jsp").forward(request, response);
