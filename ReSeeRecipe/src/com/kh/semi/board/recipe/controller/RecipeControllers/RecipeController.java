@@ -343,10 +343,18 @@ public class RecipeController {
 	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
 	 * @param request
 	 * @param response
+	 * @throws IOException 
 	 */
-	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
+		int replyWriterNo = Integer.parseInt(request.getParameter("replyWriterNo"));
+		
+		Reply reply = new Reply();
+		reply.setReplyNo(replyNo);
+		reply.setReplyWriterNo(replyWriterNo);
+		reply.setRecipeNo(recipeNo);
 		int result = new RecipeService().deleteReqReplySingle(recipeNo);
 		if(result > 0) {
 			response.setContentType("text/html; charset=UTF-8");

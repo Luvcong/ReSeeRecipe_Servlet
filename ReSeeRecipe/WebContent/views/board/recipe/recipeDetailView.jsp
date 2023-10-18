@@ -779,6 +779,9 @@
 
     	<script>
 	    	var recipeNo = <%= recipe.getRecipeNo() %>;
+	    	<% if(loginMember != null) { %>
+		    	var replyWriterNo = <%= loginMember %>;
+	    	<% } %>
 	    	
 	    	
 	    	// 댓글 리스트 조회
@@ -803,6 +806,7 @@
 					},
 					error : function() {
 						console.log('조회에 실패했습니다');
+					
 					}
 				});
 			};
@@ -833,7 +837,8 @@
 					url : 'ajaxDeleteRecipeReply.ar',
 					data : {
 						recipeNo : recipeNo,
-						replyNo : $(button).siblings('input').attr('name')
+						replyNo : $(button).siblings('input').val(),
+						replyWriterNo : replyWriterNo
 					},
 					success : function(result){
 						alert('삭제 성공!');
