@@ -166,6 +166,8 @@
       profileImg.addEventListener('click', function(){
         profileInput.click();
       });
+
+      
     </script>
 
 
