@@ -71,7 +71,6 @@ public class RecipeService {
 	public ArrayList<CookSteps> selectCookStepsSingle(int recipeNo) {
 		Connection conn = getConnection();
 		ArrayList<CookSteps> cookStepsList = new RecipeDao().selectCookStepsSingle(conn, recipeNo);
-		
 		close(conn);
 		return cookStepsList;
 	}
@@ -150,7 +149,13 @@ public class RecipeService {
 		return recipeList;
 	}
 	
+	/* ************************** UPDATE 종류 ************************** */
 	
+	public int deleteReqReplySingle(int recipeNo) {
+		Connection conn = getConnection();
+		int result = doTransAction(conn, new RecipeDao().deleteReqReplySingle(conn, recipeNo));
+		return result;
+	}
 	
 	
 	
@@ -217,7 +222,7 @@ public class RecipeService {
 
 	
 	
-	
+
 	
 	
 	

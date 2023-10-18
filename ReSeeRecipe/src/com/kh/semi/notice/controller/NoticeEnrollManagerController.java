@@ -78,6 +78,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 			// 두번째 INSERT => 선택적(첨부파일이 존재할 때만 INSERT)
 			NoticePic np = null;
 			
+			System.out.println("multiRequest.getOriginalFileName(\"HL_noticeFile\") >>" + multiRequest.getOriginalFileName("HL_noticeFile"));
 			// 첨부파일 유무 파악! // multirequest.getOriginalFileName("키값");  input type의 name속성값
 			// 첨부파일이 존재한다면 "원본파일명" / 첨부파일이 존재하지 않는다면 null값을 반환
 			if(multiRequest.getOriginalFileName("HL_noticeFile") != null) {
@@ -94,6 +95,7 @@ public class NoticeEnrollManagerController extends HttpServlet {
 				np.setNoticePicNagmeChange(multiRequest.getFilesystemName("HL_noticeFile"));
 			}
 			
+			System.out.println("np >>" + np);
 			// 해시태그 입력할 수도 있고 안 할 수도 있음
 			// 해시태그 값 뽑기
 			String noticeTag = multiRequest.getParameter("tags");
@@ -111,10 +113,14 @@ public class NoticeEnrollManagerController extends HttpServlet {
 	        System.out.println(extractedValues);
 			*/
 			List<Tag> tagList = extractTags(noticeTag);
-
-	        for (Tag tag : tagList) {
-	            System.out.println(tag);
-	        }
+			System.out.println("tagList>>" + tagList);
+			for (Tag tag : tagList) {
+				System.out.println(tag);
+			}
+			if(tagList.isEmpty()) {
+				System.out.println("tagList.isEmpty()" + tagList.isEmpty());
+				tagList = null;
+			}
 			
 			
 			// 4) 서비스 요청

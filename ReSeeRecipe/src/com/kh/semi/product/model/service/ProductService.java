@@ -109,7 +109,28 @@ public class ProductService {
 		return list;
 	}
 	
+	public Option oSelectOption(int ono){
+		
+		Connection conn = getConnection();
+		
+		Option o = new ProductDao().oSelectOption(conn, ono);
+		
+		close(conn);
+		
+		return o;
+	}
 	
+	public ProductPicture selectProductPicture(int ppno) {
+		
+		Connection conn = getConnection();
+		
+		ProductPicture pp = new ProductDao().selectProductPicture(conn, ppno);
+		
+		close(conn);
+		
+		return pp;
+		
+	}
 	
 	
 	
