@@ -28,13 +28,17 @@
              	※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
             </div>
             <div class="info" id="infoTotal">
-            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %>p
+                <% if(!memberRewardList.isEmpty()) {  %>
+            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %> p;
+                <% } %>
             </div>
         </div>
 
         <div class="tableBody">
             <table id='tb-reward' class="table table-sm table-hover">
+                
                 <thead>
+                    <% if(!memberRewardList.isEmpty()) { %>
                     <tr>
                         <th data-idx=0 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=1>일시<div class="sort"></div></th>
@@ -44,8 +48,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(memberRewardList != null) { 
-                    	for(int i = 0; i < memberRewardList.size(); i++) {%>
+                    
+                    	<% for(int i = 0; i < memberRewardList.size(); i++) {%>
                     <tr>
                         <td><%= memberRewardList.get(i).getRownum() %></td>
                         <td><%= memberRewardList.get(i).getRewardDate() %></td>
@@ -54,7 +58,9 @@
                         <td><%= memberRewardList.get(i).getRemainRewardScore() %></td>
                     </tr>
                     	<% } %>
-                   	<% } %>
+                   	<% } else { %>
+                        조회된 리워드가 없습니다.
+                    <% } %>
                 </tbody>
             </table>	<!-- tb-category -->
         </div>	<!-- tableBody  -->

@@ -228,12 +228,15 @@ public class NoticeDao {
 			
 			rset = pstmt.executeQuery();
 			
-			n = new Notice();
-			n.setNoticeNo(rset.getInt("NOTICE_NO"));
-			n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
-			n.setNoticeCon(rset.getString("NOTICE_CON"));
-			n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
-			n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+			if(rset.next()) {
+				n = new Notice();
+				n.setNoticeNo(rset.getInt("NOTICE_NO"));
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeCon(rset.getString("NOTICE_CON"));
+				n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
+				n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -243,5 +246,34 @@ public class NoticeDao {
 		return n;
 	}
 	
+	public NoticePic selectNoticePic(Connection conn, int ManageNoticeNo) {
+		
+		NoticePic np = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticePic");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ManageNoticeNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				np = new NoticePic();
+				np.setNoticePicNo(rset.getInt("NOTICE_PIC_NO"));
+				np.setNoticePicNamgeOrigin(rset.getString("NOTICE_PIC_NAME_ORIGIN"));
+				np.setNoticePicNagmeChange(rset.getString("NOTICE_PIC_NAME_CHANGE"));
+				np.setNoticePicPath(rset.getString("NOTICE_PIC_PATH"));
+				np.setNoticeNo(rset.getInt("NOTICE_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return np;
+	}
 	
 }

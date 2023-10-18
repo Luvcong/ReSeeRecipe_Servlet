@@ -1,6 +1,9 @@
 package com.kh.semi.notice.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -55,20 +58,6 @@ public class NoticeService {
 		return list;
 	}
 	
-	/** 
-	 * @param ManageNoticeNo 선택한 공지사항 게시글의 번호
-	 * @return 선택한 공지사항게시글의 정보
-	 */
-	public Notice selectNoticeInfo(int ManageNoticeNo) {
-		
-		Connection conn = getConnection();
-		
-		Notice n = new NoticeDao().selectNotice(conn, ManageNoticeNo);
-		
-		close(conn);
-		
-		return n;
-	}
 	
 	/**
 	 * @param n 공지사항 제목, 공지사항 내용
@@ -114,5 +103,37 @@ public class NoticeService {
 		close(conn);
 		
 		return (result1 * result2 * result3); //result1 / (result2 * result3); //(result1 * result2 * result3)
+	}
+	
+	/** 
+	 * @param ManageNoticeNo 선택한 공지사항 게시글의 번호
+	 * @return 선택한 공지사항게시글의 정보
+	 */
+	public Notice selectNoticeInfo(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNotice(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return n;
+	}
+	
+	
+	
+	/**
+	 * @param ManageNoticeNo 
+	 * @return 
+	 */
+	public NoticePic selectNoticePic(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		NoticePic np = new NoticeDao().selectNoticePic(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return np;
 	}
 }
