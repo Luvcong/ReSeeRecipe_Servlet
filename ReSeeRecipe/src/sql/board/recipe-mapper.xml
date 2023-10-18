@@ -121,14 +121,7 @@
 	
 	
 	
-	<!-- 카테고리 리스트 조회 SQL문 -->
-	<entry key="selectRecipeCategoryList">
-		SELECT
-			   RECIPE_CATEGORY_NO,
-			   RECIPE_CATEGORY_NAME
-		  FROM
-		  	   TB_RECIPE_CATEGORY
-	</entry>
+
 	
 	
 	<!-- 글과 작성자의 STATUS가 유효한 레시피글의 총 개수 조회 -->
@@ -346,8 +339,16 @@
 
 
 
-
-
+	<!-- ***** 관리자 카테고리 ***** -->
+	
+	<!-- 카테고리 리스트 조회 SQL문 -->
+	<entry key="selectRecipeCategoryList">
+		SELECT
+			   RECIPE_CATEGORY_NO,
+			   RECIPE_CATEGORY_NAME
+		  FROM
+		  	   TB_RECIPE_CATEGORY
+	</entry>
 	
 	<!-- 레시피 카테고리 추가 SQL문 -->
 	<entry key="insertCategory">
@@ -379,7 +380,7 @@
 		                              GROUP BY
 		                                        RECIPE_CATEGORY_NO) CTGR_CNT
 		                            ON RC.RECIPE_CATEGORY_NO = CTGR_CNT.RECIPE_CATEGORY_NO
-		                 ORDER BY RECIPE_CATEGORY_CNT DESC) A)
+		                 ORDER BY RECIPE_CATEGORY_NO ASC) A)
 		                 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
@@ -446,6 +447,10 @@
 		 WHERE RECIPE_CATEGORY_NAME LIKE '%'||?||'%'
 		 ORDER BY RC.RECIPE_CATEGORY_NO ASC
 	</entry>
+	
+	
+	
+	
 	
 	
 	<entry key="selectUnRecipeForModal">
