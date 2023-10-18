@@ -96,7 +96,7 @@
              	※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
             </div>
             <div class="info" id="infoTotal">
-            	내 리워드 : p
+            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %>p
             </div>
         </div>
 

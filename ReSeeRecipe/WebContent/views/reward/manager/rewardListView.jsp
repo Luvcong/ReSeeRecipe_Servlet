@@ -27,6 +27,7 @@
 <body>
 	
 	<%@ include file="../../manager/navbar.jsp" %>
+	<script src="resources/js/reward/reward_manager.js"></script>
 	
 	<div class="rs-content">        
         <div class="header">
@@ -190,7 +191,7 @@
 		<% session.removeAttribute("failMsg"); %>
 	</script>
 	
-	<script src="resources/js/reward/reward_manager.js"></script>
+
 	
 	
 	

@@ -42,6 +42,8 @@
 <body>
 
 	<%@ include file="../manager/navbar.jsp" %>
+	
+	<script src="resources/js/member/memberManager.js"></script>
 <div class="rs-content">
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>
@@ -72,15 +74,13 @@
                 </div>
             </div>
         </div>
-
-        
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
             <button id="deleteMem" class="w3-button w3-round w3-yellow" onclick="deleteMem();">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
-        <table class="table" id="memAll">
+        <table class="table table-hover" id="memAll">
             <caption class="totalMem">총 회원  <%=pi.getListCount() %>명</caption>
           <thead class="thead-light">
             <tr>
@@ -172,10 +172,16 @@
     		<button onclick="page('<%=memlistPage + 1 %>');" class="w3-button w3-yellow">&gt;</button>
     	<% } %>
     </div>
+    
+    <script>
+	    function page(e){
+			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
+		};
+    
+    
+    </script>
 </div>	
-	
-	<script src="resources/js/member/memberManager.js"></script>
-	
+
 	
 </body>
 </html>

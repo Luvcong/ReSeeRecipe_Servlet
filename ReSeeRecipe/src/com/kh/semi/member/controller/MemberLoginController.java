@@ -52,13 +52,19 @@ public class MemberLoginController extends HttpServlet {
 			// request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			request.getRequestDispatcher("views/member/memberLogin.jsp").forward(request, response);
 		} else { // 로그인 성공 시
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			// 
-			if(buy.equals("buy")) {
-				response.sendRedirect(request.getContextPath() + "/main.po");
+			int mReward = new MemberService().memReward(loginMember.getMemNo());
+			if(mReward > -1) {
+				HttpSession session = request.getSession();
+				session.setAttribute("loginMember", loginMember);
+				session.setAttribute("mReward", mReward);
+				if(buy.equals("buy")) {
+					response.sendRedirect(request.getContextPath() + "/main.po");
+				} else {
+					response.sendRedirect(request.getContextPath());
+				}
 			} else {
-				response.sendRedirect(request.getContextPath());
+				request.setAttribute("errorMsg", "리워드조회 실패");
+				request.getRequestDispatcher("views/member/memberLogin.jsp").forward(request, response);
 			}
 		}
 	}

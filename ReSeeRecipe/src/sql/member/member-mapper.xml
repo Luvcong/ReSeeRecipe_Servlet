@@ -38,6 +38,18 @@
 		       MEM_STATUS = 'Y'
 	</entry>
 	
+	<!-- 리워드 조회 -->
+	<entry key="memReward">
+		SELECT
+			NVL(SUM(REWARD_SCORE), 0) REWARD
+		FROM
+			TB_REWARD
+		JOIN
+			TB_MEMBER USING(MEM_NO)
+		WHERE
+			MEM_NO = ?
+	</entry>
+	
 	<!-- 회원가입 -->
 	<entry key="insertMember">
 		INSERT

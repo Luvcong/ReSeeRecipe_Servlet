@@ -227,9 +227,9 @@
 /** 페이징바 다음 스크립트에 위치
  * // 회원 리스트 페이징처리 함수
  */
-        	function page(e){
+       /* 	function page(e){
     			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
-    		}
+    		} */
 /**
  * 
 		/*

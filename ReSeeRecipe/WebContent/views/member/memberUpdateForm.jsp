@@ -137,6 +137,8 @@
       <input type="hidden" name="memberNo" id="memberNo" value="<%= loginMember.getMemNo() %>">
       <!-- 회원이 이미 등록된 사진이 있다면 hidden으로 같이 넘겨주기 -->
       <input type="hidden" name="memberPicture" value="<%= loginMember.getMemPicture() %>">
+      <!-- 변경에 필요한 로그인된 비밀번호 hidden으로 같이 넘겨주기 -->
+      <input type="hidden" name="loginMemberPwd" value="<%= loginMember.getMemPwd() %>">
 
       <!-- 사진 -->
       <div class="container">

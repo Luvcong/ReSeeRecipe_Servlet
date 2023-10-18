@@ -64,19 +64,20 @@
  	</entry>
  	
  	<entry key="selectNotice">
- 		SELECT
- 				 NOTICE_NO
- 				,NOTICE_TITLE
- 				,NOTICE_CON
- 				,NOTICE_WRITER
- 		 FROM
- 		 		TB_NOTICE
- 		 JOIN
- 		 		TB_MEMBER ON(MEM_NO = NOTICE_WRITER)
- 		WHERE
- 				NOTICE_STATUS = 'Y'	
- 		  AND		
- 				NOTICE_NO = ?
+		 SELECT
+		        NOTICE_NO
+		       ,NOTICE_TITLE
+		       ,NOTICE_CON
+		       ,NOTICE_DATE
+		       ,MEM_NICKNAME
+		 FROM 
+		        TB_NOTICE
+		 JOIN
+		        TB_MEMBER
+		   ON 
+		   		(NOTICE_WRITER = MEM_NO)
+		WHERE
+		        NOTICE_NO = ?
  	</entry>
  	
  	<!--  공지사항 사진 등록  -->
