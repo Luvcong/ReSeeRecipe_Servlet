@@ -4,8 +4,8 @@ $(function() {
       var $errorCheck = $('label[for="' + $(this).attr('id') + '"]');
 
       // 정규표현식 초기화
-      var $regExp = /^$/;
-
+      var $regExp = /^/;
+      
       // 1) 이름 (2 ~ 6자 이내)
       if($(this)[0] == $('#memberName')[0]) {
         var $regExp = /^[가-힣]{2,6}$/;
@@ -264,7 +264,7 @@ $(function() {
     // 하위항목 동의 체크 시 전체동의 체크
     $('.agree').on('change', function(){
       let agreeCount = 0;
-
+      
       $('.agree').each(function(){
         if($(this).prop('checked') == true){
           agreeCount++;
