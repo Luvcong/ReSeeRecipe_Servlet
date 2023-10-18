@@ -42,6 +42,8 @@
 <body>
 
 	<%@ include file="../manager/navbar.jsp" %>
+	
+	<script src="resources/js/member/memberManager.js"></script>
 <div class="rs-content">
 	<br><br>
     <h2>[ 회원 관리 ]- 회원 정보 조회</h2>
@@ -172,10 +174,16 @@
     		<button onclick="page('<%=memlistPage + 1 %>');" class="w3-button w3-yellow">&gt;</button>
     	<% } %>
     </div>
+    
+    <script>
+	    function page(e){
+			this.location.href = "<%=contextPath %>/hlmembermanage.ma?cmpage=" + e;
+		};
+    
+    
+    </script>
 </div>	
-	
-	<script src="resources/js/member/memberManager.js"></script>
-	
+
 	
 </body>
 </html>
