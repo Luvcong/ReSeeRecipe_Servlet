@@ -80,10 +80,20 @@
 		
 		let textarea = document.getElementById('reply-textarea');
 		
-		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정(반복문사용)
-		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
-		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
-		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
+		let memId = checked_tr.children[3].textContent;
+		let memNickname = checked_tr.children[4].textContent;
+		let sendDate = checked_tr.children[2].textContent;
+		let dmContent = checked_tr.children[5].textContent;
+		
+		modal_trs[0].children[1].textContent = memId;
+		modal_trs[1].children[1].textContent = memNickname;
+		modal_trs[2].children[1].textContent = sendDate;
+		modal_trs[3].children[1].textContent = dmContent;
+		
+//		modal_trs[0].children[1].textContent = checked_tr.children[3].textContent;	// 아이디	-- 추후 수정
+//		modal_trs[1].children[1].textContent = checked_tr.children[4].textContent;	// 닉네임
+//		modal_trs[2].children[1].textContent = checked_tr.children[2].textContent;	// 발송시간
+//		modal_trs[3].children[1].textContent = checked_tr.children[5].textContent;	// 쪽지내용
 		
 /* 		if(textarea.value != 'null'){
 			textarea.readOnly = true;
