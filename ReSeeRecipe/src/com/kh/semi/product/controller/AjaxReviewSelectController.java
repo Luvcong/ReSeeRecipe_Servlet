@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ReviewSelectController
  */
 @WebServlet("/rlist.po")
-public class ReviewSelectController extends HttpServlet {
+public class AjaxReviewSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewSelectController() {
+    public AjaxReviewSelectController() {
         super();
         // TODO Auto-generated constructor stub
     }

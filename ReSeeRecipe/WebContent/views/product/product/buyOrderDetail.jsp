@@ -74,22 +74,31 @@
             <p>배송지관리</p>
         </div>
         <form method="post">
+        	<input type="hidden" value="<%= loginMember.getMemNo() %>" name="mno">
+        	<input type="hidden" value="<%= p.getProductNo() %>" name="pno">
+        	<input type="hidden" value="<%= pp.getPictureNo() %>" name="ppno">
+        	<% if(o != null) { %>
+            	<input type="hidden" value="<%= o.getOptionNo() %>" name="ono">
+            	<input type="hidden" value="<%= p.getPrice() + p.getDilivery() + o.getOptionPrice() %>" name="price">
+            <% } else { %>
+            	<input type="hidden" value="<%= p.getPrice() + p.getDilivery() %>" name="price">
+            <% } %>
 	        <table class="table">
 	            <tr>
-	                <th class="table-active" width="300">받으시는분</th>
+	                <th class="table-active" width="300" required>받으시는분</th>
 	                <td><input type="text" name="name"></td>
 	            </tr>
 	            <tr>
 	                <th class="table-active">주소</th>
-	                <td><input type="text" name="address"></td>
+	                <td><input type="text" name="address" required></td>
 	            </tr>
 	            <tr>
 	                <th class="table-active">휴대전화(-없이)</th>
-	                <td><input type="text" name="phone"></td>
+	                <td><input type="text" name="phone" required></td>
 	            </tr>
 	            <tr>
 	                <th class="table-active">이메일</th>
-	                <td><input type="text" name="email"></td>
+	                <td><input type="text" name="email" required></td>
 	            </tr>
 	            <tr>
 	                <th class="table-active">배송시 남길말</th>
@@ -104,11 +113,11 @@
 	        <table class="table">
 	            <tr>
 	                <th class="table-active" width="300">주문하시는분</th>
-	                <td><input type="text" name="oname"></td>
+	                <td><input type="text" name="oname" required></td>
 	            </tr>
 	            <tr>
 	                <th class="table-active">휴대전화</th>
-	                <td><input type="text" name="ophone"></td>
+	                <td><input type="text" name="ophone" required></td>
 	            </tr>
 	        </table>
 	        <br>
@@ -119,11 +128,11 @@
 		        <table class="table">
 		            <tr>
 		                <th class="table-active" width="300">선물받으시는분 아이디</th>
-		                <td><input type="text" name="pid"></td>
+		                <td><input type="text" name="pid" required></td>
 		            </tr>
 		            <tr>
 		                <th class="table-active">선물시 남길말</th>
-		                <td><input type="text" name="prequest"></td>
+		                <td><input type="text" name="prequest" required></td>
 		            </tr>
 		        </table>
 		        <br>
@@ -166,9 +175,9 @@
 	        </table>
 	        <br>
 	        <% if(buy.equals("pre")) { %>
-        		<button class="btn btn-secondary" formaction="<%=contextPath%>/.po">결제하기</button>
+        		<button class="btn btn-secondary" formaction="<%=contextPath%>/pdelivery.po">결제하기</button>
         	<% } else { %>
-        		<button class="btn btn-secondary" formaction="<%=contextPath%>pdelivery/.po">결제하기</button>
+        		<button class="btn btn-secondary" formaction="<%=contextPath%>/pdelivery.po">결제하기</button>
         	<% } %>
         </form>
     </div>
