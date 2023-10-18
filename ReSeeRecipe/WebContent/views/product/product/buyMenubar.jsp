@@ -7,6 +7,7 @@
 
 	// 로그인한 회원
 	Member loginMember = (Member)session.getAttribute("loginMember");
+	int mReward = (int)session.getAttribute("mReward");
 %>
 <!DOCTYPE html>
 <html>
@@ -172,7 +173,7 @@
 		                </div>
 	                <% } %>
                 	<div>
-                    	<b>내 리워드 : 123원</b>
+                    	<b>내 리워드 : <%= mReward %>원</b>
                 	</div>
                 	<div>
 	                    <a href="<%= contextPath %>/yrlogout.me?buy=buy">로그아웃</a>

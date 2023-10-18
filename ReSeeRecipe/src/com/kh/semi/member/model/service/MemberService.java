@@ -26,6 +26,17 @@ public class MemberService {
 		return m;
 	}
 	
+	public int memReward(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		int mReward = new MemberDao().memReward(conn, memNo);
+		
+		close(conn);
+		
+		return mReward;
+	}
+	
 	// 회원가입
 	/**
 	 * @param m : 회원가입하는 Member객체

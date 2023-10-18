@@ -30,6 +30,21 @@
 		 	   
 	</entry>
 	
+	<!-- 회원 리워드 내역 조회 -->
+	<entry key="selectMemberRewardList">
+		SELECT * FROM  (
+			SELECT ROWNUM RNUM, A.* FROM
+				(SELECT REWARD_DATE, REWARD_REASON, REWARD_SCORE, (SUM(REWARD_SCORE) 
+			                                                        OVER(PARTITION BY MEM_NO
+			                                                                 ORDER BY REWARD_NO 
+			                                                                 ROWS BETWEEN UNBOUNDED PRECEDING 
+			                                                                 AND CURRENT ROW)) "REMAIN_REWARD_SCORE"
+				  FROM TB_REWARD
+				 WHERE MEM_NO = ?
+				   AND REWARD_SCORE != 0
+				 ORDER BY REWARD_DATE DESC) A)
+	</entry>
+	
 
 	<entry key="selectDmList">
 			SELECT
