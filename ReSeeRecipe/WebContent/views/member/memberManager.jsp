@@ -82,7 +82,7 @@
             <button id="deleteMem" class="w3-button w3-round w3-yellow" onclick="deleteMem();">회원 삭제</button>
         </div>
        <!--  <h2>총 회원 <%=pi.getListCount() %>명</h2>--> 
-        <table class="table" id="memAll">
+        <table class="table table-hover" id="memAll">
             <caption class="totalMem">총 회원  <%=pi.getListCount() %>명</caption>
           <thead class="thead-light">
             <tr>
