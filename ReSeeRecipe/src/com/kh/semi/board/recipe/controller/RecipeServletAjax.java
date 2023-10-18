@@ -45,7 +45,7 @@ public class RecipeServletAjax extends HttpServlet {
 		switch(mapping) {
 			case "ajaxSelectTag" : rc.ajaxSelectTag(request, response); break;
 			//case "ajaxModifyRecipeReply" : rc.ajaxModifyRecipeReply(request, response); break;
-			case "ajaxDeleteRecipeReply" : rc.ajaxDeleteRecipeReply(request, response); break;
+			//case "ajaxDeleteRecipeReply" : rc.ajaxDeleteRecipeReply(request, response); break;
 			case "ajaxSelectRecipeReplyList" : rc.ajaxSelectRecipeReplyList(request, response); break;
 			case "ajaxInsertRecipeReply" : rc.ajaxInsertRecipeReply(request, response); break;
 			default : response.sendRedirect(rc.errorDefault(request, response)); break;
