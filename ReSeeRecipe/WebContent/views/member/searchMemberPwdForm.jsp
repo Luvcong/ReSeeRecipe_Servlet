@@ -57,5 +57,53 @@
 	<%@ include file="/views/common/footer.jspf" %>
 
   <script src="resources/js/member/searchMemberPwdForm.js"></script>
+
+  <script>
+    function updateMemberPwd(){
+    
+    if($memberPwd.val() != $memberPwdCheck.val()){
+        $('label[for="memberPwdCheck"]').text("* 비밀번호가 일치하지 않습니다.").css('color', 'red');
+            } else{ // 비밀번호 재설정 및 확인 동일작성
+            $.ajax({
+                url : 'yrupdateMemberPwd.me',
+                data : {memberId : $memberId.val(),
+                        memberPwd : $memberPwd.val()		
+                },
+                success : function(result){
+                    if(result == 'S'){
+                        Swal.fire({
+                              title: '비밀번호 재설정 성공',
+                              text: "비밀번호가 변경되었습니다.",
+                              icon: 'success',
+                              confirmButtonColor: '#3085d6',
+                              confirmButtonText: '확인'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                              $(location).attr("href", "<%= contextPath %>/yrloginForm.me");
+                          }
+                        })
+
+                    } else{
+                        // ★★★★★★★★★★★★여기서 jsp로 보내니까 다시 입력하면 AJAX통신 오류가 뜸
+                        Swal.fire({
+                              title: '비밀번호 재설정 실패',
+                              text: "다시 시도해 주십시오.",
+                              icon: 'error',
+                              confirmButtonColor: '#d33',
+                              confirmButtonText: '확인'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                              $(location).attr("href", "<%= contextPath %>/yrsearchMemberPwdForm.me");
+                          }
+                        })
+                    }
+                },
+                error : function(){
+                    console.log('비밀번호 재설정 AJAX통신 실패!');
+                }
+            })
+            }
+        };
+  </script>
   </body>
 </html>

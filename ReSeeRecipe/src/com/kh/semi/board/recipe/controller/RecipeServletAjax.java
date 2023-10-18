@@ -44,7 +44,7 @@ public class RecipeServletAjax extends HttpServlet {
 		// Controller로 분배
 		switch(mapping) {
 			case "ajaxSelectTag" : rc.ajaxSelectTag(request, response); break;
-			//case "ajaxModifyRecipeReply" : rc.ajaxModifyRecipeReply(request, response); break;
+			case "ajaxModifyRecipeReply" : rc.ajaxModifyRecipeReply(request, response); break;
 			case "ajaxDeleteRecipeReply" : rc.ajaxDeleteRecipeReply(request, response); break;
 			case "ajaxSelectRecipeReplyList" : rc.ajaxSelectRecipeReplyList(request, response); break;
 			case "ajaxInsertRecipeReply" : rc.ajaxInsertRecipeReply(request, response); break;
