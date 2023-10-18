@@ -214,17 +214,6 @@ public class NoticeDao {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public Notice selectNotice(Connection conn, int ManageNoticeNo) {
 		
 		Notice n = null;
@@ -233,8 +222,25 @@ public class NoticeDao {
 		
 		String sql = prop.getProperty("selectNotice");
 		
-		
-		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ManageNoticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			n = new Notice();
+			n.setNoticeNo(rset.getInt("NOTICE_NO"));
+			n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+			n.setNoticeCon(rset.getString("NOTICE_CON"));
+			n.setNoticeWriterName(rset.getString("MEM_NICKNAME"));
+			n.setNoticeDate(rset.getDate("NOTICE_DATE"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return n;
 	}
 	
 	

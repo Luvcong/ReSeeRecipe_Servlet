@@ -55,7 +55,7 @@ public class NoticeService {
 		return list;
 	}
 	
-	/** 아직 미완성
+	/** 
 	 * @param ManageNoticeNo 선택한 공지사항 게시글의 번호
 	 * @return 선택한 공지사항게시글의 정보
 	 */
@@ -63,7 +63,7 @@ public class NoticeService {
 		
 		Connection conn = getConnection();
 		
-		Notice n = new NoticeDao().selectNoticeInfo(conn, ManageNoticeNo);
+		Notice n = new NoticeDao().selectNotice(conn, ManageNoticeNo);
 		
 		close(conn);
 		
@@ -100,28 +100,7 @@ public class NoticeService {
 			result3 = new NoticeDao().insertNoticeTag(conn, list);
 						
 		}
-		
-		/*
-		if(np != null || tagList != null) {
-			
-			result2 = new NoticeDao().insertNoticePic(conn, np);
-			
-			
-			
-			
-			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
-			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
-			
-			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
-			result3 = new NoticeDao().insertNoticeTag(conn, list);
-			
-			
-			
-		} else {
-			result2 = 0;
-			result3 = 0;
-		}
-		*/
+
 		// 3) 트랜잭션 처리
 		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
 		// 셋 중 하나라도 실패하면 무조건 rollback
@@ -131,19 +110,7 @@ public class NoticeService {
 		} else {
 			rollback(conn);
 		}
-		
-		/*
-		if(result1 > 0) {
-			commit(conn);
-			if(result2 > 0) {
-				commit(conn);
-			} else if(result3 > 0) {
-				commit(conn);
-			}
-		} else {
-			rollback(conn);
-		}
-		*/
+
 		close(conn);
 		
 		return (result1 * result2 * result3); //result1 / (result2 * result3); //(result1 * result2 * result3)

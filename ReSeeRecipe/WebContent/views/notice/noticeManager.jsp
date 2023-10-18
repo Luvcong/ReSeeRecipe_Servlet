@@ -68,14 +68,6 @@
         <div class="header1">
             <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
-         <!--          <button type="button" class="btn btn-warning btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                    조회
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">제목</a>
-                    <a class="dropdown-item" href="#">작성일자</a>
-                    <a class="dropdown-item" href="#">키워드</a>
-                  </div>-->
                   <select id="noticeSearch"  value="공지사항조회"class="btn btn-warning">
                   	<option value="MEM_ID">공지사항 제목</option> 
                   	<option value="MEM_NICKNAME">작성자</option> 
@@ -91,8 +83,6 @@
 
         <div class="header2">
         	<a href="<%=contextPath %>/hlenrollnoticeForm.ma" class="w3-button w3-round w3-yellow">공지사항 작성</a>
-        <!--<button id="HL_enrollNotice" class="w3-button w3-round w3-yellow" onclick="enrollNotice(e);">공지사항 작성</button> -->
-        <!--<button class="w3-button w3-round w3-yellow">회원 수정</button> -->
             <button id="HL_deleteNotice" class="w3-button w3-round w3-yellow" onclick="deleteNotice();">공지사항 삭제</button>
         </div>
         <table class="table" id="noticeAll">
@@ -151,19 +141,8 @@
                     location.href = '<%=contextPath%>/hldetailnotice.ma?mnno=' + mnno;
                 })
             });
-            
-            
-<%--             function enrollNotice(e){
-            	this.location.href = '<%=contextPath %>/hlenrollnoticeForm.ma';
-            }; --%>
-			
-
         </script>
-
     </div>
-    
-    
-    
     <br><br><br><br>
     <div class="w3-bar">
 		<% if(noticelistPage != 1) { %>
@@ -189,8 +168,6 @@
 		function page(e){
 			this.location.href = "<%=contextPath %>/hlnoticemanage.no?cnpage=" + e;
 		}
-	
-	
 	</script>
 
 
