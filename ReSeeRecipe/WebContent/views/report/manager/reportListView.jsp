@@ -30,6 +30,8 @@
 <body>
 
 	<%@ include file="../../manager/navbar.jsp" %>
+	<script src="resources/js/report/report_manager.js"></script>
+	
 	<div class="rs-content">
 	    <div class="header">
 		    <div class="h-title p-3">   <!-- 패딩 1rem -->
@@ -176,7 +178,7 @@
 		        </div>
 		</form>
 	 </div> <!-- 신고함 상세보기 modal창 -->
-	 <script src="resources/js/report/report_manager.js"></script>
+	 
 
 </body>
 </html>

@@ -71,7 +71,7 @@
         	width:100%;
         	height: 1000px;
         	display:block;
-        	magin:0 auto;
+        	margin:0 auto;
         }
         #pageCenter{
             border: 1px solid black;
@@ -141,7 +141,7 @@
         float: left;
         }
         .myChefList{
-        bolder:1px solid black;
+        border:1px solid black;
         width:250px;
         height:250px;
         float: left;
@@ -180,7 +180,7 @@
         float: left;
         }
         .myRecipeBookList{
-        bolder:1px solid black;
+        border:1px solid black;
         width:250px;
         height:250px;
         float: left;

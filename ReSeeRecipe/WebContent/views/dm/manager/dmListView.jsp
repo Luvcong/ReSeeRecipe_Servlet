@@ -25,14 +25,14 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- categoryListView / script & css -->
-
 <link rel="stylesheet" href="resources/css/dm/dm_manager.css">
 
 </head>
 <body>
 	
 	<%@ include file="../../manager/navbar.jsp" %>
-
+	<script src="resources/js/dm/dm_manager.js"></script>
+	
     <div class="rs-content">        
         <div class="header">
             <div class="h-title p-3">   <!-- 패딩 1rem -->
@@ -168,7 +168,7 @@
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
 	</script>	
-  	<script src="resources/js/dm/dm_manager.js"></script>
+  	
 	
 
 </body>

@@ -62,7 +62,11 @@ public class MemberUpdateController extends HttpServlet {
 			
 			// 회원정보변경 후 다시 회원 조회를 위한 id, pwd값
 			String memberId = multiRequest.getParameter("memberId");
-			String memberPwd = multiRequest.getParameter("memberPwd");
+			String memberPwd = multiRequest.getParameter("loginMemberPwd");
+			
+			System.out.println("아이디 비번 확인");
+			System.out.println(memberId);
+			System.out.println(memberPwd);
 			
 			// 가져온 값들 객체로 Service 넘길 것
 			Member m = new Member();

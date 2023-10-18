@@ -1,7 +1,9 @@
-// 페이징바
-function page(element){
-			this.location.href = "/ReSeeRecipe/jhselect.dm?page=" + element;
-		}
+// <!-- 페이징바 -->
+	function page(element){
+		this.location.href = "/ReSeeRecipe/jhselect.dm?page=" + element;
+	}
+
+	
 // <!-- 쪽지 글자 byte count -->
 	let limitByte = 500;
 	let totalByte;
@@ -21,29 +23,25 @@ function page(element){
 		$('#count').text(totalByte);
 	}	// checkedByte
 
-function onDbClickRow(){
-  			console.log(event.currentTarget);
-  			
-  			let table = document.getElementById('tb-dm');
-  			let inputs = table.querySelectorAll('tr input');
-  			
-  			for(let input of inputs){
-  				input.checked = false;
-  			}
-  			
-  			// td를 선택해서 td가 나오는데 cureenttarget은 이벤트가 걸려있는 요소가 나온다
-  			// event.target이 지금 tr로 되어있을거에dnddnd웅
-  			// 얘를 체크로 바꿔줘야대
-  			let input = event.currentTarget.querySelector('input');
-  			input.checked = true; 
-  			// 짜잔 해ㅐㅇ 해ㅐgood 
-  			
-  			
-  			
-  			showDmRepliedModal();
-  		}
-
-
+	
+// <!-- 더블클릭시 modal창 -->
+	function onDbClickRow(){
+		console.log(event.currentTarget);
+		
+		let table = document.getElementById('tb-dm');
+		let inputs = table.querySelectorAll('tr input');
+		
+		for(let input of inputs){
+			input.checked = false;
+		}
+		
+		// currentTarget == 이벤트가 걸려있는 요소 반환
+		// event.target == td
+		let input = event.currentTarget.querySelector('input');
+		input.checked = true; 
+		
+		showDmRepliedModal();
+	}	// onDbClickRow
 
 
 // <!-- 쪽지답변 modal창 내부 값 -->
@@ -109,11 +107,12 @@ function onDbClickRow(){
  		checkedByte(document.getElementById('reply-textarea'));
 		
 		$('#dmRepliedForm').modal('show');
-	}
+	}	// showDmRepliedModal
+	
 
 // <!-- 쪽지 삭제 -->
 	function deleteDm(){
-		let trs = document.querySelectorAll('.table tr');	// showDmRepliedModal()와 중복코드 - 추후 수정예정
+		let trs = document.querySelectorAll('.table tr');
 		let checked_tr = null;
 		
 		for(let tr of trs){
@@ -232,190 +231,187 @@ function onDbClickRow(){
 				window.location.reload();		// 새로고침 방법 다시 작성해보기
 			}
 		}) */
-	}
+	}	// deleteDm
 
 
 // <!-- 컬럼 sort -->
-$(function() {								
-	$('.table th').on('click', sortTable);	// table의 th요소 click시(테이블의 컬럼부분) > sortTable 함수 실행
-	
-	// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams
-	// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-	
-	// console.log(window.location.href);		// 현재 위치의 url
-	// console.log(window.location.search);		// 값 ok (?page=1) > url Parameter
-	
-	// 쿼리스트링 파싱
-	let urlParams = new URLSearchParams(window.location.search);		
-	let page = urlParams.get('page');
-	// console.log(page);
-		if(page != null){		// 메인화면 쿼리스트링 x == null상태
-		sortTable();
-	}
-})
-
-
-// tb-dm의 헤더 체크박스 클릭시 실행 (전체 체크/해제)
-function checkAll(){
-	let table = document.getElementById('tb-dm');
-	let inputs = document.querySelectorAll('tr input');
-	
-	// console.log(table);		// 테이블 값 확인 ok
-	// console.log(inputs);		// 모든 체크박스 값 ok
-	
-	// 헤더 체크박스 클릭시 == checked속성 true > 전체 체크되도록
-	// 헤더 체크박스 해제시 == checked속성 false > 전체 해제되도록 
-	
-	// element의 checked속성이 true인경우 체크 == table의 모든 tr > input 요소가 checked
-	// element의 checked속성이 false인 경우 똑같이 flase로 해주어야 함
-	// 즉, element.checked == table tr input.checked가 서로 일치하다는 의미
-	for(let input of inputs){
-		input.checked = event.target.checked;	// element.checked가 해제/선택일때의 경우 모두 input에 넣음
-	}
-}	// checkAll
-
-
-// 테이블 행 하나가 체크해제 되어있으면 전체 체크박스 해제
-function checkOnce(){
-	
-	// let checked = event.target.checked;
-	// console.log(checked);
-	
-	let table = document.getElementById('tb-dm');
-	let hd_input = table.querySelector('th').querySelector('input');
-	let inputs = table.querySelector('tbody').querySelectorAll('tr input');
-	
-	let is_all_checked = true;			// 전체 체크 확인용 변수 선언 - true~~
-	for(let input of inputs){			// 각 tr의 input 반복문 돌리기
-		if(input.checked == false){		// input의 checked 속성이 false면 전체 체크 확인용 변수를 똑같이 false로 바꾸고
-			is_all_checked = false;
-			break;						// break
-		}
-	}
-
-	hd_input.checked = is_all_checked;	// 위 결과값 헤더 input > checked속성에 대입 (true or false) == 하나라도 false이면 false
-}	// checkOnce
-
-
-// 컬럼정렬
-function sortTable(){
-	
-	// console.log(event);
-	// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-	
-	let target;
-	let idx, type;
-	// 페이지 넘긴 경우
-	if(event == null){
-		idx  = parseInt(localStorage.getItem('data-idx'));			// string으로 들어와서 parseInt - 테이블 컬럼부분
-		type = localStorage.getItem('data-type');					
+	$(function() {								
+		$('.table th').on('click', sortTable);	// table의 th요소 click시(테이블의 컬럼부분) > sortTable 함수 실행
 		
-		target = document.querySelector("th[data-idx='" + idx + "']");
-		let sortElement = target.querySelector('.sort');
-		if(sortElement != null)
-			sortElement.classList.add(localStorage.getItem('data-sort'));
-		// document.querySelector("th[data-idx='1']");
-	}
-	// 컬럼 헤더를 클릭한 경우
-	else {
-		target = this;			// this == 클릭한 th
-		// console.log(target);
-		idx = parseInt(target.getAttribute('data-idx'));	// data-idx 속성값을 idx 변수에 저장
-		// console.log(idx);	// 값 ok
-		type = this.getAttribute('data-type');				// num
-		// console.log(type);
-		localStorage.setItem('data-idx', idx);
-		localStorage.setItem('data-type', type);			// 번호컬럼 아닌 경우 value값 null
-	}
+		// https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/URLSearchParams
+		// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+		
+		// console.log(window.location.href);		// 현재 위치의 url
+		// console.log(window.location.search);		// 값 ok (?page=1) > url Parameter
+		
+		// 쿼리스트링 파싱
+		let urlParams = new URLSearchParams(window.location.search);		
+		let page = urlParams.get('page');
+		// console.log(page);
+			if(page != null){		// 메인화면 쿼리스트링 x == null상태
+			sortTable();
+		}
+	})
 
-	if(idx == 0){		// data-idx == 0이면 (메인페이지)
-		return;			// 리턴 > 컬럼 정렬 들고가지않도록
-	}
-	
-	let tbody = document.querySelector('.table tbody');
-	console.log(tbody);
-	let rows = Array.from(tbody.children); // tr / querySelector == 유사배열 == Array.from사용	
-	// console.log(rows);				   // https://ko.javascript.info/searching-elements-dom
-										   // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/from
-	
-										   
-	// 현재 sort 상태가 뭔지 저장하기위한 변수
-	let is_desc = false;
-	
-	// 1) 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
-	let ths = document.querySelectorAll('.table th');
-	for(let th of ths) {
-		let sort = th.children[0];	// input
+	// tb-dm의 헤더 체크박스 클릭시 실행 (전체 체크/해제)
+	function checkAll(){
+		let table = document.getElementById('tb-dm');
+		let inputs = document.querySelectorAll('tr input');
+		
+		// console.log(table);		// 테이블 값 확인 ok
+		// console.log(inputs);		// 모든 체크박스 값 ok
+		
+		// 헤더 체크박스 클릭시 == checked속성 true > 전체 체크되도록
+		// 헤더 체크박스 해제시 == checked속성 false > 전체 해제되도록 
+		
+		// element의 checked속성이 true인경우 체크 == table의 모든 tr > input 요소가 checked
+		// element의 checked속성이 false인 경우 똑같이 flase로 해주어야 함
+		// 즉, element.checked == table tr input.checked가 서로 일치하다는 의미
+		for(let input of inputs){
+			input.checked = event.target.checked;	// element.checked가 해제/선택일때의 경우 모두 input에 넣음
+		}
+	}	// checkAll
 
-		// th요소가 현재 선택된 th인 경우
-		if(target == th){
-			// 내림차순인지 확인
-			is_desc = sort.classList.contains('desc');	// 화살표
+	// 테이블 행 하나가 체크해제 되어있으면 전체 체크박스 해제
+	function checkOnce(){
+		
+		// let checked = event.target.checked;
+		// console.log(checked);
+		
+		let table = document.getElementById('tb-dm');
+		let hd_input = table.querySelector('th').querySelector('input');
+		let inputs = table.querySelector('tbody').querySelectorAll('tr input');
+		
+		let is_all_checked = true;			// 전체 체크 확인용 변수 선언 - true~~
+		for(let input of inputs){			// 각 tr의 input 반복문 돌리기
+			if(input.checked == false){		// input의 checked 속성이 false면 전체 체크 확인용 변수를 똑같이 false로 바꾸고
+				is_all_checked = false;
+				break;						// break
+			}
+		}
+	
+		hd_input.checked = is_all_checked;	// 위 결과값 헤더 input > checked속성에 대입 (true or false) == 하나라도 false이면 false
+	}	// checkOnce
+
+
+	// 컬럼정렬
+	function sortTable(){
+		
+		// console.log(event);
+		// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+		
+		let target;
+		let idx, type;
+		// 페이지 넘긴 경우
+		if(event == null){
+			idx  = parseInt(localStorage.getItem('data-idx'));			// string으로 들어와서 parseInt - 테이블 컬럼부분
+			type = localStorage.getItem('data-type');					
 			
-			// 내림차순이면 오름차순으로 변경
-			if(is_desc){
+			target = document.querySelector("th[data-idx='" + idx + "']");
+			let sortElement = target.querySelector('.sort');
+			if(sortElement != null)
+				sortElement.classList.add(localStorage.getItem('data-sort'));
+			// document.querySelector("th[data-idx='1']");
+		}
+		// 컬럼 헤더를 클릭한 경우
+		else {
+			target = this;			// this == 클릭한 th
+			// console.log(target);
+			idx = parseInt(target.getAttribute('data-idx'));	// data-idx 속성값을 idx 변수에 저장
+			// console.log(idx);	// 값 ok
+			type = this.getAttribute('data-type');				// num
+			// console.log(type);
+			localStorage.setItem('data-idx', idx);
+			localStorage.setItem('data-type', type);			// 번호컬럼 아닌 경우 value값 null
+		}
+	
+		if(idx == 0){		// data-idx == 0이면 (메인페이지)
+			return;			// 리턴 > 컬럼 정렬 들고가지않도록
+		}
+		
+		let tbody = document.querySelector('.table tbody');
+		console.log(tbody);
+		let rows = Array.from(tbody.children); // tr / querySelector == 유사배열 == Array.from사용	
+		// console.log(rows);				   // https://ko.javascript.info/searching-elements-dom
+											   // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+		
+											   
+		// 현재 sort 상태가 뭔지 저장하기위한 변수
+		let is_desc = false;
+		
+		// 1) 모든 th 목록의 desc/asc 클래스를 제거 > 선택된 th요소 class에만 desc/asc 추가
+		let ths = document.querySelectorAll('.table th');
+		for(let th of ths) {
+			let sort = th.children[0];	// input
+	
+			// th요소가 현재 선택된 th인 경우
+			if(target == th){
+				// 내림차순인지 확인
+				is_desc = sort.classList.contains('desc');	// 화살표
+				
+				// 내림차순이면 오름차순으로 변경
+				if(is_desc){
+					sort.classList.remove('desc');
+					sort.classList.add('asc');
+					localStorage.setItem('data-sort', 'desc');
+				}
+				// 내림차순이 아니면 내림차순으로 변경
+				else{
+					sort.classList.remove('asc');
+					sort.classList.add('desc');
+					localStorage.setItem('data-sort', 'asc');
+				}
+				
+			}	// if
+			
+			// 선택된 th 요소가 아닌경우 asc/desc 클래스를 모두 삭제 (화살표)
+			else {
 				sort.classList.remove('desc');
-				sort.classList.add('asc');
-				localStorage.setItem('data-sort', 'desc');
-			}
-			// 내림차순이 아니면 내림차순으로 변경
-			else{
 				sort.classList.remove('asc');
-				sort.classList.add('desc');
-				localStorage.setItem('data-sort', 'asc');
 			}
+		}	// for
+	
+		
+	/* 		sort함수 참고 -- 삭제예정 (오름차순 기준)
+			rows.sort(function(a, b) {
+			if(a < b)
+				return -1;
 			
-		}	// if
-		
-		// 선택된 th 요소가 아닌경우 asc/desc 클래스를 모두 삭제 (화살표)
-		else {
-			sort.classList.remove('desc');
-			sort.classList.remove('asc');
-		}
-	}	// for
+			if(a > b)
+				return 1;
+			
+			if(a==0)
+				return 0;
+		}) */
 	
-	
-/* 		sort함수 참고 -- 삭제예정 (오름차순 기준)
-		rows.sort(function(a, b) {
-		if(a < b)
-			return -1;
-		
-		if(a > b)
-			return 1;
-		
-		if(a==0)
-			return 0;
-	}) */
-	
-	// 2) 실제 정렬 작업을 하는 부분
-	rows.sort(function (trA, trB) {					// Array.from이용한 변수 rows사용
-		let txtA = trA.children[idx].textContent;
-		let txtB = trB.children[idx].textContent;
-		// console.log(txtA);
-		// console.log('****************');
-		// console.log(txtB);
-
-		
-		if(type == 'num')
-		{
-			txtA = parseInt(txtA);
-			txtB = parseInt(txtB);
+		// 2) 실제 정렬 작업을 하는 부분
+		rows.sort(function (trA, trB) {					// Array.from이용한 변수 rows사용
+			let txtA = trA.children[idx].textContent;
+			let txtB = trB.children[idx].textContent;
 			// console.log(txtA);
-		} 
-		
-		if(txtA < txtB){
-			return is_desc ? -1 : 1;	// 내림차순이면 -1
-		}
-		else if(txtA > txtB){
-			return is_desc ? 1 : -1;	// 내림차순 아니면(오름차순) 1
-		}
-		else {
-			return 0;				
-		}
-	});
+			// console.log('****************');
+			// console.log(txtB);
 	
-	for(let tr of rows){				// 반복문으로 tbody에 tr영역 추가해서 계속 비교되게끔 해주어야 함
-		tbody.append(tr);
-	}
+			
+			if(type == 'num')
+			{
+				txtA = parseInt(txtA);
+				txtB = parseInt(txtB);
+				// console.log(txtA);
+			} 
+			
+			if(txtA < txtB){
+				return is_desc ? -1 : 1;	// 내림차순이면 -1
+			}
+			else if(txtA > txtB){
+				return is_desc ? 1 : -1;	// 내림차순 아니면(오름차순) 1
+			}
+			else {
+				return 0;				
+			}
+		});
 	
-}
+		for(let tr of rows){				// 반복문으로 tbody에 tr영역 추가해서 계속 비교되게끔 해주어야 함
+			tbody.append(tr);
+		}
+	}	// sortTable
