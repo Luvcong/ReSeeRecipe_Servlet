@@ -176,7 +176,7 @@
     						},
     						complete : function(result) {
     							window.location.reload();
-    						}
+    						} 
     					});
            			 });		
     		
