@@ -1,11 +1,16 @@
 package com.kh.semi.tag.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.notice.model.service.NoticeService;
+import com.kh.semi.tag.model.vo.Tag;
 
 /**
  * Servlet implementation class NoticeHashtagSelectedController
@@ -27,7 +32,7 @@ public class NoticeHashtagSelectedController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+		ArrayList<Tag> list = new NoticeService().selectNoticeTag(ManageNoticeNo);
 	
 	}
 
