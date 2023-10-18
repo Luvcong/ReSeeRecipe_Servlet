@@ -98,15 +98,23 @@ public class NoticeService {
 		
 		if(np != null || tagList != null) {
 			// 공지사항 사진 업로드
-			result2 = new NoticeDao().insertNoticePic(conn, np);
+			if(np != null) {
+				result2 = new NoticeDao().insertNoticePic(conn, np);
+			}
 			
-			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
-			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
 			
-			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
-			result3 = new NoticeDao().insertNoticeTag(conn, list);
+			if(tagList != null) {
+				// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
+				ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
 			
-		} 
+				// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
+				result3 = new NoticeDao().insertNoticeTag(conn, list);
+			}
+			
+			
+		} else {
+			return 0;
+		}
 		// 3) 트랜잭션 처리
 		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
 		// 셋 중 하나라도 실패하면 무조건 rollback
