@@ -326,40 +326,42 @@ public class RecipeController {
 	
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능<br>
+	 * 댓글을 수정해주는 기능<br>
 	 * 수정에 성공할 시 int형 숫자 1, 실패 시 0 반환
 	 * @param request
 	 * @param response
 	 */
 	public void ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
-		
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
 		
+		Reply reply = new Reply();
+		reply.setReplyNo(replyNo);
+		reply.setRecipeNo(recipeNo);
+		//@@@@@@@@@@@@@@@@@@@@@@@@@
 		
 	}
 	
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
+	 * 댓글의 상태를 'N'으로 바꾸는 기능(삭제요청)<br>
+	 * 삭제요청에 성공할 시 int형 숫자 1, 실패 시 0 반환
 	 * @param request
 	 * @param response
 	 * @throws IOException 
 	 */
 	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
-		int replyWriterNo = Integer.parseInt(request.getParameter("replyWriterNo"));
 		
 		Reply reply = new Reply();
 		reply.setReplyNo(replyNo);
-		reply.setReplyWriterNo(replyWriterNo);
 		reply.setRecipeNo(recipeNo);
-		int result = new RecipeService().deleteReqReplySingle(recipeNo);
-		if(result > 0) {
-			response.setContentType("text/html; charset=UTF-8");
-			response.getWriter().print(result);
-		}
+		
+		int result = new RecipeService().deleteReqReplySingle(reply);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
 	}
 	
 	

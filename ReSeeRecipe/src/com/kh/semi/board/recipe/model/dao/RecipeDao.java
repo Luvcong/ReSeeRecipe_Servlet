@@ -346,9 +346,18 @@ public class RecipeDao {
 	 * @param recipeNo
 	 * @return
 	 */
-	public int deleteReqReplySingle(Connection conn, int recipeNo) {
+	public int deleteReqReplySingle(Connection conn, Reply reply) {
 		int result = 0;
 		String sql = prop.getProperty("deleteReqReplySingle");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, reply.getReplyNo());
+			pstmt.setInt(2, reply.getRecipeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

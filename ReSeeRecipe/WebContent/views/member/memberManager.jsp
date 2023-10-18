@@ -141,7 +141,7 @@
 	        $(function(){
 	        	$(document).on('dblclick','#memAllList > tr', function(){
 	        		const mno =  $(this).children().eq(1).text();
-					location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+					    location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 	        	});
 	        });         
         

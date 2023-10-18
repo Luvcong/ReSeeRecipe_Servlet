@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -461,6 +462,40 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return pp;
+	}
+	
+	/**
+	 * 주문테이블 insert
+	 */
+	public int orderInsert(Connection conn, int mno, int price) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("orderInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, mno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	
