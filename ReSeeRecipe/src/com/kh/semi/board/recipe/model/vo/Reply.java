@@ -2,21 +2,14 @@ package com.kh.semi.board.recipe.model.vo;
 
 public class Reply {
 	
-	/*
-	REPLY_NO	NUMBER
-	REPLY_CONTENT	VARCHAR2(900 BYTE)
-	REPLY_DATE	DATE
-	REPLY_MODIFIED	DATE
-	REPLY_WRITER_NO	NUMBER
-	RECIPE_NO	NUMBER
-	*/
-	
+
 	private int replyNo;
 	private String replyContent;
 	private String replyDate;
 	private String replyModified;
 	private int replyWriterNo;
 	private int recipeNo;
+	private String replyStatus;
 	private String memNickname; // 리플 작성자 닉네임
 	
 	
@@ -24,7 +17,7 @@ public class Reply {
 		super();
 	}
 	public Reply(int replyNo, String replyContent, String replyDate, String replyModified, int replyWriterNo,
-			int recipeNo, String memNickname) {
+			int recipeNo, String replyStatus, String memNickname) {
 		super();
 		this.replyNo = replyNo;
 		this.replyContent = replyContent;
@@ -32,6 +25,7 @@ public class Reply {
 		this.replyModified = replyModified;
 		this.replyWriterNo = replyWriterNo;
 		this.recipeNo = recipeNo;
+		this.replyStatus = replyStatus;
 		this.memNickname = memNickname;
 	}
 	
@@ -72,6 +66,12 @@ public class Reply {
 	public void setRecipeNo(int recipeNo) {
 		this.recipeNo = recipeNo;
 	}
+	public String getReplyStatus() {
+		return replyStatus;
+	}
+	public void setReplyStatus(String replyStatus) {
+		this.replyStatus = replyStatus;
+	}
 	public String getMemNickname() {
 		return memNickname;
 	}
@@ -84,7 +84,7 @@ public class Reply {
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", replyContent=" + replyContent + ", replyDate=" + replyDate
 				+ ", replyModified=" + replyModified + ", replyWriterNo=" + replyWriterNo + ", recipeNo=" + recipeNo
-				+ ", memNickname=" + memNickname + "]";
+				+ ", replyStatus=" + replyStatus + ", memNickname=" + memNickname + "]";
 	}
 	
 	

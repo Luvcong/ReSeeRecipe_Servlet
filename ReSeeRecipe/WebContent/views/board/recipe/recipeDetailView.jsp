@@ -626,7 +626,7 @@
 	
 				<div id="recipeDetailBarHeart">
 					<div>
-						<button onclick="ajaxModifyRecipeReply();">수정하기</button>
+						<button onclick="ajaxModifyRecipeReply(this);">수정하기</button>
 					</div>
 					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-heart change-heart-bookmark-icons"></i>
@@ -812,13 +812,13 @@
 			};
 			
 			// 글 수정
-			function ajaxModifyRecipeReply(){
+			function ajaxModifyRecipeReply(button){
 				$.ajax({
 					type : 'POST',
 					url : 'ajaxModifyRecipeReply.ar',
 					data : {
-						recipeNo : recipeNo
-						
+						recipeNo : recipeNo,
+						replyNo : $(button).siblings('input').val()
 					},
 					success : function(result) {
 						console.log('성공');
@@ -837,8 +837,7 @@
 					url : 'ajaxDeleteRecipeReply.ar',
 					data : {
 						recipeNo : recipeNo,
-						replyNo : $(button).siblings('input').val(),
-						replyWriterNo : replyWriterNo
+						replyNo : $(button).siblings('input').val()
 					},
 					success : function(result){
 						alert('삭제 성공!');
@@ -853,18 +852,6 @@
 					}
 				});
 			};
-			
-		
-			
-			
-
-			
-			
-			// onload 시 댓글리스트 갱신 기능 호출
-			$(function(){
-				ajaxSelectRecipeReplyList();
-				//setInterval(ajaxSelectRecipeReplyList, 1500); // 인터벌 잠시 off
-			});
 			
 			// 댓글 작성
     		function ajaxInsertRecipeReply(){
@@ -885,10 +872,18 @@
 				});
 			};
 			
-			
+			// 비로그인시 로그인 버튼
     		function recipeDetailReplylogIn(){
     			location.href = '<%=contextPath%>/yrloginForm.me';
     		};
+    		
+			// onload 시 댓글리스트 갱신 기능 호출
+			$(function(){
+				ajaxSelectRecipeReplyList();
+				//setInterval(ajaxSelectRecipeReplyList, 1500); // 인터벌 잠시 off
+			});
+			
+						
     		
     		
     		
