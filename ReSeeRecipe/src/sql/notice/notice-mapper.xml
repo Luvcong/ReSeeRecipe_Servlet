@@ -139,9 +139,20 @@
  		 WHERE
  		 		NOTICE_NO = ?
  		   AND
- 		   		NOTICE_STATUS = 'Y'		
- 		   AND
  		   		NOTICE_PIC_STATUS = 'Y'
+ 	</entry>
+ 	
+ 	<entry key="selectNoticeTag">
+ 		SELECT
+        		TAG_NAME
+  		  FROM
+        		TB_NOTICE
+  		  JOIN
+        		TB_NOTICE_TAG USING (NOTICE_NO)
+  		  JOIN
+        		TB_TAG USING (TAG_NO)
+		 WHERE
+        		NOTICE_NO = ? 
  	</entry>
  	
  	<entry key="updateNoticePic">
