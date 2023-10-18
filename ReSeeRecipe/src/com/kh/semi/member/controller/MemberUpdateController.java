@@ -64,10 +64,6 @@ public class MemberUpdateController extends HttpServlet {
 			String memberId = multiRequest.getParameter("memberId");
 			String memberPwd = multiRequest.getParameter("loginMemberPwd");
 			
-			System.out.println("아이디 비번 확인");
-			System.out.println(memberId);
-			System.out.println(memberPwd);
-			
 			// 가져온 값들 객체로 Service 넘길 것
 			Member m = new Member();
 			// m.setMemNo(memberNo);
@@ -78,11 +74,6 @@ public class MemberUpdateController extends HttpServlet {
 			
 			
 			// 현재 파일수정을 눌렀다면 무조건 사진이 있음. 근데 기본값은 null임
-			
-			
-			// 첨부파일이 있다면 
-			System.out.println("확인");
-			System.out.println(multiRequest.getOriginalFileName("profileInput"));
 			
 			// 파일을 첨부했다면
 			if(multiRequest.getOriginalFileName("profileInput") != null) {
@@ -100,8 +91,6 @@ public class MemberUpdateController extends HttpServlet {
 				// => 왜냐면 loginMember에 들어있는 정보는 update후 갱신이 안되어 있음
 				
 				Member updatedMember = new MemberService().loginMember(memberId, memberPwd);
-				System.out.println("여기야???");
-				System.out.println(updatedMember); // null
 				
 				request.getSession().setAttribute("loginMember", updatedMember);
 				// 나중에 마이페이지 메인으로 바꿀 것
@@ -114,7 +103,6 @@ public class MemberUpdateController extends HttpServlet {
 				// request.getRequestDispatcher("views/myPage/memberPage.jsp").forward(request, response);
 				
 			} else { // 실패 시
-				System.out.println("실패시는 아니겠지");
 				request.getSession().setAttribute("memberUpdateError", "변경에 실패하였습니다.");
 				request.getRequestDispatcher(request.getContextPath() + "/yrmemberUpdateConfirmForm.me").forward(request, response);
 			}

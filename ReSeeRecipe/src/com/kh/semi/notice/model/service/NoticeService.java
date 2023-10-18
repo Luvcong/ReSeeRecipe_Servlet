@@ -1,6 +1,9 @@
 package com.kh.semi.notice.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -55,20 +58,6 @@ public class NoticeService {
 		return list;
 	}
 	
-	/** 아직 미완성
-	 * @param ManageNoticeNo 선택한 공지사항 게시글의 번호
-	 * @return 선택한 공지사항게시글의 정보
-	 */
-	public Notice selectNoticeInfo(int ManageNoticeNo) {
-		
-		Connection conn = getConnection();
-		
-		Notice n = new NoticeDao().selectNoticeInfo(conn, ManageNoticeNo);
-		
-		close(conn);
-		
-		return n;
-	}
 	
 	/**
 	 * @param n 공지사항 제목, 공지사항 내용
@@ -87,64 +76,64 @@ public class NoticeService {
 		int result2 = 1;
 		int result3 = 1;
 		
-		/*
-		if(result1 > 0) {
-			
-			if(result2 > 0) {
-				
-			}
+	
+		if(np != null) {
+			result2 = new NoticeDao().insertNoticePic(conn, np);
 		}
-		*/
 		
-		if(np != null || tagList != null) {
-			// 공지사항 사진 업로드
-			if(np != null) {
-				result2 = new NoticeDao().insertNoticePic(conn, np);
-			}
-			
-			
-			if(tagList != null) {
-				// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
-				ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
-			
-				// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
-				result3 = new NoticeDao().insertNoticeTag(conn, list);
-			}
-			
-			
-		} else {
-			return 0;
+		if(tagList != null) {
+			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
+			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
+						
+			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
+			result3 = new NoticeDao().insertNoticeTag(conn, list);
+						
 		}
+
 		// 3) 트랜잭션 처리
 		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
 		// 셋 중 하나라도 실패하면 무조건 rollback
 		
 		if((result1 * result2 * result3) > 0) {
 			commit(conn);
-		} else if ((result1 * result2) > 0) {
-			commit(conn);
-		} else if ((result1 * result3) > 0) {
-			commit(conn);
-		} else if (result1 > 0) {
-			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
-		/*
-		if(result1 > 0) {
-			commit(conn);
-			if(result2 > 0) {
-				commit(conn);
-			} else if(result3 > 0) {
-				commit(conn);
-			}
-		} else {
-			rollback(conn);
-		}
-		*/
+
 		close(conn);
 		
-		return result1 / (result2 * result3); //(result1 * result2 * result3)
+		return (result1 * result2 * result3); //result1 / (result2 * result3); //(result1 * result2 * result3)
+	}
+	
+	/** 
+	 * @param ManageNoticeNo 선택한 공지사항 게시글의 번호
+	 * @return 선택한 공지사항게시글의 정보
+	 */
+	public Notice selectNoticeInfo(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectNotice(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return n;
+	}
+	
+	
+	
+	/**
+	 * @param ManageNoticeNo 
+	 * @return 
+	 */
+	public NoticePic selectNoticePic(int ManageNoticeNo) {
+		
+		Connection conn = getConnection();
+		
+		NoticePic np = new NoticeDao().selectNoticePic(conn, ManageNoticeNo);
+		
+		close(conn);
+		
+		return np;
 	}
 }

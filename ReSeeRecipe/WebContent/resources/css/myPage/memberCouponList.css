@@ -1,0 +1,116 @@
+/* test 
+#pageCenter{
+    border : 1px solid black;
+    width : 300px;
+    height : 500px;
+    float : left;
+}
+*/
+
+/* Add padding to containers */
+.container {
+    padding: 50px 350px;
+}
+
+.container > div{
+    margin : 30px 0px;
+}
+
+.container > div > div{
+    float : left;
+    
+    height : 100%;
+}
+
+#title{
+    padding: 50px 0px 30px 0px;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#grade-div{
+    height : 150px;
+}
+
+
+#grade1 {
+    width : 20%;
+    text-align : center;
+    background-color : lightgray;
+    border-radius : 100px;
+}
+
+#grade2 {
+    width : 80%;
+    padding : 10px;
+}
+
+#sort-div {
+    height : 50px;
+}
+
+#sort1 {
+    padding : 10px;
+    width : 50%;
+}
+
+#sort2 {
+    padding : 10px;
+    width : 50%;
+    text-align : right;
+}
+
+#couponSort {
+    height : 30px;
+}
+
+[name="coupon-div"] {
+    height : 150px;
+    background-color : lightgray;
+}
+
+[name="coupon1"] {
+    width : 70%;
+    padding : 10px;
+}
+
+[name="coupon2"] {
+    width : 30%;
+    text-align : center;
+}
+
+[name="percent"] {
+    color : red;
+    font-size: 30px;
+    font-weight : 500;
+    margin : 20px;
+}
+
+[name="couponName"] {
+    font-size : 20px;
+    font-weight : 600;
+}
+
+[name="couponExpire"] {
+    color : rgb(107, 105, 105);
+}
+
+button {
+    background-color: rgb(88, 87, 87);
+    color: white;
+    padding: 8px 0px;
+    margin: 8px 0px;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+}
+
+.material-symbols-outlined {
+    font-size : 100px;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 240
+}

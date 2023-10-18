@@ -71,7 +71,6 @@ public class RecipeService {
 	public ArrayList<CookSteps> selectCookStepsSingle(int recipeNo) {
 		Connection conn = getConnection();
 		ArrayList<CookSteps> cookStepsList = new RecipeDao().selectCookStepsSingle(conn, recipeNo);
-		
 		close(conn);
 		return cookStepsList;
 	}
@@ -150,7 +149,19 @@ public class RecipeService {
 		return recipeList;
 	}
 	
+	/* ************************** UPDATE 종류 ************************** */
 	
+	/**
+	 * 댓글의 상태를 'N'으로 바꾸는 기능(삭제요청)<br>
+	 * 삭제요청에 성공할 시 int형 숫자 1, 실패 시 0 반환
+	 * @param reply
+	 * @return
+	 */
+	public int deleteReqReplySingle(Reply reply) {
+		Connection conn = getConnection();
+		int result = doTransAction(conn, new RecipeDao().deleteReqReplySingle(conn, reply));
+		return result;
+	}
 	
 	
 	
@@ -217,7 +228,7 @@ public class RecipeService {
 
 	
 	
-	
+
 	
 	
 	

@@ -12,77 +12,9 @@
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<style>
+<link rel="stylesheet" href="resources/css/myPage/memberRewardList.css">
+<!-- <script src="resources/js/myPage/memberRewardList.js"></script> -->
 
-        /* Set a style for all buttons */
-        button {
-            background-color: rgb(88, 87, 87);
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* Add a hover effect for buttons */
-        button:hover {
-            opacity: 0.8;
-        }
-
-        /* Add padding to containers */
-        .container {
-            padding : 50px 350px;
-        }
-
-        .info-div {
-            margin : 50px 0px;
-        }
-
-        .info-div > div {
-            float : left;
-        }
-
-        #infoText {
-            width : 80%;
-        }
-
-        #infoTotal {
-            width : 20%;
-            border-radius : 20px;
-            background-color : rgb(21, 21, 71);
-            color : white;
-            text-align : center;
-        }
-
-        #title{
-            padding-top: 50px;
-            display : flex;
-            align-items: center;
-            justify-content: center;
-            font-weight : bold;
-        }
-
-        #tb-reward {
-            width:100%;
-            text-align: center;
-        }
-
-        #tb-reward > thead {
-            background-color : lightgray;
-        }
-        
-        tr {
-            height: 40px;
-            
-        }
-
-        th, td {
-            width: 20%;
-            border : 1px solid black;
-        }
-
-</style>
 </head>
 
 <body>
@@ -96,13 +28,17 @@
              	※ 회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다.
             </div>
             <div class="info" id="infoTotal">
-            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %>p
+                <% if(!memberRewardList.isEmpty()) {  %>
+            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %> p;
+                <% } %>
             </div>
         </div>
 
         <div class="tableBody">
             <table id='tb-reward' class="table table-sm table-hover">
+                
                 <thead>
+                    <% if(!memberRewardList.isEmpty()) { %>
                     <tr>
                         <th data-idx=0 data-type="num">번호<div class="sort"></div></th>
                         <th data-idx=1>일시<div class="sort"></div></th>
@@ -112,8 +48,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% if(memberRewardList != null) { 
-                    	for(int i = 0; i < memberRewardList.size(); i++) {%>
+                    
+                    	<% for(int i = 0; i < memberRewardList.size(); i++) {%>
                     <tr>
                         <td><%= memberRewardList.get(i).getRownum() %></td>
                         <td><%= memberRewardList.get(i).getRewardDate() %></td>
@@ -122,7 +58,9 @@
                         <td><%= memberRewardList.get(i).getRemainRewardScore() %></td>
                     </tr>
                     	<% } %>
-                   	<% } %>
+                   	<% } else { %>
+                        조회된 리워드가 없습니다.
+                    <% } %>
                 </tbody>
             </table>	<!-- tb-category -->
         </div>	<!-- tableBody  -->

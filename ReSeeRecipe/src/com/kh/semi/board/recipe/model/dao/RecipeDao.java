@@ -1,6 +1,7 @@
 package com.kh.semi.board.recipe.model.dao;
 
 import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.doTransAction;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.io.FileInputStream;
@@ -333,6 +334,32 @@ public class RecipeDao {
 		return recipeList;
 	}
 	
+	
+	
+	
+	
+	/* ************************** UPDATE 종류 ************************** */
+	
+	/**
+	 * 요청된 번호의 리플 상태를 N으로 바꾸는 기능
+	 * @param conn
+	 * @param recipeNo
+	 * @return
+	 */
+	public int deleteReqReplySingle(Connection conn, Reply reply) {
+		int result = 0;
+		String sql = prop.getProperty("deleteReqReplySingle");
+		
+		try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, reply.getReplyNo());
+			pstmt.setInt(2, reply.getRecipeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
 	/* ************************** INSERT종류 ************************** */

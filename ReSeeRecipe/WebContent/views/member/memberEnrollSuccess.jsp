@@ -13,37 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <style>
-        button {
-            background-color: rgb(88, 87, 87);
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            opacity: 0.8;
-        }
-
-        div{
-            box-sizing : border-box;
-            border : none;
-        }
-
-        .container {
-            padding: 100px 250px;
-        }
-
-        .success{
-            border : none;
-            display : flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/member/memberEnrollSuccess.css">
 
 </head>
 <body>

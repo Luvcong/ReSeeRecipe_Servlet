@@ -253,18 +253,21 @@ public class RecipeController {
 				for(int i = 0; i < 6; i++) {
 					String csTitleKey = "cookStepsTitle" + i;
 					String csContentKey = "cookStepsContent" + i;
+					System.out.println("for문");
+					System.out.println(multiRequest.getParameter(csTitleKey) + "csTitleKey");
+					System.out.println(multiRequest.getParameter(csContentKey) + "csContentKey");
 					// 이 항목들이 모두 데이터가 있다면
 					if( !(multiRequest.getParameter(csTitleKey) == null
 						|| multiRequest.getParameter(csContentKey) == null)) {
 						// CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
 						CookSteps cookSteps = new CookSteps();
+						System.out.println(cookSteps);
 						cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 						cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
 						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 1 ~ 6까지 */
 						cookStepsList.add(cookSteps);
 					}
 				}
-				
 				
 				// tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 				ArrayList<Integer> tagNoList = new ArrayList();
@@ -323,30 +326,42 @@ public class RecipeController {
 	
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글을 수정해주는 기능<br>
+	 * 댓글을 수정해주는 기능<br>
 	 * 수정에 성공할 시 int형 숫자 1, 실패 시 0 반환
 	 * @param request
 	 * @param response
 	 */
 	public void ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
-		
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
 		
+		Reply reply = new Reply();
+		reply.setReplyNo(replyNo);
+		reply.setRecipeNo(recipeNo);
+		//@@@@@@@@@@@@@@@@@@@@@@@@@
 		
 	}
 	
 	
 	/**
-	 * 현재 로그인한 유저와 특정 번호 레시피(PK) 글 작성자가 동일할 시 댓글의 상태를 'N'으로 바꾸는 기능 
+	 * 댓글의 상태를 'N'으로 바꾸는 기능(삭제요청)<br>
+	 * 삭제요청에 성공할 시 int형 숫자 1, 실패 시 0 반환
 	 * @param request
 	 * @param response
+	 * @throws IOException 
 	 */
-	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) {
-		
+	public void ajaxDeleteRecipeReply(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
-		int result = new RecipeService(recipeNo);
-	
-	
+		
+		Reply reply = new Reply();
+		reply.setReplyNo(replyNo);
+		reply.setRecipeNo(recipeNo);
+		
+		int result = new RecipeService().deleteReqReplySingle(reply);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
 	}
 	
 	

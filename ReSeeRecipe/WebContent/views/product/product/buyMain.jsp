@@ -130,7 +130,6 @@
                 <div class="swiper-scrollbar"></div>
             </div>
         </div>
-	    
 	
 	    <script>
 	        // 슬라이더 동작 정의
@@ -352,8 +351,8 @@
                     <div class="p_price">
                         <a href="#">가격</a>
                     </div>
-                </div>
-            </div> -->
+                </div> -->
+            </div>
         </div>
     </div>
     

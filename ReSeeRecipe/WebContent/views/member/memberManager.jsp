@@ -74,8 +74,6 @@
                 </div>
             </div>
         </div>
-
-        
         <div class="header2">
             <!-- <button class="w3-button w3-round w3-yellow">작성하기</button> -->
             <button class="w3-button w3-round w3-yellow">회원 수정</button>
@@ -143,7 +141,7 @@
 	        $(function(){
 	        	$(document).on('dblclick','#memAllList > tr', function(){
 	        		const mno =  $(this).children().eq(1).text();
-					location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
+					    location.href = '<%=contextPath%>/hldetailmember.ma?mno=' + mno;
 	        	});
 	        });         
         

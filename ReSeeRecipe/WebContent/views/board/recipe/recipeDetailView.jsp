@@ -626,7 +626,7 @@
 	
 				<div id="recipeDetailBarHeart">
 					<div>
-						<button onclick="ajaxModifyRecipeReply();">수정하기</button>
+						<button onclick="ajaxModifyRecipeReply(this);">글 수정하기</button>
 					</div>
 					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-heart change-heart-bookmark-icons"></i>
@@ -634,7 +634,7 @@
 				</div>
 				<div id="recipeDetailBookmark">
 					<div>
-						<button onclick="ajaxDeleteRecipeReply();">삭제하기</button>
+						<button onclick="ajaxDeleteRecipeReply();">글 삭제하기</button>
 					</div>
 					<!-- 나중에 if문 처리 필요 (내 글일 때if(loginMember.memNo() == recipe.getRecipeWriter())는 위의 div / 내 글 아닐 때는 아래 하트) -->
 					<i class="far fa-bookmark change-heart-bookmark-icons"></i>
@@ -755,7 +755,7 @@
 		   			<tr>
 		   				<th>댓글작성</th> <!-- 우리는 replyWriter에 NN걸렸고하니까 로그인 사용자만 댓글작성 가능하게 할 것 -->
 		   				<!-- if문 필요 로그인 사용자만if(loginUser != null) 영역 띄워주기 -->
-		   					<td>
+		   					<td colspan="3">
 		   						<textarea id="replyContent" cols="50" rows="3" style="resize:none"></textarea>
 		   					</td>
 		   					<td><button onclick="ajaxInsertRecipeReply();">댓글등록</button></td>
@@ -779,14 +779,49 @@
 
     	<script>
 	    	var recipeNo = <%= recipe.getRecipeNo() %>;
+	    	<% if(loginMember != null) { %>
+		    	var replyWriterNo = <%= loginMember %>;
+	    	<% } %>
+	    	
+	    	// 댓글 리스트 조회
+			function ajaxSelectRecipeReplyList(){
+				$.ajax({
+					type : "POST",
+					url : 'ajaxSelectRecipeReplyList.ar',
+					data : { recipeNo : recipeNo },
+					success : function(result){
+						//console.log(result);
+						let resultStr = '';
+						for(let i in result) {
+							resultStr += '<tr>'
+									    + '<td>' + result[i].memNickName + '</td>'
+									    + '<td>' + result[i].replyContent + '</td>'
+									    + '<td>' + result[i].replyDate + '</td>'
+									    + '<tr>'
+									    + '<button onclick="ajaxModifyRecipeReply(this);">수정</button>'
+									    + '<button type="button" onclick="ajaxDeleteRecipeReply(this);")>삭제</button>'
+									    + '</tr>'
+									    + '<tr>'
+									    + '<input type="hidden" value="' + result[i].replyNo + '" name="' + result[i].replyNo + '"></td>'
+									    + '</tr>';
+						}
+						$('#recipeReplyArea tbody').html(resultStr);
+					},
+					error : function() {
+						console.log('조회에 실패했습니다');
+					
+					}
+				});
+			};
 			
-			// 글 수정
-			function ajaxModifyRecipeReply(){
+			// 댓글 수정
+			function ajaxModifyRecipeReply(button){
 				$.ajax({
 					type : 'POST',
 					url : 'ajaxModifyRecipeReply.ar',
 					data : {
-						recipeNo : recipeNo
+						recipeNo : recipeNo,
+						replyNo : $(button).siblings('input').val()
 					},
 					success : function(result) {
 						console.log('성공');
@@ -798,55 +833,28 @@
 				});
 			};
 			
-			// 글 삭제
-			function ajaxDeleteRecipeReply(){
+			// 댓글 삭제(상태 N으로 UPDATE)
+			function ajaxDeleteRecipeReply(button){
 				$.ajax({
 					type : 'POST',
 					url : 'ajaxDeleteRecipeReply.ar',
 					data : {
-						recipeNo : recipeNo
+						recipeNo : recipeNo,
+						replyNo : $(button).siblings('input').val()
 					},
 					success : function(result){
-						console.log('삭제 성공!');
+						alert('삭제 성공!');
 						console.log(result);
+						
+						if(result > 0) {
+							ajaxSelectRecipeReplyList();
+						}
 					},
 					error : function() {
 						alert('삭제에 실패했습니다');
 					}
 				});
 			};
-			
-			
-			// 댓글 리스트 조회
-			function ajaxSelectRecipeReplyList(){
-				$.ajax({
-					type : "POST",
-					url : 'ajaxSelectRecipeReplyList.ar',
-					data : { recipeNo : recipeNo },
-					success : function(result){
-						console.log(result);
-						let resultStr = '';
-						for(let i in result) {
-							resultStr += '<tr>'
-									    + '<input type="hidden" value="' + result[i].replyNo + '" name="' + result[i].replyNo + '">'
-									    + '<td>' + result[i].memNickName + '</td>'
-									    + '<td>' + result[i].replyContent + '</td>'
-									    + '<td>' + result[i].replyDate + '</td>'
-									    + '</tr>';
-						}
-						$('#recipeReplyArea tbody').html(resultStr);
-					},
-					error : function() {
-						alert('조회에 실패했습니다');
-					}
-				});
-			};
-			
-			// onload 시 댓글리스트 갱신 기능 호출
-			$(function(){
-				ajaxSelectRecipeReplyList();
-				//setInterval(ajaxSelectRecipeReplyList, 1500); // 인터벌 잠시 off
-			});
 			
 			// 댓글 작성
     		function ajaxInsertRecipeReply(){
@@ -867,10 +875,18 @@
 				});
 			};
 			
-			
+			// 비로그인시 로그인 버튼
     		function recipeDetailReplylogIn(){
     			location.href = '<%=contextPath%>/yrloginForm.me';
     		};
+    		
+			// onload 시 댓글리스트 갱신 기능 호출
+			$(function(){
+				ajaxSelectRecipeReplyList();
+				//setInterval(ajaxSelectRecipeReplyList, 1500); // 인터벌 잠시 off
+			});
+			
+						
     		
     		
     		

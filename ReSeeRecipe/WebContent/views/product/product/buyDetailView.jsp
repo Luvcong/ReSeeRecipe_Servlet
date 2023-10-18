@@ -68,9 +68,9 @@
         </div>
 		
         <div id="d_content">
-        	<form>
-        		<input type="hidden" value="<%= p %>" name="p">
-        		<input type="hidden" value="<%= list %>" name="list">
+        	<form method="post">
+        		<input type="hidden" value="<%= p.getProductNo() %>" name="pno">
+        		<input type="hidden" value="<%= list.get(0).getPictureNo() %>" name="ppno">
 	            <h2><%= p.getProductName() %></h2>
 	            <% if(p.getProductSubname() != null) { %>
 	            	<h3><%= p.getProductSubname() %></h3>
@@ -88,22 +88,19 @@
 		                </select>
 		                <span><%= list2.get(0).getOptionPrice() %></span>
 		                <input type="hidden" value="<%= list2.get(0).getOptionNo() %>" name="ono">
-		                <h2>총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(0).getOptionNo() %>원</h2>
+		                <h2>총 가격 <%= p.getPrice() + p.getDilivery() + list2.get(0).getOptionPrice() %>원</h2>
 	                <% } else { %>
 	                	<h2>총 가격 <%= p.getPrice() + p.getDilivery() %>원</h2>
 	                <% } %>
 	            
-	            <!-- <% if(loginMember != null) { %>
+	            <% if(loginMember != null) { %>
 		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
 		            <button type="submit" formaction="">장바구니</button>
 		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=buy">바로구매</button>
             	<% } else { %>
             		<br><br>
             		<h2>로그인 후 구매가능합니다</h2>
-            	<% } %> -->
-            	    <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=pre">선물하기</button>
-		            <button type="submit" formaction="">장바구니</button>
-		            <button type="submit" formaction="<%=contextPath%>/probuy.po?buy=buy">바로구매</button>
+            	<% } %>
             </form>
         </div>
         

@@ -105,7 +105,7 @@
  */
         	function deleteMem(){
             	let mem_trs = document.querySelectorAll('#memAllList > tr');
-            	console.log(mem_trs);
+            	console.log('mem_trs', mem_trs);
             	let check = null;
             	
             	for(let tr of mem_trs){
@@ -176,7 +176,7 @@
     						},
     						complete : function(result) {
     							window.location.reload();
-    						}
+    						} 
     					});
            			 });		
     		

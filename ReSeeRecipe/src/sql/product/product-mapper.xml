@@ -292,9 +292,44 @@
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="oSelectOption">
+		SELECT
+			OPTION_NO,
+			OPTION_NAME,
+			OPTION_PRICE
+		FROM
+			TB_OPTION
+		WHERE
+			OPTION_NO = ?
+	</entry>
 	
+	<entry key="selectProductPicture">
+		SELECT 
+			PRODUCT_PICTURE_NO,
+			PRODUCT_PICTURE_ONAME,
+			PRODUCT_PICTURE_CNAME,
+			PRODUCT_PICTURE_PATH
+		FROM 
+			TB_PRODUCT_PICTURE
+		WHERE
+			PRODUCT_PICTURE_NO = ?
+		AND
+			PRODUCT_PICTURE_STATUS = 'Y'
+	</entry>
 	
-	
+	<entry key="orderInsert">
+		INSERT INTO
+		VALUES (
+				SEQ_ORDER.NEXTVAL,
+				'N',
+				?,
+				SYSDATE,
+				?,
+				NULL,
+				NULL,
+				'Y'		
+				)
+	</entry>
 	
 	
 	

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -352,6 +353,9 @@ public class ProductDao {
 		return list2;
 	}
 	
+	/**
+	 * 상품 섞어주는 메소드
+	 */
 	public ArrayList<Product> sortSelectProductList(Connection conn, PageInfo pi, int category, String sort){
 		
 		ArrayList<Product> list = new ArrayList();
@@ -396,6 +400,103 @@ public class ProductDao {
 		return list;
 	}
 	
+	/**
+	 * 옵션번호로 옵션가져오는 메소드
+	 */
+	public Option oSelectOption(Connection conn, int ono){
+		
+		Option o = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("oSelectOption");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ono);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new Option();
+				o.setOptionName(rset.getString("OPTION_NAME"));
+				o.setOptionNo(rset.getInt("OPTION_NO"));
+				o.setOptionPrice(rset.getInt("OPTION_PRICE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;
+	}
+	
+	/**
+	 * 사진번호로 사진조회
+	 */
+	public ProductPicture selectProductPicture(Connection conn, int ppno) {
+		
+		ProductPicture pp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectProductPicture");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ppno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pp = new ProductPicture();
+				
+				pp.setPictureNo(rset.getInt("PRODUCT_PICTURE_NO"));
+				pp.setPictureOname(rset.getString("PRODUCT_PICTURE_ONAME"));
+				pp.setPictureCname(rset.getString("PRODUCT_PICTURE_CNAME"));
+				pp.setPicturePath(rset.getString("PRODUCT_PICTURE_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pp;
+	}
+	
+	/**
+	 * 주문테이블 insert
+	 */
+	public int orderInsert(Connection conn, int mno, int price) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("orderInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, mno);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 	
 	
