@@ -133,7 +133,7 @@
 
         <script>
             $(function(){
-                $(document).on('dbclick', '#noticetotalList > tr', function(){
+                $('#noticetotalList').on('dblclick', 'tr', function(){
                     const mnno = $(this).children().eq(1).text();
                     console.log(this);
                     location.href = '<%=contextPath%>/hldetailnotice.ma?mnno=' + mnno;
