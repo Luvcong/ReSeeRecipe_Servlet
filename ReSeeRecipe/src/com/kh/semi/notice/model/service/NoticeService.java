@@ -87,45 +87,46 @@ public class NoticeService {
 		int result2 = 1;
 		int result3 = 1;
 		
-		/*
-		if(result1 > 0) {
-			
-			if(result2 > 0) {
-				
-			}
+	
+		if(np != null) {
+			result2 = new NoticeDao().insertNoticePic(conn, np);
 		}
-		*/
 		
+		if(tagList != null) {
+			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
+			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
+						
+			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
+			result3 = new NoticeDao().insertNoticeTag(conn, list);
+						
+		}
+		
+		/*
 		if(np != null || tagList != null) {
-			// 공지사항 사진 업로드
-			if(np != null) {
-				result2 = new NoticeDao().insertNoticePic(conn, np);
-			}
+			
+			result2 = new NoticeDao().insertNoticePic(conn, np);
 			
 			
-			if(tagList != null) {
-				// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
-				ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
 			
-				// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
-				result3 = new NoticeDao().insertNoticeTag(conn, list);
-			}
+			
+			// 작성한 해시태그명에 해당하는 해시태그 번호 조회해오기
+			ArrayList<Tag> list = new TagDao().selectTagNo(conn, tagList);
+			
+			// 가장 마지막 공지사항 번호 DB에서 조회해오기 -- 할 필요 없음 
+			result3 = new NoticeDao().insertNoticeTag(conn, list);
+			
 			
 			
 		} else {
-			return 0;
+			result2 = 0;
+			result3 = 0;
 		}
+		*/
 		// 3) 트랜잭션 처리
 		// result1도 성공 result2도 성공 result3도 성공일 때만  commit
 		// 셋 중 하나라도 실패하면 무조건 rollback
 		
 		if((result1 * result2 * result3) > 0) {
-			commit(conn);
-		} else if ((result1 * result2) > 0) {
-			commit(conn);
-		} else if ((result1 * result3) > 0) {
-			commit(conn);
-		} else if (result1 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -145,6 +146,6 @@ public class NoticeService {
 		*/
 		close(conn);
 		
-		return result1 / (result2 * result3); //(result1 * result2 * result3)
+		return (result1 * result2 * result3); //result1 / (result2 * result3); //(result1 * result2 * result3)
 	}
 }
