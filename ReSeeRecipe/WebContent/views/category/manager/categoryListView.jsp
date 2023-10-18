@@ -24,13 +24,13 @@
 
 <!-- categoryListView / script & css -->
 <link rel="stylesheet" href="resources/css/category/category_manager.css">
-
+<link rel="shortcut icon" href="#">
 
 </head>
 <body>
 
 	<%@ include file="../../manager/navbar.jsp" %>
-	<script src="resources/js/category/category_manager.js"></script>
+	
 	
     <div class="rs-content">        
         <div class="header">
@@ -208,8 +208,8 @@
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
  	</script>
-   	
-
+	<script src="resources/js/category/category_manager.js"></script>
 	
+
 </body>
 </html>
