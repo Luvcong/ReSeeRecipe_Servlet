@@ -292,7 +292,7 @@ public class NoticeDao {
 			
 			while(rset.next()) {
 				Tag t = new Tag();
-				t.setTagName("TAG_NAME");
+				t.setTagName(rset.getString("TAG_NAME"));
 				tag.add(t);
 			}
 		} catch (SQLException e) {

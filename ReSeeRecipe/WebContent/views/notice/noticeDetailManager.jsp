@@ -48,7 +48,7 @@
                         <td>
                     <% if(np != null) { %>
                     <!--  첨부 파일이 있을 경우 -->
-                        <img src="<%= contextPath %>/<%= np.getNoticePicPath() %>" alt="공지사항 이미지" id="HL_noticeImg" width="150" height="150">
+                        <img src="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" alt="공지사항 이미지" id="HL_noticeImg" width="150" height="150">
                     	<a href="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" download="<%= np.getNoticePicNamgeOrigin() %>"><%= np.getNoticePicNamgeOrigin() %></a>
                     <% } else { %>
                     	첨부 파일 없어요 ~
@@ -64,10 +64,10 @@
                     <% } else { %>
                     	<!-- 해시태그가 있을 때 -->
                     	<% for(Tag t : tag) { %>
-                    	<span><%= t.getTagName() %></span>
+                    	<span>#<%= t.getTagName() %></span>
                     	<% } %>
-                    	</td>
                     <% } %>
+                    	</td>
                     </tr>        
                     <tr>
                         <th>공지사항 작성일</th>
