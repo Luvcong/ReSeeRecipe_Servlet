@@ -315,7 +315,7 @@ public class CategoryDao {
 				recipeCategory.setRecipeCategoryCount(rset.getInt("RECIPE_CATEGORY_CNT"));
 				
 				list.add(recipeCategory);
-				System.out.println("dao : " + list);
+				// System.out.println("dao : " + list);
 				
 			}
 		} catch (SQLException e) {

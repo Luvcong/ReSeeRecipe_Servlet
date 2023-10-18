@@ -56,7 +56,13 @@
 .searchTable{
 	padding: 0 10px;
 }
-
+.btn-check-r{
+	border-right: none;
+}
+.btn-check-l{
+	border-left: none;
+	width: 105px;
+}
 #updateCategoryForm th{
 	width: 170px;
 	height: 80px;
@@ -64,6 +70,7 @@
 #updateCategoryForm td input{
 	height: 80px;
 }
+
 .list-btn{
 	text-align: center;
     padding-top: 30px;

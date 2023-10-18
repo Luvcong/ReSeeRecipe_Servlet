@@ -43,6 +43,8 @@
             		<tr>
             			<td>
             				<input class="form-control form-control-sm" id="checkName" name="checkCategoryName" onkeydown="checkSearchName()" type="text" placeholder="검색할 카테고리명을 입력하세요" size="30">
+           				</td>
+           				<td>
             				<button onclick="checkCategory()" class="btn btn-sm btn-warning">조회</button>
            				</td>
             		</tr>
@@ -102,7 +104,7 @@
 				<% } %>
 			<% } %>
 			<% if(categoryListPage != categoryMaxPage) { %>
-				<button onclick="page('<%= categoryListPage + 1 %>');" class="btn bbtn-warning">&gt;</button>
+				<button onclick="page('<%= categoryListPage + 1 %>');" class="btn btn-warning">&gt;</button>
 			<% } %>
 		</div>	<!-- 페이징바 -->
 		
@@ -130,14 +132,14 @@
 							<input type="hidden" name="categoryListPage">
 							<table class="modal-table" border="1">
 								<tr>
-									<th>카테고리명</th>
+									<th colspan="2">카테고리명</th>
 								</tr>
 								<tr>
-									<td>
-										<input type="text" name="recipeCategoryName" id="addCategoryName" placeholder="추가할 카테고리명을 입력하세요">
+									<td class="btn-check-r">
+										<input type="text" name="recipeCategoryName" id="addCategoryName" placeholder="　　추가할 카테고리명을 입력하세요">
 									</td>
-									<td>
-										<button type="button" onclick="duplicateCheck()" id="nullCheck">중복확인</button>
+									<td class="btn-check-l">
+										<button type="button" onclick="duplicateCheck()" id="nullCheck" class="btn btn-warning">중복확인</button>
 									</td>
 								</tr>
 							</table>
@@ -155,7 +157,7 @@
 	<!-- 카테고리 수정  modal창 -->
 	<div class="modal" id="updateCategoryForm">
 		<form method="post" action="<%= contextPath %>/jhupdate.ct">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog">
 			    <div class="modal-content">
 			        <!-- Modal Header -->
 				     <div class="modal-header">
