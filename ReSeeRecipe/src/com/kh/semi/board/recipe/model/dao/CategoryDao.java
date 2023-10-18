@@ -303,7 +303,7 @@ public class CategoryDao {
 			
 			pstmt.setString(1, checkCategoryName);
 			
-			// System.out.println("dao : " + checkCategoryName);
+			System.out.println("dao : " + checkCategoryName);
 			
 			rset = pstmt.executeQuery();
 			

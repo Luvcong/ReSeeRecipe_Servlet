@@ -5,9 +5,26 @@
 
 	<!-- 쿠폰함 리스트 조회 SQL문 -->
 	<entry key="selectCouponList">
-		
+		SELECT *
+		  FROM (SELECT ROWNUM RNUM, A.*
+		          FROM (
+		          SELECT
+		                C.COUPON_NO, C.COUPON_NAME, C.COUPON_RATIO, C.COUPON_STARTDATE, C.COUPON_ENDDATE,
+		                NVL(MC.ISSUE_COUPON_CNT, 0) AS ISSUE_COUPON_CNT, NVL(TMC.USES_COUPON_CNT, 0) AS USES_COUPON_CNT,
+		                C.COUPON_AVAIL, NVL(C.COUPON_REASON, '-') AS COUPON_REASON
+		           FROM (SELECT COUPON_NO, COUNT(*) AS ISSUE_COUPON_CNT
+		                   FROM TB_MEMBER_COUPON
+		                  GROUP BY COUPON_NO) MC,
+		                (SELECT COUPON_NO, COUNT(COUPON_NO) AS USES_COUPON_CNT
+		                   FROM TB_MEMBER_COUPON
+		                  WHERE MEMBER_COUPON_STATUS = 'Y'
+		                  GROUP BY COUPON_NO) TMC,
+		                        TB_COUPON C
+		          WHERE MC.COUPON_NO(+) = C.COUPON_NO
+		            AND MC.COUPON_NO = TMC.COUPON_NO(+)
+		          ORDER BY C.COUPON_NO ASC) A)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
-	
 	
 	<!-- 쿠폰함 리스트 행 조회 SQL문 -->
 	<entry key="selectCouponListCount">

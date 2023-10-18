@@ -15,25 +15,29 @@ public class Coupon {
 	private int couponNo;
 	private String couponName;
 	private int couponRatio;
-	private String couponAval;
+	private String couponAvail;
 	private String couponReason;
 	private Date couponStartdate;
-	private Date EndDate;
+	private Date couponEndDate;
+	private int issueCouponCount;	// 관리자 쿠폰함 리스트 조회시 필요 (쿠폰 발급수)
+	private int usesCouponCount;	// 관리자 쿠폰함 리스트 조회시 필요 (쿠폰 사용수)
 	
 	public Coupon() {
 		super();
 	}
 
-	public Coupon(int couponNo, String couponName, int couponRatio, String couponAval, String couponReason,
-			Date couponStartdate, Date endDate) {
+	public Coupon(int couponNo, String couponName, int couponRatio, String couponAvail, String couponReason,
+			Date couponStartdate, Date couponEndDate, int issueCouponCount, int usesCouponCount) {
 		super();
 		this.couponNo = couponNo;
 		this.couponName = couponName;
 		this.couponRatio = couponRatio;
-		this.couponAval = couponAval;
+		this.couponAvail = couponAvail;
 		this.couponReason = couponReason;
 		this.couponStartdate = couponStartdate;
-		EndDate = endDate;
+		this.couponEndDate = couponEndDate;
+		this.issueCouponCount = issueCouponCount;
+		this.usesCouponCount = usesCouponCount;
 	}
 
 	public int getCouponNo() {
@@ -60,12 +64,12 @@ public class Coupon {
 		this.couponRatio = couponRatio;
 	}
 
-	public String getCouponAval() {
-		return couponAval;
+	public String getCouponAvail() {
+		return couponAvail;
 	}
 
-	public void setCouponAval(String couponAval) {
-		this.couponAval = couponAval;
+	public void setCouponAvail(String couponAvail) {
+		this.couponAvail = couponAvail;
 	}
 
 	public String getCouponReason() {
@@ -84,12 +88,36 @@ public class Coupon {
 		this.couponStartdate = couponStartdate;
 	}
 
-	public Date getEndDate() {
-		return EndDate;
+	public Date getCouponEndDate() {
+		return couponEndDate;
 	}
 
-	public void setEndDate(Date endDate) {
-		EndDate = endDate;
+	public void setCouponEndDate(Date couponEndDate) {
+		this.couponEndDate = couponEndDate;
 	}
-	
+
+	public int getIssueCouponCount() {
+		return issueCouponCount;
+	}
+
+	public void setIssueCouponCount(int issueCouponCount) {
+		this.issueCouponCount = issueCouponCount;
+	}
+
+	public int getUsesCouponCount() {
+		return usesCouponCount;
+	}
+
+	public void setUsesCouponCount(int usesCouponCount) {
+		this.usesCouponCount = usesCouponCount;
+	}
+
+	@Override
+	public String toString() {
+		return "Coupon [couponNo=" + couponNo + ", couponName=" + couponName + ", couponRatio=" + couponRatio
+				+ ", couponAvail=" + couponAvail + ", couponReason=" + couponReason + ", couponStartdate="
+				+ couponStartdate + ", couponEndDate=" + couponEndDate + ", issueCouponCount=" + issueCouponCount
+				+ ", usesCouponCount=" + usesCouponCount + "]";
+	}
+
 }	// end class

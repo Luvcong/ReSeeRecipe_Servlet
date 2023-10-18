@@ -318,8 +318,7 @@
 	</entry>
 	
 	<entry key="orderInsert">
-		INSERT ALL
-		INTO TB_ORDER
+		INSERT INTO
 		VALUES (
 				SEQ_ORDER.NEXTVAL,
 				'N',
@@ -329,11 +328,6 @@
 				NULL,
 				NULL,
 				'Y'		
-				)
-		INTO TB_DELIVERY
-		VALUES (
-				SEQ_DELIVERY.NEXTVAL,
-				
 				)
 	</entry>
 	

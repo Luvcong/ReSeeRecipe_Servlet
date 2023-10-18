@@ -19,7 +19,7 @@ public class CouponDao {
 	private Properties prop = new Properties();
 	
 	public CouponDao() {
-		String file = CouponDao.class.getResource("/sql/report/coupon-mapper.xml").getPath();
+		String file = CouponDao.class.getResource("/sql/coupon/coupon-mapper.xml").getPath();
 	
 		try {
 			prop.loadFromXML(new FileInputStream(file));
@@ -54,10 +54,27 @@ public class CouponDao {
 			
 			rset = pstmt.executeQuery();
 			
+			while(rset.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setCouponNo(rset.getInt("COUPON_NO"));						// 쿠폰 no
+				coupon.setCouponName(rset.getString("COUPON_NAME"));				// 쿠폰 이름
+				coupon.setCouponRatio(rset.getInt("COUPON_RATIO"));					// 쿠폰 할인율
+				coupon.setCouponStartdate(rset.getDate("COUPON_STARTDATE"));		// 쿠폰 시작일
+				coupon.setCouponEndDate(rset.getDate("COUPON_ENDDATE"));			// 쿠폰 종료일
+				coupon.setIssueCouponCount(rset.getInt("ISSUE_COUPON_CNT"));		// 쿠폰 발급 수
+				coupon.setUsesCouponCount(rset.getInt("USES_COUPON_CNT"));			// 쿠폰 사용 수
+				coupon.setCouponAvail(rset.getString("COUPON_AVAIL"));				// 쿠폰 상태 (발급시Y / 미발급시N)
+				coupon.setCouponReason(rset.getString("COUPON_REASON"));			// 쿠폰 등록 사유
+				
+				list.add(coupon);
+				System.out.println(list);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
 		
 		return list;
 		
