@@ -36,7 +36,7 @@
     <!-- footer 푸터영역 -->
 	<%@ include file="/views/common/footer.jspf" %>
 
-    <script src="resources/js/member/searchMemberIdForm.js"></script>
+  <script src="resources/js/member/searchMemberIdForm.js"></script>
 
-  </body>
+</body>
 </html>
