@@ -21,7 +21,7 @@
 <body>
     <%@ include file="../manager/navbar.jsp" %>
     <div class="rs-content">
-        <br><br>
+        
         <h2>공지사항 상세보기</h2>
         <br><br>
         <div class="container">
