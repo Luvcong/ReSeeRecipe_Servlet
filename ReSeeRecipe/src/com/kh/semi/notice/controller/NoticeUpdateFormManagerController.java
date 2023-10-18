@@ -47,7 +47,7 @@ public class NoticeUpdateFormManagerController extends HttpServlet {
 			request.setAttribute("np", np);
 			request.setAttribute("tag", tag);
 			request.setAttribute("mnno", ManageNoticeNo);
-
+			
 			request.getRequestDispatcher("views/notice/noticeUpdateFormManager.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");

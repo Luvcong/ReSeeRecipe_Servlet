@@ -65,7 +65,19 @@
 
                 let $hash = $('#HL_noticeUpTag').val();
                 console.log($hash);
-                
+
+                $.ajax({
+                    url : 'hlnoticeselected.tg',
+                    type : 'GET',
+                    dataType : 'json',
+                    success : function(result){
+                        console.log(result);
+                    },
+                    error : function(result) {
+
+                    }
+                });
+
 
 
 
