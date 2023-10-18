@@ -15,53 +15,53 @@ import com.kh.semi.notice.model.vo.NoticePic;
 import com.kh.semi.tag.model.vo.Tag;
 
 /**
- * Servlet implementation class NoticeDetailManagerController
+ * Servlet implementation class NoticeUpdateFormManagerController
  */
-@WebServlet("/hldetailnotice.ma")
-public class NoticeDetailManagerController extends HttpServlet {
+@WebServlet("/hlupdatenoticeForm.ma")
+public class NoticeUpdateFormManagerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public NoticeDetailManagerController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public NoticeUpdateFormManagerController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-		// 인코딩 생략
-		
-		// 2) 값뽑기
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		int ManageNoticeNo = Integer.parseInt(request.getParameter("mnno"));
-		System.out.println(ManageNoticeNo);
-		
+
 		// 3) Service 호출 해당 공지사항 번호로 공지사항 정보SELECT
-		if(ManageNoticeNo > 0) {
+		if (ManageNoticeNo > 0) {
 			Notice n = new NoticeService().selectNoticeInfo(ManageNoticeNo);
 			NoticePic np = new NoticeService().selectNoticePic(ManageNoticeNo);
 			ArrayList<Tag> tag = new NoticeService().selectNoticeTag(ManageNoticeNo);
 			request.setAttribute("n", n);
 			request.setAttribute("np", np);
-			request.setAttribute("tag",tag);
+			request.setAttribute("tag", tag);
 			request.setAttribute("mnno", ManageNoticeNo);
 			
-			request.getRequestDispatcher("views/notice/noticeDetailManager.jsp").forward(request, response);
+			request.getRequestDispatcher("views/notice/noticeUpdateFormManager.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-	
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

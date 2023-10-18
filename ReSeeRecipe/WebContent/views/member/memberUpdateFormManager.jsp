@@ -23,7 +23,6 @@
 	<%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
 	<div class="rs-content">
-    <br><br>
     <h2>회원 정보 수정</h2>
     <br><br>
     <div class="container">

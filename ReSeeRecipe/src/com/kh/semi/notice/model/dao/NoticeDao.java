@@ -276,4 +276,31 @@ public class NoticeDao {
 		return np;
 	}
 	
+	public ArrayList<Tag> selectNoticeTag(Connection conn, int ManageNoticeNo) {
+		
+		ArrayList<Tag> tag = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticeTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, ManageNoticeNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Tag t = new Tag();
+				t.setTagName(rset.getString("TAG_NAME"));
+				tag.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return tag;
+	}
 }

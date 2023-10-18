@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.semi.notice.model.vo.Notice"%>
+<%@ page import="com.kh.semi.notice.model.vo.*, com.kh.semi.tag.model.vo.*, java.util.ArrayList"%>
 <%
     Notice n = (Notice)request.getAttribute("n");
+	NoticePic np = (NoticePic)request.getAttribute("np");
+	ArrayList<Tag> tag = (ArrayList<Tag>)request.getAttribute("tag");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +21,7 @@
 <body>
     <%@ include file="../manager/navbar.jsp" %>
     <div class="rs-content">
-        <br><br>
+        
         <h2>공지사항 상세보기</h2>
         <br><br>
         <div class="container">
@@ -43,11 +45,29 @@
                     </tr>      
                     <tr>
                         <th>이미지</th>
-                        <td></td>
-                    </tr>        
+                        <td>
+                    <% if(np != null) { %>
+                    <!--  첨부 파일이 있을 경우 -->
+                        <img src="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" alt="공지사항 이미지" id="HL_noticeImg" width="150" height="150">
+                    	<a href="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" download="<%= np.getNoticePicNamgeOrigin() %>"><%= np.getNoticePicNamgeOrigin() %></a>
+                    <% } else { %>
+                    	첨부 파일 없어요 ~
+                    <% } %>
+                    	</td>
+                    </tr> 
                     <tr>
                         <th>해시태그</th>
-                        <td></td>
+                        <td colspan="3">
+                    <% if(tag.isEmpty()) { %>
+                    <!-- 해시태그가 없을 때 -->         
+                        	해시태그가 존재하지 않습니다.
+                    <% } else { %>
+                    	<!-- 해시태그가 있을 때 -->
+                    	<% for(Tag t : tag) { %>
+                    	<span>#<%= t.getTagName() %></span>
+                    	<% } %>
+                    <% } %>
+                    	</td>
                     </tr>        
                     <tr>
                         <th>공지사항 작성일</th>
