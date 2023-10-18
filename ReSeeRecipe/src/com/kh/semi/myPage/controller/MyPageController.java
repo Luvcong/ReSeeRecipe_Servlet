@@ -39,10 +39,15 @@ public class MyPageController {
 	// 회원 리워드 내역 조회
 	public String MemberRewardList(HttpServletRequest request, HttpServletResponse response) {
 		
+		
+		
 		// 여기서 부터 Controller 역할
 		int memberNo = Integer.parseInt(request.getParameter("memNo"));
-		
+		System.out.println("멤버넘버");
+		System.out.println(memberNo);
 		ArrayList<Reward> list = new MyPageService().selectMemberRewardList(memberNo);
+		System.out.println("리스트가 없나?");
+		System.out.println(list);
 		
 		String view = request.getContextPath();
 		if(list != null) {
