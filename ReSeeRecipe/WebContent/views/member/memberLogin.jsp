@@ -20,114 +20,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-        /* Bordered form */
-        form {
-        border: 3px solid #f1f1f1;
-        }
+    <link rel="stylesheet" href="resources/css/member/memberLogin.css">
 
-        /* Full-width inputs */
-        input[type=text], input[type=password] {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-        }
-
-        /* Set a style for all buttons */
-        button {
-        background-color: rgb(88, 87, 87);
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        }
-
-        /* Add a hover effect for buttons */
-        button:hover {
-        opacity: 0.8;
-        }
-
-        /* Extra style for the cancel button (red) */
-        .cancelbtn {
-        width: auto;
-        padding: 10px 18px;
-        background-color: #f44336;
-        }
-
-        /* Add padding to containers */
-        .container {
-        padding: 50px 350px;
-        }
-
-        /* The "Forgot password" text */
-        span.psw {
-        float: right;
-        padding-top: 16px;
-        }
-
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-        span.psw {
-            display: block;
-            float: none;
-        }
-        .cancel-btn {
-            width: 100%;
-        }
-        }
-
-        #title{
-          padding-top: 50px;
-          display : flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .login-searchmenu{
-          border: none;
-          display : flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .login-searchmenu  > div{
-          border: none;
-          float: left;
-          padding : 0px 20px;
-        }
-
-        .login-searchmenu > div > a{
-          color : gray;
-        }
-        
-
-
-    </style>
 
 </head>
 <body>
 	<!-- header부분 (상단 메인 메뉴바) -->
 	<%@ include file="/views/common/header.jspf" %>
-	
-
-  <script>
-
-    var msg = '<%= errorMsg %>';
-    if(msg != 'null'){
-      Swal.fire({
-        icon: 'error',
-        title: '로그인 실패',
-        text: '아이디와 비밀번호를 다시 확인해 주세요.'
-      })
-      <% request.removeAttribute("errorMsg"); %>
-    }
-    </script>
-
 
     <form action="yrlogin.me" method="post">
     	<input type="hidden" name="buy" value="<%= buy %>">
@@ -160,6 +59,20 @@
       
     <!-- footer 푸터영역 -->
 	<%@ include file="/views/common/footer.jspf" %>
+
+
+  <script>
+
+    var msg = '<%= errorMsg %>';
+    if(msg != 'null'){
+      Swal.fire({
+        icon: 'error',
+        title: '로그인 실패',
+        text: '아이디와 비밀번호를 다시 확인해 주세요.'
+      })
+      <% request.removeAttribute("errorMsg"); %>
+    }
+    </script>
 
   </body>
 </html>
