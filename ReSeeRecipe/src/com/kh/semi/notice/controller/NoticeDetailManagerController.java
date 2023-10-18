@@ -2,7 +2,6 @@ package com.kh.semi.notice.controller;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
-
-import com.kh.semi.notice.model.service.NoticeService;
-import com.kh.semi.notice.model.vo.Notice;
+import com.kh.semi.notice.model.vo.NoticePic;
 
 /**
  * Servlet implementation class NoticeDetailManagerController
@@ -44,8 +41,9 @@ public class NoticeDetailManagerController extends HttpServlet {
 		// 3) Service 호출 해당 공지사항 번호로 공지사항 정보SELECT
 		if(ManageNoticeNo > 0) {
 			Notice n = new NoticeService().selectNoticeInfo(ManageNoticeNo);
-			
+			NoticePic np = new NoticeService().selectNoticePic(ManageNoticeNo);
 			request.setAttribute("n", n);
+			request.setAttribute("np", np);
 			request.setAttribute("mnno", ManageNoticeNo);
 			
 			request.getRequestDispatcher("views/notice/noticeDetailManager.jsp").forward(request, response);
