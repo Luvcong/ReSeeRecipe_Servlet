@@ -132,14 +132,34 @@ public class ProductService {
 		
 	}
 	
-	public int orderInsert(int mno, int pno, int ono, HashMap order, int price) {
+	public int orderInsert(int mno, int pno, int ono, HashMap order, int price) { // 일단 주문이 무조건 1개, 하나만 들어온다고 가정
 		
 		Connection conn = getConnection();
 		
-		int result1 = new ProductDao().orderInsert(conn, pno, price);
-		if(result1 > 0) {
-			commit(conn);
+		ProductDao pd = new ProductDao();
+		
+		int orderNo = pd.orderInsert(conn, pno, price); // insert 후 pk가져옴
+		
+		if(orderNo > 0) {
 			
+			int result1 = pd.deliveryInsert(conn, orderNo, mno, order); // 그냥 insert
+			int odNo = pd.orderDetailInsert(conn, pno, orderNo); // insert 후 pk가져옴
+			
+			if(odNo > 0 && result1 > 0) {
+				commit(conn);
+				if(ono != 0) {
+					int result2 = pd.orderOptionInsert(conn, ono, odNo); // 그냥 insert
+					if(result2 > 0) {
+						commit(conn);
+					} else {
+						rollback(conn);
+						// 앞 컬럼 세개를 삭제?
+					}
+				}
+			} else {
+				rollback(conn);
+				// order테이블의 컬럼을 삭제해야하는가?
+			}
 		} else {
 			rollback(conn);
 		}
@@ -147,7 +167,8 @@ public class ProductService {
 		
 		
 		close(conn);
-		return result;
+		
+		return 0;
 	}
 	
 	

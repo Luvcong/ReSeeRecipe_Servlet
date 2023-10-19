@@ -331,6 +331,21 @@
 				)
 	</entry>
 	
+	<entry key="orderNoSelcet">
+		SELECT
+			ORDER_NO
+		FROM
+			TB_ORDER
+		WHERE
+			MEM_NO = ?
+		ORDER BY
+			ORDER_DATE
+	</entry>
+	
+	<entry key="deliveryInsert">
+		
+	</entry>
+	
 	
 	
 	

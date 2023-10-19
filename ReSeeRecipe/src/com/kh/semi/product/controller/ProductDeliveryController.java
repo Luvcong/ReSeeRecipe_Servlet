@@ -43,7 +43,7 @@ public class ProductDeliveryController extends HttpServlet {
 		String email = request.getParameter("email");
 		String req = request.getParameter("request"); // 빈문자열
 		int price = Integer.parseInt(request.getParameter("price"));
-		int iono = 0;
+		int iono = -1;
 		
 		if(ono != null) {
 			iono = Integer.parseInt(ono);
