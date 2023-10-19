@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InvalidPropertiesFormatException;
@@ -470,14 +471,56 @@ public class ProductDao {
 	public int orderInsert(Connection conn, int mno, int price) {
 		
 		int result = 0;
+		int orderNo = 0;
+		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("orderInsert");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setInt(1, price);
 			pstmt.setInt(2, mno);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result > 0) {
+				rset = pstmt.getGeneratedKeys();
+				if(rset.next()) {
+					orderNo = rset.getInt(1);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return orderNo;
+	}
+	
+	
+	/**
+	 * 주문번호로 배송지테이블 insert
+	 */
+	public int deliveryInsert(Connection conn, int orderNo, int mno, HashMap order) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deliveryInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, (String) order.get("name"));
+			pstmt.setInt(2, price);
+			pstmt.setInt(3, price);
+			pstmt.setInt(4, price);
+			pstmt.setInt(5, price);
+			pstmt.setInt(6, price);
+			pstmt.setInt(7, price);
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -487,14 +530,20 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	/**
+	 * 주문번호로 주문상세테이블 insert
+	 */
+	public int orderDetailInsert(Connection conn, int pno, int orderNo) {
 		
 		
-		
-		
-		
-		
-		
-		
+	}
+	
+	/**
+	 * 
+	 */
+	public int orderOptionInsert(Connection conn, int ono, int odNo) {
 		
 	}
 	

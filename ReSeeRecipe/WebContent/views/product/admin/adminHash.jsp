@@ -354,6 +354,8 @@
 				var no = td.eq(1).text();
 				
 				tdArr.push(no);
+				console.log(tr.text());
+				console.log(td.text());
 			})
 			
 			for(var i = 0; i < tdArr.length; i++){

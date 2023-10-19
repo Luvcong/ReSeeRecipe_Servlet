@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.tag.model.vo.Tag;
 
@@ -31,9 +32,17 @@ public class NoticeHashtagSelectedController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ArrayList<Tag> list = new NoticeService().selectNoticeTag(ManageNoticeNo);
-	
+		
+		int ManagerNoticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+		
+		
+		ArrayList<Tag> list = new NoticeService().selectNoticeTag(ManagerNoticeNo);
+		
+		// 형식 인코딩 지정
+		response.setContentType("application/json; charset=UTF-8"); 
+		
+		// Gson객체 생성 응답 보내기
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

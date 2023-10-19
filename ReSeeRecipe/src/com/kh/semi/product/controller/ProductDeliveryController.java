@@ -43,7 +43,7 @@ public class ProductDeliveryController extends HttpServlet {
 		String email = request.getParameter("email");
 		String req = request.getParameter("request"); // 빈문자열
 		int price = Integer.parseInt(request.getParameter("price"));
-		int iono = 0;
+		int iono = -1;
 		
 		if(ono != null) {
 			iono = Integer.parseInt(ono);
@@ -58,11 +58,13 @@ public class ProductDeliveryController extends HttpServlet {
 			put("request", req);
 		}};
 		
-		int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
+		System.out.println(order.get("name"));
 		
-		request.setAttribute("orderNo", orderNo);
+		//int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
 		
-		request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
+		//request.setAttribute("orderNo", orderNo);
+		
+		//request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
 		
 	}
 
