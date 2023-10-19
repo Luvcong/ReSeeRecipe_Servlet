@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.notice.model.vo.*" %>
 <%
 	int loginMemberNo = (int)(request.getAttribute("loginMemberNo"));
+	Notice n = (Notice)request.getAttribute("n");
+	NoticePic np = (NoticePic)request.getAttribute("np");
 %>
 <!DOCTYPE html>
 <html>
@@ -36,7 +39,7 @@
             <!-- Session의 loginMember에서 관리자 정보 hidden으로 넘겨서 notice테이블에 update -->
             <input type="hidden" name="adminNo" value=<%=loginMemberNo%>>
             <label for="HL_noticeUpTitle">공지사항 제목 : </label>
-            <input type="text" class="form-control" placeholder="ì ëª©ì ìë ¥íì¸ì" name="HL_noticeUpTitle" id="HL_noticeUpTitle" required>
+            <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeUpTitle" id="HL_noticeUpTitle" required>
     <!--    <label for="HL_noticeWriter">ìì±ì :</label>  -->   
     <!--    <input type="password" class="form-control" placeholder="ê´ë¦¬ì | ë§¤ëì " name="HL_noticeWriter" id="HL_noticeWriter" required> -->      
             <br>
@@ -67,6 +70,7 @@
 
                 $.ajax({
                     url : 'hlnoticeselected.tg',
+                    data : {noticeNo : <%=n.getNoticeNo()%>},
                     type : 'GET',
                     dataType : 'json',
                     success : function(result){
