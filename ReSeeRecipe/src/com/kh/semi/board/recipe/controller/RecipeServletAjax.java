@@ -1,6 +1,7 @@
 package com.kh.semi.board.recipe.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+
+import com.google.gson.Gson;
 import com.kh.semi.board.recipe.controller.RecipeControllers.RecipeController;
 
 /**
@@ -41,14 +45,31 @@ public class RecipeServletAjax extends HttpServlet {
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
 		System.out.println("ajax매핑 : " + mapping);
 		
+		// List / Object
+		List list = null;
+		Object obj = null;
+		
 		// Controller로 분배
 		switch(mapping) {
-			case "ajaxSelectTag" : Abc abc = rc.ajaxSelectTag(request, response); break;
+			case "ajaxSelectTag" : list = rc.ajaxSelectTag(request, response); break;
 			case "ajaxModifyRecipeReply" : rc.ajaxModifyRecipeReply(request, response); break;
 			case "ajaxDeleteRecipeReply" : rc.ajaxDeleteRecipeReply(request, response); break;
 			case "ajaxSelectRecipeReplyList" : rc.ajaxSelectRecipeReplyList(request, response); break;
 			case "ajaxInsertRecipeReply" : rc.ajaxInsertRecipeReply(request, response); break;
 			default : response.sendRedirect(rc.errorDefault(request, response)); break;
+		}
+		//2 값 여러개 : Json (JS의 배열형태 or 객체형태)
+		// 1개 오브젝트
+		
+		 
+		// 형식 + 인코딩 설정 / Gson 응답
+		if(list != null) {
+			response.setContentType("application/json; charset=UTF-8");
+			new Gson().toJson(list, response.getWriter());
+		} else if(obj != null) {
+			
+		} else {
+			
 		}
 	}
 
