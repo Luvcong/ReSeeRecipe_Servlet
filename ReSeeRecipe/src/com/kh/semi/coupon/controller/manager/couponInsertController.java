@@ -16,14 +16,14 @@ import com.kh.semi.coupon.model.vo.Coupon;
  * Servlet implementation class couponInsertController
  */
 @WebServlet("/jhinsert.cp")
-public class couponInsertController extends HttpServlet {
+public class CouponInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CouponService couponService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public couponInsertController() {
+    public CouponInsertController() {
         super();
         couponService = new CouponService();
         // TODO Auto-generated constructor stub
