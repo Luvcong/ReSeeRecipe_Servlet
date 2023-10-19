@@ -35,7 +35,9 @@ public class NoticeUpdateFormManagerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		int ManageNoticeNo = Integer.parseInt(request.getParameter("mnno"));
 
 		// 3) Service 호출 해당 공지사항 번호로 공지사항 정보SELECT
@@ -50,7 +52,7 @@ public class NoticeUpdateFormManagerController extends HttpServlet {
 			
 			request.getRequestDispatcher("views/notice/noticeUpdateFormManager.jsp").forward(request, response);
 		} else {
-			request.setAttribute("errorMsg", "공지사항 상세 조회 실패");
+			request.setAttribute("errorMsg", "공지사항 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 
