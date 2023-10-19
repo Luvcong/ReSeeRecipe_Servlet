@@ -166,7 +166,9 @@ public class RecipeController {
 	
 	/**
 	 * 레시피 글을 작성하는 기능
-	 * @param request : memNo : 로그인 멤버의 정보
+	 * @param request :
+	 * memNo : 로그인 멤버의 정보
+	 * 
 	 * @param response
 	 * @return
 	 * @throws IOException, FileUploadException 
@@ -175,11 +177,12 @@ public class RecipeController {
 		
 		// 인코딩은 Servlet에서 완료
 		
-		// 기본변수
+		// 기본변수 초기화
 		String viewPath = "";
 		
+		// Session의 Attribute영역에 "loginMember"키값이 있을 시 insert가능 
+		/* else if ~  그 외에는 에러페이지 sendError / 빈문자열도 하면 좋을듯? 괘씸하니까 sendError */
 		if(null != request.getSession().getAttribute("loginMember")) {
-			Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
 			
 			// multipartContent가 있는지 체크 => 체크 후 서버올리기
 			if(ServletFileUpload.isMultipartContent(request)) {
@@ -191,77 +194,87 @@ public class RecipeController {
 				String fileSavePath = request.getServletContext().getRealPath("/resources/recipe_upfiles/recipe_pics/");
 				
 				// 1_3. MultipartRequest객체 생성 하면서 파일 이름 새로 생성
-				MultipartRequest multiRequest = new MultipartRequest(request,
+				MultipartRequest multiRequest = new MultipartRequest
+												(request,
 												fileSavePath,
 												maxSize,
 												"UTF-8",
 												new MyFileRenamePolicy());
 				
 				
-				// 2) multiRequest로부터 값 뽑기 => getParameter()이용
-				/* 위에서 null체크함 */
-				int memNo = loginMember.getMemNo();
-				// Recipe세팅, 값 한개씩만 있음 
+				// 2) multiRequest로부터 값 뽑기 + 가공 => MultipartRequest객체의 getParameter()이용
+				
+				
+				// 가공2_1. loginMember의 memNo(멤버테이블 PK)
+				/* 위의 조건문을 통과했으므로 로그인한 멤버 */
+				int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
+
+				
+				// 가공2_2. Recipe세팅
+				/* 레시피 제목과 카테고리 번호는 값 한개씩만 있기때문에 화면에서 넘겨받은 값을 단일 객체로 가공) 
+				 * short서킷 연산을 하기때문에 or연산자(||) 이용 시 모든 값이 False일때만 끝까지 비교함
+				 * 	=> 그러므로 해당 결과 반전 시 모든 값이 True일 때만 끝까지 연산이 일어나는것을 의미하게 됨
+				 * 	=> &&를 사용할 때 보다 적은 비교를 할 확률이 높아진다 */
 				Recipe recipe = new Recipe();
-				// 이 항목들이 모두 데이터가 있다면
-				if( !(multiRequest.getParameter("recipeTitle") == null
+				
+				// ↓ 이 항목들이 모두 데이터가 있다면 Recipe객체의 필드 초기화
+				if( !(multiRequest.getParameter("recipeTitle") == null /* getParameter메소드 값이 없을 때 반환이 null이기 때문에 null비교 */
 				   || multiRequest.getParameter("recipeCategoryNo") == null)) {
-					// Recipe객체 필드 초기화 후 ArrayList에 추가
 					recipe.setRecipeTitle(multiRequest.getParameter("recipeTitle"));
-					recipe.setRecipeWriterNo(loginMember.getMemNo());
+					recipe.setRecipeWriterNo(memNo);
 					recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
 				}
+
 				
-				
-				// ArrayList<RecipePic> 세팅, (recipePicLev은 썸네일이0번, 재료란 사진이 1 ~ 6번)
+				// 가공2_3. ArrayList<RecipePic> 세팅 (RecipePic 7개까지 (인덱스 0 ~ 6) recipePicLev은 썸네일이 0번, 재료란 사진이 1 ~ 6번)
 				ArrayList<RecipePic> recipePicList = new ArrayList();
+
 				for(int i = 0; i < 7; i++) {
 					String recipeNameOriginKey = "recipeNameOrigin" + i;
-					// 이 항목들이 모두 데이터가 있다면
+					// ↓ 이 항목들이 모두 데이터가 있다면 RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 					if( !(multiRequest.getOriginalFileName(recipeNameOriginKey) == null
 						|| multiRequest.getFilesystemName(recipeNameOriginKey) == null)) {
-						// RecipePic객체 생성 + 필드 초기화 후 ArrayList에 추가
 						RecipePic recipePic = new RecipePic();
 						recipePic.setRecipePicNameOrigin(multiRequest.getOriginalFileName(recipeNameOriginKey));
 						recipePic.setRecipePicNameUpload(multiRequest.getFilesystemName(recipeNameOriginKey));
 						recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics/");
 						recipePic.setRecipePicLev(i); /* 0번은 썸네일, 1 ~ 6은 요리 과정 사진 */
 						recipePicList.add(recipePic);
+					} else {
+						break; /* 데이터가 없을 시 불필요한 for문반복 줄임 */
 					}
 				}
-
 				
-				// ingredient와 ingredientAmount에 값이 존재한다면 ArrayList<Ingredient>화 */
+				
+				// 2_4. ArrayList<Ingredient>세팅 (ingredient와 ingredientAmount에 값이 존재한다면)
 				ArrayList<Ingredient> ingredientList = new ArrayList();
+				
 				for(int i = 0; i < 30; i++) {
 					String ingredientKey = "ingredient" + i;
 					String ingredientAmount = "ingredientAmount" + i;
-					// 이 항목들이 모두 데이터가 있다면
+					// ↓ 이 항목들이 모두 데이터가 있다면 Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
 					if( !(multiRequest.getParameter(ingredientKey) == null
 						|| multiRequest.getParameter(ingredientAmount) == null)) {
-						// Ingredient객체 생성 + 필드 초기화 후 ArrayList에 추가
 						Ingredient ingredient = new Ingredient();
 						ingredient.setIngredient(multiRequest.getParameter(ingredientKey));
 						ingredient.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
 						ingredientList.add(ingredient);
+					} else {
+						break;
 					}
 				}
 				
 				
-				// CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면  ArrayList<CookSteps>화  */
+				// 2_5. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
 				ArrayList<CookSteps> cookStepsList = new ArrayList();
+				
 				for(int i = 0; i < 6; i++) {
 					String csTitleKey = "cookStepsTitle" + i;
 					String csContentKey = "cookStepsContent" + i;
-					System.out.println("for문");
-					System.out.println(multiRequest.getParameter(csTitleKey) + "csTitleKey");
-					System.out.println(multiRequest.getParameter(csContentKey) + "csContentKey");
-					// 이 항목들이 모두 데이터가 있다면
+					// ↓ 이 항목들이 모두 데이터가 있다면 CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
 					if( !(multiRequest.getParameter(csTitleKey) == null
 						|| multiRequest.getParameter(csContentKey) == null)) {
-						// CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
 						CookSteps cookSteps = new CookSteps();
-						System.out.println(cookSteps);
 						cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 						cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
 						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 1 ~ 6까지 */
@@ -269,7 +282,7 @@ public class RecipeController {
 					}
 				}
 				
-				// tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+				// 2_6. tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 				ArrayList<Integer> tagNoList = new ArrayList();
 				for(int i = 0; i < 5; i++) {
 					String tagNoKey = "tagNo" + i;
