@@ -318,6 +318,48 @@
 	</entry>
 	
 	<entry key="orderInsert">
+		INSERT ALL
+		INTO TB_ORDER VALUES(
+							SEQ_ORDER.NEXTVAL,
+							'N',
+							?,
+							SYSDATE,
+							?,
+							NULL,
+							NULL,
+							'Y'
+							)
+		INTO TB_DELIVERY VALUES (
+								SEQ_DELIVERY.NEXTVAL,
+								?,
+								?,
+								?,
+								?,
+								?,
+								NULL,
+								SEQ_ORDER.CURRVAL,
+								?
+								)
+		INTO TB_ORDERDETAIL VALUES (
+									SEQ_ORDERDETAIL.NEXTVAL,
+									?,
+									1,
+									SEQ_ORDER.CURRVAL
+									)
+		SELECT * FROM DUAL;
+	</entry>
+	
+	<!-- 
+		INTO TB_ORDER_OPTION VALUES (
+									SEQ_ORDER_OPTION.NEXTVAL,
+									?,
+									?
+									)
+	 -->
+	
+	
+	<!-- 
+	<entry key="orderInsert">
 		INSERT INTO TB_ORDER
 		VALUES (
 				SEQ_ORDER.NEXTVAL,
@@ -375,19 +417,6 @@
 				?
 				)
 	</entry>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
+	 -->
 
 </properties>
