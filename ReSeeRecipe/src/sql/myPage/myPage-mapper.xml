@@ -15,10 +15,6 @@
 		  	   TB_MEMBER_COUPON MC 
 		 USING 
 		 	   (COUPON_NO)
-		  JOIN 
-		  	   TB_MEMBER M 
-		 USING 
-		 	   (MEM_NO)
 		 WHERE 
 		 	   MEM_NO = ?
 		   AND 

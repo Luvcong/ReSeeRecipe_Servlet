@@ -31,7 +31,8 @@
     <%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
     
-    <h2>공지사항 수정하기</h2>
+    <h2>공지사항 수정하기</h2>
+    
     
     <div class="container">
         <form enctype="multipart/form-data" class="form" action="<%=contextPath%>/hlnoticeUpdate.ma" id="HL_noticeUpdate_Form" method="post">
@@ -39,17 +40,20 @@
             <!-- Session의 loginMember에서 관리자 정보 hidden으로 넘겨서 notice테이블에 update -->
    
             <label for="HL_noticeUpTitle">공지사항 제목 : </label>
-            <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeUpTitle" id="HL_noticeUpTitle" required>
+            <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeUpTitle" id="HL_noticeUpTitle" value="<%= n.getNoticeTitle() %>" required>
     <!--    <label for="HL_noticeWriter">ìì±ì :</label>  -->   
     <!--    <input type="password" class="form-control" placeholder="ê´ë¦¬ì | ë§¤ëì " name="HL_noticeWriter" id="HL_noticeWriter" required> -->      
             <br>
-            <label for="HL_noticeUpFile">이미지</label> <br>
-            <div class="custom-file">
-                <input type="file" name="HL_noticeUpFile" id="HL_noticeUpFile">
-            </div>  
+            <label for="HL_noticeUpFile">이미지</label> 
+            <% if(np != null) { %>
+            	<img alt="공지사항 사진" src="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange()%>">
+            <% } %>
+            <input type="file" name="HL_noticeUpFile" id="HL_noticeUpFile">
+            	
+              
             <br><br>
             <label for="HL_noticeUpContent">공지사항 내용</label>
-            <textarea class="form-control" rows="5" name="HL_noticeUpContent" id="HL_noticeContent"></textarea>
+            <textarea class="form-control" rows="5" name="HL_noticeUpContent" id="HL_noticeContent"><%= n.getNoticeCon() %></textarea>
             <br>
            
     <!--   <label for="HL_noticeHashtag">í´ìíê·¸</label>
@@ -75,6 +79,10 @@
                     dataType : 'json',
                     success : function(result){
                         console.log(result);
+                        if(result == "[]"){
+                        	const noticeT = $('#HL_noticeUpTag').val();
+                        	noticeT = '등록된 해시태그가 없습니다';
+                        }
                     },
                     error : function(result) {
 
@@ -154,7 +162,7 @@
             
             <br><br>
             <button type="submit" class="btn btn-warning">수정하기</button>
-            <button type="submit" class="btn btn-warning">돌아가기</button>
+            <button type="submit" class="btn btn-warning">돌아가기</button>
         </form>
     </div>
 </div>
