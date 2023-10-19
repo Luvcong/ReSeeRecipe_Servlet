@@ -25,7 +25,7 @@
 <!-- categoryListView / script & css -->
 <link rel="stylesheet" href="resources/css/category/category_manager.css">
 <link rel="shortcut icon" href="#">
-
+<script src="resources/js/category/category_manager.js"></script>
 </head>
 <body>
 
@@ -210,7 +210,7 @@
 		<% session.removeAttribute("successMsg"); %>
 		<% session.removeAttribute("failMsg"); %>
  	</script>
-	<script src="resources/js/category/category_manager.js"></script>
+	
 	
 
 </body>
