@@ -321,7 +321,7 @@
 			var col3 = "";
 			
 			checkbox.each(function(i){
-				var tr = checkbox.parent().parent().eq(i);
+				var tr = checkbox.parent().parent();
 				var td = tr.children();
 				
 				col1 = td.eq(1).text();
@@ -348,14 +348,14 @@
  			}
 			
 			checkbox.each(function(i){
-				var tr = checkbox.parent().parent().eq(i);
+				var tr = checkbox.parent().parent();
 				var td = tr.children();
 				
 				var no = td.eq(1).text();
 				
 				tdArr.push(no);
-				console.log(tr.text());
-				console.log(td.text());
+				console.log(tr);
+				console.log(td);
 			})
 			
 			for(var i = 0; i < tdArr.length; i++){

@@ -1,11 +1,41 @@
-//  couponListView
+	//  couponListView
 
-// 페이지 이동
+	// 페이지 이동
 	function page(element){
 		this.location.href = "/ReSeeRecipe/jhselect.cp?page=" + element;
 	}	// page
 	
-// 쿠폰 등록(추가)
+	
+	// 체크박스 전체 선택 및 해제
+	let table = document.getElementById('tb-coupon');
+	
+  	function checkAll(){
+		let inputs = document.querySelectorAll('tr input');
+		
+		for(let input of inputs){
+			input.checked = event.target.checked;
+		}
+	}	// checkAll
+	
+	// 체크박스 테이블 행 1개 해제시 전체 체크박스 해제
+	function checkOnce(){
+		let hd_input = table.querySelector('th input'); // 헤더 input
+		let inputs = table.querySelectorAll('td input');
+		
+		let all_checked = true;
+		
+		for(let input of inputs){
+			if(input.checked == false){
+				all_checked = false;
+				break;
+			}
+		}
+		
+		hd_input.checked = all_checked;
+	}	// checkOnce
+	
+	
+	// 쿠폰 등록처리 함수
 	function showAddCouponModal(){
 		
 //		const day = new Date();
@@ -39,6 +69,83 @@
 		
 	}	// showAddCouponModal
 	
+	
+
+	
+	// 쿠폰 삭제처리 함수
+	function deleteCoupon(){
+		
+		let trs = document.querySelectorAll('.table tr');	// 테이블의 모든 tr태그 저장
+		let checked_tr = null;								// 체크확인용 변수
+
+		for(let tr of trs){
+			let input = tr.querySelector('input');
+			if(input.checked){
+				checked_tr = tr;
+				break;
+			}
+		}
+		
+		if(checked_tr == null){
+			Swal.fire('실패', '쿠폰을 선택해주세요!', 'warning');
+			return;
+		}
+		
+		Swal.fire({
+			title: "쿠폰을 삭제하시겠습니까?",
+			text : "※ 이미 발급된 쿠폰은 삭제되지 않습니다",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "삭제",
+			cancelButtonText: "취소"
+			}).then((result) => {
+				if (!result.isConfirmed) {
+				  return;
+				}
+				
+				// 쿠폰 번호로 TB_COUPON 데이터 삭제 (기존에 발급된 쿠폰은 사라지지 않음)
+				let table = document.getElementById('tb-coupon');
+				let trs = table.querySelectorAll('tbody tr');
+				
+				for(let tr of trs){			// 다수 삭제를 위해 반복문
+					let input = tr.querySelector('input');
+					if(input.checked){
+						let couponNo = tr.children[1].textContent;
+						console.log(couponNo);
+					}
+				}	// for
+				
+				$.ajax({
+					url : 'jhdelete.cp',
+					type : 'get',
+					data : {'couponNo' : couponNo},
+					success : function(result){
+						console.log('성공');
+						Swal.fire('성공', '쿠폰 삭제가 완료되었습니다!', 'success');
+						
+						let selectCount = document.querySelector('.selectCount');
+						let total = ParseInt(selectCount.textCountent);
+						
+						for(let tr of trs){
+							let couponNo = parseInt(tr.children[1].textContent);
+							if(couponNo.includes(categoryNo)){
+								tr.remove();
+								total--;
+								
+								selectCount.textCountent = total;
+								removeCouponCount += cou
+							}
+						}
+					},	// success
+					error : function(result){
+						console.log('실패');
+					}	// error
+					
+				});	// ajax
+			});
+				
+	}	// deleteCoupon
 	
 	
 	

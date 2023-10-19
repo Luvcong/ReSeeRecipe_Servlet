@@ -132,7 +132,7 @@ public class ProductService {
 		
 	}
 	
-	public int orderInsert(int mno, int pno, int ono, HashMap order, int price) { // 일단 주문이 무조건 1개, 하나만 들어온다고 가정
+	public int orderInsert(int mno, int pno, int ono, HashMap<String, String> order, int price) { // 일단 주문이 무조건 1개, 하나만 들어온다고 가정
 		
 		Connection conn = getConnection();
 		
@@ -140,35 +140,32 @@ public class ProductService {
 		
 		int orderNo = pd.orderInsert(conn, pno, price); // insert 후 pk가져옴
 		
-		if(orderNo > 0) {
+		if(orderNo > 0) { // insert 잘 됐을때
 			
-			int result1 = pd.deliveryInsert(conn, orderNo, mno, order); // 그냥 insert
-			int odNo = pd.orderDetailInsert(conn, pno, orderNo); // insert 후 pk가져옴
+			int result1 = pd.deliveryInsert(conn, orderNo, mno, order); // 배송지정보 insert
+			int odNo = pd.orderDetailInsert(conn, pno, orderNo); // 주문상세 insert 후 pk가져옴
 			
-			if(odNo > 0 && result1 > 0) {
+			if(odNo > 0 && result1 > 0) { // 배송지정보 주문상세 둘다 insert됐을때
 				commit(conn);
-				if(ono != 0) {
-					int result2 = pd.orderOptionInsert(conn, ono, odNo); // 그냥 insert
-					if(result2 > 0) {
+				if(ono != 0) { // 옵션번호값이 null이 아닐때
+					int result2 = pd.orderOptionInsert(conn, ono, odNo); // 주문옵션 insert
+					if(result2 > 0) { // 커밋
 						commit(conn);
-					} else {
+					} else { // 롤백
 						rollback(conn);
 						// 앞 컬럼 세개를 삭제?
 					}
 				}
-			} else {
+			} else { // 둘중 하나라도 insert 안됐을때
 				rollback(conn);
 				// order테이블의 컬럼을 삭제해야하는가?
 			}
-		} else {
+		} else { // 주문 insert 잘 안됐을때
 			rollback(conn);
 		}
-		
-		
-		
 		close(conn);
 		
-		return 0;
+		return orderNo;
 	}
 	
 	

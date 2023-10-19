@@ -357,6 +357,25 @@
 				)
 	</entry>
 	
+	<entry key="orderDetailInsert">
+		INSERT INTO TB_ORDERDETAIL
+		VALUES (
+				SEQ_ORDERDETAIL.NEXTVAL,
+				?,
+				1,
+				?
+				)
+	</entry>
+	
+	<entry key="deliveryInsert">
+		INSERT INTO TB_ORDER_OPTION
+		VALUES (
+				SEQ_ORDER_OPTION.NEXTVAL,
+				?,
+				?
+				)
+	</entry>
+	
 	
 	
 	

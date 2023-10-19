@@ -50,7 +50,7 @@ public class ProductDeliveryController extends HttpServlet {
 		}
 		
 		
-		HashMap<String, String> order = new HashMap<String, String>(){{
+		HashMap<String, String> order = new HashMap<String, String>(){{ // ..여러타입의 값을 담을수있는지 몰랐음
 			put("name", name);
 			put("address", address);
 			put("phone", phone);
@@ -58,13 +58,11 @@ public class ProductDeliveryController extends HttpServlet {
 			put("request", req);
 		}};
 		
-		System.out.println(order.get("name"));
+		int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
 		
-		//int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
+		request.setAttribute("orderNo", orderNo);
 		
-		//request.setAttribute("orderNo", orderNo);
-		
-		//request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
 		
 	}
 

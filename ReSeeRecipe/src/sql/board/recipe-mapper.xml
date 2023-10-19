@@ -178,6 +178,9 @@
 			   )
 		 WHERE
 		 	   RNUM BETWEEN ? AND ?
+		 ORDER
+		 	BY
+			   RNUM
 	</entry>
 	<!-- ******* 레시피 관련 SELECT구문 끝 ******* -->
 	

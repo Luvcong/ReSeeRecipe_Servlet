@@ -314,14 +314,11 @@ public class RecipeController {
 	 * @param response : 해시태그 정보가 담긴 ArrayList를 Gson객체로 변환해 응답<br>
 	 * > Tag의 필드 : tagNo, tagName, tagDate
 	 */
-	public void ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+	public ArrayList<Tag> ajaxSelectTag(HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		// 해시태그 정보 조회
 		ArrayList<Tag> tagList = new TagService().selectALlTagname();
-		
-		// 형식 + 인코딩 설정 / Gson 응답
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(tagList, response.getWriter());
+		return tagList;
 	}
 	
 	
@@ -331,7 +328,7 @@ public class RecipeController {
 	 * @param request
 	 * @param response
 	 */
-	public void ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
+	public int ajaxModifyRecipeReply(HttpServletRequest request, HttpServletResponse response) {
 		int replyNo = Integer.parseInt(request.getParameter("replyNo"));
 		int recipeNo = Integer.parseInt(request.getParameter("recipeNo"));
 		
@@ -339,6 +336,10 @@ public class RecipeController {
 		reply.setReplyNo(replyNo);
 		reply.setRecipeNo(recipeNo);
 		//@@@@@@@@@@@@@@@@@@@@@@@@@
+		
+		int result = 0;
+		
+		return result;
 		
 	}
 	
