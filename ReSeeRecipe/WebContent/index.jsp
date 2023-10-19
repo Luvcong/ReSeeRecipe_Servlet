@@ -13,7 +13,7 @@
 	/*****************************************/
 	/* content 스타일 */
 	div {
-		border: 1px solid red;
+		
 		box-sizing: border-box;
 	}
 	
