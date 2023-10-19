@@ -213,7 +213,17 @@
             </div>
 
             <div id="content_4">
-                <p>인기 Re See 템</p><a href="<%=contextPath %>/main.po">더보기</a>
+            	<!-- 지금HOT한 레시피 더보기 -->
+                <div id="content_3_1" class="more_content_area1">
+                    <div id="content_3_1a" class="more_content_title_a"><p>인기 Re See 템</p></div>
+                    <div id="content_3_1b" class="more_content_title_b" onclick="location.href='<%=contextPath %>/main.po'"><p>더보기</p></div>
+                </div>
+                <!-- 사진 썸네일 영역 -->
+                <div id="content_3_2" class="more_content_area2">
+                    <div id="content3_2a"><a href="#"><img src="#">이미지1</a></div>
+                    <div id="content3_2b"><a href="#"><img src="#">이미지2</a></div>
+                    <div id="content3_2c"><a href="#"><img src="#">이미지3</a></div>
+                </div>
             </div>
         </div>
 	</div>
