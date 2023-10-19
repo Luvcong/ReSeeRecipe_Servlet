@@ -36,14 +36,11 @@ public class MyPageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<MemberCoupon> list = new ArrayList();
-		String sql = prop.getProperty("selectMemberCouponList");
-		
-		// 각 정렬에 따라 sql을 구분함
 		
 		StringBuilder sb = new StringBuilder();
+		sb.append(prop.getProperty("selectMemberCouponList"));
 		
-		sb.append(sql);
-		
+		// 각 정렬에 따라 sql을 구분함
 		if("saleSort".equals(selected)) {
 			sb.append("COUPON_RATIO DESC");
 		} else if("limitSort".equals(selected)) {
@@ -52,7 +49,10 @@ public class MyPageDao {
 			sb.append("MEMBER_COUPON_DATE DESC");
 		}
 		
+		String sql = sb.toString();
+		
 		/*
+		String sql = prop.getProperty("selectMemberCouponList");
 		if("saleSort".equals(selected)) {
 			sql += "COUPON_RATIO DESC";
 		} else if("limitSort".equals(selected)) {
@@ -63,7 +63,7 @@ public class MyPageDao {
 		*/
 		
 		try {
-			pstmt = conn.prepareStatement(sb.toString());
+			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, memberNo);
 			

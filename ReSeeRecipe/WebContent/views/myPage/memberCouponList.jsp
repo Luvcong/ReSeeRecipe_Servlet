@@ -20,7 +20,7 @@
     <!-- header부분 (상단 메인 메뉴바) -->
     <%@ include file="/views/common/header.jspf" %>
 
-    <p id="memNo"><%= loginMember.getMemNo() %></p>
+    <input type="hidden" id="memNo" name="memNo" value="<%= loginMember.getMemNo() %>">
 
     <div class="container">
         <h1 id="title"><b>쿠폰 조회</b></h1>
@@ -49,6 +49,7 @@
             </div>
             <hr>
         </div>
+        <% if(!memberCouponList.isEmpty()){ %>
         <% for(int i = 0; i < loginMember.getMemCouponCount(); i++) { %>
         <div class="devide" name="coupon-div">
             <div class="coupon" name="coupon1">
@@ -61,7 +62,9 @@
             </div>
         </div>    
         <% } %>
-
+        <% } else { %>
+        조회된 결과가 없습니다.
+        <% } %>
         
     </div>
 

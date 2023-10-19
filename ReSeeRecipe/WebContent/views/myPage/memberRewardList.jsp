@@ -29,7 +29,7 @@
             </div>
             <div class="info" id="infoTotal">
                 <% if(!memberRewardList.isEmpty()) {  %>
-            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %> p;
+            	    내 리워드 : <%= memberRewardList.get(0).getRemainRewardScore() %> p
                 <% } %>
             </div>
         </div>
