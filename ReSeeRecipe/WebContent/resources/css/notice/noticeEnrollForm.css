@@ -1,0 +1,26 @@
+@charset "UTF-8";
+<!-- 공지사항 작성하기 -->
+    .custom-file{
+        width : 30%;
+    }
+
+    #HL_noticeContent{
+        width : 500px;
+        height : 200px;
+        resize: none;
+    }
+
+    #HL_noticeTitle, #HL_noticeWriter, #HL_noticeHashtag{
+        width : 500px;
+    }
+    /* button[type=submit]{
+        align : "center";
+    } */
+    #HL_noticeContent {
+        resize : none;
+    }
+	
+	h2{
+		padding : 20px;
+	}
+
