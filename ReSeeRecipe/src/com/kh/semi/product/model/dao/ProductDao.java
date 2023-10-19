@@ -513,7 +513,14 @@ public class ProductDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, price);
+			pstmt.setString(1, (String) order.get("name"));
+			pstmt.setInt(2, price);
+			pstmt.setInt(3, price);
+			pstmt.setInt(4, price);
+			pstmt.setInt(5, price);
+			pstmt.setInt(6, price);
+			pstmt.setInt(7, price);
+			
 			
 			result = pstmt.executeUpdate();
 			

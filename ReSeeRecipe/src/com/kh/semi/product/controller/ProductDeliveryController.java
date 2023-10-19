@@ -58,11 +58,13 @@ public class ProductDeliveryController extends HttpServlet {
 			put("request", req);
 		}};
 		
-		int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
+		System.out.println(order.get("name"));
 		
-		request.setAttribute("orderNo", orderNo);
+		//int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
 		
-		request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
+		//request.setAttribute("orderNo", orderNo);
+		
+		//request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
 		
 	}
 

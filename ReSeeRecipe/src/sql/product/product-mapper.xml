@@ -318,7 +318,7 @@
 	</entry>
 	
 	<entry key="orderInsert">
-		INSERT INTO
+		INSERT INTO TB_ORDER
 		VALUES (
 				SEQ_ORDER.NEXTVAL,
 				'N',
@@ -343,7 +343,18 @@
 	</entry>
 	
 	<entry key="deliveryInsert">
-		
+		INSERT INTO TB_DELIVERY
+		VALUES (
+				SEQ_DELIVERY.NEXTVAL,
+				?,
+				?,
+				?,
+				?,
+				?,
+				NULL,
+				?,
+				?
+				)
 	</entry>
 	
 	
