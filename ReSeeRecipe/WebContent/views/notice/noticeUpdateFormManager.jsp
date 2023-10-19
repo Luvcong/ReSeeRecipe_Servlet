@@ -79,10 +79,10 @@
                     dataType : 'json',
                     success : function(result){
                         console.log(result);
-                        if(result == "[]"){
+                        if(result != "[]"){
                         	const noticeT = $('#HL_noticeUpTag').val();
                         	noticeT = '등록된 해시태그가 없습니다';
-                        }
+                        } 
                     },
                     error : function(result) {
 

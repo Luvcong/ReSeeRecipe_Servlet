@@ -56,7 +56,7 @@
 thead {
     background-color: #eee;
 }
-.waiting{
+.waiting, .selectCount{
     color: red;
 }
 .replied{

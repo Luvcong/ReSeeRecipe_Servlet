@@ -48,6 +48,14 @@
   				?
   				)
 	</entry>
+	
+	<!-- 쿠폰함 쿠폰 삭제 SQL문 -->
+	<entry key="deleteCoupon">
+		DELETE
+				TB_COUPON
+		 WHERE
+		 		COUPON_NO = ?
+	</entry>
 
 
 
