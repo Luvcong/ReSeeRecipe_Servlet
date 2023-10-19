@@ -205,28 +205,24 @@ public class RecipeController {
 				// 2) multiRequest로부터 값 뽑기 + 가공 => MultipartRequest객체의 getParameter()이용
 				
 				
-				// 가공2_1. loginMember의 memNo(멤버테이블 PK)
-				/* 위의 조건문을 통과했으므로 로그인한 멤버 */
-				int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
-
-				
-				// 가공2_2. Recipe세팅
+				// 가공2_1. Recipe세팅 (loginMember의 memNo는 멤버테이블 PK)
+				/* 위의 조건문을 통과했으므로 멤버는 로그인한 멤버 */
 				/* 레시피 제목과 카테고리 번호는 값 한개씩만 있기때문에 화면에서 넘겨받은 값을 단일 객체로 가공) 
 				 * short서킷 연산을 하기때문에 or연산자(||) 이용 시 모든 값이 False일때만 끝까지 비교함
 				 * 	=> 그러므로 해당 결과 반전 시 모든 값이 True일 때만 끝까지 연산이 일어나는것을 의미하게 됨
 				 * 	=> &&를 사용할 때 보다 적은 비교를 할 확률이 높아진다 */
+				int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
 				Recipe recipe = new Recipe();
-				
 				// ↓ 이 항목들이 모두 데이터가 있다면 Recipe객체의 필드 초기화
 				if( !(multiRequest.getParameter("recipeTitle") == null /* getParameter메소드 값이 없을 때 반환이 null이기 때문에 null비교 */
 				   || multiRequest.getParameter("recipeCategoryNo") == null)) {
 					recipe.setRecipeTitle(multiRequest.getParameter("recipeTitle"));
-					recipe.setRecipeWriterNo(memNo);
+					recipe.setRecipeWriterNo(memNo); /* 레시피의 writerNo = memNo */
 					recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
 				}
 
 				
-				// 가공2_3. ArrayList<RecipePic> 세팅 (RecipePic 7개까지 (인덱스 0 ~ 6) recipePicLev은 썸네일이 0번, 재료란 사진이 1 ~ 6번)
+				// 가공2_2. ArrayList<RecipePic> 세팅 (RecipePic 7개까지 (인덱스 0 ~ 6) recipePicLev은 썸네일이 0번, 재료란 사진이 1 ~ 6번)
 				ArrayList<RecipePic> recipePicList = new ArrayList();
 
 				for(int i = 0; i < 7; i++) {
@@ -240,13 +236,12 @@ public class RecipeController {
 						recipePic.setRecipePicPath("/resources/recipe_upfiles/recipe_pics/");
 						recipePic.setRecipePicLev(i); /* 0번은 썸네일, 1 ~ 6은 요리 과정 사진 */
 						recipePicList.add(recipePic);
-					} else {
-						break; /* 데이터가 없을 시 불필요한 for문반복 줄임 */
+						System.out.println("RecipeController 사진 반복 " + i + "번째");
 					}
 				}
 				
 				
-				// 2_4. ArrayList<Ingredient>세팅 (ingredient와 ingredientAmount에 값이 존재한다면)
+				// 2_3. ArrayList<Ingredient>세팅 (ingredient와 ingredientAmount에 값이 존재한다면)
 				ArrayList<Ingredient> ingredientList = new ArrayList();
 				
 				for(int i = 0; i < 30; i++) {
@@ -259,13 +254,12 @@ public class RecipeController {
 						ingredient.setIngredient(multiRequest.getParameter(ingredientKey));
 						ingredient.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
 						ingredientList.add(ingredient);
-					} else {
-						break;
+						System.out.println("RecipeController 재료 반복 " + i + "번째");
 					}
 				}
 				
 				
-				// 2_5. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
+				// 2_4. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
 				ArrayList<CookSteps> cookStepsList = new ArrayList();
 				
 				for(int i = 0; i < 6; i++) {
@@ -277,12 +271,12 @@ public class RecipeController {
 						CookSteps cookSteps = new CookSteps();
 						cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 						cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
-						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 1 ~ 6까지 */
+						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 사용자에게 보여지는 값이므로 1부터 시작, 6까지 */
 						cookStepsList.add(cookSteps);
 					}
 				}
 				
-				// 2_6. tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+				// 2_5. tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 				ArrayList<Integer> tagNoList = new ArrayList();
 				for(int i = 0; i < 5; i++) {
 					String tagNoKey = "tagNo" + i;
@@ -295,7 +289,8 @@ public class RecipeController {
 				}
 				
 				
-				// 3) VO가공 => map에 담기
+				
+				// 3) Service에 넘길 값 가공 => map에 담기
 				HashMap<String, Object> insertRecipeMap = new HashMap();
 				insertRecipeMap.put("recipe", recipe);
 				insertRecipeMap.put("recipePicList", recipePicList);
