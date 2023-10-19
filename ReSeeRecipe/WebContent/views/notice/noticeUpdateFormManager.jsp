@@ -81,7 +81,10 @@
                         console.log(result);
                         if(result != "[]"){
                         	const noticeT = $('#HL_noticeUpTag').val();
-                        	noticeT = '등록된 해시태그가 없습니다';
+                        	for(let tag in result){
+                        		noticeT += result[value];
+                        	}
+                        	console.log(noticeT);
                         } 
                     },
                     error : function(result) {
