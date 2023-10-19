@@ -318,7 +318,7 @@
 	</entry>
 	
 	<entry key="orderInsert">
-		INSERT INTO
+		INSERT INTO TB_ORDER
 		VALUES (
 				SEQ_ORDER.NEXTVAL,
 				'N',
@@ -328,6 +328,32 @@
 				NULL,
 				NULL,
 				'Y'		
+				)
+	</entry>
+	
+	<entry key="orderNoSelcet">
+		SELECT
+			ORDER_NO
+		FROM
+			TB_ORDER
+		WHERE
+			MEM_NO = ?
+		ORDER BY
+			ORDER_DATE
+	</entry>
+	
+	<entry key="deliveryInsert">
+		INSERT INTO TB_DELIVERY
+		VALUES (
+				SEQ_DELIVERY.NEXTVAL,
+				?,
+				?,
+				?,
+				?,
+				?,
+				NULL,
+				?,
+				?
 				)
 	</entry>
 	
