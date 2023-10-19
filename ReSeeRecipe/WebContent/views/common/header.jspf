@@ -268,7 +268,7 @@
 		$('#managerCheck').click(function(){
 			const managerCheck = prompt('관리자 암호를 입력하세요');
 			if(managerCheck == '1234' ){
-				console.log(managerCheck);
+				//console.log(managerCheck);
 				return true;
 			}
 			else {
