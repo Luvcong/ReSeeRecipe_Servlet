@@ -21,7 +21,7 @@
 		       ,MEM_PICTURE
 		       ,MEM_GRADE
 		       ,MEM_GRADE_NAME
-		       ,CNO
+		       ,MEM_COUPON_COUNT
 		  FROM
 		       TB_MEMBER
 		  JOIN 
@@ -30,7 +30,7 @@
 		       MEM_GRADE = MEM_GRADE_NO
           LEFT 
       	  JOIN 
-       	       (SELECT MEM_NO, COUNT(COUPON_NO) CNO
+       	       (SELECT MEM_NO, COUNT(COUPON_NO) MEM_COUPON_COUNT
                   FROM TB_MEMBER_COUPON
                  GROUP BY MEM_NO)
  		 USING 
