@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kh.semi.notice.model.vo.*" %>
+<%@ page import="com.kh.semi.notice.model.vo.*,com.kh.semi.tag.model.vo.*, java.util.ArrayList" %>
 <%
-	int loginMemberNo = (int)(request.getAttribute("loginMemberNo"));
+	
 	Notice n = (Notice)request.getAttribute("n");
 	NoticePic np = (NoticePic)request.getAttribute("np");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
 <title>공지사항 수정하기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -37,7 +37,7 @@
         <form enctype="multipart/form-data" class="form" action="<%=contextPath%>/hlnoticeUpdate.ma" id="HL_noticeUpdate_Form" method="post">
             
             <!-- Session의 loginMember에서 관리자 정보 hidden으로 넘겨서 notice테이블에 update -->
-            <input type="hidden" name="adminNo" value=<%=loginMemberNo%>>
+   
             <label for="HL_noticeUpTitle">공지사항 제목 : </label>
             <input type="text" class="form-control" placeholder="제목을 입력하세요" name="HL_noticeUpTitle" id="HL_noticeUpTitle" required>
     <!--    <label for="HL_noticeWriter">ìì±ì :</label>  -->   
