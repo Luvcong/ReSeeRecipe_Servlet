@@ -49,7 +49,7 @@
                     <% if(np != null) { %>
                     <!--  첨부 파일이 있을 경우 -->
                         <img src="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" alt="공지사항 이미지" id="HL_noticeImg" width="150" height="150">
-                    	<a href="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNagmeChange() %>" download="<%= np.getNoticePicNamgeOrigin() %>"><%= np.getNoticePicNamgeOrigin() %></a>
+                    	<a href="<%= contextPath %>/<%= np.getNoticePicPath() %>/<%= np.getNoticePicNamgeOrigin() %>" download="<%= np.getNoticePicNamgeOrigin() %>"><%= np.getNoticePicNamgeOrigin() %></a>
                     <% } else { %>
                     	첨부 파일 없어요 ~
                     <% } %>

@@ -26,35 +26,13 @@
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+	<link href="resources/notice/noticeEnrollForm.css" rel="stylesheet">
 
-<style>
-
-    .custom-file{
-        width : 30%;
-    }
-
-    #HL_noticeContent{
-        width : 500px;
-        height : 200px;
-        resize: none;
-    }
-
-    #HL_noticeTitle, #HL_noticeWriter, #HL_noticeHashtag{
-        width : 500px;
-    }
-    /* button[type=submit]{
-        align : "center";
-    } */
-    #HL_noticeContent {
-        resize : none;
-    }
-
-</style>
 </head>
 <body>
     <%@ include file="../manager/navbar.jsp" %>
 <div class="rs-content">
-    <br><br>
+    
     <h2>공지사항 작성</h2>
     <br><br>
     <div class="container">

@@ -37,7 +37,7 @@ public class NoticeUpdateFormManagerController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
+		response.setContentType("text/html; charset=UTF-8");
 		int ManageNoticeNo = Integer.parseInt(request.getParameter("mnno"));
 
 		// 3) Service 호출 해당 공지사항 번호로 공지사항 정보SELECT
