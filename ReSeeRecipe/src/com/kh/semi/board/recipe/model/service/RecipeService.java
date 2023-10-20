@@ -174,16 +174,21 @@ public class RecipeService {
 	 * @return
 	 */
 	public int insertRecipe(HashMap<String, Object> insertRecipeMap) {
+		
 		int returningResult = 0;
+		
 		int recipeResult = 0;
 		int tagResult = 0;
 		int picResult = 0;
 		int cookStepsResult = 0;
 		int ingredientResult = 0;
+		
 		RecipeDao rd = new RecipeDao();
+		
 		Connection conn = getConnection();
-		// TB_RECIPE insert
-		Recipe recipe = (Recipe)insertRecipeMap.get("recipe");
+		
+		// 레시피(TB_RECIPE) INSERT먼저
+		Recipe recipe = (Recipe)insertRecipeMap.get("recipe"); /* 맵에서 뽑음 */
 		recipeResult = rd.insertRecipe(conn, recipe);
 		
 		if(recipeResult > 0) {
