@@ -93,9 +93,9 @@
             </div>
 
             <div class="section">
-                <h2>Recipe Pics (Up to 2)</h2>
+                <h2>Recipe Pics (Up to 5)</h2>
                 <%
-                    for (int i = 0; i < 2; i++) {
+                    for (int i = 0; i < 5; i++) {
                 %>
                     <div class="field">
                         <label for="recipeNameOrigin<%=i%>">Recipe Pic Name Upload:</label>
@@ -108,9 +108,9 @@
             </div>
 
             <div class="section">
-                <h2>Ingredients (Up to 1)</h2>
+                <h2>Ingredients (Up to 5)</h2>
                 <%
-                    for (int i = 0; i < 1; i++) {
+                    for (int i = 0; i < 5; i++) {
                 %>
                     <div class="field">
                         <label for="ingredient<%=i%>">Ingredient <%=i+1%>:</label>
@@ -126,9 +126,9 @@
             </div>
 
             <div class="section">
-                <h2>Cooking Steps (Up to 1)</h2>
+                <h2>Cooking Steps (Up to 5)</h2>
                 <%
-                    for (int i = 0; i < 1; i++) {
+                    for (int i = 0; i < 5; i++) {
                 %>
                     <div class="field">
                         <label for="cookStepsTitle<%=i%>">Step <%=i+1%> Title:</label>
@@ -144,9 +144,9 @@
             </div>
 
             <div class="section">
-                <h2>Tags (Up to 1)</h2>
+                <h2>Tags (Up to 5)</h2>
                 <%
-                    for (int i = 0; i < 1; i++) {
+                    for (int i = 0; i < 5; i++) {
                 %>
                     <div class="field">
                         <label for="tagNo<%=i%>">Tag <%=i+1%>:</label>
