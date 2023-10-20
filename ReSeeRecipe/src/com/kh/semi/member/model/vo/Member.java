@@ -59,9 +59,9 @@ public class Member {
 		this.memGrade = memGrade;
 	}
 	
-	
+	// 로그인 시 사용
 	public Member(int memNo, String memId, String memPwd, String memName, String memNickname, String memEmail,String memStatus, 
-			Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName, int memCouponCount) {
+			Date enrollDate, Date modifyDate, Date deleteDate, String memPicture, int memGrade, String memGradeName, int memCouponCount, int memReward) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -77,6 +77,7 @@ public class Member {
 		this.memGrade = memGrade;
 		this.memGradeName = memGradeName;
 		this.memCouponCount = memCouponCount;
+		this.memReward = memReward;
 	}
 	
 	
