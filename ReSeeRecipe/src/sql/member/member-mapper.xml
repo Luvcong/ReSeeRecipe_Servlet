@@ -32,6 +32,10 @@
       	  JOIN 
        	       (SELECT MEM_NO, COUNT(COUPON_NO) MEM_COUPON_COUNT
                   FROM TB_MEMBER_COUPON
+                  JOIN TB_COUPON
+                 USING (COUPON_NO)
+                 WHERE MEMBER_COUPON_STATUS = 'N'
+                   AND COUPON_AVAIL = 'Y'
                  GROUP BY MEM_NO)
  		 USING 
        		   (MEM_NO)

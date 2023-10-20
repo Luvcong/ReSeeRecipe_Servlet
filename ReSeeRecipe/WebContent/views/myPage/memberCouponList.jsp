@@ -73,5 +73,12 @@
 
     <script src="resources/js/myPage/memberCouponList.js"></script>
 
+    <script>
+        // 선택된 옵션값 초기화
+        var $selected = 'recentSort';
+        var $memNo = $('#memNo').val();
+        console.log($memNo);
+    </script>
+
 </body>
 </html>

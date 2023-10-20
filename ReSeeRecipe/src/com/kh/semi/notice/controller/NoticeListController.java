@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.heart.model.service.HeartService;
-import com.kh.semi.heart.model.vo.NoticeHeart;
+import com.kh.semi.common.heart.model.vo.NoticeHeart;
 import com.kh.semi.notice.model.service.NoticeService;
 import com.kh.semi.notice.model.vo.Notice;
 
