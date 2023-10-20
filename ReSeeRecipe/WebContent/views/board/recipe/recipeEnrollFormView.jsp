@@ -245,12 +245,17 @@
 		height: 60%;
 	}
 
+	#cook-steps-hashtag label {
+		float: left;
+		position: relative;
+		left: 50px;
+	}
+
 	#cook-steps-hashtag select {
 		width: 90%;
-		height: 70%;
+		height: 50%;
 		border-radius: 50px;
 		border-color: rgb(255, 145, 77);
-		margin-top : 12px;
 	}
 	#cook-steps-hashtag option {
 		font-size: 25px;
@@ -648,12 +653,12 @@
 				// 임시저장 아이콘 클릭 시 모달창 설정
 				function unrecipeModalRequest(e) {
 					console.log(document.getElementsByClassName('.testList'));
-					//if(document.getElementsByClassName('.testList').length < 3 ) {
+					if(document.getElementsByClassName('.testList').length < 3 ) {
 		
-						//e.dataset.target = '#unrecipe-modal';
-					//} else {
-						//e.dataset.target = '#unrecipe-unavailable-modal';
-					//}
+						e.dataset.target = '#unrecipe-modal';
+					} else {
+						e.dataset.target = '#unrecipe-unavailable-modal';
+					}
 					alert("d");
 				};
 			</script>
@@ -664,21 +669,21 @@
 			<!---------------------- 레시피 글 작성 내용 영역 ---------------------->
 			<div id="recipe-enroll-context-wrap">
 				
-				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-				<div id="cook-steps-basic-info">
+				<!-- 생각 잘못함 망한부분 -->
+				<!-- <div id="cook-steps-basic-info">
 					<div class="cook-steps-input-content">
 						<div id="content-writer-hashtag">
 							<div id="cook-steps-chef" class="cook-steps-inner">
-								<p><%= loginMember %></p>
+								<p><%= loginMember.getMemNickname() %></p>
 							</div>
 							<div id="cook-steps-hashtag" class="cook-steps-inner">
-								<select name="tagNo" onclick="ajaxSelectTag();" class="btn btn-info">
-									<option disabled selected value="">해시태그 선택</option>
+								<label for="tagNo">선택된 태그 : </label>
+								<select name="tagNo" class="btn btn-info">
 								</select>
 							</div>
-						</div>
-
 						<script>
+							// 그냥 연습용 Ajax
+							var $selectElementTag = $('select[name=tagNo]');
 							// 태그 검색 ajax요청
 							function ajaxSelectTag(){
 								$.ajax({
@@ -686,25 +691,131 @@
 									data : {},
 									success : function(result) {
 										// TAG_NO, TAG_NAME, TAG_DATE
-										let resultStr = '';
+										let resultStr = '<option disabled selected value="">해시태그 선택</option>';
+										$selectElementTag.children().remove();
 										for(let i in result) {
 											resultStr += '<option value="' + result[i].tagNo + '">'
-													   + result[i].tagName
-													   + '</option>';
-											console.log(resultStr);
-										}
+												+ result[i].tagName
+												+ '</option>';
+											}
+										$selectElementTag.append(resultStr);
 									},
 									error : function(){
-										alert('올바르지 않은 요청입니다')										
+										alert('올바르지 않은 요청입니다');										
 									}
 								});
 							};
-						</script>
+							$(function(){
+								ajaxSelectTag();
+							});
+							var newTagLabelStr = $('label[for=tagNo]').html();
+							var selectedTagObj = {};
+							$selectElementTag.on('change', function(){
+								var selectedOption = $(this).find('option:selected');
+								var selectedTag = selectedOption.html(); // 선택된 태그 가져오기
 
+								// 중복 확인 => 중복아니면 selectedTagObj에 넣고 중복이면 경고창
+								if (!selectedTagObj[selectedTag]) {
+									// 윗쪽 라벨요소 html 띄워주기
+									selectedTagObj[selectedTag] = true;
+									newTagLabelStr += '#' + selectedTag + ' ';
+									$('label[for=tagNo]').html(newTagLabelStr);
+								} else {
+									alert('태그를 중복으로 추가할 수 없습니다');
+								}
+								// ajax태그요청 보내서 해시태그선택 띄워주기
+								ajaxSelectTag();
+								// 셀렉트 내부 option hidden 넘길값 설정
+								var tagNoHiddenValue = '<option disabled selected value="' + selectedOption.val() + '">해시태그 선택</option>';
+								$selectElementTag.append(tagNoHiddenValue);
+							});
+						</script>
 						<div id="content-thumbnail-image">
 							<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
 						</div>
-					</div>
+					</div> -->
+					
+
+					<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
+					<div id="cook-steps-basic-info">
+					
+						<div class="cook-steps-input-content">
+							<div id="content-writer-hashtag">
+								<div id="cook-steps-chef" class="cook-steps-inner">
+									<p><%= loginMember.getMemNickname() %></p>
+								</div>
+								<div id="cook-steps-hashtag" class="cook-steps-inner">
+									<label for="tnNotAppl">선택된 태그 : </label>
+									<select id="tnNotAppl" class="btn btn-info">
+										<option disabled selected value="">해시태그 선택</option>
+										<option	value="1">한식</option>
+										<option value="2">양식</option>
+										<option value="3">중식</option>
+										<option value="4">일식</option>
+										<option value="5">아시안</option>
+										<option value="6">야식</option>
+										<option value="7">디저트</option>
+										<option value="8">음료</option>
+									</select>
+								</div>
+								
+								<script>
+									$(function () {
+										// 선택된 옵션을 저장하는 변수
+										var selectedTagHtml = null;
+										var selectedTagNo = null;
+										// select 요소를 참조
+										var selectElement = $("#tnNotAppl");
+								
+										// label에 넣을 Str
+										var newTagLabelStr = $('label[for=tnNotAppl]').html();
+										var duplicateCheckCount = 0; // 중복 체크 횟수
+								
+										// select 요소에 클릭 이벤트 리스너 추가
+										selectElement.on("change", function () {
+											// 중복 체크가 5회 이상이면 이벤트 제거
+											if (duplicateCheckCount >= 5) {
+												selectElement.off("change"); // 이벤트 제거
+												selectElement.prop("disabled", true); // select 요소 비활성화
+												selectElement.val("");
+												return;
+											}
+								
+											// 선택된 옵션의 값을 가져옴
+											selectedTagHtml = selectElement.find('option:selected').html();
+											selectedTagNo = selectElement.find('option:selected').val();
+								
+											// 중복 확인
+											if (newTagLabelStr.indexOf(' #' + selectedTagHtml + ' ') === -1) {
+												newTagLabelStr += ' #' + selectedTagHtml + ' ';
+												$('label[for=tnNotAppl]').html(newTagLabelStr);
+												
+												// hidden 인풋 요소를 만들어 값을 설정
+												console.log(duplicateCheckCount);
+												var hiddenInput = $('<input type="hidden" name="tagNo' + duplicateCheckCount + '" value="' + selectedTagNo + '">');
+    											$('#cook-steps-hashtag').append(hiddenInput);
+												
+												duplicateCheckCount++;
+											} else {
+												alert('태그를 중복으로 추가할 수 없습니다');
+											}
+											// 선택 해제 "해시태그 선택" 옵션을 선택
+											selectElement.val("");
+										});
+									});
+								</script>
+								
+
+
+
+
+							<div id="content-thumbnail-image">
+								<img src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
+							</div>
+						</div>
+					
+					
+					
 					<div class="cook-steps-input-content">
 						<div id="cook-steps-title" class="cook-steps-inner">
 							<div id="title-text-area-div">

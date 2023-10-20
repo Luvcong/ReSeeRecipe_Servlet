@@ -220,7 +220,7 @@ public class RecipeController {
 					recipe.setRecipeWriterNo(memNo); /* 레시피의 writerNo = memNo */
 					recipe.setRecipeCategoryNo(Integer.parseInt(multiRequest.getParameter("recipeCategoryNo")));
 				}
-
+				
 				
 				// 가공2_2. ArrayList<RecipePic> 세팅 (RecipePic 7개까지 (인덱스 0 ~ 6) recipePicLev은 썸네일이 0번, 재료란 사진이 1 ~ 6번)
 				ArrayList<RecipePic> recipePicList = new ArrayList();
@@ -254,8 +254,10 @@ public class RecipeController {
 						ingredient.setIngredient(multiRequest.getParameter(ingredientKey));
 						ingredient.setIngredientAmount(multiRequest.getParameter(ingredientAmount));
 						ingredientList.add(ingredient);
-						System.out.println("RecipeController 재료 반복 " + i + "번째");
+					} else {
+						break;
 					}
+					System.out.println("RecipeController 재료 반복 " + i + "번째");
 				}
 				
 				
