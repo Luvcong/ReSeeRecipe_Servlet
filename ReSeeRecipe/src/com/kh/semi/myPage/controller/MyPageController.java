@@ -24,14 +24,14 @@ public class MyPageController {
 
 		// 3. 서비스 호출
 		ArrayList<MemberCoupon> list = new MyPageService().selectMemberCouponList(memberNo, selected);
-		
+		System.out.println(list);
 		String view = request.getContextPath();
+		// 어차피 초기화를 new로 해주었기 때문에 안해도 되지만 해줌
 		if(list != null) {
 			request.setAttribute("memberCouponList", list);
 			// 4. 응답화면 지정
 			view = "views/myPage/memberCouponList.jsp"; //views/myPage/memberCouponList.jsp
 		}
-		
 		return view;
 	}
 	

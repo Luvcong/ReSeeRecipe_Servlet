@@ -59,9 +59,10 @@ public class MemberDao {
 							   rset.getDate("MODIFY_DATE"),
 							   rset.getDate("DELETE_DATE"),
 							   rset.getString("MEM_PICTURE"),
-							   rset.getInt("MEM_GRADE"),
+							   rset.getInt("MEM_GRADE_NUMBER"),
 							   rset.getString("MEM_GRADE_NAME"),
-							   rset.getInt("MEM_COUPON_COUNT"));
+							   rset.getInt("MEM_COUPON_COUNT"),
+							   rset.getInt("MEM_REWARD"));
 			}	
 
 		} catch (SQLException e) {

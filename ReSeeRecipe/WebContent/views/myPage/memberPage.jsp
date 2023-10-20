@@ -42,7 +42,7 @@
         }
         #sideTop p{
             float: left;
-            font-size: 9px;
+            font-size: 11px;
         }
         #memberPic{
             border: 1px solid black;
@@ -51,18 +51,20 @@
             margin-top: 30px;
             margin-left: 30px;
         }
+        #profile{
+            width: 85px;
+            height: 85px;
+        }
         #md{
-            border: 1px solid black;
-            width: 40px;
+            width: 60px;
             height: 20px;
-            margin-top: 8px;
+           
             margin-left: 22px;
         }
         #nickName{
-            border: 1px solid black;
-            width: 40px;
+            width: 60px;
             height: 20px;
-            margin-top: 100px;
+            margin-top : 0px;
             margin-left: 22px;
         }
                 
@@ -219,15 +221,17 @@
 <%@ include file="/views/common/header.jspf" %>
         <div id="pageCenter">
         <div id="sideTop">
-            <p>내 리워드: </p>
+            <p>내 리워드: <%= loginMember.getMemReward() %></p>
             <div id="memberPic">
+                <img id="profile" src="<%= contextPath %>/<%= loginMember.getMemPicture() %>" alt="profile picture">
+            </div>
                 <div id="nickName">
-                    <p>닉네임</p>
+                    <p><%= loginMember.getMemNickname() %></p>
                 </div>
                 <div id="md">
-                    <p>내 등급</p>
+                    <p>LV. <%= loginMember.getMemGradeName() %></p>
                 </div>
-            </div>
+            
             <div id="sideMenu">
                 <ul>
                     <li id="listMenu"><a href="<%= contextPath %>/yrmemberUpdateConfirmForm.me">회원정보 변경</a></li>

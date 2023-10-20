@@ -1,7 +1,4 @@
-// 선택된 옵션값 초기화
-var $selected = 'recentSort';
-var $memNo = $('#memNo').text();
-console.log($memNo);
+
 
 // 정렬 선택 시, 선택된 옵션값 대입        
 function selected(){

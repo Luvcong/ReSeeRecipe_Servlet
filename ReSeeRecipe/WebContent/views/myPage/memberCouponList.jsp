@@ -33,7 +33,7 @@
             </div>
             <div class="grade" id="grade2">
                 <p>LV. <%= loginMember.getMemGradeName() %> </p> <br>
-                회원 등급은 로그인, 마이페이지 접속 시 갱신됩니다. <br>
+                회원 등급은 로그인 시 갱신됩니다. <br>
             </div>
         </div>
         <div class="devide" id="sort-div">
@@ -72,6 +72,13 @@
     <%@ include file="/views/common/footer.jspf" %>
 
     <script src="resources/js/myPage/memberCouponList.js"></script>
+
+    <script>
+        // 선택된 옵션값 초기화
+        var $selected = 'recentSort';
+        var $memNo = $('#memNo').val();
+        console.log($memNo);
+    </script>
 
 </body>
 </html>
