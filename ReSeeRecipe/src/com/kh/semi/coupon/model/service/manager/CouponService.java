@@ -38,7 +38,6 @@ public class CouponService {
 		
 	}	// selectCouponList
 	
-	
 	/**
 	 * 관리자 쿠폰함 리스트 카운트 행 수 조회 요청
 	 * @return DB에 저장되어 있는 쿠폰함 리스트 수
@@ -60,12 +59,12 @@ public class CouponService {
 	
 	/**
 	 * 관리자 쿠폰함 리스트 - 쿠폰 등록 요청
-	 * @param memNo 회원번호
-	 * @param couponNo 쿠폰번호
+	 * @param coupon couponName(쿠폰이름) / startCoupon(쿠폰시작일) / endCoupon(쿠폰등록일) / couponReason(쿠폰등록사유) / couponRatio (쿠폰할인율)
 	 * @return 쿠폰 등록 성공 여부
 	 * @author JH
 	 * @Date : 2023. 10. 18.
 	 */
+	
 	public int insertCoupon(Coupon coupon) {
 		
 		Connection conn = getConnection();
@@ -82,6 +81,30 @@ public class CouponService {
 		return result;
 		
 	}	// insertCoupon
+	
+	
+	/**
+	 * 관리자 쿠폰함 리스트 - 쿠폰 삭제 요청
+	 * @param categoryNo 쿠폰 번호 SEQ
+	 * @return 쿠폰 삭제 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 19.
+	 */
+	public int deleteCoupon(int categoryNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = couponDao.deleteCoupon(conn, categoryNo);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}	// deleteCoupon
 	
 	
 	

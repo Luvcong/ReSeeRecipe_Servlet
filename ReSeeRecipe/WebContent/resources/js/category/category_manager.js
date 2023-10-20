@@ -55,9 +55,11 @@
    		function duplicateCheck(){
    			
    			let input = document.getElementById('addCategoryName');
+   			addCategoryName = input.value;
    			// console.log(input);				// 값 ok
-   			console.log(input.value);		// input.value값 ok
+   			// console.log(input.value);		// input.value값 ok
    			// console.log(addCategoryName);	// ok
+   			
   			
   			$.ajax({
   				url : 'jhduplicate.ct',

@@ -45,22 +45,25 @@ public class ProductDeliveryController extends HttpServlet {
 		int price = Integer.parseInt(request.getParameter("price"));
 		int iono = -1;
 		
-		if(ono != null) {
-			iono = Integer.parseInt(ono);
-		}
-		
-		
-		HashMap<String, String> order = new HashMap<String, String>(){{ // ..여러타입의 값을 담을수있는지 몰랐음
+		HashMap<String, Object> order = new HashMap<String, Object>(){{
 			put("name", name);
 			put("address", address);
 			put("phone", phone);
 			put("email", email);
 			put("request", req);
+			put("mno", mno);
+			put("pno", pno);
+			put("price", price);
 		}};
 		
-		int orderNo = new ProductService().orderInsert(mno, pno, iono, order, price);
+		if(ono != null) {
+			iono = Integer.parseInt(ono);
+			order.put("ono", iono);
+		}
 		
-		request.setAttribute("orderNo", orderNo);
+		int result = new ProductService().orderInsert(order);
+		
+		//request.setAttribute("orderNo", orderNo);
 		
 		request.getRequestDispatcher("/views/product/product/buyOrderFinish.jsp").forward(request, response);
 		

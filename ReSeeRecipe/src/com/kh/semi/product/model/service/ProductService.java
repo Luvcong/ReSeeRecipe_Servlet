@@ -132,12 +132,26 @@ public class ProductService {
 		
 	}
 	
-	public int orderInsert(int mno, int pno, int ono, HashMap<String, String> order, int price) { // 일단 주문이 무조건 1개, 하나만 들어온다고 가정
+	public int orderInsert(HashMap<String, Object> order) { // 일단 주문이 무조건 1개, 하나만 들어온다고 가정
 		
 		Connection conn = getConnection();
 		
 		ProductDao pd = new ProductDao();
 		
+		int result = pd.orderInsert(conn, order);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		System.out.println(result);
+		
+		return result;
+		/*
 		int orderNo = pd.orderInsert(conn, pno, price); // insert 후 pk가져옴
 		
 		if(orderNo > 0) { // insert 잘 됐을때
@@ -162,10 +176,8 @@ public class ProductService {
 			}
 		} else { // 주문 insert 잘 안됐을때
 			rollback(conn);
-		}
-		close(conn);
+		}*/
 		
-		return orderNo;
 	}
 	
 	

@@ -24,6 +24,7 @@
 
 <!-- categoryListView / script & css -->
 <link rel="stylesheet" href="resources/css/coupon/coupon_manager.css">
+<link rel="shortcut icon" href="#">
 
 </head>
 <body>
@@ -54,17 +55,17 @@
             </div>
             <div class="h-content d-flex p-3">  <!-- 패딩 1rem -->
                 <div class="mr-auto">	
-                    조회수 <span class="waiting"><%= pi.getListCount() %></span><span>개</span>
+                    조회수 <span class="selectCount"><%= pi.getListCount() %></span><span>개</span>
                 </div>
                 <div >
                     <button type="submit" onclick="showAddCouponModal()" class="btn btn-sm btn-warning">쿠폰등록</button>
                     <button type="button" onclick="updateReport()"class="btn btn-sm btn-warning">상세보기</button>
-                    <button type="button" onclick="updateReport()"class="btn btn-sm btn-secondary">쿠폰삭제</button>
+                    <button type="button" onclick="deleteCoupon()"class="btn btn-sm btn-secondary">쿠폰삭제</button>
                 </div>
             </div>
         </div>	<!-- header -->
         <div class="tableBody">
-            <table id='tb-report' class="table table-sm table-hover">
+            <table id='tb-coupon' class="table table-sm table-hover">
                 <thead>
                     <tr>
                         <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
@@ -145,23 +146,23 @@
 								</tr>
 								<tr>
 									<th rowspan="2">쿠폰 유효기간</th>
-									<td class="btn-check-r"><button class="btn btn-warning">시작일</button></td>
+									<td class="btn-check-r"><button type="button" class="btn btn-warning">시작일</button></td>
 									<td class="btn-check-l"><input type="date" id="startDate" class="form-control form-control-sm form-date" name="startCoupon"></td>
 								</tr>
 								<tr>
-									<td class="btn-check-r"><button class="btn btn-warning">종료일</button></td>
+									<td class="btn-check-r"><button type="button" class="btn btn-warning">종료일</button></td>
 									<td class="btn-check-l"><input type="date" id="endDate" class="form-control form-control-sm form-date" name="endCoupon"></td>
 								</tr>	
 								<tr>
 									<th>쿠폰 할인율</th>
 									<td colspan="4">
-										<input type="number" class="form-control form-control-sm" id="couponPercent" min="0" max="100" step="10" placeholder="할인율 숫자를 입력하세요" name="couponRatio">
+										<input type="number" class="form-control form-control-sm" id="couponPercent" min="0" max="100" placeholder="할인율 숫자를 입력하세요" name="couponRatio">
 									</td>
 								</tr>
 								<tr>
 									<th>쿠폰 등록사유</th>
 									<td colspan="2">
-										<textarea name="couponReason"></textarea>
+										<textarea class="form-control h-25" rows="5" name="couponReason"></textarea>
 									</td>
 								</tr>
 							</table>
@@ -175,7 +176,7 @@
 		        </div>
 		</form>
 	 </div> <!-- 쿠폰 등록 modal창 -->
-   	
+	 
   	<!-- alertMsg script : DmListController에서 사용 -->
 	<script>
 		var successMsg = '<%= successMsg %>';

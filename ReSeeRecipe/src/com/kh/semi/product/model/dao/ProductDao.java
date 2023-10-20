@@ -466,8 +466,41 @@ public class ProductDao {
 	}
 	
 	/**
-	 * 주문테이블 insert
+	 * 주문관련테이블 insert
 	 */
+	public int orderInsert(Connection conn, HashMap<String, Object> order) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deliveryInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)order.get("price"));
+			pstmt.setInt(2, (int)order.get("mno"));
+			
+			pstmt.setString(3, (String)order.get("name"));
+			pstmt.setString(4, (String)order.get("phone"));
+			pstmt.setString(5, (String)order.get("email"));
+			pstmt.setString(6, (String)order.get("address"));
+			pstmt.setString(7, (String)order.get("request"));
+			pstmt.setInt(8, (int)order.get("mno"));
+			
+			pstmt.setInt(9, (int)order.get("pno"));
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	/**
+	 * 주문테이블 insert
 	public int orderInsert(Connection conn, int mno, int price) {
 		
 		int result = 0;
@@ -488,7 +521,7 @@ public class ProductDao {
 				rset = pstmt.getGeneratedKeys();
 				if(rset.next()) {
 					System.out.println(rset.getString(1));
-					//orderNo = rset.getInt(1);
+					orderNo = rset.getInt(1);
 				}
 			}
 			
@@ -503,7 +536,6 @@ public class ProductDao {
 	
 	/**
 	 * 주문번호로 배송지테이블 insert
-	 */
 	public int deliveryInsert(Connection conn, int orderNo, int mno, HashMap<String, String> order) {
 		
 		int result = 0;
@@ -533,7 +565,6 @@ public class ProductDao {
 	
 	/**
 	 * 주문번호로 주문상세테이블 insert
-	 */
 	public int orderDetailInsert(Connection conn, int pno, int orderNo) {
 		
 		int result = 0;
@@ -568,7 +599,6 @@ public class ProductDao {
 	
 	/**
 	 * 주문옵션테이블 insert
-	 */
 	public int orderOptionInsert(Connection conn, int ono, int odNo) {
 		
 		int result = 0;
@@ -590,7 +620,7 @@ public class ProductDao {
 		}
 		return result;
 		
-	}
+	} */
 	
 	
 	

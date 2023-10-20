@@ -115,6 +115,14 @@ public class CouponDao {
 	}	// selectCouponListCount
 	
 	
+	/**
+	 * 관리자 쿠폰함 리스트 - 쿠폰 등록 요청
+	 * @param conn
+	 * @param coupon couponName(쿠폰이름) / startCoupon(쿠폰시작일) / endCoupon(쿠폰등록일) / couponReason(쿠폰등록사유) / couponRatio (쿠폰할인율)
+	 * @return 쿠폰 등록 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 18.
+	 */
 	public int insertCoupon(Connection conn, Coupon coupon) {
 		
 		int result = 0;
@@ -143,13 +151,37 @@ public class CouponDao {
 	}	// insertCoupon
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 관리자 쿠폰함 리스트 - 쿠폰 삭제 요청
+	 * @param conn
+	 * @param categoryNo 쿠폰 번호 SEQ
+	 * @return 쿠폰 삭제 성공 여부
+	 * @author JH
+	 * @Date : 2023. 10. 19.
+	 */
+	public int deleteCoupon(Connection conn, int categoryNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCoupon");
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, categoryNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}	// deleteCoupon
 	
 	
 	
