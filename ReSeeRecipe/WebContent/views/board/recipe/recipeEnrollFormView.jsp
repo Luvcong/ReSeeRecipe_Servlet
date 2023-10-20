@@ -1149,38 +1149,44 @@
 					});
 
 
-					// 클릭 이벤트 핸들러를 등록
-					$("#cookingInstructionContainer").on("click", "button[id^=delCookSteps]", function () {
-						
-						// 삭제
-						$(this).parents('div[id^=newCookingInstInner]').remove();
-						
-						var stepNumber = $(this).siblings('input[name^=cookStepsLev]').val();
-						// 해당 단계 이후의 단계 번호를 조정
-						for (var i = stepNumber + 1; i <= 6; i++) {
-							var $nextStep = $("#cookStepsInstInner" + i);
-							if ($nextStep.length > 0) {
-							// 순차적으로 숫자 변경
-							$nextStep.find("input[name=cookStepsLev" + i + "]").val(i - 1);
-							$nextStep.find("p.inst-title-lev").text(i - 1);
-							// 순차적으로 id 변경
-							$nextStep.attr("id", "cookStepsInstInner" + (i - 1));
-							$nextStep.find("input[name=cookStepsLev" + i + "]").attr("name", "cookStepsLev" + (i - 1));
-							$nextStep.find("input[name=cookStepsTitle" + i + "]").attr("name", "cookStepsTitle" + (i - 1));
-							$nextStep.find("button[id=delCookSteps" + i + "]").attr("id", "delCookSteps" + (i - 1));
-							$nextStep.find("img[id=recipePicImg" + i + "]").attr("id", "recipePicImg" + (i - 1));
-							$nextStep.find("textarea[name=cookStepsContent" + i + "]").attr("name", "cookStepsContent" + (i - 1));
-							}
-						}
-						
-						// cookStepsCount 감소
-						cookStepsCount--;
-						
-						// 만약 6개의 단계가 채워지지 않았다면 추가 버튼 활성화
-						if (cookStepsCount < 6) {
-							$("#instAddBtn").prop("disabled", false);
-						}
-					});
+// 클릭 이벤트 핸들러를 등록
+$("#cookingInstructionContainer").on("click", "button[id^=delCookSteps]", function () {
+  var $targetCookingInstInner = $(this).parents('div[id^=newCookingInstInner]');
+  
+  // 삭제
+  $targetCookingInstInner.remove();
+  
+  // 삭제한 단계의 번호를 가져옵니다
+  var stepNumber = parseInt($targetCookingInstInner.find('input[name^=cookStepsLev]').val());
+  
+  // 해당 단계 이후의 단계 번호를 조정
+  for (var i = stepNumber + 1; i <= 6; i++) {
+    var $nextStep = $("#cookStepsInstInner" + i);
+    if ($nextStep.length > 0) {
+      // 순차적으로 숫자 변경
+      var newStepNumber = i - 1;
+      $nextStep.find('input[name^=cookStepsLev]').val(newStepNumber);
+      $nextStep.find('p.inst-title-lev').text(newStepNumber);
+      // 순차적으로 id 변경
+      $nextStep.attr("id", "cookStepsInstInner" + newStepNumber);
+      $nextStep.find('input[name^=cookStepsTitle]').attr("name", "cookStepsTitle" + newStepNumber);
+      $nextStep.find('button[id^=delCookSteps]').attr("id", "delCookSteps" + newStepNumber);
+      $nextStep.find('img[id^=recipePicImg]').attr("id", "recipePicImg" + newStepNumber);
+      $nextStep.find('textarea[name^=cookStepsContent]').attr("name", "cookStepsContent" + newStepNumber);
+    }
+  }
+  
+  // cookStepsCount 감소
+  cookStepsCount--;
+  
+  // 만약 6개의 단계가 채워지지 않았다면 추가 버튼 활성화
+  if (cookStepsCount < 6) {
+    $("#instAddBtn").prop("disabled", false);
+  }
+});
+
+
+
 
 				</script>
 				  
