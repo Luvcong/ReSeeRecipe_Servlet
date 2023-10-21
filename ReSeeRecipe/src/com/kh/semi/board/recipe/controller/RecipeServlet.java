@@ -62,13 +62,10 @@ public class RecipeServlet extends HttpServlet {
 			/* 3_1. 글작성하기 양식 요청 recipeEnrollForm */
 			case "recipeEnrollForm" : viewPath = rc.recipeEnrollForm(request, response); break;
 			
-			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirect => 카테고리 재료계량단위 임시저장글정보 조회 필요 // 해시태그는 Ajax */
+			/* 3_2. 글작성양식에 입력된 값 받아 서버에 insert(작성) => 이후 redirecting, 에러의 경우 forwarding */
 			case "insertRecipe" : viewPath = rc.insertRecipe(request, response);
 								  flag = viewPath.contains("errorPage") ?  true : false;
 								  break;
-			
-			
-			/* 위의 것 완료 후 */
 			
 			/* 1_2. 레시피보기 좋아요순 selectRecipeListHt */
 			//case "selectRecipeListHt" : viewPath = rc.selectRecipeListHt(request, response); break;
@@ -78,7 +75,6 @@ public class RecipeServlet extends HttpServlet {
 			
 			/* 1_4. 레시피보기 인기셰프순 selectRecipeListPo */
 			//case "selectRecipeListPo" : viewPath = rc.selectRecipeListPo(request, response); break;
-			
 			
 			
 			/* 4. 레시피 키워드 검색하기 searchKeyWord (제목 / 작성자) */

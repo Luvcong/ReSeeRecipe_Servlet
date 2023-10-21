@@ -180,8 +180,9 @@ public class RecipeController {
 		// 기본변수 초기화
 		String viewPath = "";
 		
-		// Session의 Attribute영역에 "loginMember"키값이 있을 시 insert가능 
-		/* else if ~  그 외에는 에러페이지 sendError / 빈문자열도 하면 좋을듯? 괘씸하니까 sendError */
+		// Session의 Attribute영역에 "loginMember"키값이 있을 시 insert가능
+		/* 여기서의 null체크의 경우 enrollForm에 스크립틀릿 사용 조건걸었기때문에 사실 필요하지는 않을듯하지만 중간에 에러때문에 걸어둠
+		 * 넘어오는 값 빈문자열 체크나 타입 체크의 경우 하지 않았음 / if조건에 해당하지 않는 경우 모두 sendError */
 		if(null != request.getSession().getAttribute("loginMember")) {
 			
 			// multipartContent가 있는지 체크 => 체크 후 서버올리기
@@ -201,18 +202,20 @@ public class RecipeController {
 												"UTF-8",
 												new MyFileRenamePolicy());
 				
+			
 				
 				// 2) multiRequest로부터 값 뽑기 + 가공 => MultipartRequest객체의 getParameter()이용
 				
 				
 				// 가공2_1. Recipe세팅 (loginMember의 memNo는 멤버테이블 PK)
-				/* 위의 조건문을 통과했으므로 멤버는 로그인한 멤버 */
-				/* 레시피 제목과 카테고리 번호는 값 한개씩만 있기때문에 화면에서 넘겨받은 값을 단일 객체로 가공) 
+				/* 위의 조건문을 통과했으므로 멤버는 로그인한 멤버임
+				 * 레시피 제목과 카테고리 번호는 값 한개씩만 있기때문에 화면에서 넘겨받은 값을 단일 객체로 가공) 
 				 * short서킷 연산을 하기때문에 or연산자(||) 이용 시 모든 값이 False일때만 끝까지 비교함
 				 * 	=> 그러므로 해당 결과 반전 시 모든 값이 True일 때만 끝까지 연산이 일어나는것을 의미하게 됨
 				 * 	=> &&를 사용할 때 보다 적은 비교를 할 확률이 높아진다 */
 				int memNo = ((Member)(request.getSession().getAttribute("loginMember"))).getMemNo();
 				Recipe recipe = new Recipe();
+				
 				// ↓ 이 항목들이 모두 데이터가 있다면 Recipe객체의 필드 초기화
 				if( !(multiRequest.getParameter("recipeTitle") == null /* getParameter메소드 값이 없을 때 반환이 null이기 때문에 null비교 */
 				   || multiRequest.getParameter("recipeCategoryNo") == null)) {
@@ -241,7 +244,7 @@ public class RecipeController {
 				}
 				
 				
-				// 2_3. ArrayList<Ingredient>세팅 (ingredient와 ingredientAmount에 값이 존재한다면)
+				// 가공2_3. ArrayList<Ingredient>세팅 (ingredient와 ingredientAmount에 값이 존재한다면)
 				ArrayList<Ingredient> ingredientList = new ArrayList();
 				
 				for(int i = 0; i < 30; i++) {
@@ -261,7 +264,7 @@ public class RecipeController {
 				}
 				
 				
-				// 2_4. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
+				// 가공2_4. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
 				ArrayList<CookSteps> cookStepsList = new ArrayList();
 				
 				for(int i = 0; i < 6; i++) {
@@ -278,18 +281,18 @@ public class RecipeController {
 					}
 				}
 				
-				// 2_5. tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
+				
+				// 가공2_5. tagNO세팅, 여러개 있을 수도 있고 없을 수도 있음 */
 				ArrayList<Integer> tagNoList = new ArrayList();
 				for(int i = 0; i < 5; i++) {
 					String tagNoKey = "tagNo" + i;
-					// 이 항목들이 모두 데이터가 있다면
+					// ↓ 이 항목들이 모두 데이터가 있다면 값 뽑아 ArrayList<Integer>에 추가
 					if(multiRequest.getParameter(tagNoKey) != null) {
-						// Integer값 뽑아 ArrayList<Integer>에 추가
 						int tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
 						tagNoList.add(tagNo);
 					}
 				}
-				
+
 				
 				
 				// 3) Service에 넘길 값 가공 => map에 담기
@@ -300,17 +303,20 @@ public class RecipeController {
 				insertRecipeMap.put("cookStepsList", cookStepsList);
 				insertRecipeMap.put("tagNoList", tagNoList);
 				
+				
+				
 				// Recipecontroller호출
 				int result = new RecipeService().insertRecipe(insertRecipeMap);
+				
 				if(result > 0) {
 					request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
 					viewPath = "recipe/selectRecipeList.re";
 				} else {
-					viewPath = new SendError().sendError(request, "게시글 작성 실패");
+					viewPath = new SendError().sendError(request, "게시글 작성 실패"); // 게시글 작성 실패 시
 				}
 			}
 		} else {
-			viewPath = new SendError().sendError(request, "로그인이 필요한 서비스입니다");
+			viewPath = new SendError().sendError(request, "로그인이 필요한 서비스입니다"); // 로그인 하지 않을 시
 		}
 		return viewPath;
 	}
