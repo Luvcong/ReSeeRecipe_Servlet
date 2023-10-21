@@ -59,7 +59,6 @@
                 </div>
                 <div >
                     <button type="submit" onclick="showAddCouponModal()" class="btn btn-sm btn-warning">쿠폰등록</button>
-                    <button type="button" onclick="updateReport()"class="btn btn-sm btn-warning">상세보기</button>
                     <button type="button" onclick="deleteCoupon()"class="btn btn-sm btn-secondary">쿠폰삭제</button>
                 </div>
             </div>

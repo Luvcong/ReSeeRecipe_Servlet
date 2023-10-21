@@ -206,6 +206,7 @@
  				url : 'jhdelete.ct',
 				type : 'get',
 				data : {
+						// 'category':category_list,
 						'categoryNo' : Object.keys(category_list),
 						'categoryCount' : Object.values(category_list)			// https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/values
 				},
