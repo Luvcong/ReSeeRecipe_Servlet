@@ -387,7 +387,7 @@ public class RecipePresentation {
 		/* ~ 캡쳐X */
 		
 		
-		//***** [ 10 ]
+		//***** [ 10 - 1 ]
 
 		switch(mapping) {
 			// 생략 . . .
@@ -397,12 +397,24 @@ public class RecipePresentation {
 		
 		if(flag) { request.getRequestDispatcher(viewPath).forward(request, response); }
 		else 	 { response.sendRedirect(viewPath); }
-	
+
 		//*****
 	}
 	
+	//***** [ 10 - 2 ]
 	
+	public class SendError {
+		
+		private String viewPathError = "/views/common/errorPage.jsp";
+		
+		public String sendError(HttpServletRequest request, String errorStr) {
+			request.setAttribute("errorMsg", errorStr);
+			return viewPathError;
+		}
+		
+	}
 	
+	//*****
 	
 	
 	
