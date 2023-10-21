@@ -34,7 +34,9 @@
 		          FROM (SELECT *
 		                  FROM (SELECT MEM_NO, NVL(SUM(REWARD_SCORE), 0) AS ACCUMULATED_REWARD
 	                              FROM TB_REWARD
-	                              RIGHT JOIN TB_MEMBER
+	                             RIGHT 
+	                              JOIN 
+	                              	   TB_MEMBER
 	                             USING (MEM_NO)
 	                             WHERE NVL(REWARD_SCORE, 0) >= 0
 	                             GROUP BY MEM_NO))) 
