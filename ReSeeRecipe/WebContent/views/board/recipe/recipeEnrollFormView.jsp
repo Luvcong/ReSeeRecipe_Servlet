@@ -747,139 +747,139 @@
 					</div> -->
 					
 
-					<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
-					<div id="cook-steps-basic-info">
+				<!-- 레시피 썸네일 + 제목 + 재료 입력 테이블 -->
+				<div id="cook-steps-basic-info">
 					
-						<div class="cook-steps-input-content">
-							<div id="content-writer-hashtag">
-								<div id="cook-steps-chef" class="cook-steps-inner">
-									<p><%= loginMember.getMemNickname() %></p>
-								</div>
-								<div id="cook-steps-hashtag" class="cook-steps-inner">
-									<label for="tnNotAppl">선택된 태그 : </label>
-									<select id="tnNotAppl" class="btn btn-info">
-										<option disabled selected value="">해시태그 선택</option>
-										<option	value="1">한식</option>
-										<option value="2">양식</option>
-										<option value="3">중식</option>
-										<option value="4">일식</option>
-										<option value="5">아시안</option>
-										<option value="6">야식</option>
-										<option value="7">디저트</option>
-										<option value="8">음료</option>
-									</select>
-								</div>
-							</div>	
-							<script>
-								$(function () {
-									// 선택된 옵션을 저장하는 변수
-									var selectedTagHtml = null;
-									var selectedTagNo = null;
-									// select 요소를 참조
-									var selectElement = $("#tnNotAppl");
-							
-									// label에 넣을 Str
-									var newTagLabelStr = $('label[for=tnNotAppl]').html();
-									var duplicateCheckCount = 0; // 중복 체크 횟수
-							
-									// select 요소에 클릭 이벤트 리스너 추가
-									selectElement.on("change", function () {
-										// 중복 체크가 5회 이상이면 이벤트 제거
-										if (duplicateCheckCount >= 5) {
-											selectElement.off("change"); // 이벤트 제거
-											selectElement.prop("disabled", true); // select 요소 비활성화
-											selectElement.val("");
-											return;
-										}
-							
-										// 선택된 옵션의 값을 가져옴
-										selectedTagHtml = selectElement.find('option:selected').html();
-										selectedTagNo = selectElement.find('option:selected').val();
-							
-										// 중복 확인
-										if (newTagLabelStr.indexOf(' #' + selectedTagHtml + ' ') === -1) {
-											newTagLabelStr += ' #' + selectedTagHtml + ' ';
-											$('label[for=tnNotAppl]').html(newTagLabelStr);
-											
-											// hidden 인풋 요소를 만들어 값을 설정
-											console.log(duplicateCheckCount);
-											var hiddenInput = $('<input type="hidden" name="tagNo' + duplicateCheckCount + '" value="' + selectedTagNo + '">');
-											$('#cook-steps-hashtag').append(hiddenInput);
-											
-											duplicateCheckCount++;
-										} else {
-											alert('태그를 중복으로 추가할 수 없습니다');
-										}
-										// 선택 해제 "해시태그 선택" 옵션을 선택
+					<div class="cook-steps-input-content">
+						<div id="content-writer-hashtag">
+							<div id="cook-steps-chef" class="cook-steps-inner">
+								<p><%= loginMember.getMemNickname() %></p>
+							</div>
+							<div id="cook-steps-hashtag" class="cook-steps-inner">
+								<label for="tnNotAppl">선택된 태그 : </label>
+								<select id="tnNotAppl" class="btn btn-info">
+									<option disabled selected value="">해시태그 선택</option>
+									<option	value="1">한식</option>
+									<option value="2">양식</option>
+									<option value="3">중식</option>
+									<option value="4">일식</option>
+									<option value="5">아시안</option>
+									<option value="6">야식</option>
+									<option value="7">디저트</option>
+									<option value="8">음료</option>
+								</select>
+							</div>
+						</div>	
+						<script>
+							$(function () {
+								// 선택된 옵션을 저장하는 변수
+								var selectedTagHtml = null;
+								var selectedTagNo = null;
+								// select 요소를 참조
+								var selectElement = $("#tnNotAppl");
+						
+								// label에 넣을 Str
+								var newTagLabelStr = $('label[for=tnNotAppl]').html();
+								var duplicateCheckCount = 0; // 중복 체크 횟수
+						
+								// select 요소에 클릭 이벤트 리스너 추가
+								selectElement.on("change", function () {
+									// 중복 체크가 5회 이상이면 이벤트 제거
+									if (duplicateCheckCount >= 5) {
+										selectElement.off("change"); // 이벤트 제거
+										selectElement.prop("disabled", true); // select 요소 비활성화
 										selectElement.val("");
-									});
-								});
-							</script>
-							<div id="content-thumbnail-image">
-								<img id="recipePicImg0" src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
-							</div>
-						</div>
-						
-						
-						
-						<div class="cook-steps-input-content">
-							<div id="cook-steps-title" class="cook-steps-inner">
-								<div id="title-text-area-div">
-									<textarea name="recipeTitle" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
-								</div>
-								<div id="title-bytes-span">
-									<span>0</span>
-									<span>/60 bytes</span>
-								</div>
-							</div>
-							
-							<script>
-								// 타이틀 글자수 바이트 수 세기
-								$(function(){
-									$('#cook-steps-title textarea').keyup(function(e){
-										var textAreaBytes = 0;
-										var textArea = $(this).val();
-										var numberingSpan = $('#cook-steps-title').find('span').eq(0);
-										
-										var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
-										var patternBlank = /[\s]/m;
-										var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
-										
-										if(textArea.length != 0){
-											for(let i = 0; i < textArea.length; i++){
-												if(textAreaBytes <= 60) {
-													textAreaBytesBefore = textAreaBytes;
-													if(patternKor.test(textArea.charAt(i))) {
-														textAreaBytes += 3;
-													}
-													else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
-														if(e.key == 'Enter') {
-															textAreaBytes += 2;
-														}
-														else {
-															textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
-															textAreaBytes++;
-														}
-													}
-													else {
-														textAreaBytes += 3;
-													}
-													numberingSpan.text(textAreaBytes);
-												}
-												if(60 < textAreaBytes) { // if처리
-													$(this).val(textArea.substring(0, i));
-													numberingSpan.text(textAreaBytesBefore);
-													alert('더 이상 입력할 수 없습니다!');
-													return false;
-											}
-										}
+										return;
 									}
-									else {
-										numberingSpan.text(0);
+						
+									// 선택된 옵션의 값을 가져옴
+									selectedTagHtml = selectElement.find('option:selected').html();
+									selectedTagNo = selectElement.find('option:selected').val();
+						
+									// 중복 확인
+									if (newTagLabelStr.indexOf(' #' + selectedTagHtml + ' ') === -1) {
+										newTagLabelStr += ' #' + selectedTagHtml + ' ';
+										$('label[for=tnNotAppl]').html(newTagLabelStr);
+										
+										// hidden 인풋 요소를 만들어 값을 설정
+										console.log(duplicateCheckCount);
+										var hiddenInput = $('<input type="hidden" name="tagNo' + duplicateCheckCount + '" value="' + selectedTagNo + '">');
+										$('#cook-steps-hashtag').append(hiddenInput);
+										
+										duplicateCheckCount++;
+									} else {
+										alert('태그를 중복으로 추가할 수 없습니다');
 									}
+									// 선택 해제 "해시태그 선택" 옵션을 선택
+									selectElement.val("");
 								});
 							});
-							</script>
+						</script>
+						<div id="content-thumbnail-image">
+							<img id="recipePicImg0" src="https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif">
+						</div>
+					</div>
+						
+						
+						
+					<div class="cook-steps-input-content">
+						<div id="cook-steps-title" class="cook-steps-inner">
+							<div id="title-text-area-div">
+								<textarea name="recipeTitle" cols="10" rows="2" placeholder="레시피 제목을 입력하세요" required></textarea>
+							</div>
+							<div id="title-bytes-span">
+								<span>0</span>
+								<span>/60 bytes</span>
+							</div>
+						</div>
+							
+						<script>
+							// 타이틀 글자수 바이트 수 세기
+							$(function(){
+								$('#cook-steps-title textarea').keyup(function(e){
+									var textAreaBytes = 0;
+									var textArea = $(this).val();
+									var numberingSpan = $('#cook-steps-title').find('span').eq(0);
+									
+									var patternKor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/m;
+									var patternBlank = /[\s]/m;
+									var patternOne = /[\w~!@#%^&*()_+-=\\$\`\[\]\{\}]/m;
+									
+									if(textArea.length != 0){
+										for(let i = 0; i < textArea.length; i++){
+											if(textAreaBytes <= 60) {
+												textAreaBytesBefore = textAreaBytes;
+												if(patternKor.test(textArea.charAt(i))) {
+													textAreaBytes += 3;
+												}
+												else if(patternBlank.test(textArea.charAt(i)) || patternOne.test(textArea.charAt(i))) {
+													if(e.key == 'Enter') {
+														textAreaBytes += 2;
+													}
+													else {
+														textArea.replace(patternBlank, ' '); // 엔터 외에는 모두 한칸 스페이스로 변경
+														textAreaBytes++;
+													}
+												}
+												else {
+													textAreaBytes += 3;
+												}
+												numberingSpan.text(textAreaBytes);
+											}
+											if(60 < textAreaBytes) { // if처리
+												$(this).val(textArea.substring(0, i));
+												numberingSpan.text(textAreaBytesBefore);
+												alert('더 이상 입력할 수 없습니다!');
+												return false;
+										}
+									}
+								}
+								else {
+									numberingSpan.text(0);
+								}
+							});
+						});
+						</script>
 						
 						
 						<!-- 입력받는 영역 -->
@@ -1114,27 +1114,29 @@
 					</div>
 				</div>
 
-				<div id="recipePicFileArea">
-					<input type="file" name="recipeNameOrigin0" id="recipeNameOrigin0" required onchange="loadRecipeImg(this, 0);">
-					<input type="file" name="recipeNameOrigin1" id="recipeNameOrigin1" required onchange="loadRecipeImg(this, 1);">
-				</div>
+				
+
+
 
 				<script>
 					var cookStepsCount = 1; // 썸네일0 + 첫번째요리과정1
-					// 클릭 이벤트 핸들러를 등록
+					// Add버튼 클릭 이벤트 핸들러를 등록
 					$("#instAddBtn").on("click", function () {
 						if (cookStepsCount < 6) {
 							cookStepsCount++;
 							var $newCookingInstInner = $('#cookStepsInstInner1').clone();
-		
+							console.log($newCookingInstInner);
 							// 요소 수정
 							$newCookingInstInner.attr('id', 'newCookingInstInner' + cookStepsCount);
 							$newCookingInstInner.find('input[name=cookStepsLev1]').val(cookStepsCount);
 							$newCookingInstInner.find('input[name=cookStepsLev1]').attr('name', 'cookStepsLev' + cookStepsCount);
 							$newCookingInstInner.find('p[class=inst-title-lev]').html(cookStepsCount);
-							$newCookingInstInner.find('input[name=cookStepsTitle1]').attr('name', 'cookStepsTitle' + cookStepsCount);
+							$newCookingInstInner.find('input[name=cookStepsTitle1]').attr('name', 'cookStepsTitle' + cookStepsCount); // 제목인풋
+							dasd = $newCookingInstInner.find('input[name=cookStepsTitle1]');
+							console.log(dasd.val() + 'dddddddddd');
 							$newCookingInstInner.find('button[id=delCookSteps1]').attr('id', 'delCookSteps' + cookStepsCount)
 							$newCookingInstInner.find('img[id=recipePicImg1]').attr('id', 'recipePicImg' + cookStepsCount);
+							$newCookingInstInner.find('img[id=recipePicImg1]').attr('src', 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif');
 							$newCookingInstInner.find('textarea[name=cookStepsContent1]').attr('name', 'cookStepsContent' + cookStepsCount);
 		
 							$newCookingInstInner.insertBefore('#cookStepsInstInnerEnd');
@@ -1149,7 +1151,7 @@
 					});
 
 
-					// 클릭 이벤트 핸들러를 등록
+					// Del버튼 클릭 이벤트 핸들러를 등록
 					$("#cookingInstructionContainer").on("click", "button[id^=delCookSteps]", function () {
 						
 						// 삭제
@@ -1183,7 +1185,8 @@
 					});
 
 				</script>
-				  
+
+		
 
 				<!-- <script>
 					/*
@@ -1322,6 +1325,78 @@
 					*/
 				</script> -->
 				
+				<!-- 파일 관련 영역 -->
+				<div id="recipePicFileArea">
+					<input type="file" name="recipeNameOrigin0" id="recipeNameOrigin0" required onchange="loadRecipeImg(this, 0);">
+					<input type="file" name="recipeNameOrigin1" id="recipeNameOrigin1" required onchange="loadRecipeImg(this, 1);">
+					<input type="file" name="recipeNameOrigin2" id="recipeNameOrigin2" required onchange="loadRecipeImg(this, 2);">
+					<input type="file" name="recipeNameOrigin3" id="recipeNameOrigin3" required onchange="loadRecipeImg(this, 3);">
+					<input type="file" name="recipeNameOrigin4" id="recipeNameOrigin4" required onchange="loadRecipeImg(this, 4);">
+					<input type="file" name="recipeNameOrigin5" id="recipeNameOrigin5" required onchange="loadRecipeImg(this, 5);">
+					<input type="file" name="recipeNameOrigin6" id="recipeNameOrigin6" required onchange="loadRecipeImg(this, 6);">
+				</div>
+
+				<script>
+					function loadRecipeImg(inputRecipePic, num) {
+						var $targetRecipePic = $('#recipePicImg' + num);
+						if(inputRecipePic.files.length == 1) { // 파일 첨부되면 파일 읽어들여 미리보기 띄워주기
+							let reader = new FileReader();
+							reader.readAsDataURL(inputRecipePic.files[0]);
+							reader.onload = function(e) {
+								$targetRecipePic.attr('src', e.target.result);
+								$targetRecipePic.attr('required', true);
+							};
+						} else {
+							const noImgStr = 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif';
+							$targetRecipePic.attr('src', noImgStr); // 파일 없으면 0 ~ 6번 미리보기 영역에 noImg사진
+							if(1 < num) { // 2 ~ 6번 파일의 경우는 required해제 (0썸네일, 1첫번째요리과정은 무조건 required)
+								$targetRecipePic.attr('required', false);
+							}
+						}
+
+						// if(inputRecipePic.files.length == 1) { // 파일 첨부되면 파일 읽어들여 미리보기 띄워주기
+						// 	let reader = new FileReader();
+						// 	reader.readAsDataURL(inputRecipePic.files[0]);
+						// 	reader.onload = function(e) {
+						// 		$('#recipePicImg' + num).attr('src', e.target.result);
+						// 		$('#recipePicImg' + num).attr('required', true);
+						// 	};
+						// } else {
+						// 	const noImgStr = 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif';
+						// 	$('#recipePicImg' + num).attr('src', noImgStr); // 파일 없으면 0 ~ 6번 미리보기 영역에 noImg사진
+						// 	if(1 < num) { // 2 ~ 6번 파일의 경우는 required해제 (0썸네일, 1첫번째요리과정은 무조건 required)
+						// 		$('#recipePicImg' + num).attr('required', false);
+						// 	}
+						// }
+					};
+
+				</script>
+
+				<script>
+					$(function(){
+						// 못생긴 파일버튼을 숨기자
+						$('#recipePicFileArea').hide();
+
+						// 미리보기 영역 클릭 시 여기가 클릭되도록 => 미리보기 영역은 동적요소라 on으로 달아주기
+						$('#recipe-enroll-context-wrap').on('click', 'img[id^=recipePicImg]', function(){
+							var $rPicLastNum = parseInt($(this).attr('id').slice(-1));
+							switch($rPicLastNum) {
+								case 0 : $('#recipeNameOrigin0').click(); break;
+								case 1 : $('#recipeNameOrigin1').click(); break;
+								case 2 : $('#recipeNameOrigin2').click(); break;
+								case 3 : $('#recipeNameOrigin3').click(); break;
+								case 4 : $('#recipeNameOrigin4').click(); break;
+								case 5 : $('#recipeNameOrigin5').click(); break;
+								case 6 : $('#recipeNameOrigin6').click(); break;
+								default : break;
+							}
+						})
+					});
+
+				</script>
+
+
+
 
 
 
