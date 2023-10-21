@@ -90,11 +90,11 @@ public class CouponService {
 	 * @author JH
 	 * @Date : 2023. 10. 19.
 	 */
-	public int deleteCoupon(int categoryNo) {
+	public int deleteCoupon(int couponNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = couponDao.deleteCoupon(conn, categoryNo);
+		int result = couponDao.deleteCoupon(conn, couponNo);
 		
 		if(result > 0)
 			commit(conn);

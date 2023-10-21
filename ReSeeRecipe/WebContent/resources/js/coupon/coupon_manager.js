@@ -1,4 +1,4 @@
-	//  couponListView
+//  couponListView
 
 	// 페이지 이동
 	function page(element){
@@ -7,9 +7,9 @@
 	
 	
 	// 체크박스 전체 선택 및 해제
-	let table = document.getElementById('tb-coupon');
 	
   	function checkAll(){
+  		let table = document.getElementById('tb-coupon');
 		let inputs = document.querySelectorAll('tr input');
 		
 		for(let input of inputs){
@@ -19,6 +19,7 @@
 	
 	// 체크박스 테이블 행 1개 해제시 전체 체크박스 해제
 	function checkOnce(){
+		let table = document.getElementById('tb-coupon');
 		let hd_input = table.querySelector('th input'); // 헤더 input
 		let inputs = table.querySelectorAll('td input');
 		
@@ -68,8 +69,6 @@
 		$('#addCouponForm').modal('show');
 		
 	}	// showAddCouponModal
-	
-	
 
 	
 	// 쿠폰 삭제처리 함수
@@ -107,34 +106,35 @@
 				// 쿠폰 번호로 TB_COUPON 데이터 삭제 (기존에 발급된 쿠폰은 사라지지 않음)
 				let table = document.getElementById('tb-coupon');
 				let trs = table.querySelectorAll('tbody tr');
+				let coupon_list = [];
 				
-				for(let tr of trs){			// 다수 삭제를 위해 반복문
+				for(let tr of trs){									// 다수 삭제를 위해 반복문
 					let input = tr.querySelector('input');
 					if(input.checked){
-						let couponNo = tr.children[1].textContent;
-						console.log(couponNo);
+						coupon_list.push(tr.children[1].textContent);	// 배열에서 값 추가시 push
 					}
 				}	// for
+				// console.log(coupon_list);
 				
 				$.ajax({
 					url : 'jhdelete.cp',
 					type : 'get',
-					data : {'couponNo' : couponNo},
+					data : {'coupon_list' : coupon_list},
 					success : function(result){
 						console.log('성공');
 						Swal.fire('성공', '쿠폰 삭제가 완료되었습니다!', 'success');
 						
 						let selectCount = document.querySelector('.selectCount');
-						let total = ParseInt(selectCount.textCountent);
+						console.log(selectCount);
+						let total = parseInt(selectCount.textContent);
+						console.log(total);
 						
 						for(let tr of trs){
-							let couponNo = parseInt(tr.children[1].textContent);
-							if(couponNo.includes(categoryNo)){
+							let coupon_list = parseInt(tr.children[1].textContent);
+							if(result.includes(coupon_list)){
 								tr.remove();
 								total--;
-								
-								selectCount.textCountent = total;
-								removeCouponCount += cou
+								selectCount.textContent = total;
 							}
 						}
 					},	// success
@@ -144,8 +144,20 @@
 					
 				});	// ajax
 			});
-				
 	}	// deleteCoupon
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

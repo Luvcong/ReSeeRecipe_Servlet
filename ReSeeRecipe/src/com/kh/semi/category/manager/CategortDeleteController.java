@@ -2,7 +2,10 @@ package com.kh.semi.category.manager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,6 +51,23 @@ public class CategortDeleteController extends HttpServlet {
 //		System.out.println(categoryCountArr);
 		String[] categoryNoArr = request.getParameterValues("categoryNo[]");
 		String[] categoryCountArr = request.getParameterValues("categoryCount[]");
+		
+		// 모든 키값을 가져옴
+//		Enumeration<String> keys = request.getParameterNames();
+//		while(keys.hasMoreElements()) {
+//			// key 조회
+//			String key = keys.nextElement();
+//			int keyNum = Integer.parseInt(key);
+//			
+//			// value 조회
+//			String value = request.getParameter(key);
+//			int valueNum = Integer.parseInt(value);
+//			
+//			int result = categoryService.deleteCategory(keyNum, valueNum);
+//			if(result > 0) {
+//				jArr.add(key);	// categoryNo으로 tr remove
+//			}
+//		}
 		
 		// null체크
 		if(categoryNoArr.length != categoryCountArr.length) {

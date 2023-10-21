@@ -159,7 +159,7 @@ public class CouponDao {
 	 * @author JH
 	 * @Date : 2023. 10. 19.
 	 */
-	public int deleteCoupon(Connection conn, int categoryNo) {
+	public int deleteCoupon(Connection conn, int couponNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -169,7 +169,7 @@ public class CouponDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, categoryNo);
+			pstmt.setInt(1, couponNo);
 			
 			result = pstmt.executeUpdate();
 			
