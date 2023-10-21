@@ -1123,22 +1123,24 @@
 					// Add버튼 클릭 이벤트 핸들러를 등록
 					$("#instAddBtn").on("click", function () {
 						if (cookStepsCount < 6) {
+							// 카운트 ++ 및 clone
 							cookStepsCount++;
 							var $newCookingInstInner = $('#cookStepsInstInner1').clone();
-							console.log($newCookingInstInner);
-							// 요소 수정
-							$newCookingInstInner.attr('id', 'newCookingInstInner' + cookStepsCount);
-							$newCookingInstInner.find('input[name=cookStepsLev1]').val(cookStepsCount);
+				
+							// 요소 수정 (value먼저 비우고 name, id 등 세팅)
+							$newCookingInstInner.attr('id', 'newCookingInstInner' + cookStepsCount); // 전체 div
+							$newCookingInstInner.find('input[name=cookStepsLev1]').val(cookStepsCount); // input hidden으로 넘기는 cookSteptsLev값
 							$newCookingInstInner.find('input[name=cookStepsLev1]').attr('name', 'cookStepsLev' + cookStepsCount);
-							$newCookingInstInner.find('p[class=inst-title-lev]').html(cookStepsCount);
-							$newCookingInstInner.find('input[name=cookStepsTitle1]').attr('name', 'cookStepsTitle' + cookStepsCount); // 제목인풋
-							dasd = $newCookingInstInner.find('input[name=cookStepsTitle1]');
-							console.log(dasd.val() + 'dddddddddd');
-							$newCookingInstInner.find('button[id=delCookSteps1]').attr('id', 'delCookSteps' + cookStepsCount)
+							$newCookingInstInner.find('p[class=inst-title-lev]').html(cookStepsCount); // 화면에 띄워주는 cookStepsLev p요소
+							$newCookingInstInner.find('input[name=cookStepsTitle1]').val(''); // 제목 인풋요소
+							$newCookingInstInner.find('input[name=cookStepsTitle1]').attr('name', 'cookStepsTitle' + cookStepsCount);
+							$newCookingInstInner.find('button[id=delCookSteps1]').attr('id', 'delCookSteps' + cookStepsCount); // 삭제 버튼
+							$newCookingInstInner.find('img[id=recipePicImg1]').attr('src', 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif');  // 이미지 영역
 							$newCookingInstInner.find('img[id=recipePicImg1]').attr('id', 'recipePicImg' + cookStepsCount);
-							$newCookingInstInner.find('img[id=recipePicImg1]').attr('src', 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif');
+							$newCookingInstInner.find('textarea[name=cookStepsContent1]').val(''); // 내용입력 textarea부분
 							$newCookingInstInner.find('textarea[name=cookStepsContent1]').attr('name', 'cookStepsContent' + cookStepsCount);
-		
+							
+							// Add버튼 전에 insert
 							$newCookingInstInner.insertBefore('#cookStepsInstInnerEnd');
 						}
 
