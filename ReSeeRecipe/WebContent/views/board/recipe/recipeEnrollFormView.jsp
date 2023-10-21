@@ -571,7 +571,7 @@
 	<div id="recipe-enroll-form-wrap"><!-- 전체 wrap 시작 -->
 		
 		<!---------------------- 글작성 전체 form / memNo은 session에서 빼서 사용 ----------------------->
-		<form action="#" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
+		<form action="insertRecipe.re" id="recipe-enrolling-form" method="post" enctype="multipart/form-data">
 		<!-- <form action="insertRecipe.re" id="recipe-enrolling-form" method="post" enctype="multipart/form-data"> -->
 			<!---------------------- 입력양식 상단 바 영역 ---------------------->
 			<div id="recipe-enroll-top-bar-wrap">
@@ -1331,11 +1331,11 @@
 				<div id="recipePicFileArea">
 					<input type="file" name="recipeNameOrigin0" id="recipeNameOrigin0" required onchange="loadRecipeImg(this, 0);">
 					<input type="file" name="recipeNameOrigin1" id="recipeNameOrigin1" required onchange="loadRecipeImg(this, 1);">
-					<input type="file" name="recipeNameOrigin2" id="recipeNameOrigin2" required onchange="loadRecipeImg(this, 2);">
-					<input type="file" name="recipeNameOrigin3" id="recipeNameOrigin3" required onchange="loadRecipeImg(this, 3);">
-					<input type="file" name="recipeNameOrigin4" id="recipeNameOrigin4" required onchange="loadRecipeImg(this, 4);">
-					<input type="file" name="recipeNameOrigin5" id="recipeNameOrigin5" required onchange="loadRecipeImg(this, 5);">
-					<input type="file" name="recipeNameOrigin6" id="recipeNameOrigin6" required onchange="loadRecipeImg(this, 6);">
+					<input type="file" name="recipeNameOrigin2" id="recipeNameOrigin2" onchange="loadRecipeImg(this, 2);">
+					<input type="file" name="recipeNameOrigin3" id="recipeNameOrigin3" onchange="loadRecipeImg(this, 3);">
+					<input type="file" name="recipeNameOrigin4" id="recipeNameOrigin4" onchange="loadRecipeImg(this, 4);">
+					<input type="file" name="recipeNameOrigin5" id="recipeNameOrigin5" onchange="loadRecipeImg(this, 5);">
+					<input type="file" name="recipeNameOrigin6" id="recipeNameOrigin6" onchange="loadRecipeImg(this, 6);">
 				</div>
 
 				<script>
@@ -1346,14 +1346,10 @@
 							reader.readAsDataURL(inputRecipePic.files[0]);
 							reader.onload = function(e) {
 								$targetRecipePic.attr('src', e.target.result);
-								$targetRecipePic.attr('required', true);
 							};
 						} else {
 							const noImgStr = 'https://simg.wooribank.com/img/section/bz/buss_product_noimgb.gif';
 							$targetRecipePic.attr('src', noImgStr); // 파일 없으면 0 ~ 6번 미리보기 영역에 noImg사진
-							if(1 < num) { // 2 ~ 6번 파일의 경우는 required해제 (0썸네일, 1첫번째요리과정은 무조건 required)
-								$targetRecipePic.attr('required', false);
-							}
 						}
 
 						// if(inputRecipePic.files.length == 1) { // 파일 첨부되면 파일 읽어들여 미리보기 띄워주기
