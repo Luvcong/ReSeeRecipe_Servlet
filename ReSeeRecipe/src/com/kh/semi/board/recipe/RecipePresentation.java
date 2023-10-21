@@ -52,7 +52,6 @@ public class RecipePresentation {
 		
 		String uri = request.getRequestURI();
 		String mapping = uri.substring(uri.lastIndexOf("/") + 1, uri.lastIndexOf("."));
-		System.out.println(mapping);
 		
 		switch(mapping) {
 			case "selectRecipeCategoryList" : viewPath = rc.selectRecipeCategoryList(request, response); break;
