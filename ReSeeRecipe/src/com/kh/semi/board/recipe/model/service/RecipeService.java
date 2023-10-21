@@ -209,8 +209,8 @@ public class RecipeService {
 			tagResult = rd.insertRecipeTag(conn, tagNoList);
 			
 			// 커넥션 닫기 전 transaction처리
-			if( !(recipeResult == 0
-			   || picResult * ingredientResult * cookStepsResult * tagResult == 0)) {
+			if( !(recipeResult != 1
+			   || picResult * ingredientResult * cookStepsResult * tagResult != 1)) {
 				returningResult = 1;
 				commit(conn);
 			} else {

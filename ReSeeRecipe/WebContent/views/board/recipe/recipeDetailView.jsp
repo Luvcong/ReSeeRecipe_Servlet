@@ -725,7 +725,7 @@
 				<!-- 레시피 과정 입력 틀 (과정사진 + 과정제목 + 과정내용) -->
 				<div id="cookingInstructionContainer">
 					<% for(int i = 0; i < cookStepsList.size(); i++) { %>
-						<div id="cookStepsInstInner1">
+						<div id="cookStepsInstInner" + i>
 							<div class="cook-steps-inst-pic">
 								<img src="" d>
 							</div>

@@ -240,6 +240,8 @@ public class RecipeController {
 						recipePic.setRecipePicLev(i); /* 0번은 썸네일, 1 ~ 6은 요리 과정 사진 */
 						recipePicList.add(recipePic);
 						System.out.println("RecipeController 사진 반복 " + i + "번째");
+					} else {
+						break;
 					}
 				}
 				
@@ -267,7 +269,7 @@ public class RecipeController {
 				// 가공2_4. ArrayList<CookSteps> (CookSteps 6개(인덱스 0 ~ 5), cookStepsTitle, cookStepsContent에 값이 존재한다면 )
 				ArrayList<CookSteps> cookStepsList = new ArrayList();
 				
-				for(int i = 0; i < 6; i++) {
+				for(int i = 1; i <= 6; i++) {
 					String csTitleKey = "cookStepsTitle" + i;
 					String csContentKey = "cookStepsContent" + i;
 					// ↓ 이 항목들이 모두 데이터가 있다면 CookSteps객체 생성 + 필드 초기화 후 ArrayList에 추가
@@ -276,8 +278,10 @@ public class RecipeController {
 						CookSteps cookSteps = new CookSteps();
 						cookSteps.setCookStepsTitle(multiRequest.getParameter(csTitleKey));
 						cookSteps.setCookStepsContent(multiRequest.getParameter(csContentKey));
-						cookSteps.setCookStepsLev(i + 1); /* 요리과정 순서 넘버에 띄워줄 값, 사용자에게 보여지는 값이므로 1부터 시작, 6까지 */
+						cookSteps.setCookStepsLev(i); /* 요리과정 순서 넘버에 띄워줄 값, 사용자에게 보여지는 값이므로 1로 받아 6까지 */
 						cookStepsList.add(cookSteps);
+					} else {
+						break;
 					}
 				}
 				
@@ -290,6 +294,8 @@ public class RecipeController {
 					if(multiRequest.getParameter(tagNoKey) != null) {
 						int tagNo = Integer.parseInt(multiRequest.getParameter(tagNoKey));
 						tagNoList.add(tagNo);
+					} else {
+						break;
 					}
 				}
 
