@@ -26,33 +26,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<style>
 
-    h2{
-        text-align: center;
-    }
-    .totalNotice{
-        caption-side: top;
-    }
-    .w3-bar{
-        text-align: center;
-    }
-    .header2{
-        text-align: right;
-    }
-    .header1 > div{
-        float : left;
-    }
-
-    #searchNotice{
-        max-width: 300px;
-    }
-    
-    #noticedetailbtn{
-        text-align : center;
-    }
-</style>
-
+	<link rel="stylesheet" href="resources/css/notice/noticeManager.css">
 
 
 
