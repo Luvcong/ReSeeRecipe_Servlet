@@ -56,6 +56,10 @@
 thead {
     background-color: #eee;
 }
+ul{
+	padding:0px;
+	text-align: center;
+}
 .waiting, .selectCount{
     color: red;
 }

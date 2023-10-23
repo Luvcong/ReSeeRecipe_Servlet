@@ -1,0 +1,25 @@
+@charset "UTF-8";
+<!-- 관리자페이지 공지사항 목록 CSS -->
+    h2{
+        text-align: center;
+    }
+    .totalNotice{
+        caption-side: top;
+    }
+    .w3-bar{
+        text-align: center;
+    }
+    .header2{
+        text-align: right;
+    }
+    .header1 > div{
+        float : left;
+    }
+
+    #searchNotice{
+        max-width: 300px;
+    }
+    
+    #noticedetailbtn{
+        text-align : center;
+    }

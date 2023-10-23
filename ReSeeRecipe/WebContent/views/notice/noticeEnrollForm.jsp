@@ -26,12 +26,12 @@
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-	<link href="resources/css/notice/noticeEnrollForm.css" rel="stylesheet">
+ 	<link href="resources/css/notice/noticeEnrollForm.css" rel="stylesheet">
 	
 </head>
 <body>
     <%@ include file="../manager/navbar.jsp" %>
-    <script src="resources/js/notice/noticeEnrollForm.js"></script>
+ <!--   <script src="resources/js/notice/noticeEnrollForm.js"></script> -->
 <div class="rs-content">
     
     <h2>공지사항 작성</h2>
@@ -64,8 +64,75 @@
  			placeholder='해시태그를 입력해주세요'      
   			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'
   			>  
-                  
             
+            <script>
+            $(document).ready(function () {
+			    // 등록된 해시태그명 조회
+			    $.ajax({
+			      url: 'hlhashtag.tg',
+			      type: 'GET',
+			      dataType: 'json',
+			      success: function (result) {
+			        // 태그명 "tagName" 을 추출 -> whitelist로 설정
+			        var whitelist = result.map(function (item) {
+			          return item.tagName;
+			        });
+			        initTagify(whitelist);
+			        
+			      },
+			      error: function (error) {
+			        console.error('에러 발생:', error);
+			      }
+			    });
+
+			    function initTagify(whitelist) {
+			      var inputElm = document.querySelector('input[name=tags]');
+				 // 사용자가 해시태그 입력하였을 때 보여줄 해시태그 개수 5개
+			      var tagify = new Tagify(inputElm, {
+			        enforceWhitelist: true,
+			        whitelist: whitelist,
+			        dropdown: {
+			          maxItems: 5,
+			          enabled: 0,
+			          closeOnSelect: true,
+			        }
+			      });
+
+			      tagify.on('input', onInput);
+
+			      function onInput(e) {
+			        var value = e.detail.value;
+			        var input = value.toLowerCase().trim();
+			        var dataBlacklist = inputElm.getAttribute('data-blacklist');
+			        var blacklist = dataBlacklist.split(',').map(function (item) {
+			          return item.trim().toLowerCase();
+			        });
+
+			        if (blacklist.includes(input)) {
+			          //tagify.removeTags();
+			          console.log('입력값이 블랙리스트에 포함되어 삭제됨.');
+			          tagify.replaceTag();
+			        }
+			      }
+
+			      tagify.on('add', onAddTag);
+			      
+			      function onAddTag(e) {
+					var dataInput = e.detail.data.value;
+			        var hashtagList = [];
+			        console.log(tagify.value);
+			        console.log(tagify.value.length);
+			        // 사용자가 입력한 해시태그가 whitelist(등록된 해시태그)일 경우 해시태그리스트에 추가
+			        for(let i=0 ; i< tagify.value.length ; i++){
+			        	hashtagList.push(tagify.value[i].value);
+			        }
+			        console.log(hashtagList);
+			      }
+			      
+			    }
+			    
+			  });
+            </script>
             <br><br>
             <button type="submit" class="btn btn-warning">등록하기</button>
             <button type="submit" class="btn btn-warning">목록으로</button>
