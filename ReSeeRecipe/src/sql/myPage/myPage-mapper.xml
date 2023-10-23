@@ -25,7 +25,6 @@
 		   	   COUPON_ENDDATE >= SYSDATE
 		 ORDER 
 		 	BY 
-		 	   
 	</entry>
 	
 	<!-- 회원 리워드 내역 조회 -->

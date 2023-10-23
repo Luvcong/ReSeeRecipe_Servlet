@@ -55,7 +55,12 @@
    		function duplicateCheck(){
    			
    			let input = document.getElementById('addCategoryName');
-   			addCategoryName = input.value;
+   			let addCategoryName = input.value;
+   			console.log(input.value)
+   			if(addCategoryName == null || addCategoryName == ''){
+   				Swal.fire('실패', '카테고리명을 입력하세요!', 'warning');
+   				return;
+   			}
    			// console.log(input);				// 값 ok
    			// console.log(input.value);		// input.value값 ok
    			// console.log(addCategoryName);	// ok

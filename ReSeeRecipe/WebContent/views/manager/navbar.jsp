@@ -15,7 +15,6 @@
 <meta charset="UTF-8">
 <title>ReSee:Recipe 관리자화면</title>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -43,7 +42,7 @@
 			<a href="<%= contextPath %>"><i class="fa-solid fa-house"></i></a>
 			<span>관리자 메뉴</span>
 		</div>
-		<div class="titleMenu" id="adminsetting" >
+ 		<div class="titleMenu" id="adminsetting" >
 			<a href="<%=contextPath %>/hlsettingmanager.ma?adno=<%= loginMember.getMemNo() %>">
 				<i class="fa-solid fa-gear"></i>
 				<input type="hidden" name="HL_managerNo" value="<%= loginMember.getMemNo() %>">
@@ -125,8 +124,8 @@
 			</div>
 			<div class="category">
 				<ul>
-					<li onclick="goMenu('/jhselect.cp');"><a href="#">쿠폰 등록/삭제</a></li>
-					<li><a href="#">쿠폰 발급/내역</a></li>
+					<li onclick="goMenu('/jhselect.cp?page=1');"><a href="#">쿠폰 등록/삭제</a></li>
+					<li onclick="goMenu('/jhissue.cp?page=1');"><a href="#">쿠폰 발급/내역</a></li>
 				</ul>
 			</div>
 		</div>	<!-- rs-navbar -->

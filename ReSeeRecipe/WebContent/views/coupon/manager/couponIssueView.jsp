@@ -35,7 +35,7 @@
 	<div class="rs-content">
 	    <div class="header">
 		    <div class="h-title p-3">   <!-- 패딩 1rem -->
-		        [쿠폰 관리] 쿠폰 등록 / 삭제
+		        [쿠폰 관리] 쿠폰 발급 / 내역
 		    </div>
             <div class="searchTable">
             	<table>
@@ -43,8 +43,8 @@
             			<td>
             			    <select name="searchDrop">
 								<option value="all">전체</option>
-								<option value="memId">쿠폰명</option>
-								<option value="memNickname">발급상태</option>
+								<option value="memId">아이디</option>
+								<option value="memNickname">쿠폰사용여부</option>
 							</select>
             			</td>
             			<td><input id="rewardSearch" type="text" placeholder="검색명을 입력하세요" size="30">
@@ -69,7 +69,7 @@
                     <tr>
                         <th data-idx=0><input type="checkbox" onclick="checkAll()"></th>
                         <th data-idx=1 data-type="num">번호<div class="sort"></div></th>
-                        <th data-idx=2>쿠폰명<div class="sort"></div></th>
+                        <th data-idx=2>쿠폰이름<div class="sort"></div></th>
                         <th data-idx=3>쿠폰할인율<div class="sort"></div></th>
                         <th data-idx=4>쿠폰등록일<div class="sort"></div></th>
                         <th data-idx=5>쿠폰종료일<div class="sort"></div></th>
