@@ -48,7 +48,6 @@ public class MyPageDao {
 		} else {
 			sql.append("MEMBER_COUPON_DATE DESC");
 		}
-		// System.out.println(sql);
 		
 		// String sql = sql.toString();
 		
@@ -62,23 +61,16 @@ public class MyPageDao {
 			sql += "MEMBER_COUPON_DATE DESC";
 		}
 		*/
-		System.out.println(sql);
 		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			System.out.println("들어오나");
-			System.out.println(memberNo);
-			
 			pstmt.setInt(1, memberNo);
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				list.add(new MemberCoupon(rset.getInt("COUPON_EXPIRE"),
 										  rset.getInt("COUPON_RATIO"),
 										  rset.getString("COUPON_NAME")));
-				System.out.println("여긴");
-				System.out.println(list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
