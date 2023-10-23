@@ -127,7 +127,6 @@ public class RecipePresentation {
 					}
 				}
 				
-				
 				ArrayList<Ingredient> ingredientList = new ArrayList();
 				
 				for(int i = 0; i < 30; i++) {
@@ -238,20 +237,16 @@ public class RecipePresentation {
 		recipeResult = rd.insertRecipe(conn, recipe);
 		
 		if(recipeResult > 0) {
-			// TB_RECIPE_PIC insert
-			ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList");
+			ArrayList<RecipePic> recipePicList = (ArrayList<RecipePic>)insertRecipeMap.get("recipePicList"); // TB_RECIPE_PIC insert
 			picResult = rd.insertRecipePic(conn, recipePicList);
 			
-			// TB_INGREDIENT insert
-			ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList");
+			ArrayList<Ingredient> ingredientList = (ArrayList<Ingredient>)insertRecipeMap.get("ingredientList"); // TB_INGREDIENT insert
 			ingredientResult = rd.insertIngredient(conn, ingredientList);
 			
-			// TB_COOK_STEPS insert
-			ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList");
+			ArrayList<CookSteps> cookStepsList = (ArrayList<CookSteps>)insertRecipeMap.get("cookStepsList"); // TB_COOK_STEPS insert
 			cookStepsResult = rd.insertCookSteps(conn, cookStepsList);
 			
-			// TB_RECIPE_TAG insert
-			ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList");
+			ArrayList<Integer> tagNoList = (ArrayList<Integer>)insertRecipeMap.get("tagNoList"); // TB_RECIPE_TAG insert
 			tagResult = rd.insertRecipeTag(conn, tagNoList);
 			
 			// 커넥션 닫기 전 transaction처리
@@ -288,7 +283,6 @@ public class RecipePresentation {
 		}
 		return result;
 	}
-	
 	
 	public int insertRecipePic(Connection conn, ArrayList<RecipePic> recipePicList) {
 		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환
@@ -331,7 +325,6 @@ public class RecipePresentation {
 		}
 		return result;
 	}
-	 
 	 
 	public int insertCookSteps(Connection conn, ArrayList<CookSteps> cookStepsList) {
 		// 1로 초기화 후 executeUpdate결과를 곱함 => 하나라도 실패 시 0반환

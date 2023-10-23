@@ -334,7 +334,7 @@
 	}
 	
 	#ingredient-title-div1 input {
-		font-size: 2px;
+		font-size: 20px;
 		text-align: center;
 		padding: 2px;
 	}
@@ -413,13 +413,13 @@
 		width: 100%;
 		height: 100%;
 		padding: 0px;
-		font-size: 1px;
+		font-size: 12px;
 		text-align: center;
 		appearance: none;
 	}
 
 	.ingMeasure {
-		font-size: 1px;
+		font-size: 12px;
 	}
 	
 	#cookStepsIngredientContent input::placeholder, select::placeholder {
