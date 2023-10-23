@@ -26,12 +26,12 @@
 	<!-- 폴리필 (구버젼 브라우저 지원) -->
 	<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 	<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-<!-- 	<link href="resources/css/notice/noticeEnrollForm.css" rel="stylesheet"> -->
+ 	<link href="resources/css/notice/noticeEnrollForm.css" rel="stylesheet">
 	
 </head>
 <body>
     <%@ include file="../manager/navbar.jsp" %>
-    <script src="resources/js/notice/noticeEnrollForm.js"></script>
+ <!--   <script src="resources/js/notice/noticeEnrollForm.js"></script> -->
 <div class="rs-content">
     
     <h2>공지사항 작성</h2>
