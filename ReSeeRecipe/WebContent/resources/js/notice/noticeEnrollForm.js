@@ -1,7 +1,9 @@
 /** 공지사항 작성하기 스크립트 - 해시태그 하단에 위치
  * 등록된 해시태그 조회 Ajax 스트립트
  */
-			$(document).ready(function () {
+			
+/*
+$(document).ready(function () {
 			    // 등록된 해시태그명 조회
 			    $.ajax({
 			      url: 'hlhashtag.tg',
@@ -66,5 +68,5 @@
 			      
 			    }
 			    
-			  });
+			  }); */
 			
