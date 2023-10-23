@@ -65,7 +65,7 @@
   			data-blacklist='ㅅㅂ, ㄲㅈ, 죽어, 디저, ㅂㅅ, 시발'
   			>  
             
-            <script>
+          <script>
             $(document).ready(function () {
 			    // 등록된 해시태그명 조회
 			    $.ajax({
