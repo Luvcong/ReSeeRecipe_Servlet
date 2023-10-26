@@ -29,7 +29,7 @@
 	
 	<!-- 회원 리워드 내역 조회 -->
 	<entry key="selectMemberRewardList">
-		SELECT * FROM  (
+		
 			SELECT ROWNUM RNUM, A.* FROM
 				(SELECT REWARD_DATE, REWARD_REASON, REWARD_SCORE, (SUM(REWARD_SCORE) 
 			                                                        OVER(PARTITION BY MEM_NO
@@ -39,7 +39,7 @@
 				  FROM TB_REWARD
 				 WHERE MEM_NO = ?
 				   AND REWARD_SCORE != 0
-				 ORDER BY REWARD_DATE DESC) A)
+				 ORDER BY REWARD_DATE DESC) A
 	</entry>
 	
 
