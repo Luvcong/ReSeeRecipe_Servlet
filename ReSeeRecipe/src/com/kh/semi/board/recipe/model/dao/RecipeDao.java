@@ -220,6 +220,7 @@ public class RecipeDao {
 					reply.setReplyModified(rset.getString("REPLY_MODIFIED"));
 					reply.setReplyWriterNo(rset.getInt("REPLY_WRITER_NO"));
 					reply.setRecipeNo(rset.getInt("RECIPE_NO"));
+					reply.setMemNickname(rset.getString("MEM_NICKNAME"));
 					replyList.add(reply);
 				}
 			}

@@ -100,9 +100,12 @@
 			   TO_CHAR(REPLY_DATE, 'YYYY"년" MM"월" DD"일"') REPLY_DATE,
 			   REPLY_MODIFIED,
 			   REPLY_WRITER_NO,
-			   RECIPE_NO
+			   RECIPE_NO,
+			   MEM_NICKNAME
 		  FROM
 			   TB_REPLY
+		  JOIN
+			   TB_MEMBER ON(REPLY_WRITER_NO = MEM_NO)
 		 WHERE
 		 	   REPLY_STATUS = 'Y'
 		   AND

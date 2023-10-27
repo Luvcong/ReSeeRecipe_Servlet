@@ -401,7 +401,6 @@ public class RecipeController {
 		
 		// Service요청
 		ArrayList<Reply> replyList = new RecipeService().selectReplyListSingle(recipeNo);
-		
 		// 형식+인코딩 지정 & 응답 Gson
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(replyList, response.getWriter());

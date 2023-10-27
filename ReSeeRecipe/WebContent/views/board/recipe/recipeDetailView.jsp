@@ -794,7 +794,7 @@
 						let resultStr = '';
 						for(let i in result) {
 							resultStr += '<tr>'
-									    + '<td>' + result[i].memNickName + '</td>'
+									    + '<td>' + result[i].memNickname + '</td>'
 									    + '<td>' + result[i].replyContent + '</td>'
 									    + '<td>' + result[i].replyDate + '</td>'
 									    + '<tr>'
